@@ -1,0 +1,5 @@
+{
+  "name": "Frontend Dev Toolbox",
+  "description": "A collection of useful frontend-only tools inspired by 10015.io. Includes converters, generators, formatters, and more, all running directly in your browser.",
+  "requestFramePermissions": []
+}
