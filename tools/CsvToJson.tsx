@@ -1,8 +1,9 @@
+
 'use client';
 
 import React, { useState } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 
 interface CsvToJsonOptions {
     separator: string;

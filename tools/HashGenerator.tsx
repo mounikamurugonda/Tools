@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 
 type HashAlgorithm = 'SHA-1' | 'SHA-256' | 'SHA-512';
 

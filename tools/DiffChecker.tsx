@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 import * as Diff from 'diff';
 
 const DiffChecker: React.FC<ToolProps> = ({ details }) => {

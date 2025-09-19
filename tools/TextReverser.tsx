@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 
 const TextReverser: React.FC<ToolProps> = ({ details }) => {
   const [input, setInput] = useState('');

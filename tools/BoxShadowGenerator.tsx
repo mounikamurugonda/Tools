@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 
 const BoxShadowGenerator: React.FC<ToolProps> = ({ details }) => {
     const [hOffset, setHOffset] = useState(10);

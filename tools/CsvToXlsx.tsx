@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 import * as XLSX from 'xlsx';
 
 const CsvToXlsx: React.FC<ToolProps> = ({ details }) => {

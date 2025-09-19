@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 
 const MemeGenerator: React.FC<ToolProps> = ({ details }) => {
     const [image, setImage] = useState<string | null>(null);

@@ -1,8 +1,9 @@
+
 'use client';
 
 import React, { useState, useCallback, useEffect } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 import * as XLSX from 'xlsx';
 
 type QuoteFields = 'smart' | 'always' | 'never';

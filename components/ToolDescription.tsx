@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { ToolDetails } from '../types';
+import type { ToolDetails } from '@/types';
 import { ChevronDownIcon } from './icons';
 
 interface AccordionItemProps {

@@ -2,8 +2,8 @@
 'use client';
 
 import React, { useState } from 'react';
-import type { ToolProps } from '../types';
-import ToolContainer from '../components/ToolContainer';
+import type { ToolProps } from '@/types';
+import ToolContainer from '@/components/ToolContainer';
 
 const ImageToBase64: React.FC<ToolProps> = ({ details }) => {
   const [base64, setBase64] = useState('');

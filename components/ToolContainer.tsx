@@ -1,5 +1,5 @@
 import React from 'react';
-import type { ToolDetails } from '../types';
+import type { ToolDetails } from '@/types';
 import ToolDescription from './ToolDescription';
 
 interface ToolContainerProps {
