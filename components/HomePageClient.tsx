@@ -10,43 +10,10 @@ import type { Tool } from '../types';
 import { ToolCategory } from '../types';
 import Logo from './Logo';
 import { 
-    TextCategoryIcon, 
-    ImageCategoryIcon, 
-    CssCategoryIcon, 
-    CodeCategoryIcon, 
-    ColorCategoryIcon,
-    MathCategoryIcon,
-    ProductivityCategoryIcon,
-    FunCategoryIcon,
-    MiscCategoryIcon,
     SearchIcon,
 } from './icons';
 import Link from 'next/link';
-
-export const CATEGORY_ORDER: ToolCategory[] = [
-    ToolCategory.TEXT,
-    ToolCategory.CODING,
-    ToolCategory.IMAGE,
-    ToolCategory.CSS,
-    ToolCategory.COLOR,
-    ToolCategory.MATH,
-    ToolCategory.PRODUCTIVITY,
-    ToolCategory.FUN,
-    ToolCategory.MISC,
-];
-
-export const CATEGORY_ICONS: Record<ToolCategory, React.FC> = {
-    [ToolCategory.TEXT]: TextCategoryIcon,
-    [ToolCategory.CODING]: CodeCategoryIcon,
-    [ToolCategory.IMAGE]: ImageCategoryIcon,
-    [ToolCategory.CSS]: CssCategoryIcon,
-    [ToolCategory.COLOR]: ColorCategoryIcon,
-    [ToolCategory.MATH]: MathCategoryIcon,
-    [ToolCategory.PRODUCTIVITY]: ProductivityCategoryIcon,
-    [ToolCategory.FUN]: FunCategoryIcon,
-    [ToolCategory.MISC]: MiscCategoryIcon,
-};
-
+import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/constants';
 
 const HomePageClient: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -56,7 +23,7 @@ const HomePageClient: React.FC = () => {
   const toolCount = TOOLS.length;
 
   useEffect(() => {
-    const categoryToScroll = searchParams.get('category');
+    const categoryToScroll = searchParams && searchParams.get('category');
     if (categoryToScroll && categoryRefs.current[categoryToScroll]) {
         const headerOffset = 70; // Height of the sticky header
         const elementPosition = categoryRefs.current[categoryToScroll]!.getBoundingClientRect().top;

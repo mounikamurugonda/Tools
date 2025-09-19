@@ -22,10 +22,8 @@ const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ selectedToolId, onSelec
 
     return (
         <div className="flex flex-col md:flex-row flex-grow">
-            <Sidebar 
-                activeToolId={selectedToolId}
-                onSelectTool={onSelectTool}
-            />
+            {/* FIX: Removed props passed to Sidebar. The Sidebar component now uses Next.js hooks for state and navigation and no longer accepts these props. */}
+            <Sidebar />
             <div className="flex-grow bg-gray-50 dark:bg-gray-900 overflow-y-auto">
                 {renderTool()}
             </div>

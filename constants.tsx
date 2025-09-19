@@ -65,6 +65,15 @@ import {
   WorldClockIcon,
   TimersIcon,
   FileConversionIcon,
+  TextCategoryIcon,
+  ImageCategoryIcon,
+  CssCategoryIcon,
+  CodeCategoryIcon,
+  ColorCategoryIcon,
+  MathCategoryIcon,
+  ProductivityCategoryIcon,
+  FunCategoryIcon,
+  MiscCategoryIcon,
 } from '@/components/icons';
 
 const PRIVACY_STATEMENT = "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
@@ -849,3 +858,27 @@ export const TOOLS: Tool[] = [
     }
   },
 ];
+
+export const CATEGORY_ORDER: ToolCategory[] = [
+    ToolCategory.TEXT,
+    ToolCategory.CODING,
+    ToolCategory.IMAGE,
+    ToolCategory.CSS,
+    ToolCategory.COLOR,
+    ToolCategory.MATH,
+    ToolCategory.PRODUCTIVITY,
+    ToolCategory.FUN,
+    ToolCategory.MISC,
+];
+
+export const CATEGORY_ICONS: Record<ToolCategory, React.FC> = {
+    [ToolCategory.TEXT]: TextCategoryIcon,
+    [ToolCategory.CODING]: CodeCategoryIcon,
+    [ToolCategory.IMAGE]: ImageCategoryIcon,
+    [ToolCategory.CSS]: CssCategoryIcon,
+    [ToolCategory.COLOR]: ColorCategoryIcon,
+    [ToolCategory.MATH]: MathCategoryIcon,
+    [ToolCategory.PRODUCTIVITY]: ProductivityCategoryIcon,
+    [ToolCategory.FUN]: FunCategoryIcon,
+    [ToolCategory.MISC]: MiscCategoryIcon,
+};

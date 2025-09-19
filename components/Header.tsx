@@ -4,7 +4,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ThemeSwitcher from './ThemeSwitcher';
 import Logo from './Logo';
-import { CATEGORY_ORDER } from './HomePageClient';
+import { CATEGORY_ORDER } from '@/constants';
 import { MenuIcon, CloseIcon, ChevronDownIcon } from './icons';
 import Link from 'next/link';
 

@@ -3,22 +3,15 @@
 import React, { useState, useMemo } from 'react';
 import type { Tool } from '@/types';
 import { ToolCategory } from '@/types';
-import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/components/HomePageClient';
+import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/constants';
 import { ChevronDownIcon } from './icons';
 import { TOOLS } from '@/constants';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
-// FIX: Added optional props to support usage in both Next.js App Router and legacy SPA contexts.
-interface SidebarProps {
-    activeToolId?: string;
-    onSelectTool?: (id: string) => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ activeToolId: activeToolIdProp, onSelectTool }) => {
+const Sidebar: React.FC = () => {
     const params = useParams();
-    // FIX: Use activeToolId from props if provided (for SPA context), otherwise get it from URL params (for Next.js context).
-    const activeToolId = activeToolIdProp || params?.toolId as string;
+    const activeToolId = params?.toolId as string;
 
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(() => {
         const initialState: Record<string, boolean> = {};
@@ -76,16 +69,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeToolId: activeToolIdProp, onSel
                                                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                                             }`;
                                             
-                                            // FIX: Conditionally render a button for SPA navigation or a Link for Next.js routing.
-                                            return onSelectTool ? (
-                                                <button
-                                                    key={tool.id}
-                                                    onClick={() => onSelectTool(tool.id)}
-                                                    className={className}
-                                                >
-                                                    {tool.name}
-                                                </button>
-                                            ) : (
+                                            return (
                                                 <Link
                                                     key={tool.id}
                                                     href={`/tools/${tool.id}`}
