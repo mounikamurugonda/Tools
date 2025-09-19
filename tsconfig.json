@@ -28,6 +28,7 @@
     "App.tsx",
     "components/HomePage.tsx",
     "components/ToolPageLayout.tsx",
-    "pages"
+    "pages",
+    "vite.config.ts"
   ]
 }

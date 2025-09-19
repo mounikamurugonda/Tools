@@ -1,57 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UtilToolkits</title>
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M22 8.33333V18C22 19.1046 21.1046 20 20 20H4C2.89543 20 2 19.1046 2 18V8.33333' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M20 4H4C2.89543 4 2 4.89543 2 6V8.33333H22V6C22 4.89543 21.1046 4 20 4Z' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M14 12V14' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M10 12V14' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      @keyframes fade-in {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      .animate-fade-in {
-        animation: fade-in 0.5s ease-out forwards;
-      }
-    </style>
-  <script>
-    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  </script>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "jwt-decode": "https://aistudiocdn.com/jwt-decode@^4.0.0",
+    "xlsx": "https://aistudiocdn.com/xlsx@^0.18.5",
+    "next/": "https://aistudiocdn.com/next@^15.5.3/",
+    "next": "https://aistudiocdn.com/next@^15.5.3",
+    "tailwindcss": "https://aistudiocdn.com/tailwindcss@^4.1.13",
+    "qrcode": "https://aistudiocdn.com/qrcode@^1.5.4",
     "react/": "https://aistudiocdn.com/react@^19.1.1/",
     "react": "https://aistudiocdn.com/react@^19.1.1",
-    "tailwindcss": "https://aistudiocdn.com/tailwindcss@^4.1.13",
     "marked": "https://aistudiocdn.com/marked@^16.3.0",
-    "next": "https://aistudiocdn.com/next@^15.5.3",
-    "next/": "https://aistudiocdn.com/next@^15.5.3/",
-    "jwt-decode": "https://aistudiocdn.com/jwt-decode@^4.0.0",
-    "diff": "https://aistudiocdn.com/diff@^8.0.2",
-    "qrcode": "https://aistudiocdn.com/qrcode@^1.5.4",
     "@tailwindcss/typography": "https://aistudiocdn.com/@tailwindcss/typography@^0.5.16",
-    "@tailwindcss/forms": "https://aistudiocdn.com/@tailwindcss/forms@^0.5.10",
-    "xlsx": "https://aistudiocdn.com/xlsx@^0.18.5"
+    "diff": "https://aistudiocdn.com/diff@^8.0.2",
+    "@tailwindcss/forms": "https://aistudiocdn.com/@tailwindcss/forms@^0.5.10"
   }
 }
 </script>
-</head>
-  <body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-    <div id="root"></div>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/jwt-decode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/diff/dist/diff.min.js"></script>
-    <script type="module" src="/index.tsx"></script>
-  </body>
-</html>

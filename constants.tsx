@@ -33,6 +33,7 @@ import CsvToJson from '@/tools/CsvToJson';
 import JsonToCsv from '@/tools/JsonToCsv';
 import CsvToXlsx from '@/tools/CsvToXlsx';
 import XlsxToCsv from '@/tools/XlsxToCsv';
+import CharacterCounter from '@/tools/CharacterCounter';
 
 
 import {
@@ -74,6 +75,7 @@ import {
   ProductivityCategoryIcon,
   FunCategoryIcon,
   MiscCategoryIcon,
+  CharacterCounterIcon,
 } from '@/components/icons';
 
 const PRIVACY_STATEMENT = "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
@@ -122,6 +124,28 @@ export const TOOLS: Tool[] = [
         'Real-time counting of words, characters, sentences, and lines.',
         'Accurate analysis that correctly handles various punctuation and spacing.',
         'Simple interface with a clear display of all key metrics.',
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'character-counter',
+    name: 'Character Counter',
+    description: 'Count characters with and without spaces, and see the byte size.',
+    icon: <CharacterCounterIcon />,
+    component: CharacterCounter,
+    category: ToolCategory.TEXT,
+    details: {
+      introduction: 'The Character Counter provides a detailed breakdown of your text\'s length. It calculates the number of characters including spaces, the number of characters excluding spaces, and the total byte size assuming UTF-8 encoding.',
+      howToUse: [
+        'Paste or type your text into the text area.',
+        'The statistics for characters (with and without spaces) and bytes will update automatically as you type.',
+      ],
+      features: [
+        'Real-time counting of characters.',
+        'Provides character count both with and without whitespace.',
+        'Calculates the UTF-8 byte size of the text.',
+        'Useful for social media post limits, SMS messages, and data size estimation.'
       ],
       privacy: PRIVACY_STATEMENT
     }
