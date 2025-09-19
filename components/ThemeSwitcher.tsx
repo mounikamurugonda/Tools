@@ -1,40 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { SunIcon, MoonIcon } from './icons';
 
-const getInitialTheme = () => {
-  if (typeof window !== 'undefined') {
-    // Priority 1: User's previously saved choice in localStorage
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      return storedTheme;
-    }
-    // Priority 2: User's OS preference
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  }
-  // Default for server-side rendering or environments without window
-  return 'light';
-};
+'use client';
+
+import React from 'react';
+import { SunIcon, MoonIcon } from './icons';
+import { useTheme } from './ThemeProvider';
 
 const ThemeSwitcher: React.FC = () => {
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  useEffect(() => {
-    // This effect syncs the DOM with the component's state
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prevTheme => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      // When the user clicks, explicitly save their choice to localStorage
-      localStorage.setItem('theme', newTheme);
-      return newTheme;
-    });
-  };
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button

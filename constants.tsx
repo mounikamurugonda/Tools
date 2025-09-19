@@ -1,34 +1,35 @@
+
 import React from 'react';
 import { Tool, ToolCategory } from './types';
-import CaseConverter from './tools/CaseConverter';
-import WordCounter from './tools/WordCounter';
-import LoremIpsumGenerator from './tools/LoremIpsumGenerator';
-import Base64Converter from './tools/Base64Converter';
-import UrlEncoder from './tools/UrlEncoder';
-import JsonFormatter from './tools/JsonFormatter';
-import UuidGenerator from './tools/UuidGenerator';
-import PasswordGenerator from './tools/PasswordGenerator';
-import ColorConverter from './tools/ColorConverter';
-import ImageToBase64 from './tools/ImageToBase64';
-import TextReverser from './tools/TextReverser';
-import Base64ToImage from './tools/Base64ToImage';
-import BoxShadowGenerator from './tools/BoxShadowGenerator';
-import HashGenerator from './tools/HashGenerator';
-import JwtDebugger from './tools/JwtDebugger';
-import QrCodeGenerator from './tools/QrCodeGenerator';
-import MarkdownPreviewer from './tools/MarkdownPreviewer';
-import DateCalculator from './tools/DateCalculator';
-import DiffChecker from './tools/DiffChecker';
-import PomodoroTimer from './tools/PomodoroTimer';
-import MemeGenerator from './tools/MemeGenerator';
-import RegexTester from './tools/RegexTester';
-import ColorPaletteGenerator from './tools/ColorPaletteGenerator';
-import UnitConverter from './tools/UnitConverter';
-import BmiCalculator from './tools/BmiCalculator';
-import TodoList from './tools/TodoList';
-import CurrencyConverter from './tools/CurrencyConverter';
-import WorldClock from './tools/WorldClock';
-import TimersAndStopwatch from './tools/TimersAndStopwatch';
+import CaseConverter from '@/tools/CaseConverter';
+import WordCounter from '@/tools/WordCounter';
+import LoremIpsumGenerator from '@/tools/LoremIpsumGenerator';
+import Base64Converter from '@/tools/Base64Converter';
+import UrlEncoder from '@/tools/UrlEncoder';
+import JsonFormatter from '@/tools/JsonFormatter';
+import UuidGenerator from '@/tools/UuidGenerator';
+import PasswordGenerator from '@/tools/PasswordGenerator';
+import ColorConverter from '@/tools/ColorConverter';
+import ImageToBase64 from '@/tools/ImageToBase64';
+import TextReverser from '@/tools/TextReverser';
+import Base64ToImage from '@/tools/Base64ToImage';
+import BoxShadowGenerator from '@/tools/BoxShadowGenerator';
+import HashGenerator from '@/tools/HashGenerator';
+import JwtDebugger from '@/tools/JwtDebugger';
+import QrCodeGenerator from '@/tools/QrCodeGenerator';
+import MarkdownPreviewer from '@/tools/MarkdownPreviewer';
+import DateCalculator from '@/tools/DateCalculator';
+import DiffChecker from '@/tools/DiffChecker';
+import PomodoroTimer from '@/tools/PomodoroTimer';
+import MemeGenerator from '@/tools/MemeGenerator';
+import RegexTester from '@/tools/RegexTester';
+import ColorPaletteGenerator from '@/tools/ColorPaletteGenerator';
+import UnitConverter from '@/tools/UnitConverter';
+import BmiCalculator from '@/tools/BmiCalculator';
+import TodoList from '@/tools/TodoList';
+import CurrencyConverter from '@/tools/CurrencyConverter';
+import WorldClock from '@/tools/WorldClock';
+import TimersAndStopwatch from '@/tools/TimersAndStopwatch';
 
 
 import {
@@ -60,7 +61,7 @@ import {
   CurrencyIcon,
   WorldClockIcon,
   TimersIcon,
-} from './components/icons';
+} from '@/components/icons';
 
 
 export const TOOLS: Tool[] = [

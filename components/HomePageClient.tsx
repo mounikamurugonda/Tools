@@ -1,5 +1,8 @@
 
+'use client';
+
 import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { TOOLS } from '../constants';
 import ToolCard from './ToolCard';
 import type { Tool } from '../types';
@@ -17,12 +20,7 @@ import {
     MiscCategoryIcon,
     SearchIcon,
 } from './icons';
-
-interface HomePageProps {
-  onSelectTool: (id: string) => void;
-  scrollToCategory: ToolCategory | null;
-  onScrollComplete: () => void;
-}
+import Link from 'next/link';
 
 export const CATEGORY_ORDER: ToolCategory[] = [
     ToolCategory.TEXT,
@@ -49,24 +47,27 @@ export const CATEGORY_ICONS: Record<ToolCategory, React.FC> = {
 };
 
 
-const HomePage: React.FC<HomePageProps> = ({ onSelectTool, scrollToCategory, onScrollComplete }) => {
+const HomePageClient: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  // FIX: Using Record<string, ...> to represent a dictionary, which allows initialization with an empty object.
   const categoryRefs = useRef<Record<string, HTMLElement | null>>({});
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
-    if (scrollToCategory && categoryRefs.current[scrollToCategory]) {
+    const categoryToScroll = searchParams.get('category');
+    if (categoryToScroll && categoryRefs.current[categoryToScroll]) {
         const headerOffset = 70; // Height of the sticky header
-        const elementPosition = categoryRefs.current[scrollToCategory]!.getBoundingClientRect().top;
+        const elementPosition = categoryRefs.current[categoryToScroll]!.getBoundingClientRect().top;
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
         window.scrollTo({
             top: offsetPosition,
             behavior: 'smooth'
         });
-        onScrollComplete();
+        // Clean up URL
+        router.replace('/', { scroll: false });
     }
-  }, [scrollToCategory, onScrollComplete]);
+  }, [searchParams, router]);
 
 
   const filteredTools = useMemo(() => {
@@ -121,7 +122,6 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool, scrollToCategory, onS
           const CategoryIcon = CATEGORY_ICONS[category];
 
           return (
-            // FIX: The ref callback should not return a value. Wrapped in braces to ensure a void return.
             <section key={category} ref={el => { categoryRefs.current[category] = el; }}>
               <div className="flex items-center mb-6">
                 {CategoryIcon && <CategoryIcon />}
@@ -129,8 +129,9 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool, scrollToCategory, onS
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {tools.map((tool) => (
-                  // FIX: Pass onSelectTool to the onSelect prop of ToolCard to fix the type error.
-                  <ToolCard key={tool.id} tool={tool} onSelect={onSelectTool} />
+                  <Link key={tool.id} href={`/tools/${tool.id}`} className="block">
+                    <ToolCard tool={tool} />
+                  </Link>
                 ))}
               </div>
             </section>
@@ -146,4 +147,4 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool, scrollToCategory, onS
   );
 };
 
-export default HomePage;
+export default HomePageClient;

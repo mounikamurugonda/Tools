@@ -1,3 +1,6 @@
+
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
@@ -16,6 +19,7 @@ const TIMEZONES = [
 ];
 
 const getInitialTimezones = () => {
+    if (typeof window === 'undefined') return ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
     try {
         const saved = localStorage.getItem('world-clocks');
         if (saved) {
@@ -29,7 +33,11 @@ const getInitialTimezones = () => {
 
 const WorldClock: React.FC<ToolProps> = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [selectedTimezones, setSelectedTimezones] = useState<string[]>(getInitialTimezones);
+    const [selectedTimezones, setSelectedTimezones] = useState<string[]>([]);
+
+    useEffect(() => {
+        setSelectedTimezones(getInitialTimezones());
+    }, []);
 
     useEffect(() => {
         const timer = setInterval(() => {

@@ -1,8 +1,10 @@
+
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
-
-declare const QRCode: any;
+import QRCode from 'qrcode';
 
 const QrCodeGenerator: React.FC<ToolProps> = () => {
     const [text, setText] = useState('');
@@ -11,7 +13,7 @@ const QrCodeGenerator: React.FC<ToolProps> = () => {
     useEffect(() => {
         if (canvasRef.current) {
             if (text) {
-                QRCode.toCanvas(canvasRef.current, text, { width: 256, margin: 2 }, (error: Error | null) => {
+                QRCode.toCanvas(canvasRef.current, text, { width: 256, margin: 2 }, (error: Error | null | undefined) => {
                     if (error) console.error(error);
                 });
             } else {

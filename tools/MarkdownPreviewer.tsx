@@ -1,8 +1,10 @@
-import React, { useState, useMemo } from 'react';
+
+'use client';
+
+import React, { useState, useMemo, useEffect } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
-
-declare const marked: any;
+import { marked } from 'marked';
 
 const MarkdownPreviewer: React.FC<ToolProps> = () => {
   const [markdown, setMarkdown] = useState(`# Hello, Markdown!
@@ -14,12 +16,14 @@ const MarkdownPreviewer: React.FC<ToolProps> = () => {
 
 [marked.js](https://marked.js.org/) is used for the conversion.
 `);
+  const [renderedHtml, setRenderedHtml] = useState('');
 
-  const renderedHtml = useMemo(() => {
-    if (typeof marked !== 'undefined') {
-      return marked.parse(markdown);
-    }
-    return 'Loading Markdown library...';
+  useEffect(() => {
+    const render = async () => {
+        const html = await marked.parse(markdown);
+        setRenderedHtml(html);
+    };
+    render();
   }, [markdown]);
 
   return (

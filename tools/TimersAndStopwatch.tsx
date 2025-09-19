@@ -1,3 +1,6 @@
+
+'use client';
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
@@ -39,7 +42,6 @@ const CountdownTimer = () => {
         if (Notification.permission === 'granted') {
             new Notification('Timer Finished!', {
                 body: 'Your countdown timer has ended.',
-                icon: '/favicon.ico',
             });
         }
     }, []);

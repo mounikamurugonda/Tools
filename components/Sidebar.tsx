@@ -1,19 +1,31 @@
+
+'use client';
+
 import React, { useState, useMemo } from 'react';
 import type { Tool } from '../types';
 import { ToolCategory } from '../types';
-import { CATEGORY_ORDER, CATEGORY_ICONS } from './HomePage';
+import { CATEGORY_ORDER, CATEGORY_ICONS } from './HomePageClient';
 import { ChevronDownIcon } from './icons';
+import { TOOLS } from '@/constants';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
 
 interface SidebarProps {
-    activeToolId: string;
-    onSelectTool: (id: string) => void;
-    tools: Tool[];
+    // Props for legacy SPA mode
+    activeToolId?: string;
+    onSelectTool?: (id: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeToolId, onSelectTool, tools }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeToolId: activeToolIdFromProps, onSelectTool }) => {
+    const params = useParams();
+    const isSpaMode = typeof onSelectTool === 'function';
+
+    // Determine active tool ID based on mode
+    const activeToolId = isSpaMode ? activeToolIdFromProps : (params?.toolId as string);
+
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(() => {
         const initialState: Record<string, boolean> = {};
-        const activeTool = tools.find(t => t.id === activeToolId);
+        const activeTool = TOOLS.find(t => t.id === activeToolId);
         CATEGORY_ORDER.forEach(cat => {
             initialState[cat] = cat === activeTool?.category;
         });
@@ -28,11 +40,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeToolId, onSelectTool, tools }) 
     };
 
     const groupedTools = useMemo(() => {
-        return tools.reduce((acc, tool) => {
+        return TOOLS.reduce((acc, tool) => {
             (acc[tool.category] = acc[tool.category] || []).push(tool);
             return acc;
         }, {} as Record<ToolCategory, Tool[]>);
-    }, [tools]);
+    }, []);
     
     return (
         <aside className="w-full md:w-72 bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
@@ -59,23 +71,32 @@ const Sidebar: React.FC<SidebarProps> = ({ activeToolId, onSelectTool, tools }) 
                                 </button>
                                 {isOpen && (
                                     <div className="mt-2 space-y-1 pl-4">
-                                        {categoryTools.map(tool => (
-                                            <a
-                                                key={tool.id}
-                                                href="#"
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    onSelectTool(tool.id);
-                                                }}
-                                                className={`block px-4 py-2 text-sm rounded transition-colors ${
-                                                    activeToolId === tool.id
-                                                        ? 'bg-blue-600 text-white font-semibold'
-                                                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
-                                                }`}
-                                            >
-                                                {tool.name}
-                                            </a>
-                                        ))}
+                                        {categoryTools.map(tool => {
+                                            const isActive = activeToolId === tool.id;
+                                            const className = `block w-full text-left px-4 py-2 text-sm rounded transition-colors ${
+                                                isActive
+                                                    ? 'bg-blue-600 text-white font-semibold'
+                                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                                            }`;
+
+                                            return isSpaMode ? (
+                                                <button
+                                                    key={tool.id}
+                                                    onClick={() => onSelectTool(tool.id)}
+                                                    className={className}
+                                                >
+                                                    {tool.name}
+                                                </button>
+                                            ) : (
+                                                <Link
+                                                    key={tool.id}
+                                                    href={`/tools/${tool.id}`}
+                                                    className={className}
+                                                >
+                                                    {tool.name}
+                                                </Link>
+                                            );
+                                        })}
                                     </div>
                                 )}
                             </div>

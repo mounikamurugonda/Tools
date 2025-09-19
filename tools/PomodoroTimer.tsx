@@ -1,3 +1,6 @@
+
+'use client';
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';

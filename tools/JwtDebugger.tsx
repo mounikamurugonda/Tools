@@ -1,8 +1,10 @@
+
+'use client';
+
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
-
-declare const jwt_decode: (token: string) => any;
+import { jwtDecode } from 'jwt-decode';
 
 const JwtDebugger: React.FC<ToolProps> = () => {
     const [token, setToken] = useState('');
@@ -10,10 +12,8 @@ const JwtDebugger: React.FC<ToolProps> = () => {
     const decoded = useMemo(() => {
         if (!token.trim()) return { header: null, payload: null, error: null };
         try {
-            // FIX: The provided 'jwt_decode' type declaration only accepts one argument.
-            // Cast to 'any' to bypass the incorrect type definition, allowing the use of the `header` option.
-            const header = (jwt_decode as any)(token, { header: true });
-            const payload = jwt_decode(token);
+            const header = jwtDecode(token, { header: true });
+            const payload = jwtDecode(token);
             return { header, payload, error: null };
         } catch (e) {
              if (e instanceof Error) {
