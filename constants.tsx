@@ -29,6 +29,10 @@ import TodoList from '@/tools/TodoList';
 import CurrencyConverter from '@/tools/CurrencyConverter';
 import WorldClock from '@/tools/WorldClock';
 import TimersAndStopwatch from '@/tools/TimersAndStopwatch';
+import CsvToJson from '@/tools/CsvToJson';
+import JsonToCsv from '@/tools/JsonToCsv';
+import CsvToXlsx from '@/tools/CsvToXlsx';
+import XlsxToCsv from '@/tools/XlsxToCsv';
 
 
 import {
@@ -60,6 +64,7 @@ import {
   CurrencyIcon,
   WorldClockIcon,
   TimersIcon,
+  FileConversionIcon,
 } from '@/components/icons';
 
 const PRIVACY_STATEMENT = "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
@@ -363,6 +368,96 @@ export const TOOLS: Tool[] = [
         'Line-by-line difference highlighting.',
         'Real-time updates as you edit the text.',
         'Useful for code reviews, tracking document changes, and more.'
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'csv-to-json',
+    name: 'CSV to JSON',
+    description: 'Convert CSV data into a structured JSON array.',
+    icon: <FileConversionIcon />,
+    component: CsvToJson,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: 'This tool converts data from CSV (Comma-Separated Values) format into a JSON array of objects. It uses the first line of the CSV as headers for the JSON keys.',
+      howToUse: [
+        'Paste your CSV data into the input text area.',
+        'Click the "Convert" button.',
+        'The resulting JSON array will be displayed in the output area.',
+        'Note: This tool handles basic CSV files and may not support complex cases like multi-line fields.'
+      ],
+      features: [
+          'Fast, client-side conversion.',
+          'Handles standard comma-separated values.',
+          'Pretty-prints JSON output for readability.',
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'json-to-csv',
+    name: 'JSON to CSV',
+    description: 'Convert a JSON array of objects into CSV format.',
+    icon: <FileConversionIcon />,
+    component: JsonToCsv,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: 'Convert a JSON array of objects into CSV (Comma-Separated Values) format. The keys from the first object in the array are used as the CSV headers.',
+      howToUse: [
+        'Paste your JSON array into the input area.',
+        'The CSV output will be generated automatically.',
+        'You can copy the result or download it as a .csv file.',
+      ],
+       features: [
+          'Handles conversion from a JSON array of objects.',
+          'Automatically uses keys from the first object as headers.',
+          'Correctly quotes fields containing commas or newlines.',
+          'Option to download the result as a .csv file.',
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'csv-to-xlsx',
+    name: 'CSV to XLSX',
+    description: 'Convert CSV data directly into an Excel (.xlsx) file.',
+    icon: <FileConversionIcon />,
+    component: CsvToXlsx,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: 'Easily convert your CSV data into a downloadable Excel spreadsheet (.xlsx format). This tool processes the data in your browser and generates a file for you to save.',
+      howToUse: [
+        'Paste your CSV data into the text area.',
+        'Click the "Download .xlsx" button.',
+        'Your browser will prompt you to save the generated Excel file.',
+      ],
+       features: [
+          'Direct conversion to modern Excel .xlsx format.',
+          'Completely client-side, no data is uploaded.',
+          'Handles headers and data rows correctly.',
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'xlsx-to-csv',
+    name: 'XLSX to CSV',
+    description: 'Extract data from an Excel (.xlsx) file and convert it to CSV.',
+    icon: <FileConversionIcon />,
+    component: XlsxToCsv,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: 'This tool allows you to upload an Excel file (.xlsx) and convert the first sheet into CSV format. The conversion happens entirely within your browser for complete privacy.',
+      howToUse: [
+        'Click "Upload XLSX File" and select your file, or drag and drop a file onto the area.',
+        'The data from the first sheet of your Excel file will be converted to CSV and displayed.',
+        'You can then copy the CSV data or download it as a file.',
+      ],
+      features: [
+          'Reads .xlsx and other spreadsheet formats.',
+          'Converts the first worksheet into CSV data.',
+          'Provides options to copy or download the resulting CSV.',
       ],
       privacy: PRIVACY_STATEMENT
     }

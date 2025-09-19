@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
@@ -11,42 +12,43 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const getInitialTheme = (): Theme => {
-  if (typeof window === 'undefined') {
-    return 'light'; // Default for SSR
-  }
-  const storedTheme = localStorage.getItem('theme');
-  if (storedTheme === 'light' || storedTheme === 'dark') {
-    return storedTheme;
-  }
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-};
-
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  // Start with a default theme and update it on the client-side to avoid hydration mismatch.
-  const [theme, setTheme] = useState<Theme>('light'); 
+  // Default to 'light' theme to prevent a hydration mismatch.
+  // The client's actual theme will be set in the useEffect hook below.
+  const [theme, setTheme] = useState<Theme>('light');
 
+  // This effect runs once on the client to determine and set the initial theme.
   useEffect(() => {
-    // This runs only on the client, after the initial render.
-    setTheme(getInitialTheme());
+    const storedTheme = localStorage.getItem('theme') as Theme | null;
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (storedTheme) {
+        setTheme(storedTheme);
+    } else if (prefersDark) {
+        setTheme('dark');
+    } else {
+        setTheme('light');
+    }
   }, []);
 
+  // This effect applies the theme to the DOM and localStorage whenever it changes.
   useEffect(() => {
-    // This effect synchronizes the theme with the DOM (by adding/removing the 'dark' class)
-    // and persists the theme choice in localStorage.
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
     }
-    localStorage.setItem('theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (error) {
+      console.error('Error saving theme to localStorage', error);
+    }
   }, [theme]);
 
   const toggleTheme = () => {
     setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
-  // The provider must always wrap its children to make the context available.
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
