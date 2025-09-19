@@ -21,6 +21,7 @@ import DateCalculator from '@/tools/DateCalculator';
 import DiffChecker from '@/tools/DiffChecker';
 import PomodoroTimer from '@/tools/PomodoroTimer';
 import MemeGenerator from '@/tools/MemeGenerator';
+import AiRecipeGenerator from '@/tools/AiRecipeGenerator';
 import RegexTester from '@/tools/RegexTester';
 import ColorPaletteGenerator from '@/tools/ColorPaletteGenerator';
 import UnitConverter from '@/tools/UnitConverter';
@@ -57,6 +58,7 @@ import {
   DiffIcon,
   PomodoroIcon,
   MemeIcon,
+  RecipeIcon,
   RegexIcon,
   PaletteIcon,
   UnitConverterIcon,
@@ -831,6 +833,25 @@ export const TOOLS: Tool[] = [
         'Easy one-click download.'
       ],
       privacy: "All image processing and text rendering happens in your browser. Your images are not uploaded to any server."
+    }
+  },
+  {
+    id: 'ai-recipe-generator',
+    name: 'AI Recipe Generator',
+    description: 'Generate a recipe from a list of ingredients using AI.',
+    icon: <RecipeIcon />,
+    component: AiRecipeGenerator,
+    category: ToolCategory.FUN,
+    details: {
+      introduction: 'Unleash your inner chef with the AI Recipe Generator! Simply enter the ingredients you have on hand, and our powerful AI will create a unique and delicious recipe for you. It\'s perfect for using up leftovers and discovering new meal ideas.',
+      howToUse: [
+        'List the ingredients you have in the "Ingredients" text box. Be as specific as you like (e.g., "2 chicken breasts, 1 can of tomatoes, basil").',
+        'Optionally, specify any dietary restrictions (e.g., "vegetarian", "gluten-free").',
+        'Optionally, specify the type of meal (e.g., "dinner", "quick snack").',
+        'Click the "Generate Recipe" button.',
+        'The AI will craft a recipe and display it below.'
+      ],
+      privacy: "Your ingredient list is sent to the Google Gemini API to generate a recipe. We do not store or log your inputs. Please refer to Google's privacy policy for more information on how they handle data."
     }
   },
   // Misc Tools
