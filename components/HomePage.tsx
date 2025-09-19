@@ -69,10 +69,13 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool }) => {
   return (
     <main className="max-w-7xl mx-auto p-4 sm:p-6 md:p-8 animate-fade-in">
        <div className="text-center py-12 sm:py-16 md:py-20">
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
-            Frontend Dev
-          </span> Toolbox
+        <h1 className="text-4xl sm:text-5xl md:text-6xl tracking-tight">
+            <span className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+                Util
+            </span>
+            <span className="font-semibold text-gray-800 dark:text-gray-200">
+                Toolkits
+            </span>
         </h1>
         <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">
           A collection of handy browser-based utilities for developers. Inspired by 10015.io.

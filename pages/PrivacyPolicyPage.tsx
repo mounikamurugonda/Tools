@@ -7,7 +7,7 @@ const PrivacyPolicyPage: React.FC = () => {
       <p className="text-sm text-gray-500 dark:text-gray-400"><em>Last Updated: {new Date().toLocaleDateString()}</em></p>
       
       <p>
-        Your privacy is important to us. It is Frontend Dev Toolbox's policy to respect your privacy regarding any information we may collect from you across our website.
+        Your privacy is important to us. It is UtilToolkits' policy to respect your privacy regarding any information we may collect from you across our website.
       </p>
 
       <section>

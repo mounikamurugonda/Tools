@@ -34,6 +34,15 @@ export const SearchIcon: React.FC<{className?: string}> = ({ className }) => (
     </svg>
 );
 
+export const LogoIcon: React.FC<{className?: string}> = ({ className }) => (
+    <svg className={className || "w-8 h-8"} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 8.33333V18C22 19.1046 21.1046 20 20 20H4C2.89543 20 2 19.1046 2 18V8.33333" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M20 4H4C2.89543 4 2 4.89543 2 6V8.33333H22V6C22 4.89543 21.1046 4 20 4Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M14 12V14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        <path d="M10 12V14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+);
+
 
 // Category Icons
 export const TextCategoryIcon: React.FC = () => (
