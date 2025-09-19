@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 
-const UrlEncoder: React.FC<ToolProps> = () => {
+const UrlEncoder: React.FC<ToolProps> = ({ details }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
@@ -31,7 +31,7 @@ const UrlEncoder: React.FC<ToolProps> = () => {
   };
 
   return (
-    <ToolContainer title="URL Encoder/Decoder">
+    <ToolContainer title="URL Encoder/Decoder" details={details}>
       <div className="space-y-4">
         <textarea
           value={input}

@@ -1,6 +1,14 @@
-
 import React from 'react';
 import PageContainer from '@/components/PageContainer';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Terms of Service',
+  description: 'Please read the Terms of Service for UtilToolkits. By using our website, you agree to these terms, which govern your access to and use of our free developer tools.',
+  alternates: {
+    canonical: '/terms',
+  },
+};
 
 export default function TermsOfServicePage() {
   return (

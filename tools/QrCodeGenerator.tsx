@@ -6,7 +6,7 @@ import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 import QRCode from 'qrcode';
 
-const QrCodeGenerator: React.FC<ToolProps> = () => {
+const QrCodeGenerator: React.FC<ToolProps> = ({ details }) => {
     const [text, setText] = useState('');
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -33,7 +33,7 @@ const QrCodeGenerator: React.FC<ToolProps> = () => {
     };
 
     return (
-        <ToolContainer title="QR Code Generator">
+        <ToolContainer title="QR Code Generator" details={details}>
             <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="space-y-4">
                     <label className="block text-gray-700 dark:text-gray-300">Enter Text or URL</label>

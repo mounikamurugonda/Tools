@@ -17,12 +17,7 @@ const NAV_CATEGORIES = [
 
 const MORE_CATEGORIES = CATEGORY_ORDER.slice(4);
 
-// FIX: Added optional onNavigate prop to fix type error from App.tsx
-interface HeaderProps {
-  onNavigate?: (view: string) => void;
-}
-
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

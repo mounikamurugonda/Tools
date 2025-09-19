@@ -25,7 +25,7 @@ const CONVERSION_FACTORS = {
 
 type Category = keyof typeof CONVERSION_FACTORS;
 
-const UnitConverter: React.FC<ToolProps> = () => {
+const UnitConverter: React.FC<ToolProps> = ({ details }) => {
     const [category, setCategory] = useState<Category>('length');
     const [inputValue, setInputValue] = useState('1');
     const [fromUnit, setFromUnit] = useState<string>('meters');
@@ -55,7 +55,7 @@ const UnitConverter: React.FC<ToolProps> = () => {
     };
 
     return (
-        <ToolContainer title="Unit Converter">
+        <ToolContainer title="Unit Converter" details={details}>
             <div className="space-y-4 max-w-xl mx-auto">
                 <div className="p-1 bg-gray-200 dark:bg-gray-700 rounded-lg flex">
                     <button onClick={() => handleCategoryChange('length')} className={`w-1/2 py-2 rounded-md ${category === 'length' ? 'bg-blue-600 text-white' : ''}`}>Length</button>

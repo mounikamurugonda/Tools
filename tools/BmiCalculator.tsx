@@ -7,7 +7,7 @@ import ToolContainer from '../components/ToolContainer';
 
 type UnitSystem = 'metric' | 'imperial';
 
-const BmiCalculator: React.FC<ToolProps> = () => {
+const BmiCalculator: React.FC<ToolProps> = ({ details }) => {
     const [unitSystem, setUnitSystem] = useState<UnitSystem>('metric');
     const [weight, setWeight] = useState('70');
     const [height, setHeight] = useState('175');
@@ -59,7 +59,7 @@ const BmiCalculator: React.FC<ToolProps> = () => {
     }, [unitSystem, weight, height, heightFt, heightIn]);
 
     return (
-        <ToolContainer title="BMI Calculator">
+        <ToolContainer title="BMI Calculator" details={details}>
             <div className="max-w-md mx-auto space-y-6">
                 <div className="p-1 bg-gray-200 dark:bg-gray-700 rounded-lg flex">
                     <button onClick={() => setUnitSystem('metric')} className={`w-1/2 py-2 rounded-md ${unitSystem === 'metric' ? 'bg-blue-600 text-white' : ''}`}>Metric</button>

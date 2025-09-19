@@ -45,7 +45,7 @@ const rgbToHex = (r: number, g: number, b: number): string => {
     return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 };
 
-const ColorPaletteGenerator: React.FC<ToolProps> = () => {
+const ColorPaletteGenerator: React.FC<ToolProps> = ({ details }) => {
     const [baseColor, setBaseColor] = useState('#3b82f6');
     const [paletteType, setPaletteType] = useState<PaletteType>('monochromatic');
 
@@ -91,7 +91,7 @@ const ColorPaletteGenerator: React.FC<ToolProps> = () => {
     };
 
     return (
-        <ToolContainer title="Color Palette Generator">
+        <ToolContainer title="Color Palette Generator" details={details}>
             <div className="space-y-6">
                 <div className="flex flex-col sm:flex-row gap-4 items-center">
                     <input

@@ -1,4 +1,5 @@
 
+
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { TOOLS } from '../constants';
 import ToolCard from './ToolCard';
@@ -53,6 +54,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool, scrollToCategory, onS
   const [searchQuery, setSearchQuery] = useState('');
   // FIX: Using Record<string, ...> to represent a dictionary, which allows initialization with an empty object.
   const categoryRefs = useRef<Record<string, HTMLElement | null>>({});
+  const toolCount = TOOLS.length;
 
   useEffect(() => {
     if (scrollToCategory && categoryRefs.current[scrollToCategory]) {
@@ -89,14 +91,27 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool, scrollToCategory, onS
 
   return (
     <main className="max-w-7xl mx-auto p-4 sm:p-6 md:p-8 animate-fade-in">
-       <div className="text-center py-12 sm:py-16 md:py-20">
-        <div className="flex justify-center text-4xl sm:text-5xl md:text-6xl tracking-tight">
-          <Logo />
+       <div className="relative text-center py-12 sm:py-16 md:py-20">
+        <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)] bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-900/10 dark:to-gray-900"></div>
+        
+        <div className="flex justify-center mb-6">
+            <Logo />
         </div>
-        <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">
-          A collection of handy browser-based utilities for developers. Inspired by 10015.io.
-        </p>
-        <div className="mt-8 max-w-xl mx-auto">
+
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
+            The Ultimate Frontend Developer Toolbox
+        </h1>
+        
+        <div className="mt-8">
+            <div className="inline-block bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-900/50 dark:to-teal-900/50 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                <p className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                    Now with <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">{toolCount}</span> powerful tools to streamline your workflow.
+                </p>
+                <p className="mt-2 text-md text-gray-600 dark:text-gray-400">Fast, private, and always available.</p>
+            </div>
+        </div>
+        
+        <div className="mt-10 max-w-xl mx-auto">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <SearchIcon className="w-5 h-5 text-gray-400" />
@@ -129,8 +144,10 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool, scrollToCategory, onS
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {tools.map((tool) => (
-                  // FIX: Pass onSelectTool to the onSelect prop of ToolCard to fix the type error.
-                  <ToolCard key={tool.id} tool={tool} onSelect={onSelectTool} />
+                  // FIX: Wrap ToolCard in a div with an onClick handler to fix the type error.
+                  <div key={tool.id} onClick={() => onSelectTool(tool.id)}>
+                    <ToolCard tool={tool} />
+                  </div>
                 ))}
               </div>
             </section>

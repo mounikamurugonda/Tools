@@ -5,13 +5,13 @@ import React, { useState } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 
-const TextReverser: React.FC<ToolProps> = () => {
+const TextReverser: React.FC<ToolProps> = ({ details }) => {
   const [input, setInput] = useState('');
 
   const reversedText = input.split('').reverse().join('');
 
   return (
-    <ToolContainer title="Text Reverser">
+    <ToolContainer title="Text Reverser" details={details}>
       <div className="space-y-4">
         <div>
           <label htmlFor="input-text" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">

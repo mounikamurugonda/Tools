@@ -7,7 +7,7 @@ import ToolContainer from '../components/ToolContainer';
 
 type Mode = 'duration' | 'calculate';
 
-const DateCalculator: React.FC<ToolProps> = () => {
+const DateCalculator: React.FC<ToolProps> = ({ details }) => {
     const [mode, setMode] = useState<Mode>('duration');
     const today = new Date().toISOString().split('T')[0];
 
@@ -49,7 +49,7 @@ const DateCalculator: React.FC<ToolProps> = () => {
 
 
     return (
-        <ToolContainer title="Date Calculator">
+        <ToolContainer title="Date Calculator" details={details}>
             <div className="space-y-6">
                 <div className="flex justify-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
                     <button onClick={() => setMode('duration')} className={`w-1/2 py-2 rounded-md ${mode === 'duration' ? 'bg-blue-600 text-white' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}`}>Duration Between Dates</button>

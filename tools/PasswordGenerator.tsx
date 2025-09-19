@@ -12,7 +12,7 @@ const CHARS = {
   SYMBOLS: '!@#$%^&*()_+-=[]{}|;:,.<>?'
 };
 
-const PasswordGenerator: React.FC<ToolProps> = () => {
+const PasswordGenerator: React.FC<ToolProps> = ({ details }) => {
   const [password, setPassword] = useState('');
   const [length, setLength] = useState(16);
   const [useUpper, setUseUpper] = useState(true);
@@ -51,7 +51,7 @@ const PasswordGenerator: React.FC<ToolProps> = () => {
   }
 
   return (
-    <ToolContainer title="Password Generator">
+    <ToolContainer title="Password Generator" details={details}>
       <div className="space-y-6">
         <div className="relative">
           <input

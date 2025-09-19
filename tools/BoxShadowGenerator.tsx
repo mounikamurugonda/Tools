@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 
-const BoxShadowGenerator: React.FC<ToolProps> = () => {
+const BoxShadowGenerator: React.FC<ToolProps> = ({ details }) => {
     const [hOffset, setHOffset] = useState(10);
     const [vOffset, setVOffset] = useState(10);
     const [blur, setBlur] = useState(5);
@@ -29,7 +29,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = () => {
     };
 
     return (
-        <ToolContainer title="Box Shadow Generator">
+        <ToolContainer title="Box Shadow Generator" details={details}>
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                     <RangeSlider label="Horizontal Offset (px)" value={hOffset} setValue={setHOffset} min={-50} max={50} />

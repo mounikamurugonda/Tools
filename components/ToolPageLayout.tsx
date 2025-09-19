@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Sidebar from './Sidebar';
 import { TOOLS } from '../constants';
@@ -17,7 +16,8 @@ const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ selectedToolId, onSelec
             return <p className="text-center text-red-500 p-8">Tool not found!</p>;
         }
         const ToolComponent = selectedTool.component;
-        return <ToolComponent />;
+        // FIX: Passed the required 'details' prop to the ToolComponent.
+        return <ToolComponent details={selectedTool.details} />;
     };
 
     return (

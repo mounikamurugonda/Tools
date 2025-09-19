@@ -1,7 +1,15 @@
-
 import React from 'react';
 import PageContainer from '@/components/PageContainer';
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy',
+  description: 'Read the UtilToolkits privacy policy to understand how we handle data. Our tools are client-side, ensuring your information remains private and secure.',
+  alternates: {
+    canonical: '/privacy',
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (

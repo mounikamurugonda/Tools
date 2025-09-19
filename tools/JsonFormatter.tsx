@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 
-const JsonFormatter: React.FC<ToolProps> = () => {
+const JsonFormatter: React.FC<ToolProps> = ({ details }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [status, setStatus] = useState<{ type: 'idle' | 'success' | 'error'; message: string }>({ type: 'idle', message: '' });
@@ -39,7 +39,7 @@ const JsonFormatter: React.FC<ToolProps> = () => {
   };
 
   return (
-    <ToolContainer title="JSON Formatter & Validator">
+    <ToolContainer title="JSON Formatter & Validator" details={details}>
       <div className="space-y-4">
         <textarea
           value={input}

@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 
-const RegexTester: React.FC<ToolProps> = () => {
+const RegexTester: React.FC<ToolProps> = ({ details }) => {
     const [regexStr, setRegexStr] = useState('d(b+)d');
     const [flags, setFlags] = useState('g');
     const [testStr, setTestStr] = useState('cdbbdbsbz');
@@ -47,7 +47,7 @@ const RegexTester: React.FC<ToolProps> = () => {
     }, [regexStr, flags, testStr]);
 
     return (
-        <ToolContainer title="Regex Tester">
+        <ToolContainer title="Regex Tester" details={details}>
             <div className="space-y-4">
                 <div className="flex flex-col sm:flex-row gap-2">
                     <span className="flex items-center text-lg font-mono text-gray-500 dark:text-gray-400">/</span>

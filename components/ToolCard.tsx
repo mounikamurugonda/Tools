@@ -4,14 +4,11 @@ import type { Tool } from '../types';
 
 interface ToolCardProps {
   tool: Tool;
-  // FIX: Added optional onSelect prop to support usage in both SPA and Next.js contexts
-  onSelect?: (id: string) => void;
 }
 
-const ToolCard: React.FC<ToolCardProps> = ({ tool, onSelect }) => {
+const ToolCard: React.FC<ToolCardProps> = ({ tool }) => {
   return (
     <div
-      onClick={() => onSelect?.(tool.id)}
       className="bg-white dark:bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-1 h-full"
     >
       {tool.icon}

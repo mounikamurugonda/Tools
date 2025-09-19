@@ -8,7 +8,7 @@ import ToolContainer from '../components/ToolContainer';
 const WORK_MINUTES = 25;
 const BREAK_MINUTES = 5;
 
-const PomodoroTimer: React.FC<ToolProps> = () => {
+const PomodoroTimer: React.FC<ToolProps> = ({ details }) => {
     const [mode, setMode] = useState<'work' | 'break'>('work');
     const [time, setTime] = useState(WORK_MINUTES * 60);
     const [isActive, setIsActive] = useState(false);
@@ -77,7 +77,7 @@ const PomodoroTimer: React.FC<ToolProps> = () => {
     const progress = (mode === 'work' ? WORK_MINUTES * 60 - time : BREAK_MINUTES * 60 - time) / (mode === 'work' ? WORK_MINUTES * 60 : BREAK_MINUTES * 60) * 100;
 
     return (
-        <ToolContainer title="Pomodoro Timer">
+        <ToolContainer title="Pomodoro Timer" details={details}>
             <div className="flex flex-col items-center space-y-8">
                 <div className="relative w-64 h-64">
                     <svg className="w-full h-full transform -rotate-90" viewBox="0 0 120 120">

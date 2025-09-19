@@ -12,6 +12,13 @@ export enum ToolCategory {
   MISC = 'Miscellaneous Tools',
 }
 
+export interface ToolDetails {
+  introduction: string;
+  howToUse: string[];
+  features?: string[];
+  privacy: string;
+}
+
 export interface Tool {
   id: string;
   name: string;
@@ -19,8 +26,9 @@ export interface Tool {
   icon: JSX.Element;
   component: React.FC<ToolProps>;
   category: ToolCategory;
+  details: ToolDetails;
 }
 
 export interface ToolProps {
-  // This interface is now empty but preserved for consistency.
+  details: ToolDetails;
 }

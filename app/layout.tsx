@@ -1,4 +1,3 @@
-
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -6,8 +5,34 @@ import Link from "next/link";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "UtilToolkits",
-  description: "A collection of useful frontend-only tools inspired by 10015.io. Includes converters, generators, formatters, and more, all running directly in your browser.",
+  metadataBase: new URL('https://www.utiltoolkits.com'),
+  title: {
+    default: 'UtilToolkits | Free Online Developer Tools',
+    template: '%s | UtilToolkits',
+  },
+  description: "A collection of useful frontend-only tools. Includes converters, generators, formatters, and more, all running directly in your browser for enhanced speed and privacy.",
+  keywords: ['developer tools', 'online tools', 'frontend', 'json formatter', 'base64 converter', 'uuid generator', 'color converter', 'unit converter', 'free tools'],
+  openGraph: {
+    title: 'UtilToolkits | Free Online Developer Tools',
+    description: 'A comprehensive suite of free, browser-based utilities for developers.',
+    url: 'https://www.utiltoolkits.com',
+    siteName: 'UtilToolkits',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UtilToolkits | Free Online Developer Tools',
+    description: 'A comprehensive suite of free, browser-based utilities for developers.',
+    images: ['/og-image.png'],
+  },
   icons: {
     icon: "data:image/svg+xml,%3csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M22 8.33333V18C22 19.1046 21.1046 20 20 20H4C2.89543 20 2 19.1046 2 18V8.33333' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M20 4H4C2.89543 4 2 4.89543 2 6V8.33333H22V6C22 4.89543 21.1046 4 20 4Z' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M14 12V14' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3cpath d='M10 12V14' stroke='%233b82f6' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3e%3c/svg%3e",
   }
@@ -63,7 +88,7 @@ export default function RootLayout({
                   <Link href="/terms" className="hover:text-blue-500">Terms of Service</Link>
               </div>
               <p className="mt-4">
-                © {new Date().getFullYear()} UtilToolkits. All Rights Reserved. Inspired by 10015.io.
+                © {new Date().getFullYear()} UtilToolkits. All Rights Reserved.
               </p>
             </footer>
           </div>

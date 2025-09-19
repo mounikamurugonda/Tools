@@ -6,7 +6,7 @@ const AboutPage: React.FC = () => {
     <PageContainer title="About UtilToolkits">
       <section>
         <p>
-          Welcome to UtilToolkits, your one-stop shop for a variety of handy, browser-based utilities designed to make the lives of frontend developers easier. This project is inspired by the simplicity and utility of sites like 10015.io, with a goal to provide a fast, reliable, and accessible collection of tools that work entirely on the client-side.
+          Welcome to UtilToolkits, your one-stop shop for a variety of handy, browser-based utilities designed to make the lives of frontend developers easier. This project's goal is to provide a fast, reliable, and accessible collection of tools that work entirely on the client-side.
         </p>
       </section>
       

@@ -6,7 +6,7 @@ import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 import * as Diff from 'diff';
 
-const DiffChecker: React.FC<ToolProps> = () => {
+const DiffChecker: React.FC<ToolProps> = ({ details }) => {
     const [originalText, setOriginalText] = useState('Hello World\nThis is the original text.\nIt has three lines.');
     const [changedText, setChangedText] = useState('Hello There\nThis is the new text.\nIt also has three lines.');
 
@@ -15,7 +15,7 @@ const DiffChecker: React.FC<ToolProps> = () => {
     }, [originalText, changedText]);
 
     return (
-        <ToolContainer title="Diff Checker">
+        <ToolContainer title="Diff Checker" details={details}>
             <div className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4 h-[40vh]">
                     <textarea

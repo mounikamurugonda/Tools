@@ -1,12 +1,12 @@
 
 'use client';
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 import { marked } from 'marked';
 
-const MarkdownPreviewer: React.FC<ToolProps> = () => {
+const MarkdownPreviewer: React.FC<ToolProps> = ({ details }) => {
   const [markdown, setMarkdown] = useState(`# Hello, Markdown!
 
 **This is a real-time Markdown previewer.**
@@ -27,7 +27,7 @@ const MarkdownPreviewer: React.FC<ToolProps> = () => {
   }, [markdown]);
 
   return (
-    <ToolContainer title="Markdown Previewer">
+    <ToolContainer title="Markdown Previewer" details={details}>
       <div className="grid md:grid-cols-2 gap-4 h-[60vh]">
         <textarea
           value={markdown}

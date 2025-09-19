@@ -10,25 +10,24 @@ import { TOOLS } from '@/constants';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
+// FIX: Add optional props to support both Next.js App Router and legacy SPA contexts.
 interface SidebarProps {
-    // Props for legacy SPA mode
     activeToolId?: string;
     onSelectTool?: (id: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ activeToolId: activeToolIdFromProps, onSelectTool }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeToolId: activeToolIdFromProp, onSelectTool }) => {
     const params = useParams();
-    const isSpaMode = typeof onSelectTool === 'function';
+    const activeToolIdFromParams = params?.toolId as string;
 
-    // Determine active tool ID based on mode
-    const activeToolId = isSpaMode ? activeToolIdFromProps : (params?.toolId as string);
+    const activeToolId = activeToolIdFromProp || activeToolIdFromParams;
 
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>(() => {
         const initialState: Record<string, boolean> = {};
         const activeTool = TOOLS.find(t => t.id === activeToolId);
-        CATEGORY_ORDER.forEach(cat => {
-            initialState[cat] = cat === activeTool?.category;
-        });
+        if (activeTool) {
+            initialState[activeTool.category] = true;
+        }
         return initialState;
     });
 
@@ -78,16 +77,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeToolId: activeToolIdFromProps, 
                                                     ? 'bg-blue-600 text-white font-semibold'
                                                     : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                                             }`;
+                                            
+                                            // FIX: Conditionally render a button for SPA or a Link for Next.js
+                                            if (onSelectTool) {
+                                                return (
+                                                    <button
+                                                        key={tool.id}
+                                                        onClick={() => onSelectTool(tool.id)}
+                                                        className={className}
+                                                    >
+                                                        {tool.name}
+                                                    </button>
+                                                );
+                                            }
 
-                                            return isSpaMode ? (
-                                                <button
-                                                    key={tool.id}
-                                                    onClick={() => onSelectTool(tool.id)}
-                                                    className={className}
-                                                >
-                                                    {tool.name}
-                                                </button>
-                                            ) : (
+                                            return (
                                                 <Link
                                                     key={tool.id}
                                                     href={`/tools/${tool.id}`}

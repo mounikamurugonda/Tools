@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { TOOLS } from '@/constants';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://utiltoolkits.com'; // TODO: Replace with your production URL
+  const baseUrl = 'https://www.utiltoolkits.com'; // Production URL
 
   const toolRoutes = TOOLS.map((tool) => ({
     url: `${baseUrl}/tools/${tool.id}`,

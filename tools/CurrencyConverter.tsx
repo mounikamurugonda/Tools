@@ -11,7 +11,7 @@ interface Rates {
   [key: string]: number;
 }
 
-const CurrencyConverter: React.FC<ToolProps> = () => {
+const CurrencyConverter: React.FC<ToolProps> = ({ details }) => {
     const [rates, setRates] = useState<Rates | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [amount1, setAmount1] = useState('1');
@@ -94,7 +94,7 @@ const CurrencyConverter: React.FC<ToolProps> = () => {
 
     if (error) {
         return (
-            <ToolContainer title="Currency Converter">
+            <ToolContainer title="Currency Converter" details={details}>
                 <div className="text-center p-4 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 rounded text-red-700 dark:text-red-300">{error}</div>
             </ToolContainer>
         );
@@ -102,7 +102,7 @@ const CurrencyConverter: React.FC<ToolProps> = () => {
 
     if (!rates) {
         return (
-            <ToolContainer title="Currency Converter">
+            <ToolContainer title="Currency Converter" details={details}>
                 <div className="text-center text-gray-800 dark:text-gray-200">Loading exchange rates...</div>
             </ToolContainer>
         );
@@ -111,7 +111,7 @@ const CurrencyConverter: React.FC<ToolProps> = () => {
     const currencyOptions = Object.keys(rates);
 
     return (
-        <ToolContainer title="Currency Converter">
+        <ToolContainer title="Currency Converter" details={details}>
             <div className="space-y-4 max-w-2xl mx-auto">
                 <div className="grid sm:grid-cols-2 gap-4 items-start">
                     <CurrencyInput

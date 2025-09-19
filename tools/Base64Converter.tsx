@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 
-const Base64Converter: React.FC<ToolProps> = () => {
+const Base64Converter: React.FC<ToolProps> = ({ details }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
@@ -31,7 +31,7 @@ const Base64Converter: React.FC<ToolProps> = () => {
   };
 
   return (
-    <ToolContainer title="Base64 Encoder/Decoder">
+    <ToolContainer title="Base64 Encoder/Decoder" details={details}>
       <div className="space-y-4">
         <textarea
           value={input}

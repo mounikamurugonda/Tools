@@ -70,7 +70,7 @@ const App: React.FC = () => {
               <a href="#" onClick={(e) => { e.preventDefault(); handleNavigate('terms'); }} className="hover:text-blue-500">Terms of Service</a>
           </div>
           <p className="mt-4">
-            © {new Date().getFullYear()} UtilToolkits. All Rights Reserved. Inspired by 10015.io.
+            © {new Date().getFullYear()} UtilToolkits. All Rights Reserved.
           </p>
         </footer>
       </div>

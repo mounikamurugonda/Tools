@@ -1,13 +1,21 @@
-
 import React from 'react';
 import PageContainer from '@/components/PageContainer';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description: 'Learn about UtilToolkits, our mission to provide fast, private, and free browser-based tools for developers, and why our utilities are perfect for your workflow.',
+  alternates: {
+    canonical: '/about',
+  },
+};
 
 export default function AboutPage() {
   return (
     <PageContainer title="About UtilToolkits">
       <section>
         <p>
-          Welcome to UtilToolkits, your one-stop shop for a variety of handy, browser-based utilities designed to make the lives of frontend developers easier. This project is inspired by the simplicity and utility of sites like 10015.io, with a goal to provide a fast, reliable, and accessible collection of tools that work entirely on the client-side.
+          Welcome to UtilToolkits, your one-stop shop for a variety of handy, browser-based utilities designed to make the lives of frontend developers easier. This project's goal is to provide a fast, reliable, and accessible collection of tools that work entirely on the client-side.
         </p>
       </section>
       

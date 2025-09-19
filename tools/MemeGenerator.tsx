@@ -5,7 +5,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
 
-const MemeGenerator: React.FC<ToolProps> = () => {
+const MemeGenerator: React.FC<ToolProps> = ({ details }) => {
     const [image, setImage] = useState<string | null>(null);
     const [topText, setTopText] = useState('Top Text');
     const [bottomText, setBottomText] = useState('Bottom Text');
@@ -77,7 +77,7 @@ const MemeGenerator: React.FC<ToolProps> = () => {
     };
 
     return (
-        <ToolContainer title="Meme Generator">
+        <ToolContainer title="Meme Generator" details={details}>
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                     <div>
