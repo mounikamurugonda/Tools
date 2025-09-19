@@ -15,7 +15,7 @@ export default function AboutPage() {
     <PageContainer title="About UtilToolkits">
       <section>
         <p>
-          Welcome to UtilToolkits, your one-stop shop for a variety of handy, browser-based utilities designed to make the lives of frontend developers easier. This project's goal is to provide a fast, reliable, and accessible collection of tools that work entirely on the client-side.
+          Welcome to UtilToolkits, your one-stop shop for a variety of handy, browser-based utilities designed to make the lives of frontend developers easier. This project&apos;s goal is to provide a fast, reliable, and accessible collection of tools that work entirely on the client-side.
         </p>
       </section>
       

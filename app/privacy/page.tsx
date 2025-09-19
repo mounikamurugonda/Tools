@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
       <p className="text-sm text-gray-500 dark:text-gray-400"><em>Last Updated: {new Date().toLocaleDateString()}</em></p>
       
       <p>
-        Your privacy is important to us. It is UtilToolkits' policy to respect your privacy regarding any information we may collect from you across our website.
+        Your privacy is important to us. It is UtilToolkits&apos; policy to respect your privacy regarding any information we may collect from you across our website.
       </p>
 
       <section>
@@ -37,10 +37,10 @@ export default function PrivacyPolicyPage() {
         </p>
         <ul className="list-disc list-inside space-y-2 pl-4 text-gray-600 dark:text-gray-400">
           <li><strong>Functionality Cookies:</strong> We may use cookies to remember your preferences, such as your preferred theme (light/dark mode).</li>
-          <li><strong>Third-Party Cookies:</strong> We may use third-party services like Google AdSense, which use cookies to serve personalized ads based on your prior visits to our website or other websites. Google's use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
+          <li><strong>Third-Party Cookies:</strong> We may use third-party services like Google AdSense, which use cookies to serve personalized ads based on your prior visits to our website or other websites. Google&apos;s use of advertising cookies enables it and its partners to serve ads to your users based on their visit to your sites and/or other sites on the Internet.</li>
         </ul>
         <p className="mt-4">
-          You can choose to disable cookies through your browser settings. You may also opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Google's Ads Settings</a>.
+          You can choose to disable cookies through your browser settings. You may also opt out of personalized advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Google&apos;s Ads Settings</a>.
         </p>
       </section>
 
@@ -50,7 +50,7 @@ export default function PrivacyPolicyPage() {
           This website may contain links to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
         </p>
         <p>
-          As mentioned, we use Google AdSense to display advertisements. AdSense is a third-party vendor that uses cookies to serve ads. For more information on how Google collects and uses data, please see <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Google's advertising policies</a>.
+          As mentioned, we use Google AdSense to display advertisements. AdSense is a third-party vendor that uses cookies to serve ads. For more information on how Google collects and uses data, please see <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Google&apos;s advertising policies</a>.
         </p>
       </section>
 

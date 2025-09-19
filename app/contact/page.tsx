@@ -15,7 +15,7 @@ export default function ContactPage() {
   return (
     <PageContainer title="Contact Us">
       <p>
-        We'd love to hear from you! Whether you have a question, a suggestion for a new tool, or feedback on how we can improve, please fill out the form below to send us a message.
+        We&apos;d love to hear from you! Whether you have a question, a suggestion for a new tool, or feedback on how we can improve, please fill out the form below to send us a message.
       </p>
       
       <div className="mt-8 max-w-2xl mx-auto">

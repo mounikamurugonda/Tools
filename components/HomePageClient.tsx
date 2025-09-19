@@ -121,7 +121,7 @@ const HomePageClient: React.FC = () => {
         })}
         {filteredTools.length === 0 && searchQuery && (
             <div className="text-center py-16">
-                <p className="text-xl text-gray-500 dark:text-gray-400">No tools found for "{searchQuery}"</p>
+                <p className="text-xl text-gray-500 dark:text-gray-400">No tools found for &quot;{searchQuery}&quot;</p>
             </div>
         )}
       </div>

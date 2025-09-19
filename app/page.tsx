@@ -1,5 +1,6 @@
 import HomePageClient from "@/components/HomePageClient";
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'UtilToolkits | Your Free Online Developer Toolbox',
@@ -10,5 +11,9 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HomePageClient />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomePageClient />
+    </Suspense>
+  );
 }

@@ -66,7 +66,11 @@ const AiRecipeGenerator: React.FC<ToolProps> = ({ details }) => {
                 },
             });
 
-            const jsonText = response.text.trim();
+
+            const jsonText = typeof response.text === 'string' ? response.text.trim() : '';
+            if (!jsonText) {
+                throw new Error('No recipe data returned from AI.');
+            }
             const recipeData = JSON.parse(jsonText);
 
             let markdown = `# ${recipeData.recipeName}\n\n`;
