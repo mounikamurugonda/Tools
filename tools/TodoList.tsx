@@ -69,28 +69,28 @@ const TodoList: React.FC<ToolProps> = () => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Add a new task..."
-                        className="flex-grow bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="flex-grow bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
                     />
                     <button type="submit" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Add</button>
                 </form>
 
-                <div className="flex justify-center gap-2 mb-4 p-1 bg-gray-900 rounded-lg">
+                <div className="flex justify-center gap-2 mb-4 p-1 bg-gray-200 dark:bg-gray-800 rounded-lg">
                     <FilterButton label="All" current={filter} set={setFilter} />
                     <FilterButton label="Active" current={filter} set={setFilter} />
                     <FilterButton label="Completed" current={filter} set={setFilter} />
                 </div>
                 
-                <div className="space-y-2 bg-gray-900 p-2 rounded-lg min-h-[200px]">
+                <div className="space-y-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg min-h-[200px]">
                     {filteredTasks.map(task => (
-                        <div key={task.id} className="flex items-center bg-gray-700 p-3 rounded-md">
+                        <div key={task.id} className="flex items-center bg-white dark:bg-gray-700 p-3 rounded-md shadow-sm">
                             <input
                                 type="checkbox"
                                 checked={task.completed}
                                 onChange={() => toggleTask(task.id)}
-                                className="h-5 w-5 rounded border-gray-400 text-blue-500 focus:ring-blue-600 mr-3"
+                                className="h-5 w-5 rounded border-gray-300 dark:border-gray-600 text-blue-500 focus:ring-blue-600 mr-3"
                             />
-                            <span className={`flex-grow ${task.completed ? 'line-through text-gray-500' : ''}`}>{task.text}</span>
-                            <button onClick={() => deleteTask(task.id)} className="text-gray-500 hover:text-red-400 ml-2">
+                            <span className={`flex-grow ${task.completed ? 'line-through text-gray-500 dark:text-gray-400' : 'text-gray-800 dark:text-gray-200'}`}>{task.text}</span>
+                            <button onClick={() => deleteTask(task.id)} className="text-gray-500 hover:text-red-500 dark:hover:text-red-400 ml-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -106,7 +106,7 @@ const TodoList: React.FC<ToolProps> = () => {
 const FilterButton: React.FC<{label: string, current: string, set: (f: any) => void}> = ({label, current, set}) => {
     const value = label.toLowerCase();
     return (
-        <button onClick={() => set(value)} className={`w-1/3 py-1 rounded-md text-sm ${current === value ? 'bg-blue-600' : 'hover:bg-gray-700'}`}>{label}</button>
+        <button onClick={() => set(value)} className={`w-1/3 py-1 rounded-md text-sm transition-colors ${current === value ? 'bg-blue-600 text-white' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-700'}`}>{label}</button>
     )
 }
 

@@ -34,18 +34,18 @@ const Base64ToImage: React.FC<ToolProps> = () => {
     <ToolContainer title="Base64 to Image Converter">
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-2">Paste Base64 Data URL</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Paste Base64 Data URL</label>
           <textarea
             value={base64}
             onChange={handleInputChange}
             placeholder="Paste your Base64 data URL here (e.g., data:image/png;base64,...)"
-            className="w-full h-48 bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200 text-xs"
+            className="w-full h-48 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-xs"
           />
         </div>
         {error && <p className="text-red-400">{error}</p>}
         <div className="space-y-4">
             <h3 className="text-lg font-semibold">Image Preview</h3>
-            <div className="h-64 bg-gray-900 rounded border border-gray-700 flex items-center justify-center p-4">
+            <div className="h-64 bg-gray-50 dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700 flex items-center justify-center p-4">
               {base64 && !error ? (
                 <img src={base64} alt="Preview" className="max-h-full max-w-full" />
               ) : (

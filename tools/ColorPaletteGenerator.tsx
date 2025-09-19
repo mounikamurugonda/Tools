@@ -98,20 +98,20 @@ const ColorPaletteGenerator: React.FC<ToolProps> = () => {
                         className="w-20 h-20 bg-transparent border-none cursor-pointer"
                     />
                     <div className="flex-grow space-y-2">
-                         <label className="block text-sm font-medium text-gray-300">Base Color (HEX)</label>
+                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Base Color (HEX)</label>
                         <input
                             type="text"
                             value={baseColor}
                             onChange={(e) => setBaseColor(e.target.value)}
-                            className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                            className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
                         />
                     </div>
                     <div className="flex-grow space-y-2">
-                        <label className="block text-sm font-medium text-gray-300">Palette Type</label>
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Palette Type</label>
                         <select
                             value={paletteType}
                             onChange={(e) => setPaletteType(e.target.value as PaletteType)}
-                            className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                         >
                             <option value="monochromatic">Monochromatic</option>
                             <option value="analogous">Analogous</option>
@@ -125,7 +125,7 @@ const ColorPaletteGenerator: React.FC<ToolProps> = () => {
                     {palette.map((color, index) => (
                         <div key={index} className="space-y-2 text-center">
                             <div className="h-24 rounded-lg" style={{ backgroundColor: color }}></div>
-                            <div className="bg-gray-700 p-2 rounded-md text-sm font-mono cursor-pointer hover:bg-gray-600" onClick={() => copyToClipboard(color)}>
+                            <div className="bg-gray-200 dark:bg-gray-700 p-2 rounded-md text-sm font-mono cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600" onClick={() => copyToClipboard(color)}>
                                 {color}
                             </div>
                         </div>

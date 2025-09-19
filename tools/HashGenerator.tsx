@@ -41,13 +41,13 @@ const HashGenerator: React.FC<ToolProps> = () => {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Enter text here..."
-                    className="w-full h-32 bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200"
+                    className="w-full h-32 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
                 />
                 <div className="flex items-center gap-4">
                     <select
                         value={algorithm}
                         onChange={(e) => setAlgorithm(e.target.value as HashAlgorithm)}
-                        className="bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200"
+                        className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
                     >
                         <option value="SHA-1">SHA-1</option>
                         <option value="SHA-256">SHA-256</option>
@@ -61,7 +61,7 @@ const HashGenerator: React.FC<ToolProps> = () => {
                         readOnly
                         value={output}
                         placeholder="Hash output..."
-                        className="w-full h-32 bg-gray-900 border border-gray-600 rounded p-2 text-gray-200 font-mono"
+                        className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-2 text-gray-800 dark:text-gray-200 font-mono"
                     />
                      {output && <button
                         onClick={copyToClipboard}

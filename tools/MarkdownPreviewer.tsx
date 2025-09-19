@@ -29,11 +29,11 @@ const MarkdownPreviewer: React.FC<ToolProps> = () => {
           value={markdown}
           onChange={(e) => setMarkdown(e.target.value)}
           placeholder="Enter Markdown here..."
-          className="w-full h-full bg-gray-700 border border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200 font-mono resize-none"
+          className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
           aria-label="Markdown Input"
         />
         <div 
-          className="w-full h-full bg-gray-900 border border-gray-700 rounded p-4 overflow-auto prose prose-invert prose-sm max-w-none"
+          className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-4 overflow-auto prose dark:prose-invert prose-sm max-w-none"
           dangerouslySetInnerHTML={{ __html: renderedHtml }}
           aria-label="Markdown Preview"
         />

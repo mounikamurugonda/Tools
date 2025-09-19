@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
@@ -55,34 +54,34 @@ const PasswordGenerator: React.FC<ToolProps> = () => {
           <input
             readOnly
             value={password}
-            className="w-full bg-gray-900 border border-gray-600 rounded p-3 text-gray-200 font-mono text-lg pr-16"
+            className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-gray-800 dark:text-gray-200 font-mono text-lg pr-16"
           />
           <button
               onClick={copyToClipboard}
-              className="absolute top-1/2 right-2 transform -translate-y-1/2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
+              className="absolute top-1/2 right-2 transform -translate-y-1/2 px-3 py-1 bg-gray-200 text-gray-600 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 text-sm rounded"
             >
               Copy
             </button>
         </div>
         <div className="space-y-4">
             <div>
-                <label className="block text-gray-300 mb-2">Length: {length}</label>
+                <label className="block text-gray-700 dark:text-gray-300 mb-2">Length: {length}</label>
                 <input type="range" min="4" max="64" value={length} onChange={e => setLength(parseInt(e.target.value))} className="w-full" />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <label className="flex items-center space-x-2 p-2 bg-gray-700 rounded cursor-pointer">
+                <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
                     <input type="checkbox" checked={useUpper} onChange={() => setUseUpper(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                     <span>Uppercase (A-Z)</span>
                 </label>
-                <label className="flex items-center space-x-2 p-2 bg-gray-700 rounded cursor-pointer">
+                <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
                     <input type="checkbox" checked={useLower} onChange={() => setUseLower(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                     <span>Lowercase (a-z)</span>
                 </label>
-                 <label className="flex items-center space-x-2 p-2 bg-gray-700 rounded cursor-pointer">
+                 <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
                     <input type="checkbox" checked={useNumbers} onChange={() => setUseNumbers(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                     <span>Numbers (0-9)</span>
                 </label>
-                 <label className="flex items-center space-x-2 p-2 bg-gray-700 rounded cursor-pointer">
+                 <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
                     <input type="checkbox" checked={useSymbols} onChange={() => setUseSymbols(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                     <span>Symbols (!@#)</span>
                 </label>

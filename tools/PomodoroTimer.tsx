@@ -78,7 +78,7 @@ const PomodoroTimer: React.FC<ToolProps> = () => {
             <div className="flex flex-col items-center space-y-8">
                 <div className="relative w-64 h-64">
                     <svg className="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
-                        <circle cx="60" cy="60" r="54" fill="none" stroke="currentColor" strokeWidth="12" className="text-gray-700" />
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="currentColor" strokeWidth="12" className="text-gray-200 dark:text-gray-700" />
                         <circle
                             cx="60"
                             cy="60"
@@ -93,7 +93,7 @@ const PomodoroTimer: React.FC<ToolProps> = () => {
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                         <p className="text-5xl font-mono font-bold">{formatTime(time)}</p>
-                        <p className="text-lg uppercase tracking-wider text-gray-400">{mode}</p>
+                        <p className="text-lg uppercase tracking-wider text-gray-500 dark:text-gray-400">{mode}</p>
                     </div>
                 </div>
 
@@ -101,7 +101,7 @@ const PomodoroTimer: React.FC<ToolProps> = () => {
                     <button onClick={toggleTimer} className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-lg w-32">
                         {isActive ? 'Pause' : 'Start'}
                     </button>
-                    <button onClick={resetTimer} className="px-8 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-bold text-lg w-32">
+                    <button onClick={resetTimer} className="px-8 py-3 bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded-lg font-bold text-lg w-32">
                         Reset
                     </button>
                 </div>

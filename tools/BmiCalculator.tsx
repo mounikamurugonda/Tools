@@ -58,9 +58,9 @@ const BmiCalculator: React.FC<ToolProps> = () => {
     return (
         <ToolContainer title="BMI Calculator">
             <div className="max-w-md mx-auto space-y-6">
-                <div className="p-1 bg-gray-700 rounded-lg flex">
-                    <button onClick={() => setUnitSystem('metric')} className={`w-1/2 py-2 rounded-md ${unitSystem === 'metric' ? 'bg-blue-600' : ''}`}>Metric</button>
-                    <button onClick={() => setUnitSystem('imperial')} className={`w-1/2 py-2 rounded-md ${unitSystem === 'imperial' ? 'bg-blue-600' : ''}`}>Imperial</button>
+                <div className="p-1 bg-gray-200 dark:bg-gray-700 rounded-lg flex">
+                    <button onClick={() => setUnitSystem('metric')} className={`w-1/2 py-2 rounded-md ${unitSystem === 'metric' ? 'bg-blue-600 text-white' : ''}`}>Metric</button>
+                    <button onClick={() => setUnitSystem('imperial')} className={`w-1/2 py-2 rounded-md ${unitSystem === 'imperial' ? 'bg-blue-600 text-white' : ''}`}>Imperial</button>
                 </div>
 
                 {unitSystem === 'metric' ? (
@@ -79,8 +79,8 @@ const BmiCalculator: React.FC<ToolProps> = () => {
                 )}
 
                 {result && (
-                    <div className="text-center bg-gray-900 p-6 rounded-lg">
-                        <p className="text-gray-400">Your BMI is</p>
+                    <div className="text-center bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
+                        <p className="text-gray-500 dark:text-gray-400">Your BMI is</p>
                         <p className={`text-6xl font-bold my-2 ${result.color}`}>{result.bmi}</p>
                         <p className={`text-xl font-semibold ${result.color}`}>{result.category}</p>
                     </div>
@@ -92,12 +92,12 @@ const BmiCalculator: React.FC<ToolProps> = () => {
 
 const NumberInput: React.FC<{label: string, value: string, onChange: (v: string) => void}> = ({label, value, onChange}) => (
     <div>
-        <label className="block text-sm font-medium text-gray-300 mb-1">{label}</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{label}</label>
         <input
             type="number"
             value={value}
             onChange={e => onChange(e.target.value)}
-            className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
     </div>
 );

@@ -1,4 +1,3 @@
-
 import React, { useState, useMemo } from 'react';
 import type { Tool } from '../types';
 import { ToolCategory } from '../types';
@@ -36,7 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeToolId, onSelectTool, tools }) 
     }, [tools]);
     
     return (
-        <aside className="w-full md:w-72 bg-gray-800 border-r border-gray-700 flex-shrink-0">
+        <aside className="w-full md:w-72 bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0">
             <div className="p-4 h-full overflow-y-auto">
                 <nav className="space-y-4">
                     {CATEGORY_ORDER.map(category => {
@@ -50,7 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeToolId, onSelectTool, tools }) 
                             <div key={category}>
                                 <button
                                     onClick={() => toggleCategory(category)}
-                                    className="w-full flex items-center justify-between text-left px-2 py-2 text-sm font-semibold text-gray-300 rounded hover:bg-gray-700"
+                                    className="w-full flex items-center justify-between text-left px-2 py-2 text-sm font-semibold text-gray-700 dark:text-gray-300 rounded hover:bg-gray-200 dark:hover:bg-gray-700"
                                 >
                                     <div className="flex items-center">
                                         {CategoryIcon && <CategoryIcon />}
@@ -71,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeToolId, onSelectTool, tools }) 
                                                 className={`block px-4 py-2 text-sm rounded transition-colors ${
                                                     activeToolId === tool.id
                                                         ? 'bg-blue-600 text-white font-semibold'
-                                                        : 'text-gray-400 hover:bg-gray-700 hover:text-white'
+                                                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                                                 }`}
                                             >
                                                 {tool.name}

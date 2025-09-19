@@ -92,7 +92,7 @@ const CurrencyConverter: React.FC<ToolProps> = () => {
     if (error) {
         return (
             <ToolContainer title="Currency Converter">
-                <div className="text-center p-4 bg-red-900/50 border border-red-700 rounded text-red-300">{error}</div>
+                <div className="text-center p-4 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 rounded text-red-700 dark:text-red-300">{error}</div>
             </ToolContainer>
         );
     }
@@ -100,7 +100,7 @@ const CurrencyConverter: React.FC<ToolProps> = () => {
     if (!rates) {
         return (
             <ToolContainer title="Currency Converter">
-                <div className="text-center">Loading exchange rates...</div>
+                <div className="text-center text-gray-800 dark:text-gray-200">Loading exchange rates...</div>
             </ToolContainer>
         );
     }
@@ -129,13 +129,13 @@ const CurrencyConverter: React.FC<ToolProps> = () => {
                     />
                 </div>
                  <div className="text-center">
-                    <button onClick={handleSwap} className="p-2 bg-gray-700 rounded-full hover:bg-gray-600" title="Swap currencies">
+                    <button onClick={handleSwap} className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600" title="Swap currencies">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
                         </svg>
                     </button>
                 </div>
-                <p className="text-xs text-gray-500 text-center">Rates are updated periodically. Provided for informational purposes only.</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 text-center">Rates are updated periodically. Provided for informational purposes only.</p>
             </div>
         </ToolContainer>
     );
@@ -152,19 +152,19 @@ interface CurrencyInputProps {
 
 const CurrencyInput: React.FC<CurrencyInputProps> = ({ label, amount, onAmountChange, currency, onCurrencyChange, options }) => {
     return (
-        <div className="bg-gray-700 p-4 rounded-lg">
-            <label className="block text-sm font-medium text-gray-400 mb-2">{label}</label>
+        <div className="bg-gray-100 dark:bg-gray-700/50 p-4 rounded-lg">
+            <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">{label}</label>
             <div className="flex gap-2">
                 <input
                     type="number"
                     value={amount}
                     onChange={onAmountChange}
-                    className="w-full bg-gray-900 border border-gray-600 rounded-md p-2 text-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md p-2 text-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
                 />
                 <select
                     value={currency}
                     onChange={onCurrencyChange}
-                    className="bg-gray-900 border border-gray-600 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
                 >
                     {options.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>

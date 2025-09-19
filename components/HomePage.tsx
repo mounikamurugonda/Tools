@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { TOOLS } from '../constants';
 import ToolCard from './ToolCard';
 import type { Tool } from '../types';
@@ -12,7 +12,8 @@ import {
     MathCategoryIcon,
     ProductivityCategoryIcon,
     FunCategoryIcon,
-    MiscCategoryIcon 
+    MiscCategoryIcon,
+    SearchIcon,
 } from './icons';
 
 interface HomePageProps {
@@ -45,13 +46,54 @@ export const CATEGORY_ICONS: Record<ToolCategory, React.FC> = {
 
 
 const HomePage: React.FC<HomePageProps> = ({ onSelectTool }) => {
-  const groupedTools = TOOLS.reduce((acc, tool) => {
-    (acc[tool.category] = acc[tool.category] || []).push(tool);
-    return acc;
-  }, {} as Record<ToolCategory, Tool[]>);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filteredTools = useMemo(() => {
+    const query = searchQuery.toLowerCase().trim();
+    if (!query) {
+        return TOOLS;
+    }
+    return TOOLS.filter(tool =>
+        tool.name.toLowerCase().includes(query) ||
+        tool.description.toLowerCase().includes(query)
+    );
+  }, [searchQuery]);
+
+  const groupedTools = useMemo(() => {
+    return filteredTools.reduce((acc, tool) => {
+      (acc[tool.category] = acc[tool.category] || []).push(tool);
+      return acc;
+    }, {} as Record<ToolCategory, Tool[]>);
+  }, [filteredTools]);
 
   return (
-    <main className="max-w-7xl mx-auto p-4 sm:p-6 md:p-8">
+    <main className="max-w-7xl mx-auto p-4 sm:p-6 md:p-8 animate-fade-in">
+       <div className="text-center py-12 sm:py-16 md:py-20">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">
+            Frontend Dev
+          </span> Toolbox
+        </h1>
+        <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">
+          A collection of handy browser-based utilities for developers. Inspired by 10015.io.
+        </p>
+        <div className="mt-8 max-w-xl mx-auto">
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <SearchIcon className="w-5 h-5 text-gray-400" />
+            </div>
+            <input
+              type="search"
+              placeholder="Search for a tool (e.g., 'json', 'color', 'base64')..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              className="w-full p-4 pl-12 text-lg text-gray-900 dark:text-white bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-full shadow-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              aria-label="Search for tools"
+            />
+          </div>
+        </div>
+      </div>
+
       <div className="space-y-12">
         {CATEGORY_ORDER.map((category) => {
           const tools = groupedTools[category];
@@ -63,7 +105,7 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool }) => {
             <section key={category}>
               <div className="flex items-center mb-6">
                 {CategoryIcon && <CategoryIcon />}
-                <h2 className="text-2xl font-bold text-white tracking-wide">{category}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-wide">{category}</h2>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {tools.map((tool) => (
@@ -73,6 +115,11 @@ const HomePage: React.FC<HomePageProps> = ({ onSelectTool }) => {
             </section>
           );
         })}
+        {filteredTools.length === 0 && searchQuery && (
+            <div className="text-center py-16">
+                <p className="text-xl text-gray-500 dark:text-gray-400">No tools found for "{searchQuery}"</p>
+            </div>
+        )}
       </div>
     </main>
   );

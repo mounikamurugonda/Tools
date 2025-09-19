@@ -78,19 +78,19 @@ const MemeGenerator: React.FC<ToolProps> = () => {
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-2">1. Upload an Image</label>
-                        <input type="file" accept="image/*" onChange={handleImageUpload} className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" />
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">1. Upload an Image</label>
+                        <input type="file" accept="image/*" onChange={handleImageUpload} className="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">2. Add Text</label>
-                        <input type="text" value={topText} onChange={e => setTopText(e.target.value)} placeholder="Top Text" className="w-full bg-gray-700 border border-gray-600 rounded p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                        <input type="text" value={bottomText} onChange={e => setBottomText(e.target.value)} placeholder="Bottom Text" className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">2. Add Text</label>
+                        <input type="text" value={topText} onChange={e => setTopText(e.target.value)} placeholder="Top Text" className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 mb-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        <input type="text" value={bottomText} onChange={e => setBottomText(e.target.value)} placeholder="Bottom Text" className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
                     </div>
-                    <button onClick={handleDownload} disabled={!image} className="w-full px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded font-bold disabled:bg-gray-600 disabled:cursor-not-allowed">
+                    <button onClick={handleDownload} disabled={!image} className="w-full px-4 py-3 bg-green-600 hover:bg-green-700 text-white rounded font-bold disabled:bg-gray-500 dark:disabled:bg-gray-600 disabled:cursor-not-allowed">
                         3. Download Meme
                     </button>
                 </div>
-                <div className="bg-gray-900 border border-gray-700 rounded p-2 flex items-center justify-center">
+                <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-2 flex items-center justify-center">
                     {image ? (
                         <canvas ref={canvasRef} className="max-w-full max-h-full" />
                     ) : (

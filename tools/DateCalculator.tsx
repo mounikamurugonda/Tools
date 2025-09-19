@@ -48,9 +48,9 @@ const DateCalculator: React.FC<ToolProps> = () => {
     return (
         <ToolContainer title="Date Calculator">
             <div className="space-y-6">
-                <div className="flex justify-center bg-gray-700 rounded-lg p-1">
-                    <button onClick={() => setMode('duration')} className={`w-1/2 py-2 rounded-md ${mode === 'duration' ? 'bg-blue-600 text-white' : 'hover:bg-gray-600'}`}>Duration Between Dates</button>
-                    <button onClick={() => setMode('calculate')} className={`w-1/2 py-2 rounded-md ${mode === 'calculate' ? 'bg-blue-600 text-white' : 'hover:bg-gray-600'}`}>Add/Subtract Days</button>
+                <div className="flex justify-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
+                    <button onClick={() => setMode('duration')} className={`w-1/2 py-2 rounded-md ${mode === 'duration' ? 'bg-blue-600 text-white' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}`}>Duration Between Dates</button>
+                    <button onClick={() => setMode('calculate')} className={`w-1/2 py-2 rounded-md ${mode === 'calculate' ? 'bg-blue-600 text-white' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}`}>Add/Subtract Days</button>
                 </div>
                 
                 {mode === 'duration' && (
@@ -60,10 +60,10 @@ const DateCalculator: React.FC<ToolProps> = () => {
                             <DateInput label="End Date" value={endDate} onChange={setEndDate} />
                         </div>
                         {durationResult && (
-                            <div className="text-center bg-gray-900 p-4 rounded-lg">
+                            <div className="text-center bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
                                 <h3 className="text-lg font-semibold">Result</h3>
                                 <p className="text-3xl font-bold text-blue-400">{durationResult.days} days</p>
-                                <p className="text-gray-400">({durationResult.weeks} weeks)</p>
+                                <p className="text-gray-500 dark:text-gray-400">({durationResult.weeks} weeks)</p>
                             </div>
                         )}
                     </div>
@@ -74,19 +74,19 @@ const DateCalculator: React.FC<ToolProps> = () => {
                         <DateInput label="Start Date" value={calcDate} onChange={setCalcDate} />
                         <div className="grid sm:grid-cols-3 gap-4 items-end">
                              <div className="sm:col-span-1">
-                                <label className="block text-sm font-medium text-gray-300 mb-1">Operation</label>
-                                <select value={operation} onChange={e => setOperation(e.target.value as any)} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200">
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Operation</label>
+                                <select value={operation} onChange={e => setOperation(e.target.value as any)} className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200">
                                     <option value="add">Add</option>
                                     <option value="subtract">Subtract</option>
                                 </select>
                              </div>
                              <div className="sm:col-span-2">
-                                <label className="block text-sm font-medium text-gray-300 mb-1">Days</label>
-                                <input type="number" value={days} onChange={e => setDays(parseInt(e.target.value, 10))} className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200" />
+                                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Days</label>
+                                <input type="number" value={days} onChange={e => setDays(parseInt(e.target.value, 10))} className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200" />
                              </div>
                         </div>
                          {calculateResult && (
-                            <div className="text-center bg-gray-900 p-4 rounded-lg">
+                            <div className="text-center bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
                                 <h3 className="text-lg font-semibold">Resulting Date</h3>
                                 <p className="text-2xl font-bold text-blue-400">{calculateResult}</p>
                             </div>
@@ -100,12 +100,13 @@ const DateCalculator: React.FC<ToolProps> = () => {
 
 const DateInput: React.FC<{label: string, value: string, onChange: (val: string) => void}> = ({ label, value, onChange }) => (
     <div>
-        <label className="block text-sm font-medium text-gray-300 mb-1">{label}</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{label}</label>
         <input 
             type="date"
             value={value}
             onChange={e => onChange(e.target.value)}
-            className="w-full bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200"
+            className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
+            style={{ colorScheme: 'dark' }}
         />
     </div>
 );

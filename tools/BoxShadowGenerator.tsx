@@ -36,21 +36,21 @@ const BoxShadowGenerator: React.FC<ToolProps> = () => {
                     <RangeSlider label="Opacity" value={opacity} setValue={setOpacity} min={0} max={1} step={0.01} />
                     
                     <div className="flex items-center justify-between">
-                        <label className="text-gray-300">Color</label>
-                        <input type="color" value={color} onChange={e => setColor(e.target.value)} className="w-12 h-8 bg-gray-700 border border-gray-600 rounded" />
+                        <label className="text-gray-700 dark:text-gray-300">Color</label>
+                        <input type="color" value={color} onChange={e => setColor(e.target.value)} className="w-12 h-8 bg-transparent border border-gray-300 dark:border-gray-600 rounded" />
                     </div>
                     
-                    <label className="flex items-center space-x-2 p-2 bg-gray-700 rounded cursor-pointer">
+                    <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
                         <input type="checkbox" checked={inset} onChange={() => setInset(p => !p)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
                         <span>Inset</span>
                     </label>
                 </div>
                 <div className="space-y-4">
-                    <div className="h-48 bg-gray-700 rounded flex items-center justify-center p-8">
+                    <div className="h-48 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center p-8">
                         <div className="w-32 h-32 bg-blue-500 rounded-lg" style={{ boxShadow: boxShadowValue }}></div>
                     </div>
                     <div className="relative">
-                        <pre className="bg-gray-900 p-4 rounded border border-gray-600 text-sm overflow-x-auto">
+                        <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
                             <code>box-shadow: {boxShadowValue};</code>
                         </pre>
                         <button
@@ -77,7 +77,7 @@ interface RangeSliderProps {
 
 const RangeSlider: React.FC<RangeSliderProps> = ({ label, value, setValue, min = -100, max = 100, step = 1 }) => (
     <div>
-        <label className="flex justify-between text-gray-300 mb-1">
+        <label className="flex justify-between text-gray-700 dark:text-gray-300 mb-1">
             <span>{label}</span>
             <span>{value}</span>
         </label>

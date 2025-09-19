@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Sidebar from './Sidebar';
 import { TOOLS } from '../constants';
@@ -27,7 +26,7 @@ const ToolPageLayout: React.FC<ToolPageLayoutProps> = ({ selectedToolId, onSelec
                 activeToolId={selectedToolId}
                 onSelectTool={onSelectTool} 
             />
-            <div className="flex-grow bg-gray-900 overflow-y-auto">
+            <div className="flex-grow bg-gray-50 dark:bg-gray-900 overflow-y-auto">
                 {renderTool()}
             </div>
         </div>

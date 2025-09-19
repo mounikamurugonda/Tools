@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
@@ -27,11 +26,11 @@ const UuidGenerator: React.FC<ToolProps> = () => {
             <input
               readOnly
               value={uuid}
-              className="w-full bg-gray-900 border border-gray-600 rounded p-3 text-gray-200 font-mono text-lg"
+              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-gray-800 dark:text-gray-200 font-mono text-lg"
             />
             <button
               onClick={copyToClipboard}
-              className="absolute top-1/2 right-2 transform -translate-y-1/2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
+              className="absolute top-1/2 right-2 transform -translate-y-1/2 px-3 py-1 bg-gray-200 text-gray-600 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 text-sm rounded"
             >
               Copy
             </button>

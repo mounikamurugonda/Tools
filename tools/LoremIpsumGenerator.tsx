@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import type { ToolProps } from '../types';
 import ToolContainer from '../components/ToolContainer';
@@ -25,13 +24,13 @@ const LoremIpsumGenerator: React.FC<ToolProps> = () => {
     <ToolContainer title="Lorem Ipsum Generator">
       <div className="space-y-4">
         <div className="flex items-center gap-4">
-          <label htmlFor="paragraphs" className="text-gray-300">Number of Paragraphs:</label>
+          <label htmlFor="paragraphs" className="text-gray-700 dark:text-gray-300">Number of Paragraphs:</label>
           <input
             type="number"
             id="paragraphs"
             value={paragraphs}
             onChange={(e) => setParagraphs(Math.max(1, parseInt(e.target.value, 10)))}
-            className="w-24 bg-gray-700 border border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-200"
+            className="w-24 bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
           />
           <button onClick={generateText} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Generate</button>
         </div>
@@ -40,7 +39,7 @@ const LoremIpsumGenerator: React.FC<ToolProps> = () => {
             <textarea
               readOnly
               value={generatedText}
-              className="w-full h-64 bg-gray-900 border border-gray-600 rounded p-2 text-gray-200"
+              className="w-full h-64 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200"
             />
             <button
               onClick={copyToClipboard}

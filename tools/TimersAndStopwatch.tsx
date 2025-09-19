@@ -19,9 +19,9 @@ const TimersAndStopwatch: React.FC<ToolProps> = () => {
     return (
         <ToolContainer title="Timers & Stopwatch">
             <div className="max-w-md mx-auto">
-                <div className="flex justify-center bg-gray-700 rounded-lg p-1 mb-6">
-                    <button onClick={() => setMode('timer')} className={`w-1/2 py-2 rounded-md ${mode === 'timer' ? 'bg-blue-600 text-white' : 'hover:bg-gray-600'}`}>Timer</button>
-                    <button onClick={() => setMode('stopwatch')} className={`w-1/2 py-2 rounded-md ${mode === 'stopwatch' ? 'bg-blue-600 text-white' : 'hover:bg-gray-600'}`}>Stopwatch</button>
+                <div className="flex justify-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1 mb-6">
+                    <button onClick={() => setMode('timer')} className={`w-1/2 py-2 rounded-md transition-colors ${mode === 'timer' ? 'bg-blue-600 text-white' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}`}>Timer</button>
+                    <button onClick={() => setMode('stopwatch')} className={`w-1/2 py-2 rounded-md transition-colors ${mode === 'stopwatch' ? 'bg-blue-600 text-white' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}`}>Stopwatch</button>
                 </div>
                 {mode === 'timer' ? <CountdownTimer /> : <Stopwatch />}
             </div>
@@ -82,7 +82,7 @@ const CountdownTimer = () => {
     
     return (
         <div className="flex flex-col items-center space-y-6">
-             <div className="text-7xl font-mono font-bold tracking-widest">
+             <div className="text-7xl font-mono font-bold tracking-widest text-gray-800 dark:text-gray-200">
                 {isActive || timeLeft > 0 ? (
                      `${hours}:${minutes}:${seconds}`
                 ) : (
@@ -98,7 +98,7 @@ const CountdownTimer = () => {
                     <button onClick={handleStart} className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-lg w-32">Start</button> :
                     <button onClick={handlePause} className="px-8 py-3 bg-yellow-600 hover:bg-yellow-700 text-white rounded-lg font-bold text-lg w-32">Pause</button>
                 }
-                <button onClick={handleReset} className="px-8 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-bold text-lg w-32">Reset</button>
+                <button onClick={handleReset} className="px-8 py-3 bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded-lg font-bold text-lg w-32">Reset</button>
             </div>
         </div>
     )
@@ -117,7 +117,7 @@ const TimeInput = ({ value, onChange, max = 59 }: { value: number, onChange: (v:
             if (val < 0) val = 0;
             onChange(val);
         }}
-        className="w-24 bg-gray-800 border-b-2 border-gray-600 text-center focus:outline-none focus:border-blue-500"
+        className="w-24 bg-transparent border-b-2 border-gray-300 dark:border-gray-600 text-center focus:outline-none focus:border-blue-500"
     />
 );
 
@@ -160,23 +160,23 @@ const Stopwatch = () => {
 
     return (
         <div className="flex flex-col items-center space-y-6">
-            <div className="text-5xl font-mono font-bold tracking-wider">
+            <div className="text-5xl font-mono font-bold tracking-wider text-gray-800 dark:text-gray-200">
                 <span>{hours}:{minutes}:{seconds}</span>
-                <span className="text-3xl text-blue-400">.{milliseconds}</span>
+                <span className="text-3xl text-blue-500 dark:text-blue-400">.{milliseconds}</span>
             </div>
             <div className="flex space-x-4">
                  {!isActive ? 
                     <button onClick={handleStart} className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-lg w-32">Start</button> :
                     <button onClick={handleStop} className="px-8 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold text-lg w-32">Stop</button>
                 }
-                <button onClick={handleReset} className="px-8 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg font-bold text-lg w-32">Reset</button>
-                <button onClick={handleLap} disabled={!isActive} className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-bold text-lg w-32 disabled:bg-gray-500 disabled:cursor-not-allowed">Lap</button>
+                <button onClick={handleReset} className="px-8 py-3 bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded-lg font-bold text-lg w-32">Reset</button>
+                <button onClick={handleLap} disabled={!isActive} className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-bold text-lg w-32 disabled:bg-gray-400 dark:disabled:bg-gray-500 disabled:cursor-not-allowed">Lap</button>
             </div>
             <div className="w-full space-y-2 max-h-48 overflow-y-auto">
                 {laps.slice().reverse().map((lap, i) => {
                     const { hours, minutes, seconds, milliseconds } = formatTime(lap);
                     return (
-                        <div key={i} className="flex justify-between items-center bg-gray-700 p-2 rounded-md font-mono text-sm">
+                        <div key={i} className="flex justify-between items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-md font-mono text-sm text-gray-800 dark:text-gray-200">
                             <span>Lap {laps.length - i}</span>
                             <span>{hours}:{minutes}:{seconds}.{milliseconds}</span>
                         </div>
