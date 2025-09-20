@@ -80,14 +80,14 @@ export default function RootLayout({
             }}
           />
       </head>
-      <body className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      <body className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
         <ThemeProvider>
           <div className="min-h-screen flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow">
               {children}
             </main>
-            <footer className="bg-white dark:bg-gray-800 text-center p-6 text-gray-500 dark:text-gray-400 text-sm border-t border-gray-200 dark:border-gray-800">
+            <footer className="bg-transparent text-center p-6 text-gray-500 dark:text-gray-400 text-sm">
               <div className="flex justify-center space-x-6">
                   <Link href="/about" className="hover:text-blue-500">About</Link>
                   <Link href="/contact" className="hover:text-blue-500">Contact</Link>
