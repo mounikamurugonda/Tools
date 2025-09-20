@@ -84,15 +84,17 @@ const CountdownTimer = () => {
     
     return (
         <div className="flex flex-col items-center space-y-6">
-             <div className="text-7xl font-mono font-bold tracking-widest text-gray-800 dark:text-gray-200">
+             <div className="text-7xl font-mono font-bold tracking-widest text-gray-800 dark:text-gray-200 flex items-center gap-2">
                 {isActive || timeLeft > 0 ? (
-                     `${hours}:${minutes}:${seconds}`
+                     <>
+                        <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+                     </>
                 ) : (
-                    <div className="flex items-center gap-2">
+                    <>
                         <TimeInput value={initialTime.h} onChange={v => setInitialTime(p => ({...p, h: v}))} max={99} />:
                         <TimeInput value={initialTime.m} onChange={v => setInitialTime(p => ({...p, m: v}))} />:
                         <TimeInput value={initialTime.s} onChange={v => setInitialTime(p => ({...p, s: v}))} />
-                    </div>
+                    </>
                 )}
             </div>
             <div className="flex space-x-4">
@@ -119,7 +121,7 @@ const TimeInput = ({ value, onChange, max = 59 }: { value: number, onChange: (v:
             if (val < 0) val = 0;
             onChange(val);
         }}
-        className="w-24 bg-transparent border-b-2 border-gray-300 dark:border-gray-600 text-center focus:outline-none focus:border-blue-500"
+        className="w-24 bg-gray-100 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 rounded-lg text-center focus:outline-none focus:border-blue-500 p-2"
     />
 );
 
