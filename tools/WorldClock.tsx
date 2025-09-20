@@ -1,22 +1,20 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Select, { OnChangeValue } from 'react-select';
 import type { ToolProps } from '@/types';
+import { timezones } from '@/lib/timezones';
 import ToolContainer from '@/components/ToolContainer';
 
-const TIMEZONES = [
-    { city: 'New York', tz: 'America/New_York' },
-    { city: 'London', tz: 'Europe/London' },
-    { city: 'Paris', tz: 'Europe/Paris' },
-    { city: 'Tokyo', tz: 'Asia/Tokyo' },
-    { city: 'Sydney', tz: 'Australia/Sydney' },
-    { city: 'Los Angeles', tz: 'America/Los_Angeles' },
-    { city: 'Chicago', tz: 'America/Chicago' },
-    { city: 'Moscow', tz: 'Europe/Moscow' },
-    { city: 'Dubai', tz: 'Asia/Dubai' },
-    { city: 'Shanghai', tz: 'Asia/Shanghai' },
-];
+interface TimezoneOption {
+    value: string;
+    label: string;
+}
+
+const TIMEZONE_OPTIONS: TimezoneOption[] = timezones.flatMap(group => group.zones.map(zone => ({
+    value: zone.value,
+    label: `${group.group} / ${zone.label}`
+})));
 
 const getInitialTimezones = () => {
     if (typeof window === 'undefined') return ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
@@ -54,9 +52,9 @@ const WorldClock: React.FC<ToolProps> = ({ details }) => {
         }
     }, [selectedTimezones]);
     
-    const addTimezone = (tz: string) => {
-        if (!selectedTimezones.includes(tz)) {
-            setSelectedTimezones([...selectedTimezones, tz]);
+    const addTimezone = (option: OnChangeValue<TimezoneOption, false>) => {
+        if (option && !selectedTimezones.includes(option.value)) {
+            setSelectedTimezones([...selectedTimezones, option.value]);
         }
     };
     
@@ -64,20 +62,53 @@ const WorldClock: React.FC<ToolProps> = ({ details }) => {
         setSelectedTimezones(selectedTimezones.filter(t => t !== tz));
     };
 
+    const customStyles = {
+        control: (provided: any) => ({
+            ...provided,
+            backgroundColor: 'hsl(var(--background))',
+            borderColor: 'hsl(var(--border))',
+            color: 'hsl(var(--foreground))',
+            width: '100%',
+        }),
+        menu: (provided: any) => ({
+            ...provided,
+            backgroundColor: 'hsl(0 0% 100%)', // Explicitly white for light mode
+            zIndex: 20,
+        }),
+        option: (provided: any, state: { isFocused: any; }) => ({
+            ...provided,
+            backgroundColor: state.isFocused ? 'hsl(var(--accent))' : 'hsl(0 0% 100%)',
+            color: 'hsl(var(--foreground))',
+            '&:hover': {
+                backgroundColor: 'hsl(var(--accent))',
+            }
+        }),
+        singleValue: (provided: any) => ({
+            ...provided,
+            color: 'hsl(var(--foreground))',
+        }),
+        input: (provided: any) => ({
+            ...provided,
+            color: 'hsl(var(--foreground))',
+        }),
+        placeholder: (provided: any) => ({
+            ...provided,
+            color: 'hsl(var(--muted-foreground))',
+        }),
+    };
+
     return (
         <ToolContainer title="World Clock" details={details}>
             <div className="max-w-2xl mx-auto space-y-6">
                 <div className="flex gap-2">
-                    <select
-                        onChange={(e) => addTimezone(e.target.value)}
-                        className="flex-grow bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
-                        value=""
-                    >
-                        <option value="" disabled>-- Add a city --</option>
-                        {TIMEZONES.map(tzInfo => (
-                            <option key={tzInfo.tz} value={tzInfo.tz}>{tzInfo.city}</option>
-                        ))}
-                    </select>
+                    <Select<TimezoneOption>
+                        options={TIMEZONE_OPTIONS}
+                        onChange={addTimezone}
+                        placeholder="-- Add a city --"
+                        value={null}
+                        styles={customStyles}
+                        className="flex-grow text-gray-800 dark:text-gray-200"
+                    />
                 </div>
                 <div className="space-y-4">
                     {selectedTimezones.map(tz => (
