@@ -34,6 +34,10 @@ import JsonToCsv from '@/tools/JsonToCsv';
 import CsvToXlsx from '@/tools/CsvToXlsx';
 import XlsxToCsv from '@/tools/XlsxToCsv';
 import CharacterCounter from '@/tools/CharacterCounter';
+import KeywordDensityAnalyzer from '@/tools/KeywordDensityAnalyzer';
+import ReadabilityScore from '@/tools/ReadabilityScore';
+import LoanCalculator from '@/tools/LoanCalculator';
+import TimeZoneConverter from '@/tools/TimeZoneConverter';
 
 
 import {
@@ -77,6 +81,10 @@ import {
   FunCategoryIcon,
   MiscCategoryIcon,
   CharacterCounterIcon,
+  KeywordDensityIcon,
+  ReadabilityIcon,
+  LoanCalculatorIcon,
+  TimeZoneConverterIcon,
 } from '@/components/icons';
 
 const PRIVACY_STATEMENT = "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
@@ -84,6 +92,174 @@ const PRIVACY_STATEMENT = "All calculations and data processing for this tool ar
 
 export const TOOLS: Tool[] = [
   // Text Tools
+  {
+    id: 'keyword-density-analyzer',
+    name: 'Keyword Density Analyzer',
+    description: 'Analyze text to find keyword frequency and density.',
+    icon: <KeywordDensityIcon />,
+    component: KeywordDensityAnalyzer,
+    category: ToolCategory.TEXT,
+    details: {
+      introduction: 'This tool helps you analyze the density of keywords and keyphrases in your text. It\'s an essential utility for SEO professionals and content writers to ensure their content is optimized for search engines without overstuffing keywords.',
+      howToUse: [
+        'Paste your text into the input area.',
+        'The tool will automatically process the text and display a table of keywords.',
+        'The table shows the count and density percentage for one-word, two-word, and three-word phrases.',
+        'You can configure options like stop-word removal to refine the analysis.'
+      ],
+      features: [
+        'Calculates density for 1-word, 2-word, and 3-word phrases.',
+        'Sortable results table to easily identify top keywords.',
+        'Option to ignore common "stop words" (like "the", "a", "is") for more meaningful results.',
+        'Real-time analysis as you type.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'Keyword density is a fundamental concept in SEO. It refers to the percentage of times a keyword or phrase appears on a web page compared to the total number of words on the page. This tool automates the counting process and calculates the density for single words and multi-word phrases, providing a clear overview of your content\'s keyword landscape.',
+      usageExamples: [
+        'An SEO specialist can use this tool to check if a blog post is sufficiently optimized for a target keyword before publishing.',
+        'A content writer can analyze a competitor\'s article to understand their keyword strategy.',
+        'A student can use it to ensure their academic paper does not overuse certain terms.'
+      ],
+      underlyingConcept: 'The tool works by parsing the input text, splitting it into individual words (tokens), and counting the occurrences of each word. For multi-word phrases, it iterates through the text in sliding windows of two or three words. It then calculates density using the formula: (Keyword Count / Total Words) * 100. Stop words can be filtered out to focus on more significant terms.',
+      faqs: [
+        {
+          question: 'What is a good keyword density?',
+          answer: 'There is no magic number, but most SEO experts suggest a density of 1-2%. The key is to sound natural and avoid keyword stuffing, which can lead to search engine penalties.'
+        },
+        {
+          question: 'Why are multi-word phrases important?',
+          answer: 'Multi-word phrases, or long-tail keywords, are often more specific and can attract more qualified traffic. Analyzing them helps you understand user intent better.'
+        }
+      ]
+    }
+  },
+  {
+    id: 'readability-score-calculator',
+    name: 'Readability Score Calculator',
+    description: 'Calculate Flesch-Kincaid and other readability scores.',
+    icon: <ReadabilityIcon />,
+    component: ReadabilityScore,
+    category: ToolCategory.TEXT,
+    details: {
+      introduction: 'Determine how easy your text is to read with the Readability Score Calculator. This tool analyzes your content and calculates its score based on the Flesch Reading Ease and Flesch-Kincaid Grade Level formulas, helping you write more accessible content.',
+      howToUse: [
+        'Paste your text into the input field.',
+        'The tool instantly analyzes the text.',
+        'The results panel will display key metrics like word count, sentence count, and average syllables per word.',
+        'The Flesch Reading Ease score and the corresponding U.S. school grade level will be shown.'
+      ],
+      features: [
+        'Calculates Flesch Reading Ease score.',
+        'Determines Flesch-Kincaid Grade Level.',
+        'Provides detailed text statistics (words, sentences, syllables).',
+        'Helps writers tailor their content to a specific audience.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'Readability formulas are used to measure the accessibility of a text. They work by analyzing sentence length and word complexity (often measured by syllables). The Flesch-Kincaid formulas are among the most common, providing a score that correlates to a U.S. school grade level, making it easy to understand if your text is suitable for your target audience.',
+      usageExamples: [
+        'A blogger can check if their post is easy for a general audience to understand.',
+        'A technical writer can use it to simplify complex documentation.',
+        'A teacher can assess the reading level of educational materials.'
+      ],
+      underlyingConcept: 'The tool implements two main formulas. The Flesch Reading Ease formula is: 206.835 - 1.015 * (Total Words / Total Sentences) - 84.6 * (Total Syllables / Total Words). The Flesch-Kincaid Grade Level formula is: 0.39 * (Total Words / Total Sentences) + 11.8 * (Total Syllables / Total Words) - 15.59. The tool counts words, sentences, and syllables to plug into these equations.',
+      faqs: [
+        {
+          question: 'What is a good Flesch Reading Ease score?',
+          answer: 'A score of 60-70 is considered easily understandable by 13-15-year-old students. For a general audience, aiming for a score above 60 is a good goal.'
+        },
+        {
+          question: 'Does a higher grade level mean the writing is better?',
+          answer: 'Not necessarily. It just means the writing is more complex. The "best" grade level depends entirely on your target audience. For a broad audience, a lower grade level (around 8th grade) is often recommended.'
+        }
+      ]
+    }
+  },
+    {
+    id: 'loan-calculator',
+    name: 'Loan Calculator',
+    description: 'Calculate monthly payments and see a full amortization schedule.',
+    icon: <LoanCalculatorIcon />,
+    component: LoanCalculator,
+    category: ToolCategory.MATH,
+    details: {
+      introduction: 'The Loan Calculator helps you understand the financial details of a loan. By providing the loan amount, interest rate, and term, it calculates your monthly payment, total interest paid, and generates a complete amortization table showing the breakdown of each payment.',
+      howToUse: [
+        'Enter the total Loan Amount.',
+        'Provide the annual Interest Rate (e.g., 5 for 5%).',
+        'Set the Loan Term in either years or months.',
+        'The summary of your monthly payment, total interest, and total cost will be calculated automatically.',
+        'A detailed amortization schedule will be displayed below, showing how your loan balance decreases over time.'
+      ],
+      features: [
+        'Calculates fixed monthly loan payments.',
+        'Shows total principal and interest paid over the life of the loan.',
+        'Generates a full amortization schedule.',
+        'Supports loan terms in both years and months.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'An amortization schedule is a table detailing each periodic payment on a loan. It shows how much of each payment is applied to interest and how much is applied to the principal balance. This tool automates the complex calculations involved, giving you a clear financial picture.',
+      usageExamples: [
+        'A potential homebuyer can estimate their monthly mortgage payments.',
+        'A student can figure out the cost of a personal loan for their education.',
+        'A small business owner can analyze the terms of a business loan.'
+      ],
+      underlyingConcept: 'The calculator uses the standard formula for calculating the monthly payment (M) of a fixed-rate loan: M = P * [r(1+r)^n] / [(1+r)^n - 1], where P is the principal loan amount, r is the monthly interest rate (annual rate / 12), and n is the number of payments (term in months). The amortization schedule is then built by calculating the interest for each month on the remaining balance and subtracting it from the payment to find the principal portion.',
+      faqs: [
+        {
+          question: 'Why is so much of my early payment going to interest?',
+          answer: 'In the beginning of a loan, the principal balance is at its highest, so the interest portion of your payment is also at its highest. As you pay down the principal, the interest portion of each payment decreases.'
+        },
+        {
+          question: 'How can I pay less interest overall?',
+          answer: 'You can pay less interest by getting a lower interest rate, choosing a shorter loan term, or making extra payments towards the principal whenever possible.'
+        }
+      ]
+    }
+  },
+    {
+    id: 'timezone-converter',
+    name: 'Time Zone Converter',
+    description: 'Convert a specific time from one timezone to another.',
+    icon: <TimeZoneConverterIcon />,
+    component: TimeZoneConverter,
+    category: ToolCategory.PRODUCTIVITY,
+    details: {
+      introduction: 'Never get confused by time zones again. The Time Zone Converter allows you to instantly see what time it will be in another part of the world. It is perfect for scheduling international meetings, planning travel, or coordinating with friends and family globally.',
+      howToUse: [
+        'Select the date and time you want to convert using the input fields.',
+        'Choose your starting timezone from the "From" dropdown and your target timezone from the "To" dropdown.',
+        'The tool will instantly display the converted date and time for both locations in a clear, side-by-side view.',
+        'The time difference in hours between the two zones is shown right below the selectors.',
+        'Click the swap button between the dropdowns to quickly reverse the conversion.'
+      ],
+      features: [
+        'Side-by-side display for easy comparison of two timezones.',
+        'Calculates and shows the exact hour difference between the selected zones.',
+        'Comprehensive, grouped list of IANA timezones for easy selection.',
+        'Displays the converted day of the week, which is crucial for future or past dates.',
+        'Real-time updates as you change the date, time, or timezones.',
+        'A swap button to quickly invert the "From" and "To" locations.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'This tool leverages your browser\'s built-in Internationalization API (Intl) to perform accurate timezone conversions. It takes a specific date and time, treats it as being in the "From" timezone, and then calculates the equivalent date and time in the "To" timezone, accounting for complexities like Daylight Saving Time (DST).',
+      usageExamples: [
+        'A project manager in New York can schedule a video call with a developer in Berlin by checking the corresponding work hours.',
+        'A traveler can find out the local time of their arrival city before they land.',
+        'Someone can wish their friend in another country a "Happy Birthday" at the right local time.'
+      ],
+      underlyingConcept: 'The core of this tool is the `Intl.DateTimeFormat` object in JavaScript. By providing a specific IANA timezone name (e.g., "America/New_York" or "Europe/Paris"), we can format a single date object to display the correct local time for that zone. The tool creates a date object from your input and then uses formatters for both the "From" and "To" zones to display the results.',
+      faqs: [
+        {
+          question: 'What are IANA timezones?',
+          answer: 'IANA (Internet Assigned Numbers Authority) timezones are standardized names like "America/New_York" that represent specific geographical regions. They are the most reliable way to handle timezones in software because they automatically account for local time rules and Daylight Saving Time changes.'
+        },
+        {
+          question: 'Why is the day of the week different after conversion?',
+          answer: 'When you convert between timezones with a large hour difference, it\'s common for the time to cross over midnight, resulting in a different day. For example, 10 PM on Tuesday in Los Angeles is already 7 AM on Wednesday in Paris.'
+        }
+      ]
+    }
+  },
   {
     id: 'case-converter',
     name: 'Case Converter',

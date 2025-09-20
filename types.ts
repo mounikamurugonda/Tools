@@ -15,12 +15,12 @@ export enum ToolCategory {
 export interface ToolDetails {
   introduction: string;
   howToUse: string[];
-  features?: string[];
+  features: string[];
   privacy: string;
-  explanation?: string;
-  usageExamples?: string[];
-  underlyingConcept?: string;
-  faqs?: { question: string; answer: string }[];
+  explanation: string;
+  usageExamples: string[];
+  underlyingConcept: string;
+  faqs: { question: string; answer: string }[];
 }
 
 export interface Tool {
