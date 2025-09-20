@@ -92,7 +92,14 @@ export const TOOLS: Tool[] = [
     component: CaseConverter,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'The Case Converter tool allows you to easily transform the case of your text. Whether you need your text in all uppercase, all lowercase, sentence case, or title case, this tool provides a quick and easy solution.',
+      introduction: 'The Case Converter tool allows you to easily transform the case of your text. Whether you need your text in all uppercase, all lowercase, sentence case, or title case, this tool provides a quick and easy solution. It works by analyzing the input text and applying string manipulation techniques to change the casing of each character or word as per the selected option. This solves the common problem of manually editing text to fit specific formatting requirements, saving time and reducing errors in documents, emails, or code.',
+      explanation: 'How does it work? The tool takes your input string and uses JavaScript string methods like toUpperCase(), toLowerCase(), or custom logic for title and sentence case. For title case, it capitalizes the first letter of each major word, ignoring minor words like "the" or "and" unless specified. Sentence case capitalizes only the first letter of each sentence. This automation eliminates the tedium of manual corrections, especially for large texts.',
+      usageExamples: [
+        'A student writing an essay might use it to convert all text to title case for headings.',
+        'A developer could convert variable names from camelCase to UPPER_CASE for constants in code.',
+        'A marketer preparing email campaigns might switch text to sentence case for better readability in subject lines.'
+      ],
+      underlyingConcept: 'Text casing is a fundamental concept in typography and programming. It involves modifying the capitalization of letters to convey structure, emphasis, or style. For instance, uppercase is often used for shouting or acronyms, while title case is common in headlines. The tool leverages Unicode character properties to handle various languages and special characters accurately.',
       howToUse: [
         'Paste or type your text into the input area.',
         'Click one of the buttons for the desired case transformation (e.g., UPPER CASE, lower case).',
@@ -105,6 +112,11 @@ export const TOOLS: Tool[] = [
         'Simple and intuitive interface.',
         'Handles large blocks of text efficiently.'
       ],
+      faqs: [
+        { question: 'Does this tool support non-English characters?', answer: 'Yes, it handles Unicode characters, including accented letters and other alphabets.' },
+        { question: 'Can I convert multiple paragraphs at once?', answer: 'Absolutely, the tool processes any amount of text efficiently.' },
+        { question: 'Is there a limit to the text length?', answer: 'No strict limit, but very large texts may depend on your browser\'s memory.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -116,7 +128,14 @@ export const TOOLS: Tool[] = [
     component: WordCounter,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'The Word Counter provides real-time statistics for any text you input. It instantly counts words, characters, sentences, and lines, making it perfect for writers, students, and professionals who need to meet specific length requirements.',
+      introduction: 'The Word Counter provides real-time statistics for any text you input. It instantly counts words, characters, sentences, and lines, making it perfect for writers, students, and professionals who need to meet specific length requirements. This tool addresses the challenge of manually counting elements in text, which can be time-consuming and prone to errors, especially in long documents.',
+      explanation: 'How does it work? As you type or paste text, the tool splits the string based on spaces for words, periods/exclamations/questions for sentences, and newlines for lines. It uses regular expressions to accurately identify these elements, ensuring reliable counts even with complex punctuation.',
+      usageExamples: [
+        'A blogger aiming for 500-word articles can monitor progress in real-time.',
+        'Students writing essays with word limits use it to stay within guidelines.',
+        'SEO specialists check keyword density by counting occurrences in content.'
+      ],
+      underlyingConcept: 'Word counting is rooted in linguistics and content analysis. A "word" is typically defined as a sequence of characters separated by spaces, while sentences are delimited by punctuation. This tool applies these concepts digitally to provide metrics that help gauge content volume and structure.',
       howToUse: [
         'Paste or type your text into the text area.',
         'The statistics for words, characters, sentences, and lines will update automatically as you type.',
@@ -125,6 +144,11 @@ export const TOOLS: Tool[] = [
         'Real-time counting of words, characters, sentences, and lines.',
         'Accurate analysis that correctly handles various punctuation and spacing.',
         'Simple interface with a clear display of all key metrics.',
+      ],
+      faqs: [
+        { question: 'Does it count hyphenated words as one or two?', answer: 'Hyphenated words are counted as one word.' },
+        { question: 'How are numbers treated?', answer: 'Numbers are counted as words if separated by spaces.' },
+        { question: 'Can it handle multiple languages?', answer: 'Yes, it works with any text, though word splitting is space-based.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -137,7 +161,14 @@ export const TOOLS: Tool[] = [
     component: CharacterCounter,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'The Character Counter provides a detailed breakdown of your text\'s length. It calculates the number of characters including spaces, the number of characters excluding spaces, and the total byte size assuming UTF-8 encoding.',
+      introduction: 'The Character Counter provides a detailed breakdown of your text\'s length. It calculates the number of characters including spaces, the number of characters excluding spaces, and the total byte size assuming UTF-8 encoding. This solves problems like fitting text into limited fields, such as social media posts or database entries, where character limits are strict.',
+      explanation: 'How does it work? The tool iterates through each character in the input string, counting them directly. For byte size, it encodes the string in UTF-8 and measures the length, accounting for multi-byte characters like emojis or accented letters.',
+      usageExamples: [
+        'Twitter users (now X) can check if their tweet fits within 280 characters.',
+        'Developers ensure API payloads don\'t exceed size limits by checking bytes.',
+        'Writers for SMS marketing verify messages under 160 characters to avoid splitting.'
+      ],
+      underlyingConcept: 'Character counting involves understanding text encoding. In UTF-8, ASCII characters use 1 byte, while others use more. This tool highlights the difference between visual characters and storage size, crucial in computing and communication.',
       howToUse: [
         'Paste or type your text into the text area.',
         'The statistics for characters (with and without spaces) and bytes will update automatically as you type.',
@@ -147,6 +178,11 @@ export const TOOLS: Tool[] = [
         'Provides character count both with and without whitespace.',
         'Calculates the UTF-8 byte size of the text.',
         'Useful for social media post limits, SMS messages, and data size estimation.'
+      ],
+      faqs: [
+        { question: 'Why is byte size different from character count?', answer: 'Non-ASCII characters like emojis use multiple bytes in UTF-8.' },
+        { question: 'Does it include line breaks?', answer: 'Yes, line breaks are counted as characters.' },
+        { question: 'Is it accurate for all languages?', answer: 'Yes, it supports Unicode fully.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -159,7 +195,14 @@ export const TOOLS: Tool[] = [
     component: LoremIpsumGenerator,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'This tool generates "Lorem Ipsum" placeholder text, commonly used in design and publishing to preview layouts and visual mockups before the final content is available.',
+      introduction: 'This tool generates "Lorem Ipsum" placeholder text, commonly used in design and publishing to preview layouts and visual mockups before the final content is available. It helps designers focus on aesthetics without being distracted by meaningful text, solving the issue of incomplete content during the development phase.',
+      explanation: 'How does it work? You specify the number of paragraphs, and the tool repeats a standard Latin text block, derived from Cicero\'s work, to create the desired length. It ensures the text looks natural with varied sentence lengths.',
+      usageExamples: [
+        'Web designers use it to fill website templates during prototyping.',
+        'Print publishers generate dummy text for brochure layouts.',
+        'App developers placeholder content in UI mockups.'
+      ],
+      underlyingConcept: 'Lorem Ipsum is a scrambled version of Latin text from 45 BC, used since the 1500s in typesetting. The concept is to provide text that mimics English word distribution without conveying meaning, allowing focus on design elements like fonts and spacing.',
       howToUse: [
         'Enter the desired number of paragraphs you want to generate.',
         'Click the "Generate" button.',
@@ -170,6 +213,11 @@ export const TOOLS: Tool[] = [
         'Customizable number of paragraphs.',
         'Generates standard Lorem Ipsum text for realistic mockups.',
         'One-click copy to clipboard functionality.',
+      ],
+      faqs: [
+        { question: 'Is the text always the same?', answer: 'It starts with the classic Lorem Ipsum but repeats as needed.' },
+        { question: 'Can I generate words or sentences instead?', answer: 'This version focuses on paragraphs, but expansions could be added.' },
+        { question: 'Why Latin?', answer: 'It provides a neutral, non-distracting filler.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -182,7 +230,14 @@ export const TOOLS: Tool[] = [
     component: TextReverser,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'A simple yet fun utility to reverse any text you provide. It flips the entire string of characters, including letters, numbers, symbols, and spaces, instantly.',
+      introduction: 'A simple yet fun utility to reverse any text you provide. It flips the entire string of characters, including letters, numbers, symbols, and spaces, instantly. This tool solves creative needs like generating mirror text for designs or puzzles, or even basic data manipulation in programming.',
+      explanation: 'How does it work? The tool splits the input string into an array of characters, reverses the array, and joins it back into a string. This handles all Unicode characters seamlessly.',
+      usageExamples: [
+        'Social media users create "upside-down" or reversed posts for fun.',
+        'Puzzle creators generate reversed clues for games.',
+        'Programmers test string manipulation functions with reversed inputs.'
+      ],
+      underlyingConcept: 'String reversal is a basic algorithm in computer science, often used to teach array operations. It involves iterating from the end to the start, preserving order but in reverse, which can reveal symmetries or be used in encryption basics.',
       howToUse: [
         'Enter or paste the text you want to reverse into the "Original Text" box.',
         'The reversed text will automatically appear in the "Reversed Text" box below.',
@@ -191,6 +246,11 @@ export const TOOLS: Tool[] = [
         'Reverses text in real-time as you type.',
         'Handles all characters, including special symbols and emojis.',
         'Useful for creating "backwards" text for social media or light-hearted puzzles.',
+      ],
+      faqs: [
+        { question: 'Does it reverse words or the entire string?', answer: 'The entire string, character by character.' },
+        { question: 'What about emojis?', answer: 'Emojis are reversed as whole units.' },
+        { question: 'Can I reverse multiple lines?', answer: 'Yes, it treats the whole input as one string.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -203,7 +263,14 @@ export const TOOLS: Tool[] = [
     component: MarkdownPreviewer,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'This real-time Markdown editor allows you to write in Markdown syntax on one side and see the rendered HTML output on the other. It\'s an excellent tool for drafting documentation, blog posts, or README files.',
+      introduction: 'This real-time Markdown editor allows you to write in Markdown syntax on one side and see the rendered HTML output on the other. It\'s an excellent tool for drafting documentation, blog posts, or README files, solving the problem of switching between editing and viewing modes.',
+      explanation: 'How does it work? As you type Markdown, the tool parses it using a library like marked or remark, converting it to HTML and rendering it live. This includes handling headers, lists, code blocks, and more.',
+      usageExamples: [
+        'Developers write GitHub READMEs and preview formatting.',
+        'Bloggers draft posts before publishing.',
+        'Technical writers create docs with instant visual feedback.'
+      ],
+      underlyingConcept: 'Markdown is a lightweight markup language created by John Gruber in 2004. It uses plain text formatting to produce HTML, emphasizing readability in source form. The concept is to simplify writing for the web without full HTML knowledge.',
       howToUse: [
         'Type your Markdown text in the left-hand editor panel.',
         'The right-hand panel will instantly display a preview of the rendered HTML.',
@@ -213,6 +280,11 @@ export const TOOLS: Tool[] = [
         'Live, side-by-side preview.',
         'Supports standard Markdown syntax, including headers, lists, links, images, and code blocks.',
         'Clean, readable output for accurate visualization.',
+      ],
+      faqs: [
+        { question: 'Does it support GitHub Flavored Markdown?', answer: 'Yes, including tables and task lists.' },
+        { question: 'Can I embed images?', answer: 'Yes, via Markdown image syntax.' },
+        { question: 'Is the preview sanitized?', answer: 'Yes, to prevent XSS issues.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -226,7 +298,14 @@ export const TOOLS: Tool[] = [
     component: Base64Converter,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'This tool provides a simple way to encode plain text into a Base64 string and decode Base64 strings back into their original plain text form. Base64 encoding is commonly used to transmit data over media that are designed to handle text.',
+      introduction: 'This tool provides a simple way to encode plain text into a Base64 string and decode Base64 strings back to their original plain text form. Base64 encoding is commonly used to transmit data over media that are designed to handle text, solving issues with binary data in text-based protocols like email or JSON.',
+      explanation: 'How does it work? Encoding converts binary data to a 64-character alphabet (A-Z, a-z, 0-9, +, /). Decoding reverses this. The tool uses browser APIs for accurate handling of UTF-8.',
+      usageExamples: [
+        'Web devs embed images in CSS as Base64 to reduce requests.',
+        'API users encode auth credentials in HTTP headers.',
+        'Email systems encode attachments for safe transmission.'
+      ],
+      underlyingConcept: 'Base64 is a binary-to-text encoding scheme from the 1980s, part of MIME standards. It groups 3 bytes into 4 characters, padding as needed, ensuring safe transport over 7-bit channels.',
       howToUse: [
         'Enter your text or Base64 string into the input area.',
         'Click "Encode" to convert your text to Base64.',
@@ -237,6 +316,11 @@ export const TOOLS: Tool[] = [
         'Fast and reliable encoding and decoding.',
         'Handles multi-byte characters (UTF-8) correctly.',
         'Provides error handling for invalid Base64 strings.',
+      ],
+      faqs: [
+        { question: 'Why use Base64 instead of hex?', answer: 'Base64 is more compact, using 64 chars vs. hex\'s 16.' },
+        { question: 'Does it increase data size?', answer: 'Yes, by about 33% due to encoding overhead.' },
+        { question: 'Can it handle binary files?', answer: 'Yes, but this version focuses on text; images have separate tools.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -249,7 +333,14 @@ export const TOOLS: Tool[] = [
     component: UrlEncoder,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'URL encoding, also known as percent-encoding, converts characters into a format that can be safely transmitted over the Internet. This tool allows you to both encode and decode URL components.',
+      introduction: 'URL encoding, also known as percent-encoding, converts characters into a format that can be safely transmitted over the Internet. This tool allows you to both encode and decode URL components, solving problems with special characters breaking URLs in browsers or servers.',
+      explanation: 'How does it work? It replaces unsafe characters with % followed by their hex code, using encodeURIComponent for components or encodeURI for full URLs.',
+      usageExamples: [
+        'Building query strings for APIs with user input.',
+        'Encoding file names in download links.',
+        'Debugging malformed URLs from logs.'
+      ],
+      underlyingConcept: 'URL encoding follows RFC 3986, reserving characters like ?, &, = for structure. The concept ensures unambiguous parsing by escaping others, preventing injection or misinterpretation.',
       howToUse: [
         'Enter a string (like a search query or URL parameter) into the input area.',
         'Click "Encode" to convert it into a URL-safe format.',
@@ -260,6 +351,11 @@ export const TOOLS: Tool[] = [
         'Uses the standard `encodeURIComponent()` and `decodeURIComponent()` functions.',
         'Essential for working with URL query strings and parameters in web development.',
         'Provides error feedback for malformed strings during decoding.',
+      ],
+      faqs: [
+        { question: 'What\'s the difference from encodeURI?', answer: 'encodeURIComponent escapes more chars for query params.' },
+        { question: 'Does it handle spaces?', answer: 'Yes, spaces become %20.' },
+        { question: 'Is it safe for full URLs?', answer: 'For components yes; use encodeURI for whole URLs.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -272,7 +368,14 @@ export const TOOLS: Tool[] = [
     component: JsonFormatter,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'The JSON Formatter helps you validate and beautify your JSON data. It makes convoluted, single-line JSON readable by formatting it into a well-structured, indented tree.',
+      introduction: 'The JSON Formatter helps you validate and beautify your JSON data. It makes convoluted, single-line JSON readable by formatting it into a well-structured, indented tree, solving the issue of debugging minified or malformed JSON in development.',
+      explanation: 'How does it work? It parses the input with JSON.parse(), catches errors for validation, and uses JSON.stringify() with indentation for pretty-printing.',
+      usageExamples: [
+        'Debugging API responses in console logs.',
+        'Formatting config files for readability.',
+        'Validating user-submitted JSON in forms.'
+      ],
+      underlyingConcept: 'JSON (JavaScript Object Notation) is a data interchange format based on JS objects. Formatting involves tree traversal to add whitespace, making nested structures visible. Validation ensures compliance with JSON rules like quoted keys.',
       howToUse: [
         'Paste your raw JSON data into the input text area.',
         'Click the "Format / Validate" button.',
@@ -284,10 +387,15 @@ export const TOOLS: Tool[] = [
         'Validates JSON syntax and provides clear error messages.',
         'Monospaced font for easy reading and analysis.',
       ],
+      faqs: [
+        { question: 'Can it handle large JSON?', answer: 'Yes, but browser memory limits apply.' },
+        { question: 'Does it sort keys?', answer: 'No, it preserves original order.' },
+        { question: 'What if there\'s a syntax error?', answer: 'It shows the line and description.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
-    {
+  {
     id: 'regex-tester',
     name: 'Regex Tester',
     description: 'Test regular expressions against strings and see matches.',
@@ -295,7 +403,14 @@ export const TOOLS: Tool[] = [
     component: RegexTester,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'A tool for developers to test and debug regular expressions. Instantly see how your pattern matches against a test string, with results and matches highlighted.',
+      introduction: 'A tool for developers to test and debug regular expressions. Instantly see how your pattern matches against a test string, with results and matches highlighted. It solves the complexity of crafting regex that work as intended without trial and error in code.',
+      explanation: 'How does it work? It creates a RegExp object with your pattern and flags, then uses matchAll() or exec() to find and highlight matches, listing groups.',
+      usageExamples: [
+        'Validating email formats in form inputs.',
+        'Extracting data from logs or HTML.',
+        'Searching and replacing in code editors.'
+      ],
+      underlyingConcept: 'Regular expressions are patterns for matching text, based on formal language theory. They use symbols for quantifiers, groups, etc., enabling powerful string operations like search, validate, extract.',
       howToUse: [
         'Enter your regular expression pattern in the first input field.',
         'Optionally, add any flags (like `g`, `i`, `m`) in the flags field.',
@@ -309,6 +424,11 @@ export const TOOLS: Tool[] = [
         'Detailed list of all matches and their capture groups.',
         'Error handling for invalid regular expressions.'
       ],
+      faqs: [
+        { question: 'What flags are supported?', answer: 'g (global), i (insensitive), m (multiline), s (dotall), etc.' },
+        { question: 'Can it show replacements?', answer: 'This version focuses on matching; future updates may add replace.' },
+        { question: 'Is it JS-specific?', answer: 'Yes, uses JS RegExp engine.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -320,7 +440,14 @@ export const TOOLS: Tool[] = [
     component: UuidGenerator,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'Generate Version 4 UUIDs (Universally Unique Identifiers), which are random, 128-bit numbers used to uniquely identify information in computer systems.',
+      introduction: 'Generate Version 4 UUIDs (Universally Unique Identifiers), which are random, 128-bit numbers used to uniquely identify information in computer systems. This tool addresses the need for collision-resistant IDs in databases, sessions, or distributed systems.',
+      explanation: 'How does it work? It uses crypto.randomUUID() to generate a random 128-bit value, formatted as 8-4-4-4-12 hex digits.',
+      usageExamples: [
+        'Assigning unique keys to database records.',
+        'Generating session IDs for web apps.',
+        'Tagging files in content management systems.'
+      ],
+      underlyingConcept: 'UUIDs follow RFC 4122, with v4 being random. The concept relies on vast 128-bit space (3.4e38 possibilities) for near-zero collision probability, enabling decentralized ID generation.',
       howToUse: [
         'Click the "Generate UUID" button.',
         'A new, random UUID will be generated and displayed.',
@@ -330,6 +457,11 @@ export const TOOLS: Tool[] = [
         'Generates cryptographically strong random UUIDs (v4).',
         'Uses the browser\'s built-in `crypto.randomUUID()` method for security.',
         'Simple one-click generation and copying.',
+      ],
+      faqs: [
+        { question: 'Is v4 truly unique?', answer: 'Practically yes, with extremely low collision risk.' },
+        { question: 'Can I generate multiple?', answer: 'Yes, click generate repeatedly.' },
+        { question: 'What about other versions?', answer: 'This focuses on v4; others like v1 use timestamps.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -342,7 +474,14 @@ export const TOOLS: Tool[] = [
     component: HashGenerator,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'Create a cryptographic hash (or "digest") of any text using the secure SHA (Secure Hash Algorithm) family. This tool uses the native Web Crypto API in your browser for enhanced security.',
+      introduction: 'Create a cryptographic hash (or "digest") of any text using the secure SHA (Secure Hash Algorithm) family. This tool uses the native Web Crypto API in your browser for enhanced security, solving needs for data integrity checks or password storage.',
+      explanation: 'How does it work? It encodes text to bytes, then applies SHA via subtle.digest(), outputting hex.',
+      usageExamples: [
+        'Verifying file integrity with checksums.',
+        'Hashing passwords before storage.',
+        'Generating unique keys from strings.'
+      ],
+      underlyingConcept: 'Hashing maps data to fixed-size values, one-way and collision-resistant. SHA is from NIST, with SHA-256/512 being secure for most uses, used in blockchain, SSL, etc.',
       howToUse: [
         'Enter the text you want to hash into the input area.',
         'Select the desired SHA algorithm (SHA-1, SHA-256, or SHA-512).',
@@ -353,6 +492,11 @@ export const TOOLS: Tool[] = [
         'Supports SHA-1, SHA-256, and SHA-512 algorithms.',
         'Powered by the secure, built-in Web Crypto API.',
         'No server interaction ensures your input data remains private.',
+      ],
+      faqs: [
+        { question: 'Is SHA-1 secure?', answer: 'No, use for legacy; prefer SHA-256.' },
+        { question: 'Can I hash files?', answer: 'This is text-based; file hashing needs upload.' },
+        { question: 'What\'s hex output?', answer: 'Base16 representation of the binary hash.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -365,7 +509,14 @@ export const TOOLS: Tool[] = [
     component: JwtDebugger,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'The JWT Decoder allows you to quickly inspect the contents of a JSON Web Token. Simply paste the token to see the decoded header and payload data. Note: This tool does not verify the token\'s signature.',
+      introduction: 'The JWT Decoder allows you to quickly inspect the contents of a JSON Web Token. Simply paste the token to see the decoded header and payload data. Note: This tool does not verify the token\'s signature. It solves debugging auth issues by revealing claims without code.',
+      explanation: 'How does it work? It splits the token by dots, Base64-decodes header and payload, then parses to JSON.',
+      usageExamples: [
+        'Debugging API auth tokens in dev tools.',
+        'Inspecting user claims in sessions.',
+        'Verifying token structure before implementation.'
+      ],
+      underlyingConcept: 'JWT (RFC 7519) is a compact claims representation, with header, payload, signature. Decoding extracts info; verification needs key. Concept is stateless auth for APIs.',
       howToUse: [
         'Paste your full JWT string into the input text area.',
         'The tool will automatically decode the token.',
@@ -378,19 +529,30 @@ export const TOOLS: Tool[] = [
         'Pretty-prints the JSON content for readability.',
         'Validates token structure and provides error feedback.'
       ],
+      faqs: [
+        { question: 'Why no signature verification?', answer: 'It requires the secret key, which varies.' },
+        { question: 'Can it decode encrypted JWT?', answer: 'No, only standard Base64.' },
+        { question: 'What\'s in the payload?', answer: 'Claims like iss, sub, exp.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
-   {
+  {
     id: 'diff-checker',
     name: 'Diff Checker',
     description: 'Compare two blocks of text and highlight the differences.',
     icon: <DiffIcon />,
     component: DiffChecker,
-    // FIX: Added missing 'category' property.
     category: ToolCategory.CODING,
     details: {
-      introduction: 'The Diff Checker helps you compare two pieces of text to find the differences between them. It highlights added and removed lines, making it easy to spot changes in code, documents, or any text-based content.',
+      introduction: 'The Diff Checker helps you compare two pieces of text to find the differences between them. It highlights added and removed lines, making it easy to spot changes in code, documents, or any text-based content. This tool solves the problem of manually scanning for changes, which is error-prone in long texts.',
+      explanation: 'How does it work? It uses a diff algorithm like LCS (Longest Common Subsequence) to identify insertions, deletions, and common parts, then highlights them.',
+      usageExamples: [
+        'Code reviews in pull requests.',
+        'Tracking edits in document versions.',
+        'Comparing config files for discrepancies.'
+      ],
+      underlyingConcept: 'Diff is from Unix utilities, based on edit distance. The concept computes minimal changes to transform one string to another, useful in version control like Git.',
       howToUse: [
         'Paste the original text into the left-hand text area.',
         'Paste the changed or new text into the right-hand text area.',
@@ -403,6 +565,11 @@ export const TOOLS: Tool[] = [
         'Real-time updates as you edit the text.',
         'Useful for code reviews, tracking document changes, and more.'
       ],
+      faqs: [
+        { question: 'Does it handle word-level diffs?', answer: 'This version is line-based; word diffs could be added.' },
+        { question: 'What about large texts?', answer: 'Efficient for reasonable sizes.' },
+        { question: 'Can it ignore whitespace?', answer: 'Not currently, but future options may include.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -414,7 +581,14 @@ export const TOOLS: Tool[] = [
     component: CsvToJson,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'This tool converts data from CSV (Comma-Separated Values) format into a JSON array of objects. It uses the first line of the CSV as headers for the JSON keys.',
+      introduction: 'This tool converts data from CSV (Comma-Separated Values) format into a JSON array of objects. It uses the first line of the CSV as headers for the JSON keys. It solves interoperability issues between tabular data and object-based systems like APIs.',
+      explanation: 'How does it work? It splits lines by newline, then fields by comma (handling quotes), mapping to objects.',
+      usageExamples: [
+        'Importing spreadsheet data to web apps.',
+        'Converting exports for database ingestion.',
+        'Transforming logs for analysis tools.'
+      ],
+      underlyingConcept: 'CSV is a simple table format; JSON is hierarchical. Conversion maps rows to objects, columns to keys, enabling data exchange between flat files and structured formats.',
       howToUse: [
         'Paste your CSV data into the input text area.',
         'Click the "Convert" button.',
@@ -422,9 +596,14 @@ export const TOOLS: Tool[] = [
         'Note: This tool handles basic CSV files and may not support complex cases like multi-line fields.'
       ],
       features: [
-          'Fast, client-side conversion.',
-          'Handles standard comma-separated values.',
-          'Pretty-prints JSON output for readability.',
+        'Fast, client-side conversion.',
+        'Handles standard comma-separated values.',
+        'Pretty-prints JSON output for readability.',
+      ],
+      faqs: [
+        { question: 'What if no headers?', answer: 'Assumes first row is headers; otherwise, use numbers.' },
+        { question: 'Handles quoted commas?', answer: 'Yes, properly parses.' },
+        { question: 'Large files?', answer: 'Browser-limited.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -437,17 +616,29 @@ export const TOOLS: Tool[] = [
     component: JsonToCsv,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'Convert a JSON array of objects into CSV (Comma-Separated Values) format. The keys from the first object in the array are used as the CSV headers.',
+      introduction: 'Convert a JSON array of objects into CSV (Comma-Separated Values) format. The keys from the first object in the array are used as the CSV headers. This tool helps export structured data to spreadsheets or simple storage.',
+      explanation: 'How does it work? It extracts keys from first object, then for each object, joins values with commas, quoting as needed.',
+      usageExamples: [
+        'Exporting API data to Excel.',
+        'Generating reports from JS objects.',
+        'Migrating data to CSV-based tools.'
+      ],
+      underlyingConcept: 'Reverse of CSV to JSON, flattening objects to rows. Ensures consistency by using union of keys if varying.',
       howToUse: [
         'Paste your JSON array into the input area.',
         'The CSV output will be generated automatically.',
         'You can copy the result or download it as a .csv file.',
       ],
-       features: [
-          'Handles conversion from a JSON array of objects.',
-          'Automatically uses keys from the first object as headers.',
-          'Correctly quotes fields containing commas or newlines.',
-          'Option to download the result as a .csv file.',
+      features: [
+        'Handles conversion from a JSON array of objects.',
+        'Automatically uses keys from the first object as headers.',
+        'Correctly quotes fields containing commas or newlines.',
+        'Option to download the result as a .csv file.',
+      ],
+      faqs: [
+        { question: 'What if objects have different keys?', answer: 'Uses all unique keys, filling missing with empty.' },
+        { question: 'Nested objects?', answer: 'Flattens or skips; basic flat objects best.' },
+        { question: 'Download format?', answer: 'UTF-8 CSV.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -460,16 +651,28 @@ export const TOOLS: Tool[] = [
     component: CsvToXlsx,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'Easily convert your CSV data into a downloadable Excel spreadsheet (.xlsx format). This tool processes the data in your browser and generates a file for you to save.',
+      introduction: 'Easily convert your CSV data into a downloadable Excel spreadsheet (.xlsx format). This tool processes the data in your browser and generates a file for you to save, solving the need for offline tools or servers for quick conversions.',
+      explanation: 'How does it work? Uses libraries like SheetJS to parse CSV and create an XLSX binary, then triggers download.',
+      usageExamples: [
+        'Sharing CSV data with non-tech users via Excel.',
+        'Importing logs to spreadsheets for analysis.',
+        'Batch converting reports.'
+      ],
+      underlyingConcept: 'XLSX is XML-based format by Microsoft. Conversion involves mapping CSV rows to sheet cells, preserving data types where possible.',
       howToUse: [
         'Paste your CSV data into the text area.',
         'Click the "Download .xlsx" button.',
         'Your browser will prompt you to save the generated Excel file.',
       ],
-       features: [
-          'Direct conversion to modern Excel .xlsx format.',
-          'Completely client-side, no data is uploaded.',
-          'Handles headers and data rows correctly.',
+      features: [
+        'Direct conversion to modern Excel .xlsx format.',
+        'Completely client-side, no data is uploaded.',
+        'Handles headers and data rows correctly.',
+      ],
+      faqs: [
+        { question: 'Does it support formulas?', answer: 'No, plain data only.' },
+        { question: 'Large datasets?', answer: 'Depends on browser; small to medium best.' },
+        { question: 'Encoding?', answer: 'UTF-8.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -482,16 +685,28 @@ export const TOOLS: Tool[] = [
     component: XlsxToCsv,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'This tool allows you to upload an Excel file (.xlsx) and convert the first sheet into CSV format. The conversion happens entirely within your browser for complete privacy.',
+      introduction: 'This tool allows you to upload an Excel file (.xlsx) and convert the first sheet into CSV format. The conversion happens entirely within your browser for complete privacy, useful for simplifying data or importing to other systems.',
+      explanation: 'How does it work? Reads file with FileReader, parses with SheetJS, extracts first sheet, converts to CSV string.',
+      usageExamples: [
+        'Extracting data from Excel for scripting.',
+        'Converting reports to plain text.',
+        'Batch processing spreadsheets.'
+      ],
+      underlyingConcept: 'Reverse of CSV to XLSX, extracting cell values to delimited strings. Handles types like dates by stringifying.',
       howToUse: [
         'Click "Upload XLSX File" and select your file, or drag and drop a file onto the area.',
         'The data from the first sheet of your Excel file will be converted to CSV and displayed.',
         'You can then copy the CSV data or download it as a file.',
       ],
       features: [
-          'Reads .xlsx and other spreadsheet formats.',
-          'Converts the first worksheet into CSV data.',
-          'Provides options to copy or download the resulting CSV.',
+        'Reads .xlsx and other spreadsheet formats.',
+        'Converts the first worksheet into CSV data.',
+        'Provides options to copy or download the resulting CSV.',
+      ],
+      faqs: [
+        { question: 'Multiple sheets?', answer: 'Only first; select in Excel first.' },
+        { question: 'Formulas?', answer: 'Converts calculated values.' },
+        { question: 'File size limit?', answer: 'Browser-dependent.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -505,7 +720,14 @@ export const TOOLS: Tool[] = [
     component: ImageToBase64,
     category: ToolCategory.IMAGE,
     details: {
-      introduction: 'This tool converts an image file from your computer into a Base64-encoded Data URL. This format can be directly embedded in HTML or CSS files, which can be useful for reducing HTTP requests for small icons and images.',
+      introduction: 'This tool converts an image file from your computer into a Base64-encoded Data URL. This format can be directly embedded in HTML or CSS files, which can be useful for reducing HTTP requests for small icons and images, solving performance issues in web pages.',
+      explanation: 'How does it work? Uploads image, reads as data URL via FileReader, which includes Base64.',
+      usageExamples: [
+        'Embedding logos in email signatures.',
+        'Inlining images in CSS for faster loads.',
+        'Storing images in JSON for apps.'
+      ],
+      underlyingConcept: 'Data URLs (RFC 2397) embed resources inline. Base64 encodes binary to text, allowing image data in URLs like data:image/png;base64,...',
       howToUse: [
         'Click the "Upload an image" button and select an image file from your device.',
         'An image preview will appear on the left.',
@@ -517,10 +739,15 @@ export const TOOLS: Tool[] = [
         'Provides an instant preview of the uploaded image.',
         'Generates a complete Data URL, ready for use in `src` or `url()` attributes.',
       ],
+      faqs: [
+        { question: 'Why use Data URLs?', answer: 'Reduces server requests for small files.' },
+        { question: 'Size increase?', answer: 'Yes, 33% overhead.' },
+        { question: 'Browser support?', answer: 'Universal for modern browsers.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
-    {
+  {
     id: 'base64-to-image',
     name: 'Base64 to Image',
     description: 'Convert a Base64 data URL into a viewable image.',
@@ -528,7 +755,14 @@ export const TOOLS: Tool[] = [
     component: Base64ToImage,
     category: ToolCategory.IMAGE,
     details: {
-      introduction: 'If you have a Base64 Data URL, this tool can decode it back into a viewable image. You can then preview the image and download it as a file.',
+      introduction: 'If you have a Base64 Data URL, this tool can decode it back into a viewable image. You can then preview the image and download it as a file, solving the need to extract embedded images from code or data.',
+      explanation: 'How does it work? Sets the Data URL as img src for preview, then creates blob for download.',
+      usageExamples: [
+        'Extracting images from CSS code.',
+        'Downloading embedded email images.',
+        'Converting API responses to files.'
+      ],
+      underlyingConcept: 'Reverse of encoding, parsing MIME type and Base64 to binary, then rendering as image.',
       howToUse: [
         'Paste a valid Base64 Data URL (starting with `data:image/...`) into the text area.',
         'The image will be rendered in the preview box below.',
@@ -539,6 +773,11 @@ export const TOOLS: Tool[] = [
         'Renders an image preview from a Base64 string.',
         'Allows downloading of the decoded image.',
         'Provides validation to ensure the string is a valid image Data URL.',
+      ],
+      faqs: [
+        { question: 'What formats?', answer: 'Any in Data URL, like PNG, JPG.' },
+        { question: 'Invalid string?', answer: 'Shows error.' },
+        { question: 'Download name?', answer: 'Generic; rename after.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -552,7 +791,14 @@ export const TOOLS: Tool[] = [
     component: BoxShadowGenerator,
     category: ToolCategory.CSS,
     details: {
-      introduction: 'Visually design complex CSS `box-shadow` effects. This generator provides sliders and color pickers to intuitively create the perfect shadow, then gives you the CSS code to copy and paste.',
+      introduction: 'Visually design complex CSS `box-shadow` effects. This generator provides sliders and color pickers to intuitively create the perfect shadow, then gives you the CSS code to copy and paste. It solves trial-and-error in CSS editing for shadows.',
+      explanation: 'How does it work? Updates CSS property in preview element based on inputs, generates string like "x y blur spread color".',
+      usageExamples: [
+        'Designing card components in UI.',
+        'Adding depth to buttons.',
+        'Creating neumorphic effects.'
+      ],
+      underlyingConcept: 'Box-shadow is CSS3 property for layered shadows. Concept mimics light and depth in 2D, with params for position, size, color.',
       howToUse: [
         'Use the sliders to adjust the Horizontal and Vertical Offsets, Blur, and Spread.',
         'Adjust the opacity slider and choose a shadow color.',
@@ -566,6 +812,11 @@ export const TOOLS: Tool[] = [
         'Support for both outset and inset shadows.',
         'One-click copy of the generated CSS rule.'
       ],
+      faqs: [
+        { question: 'Multiple shadows?', answer: 'Not yet; comma-separated in future.' },
+        { question: 'Browser compatibility?', answer: 'CSS3 standard.' },
+        { question: 'Units?', answer: 'Pixels.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -578,7 +829,14 @@ export const TOOLS: Tool[] = [
     component: ColorConverter,
     category: ToolCategory.COLOR,
     details: {
-      introduction: 'A handy tool for web designers and developers to convert color codes between HEX, RGB, and HSL formats. Use the color picker or type in a value to see the conversions instantly.',
+      introduction: 'A handy tool for web designers and developers to convert color codes between HEX, RGB, and HSL formats. Use the color picker or type in a value to see the conversions instantly, solving format mismatches in design tools or code.',
+      explanation: 'How does it work? Parses input, converts using math formulas (e.g., hex to RGB by bit shifting), updates all fields.',
+      usageExamples: [
+        'Converting Photoshop RGB to CSS HEX.',
+        'Adjusting HSL for hue variations.',
+        'Ensuring consistency in branding.'
+      ],
+      underlyingConcept: 'Colors are models: RGB additive, HSL cylindrical. Conversion involves transforms like RGB to HSL using min/max calculations.',
       howToUse: [
         'Use the color picker to select a color visually.',
         'Alternatively, type a valid HEX code into the HEX input field.',
@@ -591,6 +849,11 @@ export const TOOLS: Tool[] = [
         'Supports 3-digit and 6-digit hex codes.',
         'Simple copy-to-clipboard functionality.'
       ],
+      faqs: [
+        { question: 'Alpha support?', answer: 'Not yet; RGBA/HSLA in future.' },
+        { question: 'Invalid input?', answer: 'Resets to default.' },
+        { question: 'Why HSL?', answer: 'Easier for saturation/lightness adjustments.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -602,7 +865,14 @@ export const TOOLS: Tool[] = [
     component: ColorPaletteGenerator,
     category: ToolCategory.COLOR,
     details: {
-      introduction: 'Create harmonious color schemes based on a single base color. This tool can generate different types of palettes, such as monochromatic, analogous, complementary, and triadic, to help you with your design projects.',
+      introduction: 'Create harmonious color schemes based on a single base color. This tool can generate different types of palettes, such as monochromatic, analogous, complementary, and triadic, to help you with your design projects, solving color selection challenges.',
+      explanation: 'How does it work? Uses HSL model to adjust hue, saturation, lightness based on scheme rules (e.g., complementary adds 180 degrees hue).',
+      usageExamples: [
+        'Designing website themes.',
+        'Creating brand color sets.',
+        'Inspiring art with variations.'
+      ],
+      underlyingConcept: 'Color theory: harmonious schemes from wheel positions. Monochromatic varies value, analogous adjacent hues, etc.',
       howToUse: [
         'Select your base color using the color picker or by entering a HEX code.',
         'Choose the type of palette you want to generate from the dropdown menu (e.g., Monochromatic).',
@@ -614,6 +884,11 @@ export const TOOLS: Tool[] = [
         'Starts from any base color you choose.',
         'Visual preview of the generated color scheme.',
         'Easy one-click copying of color codes.'
+      ],
+      faqs: [
+        { question: 'Custom shades?', answer: 'Fixed 5; adjustable in future.' },
+        { question: 'Accessibility check?', answer: 'No, but use contrast tools separately.' },
+        { question: 'Export?', answer: 'Copy codes; no file yet.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -627,7 +902,14 @@ export const TOOLS: Tool[] = [
     component: UnitConverter,
     category: ToolCategory.MATH,
     details: {
-      introduction: 'A versatile tool for converting between various units of measurement for length and weight. It provides quick and accurate conversions without needing to search online.',
+      introduction: 'A versatile tool for converting between various units of measurement for length and weight. It provides quick and accurate conversions without needing to search online, solving everyday calculation needs in cooking, travel, or science.',
+      explanation: 'How does it work? Uses predefined factors (e.g., 1 inch = 2.54 cm) to multiply/divide input.',
+      usageExamples: [
+        'Converting recipe ingredients from grams to ounces.',
+        'Planning travel distances in km to miles.',
+        'Scientific data from metric to imperial.'
+      ],
+      underlyingConcept: 'Unit conversion uses ratios. Base units like meter/kg, others derived. Accuracy depends on precise constants.',
       howToUse: [
         'Select the category of measurement (Length or Weight).',
         'Enter the value you wish to convert in the "From" field.',
@@ -640,6 +922,11 @@ export const TOOLS: Tool[] = [
         'Intuitive interface for quick conversions.',
         'Real-time calculation as you input values.',
       ],
+      faqs: [
+        { question: 'More categories?', answer: 'Length/weight now; volume/temp future.' },
+        { question: 'Precision?', answer: 'Up to decimals; rounds sensibly.' },
+        { question: 'Custom units?', answer: 'No, standard only.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -651,7 +938,14 @@ export const TOOLS: Tool[] = [
     component: CurrencyConverter,
     category: ToolCategory.MATH,
     details: {
-      introduction: 'This Currency Converter provides exchange rates for a wide range of global currencies. It fetches up-to-date rates to give you an accurate conversion based on the latest financial data.',
+      introduction: 'This Currency Converter provides exchange rates for a wide range of global currencies. It fetches up-to-date rates to give you an accurate conversion based on the latest financial data, useful for travel, shopping, or finance.',
+      explanation: 'How does it work? Fetches rates from API, multiplies amount by rate.',
+      usageExamples: [
+        'Travelers checking costs abroad.',
+        'Online shoppers comparing prices.',
+        'Businesses calculating invoices.'
+      ],
+      underlyingConcept: 'Exchange rates fluctuate based on markets. Conversion is simple multiplication, but rates update frequently.',
       howToUse: [
         'Enter the amount you want to convert in either the "From" or "To" field.',
         'Select your desired currencies from the dropdown menus.',
@@ -662,6 +956,11 @@ export const TOOLS: Tool[] = [
         'Uses up-to-date exchange rates from an external API.',
         'Supports a large number of international currencies.',
         'Two-way conversion (editing either amount updates the other).',
+      ],
+      faqs: [
+        { question: 'How current are rates?', answer: 'Updated daily or hourly via API.' },
+        { question: 'Fees included?', answer: 'No, mid-market rates.' },
+        { question: 'Offline?', answer: 'Needs internet for rates.' }
       ],
       privacy: "This tool fetches exchange rates from a third-party API (open.er-api.com). The amounts and currencies you select are used for calculation in your browser and are not sent to our servers. Please refer to the API provider's privacy policy for their data handling practices."
     }
@@ -674,7 +973,14 @@ export const TOOLS: Tool[] = [
     component: BmiCalculator,
     category: ToolCategory.MATH,
     details: {
-      introduction: 'The Body Mass Index (BMI) Calculator is a tool that helps estimate body fat based on your weight and height. It provides a general indication of whether you are in a healthy weight range for your height.',
+      introduction: 'The Body Mass Index (BMI) Calculator is a tool that helps estimate body fat based on your weight and height. It provides a general indication of whether you are in a healthy weight range for your height, aiding health awareness.',
+      explanation: 'How does it work? BMI = weight / height^2 (kg/m2), categorizes based on WHO ranges.',
+      usageExamples: [
+        'Personal health tracking.',
+        'Fitness apps input.',
+        'Medical quick checks.'
+      ],
+      underlyingConcept: 'BMI, devised by Quetelet in 1830s, correlates height/weight to fat. Limitations exist for athletes, but useful screen.',
       howToUse: [
         'Select your preferred unit system (Metric or Imperial).',
         'Enter your height and weight in the appropriate fields.',
@@ -687,6 +993,11 @@ export const TOOLS: Tool[] = [
         'Provides BMI value and corresponding weight status category.',
         'Color-coded results for easy interpretation.'
       ],
+      faqs: [
+        { question: 'Accurate for all?', answer: 'General; not for kids/athletes.' },
+        { question: 'What\'s healthy BMI?', answer: '18.5-24.9 typically.' },
+        { question: 'Alternatives?', answer: 'Body fat %, waist ratio.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -698,7 +1009,14 @@ export const TOOLS: Tool[] = [
     component: DateCalculator,
     category: ToolCategory.MATH,
     details: {
-      introduction: 'This versatile Date Calculator has two modes. It can calculate the total duration (in days and weeks) between two dates, or it can calculate a future or past date by adding or subtracting a specific number of days from a starting date.',
+      introduction: 'This versatile Date Calculator has two modes. It can calculate the total duration (in days and weeks) between two dates, or it can calculate a future or past date by adding or subtracting a specific number of days from a starting date. Useful for planning, deadlines.',
+      explanation: 'How does it work? Uses Date objects, milliseconds differences for duration, setDate for add/subtract.',
+      usageExamples: [
+        'Calculating age in days.',
+        'Project deadline projections.',
+        'Vacation duration.'
+      ],
+      underlyingConcept: 'Date math handles Gregorian calendar, leap years. Duration is (end - start) / 86400000 ms/day.',
       howToUse: [
         'Select a mode: "Duration Between Dates" or "Add/Subtract Days".',
         'For Duration mode: select a Start Date and an End Date to see the time between them.',
@@ -709,6 +1027,11 @@ export const TOOLS: Tool[] = [
         'Calculates duration in both days and weeks.',
         'Easily add or subtract days from any given date.',
         'User-friendly date pickers for easy input.'
+      ],
+      faqs: [
+        { question: 'Leap years?', answer: 'Handled automatically.' },
+        { question: 'Time zones?', answer: 'Local time.' },
+        { question: 'Months/years add?', answer: 'Days only now.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -723,6 +1046,13 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.PRODUCTIVITY,
     details: {
       introduction: 'Keep track of the current time in multiple cities around the world. This tool is perfect for coordinating with international teams, scheduling meetings across time zones, or simply staying connected with friends and family abroad.',
+      explanation: 'How does it work? Uses Intl.DateTimeFormat with timeZone option to format local time for each city.',
+      usageExamples: [
+        'Remote workers syncing with global offices.',
+        'Travelers checking home time.',
+        'Event planners for international calls.'
+      ],
+      underlyingConcept: 'Time zones are UTC offsets. Tool calculates from system time, handling DST via browser API.',
       howToUse: [
         'The clock displays a default set of cities.',
         'To add a new city, select one from the dropdown menu.',
@@ -735,6 +1065,11 @@ export const TOOLS: Tool[] = [
         'Your list of clocks is saved locally using `localStorage`.',
         'Real-time updates every second.'
       ],
+      faqs: [
+        { question: 'DST handling?', answer: 'Automatic via browser.' },
+        { question: 'City list?', answer: 'Common ones; searchable.' },
+        { question: 'Offline?', answer: 'Yes, but time from system.' }
+      ],
       privacy: "Your selected clock preferences are stored in your browser's `localStorage` and are not sent to any server."
     }
   },
@@ -746,7 +1081,14 @@ export const TOOLS: Tool[] = [
     component: TimersAndStopwatch,
     category: ToolCategory.PRODUCTIVITY,
     details: {
-      introduction: 'A multi-function timekeeping tool. Use the countdown Timer for tasks with a set duration, or switch to the Stopwatch to accurately measure elapsed time, complete with lap tracking.',
+      introduction: 'A multi-function timekeeping tool. Use the countdown Timer for tasks with a set duration, or switch to the Stopwatch to accurately measure elapsed time, complete with lap tracking. Great for workouts, cooking, or timing events.',
+      explanation: 'How does it work? Uses setInterval for ticking, notifications for timer end.',
+      usageExamples: [
+        'Timing study sessions.',
+        'Tracking race laps.',
+        'Cooking reminders.'
+      ],
+      underlyingConcept: 'Timing uses system clock. Stopwatch accumulates, timer decrements. Laps snapshot intervals.',
       howToUse: [
         'Select either "Timer" or "Stopwatch" mode.',
         'For the Timer: set the hours, minutes, and seconds, then click "Start". You can also pause and reset.',
@@ -757,6 +1099,11 @@ export const TOOLS: Tool[] = [
         'Precise stopwatch with millisecond accuracy.',
         'Lap recording functionality to track split times.',
         'Clean interface showing only the relevant controls for each mode.'
+      ],
+      faqs: [
+        { question: 'Background running?', answer: 'Browser may throttle; keep tab open.' },
+        { question: 'Sound?', answer: 'Yes for timer end.' },
+        { question: 'Multiple timers?', answer: 'Single now.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -769,7 +1116,14 @@ export const TOOLS: Tool[] = [
     component: TodoList,
     category: ToolCategory.PRODUCTIVITY,
     details: {
-      introduction: 'A straightforward and persistent to-do list to help you stay organized. Add tasks, mark them as complete, and filter your view. Your tasks are automatically saved in your browser\'s local storage.',
+      introduction: 'A straightforward and persistent to-do list to help you stay organized. Add tasks, mark them as complete, and filter your view. Your tasks are automatically saved in your browser\'s local storage, for daily planning.',
+      explanation: 'How does it work? Stores array in localStorage, updates UI on changes.',
+      usageExamples: [
+        'Daily chores.',
+        'Work tasks.',
+        'Shopping lists.'
+      ],
+      underlyingConcept: 'Task management with states (active/complete). Persistence via key-value storage.',
       howToUse: [
         'Type a new task into the input field and press Enter or click "Add".',
         'Click the checkbox next to a task to mark it as completed.',
@@ -781,6 +1135,11 @@ export const TOOLS: Tool[] = [
         'Filter tasks to see all, only active, or only completed items.',
         'Data is saved to `localStorage`, so your tasks persist between sessions.',
         'Clean and minimalist design.'
+      ],
+      faqs: [
+        { question: 'Sync across devices?', answer: 'No, local only.' },
+        { question: 'Priorities?', answer: 'Basic; no yet.' },
+        { question: 'Export?', answer: 'Copy manually.' }
       ],
       privacy: "Your to-do list is stored in your browser's `localStorage`. This data is not transmitted to our servers and remains private to your device."
     }
@@ -794,6 +1153,13 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.PRODUCTIVITY,
     details: {
       introduction: 'The Pomodoro Timer helps you manage your time and stay focused using the Pomodoro Technique. It alternates between focused work sessions (typically 25 minutes) and short breaks (5 minutes) to improve productivity and prevent burnout.',
+      explanation: 'How does it work? Counts down, switches modes, plays sound at end.',
+      usageExamples: [
+        'Studying with breaks.',
+        'Work focus sessions.',
+        'Task batching.'
+      ],
+      underlyingConcept: 'Pomodoro by Cirillo: 25 min work, 5 min break. Enhances focus via time boxing.',
       howToUse: [
         'Click the "Start" button to begin a 25-minute work session.',
         'The timer will count down, and a progress ring will visualize the remaining time.',
@@ -805,6 +1171,11 @@ export const TOOLS: Tool[] = [
         'Visual progress indicator.',
         'Audio notification when a session ends.',
         'Simple Start, Pause, and Reset controls.'
+      ],
+      faqs: [
+        { question: 'Custom times?', answer: 'Fixed now; adjustable future.' },
+        { question: 'Long breaks?', answer: 'After 4 pomodoros manually.' },
+        { question: 'Sound customizable?', answer: 'Default only.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
@@ -818,7 +1189,14 @@ export const TOOLS: Tool[] = [
     component: MemeGenerator,
     category: ToolCategory.FUN,
     details: {
-      introduction: 'Create classic-style memes with this easy-to-use generator. Upload your own image, add top and bottom text, and download your creation to share.',
+      introduction: 'Create classic-style memes with this easy-to-use generator. Upload your own image, add top and bottom text, and download your creation to share. Fun for social media or humor.',
+      explanation: 'How does it work? Draws image on canvas, overlays text with Impact font.',
+      usageExamples: [
+        'Making jokes for friends.',
+        'Social media posts.',
+        'Marketing with humor.'
+      ],
+      underlyingConcept: 'Memes are cultural ideas spread virally. Generator mimics Advice Animal style with bold text.',
       howToUse: [
         'Click "Upload an Image" to select a picture from your device.',
         'Enter your desired text in the "Top Text" and "Bottom Text" input fields.',
@@ -830,6 +1208,11 @@ export const TOOLS: Tool[] = [
         'Classic Impact font with white text and a black outline for maximum readability.',
         'Live preview of your meme as you type.',
         'Easy one-click download.'
+      ],
+      faqs: [
+        { question: 'Templates?', answer: 'Upload own; no built-in.' },
+        { question: 'Text position?', answer: 'Top/bottom fixed.' },
+        { question: 'File size?', answer: 'Depends on image.' }
       ],
       privacy: "All image processing and text rendering happens in your browser. Your images are not uploaded to any server."
     }
@@ -843,7 +1226,14 @@ export const TOOLS: Tool[] = [
     component: PasswordGenerator,
     category: ToolCategory.MISC,
     details: {
-      introduction: 'Generate strong, secure, and random passwords to protect your online accounts. This tool uses the browser\'s cryptographically secure random number generator for high-quality randomness.',
+      introduction: 'Generate strong, secure, and random passwords to protect your online accounts. This tool uses the browser\'s cryptographically secure random number generator for high-quality randomness, helping prevent weak password vulnerabilities.',
+      explanation: 'How does it work? Builds charset from options, picks random chars with crypto.getRandomValues.',
+      usageExamples: [
+        'New account creation.',
+        'Password resets.',
+        'Security audits.'
+      ],
+      underlyingConcept: 'Strong passwords have high entropy. Random selection from large set resists brute force.',
       howToUse: [
         'Adjust the "Length" slider to set the desired password length.',
         'Use the checkboxes to include or exclude uppercase letters, lowercase letters, numbers, and symbols.',
@@ -856,6 +1246,11 @@ export const TOOLS: Tool[] = [
         'Uses the secure `crypto.getRandomValues` browser API.',
         'One-click copy to clipboard.'
       ],
+      faqs: [
+        { question: 'How secure?', answer: 'Cryptographic random.' },
+        { question: 'Memorable?', answer: 'Random; use manager.' },
+        { question: 'Min length?', answer: '12 recommended.' }
+      ],
       privacy: PRIVACY_STATEMENT
     }
   },
@@ -867,7 +1262,14 @@ export const TOOLS: Tool[] = [
     component: QrCodeGenerator,
     category: ToolCategory.MISC,
     details: {
-      introduction: 'Create a QR Code from any text or URL. QR Codes are scannable barcodes that can store information and are easily read by smartphones, perfect for sharing links, contact info, or Wi-Fi credentials.',
+      introduction: 'Create a QR Code from any text or URL. QR Codes are scannable barcodes that can store information and are easily read by smartphones, perfect for sharing links, contact info, or Wi-Fi credentials, simplifying data transfer.',
+      explanation: 'How does it work? Uses library like qrcode to encode data to matrix, render as image.',
+      usageExamples: [
+        'Sharing website links on posters.',
+        'Quick Wi-Fi access.',
+        'Product info in stores.'
+      ],
+      underlyingConcept: 'QR (Quick Response) from 1994, matrix barcode with error correction. Encodes text to patterns readable by cameras.',
       howToUse: [
         'Enter the text or URL you want to encode into the text area.',
         'The QR code image will be generated automatically in the preview area.',
@@ -878,6 +1280,11 @@ export const TOOLS: Tool[] = [
         'Works with any text-based input, including URLs.',
         'High-quality PNG download.',
         'Simple and fast interface.'
+      ],
+      faqs: [
+        { question: 'Error correction?', answer: 'Medium level.' },
+        { question: 'Size?', answer: 'Auto; scalable.' },
+        { question: 'Colors?', answer: 'Black/white; custom future.' }
       ],
       privacy: PRIVACY_STATEMENT
     }

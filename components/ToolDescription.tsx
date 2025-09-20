@@ -40,16 +40,45 @@ const ToolDescription: React.FC<ToolDescriptionProps> = ({ details }) => {
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">About this Tool</h3>
         <p className="mb-6 text-gray-600 dark:text-gray-400">{details.introduction}</p>
         <div className="space-y-1">
+            {details.explanation && (
+                <AccordionItem title="How does it work?">
+                    <p>{details.explanation}</p>
+                </AccordionItem>
+            )}
             <AccordionItem title="How to Use">
                 <ol className="list-decimal pl-5 space-y-1">
                     {details.howToUse.map((step, index) => <li key={index}>{step}</li>)}
                 </ol>
             </AccordionItem>
+            {details.usageExamples && details.usageExamples.length > 0 && (
+                <AccordionItem title="Usage Examples">
+                    <ul className="list-disc pl-5 space-y-1">
+                        {details.usageExamples.map((example, index) => <li key={index}>{example}</li>)}
+                    </ul>
+                </AccordionItem>
+            )}
             {details.features && details.features.length > 0 && (
                 <AccordionItem title="Key Features">
                     <ul className="list-disc pl-5 space-y-1">
                         {details.features.map((feature, index) => <li key={index}>{feature}</li>)}
                     </ul>
+                </AccordionItem>
+            )}
+            {details.underlyingConcept && (
+                <AccordionItem title="Underlying Concept">
+                    <p>{details.underlyingConcept}</p>
+                </AccordionItem>
+            )}
+            {details.faqs && details.faqs.length > 0 && (
+                <AccordionItem title="Frequently Asked Questions">
+                    <div className="space-y-4">
+                        {details.faqs.map((faq, index) => (
+                            <div key={index}>
+                                <h4 className="font-semibold text-gray-800 dark:text-gray-200">{faq.question}</h4>
+                                <p>{faq.answer}</p>
+                            </div>
+                        ))}
+                    </div>
                 </AccordionItem>
             )}
             <AccordionItem title="Data Privacy">
