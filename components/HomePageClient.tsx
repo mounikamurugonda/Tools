@@ -67,19 +67,10 @@ const HomePageClient: React.FC = () => {
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
-            The Ultimate "One-Stop" Toolbox
+            The Ultimate One-Stop Toolbox
         </h1>
-        
-        <div className="mt-8">
-            <div className="inline-block bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-900/50 dark:to-teal-900/50 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200">
-                    Now with <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">{toolCount}</span> powerful tools to streamline your workflow.
-                </p>
-                <p className="mt-2 text-md text-gray-600 dark:text-gray-400">Fast, private, and always available.</p>
-            </div>
-        </div>
 
-        <div className="mt-10 max-w-xl mx-auto">
+                <div className="mt-10 max-w-xl mx-auto">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <SearchIcon className="w-5 h-5 text-gray-400" />
@@ -94,6 +85,17 @@ const HomePageClient: React.FC = () => {
             />
           </div>
         </div>
+        
+        <div className="mt-8">
+            <div className="inline-block bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-900/50 dark:to-teal-900/50 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                <p className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200">
+                    Now with <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">{toolCount}</span> powerful tools to streamline your workflow.
+                </p>
+                <p className="mt-2 text-md text-gray-600 dark:text-gray-400">Fast, private, and always available.</p>
+            </div>
+        </div>
+
+
       </div>
 
       <div className="space-y-12">
