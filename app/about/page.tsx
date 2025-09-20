@@ -15,21 +15,21 @@ export default function AboutPage() {
     <PageContainer title="About UtilToolkits">
       <section>
         <p>
-          Welcome to UtilToolkits, the ambitious project born from a burning passion to revolutionize how we access and use online tools. We're not just another toolbox—we're on a relentless mission to curate and create the most comprehensive collection of browser-based utilities available anywhere on the internet. Imagine having every essential tool, from text manipulators to advanced converters, all in one spot, running seamlessly in your browser without compromising your privacy or speed.
+          Welcome to UtilToolkits, the ambitious project born from a burning passion to revolutionize how we access and use online tools. We&apos;re not just another toolbox—we&apos;re on a relentless mission to curate and create the most comprehensive collection of browser-based utilities available anywhere on the internet. Imagine having every essential tool, from text manipulators to advanced converters, all in one spot, running seamlessly in your browser without compromising your privacy or speed.
         </p>
       </section>
       
       <section>
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-3">Our Passionate Mission</h2>
         <p>
-          At UtilToolkits, our drive comes from a deep-seated determination to solve a universal frustration: the endless search across scattered websites for the right tool. We envision a world where developers, creators, and everyday users can find every utility they need in a single, unified platform. That's why we're committed to scouring the internet, innovating new features, and integrating the best ideas into our suite—all while ensuring everything operates client-side for ultimate privacy and lightning-fast performance. We're building the ultimate one-stop shop for tools, and we won't stop until we've covered every category imaginable, from coding essentials to productivity boosters and beyond.
+          At UtilToolkits, our drive comes from a deep-seated determination to solve a universal frustration: the endless search across scattered websites for the right tool. We envision a world where developers, creators, and everyday users can find every utility they need in a single, unified platform. That&apos;s why we&apos;re committed to scouring the internet, innovating new features, and integrating the best ideas into our suite—all while ensuring everything operates client-side for ultimate privacy and lightning-fast performance. We&apos;re building the ultimate one-stop shop for tools, and we won&apos;t stop until we&apos;ve covered every category imaginable, from coding essentials to productivity boosters and beyond.
         </p>
       </section>
       
       <section>
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-3">What Sets Us Apart</h2>
         <p>
-          Unlike generic tool sites, UtilToolkits is fueled by an unyielding passion for excellence and completeness. We're constantly expanding our library, drawing inspiration from across the web to bring you innovative, user-requested features. Our tools are designed with real-world needs in mind, crafted to save time, enhance creativity, and boost efficiency. Here's a glimpse of our growing arsenal:
+          Unlike generic tool sites, UtilToolkits is fueled by an unyielding passion for excellence and completeness. We&apos;re constantly expanding our library, drawing inspiration from across the web to bring you innovative, user-requested features. Our tools are designed with real-world needs in mind, crafted to save time, enhance creativity, and boost efficiency. Here&apos;s a glimpse of our growing arsenal:
         </p>
         <ul className="list-disc list-inside space-y-2 pl-4 text-gray-600 dark:text-gray-400">
           <li><strong>Text Mastery:</strong> Effortlessly convert cases, count words and characters, generate placeholder text, and reverse strings with precision.</li>
@@ -69,7 +69,7 @@ export default function AboutPage() {
       <section>
         <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-3">Join Our Journey</h2>
         <p>
-          We're obsessed with making UtilToolkits the go-to resource for tools, and your input fuels our fire. Have a tool idea? Spot a gap in our collection? Reach out via our Contact page—we're determined to incorporate the best suggestions and keep evolving. Together, let's build the ultimate toolkit that empowers everyone to achieve more with less hassle.
+          We&apos;re obsessed with making UtilToolkits the go-to resource for tools, and your input fuels our fire. Have a tool idea? Spot a gap in our collection? Reach out via our Contact page—we&apos;re determined to incorporate the best suggestions and keep evolving. Together, let&apos;s build the ultimate toolkit that empowers everyone to achieve more with less hassle.
         </p>
       </section>
     </PageContainer>
