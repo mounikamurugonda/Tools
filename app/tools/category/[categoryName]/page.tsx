@@ -1,5 +1,8 @@
-import { TOOLS, CATEGORY_ORDER, CATEGORY_CONTENT } from '@/constants';
+import { TOOLS, CATEGORY_ORDER, CATEGORY_CONTENT, URL_TO_CATEGORY_MAP, CATEGORY_URL_MAP } from '@/constants';
 import ToolCard from '@/components/ToolCard';
+import { InlineAd, BannerAd } from '@/components/AdContainer';
+import { getCategoryPageSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
+import Schema from '@/components/Schema';
 import Link from 'next/link';
 import { ToolCategory } from '@/types';
 import { Metadata } from 'next';
@@ -10,8 +13,7 @@ type Props = {
 };
 
 const getCategoryFromParam = (param: string): ToolCategory | undefined => {
-  const decodedCategory = decodeURIComponent(param);
-  return CATEGORY_ORDER.find(c => c.toLowerCase() === decodedCategory.toLowerCase());
+  return URL_TO_CATEGORY_MAP[param];
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -23,15 +25,35 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  const tools = TOOLS.filter(tool => tool.category === category);
+  const content = CATEGORY_CONTENT[category];
+
   return {
-    title: `${category} Tools`,
-    description: `A collection of ${category} tools to streamline your workflow.`,
+    title: `${category} Tools | UtilToolkits`,
+    description: content.introduction,
+    keywords: `${category.toLowerCase()}, tools, utilities, developers, ${category.toLowerCase().replace(/\s+/g, ',')}`,
+    authors: [{ name: 'UtilToolkits Team' }],
+    openGraph: {
+      title: `${category} Tools | UtilToolkits`,
+      description: content.introduction,
+      type: 'website',
+      url: `https://utiltoolkits.com/tools/category/${params.categoryName}`,
+      siteName: 'UtilToolkits',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${category} Tools | UtilToolkits`,
+      description: content.introduction,
+    },
+    alternates: {
+      canonical: `/tools/category/${params.categoryName}`,
+    },
   };
 }
 
 export async function generateStaticParams() {
   return CATEGORY_ORDER.map(category => ({
-    categoryName: encodeURIComponent(category),
+    categoryName: CATEGORY_URL_MAP[category],
   }));
 }
 
@@ -45,8 +67,21 @@ export default function CategoryPage({ params }: Props) {
   const tools = TOOLS.filter(tool => tool.category === category);
   const content = CATEGORY_CONTENT[category];
 
+  const breadcrumbItems = [
+    { name: 'Home', url: 'https://utiltoolkits.com' },
+    { name: 'Tools', url: 'https://utiltoolkits.com/tools' },
+    { name: `${category} Tools`, url: `https://utiltoolkits.com/tools/category/${params.categoryName}` }
+  ];
+
   return (
-    <div className="p-4 sm:p-6 md:p-8">
+    <>
+      {/* Schema Markup */}
+      <Schema schema={getWebsiteSchema()} />
+      <Schema schema={getOrganizationSchema()} />
+      <Schema schema={getCategoryPageSchema(category, tools)} />
+      <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
+      
+      <div className="p-4 sm:p-6 md:p-8">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{category} Tools</h1>
         <div className="prose prose-lg dark:prose-invert max-w-none">
@@ -80,6 +115,9 @@ export default function CategoryPage({ params }: Props) {
         </div>
       </div>
       
+      {/* Banner Ad */}
+      <BannerAd />
+      
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Explore {category} Tools</h2>
         <p className="text-gray-600 dark:text-gray-400 mb-6">Here are all the tools available in this category. Click on any to get started!</p>
@@ -98,6 +136,10 @@ export default function CategoryPage({ params }: Props) {
           <p className="text-xl text-gray-500 dark:text-gray-400">No tools found in this category yet. Check back soon!</p>
         </div>
       )}
-    </div>
+      
+      {/* Bottom Ad */}
+      <InlineAd />
+      </div>
+    </>
   );
 }

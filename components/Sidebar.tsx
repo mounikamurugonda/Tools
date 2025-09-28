@@ -3,15 +3,17 @@
 import React, { useState, useMemo, useEffect, useRef, cloneElement, isValidElement } from 'react';
 import type { Tool } from '@/types';
 import { ToolCategory } from '@/types';
-import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/constants';
+import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
+import { SidebarAd } from './AdContainer';
 import { ChevronDownIcon } from './icons';
 import { TOOLS } from '@/constants';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams, useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 const Sidebar: React.FC = () => {
     const params = useParams();
     const searchParams = useSearchParams();
+    const pathname = usePathname();
     const activeToolId = params?.toolId as string;
     const activeCategoryName = params?.categoryName ? decodeURIComponent(params.categoryName as string) : undefined;
     const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
@@ -19,8 +21,12 @@ const Sidebar: React.FC = () => {
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
     const [searchTerm, setSearchTerm] = useState('');
 
+    // Never filter sidebar - always show all tools for navigation
+    const shouldFilter = false;
+
     useEffect(() => {
-        setSearchTerm(searchParams?.get('search') || '');
+        // Always clear search term in sidebar - we don't want to filter sidebar
+        setSearchTerm('');
     }, [searchParams]);
 
     useEffect(() => {
@@ -46,13 +52,9 @@ const Sidebar: React.FC = () => {
     }, [activeToolId, activeCategoryName]);
 
     const filteredTools = useMemo(() => {
-        const query = searchTerm.toLowerCase().trim();
-        if (!query) return TOOLS;
-        return TOOLS.filter(tool =>
-            tool.name.toLowerCase().includes(query) ||
-            tool.description.toLowerCase().includes(query)
-        );
-    }, [searchTerm]);
+        // Always return all tools - sidebar should never be filtered
+        return TOOLS;
+    }, []);
 
     const groupedTools = useMemo(() => {
         return filteredTools.reduce((acc, tool) => {
@@ -79,7 +81,7 @@ const Sidebar: React.FC = () => {
                         return (
                             <div key={category} ref={el => { categoryRefs.current[category] = el; }}>
                                 <div className={`w-full flex items-center justify-between text-left px-2 py-2 text-sm font-semibold rounded ${isCurrentCategoryActive ? 'bg-gray-200 dark:bg-gray-700' : ''}`}>
-                                    <Link href={`/tools/category/${encodeURIComponent(category)}`} className="flex items-center grow text-gray-700 dark:text-gray-300">
+                                    <Link href={`/tools/category/${CATEGORY_URL_MAP[category]}`} className="flex items-center grow text-gray-700 dark:text-gray-300">
                                         {CategoryIcon && <CategoryIcon />}
                                         <span>{category}</span>
                                     </Link>
@@ -115,6 +117,9 @@ const Sidebar: React.FC = () => {
                         );
                     })}
                 </nav>
+                
+                {/* Sidebar Ad */}
+                <SidebarAd />
             </div>
         </aside>
     );

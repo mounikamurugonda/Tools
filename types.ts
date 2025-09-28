@@ -21,6 +21,7 @@ export interface ToolDetails {
   usageExamples: string[];
   underlyingConcept: string;
   faqs: { question: string; answer: string }[];
+  tip?: string;
 }
 
 export interface Tool {

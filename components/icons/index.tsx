@@ -398,3 +398,9 @@ export const TimeZoneConverterIcon: React.FC<{ className?: string }> = ({ classN
         <path strokeLinecap="round" strokeLinejoin="round" d="M16 19.5L19 16.5m0 0L16 13.5M19 16.5H5" />
     </svg>
 );
+
+export const LightbulbIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.311V21m-3.75-2.311V21m0 0a2.25 2.25 0 01-2.25-2.25m2.25-2.25a2.25 2.25 0 00-2.25-2.25M15 5.25l-3 3m0 0l-3-3m3 3V1.5M9 5.25l3 3m0 0l3-3" />
+    </svg>
+);

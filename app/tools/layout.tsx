@@ -11,7 +11,7 @@ export default function ToolsLayout({
     <div className="flex flex-col md:flex-row">
       <Sidebar />
       <main className="w-full md:w-[80%] bg-gray-50 dark:bg-gray-900 flex flex-col">
-        <div className="flex-grow p-4 md:p-8">
+        <div className="flex-grow p-2 md:p-4">
           {children}
         </div>
         <Footer />

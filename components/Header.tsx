@@ -4,7 +4,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ThemeSwitcher from './ThemeSwitcher';
 import Logo from './Logo';
-import { CATEGORY_ORDER, TOOLS } from '@/constants';
+import { CATEGORY_ORDER, TOOLS, CATEGORY_URL_MAP } from '@/constants';
 import { MenuIcon, CloseIcon, ChevronDownIcon } from './icons';
 import Link from 'next/link';
 import { ToolCategory } from '@/types';
@@ -50,13 +50,19 @@ const Header: React.FC = () => {
                 {isDropdownOpen && (
                     <div className="absolute top-full mt-2 left-0 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 animate-fade-in py-1">
                         {CATEGORY_ORDER.map(category => (
-                            <Link key={category} href={`/tools/category/${encodeURIComponent(category)}`} onClick={closeAllMenus} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <Link key={category} href={`/tools/category/${CATEGORY_URL_MAP[category]}`} onClick={closeAllMenus} className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
                                 {category}
                             </Link>
                         ))}
                     </div>
                 )}
             </div>
+            <Link href="/tools" onClick={closeAllMenus} className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 rounded-md transition-colors">
+                Tools
+            </Link>
+            <Link href="/tips" onClick={closeAllMenus} className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 rounded-md transition-colors">
+                Tips
+            </Link>
             <Link href="/about" onClick={closeAllMenus} className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400 rounded-md transition-colors">
                 About
             </Link>
@@ -90,11 +96,14 @@ const Header: React.FC = () => {
                 <div className="pt-2">
                     <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Categories</h3>
                     {CATEGORY_ORDER.map(category => (
-                        <Link key={category} href={`/tools/category/${encodeURIComponent(category)}`} onClick={closeAllMenus} className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md ml-4">
+                        <Link key={category} href={`/tools/category/${CATEGORY_URL_MAP[category]}`} onClick={closeAllMenus} className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md ml-4">
                             {category}
                         </Link>
                     ))}
                 </div>
+                <Link href="/tools" onClick={closeAllMenus} className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+                    Tools
+                </Link>
                 <div className="pt-2">
                     <h3 className="px-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Pages</h3>
                     <Link href="/about" onClick={closeAllMenus} className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
@@ -102,6 +111,9 @@ const Header: React.FC = () => {
                     </Link>
                     <Link href="/contact" onClick={closeAllMenus} className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
                         Contact
+                    </Link>
+                    <Link href="/tips" onClick={closeAllMenus} className="block px-3 py-2 text-base font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md">
+                        Tips
                     </Link>
                 </div>
             </nav>

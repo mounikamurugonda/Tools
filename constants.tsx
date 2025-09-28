@@ -274,6 +274,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.TEXT,
     featured: true,
     details: {
+      tip: "Use 'Title Case' for blog post headlines to make them look professional, and 'Sentence case' for paragraphs to keep them easy to read!",
       introduction: 'The Case Converter tool allows you to easily transform the case of your text. Whether you need your text in all uppercase, all lowercase, sentence case, or title case, this tool provides a quick and easy solution. It works by analyzing the input text and applying string manipulation techniques to change the casing of each character or word as per the selected option. This solves the common problem of manually editing text to fit specific formatting requirements, saving time and reducing errors in documents, emails, or code.',
       explanation: 'How does it work? The tool takes your input string and uses JavaScript string methods like toUpperCase(), toLowerCase(), or custom logic for title and sentence case. For title case, it capitalizes the first letter of each major word, ignoring minor words like "the" or "and" unless specified. Sentence case capitalizes only the first letter of each sentence. This automation eliminates the tedium of manual corrections, especially for large texts.',
       usageExamples: [
@@ -310,6 +311,7 @@ export const TOOLS: Tool[] = [
     component: WordCounter,
     category: ToolCategory.TEXT,
     details: {
+      tip: "Writing an essay or a tweet? Keep this tool open in a separate tab to quickly check if you're within the required length limits as you write.",
       introduction: 'The Word Counter provides real-time statistics for any text you input. It instantly counts words, characters, sentences, and lines, making it perfect for writers, students, and professionals who need to meet specific length requirements. This tool addresses the challenge of manually counting elements in text, which can be time-consuming and prone to errors, especially in long documents.',
       explanation: 'How does it work? As you type or paste text, the tool splits the string based on spaces for words, periods/exclamations/questions for sentences, and newlines for lines. It uses regular expressions to accurately identify these elements, ensuring reliable counts even with complex punctuation.',
       usageExamples: [
@@ -551,6 +553,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.CODING,
     featured: true,
     details: {
+      tip: "Got a long, messy line of JSON from an API? Just paste it here and click 'Format' to instantly make it clean, indented, and readable. It's a lifesaver for debugging!",
       introduction: 'The JSON Formatter helps you validate and beautify your JSON data. It makes convoluted, single-line JSON readable by formatting it into a well-structured, indented tree, solving the issue of debugging minified or malformed JSON in development.',
       explanation: 'How does it work? It parses the input with JSON.parse(), catches errors for validation, and uses JSON.stringify() with indentation for pretty-printing.',
       usageExamples: [
@@ -904,6 +907,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.IMAGE,
     featured: true,
     details: {
+      tip: "Base64 is great for small icons or logos in your website's CSS. It can reduce HTTP requests and make your site load a tiny bit faster!",
       introduction: 'This tool converts an image file from your computer into a Base64-encoded Data URL. This format can be directly embedded in HTML or CSS files, which can be useful for reducing HTTP requests for small icons and images, solving performance issues in web pages.',
       explanation: 'How does it work? Uploads image, reads as data URL via FileReader, which includes Base64.',
       usageExamples: [
@@ -1014,6 +1018,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.COLOR,
     featured: true,
     details: {
+      tip: "HSL (Hue, Saturation, Lightness) is an amazing format for creating color variations. Just tweak the 'Lightness' value to get perfect shades and tints of your base color.",
       introduction: 'A handy tool for web designers and developers to convert color codes between HEX, RGB, and HSL formats. Use the color picker or type in a value to see the conversions instantly, solving format mismatches in design tools or code.',
       explanation: 'How does it work? Parses input, converts using math formulas (e.g., hex to RGB by bit shifting), updates all fields.',
       usageExamples: [
@@ -1338,6 +1343,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.PRODUCTIVITY,
     featured: true,
     details: {
+      tip: "Don't skip the breaks! The 5-minute rests in the Pomodoro Technique are just as important as the 25-minute focus sessions. They help your brain recharge.",
       introduction: 'The Pomodoro Timer helps you manage your time and stay focused using the Pomodoro Technique. It alternates between focused work sessions (typically 25 minutes) and short breaks (5 minutes) to improve productivity and prevent burnout.',
       explanation: 'How does it work? Counts down, switches modes, plays sound at end.',
       usageExamples: [
@@ -1413,6 +1419,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.MISC,
     featured: true,
     details: {
+      tip: "A great password is long, random, and unique. Aim for at least 16 characters and use a password manager so you don't have to remember them all!",
       introduction: 'Generate strong, secure, and random passwords to protect your online accounts. This tool uses the browser\'s cryptographically secure random number generator for high-quality randomness, helping prevent weak password vulnerabilities.',
       explanation: 'How does it work? Builds charset from options, picks random chars with crypto.getRandomValues.',
       usageExamples: [
@@ -1489,6 +1496,32 @@ export const CATEGORY_ORDER: ToolCategory[] = [
     ToolCategory.FUN,
     ToolCategory.MISC,
 ];
+
+// SEO-friendly URL mapping for categories
+export const CATEGORY_URL_MAP: Record<ToolCategory, string> = {
+    [ToolCategory.TEXT]: 'text-tools',
+    [ToolCategory.CODING]: 'coding-tools',
+    [ToolCategory.IMAGE]: 'image-tools',
+    [ToolCategory.CSS]: 'css-tools',
+    [ToolCategory.COLOR]: 'color-tools',
+    [ToolCategory.MATH]: 'math-calculation-tools',
+    [ToolCategory.PRODUCTIVITY]: 'productivity-tools',
+    [ToolCategory.FUN]: 'fun-interactive-tools',
+    [ToolCategory.MISC]: 'miscellaneous-tools',
+};
+
+// Reverse mapping from URL to category
+export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = {
+    'text-tools': ToolCategory.TEXT,
+    'coding-tools': ToolCategory.CODING,
+    'image-tools': ToolCategory.IMAGE,
+    'css-tools': ToolCategory.CSS,
+    'color-tools': ToolCategory.COLOR,
+    'math-calculation-tools': ToolCategory.MATH,
+    'productivity-tools': ToolCategory.PRODUCTIVITY,
+    'fun-interactive-tools': ToolCategory.FUN,
+    'miscellaneous-tools': ToolCategory.MISC,
+};
 
 export const CATEGORY_ICONS: Record<ToolCategory, React.FC> = {
     [ToolCategory.TEXT]: TextCategoryIcon,
