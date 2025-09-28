@@ -74,6 +74,24 @@ export const resetViewCounts = (): void => {
   }
 };
 
+// Get trending tools (tools with recent activity)
+export const getTrendingTools = (limit: number = 6): Array<{toolId: string, count: number}> => {
+  const viewCounts = getViewCounts();
+  const totalViews = Object.values(viewCounts).reduce((sum, count) => sum + count, 0);
+  
+  // If total views are low, return empty array to let fallback logic work
+  if (totalViews < 10) {
+    return [];
+  }
+  
+  // Get tools with at least 2 views and sort by count
+  return Object.entries(viewCounts)
+    .filter(([_, count]) => count >= 2)
+    .map(([toolId, count]) => ({ toolId, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit);
+};
+
 // Development helper: Log all view counts
 export const logViewCounts = (): void => {
   if (typeof window === 'undefined') return;
