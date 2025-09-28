@@ -68,7 +68,22 @@ export const resetViewCounts = (): void => {
   
   try {
     localStorage.removeItem('tool_view_counts');
+    console.log('View counts reset successfully');
   } catch (error) {
     console.error('Error resetting view counts:', error);
+  }
+};
+
+// Development helper: Log all view counts
+export const logViewCounts = (): void => {
+  if (typeof window === 'undefined') return;
+  
+  const viewCounts = getViewCounts();
+  console.log('Current view counts:', viewCounts);
+  
+  // Make it available globally for easy access
+  if (typeof window !== 'undefined') {
+    (window as any).resetViewCounts = resetViewCounts;
+    (window as any).logViewCounts = logViewCounts;
   }
 };

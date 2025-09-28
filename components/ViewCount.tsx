@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { getViewCount, incrementViewCount } from '@/lib/viewCount';
+import { getViewCount, incrementViewCount, logViewCounts } from '@/lib/viewCount';
 import { EyeIcon } from './icons';
 
 interface ViewCountProps {
@@ -19,6 +19,9 @@ const ViewCount: React.FC<ViewCountProps> = ({
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    // Initialize development helpers
+    logViewCounts();
+    
     // Get initial count
     const initialCount = getViewCount(toolId);
     setCount(initialCount);
