@@ -85,6 +85,11 @@ import {
   ReadabilityIcon,
   LoanCalculatorIcon,
   TimeZoneConverterIcon,
+  CsvToJsonIcon,
+  JsonToCsvIcon,
+  CsvToXlsxIcon,
+  XlsxToCsvIcon,
+  Base64ToImageIcon,
 } from '@/components/icons';
 
 const PRIVACY_STATEMENT = "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
@@ -267,6 +272,7 @@ export const TOOLS: Tool[] = [
     icon: <CaseIcon />,
     component: CaseConverter,
     category: ToolCategory.TEXT,
+    featured: true,
     details: {
       introduction: 'The Case Converter tool allows you to easily transform the case of your text. Whether you need your text in all uppercase, all lowercase, sentence case, or title case, this tool provides a quick and easy solution. It works by analyzing the input text and applying string manipulation techniques to change the casing of each character or word as per the selected option. This solves the common problem of manually editing text to fit specific formatting requirements, saving time and reducing errors in documents, emails, or code.',
       explanation: 'How does it work? The tool takes your input string and uses JavaScript string methods like toUpperCase(), toLowerCase(), or custom logic for title and sentence case. For title case, it capitalizes the first letter of each major word, ignoring minor words like "the" or "and" unless specified. Sentence case capitalizes only the first letter of each sentence. This automation eliminates the tedium of manual corrections, especially for large texts.',
@@ -543,6 +549,7 @@ export const TOOLS: Tool[] = [
     icon: <JsonIcon />,
     component: JsonFormatter,
     category: ToolCategory.CODING,
+    featured: true,
     details: {
       introduction: 'The JSON Formatter helps you validate and beautify your JSON data. It makes convoluted, single-line JSON readable by formatting it into a well-structured, indented tree, solving the issue of debugging minified or malformed JSON in development.',
       explanation: 'How does it work? It parses the input with JSON.parse(), catches errors for validation, and uses JSON.stringify() with indentation for pretty-printing.',
@@ -753,7 +760,7 @@ export const TOOLS: Tool[] = [
     id: 'csv-to-json',
     name: 'CSV to JSON',
     description: 'Convert CSV data into a structured JSON array.',
-    icon: <FileConversionIcon />,
+    icon: <CsvToJsonIcon />,
     component: CsvToJson,
     category: ToolCategory.CODING,
     details: {
@@ -788,7 +795,7 @@ export const TOOLS: Tool[] = [
     id: 'json-to-csv',
     name: 'JSON to CSV',
     description: 'Convert a JSON array of objects into CSV format.',
-    icon: <FileConversionIcon />,
+    icon: <JsonToCsvIcon />,
     component: JsonToCsv,
     category: ToolCategory.CODING,
     details: {
@@ -823,7 +830,7 @@ export const TOOLS: Tool[] = [
     id: 'csv-to-xlsx',
     name: 'CSV to XLSX',
     description: 'Convert CSV data directly into an Excel (.xlsx) file.',
-    icon: <FileConversionIcon />,
+    icon: <CsvToXlsxIcon />,
     component: CsvToXlsx,
     category: ToolCategory.CODING,
     details: {
@@ -857,7 +864,7 @@ export const TOOLS: Tool[] = [
     id: 'xlsx-to-csv',
     name: 'XLSX to CSV',
     description: 'Extract data from an Excel (.xlsx) file and convert it to CSV.',
-    icon: <FileConversionIcon />,
+    icon: <XlsxToCsvIcon />,
     component: XlsxToCsv,
     category: ToolCategory.CODING,
     details: {
@@ -895,6 +902,7 @@ export const TOOLS: Tool[] = [
     icon: <ImageIcon />,
     component: ImageToBase64,
     category: ToolCategory.IMAGE,
+    featured: true,
     details: {
       introduction: 'This tool converts an image file from your computer into a Base64-encoded Data URL. This format can be directly embedded in HTML or CSS files, which can be useful for reducing HTTP requests for small icons and images, solving performance issues in web pages.',
       explanation: 'How does it work? Uploads image, reads as data URL via FileReader, which includes Base64.',
@@ -927,7 +935,7 @@ export const TOOLS: Tool[] = [
     id: 'base64-to-image',
     name: 'Base64 to Image',
     description: 'Convert a Base64 data URL into a viewable image.',
-    icon: <ImageIcon />,
+    icon: <Base64ToImageIcon />,
     component: Base64ToImage,
     category: ToolCategory.IMAGE,
     details: {
@@ -1004,6 +1012,7 @@ export const TOOLS: Tool[] = [
     icon: <ColorIcon />,
     component: ColorConverter,
     category: ToolCategory.COLOR,
+    featured: true,
     details: {
       introduction: 'A handy tool for web designers and developers to convert color codes between HEX, RGB, and HSL formats. Use the color picker or type in a value to see the conversions instantly, solving format mismatches in design tools or code.',
       explanation: 'How does it work? Parses input, converts using math formulas (e.g., hex to RGB by bit shifting), updates all fields.',
@@ -1327,6 +1336,7 @@ export const TOOLS: Tool[] = [
     icon: <PomodoroIcon />,
     component: PomodoroTimer,
     category: ToolCategory.PRODUCTIVITY,
+    featured: true,
     details: {
       introduction: 'The Pomodoro Timer helps you manage your time and stay focused using the Pomodoro Technique. It alternates between focused work sessions (typically 25 minutes) and short breaks (5 minutes) to improve productivity and prevent burnout.',
       explanation: 'How does it work? Counts down, switches modes, plays sound at end.',
@@ -1401,6 +1411,7 @@ export const TOOLS: Tool[] = [
     icon: <PasswordIcon />,
     component: PasswordGenerator,
     category: ToolCategory.MISC,
+    featured: true,
     details: {
       introduction: 'Generate strong, secure, and random passwords to protect your online accounts. This tool uses the browser\'s cryptographically secure random number generator for high-quality randomness, helping prevent weak password vulnerabilities.',
       explanation: 'How does it work? Builds charset from options, picks random chars with crypto.getRandomValues.',
@@ -1489,4 +1500,158 @@ export const CATEGORY_ICONS: Record<ToolCategory, React.FC> = {
     [ToolCategory.PRODUCTIVITY]: ProductivityCategoryIcon,
     [ToolCategory.FUN]: FunCategoryIcon,
     [ToolCategory.MISC]: MiscCategoryIcon,
+};
+
+export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
+    [ToolCategory.TEXT]: "Tools for text manipulation, counting, and analysis.",
+    [ToolCategory.CODING]: "Utilities for developers to format, debug, and generate code.",
+    [ToolCategory.IMAGE]: "Tools for image conversion and manipulation.",
+    [ToolCategory.CSS]: "Helpers for generating and previewing CSS styles.",
+    [ToolCategory.COLOR]: "Utilities for color conversion and palette generation.",
+    [ToolCategory.MATH]: "Calculators and converters for mathematical operations.",
+    [ToolCategory.PRODUCTIVITY]: "Tools to help you stay organized and focused.",
+    [ToolCategory.FUN]: "Fun tools to create memes and more.",
+    [ToolCategory.MISC]: "A collection of other useful miscellaneous tools.",
+};
+
+export const CATEGORY_CONTENT: Record<ToolCategory, {
+  introduction: string;
+  benefits: string[];
+  useCases: string[];
+}> = {
+  [ToolCategory.TEXT]: {
+    introduction: "Text is everywhere in our digital world—whether you're writing content, coding, or just organizing notes. Our Text Tools category makes working with words effortless and fun. From transforming case formats to analyzing readability, these utilities help you refine, analyze, and perfect your text without the hassle of manual editing.",
+    benefits: [
+      "Quickly transform text to fit any format or style",
+      "Get instant insights into word counts, keywords, and readability",
+      "Save time on repetitive text tasks with one-click solutions",
+      "Perfect for writers, developers, and content creators alike"
+    ],
+    useCases: [
+      "Bloggers checking readability scores before publishing",
+      "Developers converting variable names between coding conventions",
+      "Students analyzing keyword density in essays",
+      "Marketers generating placeholder text for layouts"
+    ]
+  },
+  [ToolCategory.CODING]: {
+    introduction: "Coding is creative, but it can also be tedious when you're dealing with formatting, debugging, or data conversion. Our Coding Tools are designed for developers who want to focus on building amazing things, not wrestling with syntax or file formats. These utilities run right in your browser, keeping your workflow smooth and secure.",
+    benefits: [
+      "Format and validate code/data instantly without servers",
+      "Debug complex tokens and patterns with visual feedback",
+      "Convert between formats seamlessly for better interoperability",
+      "All processing happens locally for complete privacy"
+    ],
+    useCases: [
+      "Frontend developers pretty-printing API responses",
+      "Full-stack engineers testing regex patterns for validation",
+      "Data scientists converting CSV files to JSON for analysis",
+      "DevOps teams generating secure hashes for configuration"
+    ]
+  },
+  [ToolCategory.IMAGE]: {
+    introduction: "Images bring your ideas to life, but preparing them for the web or apps can be tricky. Our Image Tools simplify the process of converting and embedding images, so you can focus on creativity rather than technical headaches. Whether you're embedding assets in code or sharing optimized files, these tools make it quick and easy.",
+    benefits: [
+      "Convert images to formats that work anywhere",
+      "Embed images directly in code without extra files",
+      "Maintain quality while reducing file sizes",
+      "No uploads required—everything stays on your device"
+    ],
+    useCases: [
+      "Web designers embedding logos in email templates",
+      "Developers converting images to Base64 for CSS backgrounds",
+      "Content creators preparing assets for social media",
+      "App developers testing image data in prototypes"
+    ]
+  },
+  [ToolCategory.CSS]: {
+    introduction: "CSS is the magic behind beautiful websites, but crafting the perfect styles can take trial and error. Our CSS Tools let you experiment visually and generate clean, production-ready code. From shadows to gradients, these utilities help you create stunning designs faster and with more confidence.",
+    benefits: [
+      "Visual previews of styles before coding",
+      "Generate complex CSS properties with simple controls",
+      "Copy-paste ready code that works across browsers",
+      "Perfect for rapid prototyping and design iteration"
+    ],
+    useCases: [
+      "UI designers creating button shadows for prototypes",
+      "Front-end developers experimenting with neumorphism effects",
+      "Landing page builders generating custom gradients",
+      "CSS learners practicing with interactive generators"
+    ]
+  },
+  [ToolCategory.COLOR]: {
+    introduction: "Color is the soul of design—it sets the mood, guides the eye, and makes your creations memorable. Our Color Tools help you explore, convert, and harmonize colors effortlessly, whether you're building a brand or just experimenting. Turn inspiration into precise palettes with tools that understand the nuances of color theory.",
+    benefits: [
+      "Convert between color formats instantly (HEX, RGB, HSL)",
+      "Generate harmonious palettes from a single color",
+      "Visual feedback to see how colors work together",
+      "Perfect for both beginners and design professionals"
+    ],
+    useCases: [
+      "Graphic designers creating brand color schemes",
+      "Web developers converting Photoshop colors to CSS",
+      "Artists experimenting with color harmonies",
+      "Marketers ensuring consistent branding across platforms"
+    ]
+  },
+  [ToolCategory.MATH]: {
+    introduction: "Math doesn't have to be complicated or confined to calculators. Our Math Tools bring practical calculations to your fingertips, from unit conversions to financial planning. Whether you're a student solving problems, a professional crunching numbers, or just curious about the world, these utilities make math accessible and useful.",
+    benefits: [
+      "Accurate conversions between units and currencies",
+      "Financial calculators for real-world planning",
+      "Health metrics like BMI with easy interpretation",
+      "All calculations done locally for instant results"
+    ],
+    useCases: [
+      "Students converting units for homework assignments",
+      "Travelers checking currency exchange rates",
+      "Fitness enthusiasts tracking BMI progress",
+      "Homeowners estimating loan payments"
+    ]
+  },
+  [ToolCategory.PRODUCTIVITY]: {
+    introduction: "In a busy world, staying organized and focused is key to getting things done. Our Productivity Tools are like your personal assistant—timers, clocks, and task managers that help you make the most of your time. Designed for the modern workflow, they keep you on track without overwhelming you with complexity.",
+    benefits: [
+      "Time management with Pomodoro and world clocks",
+      "Task organization that syncs with your browser",
+      "Timers and stopwatches for precise tracking",
+      "Cross-timezone coordination for global teams"
+    ],
+    useCases: [
+      "Remote workers scheduling calls across time zones",
+      "Students using Pomodoro for focused study sessions",
+      "Professionals managing to-do lists during the day",
+      "Freelancers timing client work with stopwatches"
+    ]
+  },
+  [ToolCategory.FUN]: {
+    introduction: "Who says tools have to be serious? Our Fun Tools let you unleash your creativity and add some joy to your digital life. From meme creation to playful text effects, these utilities are perfect for breaking up the workday or sharing laughs with friends. Because even developers deserve a bit of fun!",
+    benefits: [
+      "Quick, easy creation of shareable content",
+      "No design skills required—just your imagination",
+      "Perfect for social media, team chats, or personal enjoyment",
+      "Lightweight tools that run instantly in your browser"
+    ],
+    useCases: [
+      "Social media enthusiasts creating custom memes",
+      "Team members sharing funny posts in Slack",
+      "Content creators generating viral graphics",
+      "Friends experimenting with text effects for messages"
+    ]
+  },
+  [ToolCategory.MISC]: {
+    introduction: "Sometimes you need a tool that doesn't fit neatly into a box—and that's exactly what our Misc Tools are for. From generating secure passwords to creating QR codes, these utilities cover the unexpected but essential tasks that pop up in everyday digital life. Think of them as your Swiss Army knife for the web.",
+    benefits: [
+      "Versatile utilities for security and convenience",
+      "Generate unique IDs, codes, and secure strings",
+      "Quick solutions for one-off tasks",
+      "Everything processed locally for your privacy"
+    ],
+    useCases: [
+      "Users creating strong passwords for new accounts",
+      "Business owners generating QR codes for products",
+      "Developers needing unique IDs for testing",
+      "Anyone sharing links via scannable codes"
+    ]
+  }
 };

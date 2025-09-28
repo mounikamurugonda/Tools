@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Link from "next/link";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Script from "next/script";
+import ConditionalFooter from '@/components/ConditionalFooter';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.utiltoolkits.com'),
@@ -84,20 +85,10 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="min-h-screen flex flex-col transition-colors duration-300">
             <Header />
-            <main className="flex-grow">
+            <main className="flex-grow flex flex-col">
               {children}
+              <ConditionalFooter />
             </main>
-            <footer className="bg-transparent text-center p-6 text-gray-500 dark:text-gray-400 text-sm">
-              <div className="flex justify-center space-x-6">
-                  <Link href="/about" className="hover:text-blue-500">About</Link>
-                  <Link href="/contact" className="hover:text-blue-500">Contact</Link>
-                  <Link href="/privacy" className="hover:text-blue-500">Privacy Policy</Link>
-                  <Link href="/terms" className="hover:text-blue-500">Terms of Service</Link>
-              </div>
-              <p className="mt-4">
-                © {new Date().getFullYear()} UtilToolkits. All Rights Reserved.
-              </p>
-            </footer>
           </div>
         </ThemeProvider>
       </body>

@@ -1,5 +1,6 @@
 
 import Sidebar from "@/components/Sidebar";
+import Footer from "@/components/Footer";
 
 export default function ToolsLayout({
   children,
@@ -7,11 +8,14 @@ export default function ToolsLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex flex-col md:flex-row flex-grow">
+    <div className="flex flex-col md:flex-row">
       <Sidebar />
-      <div className="flex-grow bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-        {children}
-      </div>
+      <main className="w-full md:w-[80%] bg-gray-50 dark:bg-gray-900 flex flex-col">
+        <div className="flex-grow p-4 md:p-8">
+          {children}
+        </div>
+        <Footer />
+      </main>
     </div>
   )
 }

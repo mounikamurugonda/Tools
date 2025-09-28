@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { TOOLS } from '../constants';
 import ToolCard from './ToolCard';
@@ -11,122 +11,105 @@ import { ToolCategory } from '../types';
 import Logo from './Logo';
 import { 
     SearchIcon,
+    ChevronRightIcon,
 } from './icons';
 import Link from 'next/link';
-import { CATEGORY_ORDER, CATEGORY_ICONS } from '@/constants';
+import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_DESCRIPTIONS } from '@/constants';
 
 const HomePageClient: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const categoryRefs = useRef<Record<string, HTMLElement | null>>({});
-  const searchParams = useSearchParams();
   const router = useRouter();
   const toolCount = TOOLS.length;
 
-  useEffect(() => {
-    const categoryToScroll = searchParams && searchParams.get('category');
-    if (categoryToScroll && categoryRefs.current[categoryToScroll]) {
-        const headerOffset = 70; // Height of the sticky header
-        const elementPosition = categoryRefs.current[categoryToScroll]!.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
-        // Clean up URL
-        router.replace('/', { scroll: false });
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    if (query.trim()) {
+      router.push(`/tools?search=${encodeURIComponent(query.trim())}`);
+    } else {
+      router.push(`/`);
     }
-  }, [searchParams, router]);
-
-
-  const filteredTools = useMemo(() => {
-    const query = searchQuery.toLowerCase().trim();
-    if (!query) {
-        return TOOLS;
-    }
-    return TOOLS.filter(tool =>
-        tool.name.toLowerCase().includes(query) ||
-        tool.description.toLowerCase().includes(query)
-    );
-  }, [searchQuery]);
-
-  const groupedTools = useMemo(() => {
-    return filteredTools.reduce((acc, tool) => {
-      (acc[tool.category] = acc[tool.category] || []).push(tool);
-      return acc;
-    }, {} as Record<ToolCategory, Tool[]>);
-  }, [filteredTools]);
+  };
+  
+  const featuredTools = useMemo(() => TOOLS.filter(tool => tool.featured), []);
+  const visibleCategories = useMemo(() => CATEGORY_ORDER.slice(0, 6), []);
 
   return (
     <main className="max-w-7xl mx-auto p-4 sm:p-6 md:p-8 animate-fade-in">
-       <div className="relative text-center py-12 sm:py-16 md:py-20">
-        <div className="absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)] bg-gradient-to-b from-blue-50/50 to-white dark:from-blue-900/10 dark:to-gray-900"></div>
-        
-        <div className="flex justify-center mb-6">
-            <Logo />
+      <div className="text-center mb-16">
+        <div className="inline-block">
+          <Logo size={80} />
         </div>
-
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white leading-tight">
-            The Ultimate One-Stop Toolbox
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mt-4 tracking-tight">
+          Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">UtilToolkits</span>
         </h1>
-
-                <div className="mt-10 max-w-xl mx-auto">
+        <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">
+          Your one-stop collection of free, browser-based utilities. All tools run locally for maximum speed and privacy.
+        </p>
+        
+        <div className="mt-8 max-w-xl mx-auto">
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <SearchIcon className="w-5 h-5 text-gray-400" />
-            </div>
             <input
-              type="search"
-              placeholder="Search for a tool (e.g., 'json', 'color', 'base64')..."
+              type="text"
+              placeholder={`Search from ${toolCount} tools... (e.g., "JSON Formatter")`}
+              className="w-full pl-12 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-full shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-white dark:bg-gray-800 text-lg"
               value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              className="w-full p-4 pl-12 text-lg text-gray-900 dark:text-white bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-full shadow-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-              aria-label="Search for tools"
+              onChange={handleSearchChange}
             />
+            <div className="absolute left-4 top-1/2 -translate-y-1/2">
+              <SearchIcon className="text-gray-400" />
+            </div>
           </div>
         </div>
-        
-        <div className="mt-8">
-            <div className="inline-block bg-gradient-to-r from-blue-100 to-teal-100 dark:from-blue-900/50 dark:to-teal-900/50 p-4 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
-                <p className="text-xl sm:text-2xl font-semibold text-gray-800 dark:text-gray-200">
-                    Now with <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-teal-400">{toolCount}</span> powerful tools to streamline your workflow.
-                </p>
-                <p className="mt-2 text-md text-gray-600 dark:text-gray-400">Fast, private, and always available.</p>
-            </div>
+      </div>
+      
+      {/* Featured Tools Section */}
+      <section className="mb-16">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-wide mb-6">Featured Tools</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {featuredTools.map((tool) => (
+            <Link key={tool.id} href={`/tools/${tool.id}`} className="block">
+              <ToolCard tool={tool} />
+            </Link>
+          ))}
         </div>
+      </section>
 
-
-      </div>
-
-      <div className="space-y-12">
-        {CATEGORY_ORDER.map((category) => {
-          const tools = groupedTools[category];
-          if (!tools || tools.length === 0) return null;
-          
-          const CategoryIcon = CATEGORY_ICONS[category];
-
-          return (
-            <section key={category} ref={el => { categoryRefs.current[category] = el; }}>
-              <div className="flex items-center mb-6">
-                {CategoryIcon && <CategoryIcon />}
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-wide">{category}</h2>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {tools.map((tool) => (
-                  <Link key={tool.id} href={`/tools/${tool.id}`} className="block">
-                    <ToolCard tool={tool} />
-                  </Link>
-                ))}
-              </div>
-            </section>
-          );
-        })}
-        {filteredTools.length === 0 && searchQuery && (
-            <div className="text-center py-16">
-                <p className="text-xl text-gray-500 dark:text-gray-400">No tools found for &quot;{searchQuery}&quot;</p>
-            </div>
-        )}
-      </div>
+      {/* Categories Section */}
+      <section>
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-wide">Categories</h2>
+          <Link href="/tools" className="flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 font-semibold transition-colors">
+            View All Tools <ChevronRightIcon className="w-5 h-5 ml-1" />
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {visibleCategories.map(category => {
+            const CategoryIcon = CATEGORY_ICONS[category];
+            const toolCount = TOOLS.filter(t => t.category === category).length;
+            const description = CATEGORY_DESCRIPTIONS[category];
+            return (
+              <Link
+                key={category}
+                href={`/tools/category/${encodeURIComponent(category)}`}
+                className="group flex flex-col justify-between p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-200 dark:border-gray-700"
+              >
+                <div>
+                  <div className="flex items-center">
+                    {CategoryIcon && <CategoryIcon />}
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category}</h3>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-400 mt-2">{description}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-500 mt-2">{toolCount} tools</p>
+                </div>
+                <div className="mt-4 text-blue-500 dark:text-blue-400 font-semibold flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  Go to {category} <ChevronRightIcon className="w-5 h-5 ml-1" />
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
     </main>
   );
 };

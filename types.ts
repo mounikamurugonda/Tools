@@ -27,10 +27,11 @@ export interface Tool {
   id: string;
   name: string;
   description: string;
-  icon: JSX.Element;
-  component: React.FC<ToolProps>;
+  icon: React.ReactNode;
+  component: React.FC;
   category: ToolCategory;
   details: ToolDetails;
+  featured?: boolean;
 }
 
 export interface ToolProps {
