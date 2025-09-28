@@ -36,10 +36,6 @@ const MostViewedTools: React.FC = () => {
     }
   }, [mostViewed]);
 
-  if (mostViewedTools.length === 0) {
-    return null;
-  }
-
   // Determine section title based on data source
   const sectionTitle = useMemo(() => {
     if (mostViewed.length > 0) {
@@ -48,6 +44,10 @@ const MostViewedTools: React.FC = () => {
     }
     return "Most Popular Tools";
   }, [mostViewed]);
+
+  if (mostViewedTools.length === 0) {
+    return null;
+  }
 
   return (
     <div className="mb-12">

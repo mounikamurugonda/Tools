@@ -3,7 +3,7 @@ import {
   // Category Icons
   Type, 
   Code, 
-  Image, 
+  Image as ImageL, 
   Palette, 
   Settings, 
   Calculator, 
@@ -112,7 +112,7 @@ export const TextCategoryIcon: React.FC = () => (
 );
 
 export const ImageCategoryIcon: React.FC = () => (
-    <Image {...categoryIconProps} />
+    <ImageL {...categoryIconProps} />
 );
 
 export const CssCategoryIcon: React.FC = () => (
@@ -120,27 +120,27 @@ export const CssCategoryIcon: React.FC = () => (
 );
 
 export const CodeCategoryIcon: React.FC = () => (
-    <Code {...categoryIconProps} />
+    <span role="img" aria-hidden="true"><Code {...categoryIconProps} /></span>
 );
 
 export const ColorCategoryIcon: React.FC = () => (
-    <Palette {...categoryIconProps} />
+    <span role="img" aria-hidden="true"><Palette {...categoryIconProps} /></span>
 );
 
 export const MiscCategoryIcon: React.FC = () => (
-    <Wrench {...categoryIconProps} />
+    <span role="img" aria-hidden="true"><Wrench {...categoryIconProps} /></span>
 );
 
 export const MathCategoryIcon: React.FC = () => (
-    <Calculator {...categoryIconProps} />
+    <span role="img" aria-hidden="true"><Calculator {...categoryIconProps} /></span>
 );
 
 export const ProductivityCategoryIcon: React.FC = () => (
-    <Clock {...categoryIconProps} />
+    <span role="img" aria-hidden="true"><Clock {...categoryIconProps} /></span>
 );
 
 export const FunCategoryIcon: React.FC = () => (
-    <Smile {...categoryIconProps} />
+    <span role="img" aria-hidden="true"><Smile {...categoryIconProps} /></span>
 );
 
 
@@ -187,7 +187,7 @@ export const ColorIcon: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 export const ImageIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <Image {...iconProps} {...(className && { className })} />
+  <ImageL {...iconProps} {...(className && { className })} />
 );
 
 export const TextReverseIcon: React.FC<{ className?: string }> = ({ className }) => (
@@ -283,7 +283,7 @@ export const XlsxToCsvIcon: React.FC<{ className?: string }> = ({ className }) =
 );
 
 export const Base64ToImageIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <Image {...iconProps} {...(className && { className })} />
+  <ImageL {...iconProps} {...(className && { className })} />
 );
 
 export const RecipeIcon: React.FC<{ className?: string }> = ({ className }) => (
