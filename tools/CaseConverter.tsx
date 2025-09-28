@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 
-const CaseConverter: React.FC<ToolProps> = ({ details }) => {
+const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
@@ -37,7 +37,7 @@ const CaseConverter: React.FC<ToolProps> = ({ details }) => {
   };
 
   return (
-    <ToolContainer title="Case Converter" details={details}>
+    <ToolContainer title="Case Converter" details={details} toolId={toolId}>
       <div className="space-y-4">
         <textarea
           value={input}

@@ -2,6 +2,7 @@ import { TIPS } from '@/lib/tips';
 import { InlineAd } from '@/components/AdContainer';
 import { getTipsPageSchema, getWebsiteSchema, getOrganizationSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
+import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -35,7 +36,7 @@ const TipCard = ({ tip }: { tip: { category: string; content: string } }) => (
 
 export default function TipsPage() {
   return (
-    <>
+    <AnalyticsWrapper pageType="tips">
       {/* Schema Markup */}
       <Schema schema={getWebsiteSchema()} />
       <Schema schema={getOrganizationSchema()} />
@@ -58,6 +59,6 @@ export default function TipsPage() {
         {/* Ad Container */}
         <InlineAd key="tips-inline-ad" />
       </div>
-    </>
+    </AnalyticsWrapper>
   );
 }

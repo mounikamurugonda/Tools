@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 
-const CharacterCounter: React.FC<ToolProps> = ({ details }) => {
+const CharacterCounter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
 
   const stats = useMemo(() => {
@@ -17,7 +17,7 @@ const CharacterCounter: React.FC<ToolProps> = ({ details }) => {
   }, [input]);
 
   return (
-    <ToolContainer title="Character Counter" details={details}>
+    <ToolContainer title="Character Counter" details={details} toolId={toolId}>
       <div className="space-y-4">
         <textarea
           value={input}

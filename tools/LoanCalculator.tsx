@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 
-const LoanCalculator: React.FC<ToolProps> = ({ details }) => {
+const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
     const [loanAmount, setLoanAmount] = useState('250000');
     const [interestRate, setInterestRate] = useState('5');
     const [loanTerm, setLoanTerm] = useState('30');
@@ -56,7 +56,7 @@ const LoanCalculator: React.FC<ToolProps> = ({ details }) => {
     };
 
     return (
-        <ToolContainer title="Loan Calculator" details={details}>
+        <ToolContainer title="Loan Calculator" details={details} toolId={toolId}>
             <div className="grid lg:grid-cols-3 gap-8">
                 <div className="lg:col-span-1 space-y-4">
                     <NumberInput label="Loan Amount ($)" value={loanAmount} onChange={setLoanAmount} />

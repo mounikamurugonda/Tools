@@ -6,7 +6,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { marked } from 'marked';
 
-const MarkdownPreviewer: React.FC<ToolProps> = ({ details }) => {
+const MarkdownPreviewer: React.FC<ToolProps> = ({ details, toolId }) => {
   const [markdown, setMarkdown] = useState(`# Hello, Markdown!
 
 **This is a real-time Markdown previewer.**
@@ -27,7 +27,7 @@ const MarkdownPreviewer: React.FC<ToolProps> = ({ details }) => {
   }, [markdown]);
 
   return (
-    <ToolContainer title="Markdown Previewer" details={details}>
+    <ToolContainer title="Markdown Previewer" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-4 h-[60vh]">
         <textarea
           value={markdown}

@@ -6,7 +6,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import * as XLSX from 'xlsx';
 
-const CsvToXlsx: React.FC<ToolProps> = ({ details }) => {
+const CsvToXlsx: React.FC<ToolProps> = ({ details, toolId }) => {
     const [csvInput, setCsvInput] = useState('name,age,city,is_member,balance\nAlice,30,New York,true,150.75\nBob,25,Los Angeles,false,2000');
     const [error, setError] = useState('');
 
@@ -59,7 +59,7 @@ const CsvToXlsx: React.FC<ToolProps> = ({ details }) => {
     };
 
     return (
-        <ToolContainer title="CSV to XLSX Converter" details={details}>
+        <ToolContainer title="CSV to XLSX Converter" details={details} toolId={toolId}>
             <div className="space-y-4 max-w-3xl mx-auto">
                  <div className="p-4 bg-gray-100 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 space-y-4">
                     <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Options</h3>

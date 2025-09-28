@@ -37,4 +37,5 @@ export interface Tool {
 
 export interface ToolProps {
   details: ToolDetails;
+  toolId?: string;
 }

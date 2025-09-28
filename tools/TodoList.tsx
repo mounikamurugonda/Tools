@@ -11,7 +11,7 @@ interface Task {
     completed: boolean;
 }
 
-const TodoList: React.FC<ToolProps> = ({ details }) => {
+const TodoList: React.FC<ToolProps> = ({ details, toolId }) => {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [input, setInput] = useState('');
     const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
@@ -64,7 +64,7 @@ const TodoList: React.FC<ToolProps> = ({ details }) => {
     });
 
     return (
-        <ToolContainer title="To-Do List" details={details}>
+        <ToolContainer title="To-Do List" details={details} toolId={toolId}>
             <div className="max-w-lg mx-auto">
                 <form onSubmit={handleAddTask} className="flex gap-2 mb-4">
                     <input

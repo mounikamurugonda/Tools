@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 
-const UuidGenerator: React.FC<ToolProps> = ({ details }) => {
+const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [uuid, setUuid] = useState('');
 
   const generateUuid = () => {
@@ -19,7 +19,7 @@ const UuidGenerator: React.FC<ToolProps> = ({ details }) => {
   };
 
   return (
-    <ToolContainer title="UUID Generator (v4)" details={details}>
+    <ToolContainer title="UUID Generator (v4)" details={details} toolId={toolId}>
       <div className="space-y-4">
         <div className="flex items-center gap-4">
           <button onClick={generateUuid} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Generate UUID</button>

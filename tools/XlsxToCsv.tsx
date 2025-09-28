@@ -50,7 +50,7 @@ const convertSheetToCsv = (worksheet: XLSX.WorkSheet, options: ConvertOptions): 
 };
 
 
-const XlsxToCsv: React.FC<ToolProps> = ({ details }) => {
+const XlsxToCsv: React.FC<ToolProps> = ({ details, toolId }) => {
     const [csvOutput, setCsvOutput] = useState('');
     const [error, setError] = useState('');
     const [fileName, setFileName] = useState('');
@@ -169,7 +169,7 @@ const XlsxToCsv: React.FC<ToolProps> = ({ details }) => {
     }
 
     return (
-        <ToolContainer title="XLSX to CSV Converter" details={details}>
+        <ToolContainer title="XLSX to CSV Converter" details={details} toolId={toolId}>
             <div className="space-y-4 max-w-4xl mx-auto">
                 <div 
                     className="flex justify-center items-center w-full h-48 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"

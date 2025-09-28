@@ -2,6 +2,8 @@ import React from 'react';
 import { TOOLS } from "@/constants";
 import { getToolSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
+import AnalyticsWrapper from '@/components/AnalyticsWrapper';
+import ViewCount from '@/components/ViewCount';
 import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from 'next';
 
@@ -67,14 +69,14 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
   ];
 
   return (
-    <>
+    <AnalyticsWrapper pageType="tool" toolName={tool.name}>
       {/* Schema Markup */}
       <Schema schema={getWebsiteSchema()} />
       <Schema schema={getOrganizationSchema()} />
       <Schema schema={getToolSchema(tool)} />
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
       
-      <ToolComponent details={tool.details} />
-    </>
+      <ToolComponent details={tool.details} toolId={tool.id} />
+    </AnalyticsWrapper>
   );
 }

@@ -6,7 +6,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { jwtDecode } from 'jwt-decode';
 
-const JwtDebugger: React.FC<ToolProps> = ({ details }) => {
+const JwtDebugger: React.FC<ToolProps> = ({ details, toolId }) => {
     const [token, setToken] = useState('');
     
     const decoded = useMemo(() => {
@@ -24,7 +24,7 @@ const JwtDebugger: React.FC<ToolProps> = ({ details }) => {
     }, [token]);
 
     return (
-        <ToolContainer title="JWT Decoder" details={details}>
+        <ToolContainer title="JWT Decoder" details={details} toolId={toolId}>
             <div className="space-y-4">
                 <textarea
                     value={token}

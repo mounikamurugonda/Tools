@@ -3,6 +3,7 @@ import ToolCard from '@/components/ToolCard';
 import { InlineAd, BannerAd } from '@/components/AdContainer';
 import { getCategoryPageSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
+import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import Link from 'next/link';
 import { ToolCategory } from '@/types';
 import { Metadata } from 'next';
@@ -74,7 +75,7 @@ export default function CategoryPage({ params }: Props) {
   ];
 
   return (
-    <>
+    <AnalyticsWrapper pageType="category" categoryName={category}>
       {/* Schema Markup */}
       <Schema schema={getWebsiteSchema()} />
       <Schema schema={getOrganizationSchema()} />
@@ -140,6 +141,6 @@ export default function CategoryPage({ params }: Props) {
       {/* Bottom Ad */}
       <InlineAd key="category-inline-ad" />
       </div>
-    </>
+    </AnalyticsWrapper>
   );
 }

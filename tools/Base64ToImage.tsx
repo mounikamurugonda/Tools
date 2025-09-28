@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 
-const Base64ToImage: React.FC<ToolProps> = ({ details }) => {
+const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   const [base64, setBase64] = useState('');
   const [error, setError] = useState('');
 
@@ -34,7 +34,7 @@ const Base64ToImage: React.FC<ToolProps> = ({ details }) => {
   }
 
   return (
-    <ToolContainer title="Base64 to Image Converter" details={details}>
+    <ToolContainer title="Base64 to Image Converter" details={details} toolId={toolId}>
       <div className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Paste Base64 Data URL</label>

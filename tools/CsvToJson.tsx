@@ -54,7 +54,7 @@ const csvToJson = (csv: string, options: CsvToJsonOptions): any[] => {
     return jsonArray;
 };
 
-const CsvToJson: React.FC<ToolProps> = ({ details }) => {
+const CsvToJson: React.FC<ToolProps> = ({ details, toolId }) => {
     const [csvInput, setCsvInput] = useState('name,age,city,active,balance\nAlice,30,New York,true,150.75\nBob,25,Los Angeles,false,2000');
     const [jsonOutput, setJsonOutput] = useState('');
     const [error, setError] = useState('');
@@ -91,7 +91,7 @@ const CsvToJson: React.FC<ToolProps> = ({ details }) => {
     };
 
     return (
-        <ToolContainer title="CSV to JSON Converter" details={details}>
+        <ToolContainer title="CSV to JSON Converter" details={details} toolId={toolId}>
             <div className="space-y-4">
                 <div className="p-4 bg-gray-100 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700 space-y-4">
                     <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Options</h3>

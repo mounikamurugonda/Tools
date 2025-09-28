@@ -5,7 +5,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 
-const ColorConverter: React.FC<ToolProps> = ({ details }) => {
+const ColorConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     const [hex, setHex] = useState('#3b82f6');
     const [rgb, setRgb] = useState('rgb(59, 130, 246)');
     const [hsl, setHsl] = useState('hsl(217, 91%, 60%)');
@@ -68,7 +68,7 @@ const ColorConverter: React.FC<ToolProps> = ({ details }) => {
     };
 
     return (
-        <ToolContainer title="Color Converter" details={details}>
+        <ToolContainer title="Color Converter" details={details} toolId={toolId}>
             <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div className="flex justify-center items-center">
                     <div className="relative">

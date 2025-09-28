@@ -7,7 +7,7 @@ import ToolContainer from '@/components/ToolContainer';
 
 type HashAlgorithm = 'SHA-1' | 'SHA-256' | 'SHA-512';
 
-const HashGenerator: React.FC<ToolProps> = ({ details }) => {
+const HashGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     const [input, setInput] = useState('');
     const [algorithm, setAlgorithm] = useState<HashAlgorithm>('SHA-256');
     const [output, setOutput] = useState('');
@@ -38,7 +38,7 @@ const HashGenerator: React.FC<ToolProps> = ({ details }) => {
     }
 
     return (
-        <ToolContainer title="Hash Generator" details={details}>
+        <ToolContainer title="Hash Generator" details={details} toolId={toolId}>
             <div className="space-y-4">
                 <textarea
                     value={input}

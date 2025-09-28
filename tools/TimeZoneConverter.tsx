@@ -5,7 +5,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { timezones } from '@/lib/timezones';
 
-const TimeZoneConverter: React.FC<ToolProps> = ({ details }) => {
+const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     // Get user's current timezone as default
     const userTimeZone = useMemo(() => {
         try {
@@ -89,7 +89,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details }) => {
     };
 
     return (
-        <ToolContainer title="Time Zone Converter" details={details}>
+        <ToolContainer title="Time Zone Converter" details={details} toolId={toolId}>
             <div className="max-w-4xl mx-auto space-y-6">
                 <div className="grid md:grid-cols-2 gap-6 items-end">
                     <div>

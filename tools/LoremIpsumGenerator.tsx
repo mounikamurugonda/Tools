@@ -7,7 +7,7 @@ import ToolContainer from '@/components/ToolContainer';
 
 const LOREM_IPSUM_TEXT = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
-const LoremIpsumGenerator: React.FC<ToolProps> = ({ details }) => {
+const LoremIpsumGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [paragraphs, setParagraphs] = useState(3);
   const [generatedText, setGeneratedText] = useState('');
 
@@ -24,7 +24,7 @@ const LoremIpsumGenerator: React.FC<ToolProps> = ({ details }) => {
   };
 
   return (
-    <ToolContainer title="Lorem Ipsum Generator" details={details}>
+    <ToolContainer title="Lorem Ipsum Generator" details={details} toolId={toolId}>
       <div className="space-y-4">
         <div className="flex items-center gap-4">
           <label htmlFor="paragraphs" className="text-gray-700 dark:text-gray-300">Number of Paragraphs:</label>

@@ -16,11 +16,11 @@ const formatTime = (timeMs: number) => {
     return { hours, minutes, seconds, milliseconds };
 };
 
-const TimersAndStopwatch: React.FC<ToolProps> = ({ details }) => {
+const TimersAndStopwatch: React.FC<ToolProps> = ({ details, toolId }) => {
     const [mode, setMode] = useState<TimerMode>('timer');
 
     return (
-        <ToolContainer title="Timers & Stopwatch" details={details}>
+        <ToolContainer title="Timers & Stopwatch" details={details} toolId={toolId}>
             <div className="max-w-md mx-auto">
                 <div className="flex justify-center bg-gray-200 dark:bg-gray-700 rounded-lg p-1 mb-6">
                     <button onClick={() => setMode('timer')} className={`w-1/2 py-2 rounded-md transition-colors ${mode === 'timer' ? 'bg-blue-600 text-white' : 'hover:bg-gray-300 dark:hover:bg-gray-600'}`}>Timer</button>

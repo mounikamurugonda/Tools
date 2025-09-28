@@ -1,0 +1,47 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { getMostViewedTools } from '@/lib/viewCount';
+import { TOOLS } from '@/constants';
+import ToolCard from './ToolCard';
+import Link from 'next/link';
+
+const MostViewedTools: React.FC = () => {
+  const [mostViewed, setMostViewed] = useState<Array<{toolId: string, count: number}>>([]);
+
+  useEffect(() => {
+    const viewed = getMostViewedTools(6);
+    setMostViewed(viewed);
+  }, []);
+
+  if (mostViewed.length === 0) {
+    return null;
+  }
+
+  const mostViewedTools = mostViewed
+    .map(({ toolId }) => TOOLS.find(tool => tool.id === toolId))
+    .filter(Boolean);
+
+  return (
+    <div className="mb-12">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Most Popular Tools</h2>
+        <Link 
+          href="/tools" 
+          className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+        >
+          View All Tools →
+        </Link>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {mostViewedTools.map((tool) => (
+          <Link key={tool!.id} href={`/tools/${tool!.id}`}>
+            <ToolCard tool={tool!} />
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MostViewedTools;

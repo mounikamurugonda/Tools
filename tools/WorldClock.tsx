@@ -29,7 +29,7 @@ const getInitialTimezones = () => {
     return ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
 };
 
-const WorldClock: React.FC<ToolProps> = ({ details }) => {
+const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const [selectedTimezones, setSelectedTimezones] = useState<string[]>([]);
 
@@ -98,7 +98,7 @@ const WorldClock: React.FC<ToolProps> = ({ details }) => {
     };
 
     return (
-        <ToolContainer title="World Clock" details={details}>
+        <ToolContainer title="World Clock" details={details} toolId={toolId}>
             <div className="max-w-2xl mx-auto space-y-6">
                 <div className="flex gap-2">
                     <Select<TimezoneOption>

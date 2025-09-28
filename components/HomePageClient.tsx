@@ -9,6 +9,7 @@ import ToolCard from './ToolCard';
 import type { Tool } from '../types';
 import { ToolCategory } from '../types';
 import { trackSearch, trackToolUsage } from '@/lib/analytics';
+import MostViewedTools from './MostViewedTools';
 import Logo from './Logo';
 import { 
     SearchIcon,
@@ -217,6 +218,9 @@ const HomePageClient: React.FC = () => {
 
       {/* Ad Container */}
       <HomepageAd key="homepage-ad" />
+
+      {/* Most Viewed Tools Section */}
+      <MostViewedTools />
 
       {/* Categories Section */}
       <section>

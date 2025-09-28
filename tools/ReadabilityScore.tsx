@@ -14,7 +14,7 @@ const countSyllables = (word: string): number => {
     return matches ? matches.length : 0;
 };
 
-const ReadabilityScore: React.FC<ToolProps> = ({ details }) => {
+const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
     const [text, setText] = useState('The quick brown fox jumps over the lazy dog. This sentence is easy to read. Complex sentences, however, are more difficult to understand.');
 
     const stats = useMemo(() => {
@@ -60,7 +60,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details }) => {
     const scoreInfo = getScoreDescription(stats.fleschReadingEase);
 
     return (
-        <ToolContainer title="Readability Score Calculator" details={details}>
+        <ToolContainer title="Readability Score Calculator" details={details} toolId={toolId}>
             <div className="grid md:grid-cols-2 gap-8">
                 <div className="space-y-4">
                     <textarea
