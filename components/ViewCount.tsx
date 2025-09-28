@@ -22,14 +22,10 @@ const ViewCount: React.FC<ViewCountProps> = ({
     // Initialize development helpers
     logViewCounts();
     
-    // Get initial count
+    // Get initial count without incrementing
     const initialCount = getViewCount(toolId);
     setCount(initialCount);
     setIsLoading(false);
-
-    // Increment count when component mounts
-    const newCount = incrementViewCount(toolId);
-    setCount(newCount);
   }, [toolId]);
 
   if (isLoading) {
