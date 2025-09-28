@@ -411,3 +411,35 @@ export const LightbulbIcon: React.FC<{ className?: string }> = ({ className }) =
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.311V21m-3.75-2.311V21m0 0a2.25 2.25 0 01-2.25-2.25m2.25-2.25a2.25 2.25 0 00-2.25-2.25M15 5.25l-3 3m0 0l-3-3m3 3V1.5M9 5.25l3 3m0 0l3-3" />
     </svg>
 );
+
+// CSS Tool Icons
+export const GradientIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 7.5L7.5 3m0 0L12 7.5M7.5 3v13.5m13.5 0L16.5 21m0 0L12 16.5m4.5 4.5V7.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l3-3 3 3" />
+    </svg>
+);
+
+export const BorderRadiusIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18V3H3z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l6 6m12-6l-6 6" />
+    </svg>
+);
+
+export const TextShadowIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3l6 6m12-6l-6 6" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18V3H3z" fill="currentColor" fillOpacity="0.2" />
+    </svg>
+);
+
+export const GlassmorphismIcon: React.FC<{ className?: string }> = ({ className }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18V3H3z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 9l6 6m0-6l-6 6" />
+    </svg>
+);

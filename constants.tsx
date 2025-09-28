@@ -13,6 +13,10 @@ import ImageToBase64 from '@/tools/ImageToBase64';
 import TextReverser from '@/tools/TextReverser';
 import Base64ToImage from '@/tools/Base64ToImage';
 import BoxShadowGenerator from '@/tools/BoxShadowGenerator';
+import CssGradientGenerator from '@/tools/CssGradientGenerator';
+import BorderRadiusGenerator from '@/tools/BorderRadiusGenerator';
+import TextShadowGenerator from '@/tools/TextShadowGenerator';
+import GlassmorphismGenerator from '@/tools/GlassmorphismGenerator';
 import HashGenerator from '@/tools/HashGenerator';
 import JwtDebugger from '@/tools/JwtDebugger';
 import QrCodeGenerator from '@/tools/QrCodeGenerator';
@@ -53,6 +57,10 @@ import {
   ImageIcon,
   TextReverseIcon,
   BoxShadowIcon,
+  GradientIcon,
+  BorderRadiusIcon,
+  TextShadowIcon,
+  GlassmorphismIcon,
   HashIcon,
   JwtIcon,
   QrCodeIcon,
@@ -1004,6 +1012,161 @@ export const TOOLS: Tool[] = [
         { question: 'Multiple shadows?', answer: 'Not yet; comma-separated in future.' },
         { question: 'Browser compatibility?', answer: 'CSS3 standard.' },
         { question: 'Units?', answer: 'Pixels.' }
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'css-gradient-generator',
+    name: 'CSS Gradient Generator',
+    description: 'Create beautiful CSS gradients with color pickers and angle controls.',
+    icon: <GradientIcon />,
+    component: CssGradientGenerator,
+    category: ToolCategory.CSS,
+    details: {
+      introduction: 'Create stunning CSS gradients with an intuitive visual editor. Choose colors, adjust angles, and switch between linear and radial gradients. Perfect for backgrounds, buttons, and modern UI elements.',
+      explanation: 'How does it work? Combines color inputs with angle/position controls to generate CSS gradient syntax. Updates preview element in real-time.',
+      usageExamples: [
+        'Creating modern website backgrounds',
+        'Designing gradient buttons and cards',
+        'Building hero sections with eye-catching gradients'
+      ],
+      underlyingConcept: 'CSS gradients create smooth color transitions. Linear gradients follow a direction, radial gradients spread from a center point.',
+      howToUse: [
+        'Choose between Linear or Radial gradient type',
+        'For linear: adjust the angle slider (0-360 degrees)',
+        'For radial: select the position from the dropdown',
+        'Pick your two colors using the color pickers',
+        'Copy the generated CSS code'
+      ],
+      features: [
+        'Support for both linear and radial gradients',
+        'Real-time visual preview',
+        'Color picker and text input for precise color selection',
+        'Angle control for linear gradients',
+        'Position control for radial gradients'
+      ],
+      faqs: [
+        { question: 'More than 2 colors?', answer: 'Not yet; planned for future updates.' },
+        { question: 'Browser support?', answer: 'Excellent; CSS3 standard.' },
+        { question: 'Performance?', answer: 'Gradients are GPU-accelerated.' }
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'border-radius-generator',
+    name: 'Border Radius Generator',
+    description: 'Create custom border radius values with individual corner controls.',
+    icon: <BorderRadiusIcon />,
+    component: BorderRadiusGenerator,
+    category: ToolCategory.CSS,
+    details: {
+      introduction: 'Design perfect rounded corners with individual control over each corner. Create everything from subtle rounded squares to pill-shaped elements and unique organic shapes.',
+      explanation: 'How does it work? Maps slider values to CSS border-radius property. Supports both px and % units with optional corner linking.',
+      usageExamples: [
+        'Creating modern card designs',
+        'Designing pill-shaped buttons',
+        'Building organic, rounded UI elements',
+        'Creating speech bubble shapes'
+      ],
+      underlyingConcept: 'Border-radius rounds corners by specifying radius values. Can be uniform or individual per corner (top-left, top-right, bottom-right, bottom-left).',
+      howToUse: [
+        'Choose between px or % units',
+        'Toggle "Link all corners" to control all corners together',
+        'Adjust individual corner sliders for custom shapes',
+        'Watch the live preview update in real-time',
+        'Copy the generated CSS code'
+      ],
+      features: [
+        'Individual control for each corner',
+        'Link corners option for uniform rounding',
+        'Support for both px and % units',
+        'Real-time visual preview',
+        'Shape ideas and tips included'
+      ],
+      faqs: [
+        { question: 'Negative values?', answer: 'Not supported; radius must be positive.' },
+        { question: 'Complex shapes?', answer: 'Use different values per corner.' },
+        { question: 'Performance?', answer: 'Border-radius is well-optimized.' }
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'text-shadow-generator',
+    name: 'Text Shadow Generator',
+    description: 'Create beautiful text shadows with precise control over position and blur.',
+    icon: <TextShadowIcon />,
+    component: TextShadowGenerator,
+    category: ToolCategory.CSS,
+    details: {
+      introduction: 'Add depth and style to your text with custom shadow effects. Control position, blur, color, and opacity to create everything from subtle depth to dramatic glow effects.',
+      explanation: 'How does it work? Combines X/Y offsets, blur radius, and color with opacity to generate CSS text-shadow property. Updates preview text in real-time.',
+      usageExamples: [
+        'Creating text with depth and dimension',
+        'Designing glowing text effects',
+        'Adding subtle shadows to headings',
+        'Building dramatic text treatments'
+      ],
+      underlyingConcept: 'Text-shadow creates a shadow behind text. Defined by horizontal offset, vertical offset, blur radius, and color.',
+      howToUse: [
+        'Adjust the horizontal and vertical offset sliders',
+        'Set the blur radius for softness',
+        'Choose shadow color and adjust opacity',
+        'Customize text and background colors for preview',
+        'Copy the generated CSS code'
+      ],
+      features: [
+        'Precise control over shadow position and blur',
+        'Color picker with opacity control',
+        'Customizable text and background colors',
+        'Real-time preview with sample text',
+        'Full CSS example generation'
+      ],
+      faqs: [
+        { question: 'Multiple shadows?', answer: 'Not yet; comma-separated in future.' },
+        { question: 'Browser support?', answer: 'Excellent; CSS3 standard.' },
+        { question: 'Performance?', answer: 'Text-shadow is well-optimized.' }
+      ],
+      privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'glassmorphism-generator',
+    name: 'Glassmorphism & Neumorphism Generator',
+    description: 'Create modern glassmorphism and neumorphism effects with visual controls.',
+    icon: <GlassmorphismIcon />,
+    component: GlassmorphismGenerator,
+    category: ToolCategory.CSS,
+    details: {
+      introduction: 'Create stunning modern UI effects including glassmorphism (frosted glass) and neumorphism (soft, extruded) designs. Perfect for contemporary web and mobile interfaces.',
+      explanation: 'How does it work? Glassmorphism uses backdrop-filter with transparency, neumorphism uses dual shadows. Combines multiple CSS properties for complex effects.',
+      usageExamples: [
+        'Building modern mobile app interfaces',
+        'Creating frosted glass navigation bars',
+        'Designing soft, tactile UI elements',
+        'Building contemporary dashboard components'
+      ],
+      underlyingConcept: 'Glassmorphism mimics frosted glass with blur + transparency. Neumorphism creates soft, extruded surfaces with dual shadows.',
+      howToUse: [
+        'Choose between Glassmorphism or Neumorphism style',
+        'For glassmorphism: adjust opacity, blur, and border settings',
+        'For neumorphism: set background color and shadow properties',
+        'Fine-tune shadow position, blur, and opacity',
+        'Copy the generated CSS code'
+      ],
+      features: [
+        'Two distinct modern design styles',
+        'Comprehensive control over all effect parameters',
+        'Real-time visual preview with background',
+        'Detailed tips and usage guidance',
+        'Complete CSS code generation'
+      ],
+      faqs: [
+        { question: 'Browser support?', answer: 'Glassmorphism needs modern browsers.' },
+        { question: 'Performance?', answer: 'Backdrop-filter can be intensive.' },
+        { question: 'Accessibility?', answer: 'Ensure sufficient contrast.' }
       ],
       privacy: PRIVACY_STATEMENT
     }
