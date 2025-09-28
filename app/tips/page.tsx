@@ -56,7 +56,7 @@ export default function TipsPage() {
         </div>
         
         {/* Ad Container */}
-        <InlineAd />
+        <InlineAd key="tips-inline-ad" />
       </div>
     </>
   );

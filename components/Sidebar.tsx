@@ -7,27 +7,17 @@ import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
 import { SidebarAd } from './AdContainer';
 import { ChevronDownIcon } from './icons';
 import { TOOLS } from '@/constants';
-import { useParams, useSearchParams, usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 const Sidebar: React.FC = () => {
     const params = useParams();
-    const searchParams = useSearchParams();
     const pathname = usePathname();
     const activeToolId = params?.toolId as string;
     const activeCategoryName = params?.categoryName ? decodeURIComponent(params.categoryName as string) : undefined;
     const categoryRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
     const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({});
-    const [searchTerm, setSearchTerm] = useState('');
-
-    // Never filter sidebar - always show all tools for navigation
-    const shouldFilter = false;
-
-    useEffect(() => {
-        // Always clear search term in sidebar - we don't want to filter sidebar
-        setSearchTerm('');
-    }, [searchParams]);
 
     useEffect(() => {
         let categoryToOpen: ToolCategory | undefined;
@@ -67,7 +57,7 @@ const Sidebar: React.FC = () => {
     const currentActiveCategory = activeTool ? activeTool.category : activeCategoryName;
 
     return (
-        <aside className="w-full md:w-[20%] bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 md:sticky md:top-16 md:h-[calc(100vh-4rem)] overflow-y-auto">
+        <aside className="hidden md:block w-full md:w-[20%] bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 md:sticky md:top-16 md:h-[calc(100vh-4rem)] overflow-y-auto">
             <div className="p-4">
                 <nav className="space-y-4">
                     {CATEGORY_ORDER.map(category => {
@@ -118,8 +108,8 @@ const Sidebar: React.FC = () => {
                     })}
                 </nav>
                 
-                {/* Sidebar Ad */}
-                <SidebarAd />
+            {/* Sidebar Ad */}
+            <SidebarAd key="sidebar-ad" />
             </div>
         </aside>
     );

@@ -29,7 +29,7 @@ export interface Tool {
   name: string;
   description: string;
   icon: React.ReactNode;
-  component: React.FC;
+  component: React.FC<ToolProps>;
   category: ToolCategory;
   details: ToolDetails;
   featured?: boolean;

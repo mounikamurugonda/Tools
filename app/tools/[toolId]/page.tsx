@@ -1,3 +1,4 @@
+import React from 'react';
 import { TOOLS } from "@/constants";
 import { getToolSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';

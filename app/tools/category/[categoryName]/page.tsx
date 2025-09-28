@@ -89,7 +89,7 @@ export default function CategoryPage({ params }: Props) {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Why You'll Love These Tools</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Why You&apos;ll Love These Tools</h3>
               <ul className="space-y-2 text-gray-600 dark:text-gray-400">
                 {content.benefits.map((benefit, index) => (
                   <li key={index} className="flex items-start">
@@ -138,7 +138,7 @@ export default function CategoryPage({ params }: Props) {
       )}
       
       {/* Bottom Ad */}
-      <InlineAd />
+      <InlineAd key="category-inline-ad" />
       </div>
     </>
   );

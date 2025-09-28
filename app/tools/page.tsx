@@ -6,17 +6,17 @@ import { InlineAd } from '@/components/AdContainer';
 import { getToolsPageSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import { useSearchParams } from 'next/navigation';
-import { useMemo } from 'react';
+import { useMemo, Suspense } from 'react';
 import Link from 'next/link';
 
-export default function ToolsPage() {
+function ToolsContent() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams?.get('search') || '';
 
   const filteredTools = useMemo(() => {
     if (!searchQuery.trim()) return TOOLS;
-    
-    return TOOLS.filter(tool => 
+
+    return TOOLS.filter(tool =>
       tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.category.toLowerCase().includes(searchQuery.toLowerCase())
@@ -83,8 +83,16 @@ export default function ToolsPage() {
       )}
 
       {/* Ad Container */}
-      <InlineAd />
+      <InlineAd key="tools-inline-ad" />
       </div>
     </>
+  );
+}
+
+export default function ToolsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ToolsContent />
+    </Suspense>
   );
 }

@@ -191,7 +191,7 @@ const HomePageClient: React.FC = () => {
                     }}
                     className="w-full text-left text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium"
                   >
-                    View all results for "{searchQuery}"
+                    View all results for &quot;{searchQuery}&quot;
                   </button>
                 </div>
               </div>
@@ -213,7 +213,7 @@ const HomePageClient: React.FC = () => {
       </section>
 
       {/* Ad Container */}
-      <HomepageAd />
+      <HomepageAd key="homepage-ad" />
 
       {/* Categories Section */}
       <section>

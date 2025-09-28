@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
 interface AdContainerProps {
   adSlot: string;
@@ -17,18 +17,50 @@ const AdContainer: React.FC<AdContainerProps> = ({
   className = '',
   responsive = true
 }) => {
-  React.useEffect(() => {
-    try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (err) {
-      console.error('AdSense error:', err);
-    }
-  }, []);
+  const adRef = useRef<HTMLModElement>(null);
+  const isAdInitialized = useRef(false);
+
+  useEffect(() => {
+    const initializeAd = () => {
+      if (!adRef.current || isAdInitialized.current) return;
+
+      try {
+        // Check if this specific ad element already has ads
+        if (adRef.current.getAttribute('data-adsbygoogle-status')) {
+          isAdInitialized.current = true;
+          return;
+        }
+
+        // Check if adsbygoogle is available
+        if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
+          (window as any).adsbygoogle.push({});
+          isAdInitialized.current = true;
+        }
+      } catch (err) {
+        console.error('AdSense error:', err);
+      }
+    };
+
+    // Wait for adsbygoogle to be available
+    const checkAndInitialize = () => {
+      if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
+        initializeAd();
+      } else {
+        // Retry after a short delay
+        setTimeout(checkAndInitialize, 100);
+      }
+    };
+
+    // Start checking after a small delay
+    const timer = setTimeout(checkAndInitialize, 100);
+    
+    return () => clearTimeout(timer);
+  }, [adSlot]);
 
   return (
     <div className={`ad-container ${className}`}>
       <ins
+        ref={adRef}
         className="adsbygoogle"
         style={adStyle}
         data-ad-client="ca-pub-7845670227485203"

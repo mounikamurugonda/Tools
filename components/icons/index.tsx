@@ -308,7 +308,7 @@ export const FileConversionIcon: React.FC<{ className?: string }> = ({ className
 );
 
 export const CsvToJsonIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...iconProps} {...(className && { className })}>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h6v15H3z" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 4.5v15M3 9h6m-6 6h6" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 12h3m0 0l-1.5 1.5M13.5 12l-1.5-1.5" />
@@ -319,7 +319,7 @@ export const CsvToJsonIcon: React.FC<{ className?: string }> = ({ className }) =
 );
 
 export const JsonToCsvIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...iconProps} {...(className && { className })}>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 6.75h-.75a.75.75 0 00-.75.75v9c0 .414.336.75.75.75h.75" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 7.5H7.5" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 16.5H7.5" />
@@ -330,7 +330,7 @@ export const JsonToCsvIcon: React.FC<{ className?: string }> = ({ className }) =
 );
 
 export const CsvToXlsxIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...iconProps} {...(className && { className })}>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 4.5h6v15H3z" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 4.5v15M3 9h6m-6 6h6" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 12h3m0 0l-1.5 1.5M13.5 12l-1.5-1.5" />
@@ -340,7 +340,7 @@ export const CsvToXlsxIcon: React.FC<{ className?: string }> = ({ className }) =
 );
 
 export const XlsxToCsvIcon: React.FC<{ className?: string }> = ({ className }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...iconProps} {...(className && { className })}>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3.75h6v16.5H3zM3 9h6m-6 6h6m-3-12v16.5" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M6 12.75l-1.5 1.5m1.5-1.5l1.5 1.5m-1.5-1.5V9" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 12h3m0 0l1.5 1.5m-1.5-1.5l1.5-1.5" />
@@ -350,7 +350,7 @@ export const XlsxToCsvIcon: React.FC<{ className?: string }> = ({ className }) =
 );
 
 export const Base64ToImageIcon: React.FC<{ className?: string }> = ({ className }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" {...iconProps} {...(className && { className })}>
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...iconProps} {...(className && { className })}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 4.5h4.5v15H3.75z" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 12h2.25" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 12h3m0 0l-1.5 1.5m1.5-1.5l-1.5-1.5" />

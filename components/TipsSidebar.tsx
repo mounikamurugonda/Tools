@@ -13,7 +13,7 @@ const TipsSidebar = () => {
   );
 
   return (
-    <aside className="w-full md:w-[25%] lg:w-[20%] flex-shrink-0 md:sticky md:top-4 md:h-[calc(100vh-2rem)] overflow-y-auto p-4 bg-gray-50 dark:bg-gray-800/50 border-r border-gray-200 dark:border-gray-700">
+    <aside className="hidden md:block w-full md:w-[25%] lg:w-[20%] flex-shrink-0 md:sticky md:top-4 md:h-[calc(100vh-2rem)] overflow-y-auto p-4 bg-gray-50 dark:bg-gray-800/50 border-r border-gray-200 dark:border-gray-700">
       <div className="flex items-center mb-6">
         <LightbulbIcon className="w-6 h-6 text-yellow-500 mr-3" />
         <h2 className="text-xl font-bold text-gray-900 dark:text-white">Recommended Tools</h2>
@@ -41,7 +41,7 @@ const TipsSidebar = () => {
       </div>
       
       {/* Sidebar Ad */}
-      <SidebarAd />
+      <SidebarAd key="tips-sidebar-ad" />
     </aside>
   );
 };
