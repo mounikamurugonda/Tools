@@ -8,6 +8,7 @@ import { TOOLS } from '../constants';
 import ToolCard from './ToolCard';
 import type { Tool } from '../types';
 import { ToolCategory } from '../types';
+import { trackSearch, trackToolUsage } from '@/lib/analytics';
 import Logo from './Logo';
 import { 
     SearchIcon,
@@ -48,12 +49,14 @@ const HomePageClient: React.FC = () => {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
+      trackSearch(searchQuery.trim(), filteredTools.length);
       router.push(`/tools?search=${encodeURIComponent(searchQuery.trim())}`);
       setShowSuggestions(false);
     }
   };
 
   const handleSuggestionClick = (tool: Tool) => {
+    trackToolUsage(tool.name);
     router.push(`/tools/${tool.id}`);
     setSearchQuery(tool.name);
     setShowSuggestions(false);

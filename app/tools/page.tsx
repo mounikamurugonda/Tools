@@ -8,6 +8,7 @@ import Schema from '@/components/Schema';
 import { useSearchParams } from 'next/navigation';
 import { useMemo, Suspense } from 'react';
 import Link from 'next/link';
+import { trackSearch, trackToolUsage } from '@/lib/analytics';
 
 function ToolsContent() {
   const searchParams = useSearchParams();
@@ -16,11 +17,18 @@ function ToolsContent() {
   const filteredTools = useMemo(() => {
     if (!searchQuery.trim()) return TOOLS;
 
-    return TOOLS.filter(tool =>
+    const filtered = TOOLS.filter(tool =>
       tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       tool.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    
+    // Track search when results are filtered
+    if (searchQuery.trim()) {
+      trackSearch(searchQuery.trim(), filtered.length);
+    }
+    
+    return filtered;
   }, [searchQuery]);
 
   const breadcrumbItems = [
@@ -53,7 +61,11 @@ function ToolsContent() {
       {filteredTools.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredTools.map(tool => (
-            <Link key={tool.id} href={`/tools/${tool.id}`}>
+            <Link 
+              key={tool.id} 
+              href={`/tools/${tool.id}`}
+              onClick={() => trackToolUsage(tool.name)}
+            >
               <ToolCard tool={tool} />
             </Link>
           ))}
@@ -75,7 +87,11 @@ function ToolsContent() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {TOOLS.map(tool => (
-            <Link key={tool.id} href={`/tools/${tool.id}`}>
+            <Link 
+              key={tool.id} 
+              href={`/tools/${tool.id}`}
+              onClick={() => trackToolUsage(tool.name)}
+            >
               <ToolCard tool={tool} />
             </Link>
           ))}
