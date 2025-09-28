@@ -32,8 +32,10 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
     >
       {tool.icon}
       <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2">{tool.name}</h3>
-      <p className="text-gray-500 dark:text-gray-400 text-sm mb-3">{tool.description}</p>
-      <ViewCount toolId={tool.id} />
+      <p className="text-gray-500 dark:text-gray-400 text-sm flex-1">{tool.description}</p>
+      <div className="mt-auto pt-3">
+        <ViewCount toolId={tool.id} />
+      </div>
     </div>
   );
 };

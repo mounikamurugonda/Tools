@@ -204,6 +204,12 @@ const HomePageClient: React.FC = () => {
         </div>
       </div>
       
+      {/* Most Viewed Tools Section */}
+      <MostViewedTools />
+
+      {/* Ad Container */}
+      <HomepageAd key="homepage-ad" />
+
       {/* Featured Tools Section */}
       <section className="mb-16">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-wide mb-6">Featured Tools</h2>
@@ -215,12 +221,6 @@ const HomePageClient: React.FC = () => {
           ))}
         </div>
       </section>
-
-      {/* Ad Container */}
-      <HomepageAd key="homepage-ad" />
-
-      {/* Most Viewed Tools Section */}
-      <MostViewedTools />
 
       {/* Categories Section */}
       <section>
