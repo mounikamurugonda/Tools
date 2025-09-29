@@ -20,7 +20,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
   }, [toolId]);
 
   return (
-    <div className="p-4 sm:p-6 md:p-8 animate-fade-in">
+    <div className=" animate-fade-in">
       <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{title}</h2>
         {toolId && <ViewCount toolId={toolId} />}

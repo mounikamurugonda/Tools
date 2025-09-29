@@ -31,7 +31,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 p-4 sticky top-0 z-40">
+      <header className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-800 p-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2 cursor-pointer">
               <Logo />

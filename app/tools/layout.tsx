@@ -10,7 +10,7 @@ export default function ToolsLayout({
   return (
     <div className="flex flex-col md:flex-row">
       <Sidebar />
-      <main className="w-full md:w-[80%] bg-gray-50 dark:bg-gray-900 flex flex-col">
+      <main className="w-full md:w-[80%] bg-gray-50 dark:bg-gray-900 flex flex-col h-[calc(100vh-73px)] overflow-y-auto">
         <div className="flex-grow p-2 md:p-4">
           {children}
         </div>

@@ -57,7 +57,7 @@ const Sidebar: React.FC = () => {
     const currentActiveCategory = activeTool ? activeTool.category : activeCategoryName;
 
     return (
-        <aside className="hidden md:block w-full md:w-[20%] bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 md:sticky md:top-16 md:h-[calc(100vh-4rem)] overflow-y-auto">
+        <aside className="hidden md:block w-full md:w-[20%] bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 md:sticky md:top-16 md:h-[calc(100vh-73px)] overflow-y-auto">
             <div className="p-4">
                 <nav className="space-y-4">
                     {CATEGORY_ORDER.map(category => {
