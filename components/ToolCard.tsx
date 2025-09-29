@@ -1,7 +1,6 @@
 
 import React from 'react';
 import type { Tool } from '@/types';
-import ViewCount from './ViewCount';
 
 interface ToolCardProps {
   tool: Tool;
@@ -20,7 +19,6 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
         <div className="min-w-0 flex-1">
           <h4 className="font-medium text-gray-900 dark:text-white text-sm truncate">{tool.name}</h4>
           <p className="text-gray-500 dark:text-gray-400 text-xs truncate">{tool.description}</p>
-          <ViewCount toolId={tool.id} className="mt-1" />
         </div>
       </div>
     );
@@ -33,9 +31,6 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
       {tool.icon}
       <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2">{tool.name}</h3>
       <p className="text-gray-500 dark:text-gray-400 text-sm flex-1">{tool.description}</p>
-      <div className="mt-auto pt-3">
-        <ViewCount toolId={tool.id} />
-      </div>
     </div>
   );
 };

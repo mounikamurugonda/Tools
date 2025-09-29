@@ -3,7 +3,6 @@ import { TOOLS } from "@/constants";
 import { getToolSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
-import ViewCount from '@/components/ViewCount';
 import { notFound } from "next/navigation";
 import type { Metadata, ResolvingMetadata } from 'next';
 
