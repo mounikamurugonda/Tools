@@ -1686,7 +1686,7 @@ export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = {
     'miscellaneous-tools': ToolCategory.MISC,
 };
 
-export const CATEGORY_ICONS: Record<ToolCategory, React.FC> = {
+export const CATEGORY_ICONS: Record<ToolCategory, React.FC<{className?: string}>> = {
     [ToolCategory.TEXT]: TextCategoryIcon,
     [ToolCategory.CODING]: CodeCategoryIcon,
     [ToolCategory.IMAGE]: ImageCategoryIcon,

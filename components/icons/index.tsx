@@ -107,40 +107,40 @@ export const LogoIcon: React.FC<{className?: string}> = ({ className }) => (
 
 
 // Category Icons - Using Lucide React for clean, professional icons
-export const TextCategoryIcon: React.FC = () => (
-    <Type {...categoryIconProps} />
+export const TextCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Type {...categoryIconProps} {...(className && { className })} />
 );
 
-export const ImageCategoryIcon: React.FC = () => (
-    <ImageL {...categoryIconProps} />
+export const ImageCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <ImageL {...categoryIconProps} {...(className && { className })} />
 );
 
-export const CssCategoryIcon: React.FC = () => (
-    <Code {...categoryIconProps} />
+export const CssCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Code {...categoryIconProps} {...(className && { className })} />
 );
 
-export const CodeCategoryIcon: React.FC = () => (
-    <span role="img" aria-hidden="true"><Code {...categoryIconProps} /></span>
+export const CodeCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Code {...categoryIconProps} {...(className && { className })} />
 );
 
-export const ColorCategoryIcon: React.FC = () => (
-    <span role="img" aria-hidden="true"><Palette {...categoryIconProps} /></span>
+export const ColorCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Palette {...categoryIconProps} {...(className && { className })} />
 );
 
-export const MiscCategoryIcon: React.FC = () => (
-    <span role="img" aria-hidden="true"><Wrench {...categoryIconProps} /></span>
+export const MiscCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Wrench {...categoryIconProps} {...(className && { className })} />
 );
 
-export const MathCategoryIcon: React.FC = () => (
-    <span role="img" aria-hidden="true"><Calculator {...categoryIconProps} /></span>
+export const MathCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Calculator {...categoryIconProps} {...(className && { className })} />
 );
 
-export const ProductivityCategoryIcon: React.FC = () => (
-    <span role="img" aria-hidden="true"><Clock {...categoryIconProps} /></span>
+export const ProductivityCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Clock {...categoryIconProps} {...(className && { className })} />
 );
 
-export const FunCategoryIcon: React.FC = () => (
-    <span role="img" aria-hidden="true"><Smile {...categoryIconProps} /></span>
+export const FunCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Smile {...categoryIconProps} {...(className && { className })} />
 );
 
 

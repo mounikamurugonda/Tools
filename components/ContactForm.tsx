@@ -44,41 +44,41 @@ export default function ContactForm() {
   return (
     <form 
       onSubmit={handleSubmit}
-      className="bg-gray-100 dark:bg-gray-800/50 p-6 sm:p-8 rounded-lg border border-gray-200 dark:border-gray-700 space-y-6"
+      className="brand-card p-6 sm:p-8 space-y-6"
     >
       <input type="hidden" name="subject" value="New Contact Form Submission from UtilToolkits" />
       <input type="hidden" name="from_name" value="UtilToolkits Contact" />
 
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name</label>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name</label>
         <input 
           type="text" 
           id="name" 
           name="name" 
           required 
-          className="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
+          className="brand-input"
         />
       </div>
       
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address</label>
         <input 
           type="email" 
           id="email" 
           name="email" 
           required 
-          className="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
+          className="brand-input"
         />
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Message</label>
         <textarea 
           id="message" 
           name="message" 
           rows={5} 
           required 
-          className="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
+          className="brand-input"
         ></textarea>
       </div>
 
@@ -86,7 +86,7 @@ export default function ContactForm() {
         <button 
           type="submit" 
           disabled={isSubmitting}
-          className="w-full px-4 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-500 dark:disabled:bg-gray-600 disabled:cursor-not-allowed"
+          className="w-full brand-button-primary py-3 disabled:bg-gray-500 dark:disabled:bg-gray-600 disabled:cursor-not-allowed"
         >
           {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>

@@ -7,7 +7,7 @@ import Script from "next/script";
 import ConditionalFooter from '@/components/ConditionalFooter';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.utiltoolkits.com'),
+  metadataBase: new URL('https://utiltoolkits.com'),
   title: {
     default: 'UtilToolkits | Free Online Developer Tools',
     template: '%s | UtilToolkits',
@@ -103,10 +103,10 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="min-h-screen flex flex-col transition-colors duration-300">
             <Header />
-            <main className="flex-grow flex flex-col ">
+            <main className="flex-grow flex flex-col">
               {children}
-              <ConditionalFooter />
             </main>
+            <ConditionalFooter />
           </div>
         </ThemeProvider>
       </body>

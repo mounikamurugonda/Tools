@@ -44,12 +44,12 @@ function ToolsContent() {
       <Schema schema={getToolsPageSchema(searchQuery)} />
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
       
-      <div>
-        <div className="mb-6">
-          <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">
+      <div className="brand-fade-in">
+        <div className="mb-8">
+          <h1 className="brand-heading-2">
             {searchQuery ? `Search Results for "${searchQuery}"` : 'All Tools'}
           </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
+          <p className="brand-subheading mt-2">
             {searchQuery 
               ? `Found ${filteredTools.length} tool${filteredTools.length !== 1 ? 's' : ''} matching "${searchQuery}"`
               : `Discover and use our collection of ${TOOLS.length} utility tools to boost your productivity.`
@@ -59,38 +59,40 @@ function ToolsContent() {
 
       {/* Tools Grid */}
       {filteredTools.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredTools.map(tool => (
             <Link 
               key={tool.id} 
               href={`/tools/${tool.id}`}
               onClick={() => trackToolUsage(tool.name)}
+              className="brand-scale-hover"
             >
               <ToolCard tool={tool} />
             </Link>
           ))}
         </div>
       ) : searchQuery ? (
-        <div className="text-center py-12">
+        <div className="text-center py-16 brand-card">
           <div className="text-gray-400 dark:text-gray-600 mb-4">
-            <svg className="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+          <h3 className="brand-heading-3 mb-2">
             No tools found
           </h3>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="brand-text-body">
             Try adjusting your search terms or browse by category.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {TOOLS.map(tool => (
             <Link 
               key={tool.id} 
               href={`/tools/${tool.id}`}
               onClick={() => trackToolUsage(tool.name)}
+              className="brand-scale-hover"
             >
               <ToolCard tool={tool} />
             </Link>
@@ -99,7 +101,9 @@ function ToolsContent() {
       )}
 
       {/* Ad Container */}
-      <InlineAd key="tools-inline-ad" />
+      <div className="mt-8">
+        <InlineAd key="tools-inline-ad" />
+      </div>
       </div>
     </>
   );

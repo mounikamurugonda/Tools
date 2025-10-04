@@ -57,9 +57,9 @@ const Sidebar: React.FC = () => {
     const currentActiveCategory = activeTool ? activeTool.category : activeCategoryName;
 
     return (
-        <aside className="hidden md:block w-full md:w-[20%] bg-gray-100 dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex-shrink-0 md:sticky md:top-16 md:h-[calc(100vh-73px)] overflow-y-auto">
-            <div className="p-4">
-                <nav className="space-y-4">
+        <aside className="hidden md:block w-full md:w-64 flex-shrink-0">
+            <div className="sticky top-20">
+                <nav className="space-y-1 pr-4">
                     {CATEGORY_ORDER.map(category => {
                         const categoryTools = groupedTools[category];
                         if (!categoryTools || categoryTools.length === 0) return null;
@@ -70,8 +70,8 @@ const Sidebar: React.FC = () => {
 
                         return (
                             <div key={category} ref={el => { categoryRefs.current[category] = el; }}>
-                                <div className={`w-full flex items-center justify-between text-left px-2 py-2 text-sm font-semibold rounded ${isCurrentCategoryActive ? 'bg-gray-200 dark:bg-gray-700' : ''}`}>
-                                    <Link href={`/tools/category/${CATEGORY_URL_MAP[category]}`} className="flex items-center grow text-gray-700 dark:text-gray-300">
+                                <div className={`w-full flex items-center justify-between text-left p-2 rounded-lg ${isCurrentCategoryActive ? 'bg-gray-200 dark:bg-gray-700' : ''}`}>
+                                    <Link href={`/tools/category/${CATEGORY_URL_MAP[category]}`} className="flex items-center grow text-gray-700 dark:text-gray-300 font-semibold">
                                         {CategoryIcon && <CategoryIcon />}
                                         <span>{category}</span>
                                     </Link>
@@ -83,20 +83,20 @@ const Sidebar: React.FC = () => {
                                     </button>
                                 </div>
                                 {isOpen && (
-                                    <div className="mt-2 space-y-1 pl-4">
+                                    <div className="mt-1 space-y-1 pl-4 border-l-2 border-gray-200 dark:border-gray-700 ml-3">
                                         {categoryTools.map(tool => {
                                             const isActive = activeToolId === tool.id;
                                             return (
                                                 <Link
                                                     key={tool.id}
                                                     href={`/tools/${tool.id}`}
-                                                    className={`flex items-center w-full text-left px-4 py-2 text-sm rounded transition-colors ${
+                                                    className={`flex items-center w-full text-left px-3 py-1.5 text-sm rounded-md transition-colors ${
                                                         isActive
                                                             ? 'bg-blue-600 text-white font-semibold'
                                                             : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                                                     }`}
                                                 >
-                                                    {isValidElement(tool.icon) && cloneElement(tool.icon as React.ReactElement, { className: 'w-5 h-5 mr-3 flex-shrink-0' })}
+                                                    {isValidElement(tool.icon) && cloneElement(tool.icon as React.ReactElement, { className: 'w-4 h-4 mr-3 flex-shrink-0' })}
                                                     <span className="truncate">{tool.name}</span>
                                                 </Link>
                                             );
@@ -109,7 +109,9 @@ const Sidebar: React.FC = () => {
                 </nav>
                 
             {/* Sidebar Ad */}
-            <SidebarAd key="sidebar-ad" />
+            <div className="mt-6 pr-4">
+                <SidebarAd key="sidebar-ad" />
+            </div>
             </div>
         </aside>
     );

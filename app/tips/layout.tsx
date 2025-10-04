@@ -7,10 +7,10 @@ export default function TipsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row">
       <TipsSidebar />
-      <main className="w-full md:w-[80%] flex flex-col bg-gray-50 dark:bg-gray-900 h-[calc(100vh-73px)] overflow-y-auto">
-        <div className="flex-grow p-2 md:p-4">
+      <main className="w-full md:flex-1 bg-gray-50 dark:bg-gray-900 flex flex-col h-[calc(100vh-80px)] overflow-y-auto">
+        <div className="flex-grow p-4 md:p-8">
           {children}
         </div>
         <Footer />
