@@ -6,7 +6,7 @@ import { trackPageView, trackCategoryView, trackTipView, trackToolUsage } from '
 
 interface AnalyticsWrapperProps {
   children: React.ReactNode;
-  pageType?: 'tool' | 'category' | 'tips' | 'home' | 'other';
+  pageType?: 'tool' | 'category' | 'tips' | 'home' | 'other' | string;
   categoryName?: string;
   toolName?: string;
 }

@@ -164,6 +164,8 @@ export const CounterIcon: React.FC<{ className?: string }> = ({ className }) => 
   <Hash {...iconProps} {...(className && { className })} />
 );
 
+export const WordCounterIcon = CounterIcon;
+
 export const CharacterCounterIcon: React.FC<{ className?: string }> = ({ className }) => (
   <Hash {...iconProps} {...(className && { className })} />
 );
