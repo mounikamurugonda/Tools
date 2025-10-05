@@ -10,7 +10,7 @@ interface AnalyticsWrapperProps {
   categoryName?: string;
   toolName?: string;
 }
-
+ 
 const AnalyticsWrapper: React.FC<AnalyticsWrapperProps> = ({ 
   children, 
   pageType = 'other',
