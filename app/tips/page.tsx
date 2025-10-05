@@ -4,6 +4,8 @@ import { getTipsPageSchema, getWebsiteSchema, getOrganizationSchema } from '@/li
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { Metadata } from 'next';
+import TipsPageLayout from '@/components/TipsPageLayout';
+import TipCard from '@/components/TipCard';
 
 export const metadata: Metadata = {
   title: 'Helpful Tips & Tricks | UtilToolkits',
@@ -27,14 +29,10 @@ export const metadata: Metadata = {
   },
 };
 
-const TipCard = ({ tip }: { tip: { category: string; content: string } }) => (
-  <div className="brand-card p-6">
-    <span className="brand-badge">{tip.category}</span>
-    <p className="mt-4 brand-text-body">{tip.content}</p>
-  </div>
-);
-
 export default function TipsPage() {
+  const title = "Helpful Tips & Tricks";
+  const description = "A collection of little nuggets of wisdom to help you work smarter, design better, and stay productive. Select a category from the sidebar to get started.";
+
   return (
     <AnalyticsWrapper pageType="tips">
       {/* Schema Markup */}
@@ -42,14 +40,7 @@ export default function TipsPage() {
       <Schema schema={getOrganizationSchema()} />
       <Schema schema={getTipsPageSchema()} />
       
-      <div className="brand-fade-in">
-        <div className="text-center mb-12">
-          <h1 className="brand-heading-2">Helpful Tips & Tricks</h1>
-          <p className="mt-4 max-w-2xl mx-auto brand-subheading">
-            A collection of little nuggets of wisdom to help you work smarter, design better, and stay productive.
-          </p>
-        </div>
-
+      <TipsPageLayout title={title} description={description}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {TIPS.map((tip, index) => (
             <TipCard key={index} tip={tip} />
@@ -60,7 +51,7 @@ export default function TipsPage() {
         <div className="mt-8">
             <InlineAd key="tips-inline-ad" />
         </div>
-      </div>
+      </TipsPageLayout>
     </AnalyticsWrapper>
   );
 }
