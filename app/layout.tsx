@@ -101,7 +101,7 @@ export default function RootLayout({
       </head>
       <body className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
         <ThemeProvider>
-          <div className="min-h-screen flex flex-col transition-colors duration-300">
+          <div className="min-h-screen w-full flex flex-col transition-colors duration-300">
             <Header />
             <main className="flex-grow flex flex-col">
               {children}

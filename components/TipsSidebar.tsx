@@ -13,9 +13,9 @@ const TipsSidebar = () => {
   );
 
   return (
-    <aside className="hidden md:block w-full md:w-72 flex-shrink-0">
-      <div className="sticky top-20">
-        <div className="brand-card p-4">
+    <aside className="hidden md:block w-full md:w-72 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll brand-fade-in">
+      <div className="sticky top-2 p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-200 dark:border-gray-700">
           <div className="flex items-center mb-4">
             <LightbulbIcon className="w-6 h-6 text-yellow-500 mr-3" />
             <h2 className="brand-heading-4">Recommended Tools</h2>
@@ -30,7 +30,7 @@ const TipsSidebar = () => {
           </div>
         </div>
       
-        <div className="mt-6 brand-card p-4 bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700">
+        <div className="mt-6 bg-blue-50 dark:bg-blue-900/30 rounded-lg p-4 shadow-sm border border-blue-200 dark:border-blue-700">
           <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">💡 Pro Tip</h3>
           <p className="text-sm text-blue-800 dark:text-blue-200 mb-3">
             Bookmark your frequently used tools for quick access!

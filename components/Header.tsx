@@ -31,10 +31,11 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-40 brand-border-b">
+      <header className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-[9999] brand-border-b">
         <div className="brand-container h-20 flex justify-between items-center">
-          <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2 cursor-pointer">
+          <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2 cursor-pointer group">
               <Logo />
+              <span className="sr-only">UtilToolkits</span>
           </Link>
           
           {/* Desktop Nav */}
@@ -48,7 +49,7 @@ const Header: React.FC = () => {
                     <ChevronDownIcon className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
                 {isDropdownOpen && (
-                    <div className="absolute top-full mt-2 left-0 w-56 brand-card p-2 animate-fade-in">
+                    <div className="absolute top-full mt-2 left-0 w-56 bg-white dark:bg-gray-800 rounded-lg p-2 animate-fade-in shadow-lg border border-gray-200 dark:border-gray-700">
                         {CATEGORY_ORDER.map(category => (
                             <Link key={category} href={`/tools/category/${CATEGORY_URL_MAP[category]}`} onClick={closeAllMenus} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
                                 {category}
@@ -82,14 +83,14 @@ const Header: React.FC = () => {
 
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-gray-50 dark:bg-gray-900 z-50 animate-fade-in md:hidden">
+        <div className="fixed inset-0 bg-gray-50/95 dark:bg-gray-900/95 backdrop-blur-md z-[99999] animate-fade-in md:hidden">
             <div className="flex justify-between items-center p-4 brand-border-b">
                 <Link href="/" onClick={closeAllMenus} className="cursor-pointer"><Logo /></Link>
                 <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
                     <CloseIcon className="w-6 h-6" />
                 </button>
             </div>
-            <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-65px)]">
+            <nav className="p-4 space-y-2 overflow-y-auto h-[calc(100vh-66px)]">
                 <Link href="/" onClick={closeAllMenus} className="block px-4 py-3 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg">
                     Home
                 </Link>

@@ -9,7 +9,7 @@ export default function TipsLayout({
   return (
     <div className="flex flex-col md:flex-row">
       <TipsSidebar />
-      <main className="w-full md:flex-1 bg-gray-50 dark:bg-gray-900 flex flex-col h-[calc(100vh-80px)] overflow-y-auto">
+      <main className="w-full md:flex-1 bg-gray-50 dark:bg-gray-900 flex flex-col h-[calc(100vh-81px)] overflow-y-auto">
         <div className="flex-grow p-4 md:p-8">
           {children}
         </div>

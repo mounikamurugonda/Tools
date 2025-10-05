@@ -4,6 +4,7 @@ import React from 'react';
 import { TOOLS } from '@/constants';
 import ToolCard from './ToolCard';
 import Link from 'next/link';
+import { ChevronRightIcon } from './icons';
 
 const MostViewedTools: React.FC = () => {
   // Show popular tools that are not featured
@@ -21,9 +22,9 @@ const MostViewedTools: React.FC = () => {
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Most Popular Tools</h2>
         <Link 
           href="/tools" 
-          className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
+          className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center"
         >
-          View All Tools →
+          View All Tools <ChevronRightIcon className="w-5 h-5 ml-1" />
         </Link>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

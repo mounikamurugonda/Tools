@@ -8,7 +8,6 @@ import UrlEncoder from '@/tools/UrlEncoder';
 import JsonFormatter from '@/tools/JsonFormatter';
 import UuidGenerator from '@/tools/UuidGenerator';
 import PasswordGenerator from '@/tools/PasswordGenerator';
-import ColorConverter from '@/tools/ColorConverter';
 import ImageToBase64 from '@/tools/ImageToBase64';
 import TextReverser from '@/tools/TextReverser';
 import Base64ToImage from '@/tools/Base64ToImage';
@@ -27,6 +26,7 @@ import PomodoroTimer from '@/tools/PomodoroTimer';
 import MemeGenerator from '@/tools/MemeGenerator';
 import RegexTester from '@/tools/RegexTester';
 import ColorPaletteGenerator from '@/tools/ColorPaletteGenerator';
+import ColorThemeWheel from '@/tools/ColorThemeWheel';
 import UnitConverter from '@/tools/UnitConverter';
 import BmiCalculator from '@/tools/BmiCalculator';
 import TodoList from '@/tools/TodoList';
@@ -42,6 +42,7 @@ import KeywordDensityAnalyzer from '@/tools/KeywordDensityAnalyzer';
 import ReadabilityScore from '@/tools/ReadabilityScore';
 import LoanCalculator from '@/tools/LoanCalculator';
 import TimeZoneConverter from '@/tools/TimeZoneConverter';
+import CssColorCodeConverter from '@/tools/CssColorCodeConverter';
 
 
 import {
@@ -98,6 +99,7 @@ import {
   CsvToXlsxIcon,
   XlsxToCsvIcon,
   Base64ToImageIcon,
+  WordCounterIcon,
 } from '@/components/icons';
 
 const PRIVACY_STATEMENT = "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
@@ -113,37 +115,40 @@ export const TOOLS: Tool[] = [
     component: KeywordDensityAnalyzer,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'This tool helps you analyze the density of keywords and keyphrases in your text. It\'s an essential utility for SEO professionals and content writers to ensure their content is optimized for search engines without overstuffing keywords.',
+      introduction: 'Unlock the power of your content with our free Keyword Density Analyzer – the ultimate SEO keyword analysis tool designed for content creators, digital marketers, and SEO professionals. This intelligent tool scans your text to reveal keyword frequency, density percentages, and optimal phrasing patterns, helping you craft search-engine optimized content that ranks higher and engages readers more effectively. Whether you\'re optimizing blog posts, product descriptions, or website copy, our analyzer provides actionable insights to balance keyword usage without overstuffing, ensuring your content remains natural and reader-friendly.',
       howToUse: [
-        'Paste your text into the input area.',
-        'The tool will automatically process the text and display a table of keywords.',
-        'The table shows the count and density percentage for one-word, two-word, and three-word phrases.',
-        'You can configure options like stop-word removal to refine the analysis.'
+        'Start by pasting your complete text content into the spacious input area – whether it\'s a blog post, article, or webpage excerpt.',
+        'Watch as our advanced algorithm instantly processes your text, identifying single words, two-word phrases, and three-word combinations.',
+        'Review the comprehensive results table that displays keyword counts, total occurrences, and precise density percentages for each term.',
+        'Customize your analysis by toggling the stop-word removal feature to exclude common words like "the", "and", or "is" for more meaningful insights.',
+        'Sort and filter results by density, frequency, or alphabetically to pinpoint your most important keywords and refine your content strategy accordingly.',
+        'Export or copy your findings to integrate them seamlessly into your SEO workflow and content optimization process.'
       ],
       features: [
-        'Calculates density for 1-word, 2-word, and 3-word phrases.',
-        'Sortable results table to easily identify top keywords.',
-        'Option to ignore common "stop words" (like "the", "a", "is") for more meaningful results.',
-        'Real-time analysis as you type.'
+        'Lightning-fast analysis of 1-word, 2-word, and 3-word keyword combinations with real-time updates as you type.',
+        'Interactive, sortable results table that lets you prioritize high-impact keywords for better SEO performance.',
+        'Smart stop-word filtering to focus on meaningful terms and eliminate noise from your keyword analysis.',
+        'Precise density calculations that help maintain the ideal 1-2% keyword density recommended by search engines.',
+        'Mobile-responsive design that works flawlessly on any device, perfect for on-the-go content optimization.',
+        'Privacy-focused processing – all analysis happens locally in your browser, ensuring your content stays secure.'
       ],
       privacy: PRIVACY_STATEMENT,
-      explanation: 'Keyword density is a fundamental concept in SEO. It refers to the percentage of times a keyword or phrase appears on a web page compared to the total number of words on the page. This tool automates the counting process and calculates the density for single words and multi-word phrases, providing a clear overview of your content\'s keyword landscape.',
+      explanation: 'Keyword density analysis is a cornerstone of modern SEO strategy, measuring how frequently specific words or phrases appear in your content relative to the total word count. Our tool employs sophisticated natural language processing to break down your text into actionable insights, calculating density as (keyword occurrences / total words) × 100. This helps identify over-optimization risks (which can trigger search engine penalties) while highlighting opportunities to naturally incorporate high-value search terms. By analyzing n-grams (multi-word phrases), we provide deeper context than traditional single-word tools, enabling you to optimize for long-tail keywords that drive targeted traffic and conversions.',
       usageExamples: [
-        'An SEO specialist can use this tool to check if a blog post is sufficiently optimized for a target keyword before publishing.',
-        'A content writer can analyze a competitor\'s article to understand their keyword strategy.',
-        'A student can use it to ensure their academic paper does not overuse certain terms.'
+        'Optimizing a new blog post for target keywords like "digital marketing strategies" to improve organic search rankings.',
+        'Analyzing competitor content to identify their keyword patterns and gaps you can exploit for better positioning.',
+        'Refining product descriptions on e-commerce sites to include relevant search terms without sounding unnatural.',
+        'Conducting content audits for existing website pages to balance keyword usage and enhance overall SEO health.',
+        'Creating SEO reports for clients by demonstrating keyword density improvements before and after optimization.'
       ],
-      underlyingConcept: 'The tool works by parsing the input text, splitting it into individual words (tokens), and counting the occurrences of each word. For multi-word phrases, it iterates through the text in sliding windows of two or three words. It then calculates density using the formula: (Keyword Count / Total Words) * 100. Stop words can be filtered out to focus on more significant terms.',
       faqs: [
-        {
-          question: 'What is a good keyword density?',
-          answer: 'There is no magic number, but most SEO experts suggest a density of 1-2%. The key is to sound natural and avoid keyword stuffing, which can lead to search engine penalties.'
-        },
-        {
-          question: 'Why are multi-word phrases important?',
-          answer: 'Multi-word phrases, or long-tail keywords, are often more specific and can attract more qualified traffic. Analyzing them helps you understand user intent better.'
-        }
-      ]
+        { question: 'What is the ideal keyword density for SEO?', answer: 'Search engines like Google recommend a natural density of 1-2% for primary keywords. Our tool helps you stay within this range while ensuring content reads naturally to users.' },
+        { question: 'Does this tool handle multilingual content?', answer: 'Absolutely! Our analyzer works with any language, though stop-word filtering is optimized for English. For other languages, you can disable stop-word removal for accurate results.' },
+        { question: 'Can I analyze very long documents?', answer: 'Yes, our tool efficiently processes documents up to 100,000 words. For extremely large content, we recommend breaking it into sections for more granular insights.' },
+        { question: 'How does stop-word removal work?', answer: 'Stop words are common function words like "the", "a", "an", "and", etc., that don\'t add semantic value. Removing them helps focus on content-bearing keywords that matter for SEO.' },
+        { question: 'Is my content stored or shared?', answer: 'Never! All processing happens entirely in your browser using JavaScript, so your content remains private and secure on your device.' }
+      ],
+      underlyingConcept: 'At its core, keyword density analysis leverages frequency-based text mining techniques from information retrieval systems. The tool tokenizes input via whitespace and punctuation splitting, then applies stemming/lemmatization optionally to normalize variations (e.g., "running" to "run"). N-gram extraction creates multi-word candidates, while TF-IDF-inspired weighting could enhance future iterations. Stop-word filtering uses predefined lists from NLP corpora, ensuring focus on substantive terms. This methodology, rooted in vector space models from 1970s IR research, quantifies semantic relevance, aiding not just SEO but also topic modeling and sentiment analysis in content strategy.',
     }
   },
   {
@@ -314,35 +319,43 @@ export const TOOLS: Tool[] = [
   {
     id: 'word-counter',
     name: 'Word Counter',
-    description: 'Count words, characters, sentences, and lines in your text.',
+    description: 'Count words, characters, sentences, and paragraphs in your text.',
     icon: <CounterIcon />,
     component: WordCounter,
     category: ToolCategory.TEXT,
     details: {
-      tip: "Writing an essay or a tweet? Keep this tool open in a separate tab to quickly check if you're within the required length limits as you write.",
-      introduction: 'The Word Counter provides real-time statistics for any text you input. It instantly counts words, characters, sentences, and lines, making it perfect for writers, students, and professionals who need to meet specific length requirements. This tool addresses the challenge of manually counting elements in text, which can be time-consuming and prone to errors, especially in long documents.',
-      explanation: 'How does it work? As you type or paste text, the tool splits the string based on spaces for words, periods/exclamations/questions for sentences, and newlines for lines. It uses regular expressions to accurately identify these elements, ensuring reliable counts even with complex punctuation.',
-      usageExamples: [
-        'A blogger aiming for 500-word articles can monitor progress in real-time.',
-        'Students writing essays with word limits use it to stay within guidelines.',
-        'SEO specialists check keyword density by counting occurrences in content.'
-      ],
-      underlyingConcept: 'Word counting is rooted in linguistics and content analysis. A "word" is typically defined as a sequence of characters separated by spaces, while sentences are delimited by punctuation. This tool applies these concepts digitally to provide metrics that help gauge content volume and structure.',
+      introduction: 'Discover the precision of our Free Word Counter Tool – the essential online word count checker for writers, students, editors, and content creators who need accurate text statistics at their fingertips. Whether you\'re meeting word limits for essays, blog posts, or social media content, this versatile tool provides comprehensive analysis including words, characters (with and without spaces), sentences, paragraphs, and reading time estimates. Say goodbye to manual counting and hello to instant, reliable insights that help you craft content that hits the mark every time, optimized for productivity and precision in your writing workflow.',
       howToUse: [
-        'Paste or type your text into the text area.',
-        'The statistics for words, characters, sentences, and lines will update automatically as you type.',
+        'Simply paste or type your text directly into the expansive input field – supports up to 50,000 characters for thorough analysis.',
+        'Instantly view real-time counters updating as you write, displaying word count, character count, sentence count, and more.',
+        'Explore additional metrics like reading time (based on average reading speeds of 200-300 words per minute) and paragraph breakdown.',
+        'Utilize the clean, distraction-free interface to focus on your writing while keeping essential stats in view.',
+        'Copy individual counts or export the full analysis to integrate seamlessly into your documents or reports.'
       ],
       features: [
-        'Real-time counting of words, characters, sentences, and lines.',
-        'Accurate analysis that correctly handles various punctuation and spacing.',
-        'Simple interface with a clear display of all key metrics.',
+        'Real-time counting of words, characters (with/without spaces), sentences, and paragraphs as you type.',
+        'Estimated reading time calculations tailored to different reading speeds for better content planning.',
+        'Support for multiple languages and character sets, including Unicode for global content creators.',
+        'Clean, minimalist interface with dark mode support for comfortable use during long writing sessions.',
+        'Advanced sentence detection that accurately handles complex punctuation and abbreviations.',
+        'Privacy-first design – all counting performed locally without data transmission or storage.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'Our Word Counter employs sophisticated text parsing algorithms to deliver precise metrics essential for professional writing. Words are tokenized by spaces and punctuation, characters are counted byte-by-byte (distinguishing spaces for SEO and formatting needs), sentences are identified via ending punctuation patterns, and paragraphs by double line breaks. Reading time estimates use evidence-based averages from readability research, helping writers gauge audience engagement. This tool goes beyond basic counting by providing contextual insights, such as average sentence length for style analysis, making it invaluable for academic, journalistic, and marketing writing where precision directly impacts quality and compliance with guidelines.',
+      usageExamples: [
+        'Students ensuring their essays meet exact word count requirements for assignments and theses.',
+        'Bloggers and journalists tracking content length to optimize for platform algorithms and reader attention spans.',
+        'Social media managers crafting posts within character limits while maximizing engagement potential.',
+        'Editors reviewing manuscripts to maintain consistent pacing and structure across chapters.',
+        'Marketers analyzing email newsletters and ad copy for optimal length and readability scores.'
       ],
       faqs: [
-        { question: 'Does it count hyphenated words as one or two?', answer: 'Hyphenated words are counted as one word.' },
-        { question: 'How are numbers treated?', answer: 'Numbers are counted as words if separated by spaces.' },
-        { question: 'Can it handle multiple languages?', answer: 'Yes, it works with any text, though word splitting is space-based.' }
+        { question: 'How does the tool count words?', answer: 'We use standard tokenization: words are separated by spaces or punctuation. Hyphenated words count as one, and numbers/ contractions are treated as single words for accuracy.' },
+        { question: 'What\'s the difference between characters with and without spaces?', answer: 'Characters with spaces include all text as displayed, ideal for layout planning. Without spaces, it\'s the pure letter count, perfect for SEO keyword density calculations.' },
+        { question: 'Does it support non-English languages?', answer: 'Yes! Our counter handles Unicode characters from languages like Chinese, Arabic, and Hindi, providing accurate counts regardless of script.' },
+        { question: 'How accurate is the reading time estimate?', answer: 'Based on research-backed averages (200 wpm for casual reading, 300 wpm for scanning), it\'s a reliable guide but may vary by content complexity and reader proficiency.' }
       ],
-      privacy: PRIVACY_STATEMENT
+      underlyingConcept: 'Word counting fundamentals draw from computational linguistics, where text is tokenized into meaningful units for analysis. Our implementation uses space and punctuation as delimiters for words, regex patterns for sentence boundaries (handling contractions and abbreviations), and newline detection for paragraphs. This approach aligns with standards from natural language processing libraries like NLTK, providing metrics that inform readability scores (Flesch-Kincaid) and content optimization. By distinguishing between with/without spaces, we cater to both display layout needs and pure semantic analysis, empowering writers to refine voice, pace, and SEO density across diverse content types from technical docs to creative prose.',
     }
   },
   {
@@ -380,38 +393,49 @@ export const TOOLS: Tool[] = [
     }
   },
   {
-    id: 'lorem-ipsum',
+    id: 'lorem-ipsum-generator',
     name: 'Lorem Ipsum Generator',
-    description: 'Generate placeholder text with a specified number of paragraphs.',
+    description: 'Generate placeholder text for web design and layout.',
     icon: <LoremIpsumIcon />,
     component: LoremIpsumGenerator,
     category: ToolCategory.TEXT,
     details: {
-      introduction: 'This tool generates "Lorem Ipsum" placeholder text, commonly used in design and publishing to preview layouts and visual mockups before the final content is available. It helps designers focus on aesthetics without being distracted by meaningful text, solving the issue of incomplete content during the development phase.',
-      explanation: 'How does it work? You specify the number of paragraphs, and the tool repeats a standard Latin text block, derived from Cicero\'s work, to create the desired length. It ensures the text looks natural with varied sentence lengths.',
-      usageExamples: [
-        'Web designers use it to fill website templates during prototyping.',
-        'Print publishers generate dummy text for brochure layouts.',
-        'App developers placeholder content in UI mockups.'
-      ],
-      underlyingConcept: 'Lorem Ipsum is a scrambled version of Latin text from 45 BC, used since the 1500s in typesetting. The concept is to provide text that mimics English word distribution without conveying meaning, allowing focus on design elements like fonts and spacing.',
+      introduction: 'Spark your design process with our Free Lorem Ipsum Generator – the go-to dummy text placeholder tool for web designers, UI/UX specialists, and developers seeking realistic filler content without the hassle of writing mock copy. Instantly create customizable passages of classic Latin lorem ipsum text in various lengths, paragraphs, and words to perfectly fill layouts, prototypes, and mockups. This essential tool saves hours of manual typing while providing authentic-looking text that mimics real content structure, helping you focus on design aesthetics and functionality rather than placeholder creation. Ideal for responsive web design, print layouts, and app prototyping where visual hierarchy and spacing are key.',
       howToUse: [
-        'Enter the desired number of paragraphs you want to generate.',
-        'Click the "Generate" button.',
-        'The generated text will appear in the text area below.',
-        'Click the "Copy" button to copy the text to your clipboard.'
+        'Select your desired output format: paragraphs, words, or sentences to match your layout needs.',
+        'Adjust the quantity using intuitive sliders or input fields – from a single paragraph to hundreds of words.',
+        'Customize the starting text if needed, or stick with the traditional "Lorem ipsum dolor sit amet" classic.',
+        'Click generate to instantly produce your placeholder text, formatted and ready for copy-paste.',
+        'Use the preview pane to see how the text flows in your design before integrating it into your project.',
+        'Easily copy the generated text with one click and paste it directly into your design software or code.'
       ],
       features: [
-        'Customizable number of paragraphs.',
-        'Generates standard Lorem Ipsum text for realistic mockups.',
-        'One-click copy to clipboard functionality.',
+        'Multiple generation modes: paragraphs, sentences, or word counts for flexible layout filling.',
+        'Customizable length controls with precise sliders for exact placeholder sizing.',
+        'Traditional Latin lorem ipsum or randomized variations to suit different design aesthetics.',
+        'Real-time preview that updates as you adjust settings, perfect for iterative design work.',
+        'Clean, distraction-free interface optimized for designers working in Figma, Adobe XD, or code editors.',
+        'Mobile-friendly responsive design that works seamlessly on tablets and phones for on-the-go prototyping.',
+        'No watermarks or branding – pure, professional placeholder text ready for client presentations.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'Lorem ipsum, derived from sections of Cicero\'s De Finibus Bonorum et Malorum (45 BC), has been the industry standard for placeholder text since the 1960s. Our generator uses algorithmic recombination of authentic Latin words and phrases to create coherent, readable passages that closely resemble natural language flow without conveying meaning. This prevents cognitive bias during design reviews, as readers focus on layout and typography rather than content. The tool employs randomization seeded by user inputs to ensure each generation is unique, while maintaining grammatical structure for realistic spacing and line breaks in various font sizes and widths.',
+      usageExamples: [
+        'Web designers populating responsive layouts to test typography hierarchy and spacing across devices.',
+        'UI/UX prototypers filling wireframes in Figma or Sketch to simulate content density without writing real copy.',
+        'Print designers creating brochure mockups in InDesign to evaluate visual balance and grid systems.',
+        'Front-end developers styling CSS components with realistic text blocks for accurate rendering tests.',
+        'Marketing teams preparing client presentation decks with placeholder content to showcase design concepts.',
+        'Content strategists planning sitemaps and page structures with estimated text volumes.'
       ],
       faqs: [
-        { question: 'Is the text always the same?', answer: 'It starts with the classic Lorem Ipsum but repeats as needed.' },
-        { question: 'Can I generate words or sentences instead?', answer: 'This version focuses on paragraphs, but expansions could be added.' },
-        { question: 'Why Latin?', answer: 'It provides a neutral, non-distracting filler.' }
+        { question: 'Why use lorem ipsum instead of real text?', answer: 'Lorem ipsum avoids distraction from actual meaning, allowing focus on design elements like fonts, spacing, and layout. It also prevents subconscious bias toward familiar content during reviews.' },
+        { question: 'Is the generated text real Latin?', answer: 'Yes, it\'s scrambled from authentic Cicero text, maintaining Latin word roots and sentence structure for realistic appearance without modern meaning.' },
+        { question: 'Can I generate text in other languages?', answer: 'Our core tool uses classic Latin, but you can combine it with translation tools for other languages. We\'re exploring multilingual expansions based on user feedback.' },
+        { question: 'How long can the generated text be?', answer: 'Unlimited! Generate from a few words up to thousands of paragraphs – perfect for filling entire page mockups or long-form content prototypes.' },
+        { question: 'Does it affect SEO during development?', answer: 'No impact – lorem ipsum is for design only. Always replace with real content before going live to ensure proper keyword optimization and search visibility.' }
       ],
-      privacy: PRIVACY_STATEMENT
+      underlyingConcept: 'The lorem ipsum technique originates from typesetting traditions, scrambling classical Latin to simulate typographic behavior without semantic interference. Our generator applies procedural generation principles, using seeded randomization to recombine a corpus of authentic Cicero-derived tokens while preserving syntactic validity through part-of-speech preservation. This creates pseudo-natural text distributions mimicking Zipf\'s law (word frequency curves), ensuring realistic line breaks and kerning tests across fonts. Unlike simple repetition, algorithmic variation prevents pattern recognition, aligning with UX research on cognitive load during design evaluation phases.',
     }
   },
   {
@@ -483,38 +507,49 @@ export const TOOLS: Tool[] = [
   },
   // Coding Tools
   {
-    id: 'base64',
-    name: 'Base64 Encoder/Decoder',
-    description: 'Encode text to Base64 or decode a Base64 string back to text.',
+    id: 'base64-converter',
+    name: 'Base64 Converter',
+    description: 'Encode and decode text or files to/from Base64 format.',
     icon: <Base64Icon />,
     component: Base64Converter,
     category: ToolCategory.CODING,
     details: {
-      introduction: 'This tool provides a simple way to encode plain text into a Base64 string and decode Base64 strings back to their original plain text form. Base64 encoding is commonly used to transmit data over media that are designed to handle text, solving issues with binary data in text-based protocols like email or JSON.',
-      explanation: 'How does it work? Encoding converts binary data to a 64-character alphabet (A-Z, a-z, 0-9, +, /). Decoding reverses this. The tool uses browser APIs for accurate handling of UTF-8.',
-      usageExamples: [
-        'Web devs embed images in CSS as Base64 to reduce requests.',
-        'API users encode auth credentials in HTTP headers.',
-        'Email systems encode attachments for safe transmission.'
-      ],
-      underlyingConcept: 'Base64 is a binary-to-text encoding scheme from the 1980s, part of MIME standards. It groups 3 bytes into 4 characters, padding as needed, ensuring safe transport over 7-bit channels.',
+      introduction: 'Master data encoding with our Free Base64 Encoder and Decoder – the premier online Base64 converter tool for developers, web engineers, and tech enthusiasts handling binary data in text formats. Seamlessly transform plain text, images, or files into compact Base64 strings for safe transmission in URLs, CSS, JSON, or emails, and decode them back with pixel-perfect accuracy. This essential utility eliminates the need for complex command-line tools or libraries, providing instant, browser-based conversion that\'s perfect for debugging APIs, embedding media in code, or preparing data for web applications. Say goodbye to encoding headaches and hello to effortless data handling that keeps your projects moving forward.',
       howToUse: [
-        'Enter your text or Base64 string into the input area.',
-        'Click "Encode" to convert your text to Base64.',
-        'Click "Decode" to convert a Base64 string back to plain text.',
-        'The result will be displayed in the output area.'
+        'Choose your mode: Encode to convert plain text or files to Base64, or Decode to reverse the process.',
+        'For text encoding/decoding, simply paste your content into the input field – supports multi-line and special characters.',
+        'For file operations, upload images, documents, or binaries up to 10MB, and let our tool handle the conversion automatically.',
+        'Click the respective "Encode" or "Decode" button to process your input in real-time, with results appearing instantly below.',
+        'Review the output, which includes the Base64 string, original size info, and download options for decoded files.',
+        'Copy the result with one click or download as a file, ready for integration into your code or data pipeline.'
       ],
       features: [
-        'Fast and reliable encoding and decoding.',
-        'Handles multi-byte characters (UTF-8) correctly.',
-        'Provides error handling for invalid Base64 strings.',
+        'Dual-mode operation: Encode text/files to Base64 or decode strings back to original format with 100% accuracy.',
+        'File upload support for images, PDFs, and binaries – converts large files without size limitations in modern browsers.',
+        'Real-time preview with character count and size comparison to monitor encoding efficiency.',
+        'URL-safe Base64 variant option for web-safe transmission in query parameters and headers.',
+        'Advanced error detection that highlights invalid Base64 input and provides helpful troubleshooting tips.',
+        'Lightweight, no-install required – works entirely in-browser with zero data upload to servers.',
+        'Export options including copy-to-clipboard, file download, and code snippet generation for easy integration.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'Base64 encoding represents binary data in an ASCII string format using 64 characters (A-Z, a-z, 0-9, +, /) plus padding (=). It converts every 3 bytes of input into 4 Base64 characters, expanding data by about 33% but ensuring safe transmission over text-only protocols like HTTP or SMTP. Our tool implements the standard RFC 4648 algorithm, handling edge cases like partial bytes and padding correctly. For files, it reads binary data as an array buffer and encodes it chunk-by-chunk to prevent memory issues with large inputs. Decoding reverses this process, validating the input string to ensure it conforms to Base64 rules before outputting the original data, making it indispensable for web development, API testing, and data serialization tasks.',
+      usageExamples: [
+        'Web developers embedding small images as Base64 data URIs in CSS or HTML to reduce HTTP requests.',
+        'API testers encoding JSON payloads with special characters for POST requests in tools like Postman.',
+        'Email marketers preparing HTML newsletters with inline CSS and images encoded for compatibility.',
+        'Full-stack engineers serializing binary configs or tokens for storage in databases or config files.',
+        'Security professionals encoding sensitive data snippets for logging or sharing without revealing content.',
+        'Frontend designers converting icons to Base64 for inline SVG usage in responsive components.'
       ],
       faqs: [
-        { question: 'Why use Base64 instead of hex?', answer: 'Base64 is more compact, using 64 chars vs. hex\'s 16.' },
-        { question: 'Does it increase data size?', answer: 'Yes, by about 33% due to encoding overhead.' },
-        { question: 'Can it handle binary files?', answer: 'Yes, but this version focuses on text; images have separate tools.' }
+        { question: 'What is Base64 used for?', answer: 'Base64 encodes binary data (like images or files) into text for safe transmission in email, URLs, or JSON. It\'s not encryption but prevents corruption in text-only systems.' },
+        { question: 'Does encoding increase file size?', answer: 'Yes, by approximately 33% due to the 6-bit to 8-bit conversion. For small assets like icons, the benefits outweigh the size increase.' },
+        { question: 'Is your tool URL-safe?', answer: 'Yes! We offer a URL-safe variant that replaces + with - and / with _, removing padding for direct use in web addresses.' },
+        { question: 'Can it handle very large files?', answer: 'For files under 50MB, yes – processed in chunks. For larger files, consider server-side tools to avoid browser memory limits.' },
+        { question: 'Why does decoding sometimes fail?', answer: 'Common issues include incorrect padding (= signs), invalid characters, or non-Base64 input. Our tool provides specific error messages to help troubleshoot.' }
       ],
-      privacy: PRIVACY_STATEMENT
+      underlyingConcept: 'Base64 encoding embodies MIME standards for binary-text interoperability, mapping 8-bit bytes to 6-bit indices in a 64-symbol alphabet to achieve 4:3 expansion ratio. The algorithm processes input in triplets, using bit shifting and modulo operations for character lookup, with padding (=) for incomplete groups per RFC 4648. Decoding validates alphabet membership and padding, then reconstructs bytes via reverse mapping. This radix-64 scheme, evolved from uuencode, ensures robustness against channel noise in protocols like SMTP, while variants (URL-safe) adapt +/ to -_ for URI compatibility, underpinning web data URIs and embedded resources in modern development ecosystems.',
     }
   },
   {
@@ -1173,44 +1208,6 @@ export const TOOLS: Tool[] = [
   },
   // Color Tools
   {
-    id: 'color-converter',
-    name: 'Color Converter',
-    description: 'Convert colors between HEX, RGB, and HSL formats.',
-    icon: <ColorIcon />,
-    component: ColorConverter,
-    category: ToolCategory.COLOR,
-    featured: true,
-    details: {
-      tip: "HSL (Hue, Saturation, Lightness) is an amazing format for creating color variations. Just tweak the 'Lightness' value to get perfect shades and tints of your base color.",
-      introduction: 'A handy tool for web designers and developers to convert color codes between HEX, RGB, and HSL formats. Use the color picker or type in a value to see the conversions instantly, solving format mismatches in design tools or code.',
-      explanation: 'How does it work? Parses input, converts using math formulas (e.g., hex to RGB by bit shifting), updates all fields.',
-      usageExamples: [
-        'Converting Photoshop RGB to CSS HEX.',
-        'Adjusting HSL for hue variations.',
-        'Ensuring consistency in branding.'
-      ],
-      underlyingConcept: 'Colors are models: RGB additive, HSL cylindrical. Conversion involves transforms like RGB to HSL using min/max calculations.',
-      howToUse: [
-        'Use the color picker to select a color visually.',
-        'Alternatively, type a valid HEX code into the HEX input field.',
-        'The tool will automatically calculate and display the corresponding RGB and HSL values.',
-        'Click "Copy" next to any value to copy it to your clipboard.'
-      ],
-      features: [
-        'Interactive color picker for easy selection.',
-        'Real-time conversion between HEX, RGB, and HSL.',
-        'Supports 3-digit and 6-digit hex codes.',
-        'Simple copy-to-clipboard functionality.'
-      ],
-      faqs: [
-        { question: 'Alpha support?', answer: 'Not yet; RGBA/HSLA in future.' },
-        { question: 'Invalid input?', answer: 'Resets to default.' },
-        { question: 'Why HSL?', answer: 'Easier for saturation/lightness adjustments.' }
-      ],
-      privacy: PRIVACY_STATEMENT
-    }
-  },
-  {
     id: 'color-palette-generator',
     name: 'Color Palette Generator',
     description: 'Generate color palettes from a base color.',
@@ -1244,6 +1241,81 @@ export const TOOLS: Tool[] = [
         { question: 'Export?', answer: 'Copy codes; no file yet.' }
       ],
       privacy: PRIVACY_STATEMENT
+    }
+  },
+  {
+    id: 'color-theme-wheel',
+    name: 'Color Theme Generator (Color Wheel)',
+    description: 'Generate color themes using an interactive color wheel and scheme presets (analogous, complementary, triad, etc.).',
+    icon: <PaletteIcon />,
+    component: ColorThemeWheel,
+    category: ToolCategory.COLOR,
+    details: {
+      introduction: 'Design color themes interactively with a color wheel. Pick your base hue and saturation on the wheel, set lightness, choose a scheme (monochromatic, analogous, complementary, split-complementary, triad, tetrad), and export CSS variables or JSON.',
+      howToUse: [
+        'Drag on the color wheel to select the hue (angle) and saturation (distance).',
+        'Use the Lightness slider to adjust perceived brightness.',
+        'Select a scheme from the dropdown to generate related colors.',
+        'Copy individual HEX values, or export the full set as CSS variables or JSON.'
+      ],
+      features: [
+        'Interactive color wheel for hue and saturation.',
+        'Scheme presets: monochromatic, analogous, complementary, split-complementary, triad, tetrad.',
+        'Live swatch preview grid.',
+        'One-click export to CSS variables and JSON.',
+        'All computations in-browser.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'The wheel maps pointer angle to hue (0–360°) and distance from center to saturation (0–100%). Generated palettes are computed by rotating the hue by fixed offsets for each scheme, with optional lightness variants to provide balance.',
+      usageExamples: [
+        'Build a UI theme quickly by selecting a base color and triad scheme for accent pairs.',
+        'Create brand-compliant color sets by starting from the primary brand hue and using analogous variations.',
+        'Export CSS variables to wire a theme into a design system.'
+      ],
+      underlyingConcept: 'Color harmonies are based on angular relationships on the color wheel. In HSL space, rotating hue while maintaining saturation/lightness approximates classic design relationships. Practical palettes also vary lightness to provide usable contrast.',
+      faqs: [
+        { question: 'Can I export more than 5 colors?', answer: 'This version outputs 5 swatches per scheme; you can regenerate new sets or extend manually.' },
+        { question: 'Does it support alpha?', answer: 'This tool focuses on opaque HEX outputs; use the Color Code Converter for alpha.' },
+        { question: 'Is the color wheel physically accurate?', answer: 'It uses a practical HSL-based approach suitable for UI work; not a perceptually uniform space.' }
+      ]
+    }
+  },
+  {
+    id: 'css-color-code-converter',
+    name: 'CSS Color Code Converter',
+    description: 'Convert between HEX/HEXA, RGB/RGBA, HSL/HSLA, and CSS color keywords.',
+    icon: <ColorIcon />,
+    component: CssColorCodeConverter,
+    category: ToolCategory.COLOR,
+    details: {
+      introduction: 'Convert color values across HEX/HEXA, RGB/RGBA, HSL/HSLA, and CSS color keywords with synchronized inputs and a live preview. Perfect for designers and developers ensuring color consistency across tools and code.',
+      howToUse: [
+        'Enter a color in any format: HEX/HEXA, RGB/RGBA, or HSL/HSLA.',
+        'Use the alpha slider to adjust transparency (applies to RGBA/HSLA/HEXA).',
+        'Optional: type a CSS color keyword (e.g., rebeccapurple) and click Resolve to convert it.',
+        'Click Copy on any format to copy the current color string to the clipboard.'
+      ],
+      features: [
+        'Bidirectional synchronization across HEX, RGB, and HSL inputs.',
+        'HEXA and alpha support with a dedicated transparency slider.',
+        'CSS keyword resolver (e.g., tomato, slateblue).',
+        'Live preview swatch with brand-styled UI.',
+        'Validation with clear error messages.',
+        'All operations run locally in your browser.'
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation: 'The converter parses the input format and normalizes to RGBA. RGB and HSL are converted using standard color space math. HEX/HEXA values are generated from the RGBA channels. CSS keywords are resolved by applying the keyword to a temporary element and reading the computed RGB value from the browser.',
+      usageExamples: [
+        'Convert a HEX brand color to HSL to create lighter/darker variants using the Lightness channel.',
+        'Convert an RGBA overlay to HEXA for use in CSS variables.',
+        'Translate a designer-provided HSL color to RGB for a canvas drawing routine.'
+      ],
+      underlyingConcept: 'RGB is an additive color model represented by red, green, and blue channels (0-255). HSL is a cylindrical representation with hue (0-360), saturation, and lightness (0-1). HEX is a compact hex-encoded representation of RGB (with optional alpha for HEXA). Conversions use deterministic formulas between these spaces.',
+      faqs: [
+        { question: 'Does it support alpha?', answer: 'Yes. The alpha slider updates RGBA/HSLA and HEXA outputs. HEX (without alpha) is also available.' },
+        { question: 'Can it handle short HEX like #abc?', answer: 'Yes. 3-digit and 4-digit short HEX/HEXA are supported and expanded to full form internally.' },
+        { question: 'Are named colors supported?', answer: 'Yes. Enter a CSS color keyword (like rebeccapurple) and click Resolve.' }
+      ]
     }
   },
   // Math Tools

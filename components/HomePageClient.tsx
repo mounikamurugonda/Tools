@@ -153,7 +153,7 @@ const HomePageClient: React.FC = () => {
               {showSuggestions && filteredTools.length > 0 && (
                 <div
                   ref={suggestionsRef}
-                  className="absolute top-full left-0 right-0 mt-2 brand-card z-50 max-h-96 overflow-y-auto"
+                   className="absolute top-full left-0 right-0 mt-2 brand-card z-[9998] max-h-96 overflow-y-auto"
                 >
                   {filteredTools.map((tool, index) => (
                     <div
@@ -227,7 +227,10 @@ const HomePageClient: React.FC = () => {
         <section>
           <div className="flex justify-between items-center mb-8">
             <h2 className="brand-heading-2">Categories</h2>
-            <Link href="/tools" className="brand-button-secondary">
+            <Link 
+              href="/tools" 
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center"
+            >
               View All Tools <ChevronRightIcon className="w-5 h-5 ml-1" />
             </Link>
           </div>
@@ -240,17 +243,17 @@ const HomePageClient: React.FC = () => {
                 <Link
                   key={category}
                   href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
-                  className="group brand-card p-6 flex flex-col justify-between brand-card-hover"
+                  className="group bg-white dark:bg-gray-800 rounded-lg p-6 flex flex-col justify-between border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-1 h-full"
                 >
                   <div>
                     <div className="flex items-center mb-3">
                       {CategoryIcon && <CategoryIcon className="w-8 h-8 mr-4 text-blue-500" />}
-                      <h3 className="brand-heading-4">{category}</h3>
+                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{category}</h3>
                     </div>
-                    <p className="brand-text-body mb-3">{description}</p>
-                    <span className="brand-badge">{toolCount} tools</span>
+                    <p className="text-base text-gray-700 dark:text-gray-300 mb-3">{description}</p>
+                    <span className="inline-block px-3 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900/50 dark:text-blue-300">{toolCount} tools</span>
                   </div>
-                  <div className="mt-4 brand-text-link opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="mt-4 font-semibold text-blue-600 dark:text-blue-400 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                     Go to {category} <ChevronRightIcon className="w-5 h-5 ml-1" />
                   </div>
                 </Link>

@@ -57,8 +57,8 @@ const Sidebar: React.FC = () => {
     const currentActiveCategory = activeTool ? activeTool.category : activeCategoryName;
 
     return (
-        <aside className="hidden md:block w-full md:w-64 flex-shrink-0">
-            <div className="sticky top-20">
+        <aside className="hidden md:block w-full md:w-64 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll brand-fade-in">
+            <div className="sticky top-2">
                 <nav className="space-y-1 pr-4">
                     {CATEGORY_ORDER.map(category => {
                         const categoryTools = groupedTools[category];
@@ -83,20 +83,20 @@ const Sidebar: React.FC = () => {
                                     </button>
                                 </div>
                                 {isOpen && (
-                                    <div className="mt-1 space-y-1 pl-4 border-l-2 border-gray-200 dark:border-gray-700 ml-3">
+                                    <div className="mt-1 space-y-1 pl-4 border-l-2 border-gray-200 dark:border-gray-700 ml-3 animate-fade-in">
                                         {categoryTools.map(tool => {
                                             const isActive = activeToolId === tool.id;
                                             return (
                                                 <Link
                                                     key={tool.id}
                                                     href={`/tools/${tool.id}`}
-                                                    className={`flex items-center w-full text-left px-3 py-1.5 text-sm rounded-md transition-colors ${
+                                                    className={`group flex items-center w-full text-left px-3 py-1.5 text-sm rounded-md transition-all ${
                                                         isActive
-                                                            ? 'bg-blue-600 text-white font-semibold'
-                                                            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
+                                                            ? 'bg-blue-600 text-white font-semibold shadow-sm'
+                                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white hover:-translate-x-0.5'
                                                     }`}
                                                 >
-                                                    {isValidElement(tool.icon) && cloneElement(tool.icon as React.ReactElement, { className: 'w-4 h-4 mr-3 flex-shrink-0' })}
+                                                    {isValidElement(tool.icon) && cloneElement(tool.icon as React.ReactElement, { className: `w-4 h-4 mr-3 flex-shrink-0 ${isActive ? 'text-white' : 'text-blue-500/70 dark:text-blue-400/70 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors'}` })}
                                                     <span className="truncate">{tool.name}</span>
                                                 </Link>
                                             );

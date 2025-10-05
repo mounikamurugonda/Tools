@@ -4,6 +4,14 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
   body {
     @apply bg-white dark:bg-gray-900;
     background-image: radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0);
@@ -14,6 +22,71 @@
 
   .dark body {
     background-image: radial-gradient(circle at 1px 1px, #1f2937 1px, transparent 0);
+  }
+
+  /* Custom Scrollbar Styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #2563eb, #7c3aed, #0891b2);
+    transform: scale(1.1);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa, #22d3ee);
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+  }
+
+  /* Firefox Scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #3b82f6 transparent;
+  }
+
+  .dark * {
+    scrollbar-color: #60a5fa transparent;
+  }
+
+  /* Sidebar-specific lighter scrollbar */
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(59,130,246,0.35), rgba(139,92,246,0.35), rgba(6,182,212,0.35));
+    border-radius: 4px;
+  }
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, rgba(59,130,246,0.6), rgba(139,92,246,0.6), rgba(6,182,212,0.6));
+  }
+  .dark .sidebar-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(96,165,250,0.35), rgba(167,139,250,0.35), rgba(34,211,238,0.35));
+  }
+  .dark .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, rgba(59,130,246,0.5), rgba(139,92,246,0.5), rgba(6,182,212,0.5));
+  }
+  .sidebar-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(59,130,246,0.35) transparent;
+  }
+  .dark .sidebar-scroll {
+    scrollbar-color: rgba(96,165,250,0.35) transparent;
   }
 }
 
@@ -166,5 +239,27 @@ input[type="range"]::-moz-range-thumb {
   }
     .brand-border-t {
       @apply border-t border-gray-200 dark:border-gray-700;
+  }
+
+  /* Brand Title styles for consistent headings */
+  .brand-title {
+    @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white;
+    position: relative;
+    line-height: 1.1;
+  }
+  .brand-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 64px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    border-radius: 9999px;
+    opacity: 0.9;
+  }
+  .brand-kicker {
+    @apply inline-block uppercase tracking-widest text-[11px] font-semibold text-blue-600 dark:text-blue-400;
+    letter-spacing: 0.15em;
   }
 }

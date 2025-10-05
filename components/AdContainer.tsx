@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 interface AdContainerProps {
   adSlot: string;
@@ -19,8 +19,16 @@ const AdContainer: React.FC<AdContainerProps> = ({
 }) => {
   const adRef = useRef<HTMLModElement>(null);
   const isAdInitialized = useRef(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    // Set client-side flag to prevent hydration mismatch
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const initializeAd = () => {
       if (!adRef.current || isAdInitialized.current) return;
 
@@ -55,7 +63,20 @@ const AdContainer: React.FC<AdContainerProps> = ({
     const timer = setTimeout(checkAndInitialize, 100);
     
     return () => clearTimeout(timer);
-  }, [adSlot]);
+  }, [adSlot, isClient]);
+
+  // Don't render the ad element on the server to prevent hydration mismatch
+  if (!isClient) {
+    return (
+      <div className={`ad-container ${className}`}>
+        <div style={adStyle} className="bg-gray-200 dark:bg-gray-700 animate-pulse rounded">
+          <div className="flex items-center justify-center h-full text-gray-500 dark:text-gray-400 text-sm">
+            Loading ad...
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`ad-container ${className}`}>
