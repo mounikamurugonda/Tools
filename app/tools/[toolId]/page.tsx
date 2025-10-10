@@ -25,7 +25,7 @@ export async function generateMetadata(
   return {
     title: `${tool.name} | UtilToolkits`,
     description: tool.description,
-    keywords: `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities`,
+    keywords: tool.keywords ? [...tool.keywords, 'developer tools', 'online tools', 'free utilities'] : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities`,
     authors: [{ name: 'UtilToolkits Team' }],
     alternates: {
       canonical: `/tools/${tool.id}`,

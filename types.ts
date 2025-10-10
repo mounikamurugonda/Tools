@@ -33,6 +33,7 @@ export interface Tool {
   category: ToolCategory;
   details: ToolDetails;
   featured?: boolean;
+  keywords?: string[];
 }
 
 export interface ToolProps {

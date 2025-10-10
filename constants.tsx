@@ -149,7 +149,8 @@ export const TOOLS: Tool[] = [
         { question: 'Is my content stored or shared?', answer: 'Never! All processing happens entirely in your browser using JavaScript, so your content remains private and secure on your device.' }
       ],
       underlyingConcept: 'At its core, keyword density analysis leverages frequency-based text mining techniques from information retrieval systems. The tool tokenizes input via whitespace and punctuation splitting, then applies stemming/lemmatization optionally to normalize variations (e.g., "running" to "run"). N-gram extraction creates multi-word candidates, while TF-IDF-inspired weighting could enhance future iterations. Stop-word filtering uses predefined lists from NLP corpora, ensuring focus on substantive terms. This methodology, rooted in vector space models from 1970s IR research, quantifies semantic relevance, aiding not just SEO but also topic modeling and sentiment analysis in content strategy.',
-    }
+    },
+    keywords: ["keyword density checker", "seo analysis tool", "content optimization", "keyword frequency", "on-page seo"],
   },
   {
     id: 'readability-score-calculator',
@@ -190,7 +191,8 @@ export const TOOLS: Tool[] = [
           answer: 'Not necessarily. It just means the writing is more complex. The "best" grade level depends entirely on your target audience. For a broad audience, a lower grade level (around 8th grade) is often recommended.'
         }
       ]
-    }
+    },
+    keywords: ["readability score", "flesch-kincaid calculator", "writing analysis", "grade level checker", "text difficulty"],
   },
     {
     id: 'loan-calculator',
@@ -232,7 +234,8 @@ export const TOOLS: Tool[] = [
           answer: 'You can pay less interest by getting a lower interest rate, choosing a shorter loan term, or making extra payments towards the principal whenever possible.'
         }
       ]
-    }
+    },
+    keywords: ["loan payment calculator", "amortization schedule", "mortgage calculator", "personal loan calculator", "interest calculator"],
   },
     {
     id: 'timezone-converter',
@@ -276,7 +279,8 @@ export const TOOLS: Tool[] = [
           answer: 'When you convert between timezones with a large hour difference, it\'s common for the time to cross over midnight, resulting in a different day. For example, 10 PM on Tuesday in Los Angeles is already 7 AM on Wednesday in Paris.'
         }
       ]
-    }
+    },
+    keywords: ["time zone converter", "world clock", "time difference calculator", "international meeting planner", "gmt converter"],
   },
   {
     id: 'case-converter',
@@ -314,7 +318,8 @@ export const TOOLS: Tool[] = [
         { question: 'Is there a limit to the text length?', answer: 'No strict limit, but very large texts may depend on your browser\'s memory.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["text case converter", "change case online", "uppercase to lowercase", "title case generator", "sentence case tool"],
   },
   {
     id: 'word-counter',
@@ -356,7 +361,8 @@ export const TOOLS: Tool[] = [
         { question: 'How accurate is the reading time estimate?', answer: 'Based on research-backed averages (200 wpm for casual reading, 300 wpm for scanning), it\'s a reliable guide but may vary by content complexity and reader proficiency.' }
       ],
       underlyingConcept: 'Word counting fundamentals draw from computational linguistics, where text is tokenized into meaningful units for analysis. Our implementation uses space and punctuation as delimiters for words, regex patterns for sentence boundaries (handling contractions and abbreviations), and newline detection for paragraphs. This approach aligns with standards from natural language processing libraries like NLTK, providing metrics that inform readability scores (Flesch-Kincaid) and content optimization. By distinguishing between with/without spaces, we cater to both display layout needs and pure semantic analysis, empowering writers to refine voice, pace, and SEO density across diverse content types from technical docs to creative prose.',
-    }
+    },
+    keywords: ["word count tool", "character counter", "sentence counter online", "text statistics", "reading time calculator"],
   },
   {
     id: 'character-counter',
@@ -390,7 +396,8 @@ export const TOOLS: Tool[] = [
         { question: 'Is it accurate for all languages?', answer: 'Yes, it supports Unicode fully.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["character count online", "letter counter", "byte size calculator", "social media character limit", "tweet character counter"],
   },
   {
     id: 'lorem-ipsum-generator',
@@ -436,7 +443,8 @@ export const TOOLS: Tool[] = [
         { question: 'Does it affect SEO during development?', answer: 'No impact – lorem ipsum is for design only. Always replace with real content before going live to ensure proper keyword optimization and search visibility.' }
       ],
       underlyingConcept: 'The lorem ipsum technique originates from typesetting traditions, scrambling classical Latin to simulate typographic behavior without semantic interference. Our generator applies procedural generation principles, using seeded randomization to recombine a corpus of authentic Cicero-derived tokens while preserving syntactic validity through part-of-speech preservation. This creates pseudo-natural text distributions mimicking Zipf\'s law (word frequency curves), ensuring realistic line breaks and kerning tests across fonts. Unlike simple repetition, algorithmic variation prevents pattern recognition, aligning with UX research on cognitive load during design evaluation phases.',
-    }
+    },
+    keywords: ["lorem ipsum generator", "placeholder text generator", "dummy text creator", "mockup text", "filler text"],
   },
   {
     id: 'text-reverser',
@@ -469,7 +477,8 @@ export const TOOLS: Tool[] = [
         { question: 'Can I reverse multiple lines?', answer: 'Yes, it treats the whole input as one string.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["reverse text tool", "string reverser", "backwards text generator", "mirror text", "flip text"],
   },
   {
     id: 'markdown-previewer',
@@ -500,10 +509,11 @@ export const TOOLS: Tool[] = [
       faqs: [
         { question: 'Does it support GitHub Flavored Markdown?', answer: 'Yes, including tables and task lists.' },
         { question: 'Can I embed images?', answer: 'Yes, via Markdown image syntax.' },
-        { question: 'Is the preview sanitized?', answer: 'Yes, to prevent XSS issues.' }
+        'Is the preview sanitized?', answer: 'Yes, to prevent XSS issues.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["markdown editor online", "live markdown preview", "markdown to html converter", "readme editor", "md file viewer"],
   },
   // Coding Tools
   {
@@ -550,7 +560,8 @@ export const TOOLS: Tool[] = [
         { question: 'Why does decoding sometimes fail?', answer: 'Common issues include incorrect padding (= signs), invalid characters, or non-Base64 input. Our tool provides specific error messages to help troubleshoot.' }
       ],
       underlyingConcept: 'Base64 encoding embodies MIME standards for binary-text interoperability, mapping 8-bit bytes to 6-bit indices in a 64-symbol alphabet to achieve 4:3 expansion ratio. The algorithm processes input in triplets, using bit shifting and modulo operations for character lookup, with padding (=) for incomplete groups per RFC 4648. Decoding validates alphabet membership and padding, then reconstructs bytes via reverse mapping. This radix-64 scheme, evolved from uuencode, ensures robustness against channel noise in protocols like SMTP, while variants (URL-safe) adapt +/ to -_ for URI compatibility, underpinning web data URIs and embedded resources in modern development ecosystems.',
-    }
+    },
+    keywords: ["base64 encode decode", "text to base64", "file to base64", "base64 converter online", "data URI generator"],
   },
   {
     id: 'url-encoder',
@@ -585,7 +596,8 @@ export const TOOLS: Tool[] = [
         { question: 'Is it safe for full URLs?', answer: 'For components yes; use encodeURI for whole URLs.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["url encoder decoder", "percent encoding", "url safe characters", "encodeuricomponent online", "query string encoder"],
   },
   {
     id: 'json-formatter',
@@ -622,7 +634,8 @@ export const TOOLS: Tool[] = [
         { question: 'What if there\'s a syntax error?', answer: 'It shows the line and description.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["json formatter online", "json validator", "json beautifier", "pretty print json", "json viewer"],
   },
   {
     id: 'regex-tester',
@@ -659,7 +672,8 @@ export const TOOLS: Tool[] = [
         { question: 'Is it JS-specific?', answer: 'Yes, uses JS RegExp engine.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["regex tester online", "regular expression tester", "javascript regex checker", "validate regex pattern", "regex debugger"],
   },
   {
     id: 'uuid-generator',
@@ -693,7 +707,8 @@ export const TOOLS: Tool[] = [
         { question: 'What about other versions?', answer: 'This focuses on v4; others like v1 use timestamps.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["uuid generator online", "guid generator", "generate uuid v4", "random uuid", "unique identifier"],
   },
   {
     id: 'hash-generator',
@@ -728,7 +743,8 @@ export const TOOLS: Tool[] = [
         { question: 'What\'s hex output?', answer: 'Base16 representation of the binary hash.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["sha256 generator online", "sha512 hash calculator", "md5 generator", "string to hash", "web crypto api"],
   },
   {
     id: 'jwt-debugger',
@@ -764,7 +780,8 @@ export const TOOLS: Tool[] = [
         { question: 'What\'s in the payload?', answer: 'Claims like iss, sub, exp.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["jwt decoder online", "json web token decoder", "inspect jwt", "jwt payload viewer", "auth token debugger"],
   },
   {
     id: 'diff-checker',
@@ -800,7 +817,8 @@ export const TOOLS: Tool[] = [
         { question: 'Can it ignore whitespace?', answer: 'Not currently, but future options may include.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["text compare tool", "diff tool online", "compare two text files", "highlight differences", "code diff checker"],
   },
   {
     id: 'csv-to-json',
@@ -835,7 +853,8 @@ export const TOOLS: Tool[] = [
         { question: 'Large files?', answer: 'Browser-limited.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["csv to json converter", "convert csv to json online", "spreadsheet to json", "data transformation", "parsing csv"],
   },
   {
     id: 'json-to-csv',
@@ -870,7 +889,8 @@ export const TOOLS: Tool[] = [
         { question: 'Download format?', answer: 'UTF-8 CSV.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["json to csv converter", "convert json to csv online", "json array to csv", "export json to excel", "data export"],
   },
   {
     id: 'csv-to-xlsx',
@@ -904,7 +924,8 @@ export const TOOLS: Tool[] = [
         { question: 'Encoding?', answer: 'UTF-8.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["csv to excel converter", "convert csv to xlsx online", "spreadsheet conversion", "data export", "csv file opener"],
   },
   {
     id: 'xlsx-to-csv',
@@ -938,7 +959,8 @@ export const TOOLS: Tool[] = [
         { question: 'File size limit?', answer: 'Browser-dependent.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["excel to csv converter", "convert xlsx to csv online", "spreadsheet to csv", "data extraction", "xlsx file reader"],
   },
   // Image Tools
   {
@@ -976,7 +998,8 @@ export const TOOLS: Tool[] = [
         { question: 'Browser support?', answer: 'Universal for modern browsers.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["image to base64 converter", "data uri generator", "embed image in html", "css background image base64", "png to base64"],
   },
   {
     id: 'base64-to-image',
@@ -1011,7 +1034,8 @@ export const TOOLS: Tool[] = [
         { question: 'Download name?', answer: 'Generic; rename after.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["base64 to image converter", "decode base64 to image", "view base64 image", "data uri viewer", "base64 image downloader"],
   },
   // CSS Tools
   {
@@ -1049,7 +1073,8 @@ export const TOOLS: Tool[] = [
         { question: 'Units?', answer: 'Pixels.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["css box shadow generator", "visual box shadow tool", "css shadow creator", "drop shadow css", "inset shadow generator"],
   },
   {
     id: 'css-gradient-generator',
@@ -1087,7 +1112,8 @@ export const TOOLS: Tool[] = [
         { question: 'Performance?', answer: 'Gradients are GPU-accelerated.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["css gradient generator", "linear gradient css", "radial gradient tool", "color gradient maker", "ui gradient"],
   },
   {
     id: 'border-radius-generator',
@@ -1126,7 +1152,8 @@ export const TOOLS: Tool[] = [
         { question: 'Performance?', answer: 'Border-radius is well-optimized.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["css border radius generator", "rounded corners css", "custom shape css", "visual border radius tool", "css shape generator"],
   },
   {
     id: 'text-shadow-generator',
@@ -1165,7 +1192,8 @@ export const TOOLS: Tool[] = [
         { question: 'Performance?', answer: 'Text-shadow is well-optimized.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["css text shadow generator", "text glow effect css", "3d text css", "visual text shadow tool", "font shadow"],
   },
   {
     id: 'glassmorphism-generator',
@@ -1204,7 +1232,8 @@ export const TOOLS: Tool[] = [
         { question: 'Accessibility?', answer: 'Ensure sufficient contrast.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["glassmorphism css generator", "frosted glass effect css", "neumorphism ui generator", "css blur background", "modern ui design"],
   },
   // Color Tools
   {
@@ -1241,7 +1270,8 @@ export const TOOLS: Tool[] = [
         { question: 'Export?', answer: 'Copy codes; no file yet.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["color palette generator", "color scheme generator", "design color combinations", "monochromatic color palette", "complementary colors"],
   },
   {
     id: 'color-theme-wheel',
@@ -1278,7 +1308,8 @@ export const TOOLS: Tool[] = [
         { question: 'Does it support alpha?', answer: 'This tool focuses on opaque HEX outputs; use the Color Code Converter for alpha.' },
         { question: 'Is the color wheel physically accurate?', answer: 'It uses a practical HSL-based approach suitable for UI work; not a perceptually uniform space.' }
       ]
-    }
+    },
+    keywords: ["color wheel tool", "color harmony generator", "triadic color scheme", "analogous colors", "color picker online"],
   },
   {
     id: 'css-color-code-converter',
@@ -1316,7 +1347,8 @@ export const TOOLS: Tool[] = [
         { question: 'Can it handle short HEX like #abc?', answer: 'Yes. 3-digit and 4-digit short HEX/HEXA are supported and expanded to full form internally.' },
         { question: 'Are named colors supported?', answer: 'Yes. Enter a CSS color keyword (like rebeccapurple) and click Resolve.' }
       ]
-    }
+    },
+    keywords: ["hex to rgb converter", "hsl to hex", "rgba color picker", "css color converter", "color code translator"],
   },
   // Math Tools
   {
@@ -1353,7 +1385,8 @@ export const TOOLS: Tool[] = [
         { question: 'Custom units?', answer: 'No, standard only.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["unit converter online", "metric to imperial converter", "length converter", "weight converter", "measurement conversion"],
   },
   {
     id: 'currency-converter',
@@ -1388,7 +1421,8 @@ export const TOOLS: Tool[] = [
         { question: 'Offline?', answer: 'Needs internet for rates.' }
       ],
       privacy: "This tool fetches exchange rates from a third-party API (open.er-api.com). The amounts and currencies you select are used for calculation in your browser and are not sent to our servers. Please refer to the API provider's privacy policy for their data handling practices."
-    }
+    },
+    keywords: ["currency converter online", "exchange rate calculator", "forex converter", "dollar to euro", "live exchange rates"],
   },
   {
     id: 'bmi-calculator',
@@ -1424,7 +1458,8 @@ export const TOOLS: Tool[] = [
         { question: 'Alternatives?', answer: 'Body fat %, waist ratio.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["bmi calculator", "body mass index calculator", "healthy weight calculator", "bmi chart", "fitness calculator"],
   },
   {
     id: 'date-calculator',
@@ -1459,7 +1494,8 @@ export const TOOLS: Tool[] = [
         { question: 'Months/years add?', answer: 'Days only now.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["date calculator", "days between dates", "add days to date", "time duration calculator", "date difference"],
   },
   // Productivity Tools
   {
@@ -1496,7 +1532,8 @@ export const TOOLS: Tool[] = [
         { question: 'Offline?', answer: 'Yes, but time from system.' }
       ],
       privacy: "Your selected clock preferences are stored in your browser's `localStorage` and are not sent to any server."
-    }
+    },
+    keywords: ["world clock", "time in different cities", "global time checker", "time zone comparison", "international time"],
   },
   {
     id: 'timers-stopwatch',
@@ -1531,7 +1568,8 @@ export const TOOLS: Tool[] = [
         { question: 'Multiple timers?', answer: 'Single now.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["online stopwatch", "countdown timer", "lap timer", "kitchen timer", "study timer"],
   },
   {
     id: 'todo-list',
@@ -1567,7 +1605,8 @@ export const TOOLS: Tool[] = [
         { question: 'Export?', answer: 'Copy manually.' }
       ],
       privacy: "Your to-do list is stored in your browser's `localStorage`. This data is not transmitted to our servers and remains private to your device."
-    }
+    },
+    keywords: ["online todo list", "task manager app", "simple to-do list", "daily planner online", "persistent todo list"],
   },
   {
     id: 'pomodoro-timer',
@@ -1605,7 +1644,8 @@ export const TOOLS: Tool[] = [
         { question: 'Sound customizable?', answer: 'Default only.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["pomodoro timer online", "focus timer", "25 minute timer", "study timer app", "productivity timer"],
   },
   // Fun Tools
   {
@@ -1642,7 +1682,8 @@ export const TOOLS: Tool[] = [
         { question: 'File size?', answer: 'Depends on image.' }
       ],
       privacy: "All image processing and text rendering happens in your browser. Your images are not uploaded to any server."
-    }
+    },
+    keywords: ["meme generator online", "create your own meme", "image captioner", "meme maker", "funny meme creator"],
   },
   // Misc Tools
   {
@@ -1681,7 +1722,8 @@ export const TOOLS: Tool[] = [
         { question: 'Min length?', answer: '12 recommended.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["strong password generator", "random password creator", "secure password maker", "password security", "cryptographically secure password"],
   },
   {
     id: 'qrcode-generator',
@@ -1716,7 +1758,8 @@ export const TOOLS: Tool[] = [
         { question: 'Colors?', answer: 'Black/white; custom future.' }
       ],
       privacy: PRIVACY_STATEMENT
-    }
+    },
+    keywords: ["qr code generator online", "free qr code maker", "text to qr code", "url to qr code", "generate qr code"],
   },
 ];
 
