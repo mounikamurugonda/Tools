@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -13,7 +14,7 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Text Reverser" details={details} toolId={toolId}>
       <div className="space-y-4">
-        <div>
+        <div className="relative">
           <label htmlFor="input-text" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Original Text
           </label>
@@ -24,8 +25,9 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
             placeholder="Enter text to reverse..."
             className="w-full h-32 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
           />
+          {input && <CopyButton textToCopy={input} className="absolute top-8 right-2" />}
         </div>
-        <div>
+        <div className="relative">
           <label htmlFor="output-text" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Reversed Text
           </label>
@@ -36,6 +38,7 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
             placeholder="Reversed text will appear here..."
             className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200"
           />
+          {reversedText && <CopyButton textToCopy={reversedText} className="absolute top-8 right-2" />}
         </div>
       </div>
     </ToolContainer>

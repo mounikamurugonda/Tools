@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 interface JsonToCsvOptions {
     separator: string;
@@ -87,10 +88,6 @@ const JsonToCsv: React.FC<ToolProps> = ({ details, toolId }) => {
         }
     }, [jsonInput, separator, customSeparator, includeHeaders, replaceLineBreaks, lineBreakReplacement]);
     
-    const copyToClipboard = () => {
-        if(csvOutput) navigator.clipboard.writeText(csvOutput);
-    };
-
     const downloadCsv = () => {
         if (!csvOutput) return;
         const blob = new Blob([csvOutput], { type: 'text/csv;charset=utf-8;' });
@@ -145,7 +142,7 @@ const JsonToCsv: React.FC<ToolProps> = ({ details, toolId }) => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4 h-[50vh]">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative">
                         <label htmlFor="json-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">JSON Input</label>
                         <textarea
                             id="json-input"
@@ -154,6 +151,7 @@ const JsonToCsv: React.FC<ToolProps> = ({ details, toolId }) => {
                             placeholder="Paste your JSON array here..."
                             className="w-full flex-grow bg-white dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
                         />
+                        {jsonInput && <CopyButton textToCopy={jsonInput} className="absolute top-8 right-2" />}
                     </div>
                      <div className="flex flex-col">
                         <label htmlFor="csv-output" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CSV Output</label>
@@ -167,7 +165,7 @@ const JsonToCsv: React.FC<ToolProps> = ({ details, toolId }) => {
                             />
                              {csvOutput && (
                                 <div className="absolute top-2 right-2 flex gap-2">
-                                    <button onClick={copyToClipboard} className="px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded">Copy</button>
+                                    <CopyButton textToCopy={csvOutput} />
                                     <button onClick={downloadCsv} className="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white text-sm rounded">Download</button>
                                 </div>
                             )}

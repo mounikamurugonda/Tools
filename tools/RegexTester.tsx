@@ -4,6 +4,7 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
     const [regexStr, setRegexStr] = useState('d(b+)d');
@@ -69,7 +70,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
                 </div>
                 {error && <div className="p-2 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 rounded text-red-700 dark:text-red-300 text-sm">{error}</div>}
 
-                <div>
+                <div className="relative">
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Test String</label>
                     <textarea
                         value={testStr}
@@ -77,6 +78,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
                         placeholder="Text to test against..."
                         className="w-full h-32 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
                     />
+                    {testStr && <CopyButton textToCopy={testStr} className="absolute top-8 right-2" />}
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4">

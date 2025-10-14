@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 interface CsvToJsonOptions {
     separator: string;
@@ -86,10 +87,6 @@ const CsvToJson: React.FC<ToolProps> = ({ details, toolId }) => {
         }
     };
     
-    const copyToClipboard = () => {
-        if(jsonOutput) navigator.clipboard.writeText(jsonOutput);
-    };
-
     return (
         <ToolContainer title="CSV to JSON Converter" details={details} toolId={toolId}>
             <div className="space-y-4">
@@ -131,7 +128,7 @@ const CsvToJson: React.FC<ToolProps> = ({ details, toolId }) => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4 h-[50vh]">
-                    <div className="flex flex-col">
+                    <div className="flex flex-col relative">
                         <label htmlFor="csv-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CSV Input</label>
                         <textarea
                             id="csv-input"
@@ -140,6 +137,7 @@ const CsvToJson: React.FC<ToolProps> = ({ details, toolId }) => {
                             placeholder="Paste your CSV data here..."
                             className="w-full flex-grow bg-white dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
                         />
+                        {csvInput && <CopyButton textToCopy={csvInput} className="absolute top-8 right-2" />}
                     </div>
                      <div className="flex flex-col">
                         <label htmlFor="json-output" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">JSON Output</label>
@@ -152,9 +150,7 @@ const CsvToJson: React.FC<ToolProps> = ({ details, toolId }) => {
                                 className="w-full h-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200 font-mono resize-none"
                             />
                             {jsonOutput && (
-                                <button onClick={copyToClipboard} className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded">
-                                    Copy
-                                </button>
+                                <CopyButton textToCopy={jsonOutput} className="absolute top-2 right-2" />
                             )}
                         </div>
                     </div>

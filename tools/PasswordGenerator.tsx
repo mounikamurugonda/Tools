@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 const CHARS = {
   LOWER: 'abcdefghijklmnopqrstuvwxyz',
@@ -46,10 +47,6 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     generatePassword();
   }, [length, useUpper, useLower, useNumbers, useSymbols]);
 
-  const copyToClipboard = () => {
-      if(password) navigator.clipboard.writeText(password);
-  }
-
   return (
     <ToolContainer title="Password Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
@@ -59,12 +56,7 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
             value={password}
             className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-gray-800 dark:text-gray-200 font-mono text-lg pr-16"
           />
-          <button
-              onClick={copyToClipboard}
-              className="absolute top-1/2 right-2 transform -translate-y-1/2 px-3 py-1 bg-gray-200 text-gray-600 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 text-sm rounded"
-            >
-              Copy
-            </button>
+          <CopyButton textToCopy={password} className="absolute top-1/2 right-2 transform -translate-y-1/2" />
         </div>
         <div className="space-y-4">
             <div>

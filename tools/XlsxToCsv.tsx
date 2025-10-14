@@ -5,6 +5,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import * as XLSX from 'xlsx';
+import CopyButton from '@/components/CopyButton';
 
 type QuoteFields = 'smart' | 'always' | 'never';
 
@@ -151,10 +152,6 @@ const XlsxToCsv: React.FC<ToolProps> = ({ details, toolId }) => {
         }
     };
     
-    const copyToClipboard = () => {
-        if(csvOutput) navigator.clipboard.writeText(csvOutput);
-    };
-
     const downloadCsv = () => {
         if (!csvOutput) return;
         const blob = new Blob([csvOutput], { type: 'text/csv;charset=utf-8;' });
@@ -256,7 +253,7 @@ const XlsxToCsv: React.FC<ToolProps> = ({ details, toolId }) => {
                         />
                          {csvOutput && (
                             <div className="absolute top-2 right-2 flex gap-2">
-                                <button onClick={copyToClipboard} className="px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded">Copy</button>
+                                <CopyButton textToCopy={csvOutput} />
                                 <button onClick={downloadCsv} className="px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white text-sm rounded">Download</button>
                             </div>
                         )}

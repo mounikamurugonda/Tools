@@ -4,6 +4,7 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -27,12 +28,15 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Word & Character Counter" details={details} toolId={toolId}>
       <div className="space-y-4">
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter text here..."
-          className="w-full h-48 bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
-        />
+        <div className="relative">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Enter text here..."
+            className="w-full h-48 bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
+          />
+          {input && <CopyButton textToCopy={input} className="absolute top-2 right-2" />}
+        </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
           <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
             <div className="text-3xl font-bold text-blue-400">{stats.words}</div>

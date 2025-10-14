@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -38,10 +39,6 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-  };
-
   return (
     <ToolContainer title="JSON Formatter & Validator" details={details} toolId={toolId} fullHeight>
       <div className="flex items-center gap-4 mb-4">
@@ -50,7 +47,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
         <p className={`text-sm ${getStatusColor()}`}>{status.message || 'Ready'}</p>
       </div>
       <div className="grid md:grid-cols-2 gap-4 flex-1">
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full relative">
           <label htmlFor="json-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">JSON Input</label>
           <textarea
             id="json-input"
@@ -59,6 +56,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
             placeholder="Paste your JSON here..."
             className="w-full flex-1 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono"
           />
+          {input && <CopyButton textToCopy={input} className="absolute top-8 right-2" />}
         </div>
         <div className="flex flex-col h-full">
           <label htmlFor="json-output" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Formatted Output</label>
@@ -70,11 +68,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
               placeholder="Formatted JSON will appear here..."
               className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200 font-mono"
             />
-            {output && (
-              <button onClick={() => copyToClipboard(output)} className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded">
-                Copy
-              </button>
-            )}
+            {output && <CopyButton textToCopy={output} className="absolute top-2 right-2" />}
           </div>
         </div>
       </div>

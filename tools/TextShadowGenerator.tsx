@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     const [hOffset, setHOffset] = useState(2);
@@ -23,17 +24,10 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     const textShadowValue = `${hOffset}px ${vOffset}px ${blur}px ${colorWithOpacity}`;
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(`text-shadow: ${textShadowValue};`);
-    };
-
-    const copyFullExample = () => {
-        const example = `.text-shadow-example {
+    const fullExample = `.text-shadow-example {
   color: ${textColor};
   text-shadow: ${textShadowValue};
 }`;
-        navigator.clipboard.writeText(example);
-    };
 
     return (
         <ToolContainer title="Text Shadow Generator" details={details} toolId={toolId}>
@@ -132,22 +126,17 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                     <div className="space-y-2">
                         <div className="relative">
                             <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
-                                <code>text-shadow: {textShadowValue};</code>
+                                <code>{`text-shadow: ${textShadowValue};`}</code>
                             </pre>
-                            <button
-                                onClick={copyToClipboard}
-                                className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
-                            >
-                                Copy
-                            </button>
+                            <CopyButton textToCopy={`text-shadow: ${textShadowValue};`} className="absolute top-2 right-2" />
                         </div>
 
-                        <button
-                            onClick={copyFullExample}
-                            className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm rounded"
-                        >
-                            Copy Full CSS Example
-                        </button>
+                        <div className="relative">
+                            <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
+                                <code>{fullExample}</code>
+                            </pre>
+                            <CopyButton textToCopy={fullExample} className="absolute top-2 right-2" />
+                        </div>
                     </div>
 
                     <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded">

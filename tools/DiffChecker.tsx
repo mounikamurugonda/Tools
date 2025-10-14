@@ -5,6 +5,7 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import * as Diff from 'diff';
+import CopyButton from '@/components/CopyButton';
 
 const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
     const [originalText, setOriginalText] = useState('Hello World\nThis is the original text.\nIt has three lines.');
@@ -18,18 +19,24 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
         <ToolContainer title="Diff Checker" details={details} toolId={toolId}>
             <div className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4 h-[40vh]">
-                    <textarea
-                        value={originalText}
-                        onChange={(e) => setOriginalText(e.target.value)}
-                        placeholder="Original text"
-                        className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
-                    />
-                    <textarea
-                        value={changedText}
-                        onChange={(e) => setChangedText(e.target.value)}
-                        placeholder="Changed text"
-                        className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
-                    />
+                    <div className="relative h-full">
+                        <textarea
+                            value={originalText}
+                            onChange={(e) => setOriginalText(e.target.value)}
+                            placeholder="Original text"
+                            className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
+                        />
+                        {originalText && <CopyButton textToCopy={originalText} className="absolute top-2 right-2" />}
+                    </div>
+                    <div className="relative h-full">
+                        <textarea
+                            value={changedText}
+                            onChange={(e) => setChangedText(e.target.value)}
+                            placeholder="Changed text"
+                            className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
+                        />
+                        {changedText && <CopyButton textToCopy={changedText} className="absolute top-2 right-2" />}
+                    </div>
                 </div>
                 <div>
                     <h3 className="text-lg font-semibold mb-2">Differences</h3>

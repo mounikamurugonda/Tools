@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import CopyButton from '@/components/CopyButton';
 
 const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     const [color1, setColor1] = useState('#3b82f6');
@@ -18,10 +19,6 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
             return `radial-gradient(circle at ${position}, ${color1}, ${color2})`;
         }
     }, [color1, color2, angle, gradientType, position]);
-
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(`background: ${gradientValue};`);
-    };
 
     return (
         <ToolContainer title="CSS Gradient Generator" details={details} toolId={toolId}>
@@ -137,14 +134,9 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                     
                     <div className="relative">
                         <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
-                            <code>background: {gradientValue};</code>
+                            <code>{`background: ${gradientValue};`}</code>
                         </pre>
-                        <button
-                            onClick={copyToClipboard}
-                            className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
-                        >
-                            Copy
-                        </button>
+                        <CopyButton textToCopy={`background: ${gradientValue};`} className="absolute top-2 right-2" />
                     </div>
                 </div>
             </div>

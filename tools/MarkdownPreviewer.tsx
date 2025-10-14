@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { marked } from 'marked';
+import CopyButton from '@/components/CopyButton';
 
 const MarkdownPreviewer: React.FC<ToolProps> = ({ details, toolId }) => {
   const [markdown, setMarkdown] = useState(`# Hello, Markdown!
@@ -29,18 +30,24 @@ const MarkdownPreviewer: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Markdown Previewer" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-4 h-[60vh]">
-        <textarea
-          value={markdown}
-          onChange={(e) => setMarkdown(e.target.value)}
-          placeholder="Enter Markdown here..."
-          className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
-          aria-label="Markdown Input"
-        />
-        <div 
-          className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-4 overflow-auto prose dark:prose-invert prose-sm max-w-none"
-          dangerouslySetInnerHTML={{ __html: renderedHtml }}
-          aria-label="Markdown Preview"
-        />
+        <div className="relative h-full">
+          <textarea
+            value={markdown}
+            onChange={(e) => setMarkdown(e.target.value)}
+            placeholder="Enter Markdown here..."
+            className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
+            aria-label="Markdown Input"
+          />
+          {markdown && <CopyButton textToCopy={markdown} />}
+        </div>
+        <div className="relative h-full">
+          <div 
+            className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-4 overflow-auto prose dark:prose-invert prose-sm max-w-none"
+            dangerouslySetInnerHTML={{ __html: renderedHtml }}
+            aria-label="Markdown Preview"
+          />
+          {renderedHtml && <CopyButton textToCopy={renderedHtml} />}
+        </div>
       </div>
     </ToolContainer>
   );
