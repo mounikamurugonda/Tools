@@ -40,7 +40,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer title="JSON Formatter & Validator" details={details} toolId={toolId} fullHeight>
+    <ToolContainer title="JSON Formatter & Validator" details={details} toolId={toolId}>
       <div className="flex items-center gap-4 mb-4">
         <button onClick={handleFormat} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Format / Beautify</button>
         <button onClick={() => { setInput(''); setOutput(''); setStatus({ type: 'idle', message: '' }); }} className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded">Clear</button>

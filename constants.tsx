@@ -1783,7 +1783,6 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.VIDEO,
     component: VideoCompressor,
     details: {
-      description: 'Reduce the file size of your videos without significant quality loss.',
       introduction: 'The Video Compressor helps you shrink video files to save space or for easier sharing, all within your browser.',
       howToUse: [
         'Click the "Choose File" button to upload your video.',
@@ -1791,11 +1790,30 @@ export const TOOLS: Tool[] = [
         'Wait for the compression to finish.',
         'Download your compressed video.'
       ],
-      seo: {
-        title: 'Online Video Compressor | Compress Video Files',
-        description: 'Easily compress your video files online with our fast and secure video compressor. Reduce video file size without losing quality.',
-        keywords: ['video compressor', 'online video shrinker', 'reduce video size']
-      }
+      features: [
+        'Reduce video file size without significant quality loss',
+        'Works entirely in your browser for privacy',
+        'Supports various video formats',
+        'Fast compression processing'
+      ],
+      privacy: 'All video processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'Video compression reduces file size by removing redundant data and optimizing encoding parameters while maintaining visual quality.',
+      usageExamples: [
+        'Compress large video files for email attachments',
+        'Reduce video size for faster web uploads',
+        'Create smaller files for mobile sharing'
+      ],
+      underlyingConcept: 'Video compression uses algorithms to reduce file size by removing spatial and temporal redundancy in video data.',
+      faqs: [
+        {
+          question: 'Will compression affect video quality?',
+          answer: 'The tool uses smart compression algorithms to minimize quality loss while significantly reducing file size.'
+        },
+        {
+          question: 'What video formats are supported?',
+          answer: 'The tool supports most common video formats including MP4, AVI, MOV, and more.'
+        }
+      ]
     }
   },
   {
@@ -1806,7 +1824,6 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.VIDEO,
     component: VideoToAudioConverter,
     details: {
-      description: 'Extract audio from your video files and save it as an MP3.',
       introduction: 'This tool allows you to easily convert video files to high-quality MP3 audio.',
       howToUse: [
         'Click the "Choose File" button to upload your video.',
@@ -1814,11 +1831,30 @@ export const TOOLS: Tool[] = [
         'Wait for the conversion to finish.',
         'Download your audio file.'
       ],
-      seo: {
-        title: 'Online Video to Audio Converter | Convert Video to MP3',
-        description: 'Convert your video files to MP3 audio format with our free online converter. Fast, easy, and secure.',
-        keywords: ['video to audio', 'video to mp3', 'extract audio from video']
-      }
+      features: [
+        'Extract audio from video files',
+        'Convert to high-quality MP3 format',
+        'Works entirely in your browser',
+        'Supports various video formats'
+      ],
+      privacy: 'All video processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool extracts the audio track from video files and converts it to MP3 format for easy sharing and storage.',
+      usageExamples: [
+        'Extract music from video files',
+        'Create audio podcasts from video content',
+        'Convert video lectures to audio for listening on the go'
+      ],
+      underlyingConcept: 'Audio extraction involves separating the audio track from video data and encoding it in MP3 format.',
+      faqs: [
+        {
+          question: 'What audio quality will I get?',
+          answer: 'The tool extracts audio at the original quality from your video file and converts it to high-quality MP3.'
+        },
+        {
+          question: 'Can I extract audio from any video format?',
+          answer: 'Yes, the tool supports most common video formats including MP4, AVI, MOV, and more.'
+        }
+      ]
     }
   },
   {
@@ -1829,7 +1865,6 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.VIDEO,
     component: GifMaker,
     details: {
-      description: 'Create animated GIFs from your video files.',
       introduction: 'This tool helps you convert segments of your videos into high-quality animated GIFs.',
       howToUse: [
         'Click the "Choose File" button to upload your video.',
@@ -1837,11 +1872,30 @@ export const TOOLS: Tool[] = [
         'Wait for the GIF to be created.',
         'Download your new GIF.'
       ],
-      seo: {
-        title: 'Online GIF Maker | Create GIFs from Videos',
-        description: 'Easily create animated GIFs from your video files with our online GIF maker. Convert video to GIF in seconds.',
-        keywords: ['gif maker', 'video to gif', 'create gif']
-      }
+      features: [
+        'Convert video segments to animated GIFs',
+        'High-quality GIF output',
+        'Works entirely in your browser',
+        'Supports various video formats'
+      ],
+      privacy: 'All video processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool extracts frames from your video and combines them into an animated GIF format.',
+      usageExamples: [
+        'Create GIFs from funny video moments',
+        'Convert video tutorials to animated GIFs',
+        'Make GIFs from video clips for social media'
+      ],
+      underlyingConcept: 'GIF creation involves extracting frames from video at regular intervals and encoding them as an animated sequence.',
+      faqs: [
+        {
+          question: 'What video formats are supported?',
+          answer: 'The tool supports most common video formats including MP4, AVI, MOV, and more.'
+        },
+        {
+          question: 'Can I control the GIF quality?',
+          answer: 'The tool automatically optimizes GIF quality while keeping file size reasonable for web use.'
+        }
+      ]
     }
   },
   {
@@ -1852,7 +1906,6 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.VIDEO,
     component: TrimVideo,
     details: {
-      description: 'Cut and trim your video files to get the perfect clip.',
       introduction: 'This tool allows you to easily trim the start and end of your video files.',
       howToUse: [
         'Click the "Choose File" button to upload your video.',
@@ -1861,11 +1914,30 @@ export const TOOLS: Tool[] = [
         'Wait for the video to be trimmed.',
         'Download your trimmed video.'
       ],
-      seo: {
-        title: 'Online Video Trimmer | Trim & Cut Video Files',
-        description: 'Trim your video files online with our easy-to-use video trimmer. Cut videos to your desired length.',
-        keywords: ['trim video', 'cut video', 'video trimmer']
-      }
+      features: [
+        'Trim video start and end points',
+        'Precise time control',
+        'Works entirely in your browser',
+        'Supports various video formats'
+      ],
+      privacy: 'All video processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool allows you to cut unwanted portions from the beginning or end of your video files.',
+      usageExamples: [
+        'Remove intro/outro from videos',
+        'Create shorter clips from long videos',
+        'Trim videos for social media platforms'
+      ],
+      underlyingConcept: 'Video trimming involves cutting specific time segments from video files while preserving quality.',
+      faqs: [
+        {
+          question: 'Can I trim from the middle of a video?',
+          answer: 'Currently, the tool supports trimming from the start and end. For middle cuts, you may need to trim multiple times.'
+        },
+        {
+          question: 'What video formats are supported?',
+          answer: 'The tool supports most common video formats including MP4, AVI, MOV, and more.'
+        }
+      ]
     }
   },
   {
@@ -1876,7 +1948,6 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.VIDEO,
     component: FormatConverter,
     details: {
-      description: 'Convert your video files to different formats like MP4, AVI, MOV, etc.',
       introduction: 'This tool allows you to easily convert your video files to various formats.',
       howToUse: [
         'Click the "Choose File" button to upload your video.',
@@ -1885,11 +1956,30 @@ export const TOOLS: Tool[] = [
         'Wait for the conversion to finish.',
         'Download your converted video.'
       ],
-      seo: {
-        title: 'Online Video Format Converter | Convert Video Files',
-        description: 'Convert your video files to different formats online for free. Supports MP4, AVI, MOV, and more.',
-        keywords: ['video converter', 'format converter', 'convert video']
-      }
+      features: [
+        'Convert between multiple video formats',
+        'Supports MP4, AVI, MOV, and more',
+        'Works entirely in your browser',
+        'Maintains video quality'
+      ],
+      privacy: 'All video processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool converts video files from one format to another while preserving quality and compatibility.',
+      usageExamples: [
+        'Convert videos for different devices',
+        'Change format for better compatibility',
+        'Convert videos for specific applications'
+      ],
+      underlyingConcept: 'Format conversion involves decoding video from one format and re-encoding it in another format.',
+      faqs: [
+        {
+          question: 'Will conversion affect video quality?',
+          answer: 'The tool uses high-quality conversion algorithms to minimize quality loss during format changes.'
+        },
+        {
+          question: 'What formats are supported?',
+          answer: 'The tool supports most common formats including MP4, AVI, MOV, WebM, and more.'
+        }
+      ]
     }
   },
   {
@@ -1900,7 +1990,6 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.VIDEO,
     component: VideoThumbnailExtractor,
     details: {
-      description: 'Extract thumbnails (frames) from your video files.',
       introduction: 'This tool helps you capture a specific frame from a video and save it as an image.',
       howToUse: [
         'Click the "Choose File" button to upload your video.',
@@ -1909,11 +1998,30 @@ export const TOOLS: Tool[] = [
         'Wait for the thumbnail to be extracted.',
         'Download your thumbnail image.'
       ],
-      seo: {
-        title: 'Online Video Thumbnail Extractor | Get Frames from Video',
-        description: 'Easily extract thumbnails or frames from your video files. Save any frame as a high-quality image.',
-        keywords: ['video thumbnail extractor', 'get frame from video', 'video to image']
-      }
+      features: [
+        'Extract frames at specific timestamps',
+        'High-quality image output',
+        'Works entirely in your browser',
+        'Supports various video formats'
+      ],
+      privacy: 'All video processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool extracts a specific frame from your video at the timestamp you specify and saves it as an image.',
+      usageExamples: [
+        'Create thumbnails for video previews',
+        'Extract frames for analysis',
+        'Capture screenshots from videos'
+      ],
+      underlyingConcept: 'Frame extraction involves seeking to a specific timestamp in the video and capturing that frame as an image.',
+      faqs: [
+        {
+          question: 'How accurate is the timestamp?',
+          answer: 'The tool extracts frames at the exact timestamp you specify, with frame-level accuracy.'
+        },
+        {
+          question: 'What image formats are supported?',
+          answer: 'The tool outputs high-quality images in common formats like PNG and JPEG.'
+        }
+      ]
     }
   },
   {
@@ -1924,7 +2032,6 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.VIDEO,
     component: VideoMute,
     details: {
-      description: 'Remove the audio track from a video file.',
       introduction: 'This tool allows you to easily mute a video by removing its audio track completely.',
       howToUse: [
         'Click the "Choose File" button to upload your video.',
@@ -1932,11 +2039,30 @@ export const TOOLS: Tool[] = [
         'Wait for the video to be processed.',
         'Download your muted video.'
       ],
-      seo: {
-        title: 'Online Video Muter | Mute Video Files',
-        description: 'Easily mute your video files online with our video muting tool. Remove audio from any video.',
-        keywords: ['mute video', 'remove audio from video', 'video muter']
-      }
+      features: [
+        'Remove audio track from videos',
+        'Preserve video quality',
+        'Works entirely in your browser',
+        'Supports various video formats'
+      ],
+      privacy: 'All video processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool removes the audio track from your video file while keeping the video content intact.',
+      usageExamples: [
+        'Create silent videos for presentations',
+        'Remove unwanted audio from videos',
+        'Prepare videos for silent playback'
+      ],
+      underlyingConcept: 'Audio removal involves extracting the video stream while discarding the audio stream from the video file.',
+      faqs: [
+        {
+          question: 'Will the video quality be affected?',
+          answer: 'No, only the audio track is removed. The video quality remains exactly the same.'
+        },
+        {
+          question: 'Can I add audio back later?',
+          answer: 'Yes, you can use other tools to add new audio tracks to your muted video.'
+        }
+      ]
     }
   },
 ];
