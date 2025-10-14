@@ -8,18 +8,16 @@ interface ToolContainerProps {
   children: React.ReactNode;
   details: ToolDetails;
   toolId?: string;
-  fullHeight?: boolean;
 }
 
-const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details, toolId, fullHeight }) => {
-
+const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details, toolId }) => {
   return (
-    <div className={`animate-fade-in p-4 md:p-8 ${fullHeight ? 'flex flex-col h-full' : ''}`}>
+    <div className=" animate-fade-in">
       <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{title}</h2>
         {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
-      <div className={`bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 ${fullHeight ? 'flex-1 flex flex-col' : ''}`}>
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
         {children}
       </div>
       <ToolDescription details={details} />
