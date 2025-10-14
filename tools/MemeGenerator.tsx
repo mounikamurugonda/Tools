@@ -78,7 +78,7 @@ const MemeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Meme Generator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">1. Upload an Image</label>

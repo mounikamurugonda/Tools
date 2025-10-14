@@ -77,7 +77,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Glassmorphism & Neumorphism Generator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">

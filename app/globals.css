@@ -13,7 +13,7 @@
   }
   
   body {
-    @apply bg-white dark:bg-gray-900;
+    @apply bg-white dark:bg-gray-900 text-base leading-6;
     background-image: radial-gradient(circle at 1px 1px, #e5e7eb 1px, transparent 0);
     background-size: 2rem 2rem;
     -webkit-font-smoothing: antialiased;
@@ -148,7 +148,7 @@ input[type="range"]::-moz-range-thumb {
 @layer components {
   /* Brand Containers */
   .brand-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8;
   }
   .brand-container-narrow {
     @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
@@ -161,16 +161,16 @@ input[type="range"]::-moz-range-thumb {
 
   /* Brand Typography */
   .brand-heading-1 {
-    @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white;
+    @apply text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-white;
   }
   .brand-heading-2 {
     @apply text-3xl font-bold tracking-tight text-gray-900 dark:text-white;
   }
   .brand-heading-3 {
-    @apply text-2xl font-semibold text-gray-900 dark:text-white;
+    @apply text-2xl font-bold text-gray-900 dark:text-white;
   }
   .brand-heading-4 {
-    @apply text-xl font-semibold text-gray-900 dark:text-white;
+    @apply text-xl font-bold text-gray-900 dark:text-white;
   }
   .brand-subheading {
     @apply text-lg text-gray-600 dark:text-gray-400;
@@ -243,7 +243,7 @@ input[type="range"]::-moz-range-thumb {
 
   /* Brand Title styles for consistent headings */
   .brand-title {
-    @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white;
+    @apply text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-white;
     position: relative;
     line-height: 1.1;
   }

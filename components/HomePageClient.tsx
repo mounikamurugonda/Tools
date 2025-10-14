@@ -164,10 +164,8 @@ const HomePageClient: React.FC = () => {
                       }`}
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="flex-shrink-0">
-                          {React.cloneElement(tool.icon as React.ReactElement, {
-                            className: "w-7 h-7 text-blue-500"
-                          })}
+                        <div className="flex-shrink-0 inline-flex items-center justify-center w-7 h-7 text-blue-500">
+                          {tool.icon}
                         </div>
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-gray-900 dark:text-white truncate">
@@ -212,8 +210,8 @@ const HomePageClient: React.FC = () => {
         <HomepageAd key="homepage-ad" />
 
         {/* Featured Tools Section */}
-        <section className="mb-16">
-          <h2 className="brand-heading-2 mb-8">Featured Tools</h2>
+        <section className="mb-12">
+          <h2 className="brand-heading-2 mb-6">Featured Tools</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {featuredTools.map((tool) => (
               <Link key={tool.id} href={`/tools/${tool.id}`} className="block brand-scale-hover">
@@ -225,7 +223,7 @@ const HomePageClient: React.FC = () => {
 
         {/* Categories Section */}
         <section>
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="brand-heading-2">Categories</h2>
             <Link 
               href="/tools" 
@@ -243,18 +241,17 @@ const HomePageClient: React.FC = () => {
                 <Link
                   key={category}
                   href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
-                  className="group bg-white dark:bg-gray-800 rounded-lg p-6 flex flex-col justify-between border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-all duration-200 cursor-pointer shadow-sm hover:shadow-lg hover:-translate-y-1 h-full"
+                  className="group bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-1 h-full"
                 >
-                  <div>
-                    <div className="flex items-center mb-3">
-                      {CategoryIcon && <CategoryIcon className="w-8 h-8 mr-4 text-blue-500" />}
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{category}</h3>
+                  <div className="flex items-start gap-4 text-left">
+                    {CategoryIcon && <CategoryIcon className="w-8 h-8 text-blue-500" />}
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category}</h3>
+                      <p className="mt-2 text-base text-gray-700 dark:text-gray-300 line-clamp-3 min-h-[4.5rem]">{description}</p>
+                      <div className="mt-3">
+                        <span className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline">Read more</span>
+                      </div>
                     </div>
-                    <p className="text-base text-gray-700 dark:text-gray-300 mb-3">{description}</p>
-                    <span className="inline-block px-3 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900/50 dark:text-blue-300">{toolCount} tools</span>
-                  </div>
-                  <div className="mt-4 font-semibold text-blue-600 dark:text-blue-400 flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    Go to {category} <ChevronRightIcon className="w-5 h-5 ml-1" />
                   </div>
                 </Link>
               );

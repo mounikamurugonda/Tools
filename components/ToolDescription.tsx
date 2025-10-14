@@ -36,7 +36,7 @@ interface ToolDescriptionProps {
 
 const ToolDescription: React.FC<ToolDescriptionProps> = ({ details }) => {
   return (
-    <div className="mt-12 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+    <div className="mt-12 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">About this Tool</h3>
         <p className="mb-6 text-gray-600 dark:text-gray-400">{details.introduction}</p>
         <div className="space-y-1">

@@ -32,51 +32,49 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="sticky top-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-[9999] brand-border-b">
-        <div className="brand-container h-20 flex justify-between items-center">
-          <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2 cursor-pointer group">
+        <div className="w-full px-4 sm:px-6 lg:px-8 h-20 flex items-center">
+          <Link href="/" onClick={closeAllMenus} className="flex items-center gap-2 cursor-pointer group mr-auto">
               <Logo />
               <span className="sr-only">UtilToolkits</span>
           </Link>
-          
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-2">
-            <Link href="/" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
-                Home
-            </Link>
-            <div className="relative" ref={dropdownRef}>
-                <button onClick={() => setIsDropdownOpen(prev => !prev)} className="flex items-center gap-1 px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
-                    Categories
-                    <ChevronDownIcon className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isDropdownOpen && (
-                    <div className="absolute top-full mt-2 left-0 w-56 bg-white dark:bg-gray-800 rounded-lg p-2 animate-fade-in shadow-lg border border-gray-200 dark:border-gray-700">
-                        {CATEGORY_ORDER.map(category => (
-                            <Link key={category} href={`/tools/category/${CATEGORY_URL_MAP[category]}`} onClick={closeAllMenus} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
-                                {category}
-                            </Link>
-                        ))}
-                    </div>
-                )}
-            </div>
-            <Link href="/tools" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
-                Tools
-            </Link>
-            <Link href="/tips" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
-                Tips
-            </Link>
-            <Link href="/about" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
-                About
-            </Link>
-            <Link href="/contact" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
-                Contact
-            </Link>
-          </nav>
-
-          <div className="flex items-center">
-              <ThemeSwitcher />
-              <button onClick={() => setIsMenuOpen(true)} className="md:hidden p-2 ml-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
-                <MenuIcon className="w-6 h-6" />
-              </button>
+          {/* Right: Desktop Nav + Theme */}
+          <div className="ml-auto flex items-center gap-2">
+            <nav className="hidden md:flex items-center gap-2">
+              <Link href="/" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
+                  Home
+              </Link>
+              <div className="relative" ref={dropdownRef}>
+                  <button onClick={() => setIsDropdownOpen(prev => !prev)} className="flex items-center gap-1 px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
+                      Categories
+                      <ChevronDownIcon className={`w-5 h-5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {isDropdownOpen && (
+                      <div className="absolute top-full mt-2 left-0 w-56 bg-white dark:bg-gray-800 rounded-lg p-2 animate-fade-in shadow-lg border border-gray-200 dark:border-gray-700">
+                          {CATEGORY_ORDER.map(category => (
+                              <Link key={category} href={`/tools/category/${CATEGORY_URL_MAP[category]}`} onClick={closeAllMenus} className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                  {category}
+                              </Link>
+                          ))}
+                      </div>
+                  )}
+              </div>
+              <Link href="/tools" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
+                  Tools
+              </Link>
+              <Link href="/tips" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
+                  Tips
+              </Link>
+              <Link href="/about" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
+                  About
+              </Link>
+              <Link href="/contact" onClick={closeAllMenus} className="px-4 py-2 font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 rounded-md transition-colors">
+                  Contact
+              </Link>
+            </nav>
+            <ThemeSwitcher />
+            <button onClick={() => setIsMenuOpen(true)} className="md:hidden p-2 ml-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
+              <MenuIcon className="w-6 h-6" />
+            </button>
           </div>
         </div>
       </header>

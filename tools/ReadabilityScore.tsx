@@ -61,7 +61,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Readability Score Calculator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                     <textarea
                         value={text}

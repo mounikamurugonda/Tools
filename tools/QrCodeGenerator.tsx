@@ -34,7 +34,7 @@ const QrCodeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="QR Code Generator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="grid md:grid-cols-2 gap-6 items-center">
                 <div className="space-y-4">
                     <label className="block text-gray-700 dark:text-gray-300">Enter Text or URL</label>
                     <textarea

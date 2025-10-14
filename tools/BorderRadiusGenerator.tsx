@@ -35,7 +35,7 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Border Radius Generator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                     <div className="flex items-center justify-between">
                         <label className="text-gray-700 dark:text-gray-300">Unit</label>

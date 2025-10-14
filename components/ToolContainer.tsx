@@ -2,6 +2,8 @@ import React from 'react';
 import type { ToolDetails } from '@/types';
 import ToolDescription from './ToolDescription';
 import ShareButton from './ShareButton';
+import ToolCredits from './ToolCredits';
+import { SITE_CREDITS, TOOL_CREDITS } from '@/lib/credits';
 
 interface ToolContainerProps {
   title: string;
@@ -17,10 +19,11 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{title}</h2>
         {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
         {children}
       </div>
       <ToolDescription details={details} />
+      <ToolCredits items={[...(toolId ? (TOOL_CREDITS[toolId] || []) : []), ...SITE_CREDITS]} />
     </div>
   );
 };

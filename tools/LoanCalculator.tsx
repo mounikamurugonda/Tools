@@ -57,7 +57,7 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Loan Calculator" details={details} toolId={toolId}>
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-6">
                 <div className="lg:col-span-1 space-y-4">
                     <NumberInput label="Loan Amount ($)" value={loanAmount} onChange={setLoanAmount} />
                     <NumberInput label="Interest Rate (%)" value={interestRate} onChange={setInterestRate} step="0.01" />

@@ -31,7 +31,7 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Text Shadow Generator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-6">
                     <div className="space-y-4">
                         <RangeSlider label="Horizontal Offset (px)" value={hOffset} setValue={setHOffset} min={-20} max={20} />

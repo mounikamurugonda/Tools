@@ -30,7 +30,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Box Shadow Generator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                     <RangeSlider label="Horizontal Offset (px)" value={hOffset} setValue={setHOffset} min={-50} max={50} />
                     <RangeSlider label="Vertical Offset (px)" value={vOffset} setValue={setVOffset} min={-50} max={50} />

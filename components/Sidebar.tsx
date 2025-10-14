@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useEffect, useRef, cloneElement, isValidElement } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import type { Tool } from '@/types';
 import { ToolCategory } from '@/types';
 import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
@@ -96,7 +96,9 @@ const Sidebar: React.FC = () => {
                                                             : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white hover:-translate-x-0.5'
                                                     }`}
                                                 >
-                                                    {isValidElement(tool.icon) && cloneElement(tool.icon as React.ReactElement, { className: `w-4 h-4 mr-3 flex-shrink-0 ${isActive ? 'text-white' : 'text-blue-500/70 dark:text-blue-400/70 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors'}` })}
+                                                    <span className={`mr-3 flex-shrink-0 inline-flex items-center justify-center w-4 h-4 ${isActive ? 'text-white' : 'text-blue-500/70 dark:text-blue-400/70 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors'}`}>
+                                                        {tool.icon}
+                                                    </span>
                                                     <span className="truncate">{tool.name}</span>
                                                 </Link>
                                             );
