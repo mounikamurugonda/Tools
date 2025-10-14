@@ -88,9 +88,19 @@ import TimeZoneConverter from '@/tools/TimeZoneConverter';
 
 import CssColorCodeConverter from '@/tools/CssColorCodeConverter';
 
+import VideoCompressor from '@/tools/VideoCompressor';
 
+import VideoToAudioConverter from '@/tools/VideoToAudioConverter';
 
+import GifMaker from '@/tools/GifMaker';
 
+import TrimVideo from '@/tools/TrimVideo';
+
+import FormatConverter from '@/tools/FormatConverter';
+
+import VideoThumbnailExtractor from '@/tools/VideoThumbnailExtractor';
+
+import VideoMute from '@/tools/VideoMute';
 
 import {
 
@@ -180,6 +190,8 @@ import {
 
   MiscCategoryIcon,
 
+  VideoCategoryIcon,
+
   CharacterCounterIcon,
 
   KeywordDensityIcon,
@@ -189,6 +201,20 @@ import {
   LoanCalculatorIcon,
 
   TimeZoneConverterIcon,
+
+  VideoCompressorIcon,
+
+  VideoToAudioIcon,
+
+  GifMakerIcon,
+
+  TrimVideoIcon,
+
+  FormatConverterIcon,
+
+  VideoThumbnailIcon,
+
+  VideoMuteIcon,
 
   CsvToJsonIcon,
 
@@ -3524,6 +3550,334 @@ export const TOOLS: Tool[] = [
 
   },
 
+  {
+
+    id: 'video-compressor',
+
+    name: 'Video Compressor',
+
+    description: 'Reduce the file size of your videos without significant quality loss.',
+
+    icon: <VideoCompressorIcon />,
+
+    category: ToolCategory.VIDEO,
+
+    component: VideoCompressor,
+
+    details: {
+
+      description: 'Reduce the file size of your videos without significant quality loss.',
+
+      introduction: 'The Video Compressor helps you shrink video files to save space or for easier sharing, all within your browser.',
+
+      howToUse: [
+
+        'Click the "Choose File" button to upload your video.',
+
+        'Click the "Compress Video" button.',
+
+        'Wait for the compression to finish.',
+
+        'Download your compressed video.'
+
+      ],
+
+      seo: {
+
+        title: 'Online Video Compressor | Compress Video Files',
+
+        description: 'Easily compress your video files online with our fast and secure video compressor. Reduce video file size without losing quality.',
+
+        keywords: ['video compressor', 'online video shrinker', 'reduce video size']
+
+      }
+
+    }
+
+  },
+
+  {
+
+    id: 'video-to-audio-converter',
+
+    name: 'Video to Audio Converter',
+
+    description: 'Extract audio from your video files and save it as an MP3.',
+
+    icon: <VideoToAudioIcon />,
+
+    category: ToolCategory.VIDEO,
+
+    component: VideoToAudioConverter,
+
+    details: {
+
+      description: 'Extract audio from your video files and save it as an MP3.',
+
+      introduction: 'This tool allows you to easily convert video files to high-quality MP3 audio.',
+
+      howToUse: [
+
+        'Click the "Choose File" button to upload your video.',
+
+        'Click the "Convert to Audio" button.',
+
+        'Wait for the conversion to finish.',
+
+        'Download your audio file.'
+
+      ],
+
+      seo: {
+
+        title: 'Online Video to Audio Converter | Convert Video to MP3',
+
+        description: 'Convert your video files to MP3 audio format with our free online converter. Fast, easy, and secure.',
+
+        keywords: ['video to audio', 'video to mp3', 'extract audio from video']
+
+      }
+
+    }
+
+  },
+
+  {
+
+    id: 'gif-maker',
+
+    name: 'GIF Maker from Video',
+
+    description: 'Create animated GIFs from your video files.',
+
+    icon: <GifMakerIcon />,
+
+    category: ToolCategory.VIDEO,
+
+    component: GifMaker,
+
+    details: {
+
+      description: 'Create animated GIFs from your video files.',
+
+      introduction: 'This tool helps you convert segments of your videos into high-quality animated GIFs.',
+
+      howToUse: [
+
+        'Click the "Choose File" button to upload your video.',
+
+        'Click the "Create GIF" button.',
+
+        'Wait for the GIF to be created.',
+
+        'Download your new GIF.'
+
+      ],
+
+      seo: {
+
+        title: 'Online GIF Maker | Create GIFs from Videos',
+
+        description: 'Easily create animated GIFs from your video files with our online GIF maker. Convert video to GIF in seconds.',
+
+        keywords: ['gif maker', 'video to gif', 'create gif']
+
+      }
+
+    }
+
+  },
+
+  {
+
+    id: 'trim-video',
+
+    name: 'Trim Video',
+
+    description: 'Cut and trim your video files to get the perfect clip.',
+
+    icon: <TrimVideoIcon />,
+
+    category: ToolCategory.VIDEO,
+
+    component: TrimVideo,
+
+    details: {
+
+      description: 'Cut and trim your video files to get the perfect clip.',
+
+      introduction: 'This tool allows you to easily trim the start and end of your video files.',
+
+      howToUse: [
+
+        'Click the "Choose File" button to upload your video.',
+
+        'Set the start and end times for the trim.',
+
+        'Click the "Trim Video" button.',
+
+        'Wait for the video to be trimmed.',
+
+        'Download your trimmed video.'
+
+      ],
+
+      seo: {
+
+        title: 'Online Video Trimmer | Trim & Cut Video Files',
+
+        description: 'Trim your video files online with our easy-to-use video trimmer. Cut videos to your desired length.',
+
+        keywords: ['trim video', 'cut video', 'video trimmer']
+
+      }
+
+    }
+
+  },
+
+  {
+
+    id: 'format-converter',
+
+    name: 'Video Format Converter',
+
+    description: 'Convert your video files to different formats like MP4, AVI, MOV, etc.',
+
+    icon: <FormatConverterIcon />,
+
+    category: ToolCategory.VIDEO,
+
+    component: FormatConverter,
+
+    details: {
+
+      description: 'Convert your video files to different formats like MP4, AVI, MOV, etc.',
+
+      introduction: 'This tool allows you to easily convert your video files to various formats.',
+
+      howToUse: [
+
+        'Click the "Choose File" button to upload your video.',
+
+        'Select the desired output format.',
+
+        'Click the "Convert Format" button.',
+
+        'Wait for the conversion to finish.',
+
+        'Download your converted video.'
+
+      ],
+
+      seo: {
+
+        title: 'Online Video Format Converter | Convert Video Files',
+
+        description: 'Convert your video files to different formats online for free. Supports MP4, AVI, MOV, and more.',
+
+        keywords: ['video converter', 'format converter', 'convert video']
+
+      }
+
+    }
+
+  },
+
+  {
+
+    id: 'video-thumbnail-extractor',
+
+    name: 'Video Thumbnail Extractor',
+
+    description: 'Extract thumbnails (frames) from your video files.',
+
+    icon: <VideoThumbnailIcon />,
+
+    category: ToolCategory.VIDEO,
+
+    component: VideoThumbnailExtractor,
+
+    details: {
+
+      description: 'Extract thumbnails (frames) from your video files.',
+
+      introduction: 'This tool helps you capture a specific frame from a video and save it as an image.',
+
+      howToUse: [
+
+        'Click the "Choose File" button to upload your video.',
+
+        'Enter the timestamp (in seconds) of the frame you want to extract.',
+
+        'Click the "Extract Thumbnail" button.',
+
+        'Wait for the thumbnail to be extracted.',
+
+        'Download your thumbnail image.'
+
+      ],
+
+      seo: {
+
+        title: 'Online Video Thumbnail Extractor | Get Frames from Video',
+
+        description: 'Easily extract thumbnails or frames from your video files. Save any frame as a high-quality image.',
+
+        keywords: ['video thumbnail extractor', 'get frame from video', 'video to image']
+
+      }
+
+    }
+
+  },
+
+  {
+
+    id: 'video-mute',
+
+    name: 'Mute Video',
+
+    description: 'Remove the audio track from a video file.',
+
+    icon: <VideoMuteIcon />,
+
+    category: ToolCategory.VIDEO,
+
+    component: VideoMute,
+
+    details: {
+
+      description: 'Remove the audio track from a video file.',
+
+      introduction: 'This tool allows you to easily mute a video by removing its audio track completely.',
+
+      howToUse: [
+
+        'Click the "Choose File" button to upload your video.',
+
+        'Click the "Mute Video" button.',
+
+        'Wait for the video to be processed.',
+
+        'Download your muted video.'
+
+      ],
+
+      seo: {
+
+        title: 'Online Video Muter | Mute Video Files',
+
+        description: 'Easily mute your video files online with our video muting tool. Remove audio from any video.',
+
+        keywords: ['mute video', 'remove audio from video', 'video muter']
+
+      }
+
+    }
+
+  },
+
 ];
 
 
@@ -3547,6 +3901,8 @@ export const CATEGORY_ORDER: ToolCategory[] = [
     ToolCategory.FUN,
 
     ToolCategory.MISC,
+
+    ToolCategory.VIDEO,
 
 ];
 
@@ -3574,6 +3930,8 @@ export const CATEGORY_URL_MAP: Record<ToolCategory, string> = {
 
     [ToolCategory.MISC]: 'miscellaneous-tools',
 
+    [ToolCategory.VIDEO]: 'video-tools',
+
 };
 
 
@@ -3600,6 +3958,8 @@ export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = {
 
     'miscellaneous-tools': ToolCategory.MISC,
 
+    'video-tools': ToolCategory.VIDEO,
+
 };
 
 
@@ -3624,6 +3984,8 @@ export const CATEGORY_ICONS: Record<ToolCategory, React.FC<{className?: string}>
 
     [ToolCategory.MISC]: MiscCategoryIcon,
 
+    [ToolCategory.VIDEO]: VideoCategoryIcon,
+
 };
 
 
@@ -3647,6 +4009,8 @@ export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
     [ToolCategory.FUN]: "Fun tools to create memes and more.",
 
     [ToolCategory.MISC]: "A collection of other useful miscellaneous tools.",
+
+    [ToolCategory.VIDEO]: "Tools for video processing, conversion, and manipulation.",
 
 };
 
@@ -3927,6 +4291,36 @@ export const CATEGORY_CONTENT: Record<ToolCategory, {
       "Developers needing unique IDs for testing",
 
       "Anyone sharing links via scannable codes"
+
+    ]
+
+  },
+
+  [ToolCategory.VIDEO]: {
+
+    introduction: "Video content is everywhere—from social media to professional presentations. Our Video Tools category brings powerful video processing capabilities right to your browser. Whether you need to compress files for sharing, extract audio tracks, create GIFs, or convert formats, these tools handle it all without requiring expensive software or compromising your privacy.",
+
+    benefits: [
+
+      "Process videos directly in your browser for maximum privacy",
+
+      "Compress large files without losing quality for easier sharing",
+
+      "Extract audio, create GIFs, and convert formats instantly",
+
+      "No software installation or file uploads required"
+
+    ],
+
+    useCases: [
+
+      "Content creators compressing videos for social media",
+
+      "Students extracting audio from educational videos",
+
+      "Marketers creating GIFs from promotional videos",
+
+      "Professionals converting video formats for presentations"
 
     ]
 

@@ -13,6 +13,7 @@ import {
   Folder,
   Heart,
   Lock as LockIcon,
+  Video,
   // UI Icons
   ChevronDown,
   ChevronRight,
@@ -56,7 +57,16 @@ import {
   Search as SearchTool,
   BookOpen,
   CreditCard,
-  MapPin
+  MapPin,
+  // Video Tool Icons
+  Minimize2,
+  Music,
+  Image as GifIcon,
+  Scissors,
+  RefreshCw,
+  Camera,
+  VolumeX,
+  Upload
 } from 'lucide-react';
 
 const iconProps = {
@@ -144,6 +154,10 @@ export const ProductivityCategoryIcon: React.FC<{className?: string}> = ({ class
 
 export const FunCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
     <Smile {...categoryIconProps} {...(className && { className })} />
+);
+
+export const VideoCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
+    <Video {...categoryIconProps} {...(className && { className })} />
 );
 
 export const SecurityCategoryIcon: React.FC<{className?: string}> = ({ className }) => (
@@ -353,4 +367,37 @@ export const TextShadowIcon: React.FC<{ className?: string }> = ({ className }) 
 
 export const GlassmorphismIcon: React.FC<{ className?: string }> = ({ className }) => (
   <Box {...iconProps} {...(className && { className })} />
+);
+
+// Video Tool Icons
+export const VideoCompressorIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Minimize2 {...iconProps} {...(className && { className })} />
+);
+
+export const VideoToAudioIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Music {...iconProps} {...(className && { className })} />
+);
+
+export const GifMakerIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <GifIcon {...iconProps} {...(className && { className })} />
+);
+
+export const TrimVideoIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Scissors {...iconProps} {...(className && { className })} />
+);
+
+export const FormatConverterIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <RefreshCw {...iconProps} {...(className && { className })} />
+);
+
+export const VideoThumbnailIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Camera {...iconProps} {...(className && { className })} />
+);
+
+export const VideoMuteIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <VolumeX {...iconProps} {...(className && { className })} />
+);
+
+export const FileUploadIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Upload {...iconProps} {...(className && { className })} />
 );

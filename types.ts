@@ -10,6 +10,7 @@ export enum ToolCategory {
   PRODUCTIVITY = 'Productivity Tools',
   FUN = 'Fun & Interactive Tools',
   MISC = 'Miscellaneous Tools',
+  VIDEO = 'Video Tools',
 }
 
 export interface ToolDetails {

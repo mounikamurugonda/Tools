@@ -45,11 +45,13 @@ const ToolDescription: React.FC<ToolDescriptionProps> = ({ details }) => {
                     <p>{details.explanation}</p>
                 </AccordionItem>
             )}
-            <AccordionItem title="How to Use">
-                <ol className="list-decimal pl-5 space-y-1">
-                    {details.howToUse.map((step, index) => <li key={index}>{step}</li>)}
-                </ol>
-            </AccordionItem>
+            {details.howToUse && details.howToUse.length > 0 && (
+                <AccordionItem title="How to Use">
+                    <ol className="list-decimal pl-5 space-y-1">
+                        {details.howToUse.map((step, index) => <li key={index}>{step}</li>)}
+                    </ol>
+                </AccordionItem>
+            )}
             {details.usageExamples && details.usageExamples.length > 0 && (
                 <AccordionItem title="Usage Examples">
                     <ul className="list-disc pl-5 space-y-1">
