@@ -103,7 +103,7 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="min-h-screen w-full flex flex-col transition-colors duration-300">
             <Header />
-            <main className="flex-grow flex flex-col">
+            <main className="flex-1 flex flex-col">
               {children}
             </main>
             <ConditionalFooter />

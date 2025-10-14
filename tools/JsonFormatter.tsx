@@ -38,29 +38,45 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   };
 
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
   return (
-    <ToolContainer title="JSON Formatter & Validator" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <textarea
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Paste your JSON here..."
-          className="w-full h-48 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono"
-        />
-        <div className="flex items-center gap-4">
-          <button onClick={handleFormat} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Format / Validate</button>
-          {status.type !== 'idle' && (
-            <div className={`p-2 rounded ${getStatusColor()}`}>
-              {status.message}
-            </div>
-          )}
+    <ToolContainer title="JSON Formatter & Validator" details={details} toolId={toolId} fullHeight>
+      <div className="flex items-center gap-4 mb-4">
+        <button onClick={handleFormat} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Format / Beautify</button>
+        <button onClick={() => { setInput(''); setOutput(''); setStatus({ type: 'idle', message: '' }); }} className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded">Clear</button>
+        <p className={`text-sm ${getStatusColor()}`}>{status.message || 'Ready'}</p>
+      </div>
+      <div className="grid md:grid-cols-2 gap-4 flex-1">
+        <div className="flex flex-col h-full">
+          <label htmlFor="json-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">JSON Input</label>
+          <textarea
+            id="json-input"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Paste your JSON here..."
+            className="w-full flex-1 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono"
+          />
         </div>
-        <textarea
-          readOnly
-          value={output}
-          placeholder="Formatted JSON will appear here..."
-          className="w-full h-64 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200 font-mono"
-        />
+        <div className="flex flex-col h-full">
+          <label htmlFor="json-output" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Formatted Output</label>
+          <div className="relative flex-1">
+            <textarea
+              id="json-output"
+              readOnly
+              value={output}
+              placeholder="Formatted JSON will appear here..."
+              className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200 font-mono"
+            />
+            {output && (
+              <button onClick={() => copyToClipboard(output)} className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded">
+                Copy
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </ToolContainer>
   );
