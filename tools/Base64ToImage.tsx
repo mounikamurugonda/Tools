@@ -35,34 +35,46 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Base64 to Image Converter" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Paste Base64 Data URL</label>
-          <textarea
-            value={base64}
-            onChange={handleInputChange}
-            placeholder="Paste your Base64 data URL here (e.g., data:image/png;base64,...)"
-            className="w-full h-48 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-xs"
-          />
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <button 
+            onClick={handleDownload}
+            disabled={!base64 || !!error}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+          >
+            Download Image
+          </button>
         </div>
-        {error && <p className="text-red-400">{error}</p>}
-        <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Image Preview</h3>
-            <div className="h-64 bg-gray-50 dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700 flex items-center justify-center p-4">
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Left side - Input */}
+          <div className="space-y-4">
+            <div className="relative">
+              <label htmlFor="base64-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Base64 Data URL</label>
+              <textarea
+                id="base64-input"
+                value={base64}
+                onChange={handleInputChange}
+                placeholder="Paste your Base64 data URL here (e.g., data:image/png;base64,...)"
+                className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-xs resize-none"
+              />
+            </div>
+            {error && <p className="text-red-400">{error}</p>}
+          </div>
+
+          {/* Right side - Preview */}
+          <div className="space-y-4">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image Preview</label>
+            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 min-h-[300px] flex items-center justify-center">
               {base64 && !error ? (
-                <img src={base64} alt="Preview" className="max-h-full max-w-full" />
+                <img src={base64} alt="Preview" className="max-h-full max-w-full rounded" />
               ) : (
-                <p className="text-gray-500">Image preview will appear here</p>
+                <div className="text-center text-gray-500 dark:text-gray-400">
+                  <div className="text-4xl mb-2">🖼️</div>
+                  <p>Image preview will appear here</p>
+                </div>
               )}
             </div>
-             {base64 && !error && (
-                <button 
-                    onClick={handleDownload}
-                    className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold"
-                >
-                    Download Image
-                </button>
-             )}
+          </div>
         </div>
       </div>
     </ToolContainer>

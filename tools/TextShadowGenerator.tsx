@@ -12,7 +12,7 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     const [color, setColor] = useState('#000000');
     const [opacity, setOpacity] = useState(0.5);
     const [textColor, setTextColor] = useState('#ffffff');
-    const [backgroundColor, setBackgroundColor] = useState('#1f2937');
+    const [backgroundColor, setBackgroundColor] = useState('#bfcad9');
 
     const colorWithOpacity = useMemo(() => {
         const hex = color.replace('#', '');

@@ -75,10 +75,12 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         navigator.clipboard.writeText(css);
     };
 
-    return (
-        <ToolContainer title="Glassmorphism & Neumorphism Generator" details={details} toolId={toolId}>
-            <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-6">
+     return (
+         <ToolContainer title="Glassmorphism & Neumorphism Generator" details={details} toolId={toolId}>
+             <div className="space-y-6">
+ 
+                 <div className="grid md:grid-cols-2 gap-6">
+                 <div className="space-y-6  pr-2">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Style Type
@@ -139,7 +141,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                         </div>
                     )}
 
-                    <div className="space-y-4">
+                       <div className="space-y-4">
                         <h4 className="font-medium text-gray-700 dark:text-gray-300">Shadow Settings</h4>
                         <RangeSlider label="Shadow X (px)" value={shadowX} setValue={setShadowX} min={-20} max={20} />
                         <RangeSlider label="Shadow Y (px)" value={shadowY} setValue={setShadowY} min={-20} max={20} />
@@ -184,7 +186,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                     </div>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 sticky top-0 self-start">
                     <div 
                         className="h-48 rounded flex items-center justify-center p-8 relative overflow-hidden"
                         style={{ 
@@ -221,11 +223,12 @@ box-shadow: ${-shadowX}px ${-shadowY}px ${shadowBlur}px rgba(255, 255, 255, ${sh
                         >
                             Copy
                         </button>
-                    </div>
-                </div>
-            </div>
-        </ToolContainer>
-    );
+                     </div>
+                 </div>
+                 </div>
+             </div>
+         </ToolContainer>
+     );
 };
 
 interface RangeSliderProps {
