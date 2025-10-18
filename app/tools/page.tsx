@@ -2,7 +2,6 @@
 
 import { TOOLS } from '@/constants';
 import ToolCard from '@/components/ToolCard';
-import { InlineAd } from '@/components/AdContainer';
 import { getToolsPageSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import { useSearchParams } from 'next/navigation';
@@ -100,10 +99,7 @@ function ToolsContent() {
         </div>
       )}
 
-      {/* Ad Container */}
-      <div className="mt-8">
-        <InlineAd key="tools-inline-ad" />
-      </div>
+      
       </div>
     </>
   );

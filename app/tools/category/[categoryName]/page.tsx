@@ -1,6 +1,5 @@
 import { TOOLS, CATEGORY_ORDER, CATEGORY_CONTENT, URL_TO_CATEGORY_MAP, CATEGORY_URL_MAP, CATEGORY_ICONS } from '@/constants';
 import ToolCard from '@/components/ToolCard';
-import { InlineAd, BannerAd } from '@/components/AdContainer';
 import { getCategoryPageSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
@@ -101,8 +100,7 @@ export default function CategoryPage({ params }: Props) {
           </div>
         </div>
         
-        {/* Banner Ad */}
-        <BannerAd />
+        
         
         {/* Tools Section */}
         <div className="mb-12">
@@ -156,8 +154,7 @@ export default function CategoryPage({ params }: Props) {
           </div>
         </div>
         
-        {/* Bottom Ad */}
-        <InlineAd key="category-inline-ad" />
+        
       </div>
     </AnalyticsWrapper>
   );

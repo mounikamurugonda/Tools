@@ -17,7 +17,6 @@ import {
 } from './icons';
 import Link from 'next/link';
 import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_DESCRIPTIONS, CATEGORY_URL_MAP } from '@/constants';
-import { HomepageAd, InlineAd } from './AdContainer';
 
 const HomePageClient: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -206,8 +205,7 @@ const HomePageClient: React.FC = () => {
         {/* Most Viewed Tools Section */}
         <MostViewedTools />
 
-        {/* Ad Container */}
-        <HomepageAd key="homepage-ad" />
+        
 
         {/* Featured Tools Section */}
         <section className="mb-12">
@@ -247,7 +245,7 @@ const HomePageClient: React.FC = () => {
                     {CategoryIcon && <CategoryIcon className="w-8 h-8 text-blue-500" />}
                     <div className="min-w-0 flex-1">
                       <h3 className="text-xl font-bold text-gray-900 dark:text-white">{category}</h3>
-                      <p className="mt-2 text-base text-gray-700 dark:text-gray-300 line-clamp-3 min-h-[4.5rem]">{description}</p>
+                      <p className="mt-2 text-base text-gray-700 dark:text-gray-300 line-clamp-3">{description}</p>
                       <div className="mt-3">
                         <span className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline">Read more</span>
                       </div>
@@ -259,8 +257,7 @@ const HomePageClient: React.FC = () => {
           </div>
         </section>
 
-        {/* Bottom Ad Container */}
-        <InlineAd />
+        
       </div>
     </main>
   );

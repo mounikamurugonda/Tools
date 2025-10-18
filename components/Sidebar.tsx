@@ -4,7 +4,6 @@ import React, { useState, useMemo, useEffect, useRef } from 'react';
 import type { Tool } from '@/types';
 import { ToolCategory } from '@/types';
 import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
-import { SidebarAd } from './AdContainer';
 import { ChevronDownIcon } from './icons';
 import { TOOLS } from '@/constants';
 import { useParams, usePathname } from 'next/navigation';
@@ -110,10 +109,7 @@ const Sidebar: React.FC = () => {
                     })}
                 </nav>
                 
-            {/* Sidebar Ad */}
-            <div className="mt-6 pr-4">
-                <SidebarAd key="sidebar-ad" />
-            </div>
+            
             </div>
         </aside>
     );

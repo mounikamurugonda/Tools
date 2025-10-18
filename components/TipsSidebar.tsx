@@ -7,7 +7,6 @@ import { TOOLS } from '@/constants';
 import { TIPS } from '@/lib/tips';
 import { LightbulbIcon, FolderIcon, ChevronDownIcon } from './icons';
 import ToolCard from './ToolCard';
-import { SidebarAd } from './AdContainer';
 
 // Helper to generate a URL-friendly slug from a string
 const slugify = (text: string) => {
@@ -110,10 +109,7 @@ const TipsSidebar = () => {
           </Link>
         </div>
         
-        {/* Sidebar Ad */}
-        <div className="mt-6 pr-4">
-            <SidebarAd key="tips-sidebar-ad" />
-        </div>
+        
       </div>
     </aside>
   );

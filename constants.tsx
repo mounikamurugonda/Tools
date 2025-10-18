@@ -2069,6 +2069,7 @@ export const TOOLS: Tool[] = [
 
 export const CATEGORY_ORDER: ToolCategory[] = [
     ToolCategory.TEXT,
+    ToolCategory.VIDEO,
     ToolCategory.CODING,
     ToolCategory.IMAGE,
     ToolCategory.CSS,
@@ -2077,7 +2078,6 @@ export const CATEGORY_ORDER: ToolCategory[] = [
     ToolCategory.PRODUCTIVITY,
     ToolCategory.FUN,
     ToolCategory.MISC,
-    ToolCategory.VIDEO,
 ];
 
 // SEO-friendly URL mapping for categories

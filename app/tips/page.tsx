@@ -1,5 +1,4 @@
 import { TIPS } from '@/lib/tips';
-import { InlineAd } from '@/components/AdContainer';
 import { getTipsPageSchema, getWebsiteSchema, getOrganizationSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
@@ -47,10 +46,7 @@ export default function TipsPage() {
           ))}
         </div>
         
-        {/* Ad Container */}
-        <div className="mt-8">
-            <InlineAd key="tips-inline-ad" />
-        </div>
+        
       </TipsPageLayout>
     </AnalyticsWrapper>
   );

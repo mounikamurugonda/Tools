@@ -41,7 +41,7 @@ const TipCard: React.FC<TipCardProps> = ({ tip }) => {
                 </div>
                 <div className="min-w-0 flex-1">
                     <h3 className="text-base font-medium text-gray-900 dark:text-white mb-1">{tip.category}</h3>
-                    <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 min-h-[4.5rem]">{tip.content}</p>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3  ">{tip.content}</p>
                     <div className="mt-4">
                         <span className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline">Read more</span>
                     </div>
