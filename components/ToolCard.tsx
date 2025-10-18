@@ -38,7 +38,7 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
           </div>
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white">{tool.name}</h3>
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white ">{tool.name}</h3>
           <p className="mt-2 text-gray-600 dark:text-gray-400 text-sm line-clamp-3 ">{tool.description}</p>
           <div className="mt-4">
             <span className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline">Read more</span>
