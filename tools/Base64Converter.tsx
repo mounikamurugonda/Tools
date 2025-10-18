@@ -33,29 +33,42 @@ const Base64Converter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Base64 Encoder/Decoder" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <div className="relative">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Enter text or Base64 string here..."
-            className="w-full h-32 bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
-          />
-          {input && <CopyButton textToCopy={input} className="absolute top-2 right-2" />}
-        </div>
+      <div className="space-y-6">
         <div className="flex flex-wrap gap-2">
           <button onClick={handleEncode} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Encode (to Base64)</button>
           <button onClick={handleDecode} className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded">Decode (from Base64)</button>
         </div>
-        {error && <p className="text-red-500 dark:text-red-400">{error}</p>}
-        <div className="relative">
-          <textarea
-            readOnly
-            value={output}
-            placeholder="Result..."
-            className="w-full h-32 bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200"
-          />
-          {output && <CopyButton textToCopy={output} className="absolute top-2 right-2" />}
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Left side - Input */}
+          <div className="space-y-4">
+            <div className="relative">
+              <label htmlFor="base64-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Input</label>
+              <textarea
+                id="base64-input"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Enter text or Base64 string here..."
+                className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
+              />
+              {input && <CopyButton textToCopy={input} className="absolute top-8 right-2" />}
+            </div>
+            {error && <p className="text-red-500 dark:text-red-400">{error}</p>}
+          </div>
+
+          {/* Right side - Output */}
+          <div className="space-y-4">
+            <label htmlFor="base64-output" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Output</label>
+            <div className="relative">
+              <textarea
+                id="base64-output"
+                readOnly
+                value={output}
+                placeholder="Result will appear here..."
+                className="w-full h-96 max-h-96 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 text-gray-800 dark:text-gray-200 font-mono resize-none"
+              />
+              {output && <CopyButton textToCopy={output} className="absolute top-2 right-2" />}
+            </div>
+          </div>
         </div>
       </div>
     </ToolContainer>
