@@ -86,13 +86,6 @@ export default function CategoryPage({ params }: Props) {
         {/* Category Header */}
         <div className="mb-12">
           <div className="flex items-center mb-6">
-            <div className="flex-shrink-0 mr-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                {React.createElement(CATEGORY_ICONS[category], { 
-                  className: "w-8 h-8 text-white" 
-                })}
-              </div>
-            </div>
             <div className="flex-1">
               <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">{category} Tools</h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">{content.introduction}</p>
