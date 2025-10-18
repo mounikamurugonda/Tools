@@ -87,7 +87,7 @@ export default function CategoryPage({ params }: Props) {
         <div className="mb-12">
           <div className="flex items-center mb-6">
             <div className="flex-1">
-              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">{category} Tools</h1>
+              <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">{category} Tools</h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">{content.introduction}</p>
             </div>
           </div>
