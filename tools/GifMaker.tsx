@@ -55,42 +55,72 @@ const GifMaker: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="GIF Maker from Video" details={details} toolId={toolId}>
-            <div className="space-y-6">
-                <FileUpload
-                    accept="video/*"
-                    onChange={handleFileChange}
-                    label="Upload a video"
-                    description="Select a video file to convert to GIF. The first 5 seconds will be converted to an animated GIF."
-                    maxSize={500}
-                />
-                
-                <button 
-                    onClick={createGif} 
-                    disabled={!videoFile || isLoading} 
-                    className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
-                >
-                    {isLoading ? `Creating GIF... ${(progress * 100).toFixed(0)}%` : 'Create GIF'}
-                </button>
-                
-                {error && (
-                    <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-                        <p className="text-red-600 dark:text-red-400">{error}</p>
+            <div className="grid md:grid-cols-2 gap-6">
+                {/* Left side - Upload and Controls */}
+                <div className="space-y-6">
+                    <FileUpload
+                        accept="video/*"
+                        onChange={handleFileChange}
+                        label="Upload a video"
+                        description="Select a video file to convert to GIF. The first 5 seconds will be converted to an animated GIF."
+                        maxSize={500}
+                    />
+                    
+                    <button 
+                        onClick={createGif} 
+                        disabled={!videoFile || isLoading} 
+                        className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
+                    >
+                        {isLoading ? `Creating GIF... ${(progress * 100).toFixed(0)}%` : 'Create GIF'}
+                    </button>
+                    
+                    {error && (
+                        <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                            <p className="text-red-600 dark:text-red-400">{error}</p>
+                        </div>
+                    )}
+                </div>
+
+                {/* Right side - Preview */}
+                <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Preview:</h3>
+                    <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 min-h-[300px] flex items-center justify-center">
+                        {videoFile && !gif ? (
+                            <div className="text-center">
+                                <video 
+                                    src={URL.createObjectURL(videoFile)} 
+                                    controls 
+                                    className="max-w-full max-h-64 rounded-lg border border-gray-200 dark:border-gray-700"
+                                />
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Original Video</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                                    First 5 seconds will be converted to GIF
+                                </p>
+                            </div>
+                        ) : gif ? (
+                            <div className="text-center">
+                                <img 
+                                    src={gif} 
+                                    alt="Generated GIF" 
+                                    className="max-w-full max-h-64 rounded-lg border border-gray-200 dark:border-gray-700"
+                                />
+                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Generated GIF</p>
+                                <a 
+                                    href={gif} 
+                                    download="animation.gif" 
+                                    className="inline-block mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium"
+                                >
+                                    Download GIF
+                                </a>
+                            </div>
+                        ) : (
+                            <div className="text-center text-gray-500 dark:text-gray-400">
+                                <div className="text-4xl mb-2">🎬</div>
+                                <p>Upload a video to create GIF</p>
+                            </div>
+                        )}
                     </div>
-                )}
-                
-                {gif && (
-                    <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Generated GIF:</h3>
-                        <img src={gif} alt="Generated GIF" className="w-full rounded-lg border border-gray-200 dark:border-gray-700" />
-                        <a 
-                            href={gif} 
-                            download="animation.gif" 
-                            className="inline-block px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium"
-                        >
-                            Download GIF
-                        </a>
-                    </div>
-                )}
+                </div>
             </div>
         </ToolContainer>
     );
