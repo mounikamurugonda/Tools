@@ -6,11 +6,11 @@ export enum ToolCategory {
   CSS = 'CSS Tools',
   CODING = 'Coding Tools',
   COLOR = 'Color Tools',
-  MATH = 'Math & Calculation Tools',
+  MATH = 'Calculator Tools',
   PRODUCTIVITY = 'Productivity Tools',
-  FUN = 'Fun & Interactive Tools',
-  MISC = 'Miscellaneous Tools',
+  FUN = 'Fun Tools',
   VIDEO = 'Video Tools',
+  MISC = 'Other Tools',
 }
 
 export interface ToolDetails {

@@ -71,8 +71,8 @@ const Sidebar: React.FC = () => {
                             <div key={category} ref={el => { categoryRefs.current[category] = el; }}>
                                 <div className={`w-full flex items-center justify-between text-left p-2 rounded-lg ${isCurrentCategoryActive ? 'bg-gray-200 dark:bg-gray-700' : ''}`}>
                                     <Link href={`/tools/category/${CATEGORY_URL_MAP[category]}`} className="flex items-center grow text-gray-700 dark:text-gray-300 font-semibold">
-                                        {CategoryIcon && <CategoryIcon />}
-                                        <span>{category}</span>
+                                        {CategoryIcon && <CategoryIcon className="w-5 h-5 mr-2 flex-shrink-0" />}
+                                        <span className="leading-none">{category}</span>
                                     </Link>
                                     <button
                                         onClick={() => setOpenCategories(prev => ({...prev, [category]: !prev[category]}))}
@@ -95,10 +95,10 @@ const Sidebar: React.FC = () => {
                                                             : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white hover:-translate-x-0.5'
                                                     }`}
                                                 >
-                                                    <span className={`mr-3 flex-shrink-0 inline-flex items-center justify-center w-4 h-4 ${isActive ? 'text-white' : 'text-blue-500/70 dark:text-blue-400/70 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors'}`}>
+                                                    <span className={`mr-3 flex-shrink-0 inline-flex items-center justify-center w-5 h-5 ${isActive ? 'text-white' : 'text-blue-500/70 dark:text-blue-400/70 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors'}`}>
                                                         {tool.icon}
                                                     </span>
-                                                    <span className="truncate">{tool.name}</span>
+                                                    <span className="truncate leading-none">{tool.name}</span>
                                                 </Link>
                                             );
                                         })}

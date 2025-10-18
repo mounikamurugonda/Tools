@@ -15,7 +15,7 @@ const TIMEZONE_OPTIONS: TimezoneOption[] = timezones.flatMap(group => group.zone
     value: zone.value,
     label: `${group.group} / ${zone.label}`
 })));
-
+    
 const getInitialTimezones = () => {
     if (typeof window === 'undefined') return ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
     try {

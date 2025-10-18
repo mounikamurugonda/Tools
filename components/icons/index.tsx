@@ -70,7 +70,7 @@ import {
 } from 'lucide-react';
 
 const iconProps = {
-  className: "w-8 h-8 text-blue-400 mb-2",
+  className: "w-8 h-8 text-blue-400",
   strokeWidth: "1.5"
 };
 
