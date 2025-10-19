@@ -16,12 +16,30 @@ const config: Config = {
     extend: {
       animation: {
         'fade-in': 'fade-in 0.5s ease-out forwards',
+        'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
       },
       keyframes: {
         'fade-in': {
           'from': { opacity: '0', transform: 'translateY(-10px)' },
           'to': { opacity: '1', transform: 'translateY(0)' },
-        }
+        },
+        'pulse-slow': {
+          '0%, 100%': { 
+            opacity: '1',
+            transform: 'scale(1)',
+            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+          },
+          '50%': { 
+            opacity: '0.8',
+            transform: 'scale(1.02)',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+          },
+        },
+        'float': {
+          '0%, 100%': { transform: 'translateY(0px)' },
+          '50%': { transform: 'translateY(-4px)' },
+        },
       },
       typography: ({ theme }: { theme: (path: string) => string }) => ({
         DEFAULT: {

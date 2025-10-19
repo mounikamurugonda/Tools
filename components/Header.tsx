@@ -4,6 +4,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import ThemeSwitcher from './ThemeSwitcher';
 import Logo from './Logo';
+import BuyMeACoffee from './BuyMeACoffee';
 import { CATEGORY_ORDER, TOOLS, CATEGORY_URL_MAP } from '@/constants';
 import { MenuIcon, CloseIcon, ChevronDownIcon } from './icons';
 import Link from 'next/link';
@@ -71,6 +72,18 @@ const Header: React.FC = () => {
                   Contact
               </Link>
             </nav>
+            <BuyMeACoffee 
+              size="sm" 
+              showText={false} 
+              className="hidden lg:flex" 
+              tooltipText="Buy me a coffee, fuel more tools!"
+            />
+            <BuyMeACoffee 
+              size="sm" 
+              showText={false} 
+              className="lg:hidden mr-2" 
+              tooltipText="Buy me a coffee, fuel more tools!"
+            />
             <ThemeSwitcher />
             <button onClick={() => setIsMenuOpen(true)} className="md:hidden p-2 ml-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700">
               <MenuIcon className="w-6 h-6" />
@@ -114,6 +127,18 @@ const Header: React.FC = () => {
                     <Link href="/tips" onClick={closeAllMenus} className="block px-4 py-3 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg">
                         Tips
                     </Link>
+                </div>
+                
+                {/* Buy Me a Coffee Section */}
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                    <div className="px-4 py-3">
+                        <BuyMeACoffee 
+                          size="md" 
+                          showText={true} 
+                          className="w-full justify-center" 
+                          tooltipText="Buy me a coffee, fuel more tools!"
+                        />
+                    </div>
                 </div>
             </nav>
         </div>

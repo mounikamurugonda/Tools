@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Script from "next/script";
 import ConditionalFooter from '@/components/ConditionalFooter';
+import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://utiltoolkits.com'),
@@ -132,6 +133,7 @@ export default function RootLayout({
             <main className="flex-grow flex flex-col">
               {children}
             </main>
+            <BuyMeACoffeeSection />
             <ConditionalFooter />
           </div>
         </ThemeProvider>
