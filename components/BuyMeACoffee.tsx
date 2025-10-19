@@ -31,7 +31,7 @@ const BuyMeACoffee: React.FC<BuyMeACoffeeProps> = ({
   return (
     <div className="relative inline-block">
       <a
-        href="https://buymeacoffee.com/utiltoolkits"
+        href="https://buymeacoffee.com/frontenddeveloper"
         target="_blank"
         rel="noopener noreferrer"
         className={`

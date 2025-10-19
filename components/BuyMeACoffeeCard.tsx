@@ -54,7 +54,7 @@ const BuyMeACoffeeCard: React.FC<BuyMeACoffeeCardProps> = ({
         {/* Right side - Buy Me a Coffee button */}
         <div className="flex-shrink-0">
           <a
-            href="https://buymeacoffee.com/utiltoolkits"
+            href="https://buymeacoffee.com/frontenddeveloper"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-400 text-black font-semibold rounded-full shadow-lg hover:shadow-xl transform  transition-all duration-300"
