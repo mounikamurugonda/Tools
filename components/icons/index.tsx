@@ -66,7 +66,11 @@ import {
   RefreshCw,
   Camera,
   VolumeX,
-  Upload
+  Upload,
+  Stamp,
+  Maximize2,
+  FileImage,
+  Zap
 } from 'lucide-react';
 
 const iconProps = {
@@ -396,6 +400,22 @@ export const VideoThumbnailIcon: React.FC<{ className?: string }> = ({ className
 
 export const VideoMuteIcon: React.FC<{ className?: string }> = ({ className }) => (
   <VolumeX {...iconProps} {...(className && { className })} />
+);
+
+export const WatermarkAdderIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Stamp {...iconProps} {...(className && { className })} />
+);
+
+export const ImageResizerIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Maximize2 {...iconProps} {...(className && { className })} />
+);
+
+export const ImageConverterIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <FileImage {...iconProps} {...(className && { className })} />
+);
+
+export const ImageCompressorIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Zap {...iconProps} {...(className && { className })} />
 );
 
 export const FileUploadIcon: React.FC<{ className?: string }> = ({ className }) => (

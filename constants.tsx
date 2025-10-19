@@ -51,6 +51,10 @@ import TrimVideo from '@/tools/TrimVideo';
 import FormatConverter from '@/tools/FormatConverter';
 import VideoThumbnailExtractor from '@/tools/VideoThumbnailExtractor';
 import VideoMute from '@/tools/VideoMute';
+import WatermarkAdder from '@/tools/WatermarkAdder';
+import ImageResizer from '@/tools/ImageResizer';
+import ImageConverter from '@/tools/ImageConverter';
+import ImageCompressor from '@/tools/ImageCompressor';
 import {
   CaseIcon,
   CounterIcon,
@@ -108,6 +112,10 @@ import {
   FormatConverterIcon,
   VideoThumbnailIcon,
   VideoMuteIcon,
+  WatermarkAdderIcon,
+  ImageResizerIcon,
+  ImageConverterIcon,
+  ImageCompressorIcon,
   CsvToJsonIcon,
   JsonToCsvIcon,
   CsvToXlsxIcon,
@@ -2065,6 +2073,229 @@ export const TOOLS: Tool[] = [
       ]
     }
   },
+  {
+    id: 'watermark-adder',
+    name: 'Watermark Adder',
+    description: 'Add watermarks or logos to your images with customizable positioning and opacity.',
+    icon: <WatermarkAdderIcon />,
+    category: ToolCategory.IMAGE,
+    component: WatermarkAdder,
+    details: {
+      introduction: 'The Watermark Adder allows you to add watermarks or logos to your images with full control over positioning, size, and opacity.',
+      howToUse: [
+        'Upload your main image using the "Upload Main Image" section.',
+        'Upload your watermark/logo using the "Upload Watermark/Logo" section.',
+        'Adjust the watermark settings: opacity, size, position, and margin.',
+        'Preview the result and download your watermarked image.'
+      ],
+      features: [
+        'Add custom watermarks or logos to images',
+        'Adjustable opacity (10% to 100%)',
+        'Flexible positioning (5 positions)',
+        'Customizable size (5% to 50% of image)',
+        'Adjustable margin from edges',
+        'Real-time preview',
+        'High-quality output',
+        'Works entirely in your browser'
+      ],
+      privacy: 'All image processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool uses HTML5 Canvas to overlay your watermark onto the main image with customizable settings for professional results.',
+      usageExamples: [
+        'Add company logos to photos',
+        'Create branded images for social media',
+        'Add copyright watermarks to protect images',
+        'Create professional presentations with branded images'
+      ],
+      underlyingConcept: 'The tool uses HTML5 Canvas to draw the main image and then overlay the watermark with specified opacity, position, and size settings.',
+      faqs: [
+        {
+          question: 'What image formats are supported?',
+          answer: 'The tool supports all common image formats including PNG, JPEG, GIF, and WebP.'
+        },
+        {
+          question: 'Will the watermark quality be preserved?',
+          answer: 'Yes, the watermark maintains its original quality and is scaled proportionally.'
+        },
+        {
+          question: 'Can I adjust the watermark after adding it?',
+          answer: 'Yes, you can adjust all settings (opacity, position, size, margin) and the changes will be applied in real-time.'
+        },
+        {
+          question: 'What is the maximum file size?',
+          answer: 'Main images can be up to 50MB and watermarks up to 10MB for optimal performance.'
+        }
+      ]
+    }
+  },
+  {
+    id: 'image-resizer',
+    name: 'Image Resizer',
+    description: 'Resize images by percentage or exact dimensions with aspect ratio preservation.',
+    icon: <ImageResizerIcon />,
+    category: ToolCategory.IMAGE,
+    component: ImageResizer,
+    details: {
+      introduction: 'The Image Resizer allows you to resize images using percentage scaling or exact pixel dimensions, with options to preserve aspect ratio and adjust quality.',
+      howToUse: [
+        'Upload your image using the file upload section.',
+        'Choose between percentage or dimension-based resizing.',
+        'Adjust the resize settings (percentage, width, height, quality).',
+        'Toggle "Keep aspect ratio" to maintain proportions.',
+        'Preview the resized image and download the result.'
+      ],
+      features: [
+        'Resize by percentage (1% to 500%)',
+        'Resize by exact pixel dimensions',
+        'Preserve aspect ratio option',
+        'Adjustable output quality (10% to 100%)',
+        'Real-time preview of original and resized images',
+        'Display original and resized dimensions',
+        'File size comparison',
+        'High-quality output with HTML5 Canvas',
+        'Works entirely in your browser'
+      ],
+      privacy: 'All image processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool uses HTML5 Canvas to resize images with precise control over dimensions, quality, and aspect ratio preservation.',
+      usageExamples: [
+        'Resize photos for web use',
+        'Create thumbnails from large images',
+        'Optimize images for social media',
+        'Scale images for presentations',
+        'Batch resize for consistent dimensions'
+      ],
+      underlyingConcept: 'The tool uses HTML5 Canvas to draw the original image at the new dimensions, applying quality settings during the conversion process.',
+      faqs: [
+        {
+          question: 'What image formats are supported?',
+          answer: 'The tool supports all common image formats including PNG, JPEG, GIF, and WebP. Output is always in JPEG format.'
+        },
+        {
+          question: 'Will image quality be affected?',
+          answer: 'Quality can be adjusted from 10% to 100%. Higher quality settings result in larger file sizes but better image quality.'
+        },
+        {
+          question: 'How does aspect ratio preservation work?',
+          answer: 'When enabled, the tool maintains the original proportions by scaling one dimension and calculating the other automatically.'
+        },
+        {
+          question: 'What is the maximum image size?',
+          answer: 'Input images can be up to 50MB. Output dimensions can be set up to 4000x4000 pixels.'
+        }
+      ]
+    }
+  },
+  {
+    id: 'image-converter',
+    name: 'Image Converter',
+    description: 'Convert images between different formats (JPEG, PNG, WebP, BMP) with quality control.',
+    icon: <ImageConverterIcon />,
+    category: ToolCategory.IMAGE,
+    component: ImageConverter,
+    details: {
+      introduction: 'The Image Converter allows you to convert images between different formats including JPEG, PNG, WebP, and BMP with customizable quality settings.',
+      howToUse: [
+        'Upload your image using the file upload section.',
+        'Select the desired output format (JPEG, PNG, WebP, or BMP).',
+        'Adjust quality settings for JPEG and WebP formats.',
+        'Enable transparency removal for JPEG conversion if needed.',
+        'Preview the converted image and download the result.'
+      ],
+      features: [
+        'Convert between JPEG, PNG, WebP, and BMP formats',
+        'Adjustable quality settings (10% to 100%)',
+        'Transparency handling for JPEG conversion',
+        'Real-time preview of original and converted images',
+        'Format-specific optimization',
+        'High-quality output with HTML5 Canvas',
+        'Works entirely in your browser'
+      ],
+      privacy: 'All image processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool uses HTML5 Canvas to convert images between different formats while maintaining quality and handling transparency appropriately.',
+      usageExamples: [
+        'Convert PNG to JPEG for web use',
+        'Convert JPEG to WebP for better compression',
+        'Convert images to BMP for legacy systems',
+        'Remove transparency from PNG images',
+        'Optimize images for different platforms'
+      ],
+      underlyingConcept: 'The tool uses HTML5 Canvas to draw the original image and export it in the desired format with appropriate quality settings.',
+      faqs: [
+        {
+          question: 'What image formats are supported?',
+          answer: 'The tool supports input from all common image formats and can output to JPEG, PNG, WebP, and BMP formats.'
+        },
+        {
+          question: 'Will transparency be preserved?',
+          answer: 'Transparency is preserved in PNG and WebP formats. For JPEG conversion, you can choose to remove transparency with a white background.'
+        },
+        {
+          question: 'Which format should I choose?',
+          answer: 'JPEG for photos, PNG for graphics with transparency, WebP for modern web use, and BMP for uncompressed images.'
+        },
+        {
+          question: 'What is the maximum file size?',
+          answer: 'Input images can be up to 50MB for optimal performance.'
+        }
+      ]
+    }
+  },
+  {
+    id: 'image-compressor',
+    name: 'Image Compressor',
+    description: 'Compress images to reduce file size while maintaining quality with advanced compression options.',
+    icon: <ImageCompressorIcon />,
+    category: ToolCategory.IMAGE,
+    component: ImageCompressor,
+    details: {
+      introduction: 'The Image Compressor helps you reduce image file sizes while maintaining visual quality through intelligent compression techniques.',
+      howToUse: [
+        'Upload your image using the file upload section.',
+        'Choose the output format (JPEG, PNG, or WebP).',
+        'Adjust quality settings and maximum dimensions.',
+        'Enable aggressive compression for maximum size reduction.',
+        'Preview compression results and download the optimized image.'
+      ],
+      features: [
+        'Intelligent compression with quality control',
+        'Resize images while compressing',
+        'Multiple output formats (JPEG, PNG, WebP)',
+        'Aggressive compression mode for maximum reduction',
+        'Real-time compression ratio display',
+        'Maintain aspect ratio option',
+        'Before/after file size comparison',
+        'High-quality output with HTML5 Canvas',
+        'Works entirely in your browser'
+      ],
+      privacy: 'All image processing happens locally in your browser. No files are uploaded to our servers.',
+      explanation: 'This tool uses HTML5 Canvas with advanced compression techniques to reduce file sizes while preserving visual quality.',
+      usageExamples: [
+        'Compress photos for web upload',
+        'Reduce image sizes for email attachments',
+        'Optimize images for mobile apps',
+        'Create thumbnails with compression',
+        'Batch compress multiple images'
+      ],
+      underlyingConcept: 'The tool combines dimension reduction, quality adjustment, and format optimization to achieve maximum compression while maintaining acceptable visual quality.',
+      faqs: [
+        {
+          question: 'How much can I compress an image?',
+          answer: 'Compression depends on the original image. Typical reductions range from 20% to 80% of the original file size.'
+        },
+        {
+          question: 'Will aggressive compression affect quality?',
+          answer: 'Aggressive compression may reduce quality significantly but can achieve maximum file size reduction. Use with caution for important images.'
+        },
+        {
+          question: 'Which format compresses best?',
+          answer: 'WebP generally provides the best compression, followed by JPEG, then PNG. Choose based on your compatibility needs.'
+        },
+        {
+          question: 'What is the maximum file size?',
+          answer: 'Input images can be up to 50MB. The tool can resize images up to 4000x4000 pixels.'
+        }
+      ]
+    }
+  }
 ];
 
 export const CATEGORY_ORDER: ToolCategory[] = [

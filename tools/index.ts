@@ -5,3 +5,7 @@ export { default as TrimVideo } from './TrimVideo';
 export { default as FormatConverter } from './FormatConverter';
 export { default as VideoThumbnailExtractor } from './VideoThumbnailExtractor';
 export { default as VideoMute } from './VideoMute';
+export { default as WatermarkAdder } from './WatermarkAdder';
+export { default as ImageResizer } from './ImageResizer';
+export { default as ImageConverter } from './ImageConverter';
+export { default as ImageCompressor } from './ImageCompressor';
