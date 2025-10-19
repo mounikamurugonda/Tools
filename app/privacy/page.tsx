@@ -3,10 +3,52 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy',
-  description: 'Read the UtilToolkits privacy policy to understand how we handle data. Our tools are client-side, ensuring your information remains private and secure.',
+  title: 'Privacy Policy - UtilToolkits Data Protection | UtilToolkits',
+  description: 'Read the UtilToolkits privacy policy to understand how we handle data. Our tools are client-side, ensuring your information remains private and secure. No data collection, no tracking.',
+  keywords: 'privacy policy, data protection, client-side tools, privacy-focused, no data collection, secure tools, browser-based privacy, utilToolkits privacy',
+  authors: [{ name: 'UtilToolkits Team' }],
+  creator: 'UtilToolkits',
+  publisher: 'UtilToolkits',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    title: 'Privacy Policy - UtilToolkits Data Protection',
+    description: 'Read the UtilToolkits privacy policy to understand how we handle data. Our tools are client-side, ensuring your information remains private and secure.',
+    type: 'website',
+    url: 'https://utiltoolkits.com/privacy',
+    siteName: 'UtilToolkits',
+    images: [
+      {
+        url: 'https://utiltoolkits.com/og-privacy.png',
+        width: 1200,
+        height: 630,
+        alt: 'UtilToolkits Privacy Policy',
+      },
+    ],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Privacy Policy - UtilToolkits Data Protection',
+    description: 'Read the UtilToolkits privacy policy to understand how we handle data. Our tools are client-side, ensuring your information remains private and secure.',
+    images: ['https://utiltoolkits.com/og-privacy.png'],
+    creator: '@utiltoolkits',
+  },
   alternates: {
     canonical: '/privacy',
+  },
+  other: {
+    'theme-color': '#3b82f6',
+    'msapplication-TileColor': '#3b82f6',
   },
 };
 

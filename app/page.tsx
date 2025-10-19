@@ -7,12 +7,25 @@ import { Suspense } from 'react';
 
 export const metadata: Metadata = {
   title: 'UtilToolkits | Your Free Online Developer Toolbox',
-  description: 'A comprehensive suite of nearly 30 free, browser-based utilities for developers. Includes Case Converter, JSON Formatter, Base64 Encoder, Password Generator, and dozens more. Fast, private, and easy to use.',
-  keywords: 'developer tools, online tools, free utilities, JSON formatter, base64 encoder, password generator, case converter, browser tools, productivity tools',
+  description: 'Your comprehensive free online developer toolbox with 30+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, text converters, and more. All tools run locally for maximum speed and privacy.',
+  keywords: 'developer tools, online tools, free utilities, JSON formatter, base64 encoder, password generator, image tools, text tools, converter tools, browser tools, productivity tools, web development tools, frontend tools, coding utilities',
   authors: [{ name: 'UtilToolkits Team' }],
+  creator: 'UtilToolkits',
+  publisher: 'UtilToolkits',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     title: 'UtilToolkits | Your Free Online Developer Toolbox',
-    description: 'A comprehensive suite of nearly 30 free, browser-based utilities for developers. Fast, private, and easy to use.',
+    description: 'Your comprehensive free online developer toolbox with 30+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     type: 'website',
     url: 'https://utiltoolkits.com',
     siteName: 'UtilToolkits',
@@ -24,26 +37,21 @@ export const metadata: Metadata = {
         alt: 'UtilToolkits - Free Developer Tools',
       },
     ],
+    locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'UtilToolkits | Your Free Online Developer Toolbox',
-    description: 'A comprehensive suite of nearly 30 free, browser-based utilities for developers. Fast, private, and easy to use.',
+    description: 'Your comprehensive free online developer toolbox with 30+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     images: ['https://utiltoolkits.com/og-image.png'],
+    creator: '@utiltoolkits',
   },
   alternates: {
     canonical: '/',
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+  other: {
+    'theme-color': '#3b82f6',
+    'msapplication-TileColor': '#3b82f6',
   },
 };
 

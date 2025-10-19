@@ -2,10 +2,56 @@ import React from 'react';
 import Link from 'next/link';
 import { SITE_CREDITS, TOOL_CREDITS } from '@/lib/credits';
 import { TOOLS } from '@/constants';
+import type { Metadata } from 'next';
 
-export const metadata = {
-  title: 'Credits | UtilToolkits',
-  description: 'Acknowledgements and credits for open-source libraries, icons, and frameworks used across UtilToolkits.',
+export const metadata: Metadata = {
+  title: 'Credits & Acknowledgments | UtilToolkits',
+  description: 'Acknowledgements and credits for open-source libraries, icons, and frameworks used across UtilToolkits. We thank all the contributors and open-source projects that make our tools possible.',
+  keywords: 'credits, acknowledgments, open source, libraries, frameworks, icons, contributors, utilToolkits credits, open source projects',
+  authors: [{ name: 'UtilToolkits Team' }],
+  creator: 'UtilToolkits',
+  publisher: 'UtilToolkits',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    title: 'Credits & Acknowledgments | UtilToolkits',
+    description: 'Acknowledgements and credits for open-source libraries, icons, and frameworks used across UtilToolkits.',
+    type: 'website',
+    url: 'https://utiltoolkits.com/credits',
+    siteName: 'UtilToolkits',
+    images: [
+      {
+        url: 'https://utiltoolkits.com/og-credits.png',
+        width: 1200,
+        height: 630,
+        alt: 'UtilToolkits Credits & Acknowledgments',
+      },
+    ],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Credits & Acknowledgments | UtilToolkits',
+    description: 'Acknowledgements and credits for open-source libraries, icons, and frameworks used across UtilToolkits.',
+    images: ['https://utiltoolkits.com/og-credits.png'],
+    creator: '@utiltoolkits',
+  },
+  alternates: {
+    canonical: '/credits',
+  },
+  other: {
+    'theme-color': '#3b82f6',
+    'msapplication-TileColor': '#3b82f6',
+  },
 };
 
 export default function CreditsPage() {

@@ -18,29 +18,60 @@ export async function generateMetadata(
 
   if (!tool) {
     return {
-      title: 'Tool Not Found',
+      title: 'Tool Not Found | UtilToolkits',
+      description: 'The requested tool could not be found. Browse our collection of free online developer tools.',
     };
   }
- 
+
+  const enhancedDescription = `${tool.description} Free browser-based ${tool.name.toLowerCase()} tool with no registration required. All processing happens locally for maximum privacy and speed.`;
+
   return {
-    title: `${tool.name} | UtilToolkits`,
-    description: tool.description,
-    keywords: tool.keywords ? [...tool.keywords, 'developer tools', 'online tools', 'free utilities'] : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities`,
+    title: `${tool.name} - Free Online Tool | UtilToolkits`,
+    description: enhancedDescription,
+    keywords: tool.keywords ? [...tool.keywords, 'developer tools', 'online tools', 'free utilities', 'browser tools', 'privacy tools', 'no registration required'] : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities, browser tools`,
     authors: [{ name: 'UtilToolkits Team' }],
+    creator: 'UtilToolkits',
+    publisher: 'UtilToolkits',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     alternates: {
       canonical: `/tools/${tool.id}`,
     },
     openGraph: {
-      title: `${tool.name} | UtilToolkits`,
-      description: tool.description,
+      title: `${tool.name} - Free Online Tool | UtilToolkits`,
+      description: enhancedDescription,
       type: 'website',
       url: `https://utiltoolkits.com/tools/${tool.id}`,
       siteName: 'UtilToolkits',
+      images: [
+        {
+          url: `https://utiltoolkits.com/og-${tool.id}.png`,
+          width: 1200,
+          height: 630,
+          alt: `${tool.name} - Free Online Tool`,
+        },
+      ],
+      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${tool.name} | UtilToolkits`,
-      description: tool.description,
+      title: `${tool.name} - Free Online Tool`,
+      description: enhancedDescription,
+      images: [`https://utiltoolkits.com/og-${tool.id}.png`],
+      creator: '@utiltoolkits',
+    },
+    other: {
+      'theme-color': '#3b82f6',
+      'msapplication-TileColor': '#3b82f6',
     },
   }
 }

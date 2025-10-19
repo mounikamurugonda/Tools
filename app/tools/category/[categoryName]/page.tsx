@@ -22,32 +22,62 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!category) {
     return {
-      title: 'Category Not Found',
+      title: 'Category Not Found | UtilToolkits',
+      description: 'The requested category could not be found. Browse our collection of free online developer tools.',
     };
   }
 
   const tools = TOOLS.filter(tool => tool.category === category);
   const content = CATEGORY_CONTENT[category];
+  const enhancedDescription = `${content.introduction} Discover our collection of free ${category.toLowerCase()} tools for developers and designers. All tools run locally in your browser for maximum privacy and speed.`;
 
   return {
-    title: `${category} Tools | UtilToolkits`,
-    description: content.introduction,
-    keywords: `${category.toLowerCase()}, tools, utilities, developers, ${category.toLowerCase().replace(/\s+/g, ',')}`,
+    title: `${category} Tools - Free Online Utilities | UtilToolkits`,
+    description: enhancedDescription,
+    keywords: `${category.toLowerCase()}, tools, utilities, developers, ${category.toLowerCase().replace(/\s+/g, ',')}, free online tools, browser tools, developer utilities, productivity tools`,
     authors: [{ name: 'UtilToolkits Team' }],
+    creator: 'UtilToolkits',
+    publisher: 'UtilToolkits',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
-      title: `${category} Tools | UtilToolkits`,
-      description: content.introduction,
+      title: `${category} Tools - Free Online Utilities | UtilToolkits`,
+      description: enhancedDescription,
       type: 'website',
       url: `https://utiltoolkits.com/tools/category/${params.categoryName}`,
       siteName: 'UtilToolkits',
+      images: [
+        {
+          url: `https://utiltoolkits.com/og-${params.categoryName}.png`,
+          width: 1200,
+          height: 630,
+          alt: `${category} Tools - Free Online Utilities`,
+        },
+      ],
+      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${category} Tools | UtilToolkits`,
-      description: content.introduction,
+      title: `${category} Tools - Free Online Utilities`,
+      description: enhancedDescription,
+      images: [`https://utiltoolkits.com/og-${params.categoryName}.png`],
+      creator: '@utiltoolkits',
     },
     alternates: {
       canonical: `/tools/category/${params.categoryName}`,
+    },
+    other: {
+      'theme-color': '#3b82f6',
+      'msapplication-TileColor': '#3b82f6',
     },
   };
 }

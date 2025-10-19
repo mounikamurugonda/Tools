@@ -125,7 +125,7 @@ const HomePageClient: React.FC = () => {
             Welcome to <span className="brand-gradient-text">UtilToolkits</span>
           </h1>
           <p className="brand-subheading mt-6 max-w-3xl mx-auto">
-            Your one-stop collection of free, browser-based utilities. All tools run locally for maximum speed and privacy.
+            Discover the ultimate collection of <strong>30+ free online developer tools</strong> that work directly in your browser. From JSON formatters and Base64 converters to image tools and text utilities - everything you need to boost your productivity, all running locally for <strong>maximum speed and privacy</strong>. No downloads, no registration, just powerful tools at your fingertips.
           </p>
           
           <div className="mt-10 max-w-2xl mx-auto">
@@ -205,11 +205,62 @@ const HomePageClient: React.FC = () => {
         {/* Most Viewed Tools Section */}
         <MostViewedTools />
 
-        
+        {/* Why Choose UtilToolkits Section */}
+        <section className="mb-16 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 md:p-12">
+          <div className="text-center mb-8">
+            <h2 className="brand-heading-2 mb-4">Why Developers Love UtilToolkits</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Join thousands of developers who trust UtilToolkits for their daily workflow. Our tools are designed by developers, for developers.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg mb-4">
+                <svg className="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">100% Private</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">All processing happens in your browser. Your data never leaves your device.</p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg mb-4">
+                <svg className="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Lightning Fast</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">No server delays. Instant results with client-side processing.</p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg mb-4">
+                <svg className="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">Always Free</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">No hidden costs, no premium tiers. All tools are completely free.</p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 bg-orange-100 dark:bg-orange-900 rounded-lg mb-4">
+                <svg className="w-6 h-6 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-2">No Registration</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Start using tools immediately. No accounts or sign-ups required.</p>
+            </div>
+          </div>
+        </section>
 
         {/* Featured Tools Section */}
         <section className="mb-12">
-          <h2 className="brand-heading-2 mb-6">Featured Tools</h2>
+          <div className="text-center mb-8">
+            <h2 className="brand-heading-2 mb-4">Most Popular Developer Tools</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              These are the tools our community uses most frequently. From JSON formatting to password generation, these utilities will supercharge your development workflow.
+            </p>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {featuredTools.map((tool) => (
               <Link key={tool.id} href={`/tools/${tool.id}`} className="block brand-scale-hover">
@@ -221,13 +272,16 @@ const HomePageClient: React.FC = () => {
 
         {/* Categories Section */}
         <section>
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="brand-heading-2">Categories</h2>
+          <div className="text-center mb-8">
+            <h2 className="brand-heading-2 mb-4">Explore by Category</h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
+              Organize your workflow with our carefully curated tool categories. Whether you're working with text, images, code, or data - we've got you covered.
+            </p>
             <Link 
               href="/tools" 
-              className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center"
+              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium"
             >
-              View All Tools <ChevronRightIcon className="w-5 h-5 ml-1" />
+              View All {toolCount} Tools <ChevronRightIcon className="w-5 h-5 ml-1" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

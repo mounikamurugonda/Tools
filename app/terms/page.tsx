@@ -2,10 +2,52 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service',
+  title: 'Terms of Service - UtilToolkits Legal Terms | UtilToolkits',
   description: 'Please read the Terms of Service for UtilToolkits. By using our website, you agree to these terms, which govern your access to and use of our free developer tools.',
+  keywords: 'terms of service, legal terms, user agreement, website terms, utilToolkits terms, developer tools terms, free tools terms, service agreement',
+  authors: [{ name: 'UtilToolkits Team' }],
+  creator: 'UtilToolkits',
+  publisher: 'UtilToolkits',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    title: 'Terms of Service - UtilToolkits Legal Terms',
+    description: 'Please read the Terms of Service for UtilToolkits. By using our website, you agree to these terms, which govern your access to and use of our free developer tools.',
+    type: 'website',
+    url: 'https://utiltoolkits.com/terms',
+    siteName: 'UtilToolkits',
+    images: [
+      {
+        url: 'https://utiltoolkits.com/og-terms.png',
+        width: 1200,
+        height: 630,
+        alt: 'UtilToolkits Terms of Service',
+      },
+    ],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms of Service - UtilToolkits Legal Terms',
+    description: 'Please read the Terms of Service for UtilToolkits. By using our website, you agree to these terms, which govern your access to and use of our free developer tools.',
+    images: ['https://utiltoolkits.com/og-terms.png'],
+    creator: '@utiltoolkits',
+  },
   alternates: {
     canonical: '/terms',
+  },
+  other: {
+    'theme-color': '#3b82f6',
+    'msapplication-TileColor': '#3b82f6',
   },
 };
 

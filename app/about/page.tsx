@@ -2,10 +2,52 @@ import React from 'react';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'About UtilToolkits - Our Mission & Vision | UtilToolkits',
   description: 'Discover UtilToolkits: Our passionate mission to build the ultimate one-stop hub for every browser-based tool on the internet, delivering fast, private, and free utilities that empower developers and users worldwide.',
+  keywords: 'about utilToolkits, developer tools mission, free online utilities, browser-based tools, privacy-focused tools, developer toolbox, online tool collection',
+  authors: [{ name: 'UtilToolkits Team' }],
+  creator: 'UtilToolkits',
+  publisher: 'UtilToolkits',
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  openGraph: {
+    title: 'About UtilToolkits - Our Mission & Vision',
+    description: 'Discover UtilToolkits: Our passionate mission to build the ultimate one-stop hub for every browser-based tool on the internet.',
+    type: 'website',
+    url: 'https://utiltoolkits.com/about',
+    siteName: 'UtilToolkits',
+    images: [
+      {
+        url: 'https://utiltoolkits.com/og-about.png',
+        width: 1200,
+        height: 630,
+        alt: 'About UtilToolkits - Our Mission',
+      },
+    ],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About UtilToolkits - Our Mission & Vision',
+    description: 'Discover UtilToolkits: Our passionate mission to build the ultimate one-stop hub for every browser-based tool.',
+    images: ['https://utiltoolkits.com/og-about.png'],
+    creator: '@utiltoolkits',
+  },
   alternates: {
     canonical: '/about',
+  },
+  other: {
+    'theme-color': '#3b82f6',
+    'msapplication-TileColor': '#3b82f6',
   },
 };
 
@@ -24,46 +66,63 @@ export default function AboutPage() {
                 <section>
                     <h2 className="brand-heading-3">Our Passionate Mission</h2>
                     <p>
-                    At UtilToolkits, our drive comes from a deep-seated determination to solve a universal frustration: the endless search across scattered websites for the right tool. We envision a world where developers, creators, and everyday users can find every utility they need in a single, unified platform. That&apos;s why we&apos;re committed to scouring the internet, innovating new features, and integrating the best ideas into our suite—all while ensuring everything operates client-side for ultimate privacy and lightning-fast performance. We&apos;re building the ultimate one-stop shop for tools, and we won&apos;t stop until we&apos;ve covered every category imaginable, from coding essentials to productivity boosters and beyond.
+                    At UtilToolkits, we're driven by a simple yet powerful vision: to create the ultimate one-stop destination for every browser-based tool developers, designers, and productivity enthusiasts need. We believe that powerful utilities shouldn't require complex installations, expensive software, or compromise your privacy. That's why we've built a comprehensive collection of <strong>30+ free online tools</strong> that work directly in your browser, processing everything locally for maximum speed and security.
+                    </p>
+                    <p>
+                    Our mission extends beyond just providing tools - we're building a community where developers can find everything they need in one place. From JSON formatters and Base64 converters to image tools and productivity utilities, we're constantly expanding our collection based on real user needs and feedback. Every tool is designed with the modern developer in mind, featuring clean interfaces, instant results, and zero compromises on privacy.
                     </p>
                 </section>
                 
                 <section>
                     <h2 className="brand-heading-3">What Sets Us Apart</h2>
                     <p>
-                    Unlike generic tool sites, UtilToolkits is fueled by an unyielding passion for excellence and completeness. We&apos;re constantly expanding our library, drawing inspiration from across the web to bring you innovative, user-requested features. Our tools are designed with real-world needs in mind, crafted to save time, enhance creativity, and boost efficiency. Here&apos;s a glimpse of our growing arsenal:
+                    What makes UtilToolkits different? We're not just another collection of basic utilities. We're a comprehensive platform built by developers, for developers, with a deep understanding of the real challenges you face daily. Our tools are designed with modern workflows in mind, featuring intuitive interfaces, instant processing, and professional-grade functionality.
+                    </p>
+                    <p>
+                    Here's what makes our toolkit special:
                     </p>
                     <ul>
-                        <li><strong>Text Mastery:</strong> Effortlessly convert cases, count words and characters, generate placeholder text, and reverse strings with precision.</li>
+                        <li><strong>Text Mastery:</strong> Transform text with case converters, analyze readability scores, count words and characters, generate placeholder text, and reverse strings with precision.</li>
                         <li><strong>Coding Powerhouse:</strong> Format JSON, encode/decode Base64 and URLs, generate secure UUIDs and hashes, debug JWTs, and test regex patterns—all in your browser.</li>
-                        <li><strong>Image Wizardry:</strong> Transform images to Base64 data URLs and back, perfect for seamless web integration.</li>
-                        <li><strong>Creative Generators:</strong> Craft strong passwords, produce QR codes, build color palettes, and even generate memes to spark joy in your workflow.</li>
+                        <li><strong>Image Wizardry:</strong> Convert images to Base64, resize and optimize files, add watermarks, and extract thumbnails for seamless web integration.</li>
+                        <li><strong>Creative Generators:</strong> Create strong passwords, generate QR codes, build color palettes, and craft modern CSS effects like glassmorphism.</li>
                         <li><strong>Smart Converters:</strong> Switch between units, currencies, colors, and file formats like CSV to JSON or XLSX with ease.</li>
-                        <li><strong>Productivity Revolution:</strong> Harness Pomodoro timers, to-do lists, world clocks, and diff checkers to supercharge your daily grind.</li>
+                        <li><strong>Productivity Revolution:</strong> Harness Pomodoro timers, to-do lists, world clocks, and diff checkers to supercharge your daily workflow.</li>
                     </ul>
                     <p>
-                    And this is just the beginning. Our goal is to encompass every tool out there—mathematical calculators, scientific simulators, multimedia editors, and more—making UtilToolkits the definitive destination for all your utility needs.
+                    And this is just the beginning. We're continuously expanding our collection based on user feedback and emerging needs in the developer community.
                     </p>
                 </section>
                 
                 <section>
                     <h2 className="brand-heading-3">Why Choose UtilToolkits?</h2>
+                    <p className="mb-6">
+                    In a world full of scattered tools and compromised privacy, UtilToolkits stands out as the trusted choice for developers who value efficiency, security, and reliability. Here's why thousands of developers choose us:
+                    </p>
                     <div className="grid md:grid-cols-2 gap-6 not-prose">
                         <div className="brand-card p-6">
-                            <h3 className="brand-heading-4 !mt-0">Uncompromised Privacy</h3>
-                            <p className="brand-text-muted">Every tool processes data locally in your browser—no servers, no tracking, just pure privacy.</p>
+                            <h3 className="brand-heading-4 !mt-0">🔒 Uncompromised Privacy</h3>
+                            <p className="brand-text-muted">Every tool processes data locally in your browser—no servers, no tracking, no data collection. Your sensitive information never leaves your device, giving you complete peace of mind.</p>
                         </div>
                         <div className="brand-card p-6">
-                            <h3 className="brand-heading-4 !mt-0">Blazing Speed</h3>
-                            <p className="brand-text-muted">Instant results without waiting for server responses, keeping your momentum unbroken.</p>
+                            <h3 className="brand-heading-4 !mt-0">⚡ Blazing Speed</h3>
+                            <p className="brand-text-muted">No server delays, no network latency. Get instant results with client-side processing that keeps your workflow moving at maximum speed.</p>
                         </div>
                         <div className="brand-card p-6">
-                            <h3 className="brand-heading-4 !mt-0">Offline-Ready</h3>
-                            <p className="brand-text-muted">Once loaded, many tools work without internet, ensuring availability anytime, anywhere.</p>
+                            <h3 className="brand-heading-4 !mt-0">🌐 Offline-Ready</h3>
+                            <p className="brand-text-muted">Once loaded, most tools work without internet connection, ensuring availability anytime, anywhere. Perfect for remote work and travel.</p>
                         </div>
                         <div className="brand-card p-6">
-                            <h3 className="brand-heading-4 !mt-0">Free Forever</h3>
-                            <p className="brand-text-muted">Driven by passion, not profit—access everything at no cost, supported by our community.</p>
+                            <h3 className="brand-heading-4 !mt-0">💯 Always Free</h3>
+                            <p className="brand-text-muted">Driven by passion, not profit—access everything at no cost, forever. No hidden fees, no premium tiers, no credit card required.</p>
+                        </div>
+                        <div className="brand-card p-6">
+                            <h3 className="brand-heading-4 !mt-0">🚀 No Registration</h3>
+                            <p className="brand-text-muted">Start using tools immediately. No accounts, no sign-ups, no email verification. Just open and use—it's that simple.</p>
+                        </div>
+                        <div className="brand-card p-6">
+                            <h3 className="brand-heading-4 !mt-0">🛠️ Professional Grade</h3>
+                            <p className="brand-text-muted">Built by developers, for developers. Every tool is designed with real-world use cases in mind, featuring professional functionality and clean interfaces.</p>
                         </div>
                     </div>
                 </section>
@@ -71,8 +130,16 @@ export default function AboutPage() {
                 <section>
                     <h2 className="brand-heading-3">Join Our Journey</h2>
                     <p>
-                    We&apos;re obsessed with making UtilToolkits the go-to resource for tools, and your input fuels our fire. Have a tool idea? Spot a gap in our collection? Reach out via our Contact page—we&apos;re determined to incorporate the best suggestions and keep evolving. Together, let&apos;s build the ultimate toolkit that empowers everyone to achieve more with less hassle.
+                    We're building UtilToolkits for the developer community, and your feedback is what drives us forward. Have a tool idea? Found a bug? Want to suggest an improvement? We'd love to hear from you. Our mission is to create the most comprehensive, user-friendly collection of developer tools, and we can't do it without your input.
                     </p>
+                    <p>
+                    Whether you're a seasoned developer, a student learning to code, or a designer looking for efficient tools, UtilToolkits is here to support your journey. Together, let's build the ultimate toolkit that empowers everyone to work smarter, faster, and more securely.
+                    </p>
+                    <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                        <p className="text-blue-800 dark:text-blue-200 font-medium">
+                            💡 <strong>Got ideas?</strong> Visit our <a href="/contact" className="underline hover:text-blue-600 dark:hover:text-blue-300">Contact page</a> to share your suggestions, report issues, or just say hello!
+                        </p>
+                    </div>
                 </section>
             </div>
         </div>

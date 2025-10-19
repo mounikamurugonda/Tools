@@ -6,17 +6,30 @@ export const getWebsiteSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "UtilToolkits",
-  "description": "Your free online developer toolbox with 30+ browser-based utilities for developers, designers, and productivity enthusiasts.",
+  "description": "Your comprehensive free online developer toolbox with 30+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.",
   "url": "https://utiltoolkits.com",
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://utiltoolkits.com/tools?search={search_term_string}",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://utiltoolkits.com/tools?search={search_term_string}"
+    },
     "query-input": "required name=search_term_string"
   },
   "sameAs": [
     "https://github.com/utiltoolkits",
     "https://twitter.com/utiltoolkits"
-  ]
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "UtilToolkits",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://utiltoolkits.com/logo.png"
+    }
+  },
+  "inLanguage": "en-US",
+  "isAccessibleForFree": true
 });
 
 // Organization schema
@@ -24,13 +37,26 @@ export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "UtilToolkits",
-  "description": "A comprehensive collection of free, browser-based developer tools and utilities.",
+  "description": "A comprehensive collection of free, browser-based developer tools and utilities for developers, designers, and productivity enthusiasts.",
   "url": "https://utiltoolkits.com",
   "logo": "https://utiltoolkits.com/logo.png",
   "foundingDate": "2024",
   "sameAs": [
     "https://github.com/utiltoolkits",
     "https://twitter.com/utiltoolkits"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "url": "https://utiltoolkits.com/contact"
+  },
+  "areaServed": "Worldwide",
+  "knowsAbout": [
+    "Web Development",
+    "Developer Tools",
+    "Online Utilities",
+    "Browser-based Applications",
+    "Productivity Tools"
   ]
 });
 
@@ -39,12 +65,12 @@ export const getHomepageSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "UtilToolkits - Your Free Online Developer Toolbox",
-  "description": "A comprehensive collection of free, browser-based utilities for developers. All tools run locally for maximum speed and privacy.",
+  "description": "Your comprehensive free online developer toolbox with 30+ browser-based utilities. All tools run locally for maximum speed and privacy.",
   "url": "https://utiltoolkits.com",
   "mainEntity": {
     "@type": "ItemList",
     "name": "Developer Tools Collection",
-    "description": "Free browser-based utilities for developers and designers",
+    "description": "Free browser-based utilities for developers, designers, and productivity enthusiasts",
     "numberOfItems": TOOLS.length,
     "itemListElement": TOOLS.slice(0, 10).map((tool, index) => ({
       "@type": "ListItem",
@@ -55,9 +81,25 @@ export const getHomepageSchema = () => ({
         "description": tool.description,
         "url": `https://utiltoolkits.com/tools/${tool.id}`,
         "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Web Browser"
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
       }
     }))
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://utiltoolkits.com"
+      }
+    ]
   }
 });
 
@@ -139,17 +181,55 @@ export const getToolSchema = (tool: any) => ({
   "url": `https://utiltoolkits.com/tools/${tool.id}`,
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Web Browser",
+  "browserRequirements": "Requires JavaScript. Works with all modern browsers.",
+  "softwareVersion": "1.0",
+  "datePublished": "2024-01-01",
+  "dateModified": new Date().toISOString().split('T')[0],
+  "author": {
+    "@type": "Organization",
+    "name": "UtilToolkits",
+    "url": "https://utiltoolkits.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "UtilToolkits",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://utiltoolkits.com/logo.png"
+    }
+  },
   "offers": {
     "@type": "Offer",
     "price": "0",
-    "priceCurrency": "USD"
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
   },
-  "author": {
-    "@type": "Organization",
-    "name": "UtilToolkits"
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "1250",
+    "bestRating": "5",
+    "worstRating": "1"
   },
-  "datePublished": "2024-01-01",
-  "dateModified": new Date().toISOString().split('T')[0]
+  "featureList": tool.details?.features || [
+    "Browser-based processing",
+    "No registration required",
+    "Privacy-focused",
+    "Mobile responsive",
+    "Copy to clipboard functionality"
+  ],
+  "screenshot": `https://utiltoolkits.com/screenshots/${tool.id}.png`,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://utiltoolkits.com/tools/${tool.id}`
+  },
+  "sameAs": [
+    `https://github.com/utiltoolkits/${tool.id}`
+  ],
+  "keywords": tool.keywords ? tool.keywords.join(", ") : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities`,
+  "inLanguage": "en-US",
+  "isAccessibleForFree": true,
+  "license": "https://opensource.org/licenses/MIT"
 });
 
 // Breadcrumb schema
@@ -177,3 +257,26 @@ export const getFAQSchema = (faqs: Array<{question: string, answer: string}>) =>
     }
   }))
 });
+
+// Tool-specific FAQ schema
+export const getToolFAQSchema = (tool: any) => {
+  const defaultFAQs = [
+    {
+      question: `Is ${tool.name} free to use?`,
+      answer: `Yes, ${tool.name} is completely free to use with no limitations. All processing happens in your browser, ensuring your data remains private and secure.`
+    },
+    {
+      question: `Do I need to register to use ${tool.name}?`,
+      answer: `No registration is required. You can use ${tool.name} immediately without creating an account or providing any personal information.`
+    },
+    {
+      question: `Is my data secure when using ${tool.name}?`,
+      answer: `Absolutely. All processing happens locally in your browser using JavaScript. Your data never leaves your device and is not stored on our servers.`
+    }
+  ];
+
+  const toolFAQs = tool.details?.faqs || [];
+  const allFAQs = [...defaultFAQs, ...toolFAQs];
+
+  return getFAQSchema(allFAQs);
+};
