@@ -16,7 +16,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
   return (
     <div className=" animate-fade-in">
       <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
-        <h2 className="sm:text-4xl text-2xl font-bold text-gray-900 dark:text-white">{title}</h2>
+        <h2 className="sm:text-2xl text-2xl font-bold text-gray-900 dark:text-white">{title}</h2>
         {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">

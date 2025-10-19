@@ -84,7 +84,7 @@ const BmiCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
                 {result && (
                     <div className="text-center bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
                         <p className="text-gray-500 dark:text-gray-400">Your BMI is</p>
-                        <p className={`text-6xl font-bold my-2 ${result.color}`}>{result.bmi}</p>
+                        <p className={`text-2xl font-bold my-2 ${result.color}`}>{result.bmi}</p>
                         <p className={`text-xl font-semibold ${result.color}`}>{result.category}</p>
                     </div>
                 )}

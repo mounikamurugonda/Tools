@@ -73,7 +73,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div className="space-y-6">
                     <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
                         <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-2">Flesch Reading Ease</h3>
-                        <p className="text-6xl font-bold text-blue-500 dark:text-blue-400">{stats.fleschReadingEase.toFixed(1)}</p>
+                        <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">{stats.fleschReadingEase.toFixed(1)}</p>
                         <div className="mt-4">
                             <div className={`text-xl font-bold px-4 py-1 rounded-full inline-block text-white ${scoreInfo.color}`}>{scoreInfo.text}</div>
                             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{scoreInfo.details}</p>
@@ -81,7 +81,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
                     </div>
                     <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
                         <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-2">Flesch-Kincaid Grade Level</h3>
-                        <p className="text-6xl font-bold text-blue-500 dark:text-blue-400">{stats.fleschKincaidGrade.toFixed(1)}</p>
+                        <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">{stats.fleschKincaidGrade.toFixed(1)}</p>
                         <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Corresponds to a U.S. school grade level.</p>
                     </div>
                      <div className="grid grid-cols-3 gap-4 text-center">

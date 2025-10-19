@@ -95,7 +95,7 @@ const PomodoroTimer: React.FC<ToolProps> = ({ details, toolId }) => {
                         />
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                        <p className="text-5xl font-mono font-bold">{formatTime(time)}</p>
+                        <p className="text-2xl font-mono font-bold">{formatTime(time)}</p>
                         <p className="text-lg uppercase tracking-wider text-gray-500 dark:text-gray-400">{mode}</p>
                     </div>
                 </div>

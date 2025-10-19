@@ -131,7 +131,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                             </div>
                         ) : (
                             <div className="text-center text-gray-500 dark:text-gray-400">
-                                <div className="text-4xl mb-2">🔄</div>
+                                <div className="text-2xl mb-2">🔄</div>
                                 <p>Upload a video to convert format</p>
                             </div>
                         )}

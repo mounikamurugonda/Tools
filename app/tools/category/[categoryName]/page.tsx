@@ -117,7 +117,7 @@ export default function CategoryPage({ params }: Props) {
         <div className="mb-12">
           <div className="flex items-center mb-6">
             <div className="flex-1">
-              <h1 className="text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">{category} Tools</h1>
+              <h1 className="text-2xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">{category} Tools</h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">{content.introduction}</p>
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function CategoryPage({ params }: Props) {
           {tools.length === 0 && (
             <div className="text-center py-16">
               <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-4xl text-gray-400">🔧</span>
+                <span className="text-2xl text-gray-400">🔧</span>
               </div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No Tools Available Yet</h3>
               <p className="text-gray-500 dark:text-gray-400">We&apos;re working hard to add more {category.toLowerCase()} tools. Check back soon!</p>
@@ -148,7 +148,7 @@ export default function CategoryPage({ params }: Props) {
         
         {/* Additional Information */}
         <div className="bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 rounded-2xl p-8 mb-8">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Ready to Get Started?
             </h3>

@@ -113,7 +113,7 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                         style={{ backgroundColor }}
                     >
                         <h2 
-                            className="text-4xl font-bold"
+                            className="text-2xl font-bold"
                             style={{ 
                                 color: textColor,
                                 textShadow: textShadowValue

@@ -69,7 +69,7 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 <img src={base64} alt="Preview" className="max-h-full max-w-full rounded" />
               ) : (
                 <div className="text-center text-gray-500 dark:text-gray-400">
-                  <div className="text-4xl mb-2">🖼️</div>
+                  <div className="text-2xl mb-2">🖼️</div>
                   <p>Image preview will appear here</p>
                 </div>
               )}

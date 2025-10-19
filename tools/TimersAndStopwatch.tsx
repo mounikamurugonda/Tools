@@ -84,7 +84,7 @@ const CountdownTimer = () => {
     
     return (
         <div className="flex flex-col items-center space-y-6">
-             <div className="text-7xl font-mono font-bold tracking-widest text-gray-800 dark:text-gray-200 flex items-center gap-2">
+             <div className="text-2xl font-mono font-bold tracking-widest text-gray-800 dark:text-gray-200 flex items-center gap-2">
                 {isActive || timeLeft > 0 ? (
                      <>
                         <span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
@@ -164,7 +164,7 @@ const Stopwatch = () => {
 
     return (
         <div className="flex flex-col items-center space-y-6">
-            <div className="text-5xl font-mono font-bold tracking-wider text-gray-800 dark:text-gray-200">
+            <div className="text-2xl font-mono font-bold tracking-wider text-gray-800 dark:text-gray-200">
                 <span>{hours}:{minutes}:{seconds}</span>
                 <span className="text-3xl text-blue-500 dark:text-blue-400">.{milliseconds}</span>
             </div>

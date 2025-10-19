@@ -90,7 +90,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
     return (
         <ToolContainer title="Time Zone Converter" details={details} toolId={toolId}>
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="max-w-2xl mx-auto space-y-6">
                 <div className="grid md:grid-cols-2 gap-6 items-end">
                     <div>
                         <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
@@ -128,13 +128,13 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div className="grid md:grid-cols-2 gap-4 text-center">
                     <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
                         <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400">{fromTimeZone.replace(/_/g, ' ')}</h3>
-                        <p className="text-4xl font-bold text-blue-500 dark:text-blue-400 my-2">{time}</p>
+                        <p className="text-2xl font-bold text-blue-500 dark:text-blue-400 my-2">{time}</p>
                         <p className="text-lg text-gray-800 dark:text-gray-200">{new Date(`${date}T${time}`).toLocaleDateString(undefined, { weekday: 'long' })}</p>
                         <p className="text-md text-gray-500 dark:text-gray-400">{new Date(`${date}T${time}`).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}</p>
                     </div>
                     <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
                         <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400">{toTimeZone.replace(/_/g, ' ')}</h3>
-                        <p className="text-4xl font-bold text-blue-500 dark:text-blue-400 my-2">{result.time}</p>
+                        <p className="text-2xl font-bold text-blue-500 dark:text-blue-400 my-2">{result.time}</p>
                         <p className="text-lg text-gray-800 dark:text-gray-200">{result.day}</p>
                         <p className="text-md text-gray-500 dark:text-gray-400">{result.date}</p>
                     </div>
