@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import FileUpload from '@/components/FileUpload';
-import { Download, RotateCcw, Settings, Compress, TrendingDown } from 'lucide-react';
+import { Download, RotateCcw, Settings, Zap, TrendingDown } from 'lucide-react';
 
 interface CompressionSettings {
   quality: number;
