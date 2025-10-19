@@ -66,7 +66,7 @@ export default function AboutPage() {
                 <section>
                     <h2 className="brand-heading-3">Our Passionate Mission</h2>
                     <p>
-                    At UtilToolkits, we're driven by a simple yet powerful vision: to create the ultimate one-stop destination for every browser-based tool developers, designers, and productivity enthusiasts need. We believe that powerful utilities shouldn't require complex installations, expensive software, or compromise your privacy. That's why we've built a comprehensive collection of <strong>30+ free online tools</strong> that work directly in your browser, processing everything locally for maximum speed and security.
+                    At UtilToolkits, we're driven by a simple yet powerful vision: to create the ultimate one-stop destination for every browser-based tool developers, designers, and productivity enthusiasts need. We believe that powerful utilities shouldn't require complex installations, expensive software, or compromise your privacy. That's why we've built a comprehensive collection of <strong>50+ free online tools</strong> that work directly in your browser, processing everything locally for maximum speed and security.
                     </p>
                     <p>
                     Our mission extends beyond just providing tools - we're building a community where developers can find everything they need in one place. From JSON formatters and Base64 converters to image tools and productivity utilities, we're constantly expanding our collection based on real user needs and feedback. Every tool is designed with the modern developer in mind, featuring clean interfaces, instant results, and zero compromises on privacy.

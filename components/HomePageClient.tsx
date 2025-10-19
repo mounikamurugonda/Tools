@@ -125,7 +125,7 @@ const HomePageClient: React.FC = () => {
             Welcome to <span className="brand-gradient-text">UtilToolkits</span>
           </h1>
           <p className="brand-subheading mt-6 max-w-3xl mx-auto">
-            Discover the ultimate collection of <strong>30+ free online developer tools</strong> that work directly in your browser. From JSON formatters and Base64 converters to image tools and text utilities - everything you need to boost your productivity, all running locally for <strong>maximum speed and privacy</strong>. No downloads, no registration, just powerful tools at your fingertips.
+            Discover the ultimate collection of <strong>50+ free online developer tools</strong> that work directly in your browser. From JSON formatters and Base64 converters to image tools and text utilities - everything you need to boost your productivity, all running locally for <strong>maximum speed and privacy</strong>. No downloads, no registration, just powerful tools at your fingertips.
           </p>
           
           <div className="mt-10 max-w-2xl mx-auto">

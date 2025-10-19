@@ -6,7 +6,7 @@ export const getWebsiteSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "UtilToolkits",
-  "description": "Your comprehensive free online developer toolbox with 30+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.",
+  "description": "Your comprehensive free online developer toolbox with 50+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.",
   "url": "https://utiltoolkits.com",
   "potentialAction": {
     "@type": "SearchAction",
@@ -65,7 +65,7 @@ export const getHomepageSchema = () => ({
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "UtilToolkits - Your Free Online Developer Toolbox",
-  "description": "Your comprehensive free online developer toolbox with 30+ browser-based utilities. All tools run locally for maximum speed and privacy.",
+  "description": "Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.",
   "url": "https://utiltoolkits.com",
   "mainEntity": {
     "@type": "ItemList",

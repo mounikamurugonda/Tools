@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     default: 'UtilToolkits | Free Online Developer Tools & Utilities',
     template: '%s | UtilToolkits',
   },
-  description: "Your comprehensive free online developer toolbox with 30+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.",
+  description: "Your comprehensive free online developer toolbox with 50+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.",
   keywords: ['developer tools', 'online tools', 'free utilities', 'json formatter', 'base64 converter', 'password generator', 'image tools', 'text tools', 'converter tools', 'browser tools', 'productivity tools', 'web development tools'],
   authors: [{ name: 'UtilToolkits Team' }],
   creator: 'UtilToolkits',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'UtilToolkits | Free Online Developer Tools & Utilities',
-    description: 'Your comprehensive free online developer toolbox with 30+ browser-based utilities. All tools run locally for maximum speed and privacy.',
+    description: 'Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     url: 'https://utiltoolkits.com',
     siteName: 'UtilToolkits',
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'UtilToolkits | Free Online Developer Tools & Utilities',
-    description: 'Your comprehensive free online developer toolbox with 30+ browser-based utilities. All tools run locally for maximum speed and privacy.',
+    description: 'Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     images: ['/og-image.png'],
     creator: '@utiltoolkits',
   },
