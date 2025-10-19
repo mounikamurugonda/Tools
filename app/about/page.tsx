@@ -66,20 +66,20 @@ export default function AboutPage() {
                 <section>
                     <h2 className="brand-heading-3">Our Passionate Mission</h2>
                     <p>
-                    At UtilToolkits, we're driven by a simple yet powerful vision: to create the ultimate one-stop destination for every browser-based tool developers, designers, and productivity enthusiasts need. We believe that powerful utilities shouldn't require complex installations, expensive software, or compromise your privacy. That's why we've built a comprehensive collection of <strong>50+ free online tools</strong> that work directly in your browser, processing everything locally for maximum speed and security.
+                    At UtilToolkits, we&apos;re driven by a simple yet powerful vision: to create the ultimate one-stop destination for every browser-based tool developers, designers, and productivity enthusiasts need. We believe that powerful utilities shouldn&apos;t require complex installations, expensive software, or compromise your privacy. That&apos;s why we&apos;ve built a comprehensive collection of <strong>50+ free online tools</strong> that work directly in your browser, processing everything locally for maximum speed and security.
                     </p>
                     <p>
-                    Our mission extends beyond just providing tools - we're building a community where developers can find everything they need in one place. From JSON formatters and Base64 converters to image tools and productivity utilities, we're constantly expanding our collection based on real user needs and feedback. Every tool is designed with the modern developer in mind, featuring clean interfaces, instant results, and zero compromises on privacy.
+                    Our mission extends beyond just providing tools - we&apos;re building a community where developers can find everything they need in one place. From JSON formatters and Base64 converters to image tools and productivity utilities, we&apos;re constantly expanding our collection based on real user needs and feedback. Every tool is designed with the modern developer in mind, featuring clean interfaces, instant results, and zero compromises on privacy.
                     </p>
                 </section>
                 
                 <section>
                     <h2 className="brand-heading-3">What Sets Us Apart</h2>
                     <p>
-                    What makes UtilToolkits different? We're not just another collection of basic utilities. We're a comprehensive platform built by developers, for developers, with a deep understanding of the real challenges you face daily. Our tools are designed with modern workflows in mind, featuring intuitive interfaces, instant processing, and professional-grade functionality.
+                    What makes UtilToolkits different? We&apos;re not just another collection of basic utilities. We&apos;re a comprehensive platform built by developers, for developers, with a deep understanding of the real challenges you face daily. Our tools are designed with modern workflows in mind, featuring intuitive interfaces, instant processing, and professional-grade functionality.
                     </p>
                     <p>
-                    Here's what makes our toolkit special:
+                    Here&apos;s what makes our toolkit special:
                     </p>
                     <ul>
                         <li><strong>Text Mastery:</strong> Transform text with case converters, analyze readability scores, count words and characters, generate placeholder text, and reverse strings with precision.</li>
@@ -90,14 +90,14 @@ export default function AboutPage() {
                         <li><strong>Productivity Revolution:</strong> Harness Pomodoro timers, to-do lists, world clocks, and diff checkers to supercharge your daily workflow.</li>
                     </ul>
                     <p>
-                    And this is just the beginning. We're continuously expanding our collection based on user feedback and emerging needs in the developer community.
+                    And this is just the beginning. We&apos;re continuously expanding our collection based on user feedback and emerging needs in the developer community.
                     </p>
                 </section>
                 
                 <section>
                     <h2 className="brand-heading-3">Why Choose UtilToolkits?</h2>
                     <p className="mb-6">
-                    In a world full of scattered tools and compromised privacy, UtilToolkits stands out as the trusted choice for developers who value efficiency, security, and reliability. Here's why thousands of developers choose us:
+                    In a world full of scattered tools and compromised privacy, UtilToolkits stands out as the trusted choice for developers who value efficiency, security, and reliability. Here&apos;s why thousands of developers choose us:
                     </p>
                     <div className="grid md:grid-cols-2 gap-6 not-prose">
                         <div className="brand-card p-6">
@@ -118,7 +118,7 @@ export default function AboutPage() {
                         </div>
                         <div className="brand-card p-6">
                             <h3 className="brand-heading-4 !mt-0">🚀 No Registration</h3>
-                            <p className="brand-text-muted">Start using tools immediately. No accounts, no sign-ups, no email verification. Just open and use—it's that simple.</p>
+                            <p className="brand-text-muted">Start using tools immediately. No accounts, no sign-ups, no email verification. Just open and use—it&apos;s that simple.</p>
                         </div>
                         <div className="brand-card p-6">
                             <h3 className="brand-heading-4 !mt-0">🛠️ Professional Grade</h3>
@@ -130,10 +130,10 @@ export default function AboutPage() {
                 <section>
                     <h2 className="brand-heading-3">Join Our Journey</h2>
                     <p>
-                    We're building UtilToolkits for the developer community, and your feedback is what drives us forward. Have a tool idea? Found a bug? Want to suggest an improvement? We'd love to hear from you. Our mission is to create the most comprehensive, user-friendly collection of developer tools, and we can't do it without your input.
+                    We&apos;re building UtilToolkits for the developer community, and your feedback is what drives us forward. Have a tool idea? Found a bug? Want to suggest an improvement? We&apos;d love to hear from you. Our mission is to create the most comprehensive, user-friendly collection of developer tools, and we can&apos;t do it without your input.
                     </p>
                     <p>
-                    Whether you're a seasoned developer, a student learning to code, or a designer looking for efficient tools, UtilToolkits is here to support your journey. Together, let's build the ultimate toolkit that empowers everyone to work smarter, faster, and more securely.
+                    Whether you&apos;re a seasoned developer, a student learning to code, or a designer looking for efficient tools, UtilToolkits is here to support your journey. Together, let&apos;s build the ultimate toolkit that empowers everyone to work smarter, faster, and more securely.
                     </p>
                     <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
                         <p className="text-blue-800 dark:text-blue-200 font-medium">

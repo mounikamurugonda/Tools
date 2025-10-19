@@ -128,7 +128,7 @@ export default function TipsPage() {
         <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Want More Tips?</h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            Have a great tip to share? Found something that works well for you? We'd love to hear from you!
+            Have a great tip to share? Found something that works well for you? We&apos;d love to hear from you!
           </p>
           <a 
             href="/contact" 

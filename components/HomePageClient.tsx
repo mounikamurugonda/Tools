@@ -275,7 +275,7 @@ const HomePageClient: React.FC = () => {
           <div className="text-center mb-8">
             <h2 className="brand-heading-2 mb-4">Explore by Category</h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-6">
-              Organize your workflow with our carefully curated tool categories. Whether you're working with text, images, code, or data - we've got you covered.
+              Organize your workflow with our carefully curated tool categories. Whether you&apos;re working with text, images, code, or data - we&apos;ve got you covered.
             </p>
             <Link 
               href="/tools" 
