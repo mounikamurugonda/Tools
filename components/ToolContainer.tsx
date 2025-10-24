@@ -20,7 +20,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
         {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-        {children}
+        {children} 
       </div>
       <ToolDescription details={details} />
       <ToolCredits items={[...(toolId ? (TOOL_CREDITS[toolId] || []) : []), ...SITE_CREDITS]} />
