@@ -56,9 +56,9 @@ const Sidebar: React.FC = () => {
     const currentActiveCategory = activeTool ? activeTool.category : activeCategoryName;
 
     return (
-        <aside className="hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 md:block w-full md:w-64 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll brand-fade-in">
+        <aside className="hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 md:block w-full md:w-72 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll brand-fade-in">
             <div className="sticky top-2">
-                <nav className="space-y-1 pr-4">
+                <nav className="space-y-1 px-4 py-2">
                     {CATEGORY_ORDER.map(category => {
                         const categoryTools = groupedTools[category];
                         if (!categoryTools || categoryTools.length === 0) return null;
@@ -82,7 +82,7 @@ const Sidebar: React.FC = () => {
                                     </button>
                                 </div>
                                 {isOpen && (
-                                    <div className="mt-1 space-y-1 pl-4 border-l-2 border-gray-200 dark:border-gray-700 ml-3 animate-fade-in">
+                                    <div className="mt-1 space-y-1 pl-2 border-l-2 border-gray-200 dark:border-gray-700 ml-3 animate-fade-in">
                                         {categoryTools.map(tool => {
                                             const isActive = activeToolId === tool.id;
                                             return (
