@@ -23,11 +23,12 @@ export async function generateMetadata(
     };
   }
 
-  const enhancedDescription = `${tool.description} Free browser-based ${tool.name.toLowerCase()} tool with no registration required. All processing happens locally for maximum privacy and speed.`;
+  const title = tool.seoTitle || `${tool.name} - Free Online Tool | UtilToolkits`;
+  const description = tool.seoDescription || `${tool.description} Free browser-based ${tool.name.toLowerCase()} tool with no registration required. All processing happens locally for maximum privacy and speed.`;
 
   return {
-    title: `${tool.name} - Free Online Tool | UtilToolkits`,
-    description: enhancedDescription,
+    title,
+    description,
     keywords: tool.keywords ? [...tool.keywords, 'developer tools', 'online tools', 'free utilities', 'browser tools', 'privacy tools', 'no registration required'] : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities, browser tools`,
     authors: [{ name: 'UtilToolkits Team' }],
     creator: 'UtilToolkits',
@@ -47,8 +48,8 @@ export async function generateMetadata(
       canonical: `/tools/${tool.id}`,
     },
     openGraph: {
-      title: `${tool.name} - Free Online Tool | UtilToolkits`,
-      description: enhancedDescription,
+      title,
+      description,
       type: 'website',
       url: `https://utiltoolkits.com/tools/${tool.id}`,
       siteName: 'UtilToolkits',
@@ -65,7 +66,7 @@ export async function generateMetadata(
     twitter: {
       card: 'summary_large_image',
       title: `${tool.name} - Free Online Tool`,
-      description: enhancedDescription,
+      description,
       images: [`https://utiltoolkits.com/og-${tool.id}.png`],
       creator: '@utiltoolkits',
     },

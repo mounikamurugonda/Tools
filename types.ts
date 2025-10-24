@@ -29,6 +29,8 @@ export interface Tool {
   id: string;
   name: string;
   description: string;
+  seoTitle?: string;
+  seoDescription?: string;
   icon: React.ReactNode;
   component: React.FC<ToolProps>;
   category: ToolCategory;
