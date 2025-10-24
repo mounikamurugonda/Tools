@@ -33,7 +33,7 @@ const TipsSidebar = () => {
   };
 
   return (
-    <aside className="hidden md:block w-full md:w-64 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll brand-fade-in">
+    <aside className="hidden bg-white dark:bg-gray-800 md:block w-full md:w-64 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll brand-fade-in">
       <div className="sticky top-2">
         <nav className="space-y-1 pr-4">
           

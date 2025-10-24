@@ -5,10 +5,13 @@ export const TIPS = [
   { category: "Productivity", content: "To avoid burnout, schedule short breaks throughout your day. A quick walk or stretch can boost your energy and creativity." },
   { category: "Productivity", content: "Use a stopwatch to track how long tasks actually take. You might be surprised where your time goes!" },
   { category: "Productivity", content: "Scheduling meetings across time zones? Double-check the time with a World Clock to avoid showing up three hours early (or late!)." },
+  { category: "Productivity", content: "Working with a team in different time zones? A Time Zone Converter is essential for scheduling meetings and avoiding confusion." },
 
   // Coding & Development
   { category: "Coding", content: "When debugging, explain the problem to a rubber duck (or a friend!). The act of explaining often helps you find the solution yourself." },
   { category: "Coding", content: "Keep your JSON files human-readable! Use a JSON Formatter to add indentation and spacing. It makes spotting errors so much easier." },
+  { category: "Coding", content: "Need to quickly see the structure of a minified JSON from an API response? A JSON Formatter is your best friend. It makes debugging a breeze." },
+  { category: "Coding", content: "When working with URLs, always encode special characters to avoid breaking the link. A URL Encoder/Decoder is a must-have tool for web developers." },
   { category: "Coding", content: "Need a unique ID for a database entry? A UUID is your best friend. It's virtually guaranteed to be unique, even across different systems." },
   { category: "Coding", content: "Regular expressions (Regex) look scary, but they're incredibly powerful for finding patterns in text. Use a Regex Tester to experiment without fear!" },
   { category: "Coding", content: "Ever wondered what's inside a JWT? You can decode the header and payload to see the claims, which is super helpful for debugging authentication." },
@@ -16,6 +19,7 @@ export const TIPS = [
 
   // Design & CSS
   { category: "Design", content: "A subtle box-shadow can make UI elements pop and give your design a sense of depth. Play with the blur and spread to get it just right." },
+  { category: "Design", content: "Want to create a modern, frosted-glass effect in your UI? A Glassmorphism Generator can help you create the perfect CSS for this popular design trend." },
   { category: "Design", content: "Stuck on color choices? Start with a base color you love and use a Color Palette Generator to find harmonious combinations." },
   { category: "Design", content: "HEX, RGB, HSL... so many color formats! Use a Color Converter to switch between them. HSL is great for easily adjusting saturation and lightness." },
   { category: "Design", content: "Good design is accessible. When choosing colors, make sure there's enough contrast for people with visual impairments to read your text." },

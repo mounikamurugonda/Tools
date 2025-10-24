@@ -1,10 +1,9 @@
-import { TIPS } from '@/lib/tips';
 import { getTipsPageSchema, getWebsiteSchema, getOrganizationSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { Metadata } from 'next';
 import TipsPageLayout from '@/components/TipsPageLayout';
-import TipCard from '@/components/TipCard';
+import TipsPageClient from '@/components/TipsPageClient';
 
 export const metadata: Metadata = {
   title: 'Helpful Tips & Tricks for Developers | UtilToolkits',
@@ -68,64 +67,10 @@ export default function TipsPage() {
       <Schema schema={getTipsPageSchema()} />
       
       <TipsPageLayout title={title} description={description}>
-        {/* Introduction Section */}
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Why These Tips Matter</h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-            In the fast-paced world of development and design, small improvements can make a huge difference. These tips and tricks have been curated from real-world experience, helping you:
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">⚡</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Work Faster</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Keyboard shortcuts, automation tips, and workflow optimizations</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">🎯</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Code Better</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Best practices, debugging techniques, and clean code principles</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">🎨</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Design Smarter</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">UI/UX insights, color theory, and visual design tips</p>
-              </div>
-            </div>
-            <div className="flex items-start space-x-3">
-              <div className="flex-shrink-0 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm">🚀</span>
-              </div>
-              <div>
-                <h3 className="font-semibold text-gray-900 dark:text-white">Stay Productive</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Time management, focus techniques, and productivity hacks</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Tips Grid */}
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Browse All Tips</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TIPS.map((tip, index) => (
-              <TipCard key={index} tip={tip} />
-            ))}
-          </div>
-        </div>
+        <TipsPageClient />
 
         {/* Call to Action */}
-        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center">
+        <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 text-center mt-8">
           <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Want More Tips?</h3>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
             Have a great tip to share? Found something that works well for you? We&apos;d love to hear from you!
