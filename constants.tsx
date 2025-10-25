@@ -1158,36 +1158,43 @@ export const TOOLS: Tool[] = [
     component: CssGradientGenerator,
     category: ToolCategory.CSS,
     details: {
-      introduction: 'Create stunning CSS gradients with an intuitive visual editor. Choose colors, adjust angles, and switch between linear and radial gradients. Perfect for backgrounds, buttons, and modern UI elements.',
-      explanation: 'How does it work? Combines color inputs with angle/position controls to generate CSS gradient syntax. Updates preview element in real-time.',
+      introduction: 'Unleash your creativity with our intuitive CSS Gradient Generator. Effortlessly design stunning, professional-grade gradients for any project. Our visual editor provides a seamless experience, allowing you to choose from a vibrant spectrum of colors, fine-tune angles, and instantly switch between linear and radial styles. Whether you\'re crafting eye-catching backgrounds, creating dynamic buttons, or building breathtaking hero sections, our tool is the perfect companion for modern web design.',
+      explanation: 'Our CSS Gradient Generator simplifies the gradient creation process by providing a powerful and interactive interface. As you select and adjust colors, angles, and positions, the tool dynamically generates the corresponding CSS code in real-time. This immediate feedback loop allows you to experiment and iterate quickly, ensuring you achieve the perfect look for your design. The generator handles all the complex syntax, so you can focus on the creative aspect of your work.',
       usageExamples: [
-        'Creating modern website backgrounds',
-        'Designing gradient buttons and cards',
-        'Building hero sections with eye-catching gradients'
+        'Designing a vibrant, multi-toned background for a landing page to capture visitor attention.',
+        'Creating subtle gradients for UI elements like cards and buttons to add depth and a modern feel.',
+        'Building a dramatic, full-screen hero image with a gradient overlay for a powerful visual impact.',
+        'Generating a consistent set of gradients for a design system or brand style guide.',
+        'Experimenting with different color combinations and gradient types for design inspiration.'
       ],
-      underlyingConcept: 'CSS gradients create smooth color transitions. Linear gradients follow a direction, radial gradients spread from a center point.',
+      underlyingConcept: 'CSS gradients are a powerful feature of modern web design, allowing for smooth and dynamic color transitions without the need for image files. Linear gradients progress along a straight line, which can be oriented at any angle. Radial gradients, on the other hand, emanate from a single point, creating circular or elliptical color spreads. Our tool leverages these native CSS capabilities to provide a flexible and powerful way to create a wide range of visual effects.',
       howToUse: [
-        'Choose between Linear or Radial gradient type',
-        'For linear: adjust the angle slider (0-360 degrees)',
-        'For radial: select the position from the dropdown',
-        'Pick your two colors using the color pickers',
-        'Copy the generated CSS code'
+        'Choose between Linear or Radial gradient type.',
+        'For linear gradients, adjust the angle using the slider.',
+        'For radial gradients, select the shape and position from the dropdowns.',
+        'Click on the color stops to change colors.',
+        'Click the "+" icon between color stops to add a new color.',
+        'Adjust the position of each color stop with the slider.',
+        'Use the presets for quick inspiration.',
+        'Copy the generated CSS code from the output box.'
       ],
       features: [
         'Support for both linear and radial gradients',
         'Real-time visual preview',
+        'Add multiple color stops',
         'Color picker and text input for precise color selection',
         'Angle control for linear gradients',
-        'Position control for radial gradients'
+        'Position and shape control for radial gradients',
+        'A wide variety of presets to get you started'
       ],
       faqs: [
-        { question: 'More than 2 colors?', answer: 'Not yet; planned for future updates.' },
-        { question: 'Browser support?', answer: 'Excellent; CSS3 standard.' },
-        { question: 'Performance?', answer: 'Gradients are GPU-accelerated.' }
+        { question: 'How do I create a CSS gradient background?', answer: 'Our tool makes it easy! Simply choose your colors, set the gradient type (linear or radial), and adjust the options. The tool will generate the CSS code for you, which you can then apply to the `background` property of any HTML element.' },
+        { question: 'What is the difference between linear and radial gradients?', answer: 'A linear gradient creates a transition of colors along a straight line. You can control the direction of this line with an angle. A radial gradient, on the other hand, transitions colors outwards from a central point in a circular or elliptical shape.' },
+        { question: 'How to animate CSS gradients smoothly?', answer: 'Animating the `background-gradient` property directly is not performant. A better technique is to create a larger gradient and animate its `background-position`. This creates a smooth, looping animation. While our tool doesn\'t generate the animation code directly, you can use the generated gradient as a starting point for this technique.' }
       ],
       privacy: PRIVACY_STATEMENT
     },
-    keywords: ["css gradient generator", "linear gradient css", "radial gradient tool", "color gradient maker", "ui gradient"],
+    keywords: ["css gradient generator", "gradient generator online", "css gradient background generator", "linear gradient css generator", "radial gradient css generator", "conic gradient generator", "css gradient code generator", "gradient background maker for website", "css gradient editor live preview", "animated css gradient generator", "gradient button generator css", "css gradient tutorial for beginners", "generate css gradient code free", "multi color css gradient generator", "best css gradient generator 2025", "how to make css gradient background", "css gradient maker with angle control", "css gradient presets for UI design", "copy css gradient code", "css gradient generator for tailwind"],
   },
   {
     id: 'border-radius-generator',
