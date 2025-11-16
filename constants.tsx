@@ -135,9 +135,9 @@ export const TOOLS: Tool[] = [
     description:
       "Analyze keyword frequency, density, and phrase patterns to optimize your SEO content and improve search rankings.",
     seoTitle:
-      "Free Keyword Density Analyzer Tool | Check Keyword Frequency & SEO Optimization",
+      "Free Keyword Density Analyzer | Instantly Check & Optimize Your SEO",
     seoDescription:
-      "Use our free Keyword Density Analyzer to check keyword frequency, keyword percentage, and on-page SEO strength. Perfect for bloggers, marketers and content creators. 100% private, no signup required.",
+      "Struggling with SEO? Our free Keyword Density Analyzer helps you find the perfect keyword balance to rank higher. Analyze frequency, avoid stuffing, and optimize your content like a pro. 100% private.",
     icon: <KeywordDensityIcon />,
     component: KeywordDensityAnalyzer,
     category: ToolCategory.TEXT,
@@ -152,34 +152,36 @@ export const TOOLS: Tool[] = [
       "long-tail keyword analysis",
       "SEO content checker",
       "keyword percentage checker",
+      "keyword rank checker",
+      "free seo tools",
     ],
 
     details: {
       introduction:
-        "Boost your search engine rankings with our advanced Keyword Density Analyzer — a powerful SEO analysis tool built for content creators, bloggers, marketers, and SEO professionals. This tool scans your text to detect keyword frequency, keyword density percentage, and high-value long-tail phrases. With real-time insights, you can optimize blog posts, landing pages, product descriptions, and website copy without overstuffing keywords. Maintain natural readability while improving Google visibility and overall SEO performance.",
+        "Stop guessing and start ranking. Our Keyword Density Analyzer gives you the power to dissect your content's SEO performance in seconds. Uncover keyword frequency, identify valuable long-tail phrases, and strike the perfect balance to please both search engines and readers. Whether you're a blogger, marketer, or SEO pro, this tool is your secret weapon for creating content that dominates search results.",
 
       howToUse: [
-        "Paste your full content (blog post, article, website copy, or product description) into the input box.",
-        "The tool instantly analyzes keyword frequency, single words, and 2-3 word phrase combinations.",
-        "Explore the results table showing keyword count, occurrences, and exact density percentage.",
-        "Enable or disable stop-word filtering to refine key phrases and remove non-important filler words.",
-        "Sort your results by keyword density, frequency, or alphabetical order to identify strong SEO terms.",
-        "Copy or export the keyword report to use it for SEO audits, content rewrites, or competitor analysis.",
+        "Paste your content (article, blog post, or webpage copy) into the text area.",
+        "Instantly see a full analysis of one, two, and three-word keyword phrases.",
+        "Review the data table to see keyword counts, frequency, and density percentages.",
+        "Toggle 'Ignore Stop Words' to filter out common words and focus on what matters.",
+        "Sort your results to pinpoint top-performing keywords and optimization opportunities.",
+        "Copy the analysis to your clipboard for reports, audits, or content briefs.",
       ],
 
       features: [
-        "Instant keyword density analysis for single keywords and multi-word phrases.",
-        "Accurate keyword percentage calculation to avoid over-optimization and keyword stuffing.",
-        "Smart stop-word filtering to focus on meaningful search keywords.",
-        "Sortable keyword table for quick insights and SEO prioritization.",
-        "Optimized for long-tail keyword research to strengthen organic search performance.",
-        "100% privacy — analysis is processed locally in your browser, never stored or uploaded.",
+        "Instant Analysis: Get real-time keyword density metrics for single and multi-word phrases.",
+        "Precision Calculation: Avoid keyword stuffing with accurate density percentages.",
+        "Smart Filtering: Focus on high-impact keywords by removing generic stop words.",
+        "Sortable Results: Easily prioritize keywords for maximum SEO impact.",
+        "Long-Tail Discovery: Uncover valuable long-tail keywords to capture more organic traffic.",
+        "100% Private: Your data is yours. All analysis happens in your browser—nothing is ever stored.",
       ],
 
       privacy: PRIVACY_STATEMENT,
 
       explanation:
-        "Keyword density refers to how often a keyword appears within your content relative to the total word count. Maintaining a balanced keyword density (usually 1–2% for primary keywords) helps avoid SEO penalties and ensures natural readability. Our tool uses NLP-based text processing to tokenize words, detect n-grams, and calculate density using the formula (keyword occurrences / total words) × 100. By analyzing both single and multi-word phrases, the tool helps you optimize for search intent, long-tail keywords, and user engagement — essential factors for modern on-page SEO.",
+        "Keyword density is the secret sauce of on-page SEO. It measures how often a keyword appears relative to the total word count. The sweet spot is typically 1-2%—enough to signal relevance to Google without sounding robotic. Our tool goes beyond simple counting; it uses Natural Language Processing (NLP) to analyze n-grams (phrases) and calculate density with the formula: `(Keyword Count / Total Words) * 100`. This helps you optimize for user intent and dominate the SERPs.",
 
       usageExamples: [
         'Optimizing a blog post for keywords like "best digital marketing tools" or "SEO tips for beginners."',
@@ -191,34 +193,34 @@ export const TOOLS: Tool[] = [
 
       faqs: [
         {
-          question: "What is the recommended keyword density for SEO?",
+          question: "What's the ideal keyword density for SEO?",
           answer:
-            "Most SEO experts recommend keeping primary keyword density around 1–2%. Our tool helps you stay within this range for clean, natural, optimized content.",
+            "Aim for 1-2% for your primary keywords to stay relevant without being penalized. Our tool makes it easy to hit this target.",
         },
         {
-          question: "Does the tool support multiple languages?",
+          question: "Does this work for languages other than English?",
           answer:
-            "Yes, the analyzer works with all languages. Stop-word filtering is optimized for English, but you can switch it off for accurate multilingual results.",
+            "Yes! The tool analyzes any language. For best results with non-English text, simply turn off the 'Ignore Stop Words' filter.",
         },
         {
           question: "Can this tool analyze long articles?",
           answer:
-            "Absolutely! It supports documents up to 100,000 words. For extremely long content, breaking it into sections can give more detailed insights.",
+            "Absolutely! It handles large texts with ease. For extremely long content, analyzing it in sections can provide even more granular insights.",
         },
         {
           question: "How does stop-word removal help?",
           answer:
-            'Stop-word removal filters out common words like "the", "is", "and", helping you focus on meaningful SEO-rich keywords and phrases.',
+            'It filters out common filler words (like "the", "is", "and") so you can focus on the keywords that truly impact your SEO.',
         },
         {
           question: "Is my text saved anywhere?",
           answer:
-            "No. Everything is processed locally in your browser. Your content is never uploaded, stored, or shared.",
+            "Never. Your privacy is paramount. All processing is done locally in your browser, and your content is never uploaded or stored.",
         },
       ],
 
       underlyingConcept:
-        "This tool uses text mining and natural language processing to break down content into tokens and extract meaningful keywords. It identifies n-grams, eliminates stop-words, and measures keyword prominence using classical IR techniques. Inspired by TF-IDF and vector-space models, it offers actionable SEO insights to improve keyword targeting, content clarity, topic relevance, and long-tail search optimization.",
+        "This tool leverages Natural Language Processing (NLP) to perform sophisticated text analysis. It tokenizes your content, identifies n-grams (keyword phrases), and calculates term frequency. By filtering out stop-words, it helps you focus on semantically significant terms, mirroring techniques like TF-IDF to provide actionable insights for superior content optimization.",
     },
   },
 
@@ -228,9 +230,9 @@ export const TOOLS: Tool[] = [
     description:
       "Analyze text complexity and calculate Flesch-Kincaid and other readability scores to improve content clarity and accessibility.",
     seoTitle:
-      "Free Readability Score Calculator | Flesch-Kincaid Grade Level & Reading Ease Checker",
+      "Free Readability Score Calculator | Instantly Check Your Content's Grade Level",
     seoDescription:
-      "Check the readability of your text with our free Readability Score Calculator. Instantly get Flesch Reading Ease, Flesch-Kincaid Grade Level, word stats, and writing clarity insights. 100% private and secure — no data stored.",
+      "Is your writing easy to understand? Our free Readability Score Calculator gives you instant feedback with Flesch-Kincaid scores. Write clearer, more effective content for everyone. 100% private.",
     icon: <ReadabilityIcon />,
     component: ReadabilityScore,
     category: ToolCategory.TEXT,
@@ -244,280 +246,278 @@ export const TOOLS: Tool[] = [
       "reading ease score",
       "writing clarity analyzer",
       "text complexity checker",
+      "writing score",
+      "content accessibility",
     ],
 
     details: {
       introduction:
-        "Improve the clarity, accessibility, and overall quality of your writing with our Readability Score Calculator. This tool evaluates your text using industry-standard metrics like Flesch Reading Ease and Flesch-Kincaid Grade Level, helping you understand how simple or complex your content is for readers. Whether you're crafting blog posts, documentation, academic content, or marketing copy, this tool gives you instant feedback to ensure your writing matches your audience’s reading level.",
+        "Write with confidence and clarity. Our Readability Score Calculator instantly analyzes your text to see how easy it is to understand. Using trusted metrics like Flesch Reading Ease and Flesch-Kincaid Grade Level, this tool helps you connect with your audience, improve engagement, and make your message accessible to everyone. Perfect for bloggers, marketers, and writers who care about quality.",
 
       howToUse: [
-        "Paste or type your text into the input field.",
-        "The tool automatically analyzes your writing in real time.",
-        "View detailed stats including word count, sentence count, syllable count, and average sentence length.",
-        "Review your Flesch Reading Ease score and the estimated U.S. grade level to gauge content difficulty.",
-        "Adjust your writing accordingly and re-check until the readability matches your target audience.",
+        "Paste your text into the input field.",
+        "Watch as the tool analyzes your writing in real-time.",
+        "Review your scores, including Flesch Reading Ease and the estimated U.S. grade level.",
+        "Get detailed stats like word count, sentence length, and syllable count.",
+        "Refine your text to match your audience's reading level and boost clarity.",
       ],
 
       features: [
-        "Instant calculation of Flesch Reading Ease score and Flesch-Kincaid Grade Level.",
-        "Detailed text statistics: total words, sentences, syllables, average sentence length, and more.",
-        "Helps you create accessible, easy-to-read content for all audiences.",
-        "Ideal for SEO writers, bloggers, educators, marketers, and UX copywriters.",
-        "Fully private — text is processed locally in your browser.",
+        "Instant Readability Scores: Get Flesch Reading Ease and Flesch-Kincaid Grade Level in seconds.",
+        "Detailed Text Analysis: See stats on words, sentences, syllables, and more.",
+        "Audience-Focused Writing: Create content that's perfectly tailored to your readers.",
+        "Essential for Professionals: A must-have for SEOs, marketers, educators, and UX writers.",
+        "Completely Private: Your text is analyzed locally in your browser and never stored.",
       ],
 
       privacy: PRIVACY_STATEMENT,
 
       explanation:
-        "Readability scores help measure how easy or difficult a piece of writing is to understand. These formulas analyze two major factors: sentence length (a proxy for structural complexity) and word complexity (often measured using syllables). The Flesch Reading Ease score ranges from 0–100, with higher scores indicating easier reading. The Flesch-Kincaid Grade Level translates text difficulty into a U.S. school grade level, making it straightforward to ensure your writing suits your intended audience. These metrics are widely used in education, marketing, technical writing, and UX content strategy.",
+        "Readability scores measure how simple your writing is to understand. Formulas like Flesch-Kincaid analyze sentence length and word complexity (syllables) to generate a score. A higher Reading Ease score (0-100) means your text is easier to read, while the Grade Level score shows the U.S. school grade needed to comprehend it. Using these metrics helps you create clear, effective content that resonates with a broader audience.",
 
       usageExamples: [
-        "A blogger checks if their article is simple enough for a general audience.",
-        "A technical writer reduces jargon and improves documentation structure.",
-        "A teacher evaluates whether reading material is appropriate for student grade levels.",
-        "A marketer ensures landing page copy is easy to read and increases conversions.",
-        "A UX writer verifies that microcopy and instructions are accessible to all users.",
+        "A blogger ensuring their post is easy for a general audience to digest.",
+        "A technical writer simplifying complex documentation for clarity.",
+        "A marketer crafting landing page copy that converts.",
+        "A UX writer making sure in-app instructions are crystal clear.",
       ],
 
       underlyingConcept:
-        "The tool uses two well-established readability formulas. The Flesch Reading Ease formula: 206.835 - 1.015 × (Total Words ÷ Total Sentences) - 84.6 × (Total Syllables ÷ Total Words). The Flesch-Kincaid Grade Level formula: 0.39 × (Total Words ÷ Total Sentences) + 11.8 × (Total Syllables ÷ Total Words) - 15.59. By calculating word count, sentence count, and syllable count, the tool provides accurate readability insights that help writers improve clarity and audience alignment.",
+        "The tool implements two proven readability formulas. The Flesch Reading Ease formula: 206.835 - 1.015 × (Total Words / Total Sentences) - 84.6 × (Total Syllables / Total Words). The Flesch-Kincaid Grade Level formula: 0.39 × (Total Words / Total Sentences) + 11.8 × (Total Syllables / Total Words) - 15.59. These calculations provide a reliable measure of text complexity, empowering writers to improve clarity.",
 
       faqs: [
         {
-          question: "What is a good Flesch Reading Ease score?",
+          question: "What is a good readability score?",
           answer:
-            "A score between 60 and 70 is ideal for most general-audience content. It’s clear, easy to understand, and suitable for ages 13–15.",
+            "For most online content, a Flesch Reading Ease score of 60-70 is great. This means your text is easily understood by the average reader (around an 8th-grade level).",
         },
         {
-          question: "Does a higher grade level mean better writing?",
+          question: "Is a higher grade level better?",
           answer:
-            "Not necessarily. A higher grade level indicates more complexity, not better quality. The best grade level depends on your audience — for general readers, 7th–9th grade is usually recommended.",
+            "Not always. Simpler is often better. A high grade level means your text is complex, which can alienate readers. Aim for a grade level that matches your target audience.",
         },
         {
-          question: "Is my text stored or shared?",
+          question: "Is my text private?",
           answer:
-            "No. All processing happens locally on your device. Your text never leaves your browser.",
+            "Yes. All analysis happens on your device. Your text never touches our servers.",
         },
       ],
     },
   },
   {
-  id: "loan-calculator",
-  name: "Loan Calculator",
-  description:
-    "Calculate accurate monthly payments, interest costs, and a complete amortization schedule for any type of loan.",
-  seoTitle:
-    "Free Loan Calculator | Monthly Payment Estimator & Full Amortization Schedule",
-  seoDescription:
-    "Use our free Loan Calculator to estimate monthly payments, total interest, and full amortization schedules for mortgages, car loans, personal loans, and more. Fast, accurate, and 100% private.",
+    id: "loan-calculator",
+    name: "Loan Calculator",
+    description:
+      "Calculate accurate monthly payments, interest costs, and a complete amortization schedule for any type of loan.",
+    seoTitle:
+      "Free Loan Calculator | Estimate Monthly Payments & Amortization",
+    seoDescription:
+      "Take control of your finances. Our free Loan Calculator helps you estimate monthly payments, total interest, and see a full amortization schedule for any loan. Plan for mortgages, car loans, and more. Fast, accurate, and 100% private.",
 
-  icon: <LoanCalculatorIcon />,
-  component: LoanCalculator,
-  category: ToolCategory.MATH,
+    icon: <LoanCalculatorIcon />,
+    component: LoanCalculator,
+    category: ToolCategory.MATH,
 
-  keywords: [
-    "loan calculator",
-    "monthly payment calculator",
-    "loan amortization calculator",
-    "mortgage payment calculator",
-    "car loan calculator",
-    "interest rate calculator",
-    "principal and interest calculator",
-    "loan repayment schedule"
-  ],
-
-  details: {
-    introduction:
-      "Understand your loan costs with our advanced Loan Calculator. Whether you're comparing mortgage options, planning a car loan, reviewing student loans, or evaluating business financing, this tool gives you a complete financial breakdown. Simply enter the loan amount, interest rate, and term to instantly see your monthly payment, total interest paid, total loan cost, and a full amortization schedule showing how your balance decreases month by month.",
-
-    howToUse: [
-      "Enter the Loan Amount you plan to borrow.",
-      "Input the annual Interest Rate (e.g., enter 5 for 5%).",
-      "Select your Loan Term in years or months.",
-      "The calculator instantly shows your monthly payment, total interest, and total repayment amount.",
-      "Scroll down to view the complete amortization schedule with month-by-month interest and principal breakdowns.",
-      "Adjust values anytime to compare different loan scenarios and choose the best option."
+    keywords: [
+      "loan calculator",
+      "monthly payment calculator",
+      "loan amortization calculator",
+      "mortgage payment calculator",
+      "car loan calculator",
+      "interest rate calculator",
+      "principal and interest calculator",
+      "loan repayment schedule",
+      "financial planning tool",
     ],
 
-    features: [
-      "Accurate monthly payment calculation for fixed-rate loans.",
-      "Detailed amortization schedule showing interest vs. principal for every payment.",
-      "Breakdown of total loan cost, including total interest paid.",
-      "Supports flexible loan terms (years or months).",
-      "Instant recalculations for quick loan comparison.",
-      "Private and secure — all calculations happen in your browser."
-    ],
+    details: {
+      introduction:
+        "Demystify your loan and take control of your financial future. Our advanced Loan Calculator gives you a crystal-clear breakdown of any loan, whether it's a mortgage, car loan, or personal financing. Instantly see your monthly payments, the total interest you'll pay, and a detailed amortization schedule. Make smarter financial decisions by comparing scenarios and finding the loan that works for you.",
 
-    privacy: PRIVACY_STATEMENT,
+      howToUse: [
+        "Enter the total Loan Amount you wish to borrow.",
+        "Input the annual Interest Rate (e.g., 5 for 5%).",
+        "Set the Loan Term in either years or months.",
+        "Instantly see your estimated monthly payment, total interest, and total cost.",
+        "Explore the full Amortization Schedule to see how your payments reduce the principal over time.",
+        "Adjust the numbers to compare different loans and find your best fit.",
+      ],
 
-    explanation:
-      "An amortization schedule shows how a fixed-rate loan is repaid over time. Each payment includes both interest and principal. Early in the loan, payments mostly cover interest because the balance is high. Over time, more of your payment applies to principal, helping you pay down the loan faster. This calculator applies the standard fixed-rate loan payment formula, giving you an accurate breakdown of monthly payments and overall loan cost so you can make smarter financial decisions.",
+      features: [
+        "Accurate Payment Calculation: Get precise monthly payment estimates for any fixed-rate loan.",
+        "Full Amortization Schedule: See a detailed, month-by-month breakdown of interest vs. principal.",
+        "Total Cost Breakdown: Understand the true cost of your loan with total interest calculations.",
+        "Flexible Terms: Supports loan terms in both years and months for ultimate flexibility.",
+        "Instant Comparisons: Adjust values on the fly to compare different loan options.",
+        "100% Private & Secure: All calculations are performed in your browser. Your financial data is never stored.",
+      ],
 
-    usageExamples: [
-      "A homebuyer estimates monthly mortgage payments and compares loan terms.",
-      "A car buyer calculates total interest before choosing financing options.",
-      "A student evaluates repayment plans for an education loan.",
-      "A small business owner forecasts loan costs for business expansion.",
-      "Anyone refinancing a loan can compare new interest rates and shorter terms."
-    ],
+      privacy: PRIVACY_STATEMENT,
 
-    underlyingConcept:
-      "The calculator uses the standard amortizing loan formula: M = P × [r(1+r)^n] / [(1+r)^n − 1]. Here, M is the monthly payment, P is the principal, r is the monthly interest rate (annual rate ÷ 12), and n is the total number of monthly payments. Each month, interest is calculated as (remaining balance × r), and the principal portion is the difference between the payment and interest. By iterating this process, the full amortization schedule is generated.",
+      explanation:
+        "An amortization schedule reveals how your loan is paid off over time. With each payment, a portion goes to interest and the rest to the principal (the amount you borrowed). In the beginning, more of your payment covers interest. As you pay down the balance, more goes toward the principal, accelerating your path to being debt-free. Our calculator uses the standard formula to give you a precise financial forecast.",
 
-    faqs: [
-      {
-        question: "Why do most early payments go toward interest?",
-        answer:
-          "Because interest is calculated on the remaining loan balance. At the beginning of a loan, your balance is highest, so the interest portion is also highest. As the balance decreases, interest charges shrink."
-      },
-      {
-        question: "How can I reduce the total interest I pay?",
-        answer:
-          "You can lower your interest cost by securing a lower interest rate, choosing a shorter loan term, or making extra payments directly toward the principal."
-      },
-      {
-        question: "Does this calculator work for mortgages, car loans, and personal loans?",
-        answer:
-          "Yes. Any fixed-rate installment loan can be calculated accurately using this tool."
-      }
-    ]
-  }
-}
-,
+      usageExamples: [
+        "A homebuyer comparing 15-year vs. 30-year mortgage terms.",
+        "A car buyer determining what interest rate they can afford.",
+        "A student planning their repayment strategy for an education loan.",
+        "An entrepreneur forecasting costs for a new business loan.",
+      ],
+
+      underlyingConcept:
+        "The calculator uses the standard amortizing loan formula: M = P × [r(1+r)^n] / [(1+r)^n − 1], where M is the monthly payment, P is the principal, r is the monthly interest rate, and n is the number of payments. This industry-standard formula ensures you get an accurate and reliable financial picture.",
+
+      faqs: [
+        {
+          question: "Why do my first few payments mostly go to interest?",
+          answer:
+            "Interest is calculated on your outstanding balance. Since your balance is highest at the start, the interest portion of your payment is also at its peak. As you pay down the principal, this amount decreases.",
+        },
+        {
+          question: "How can I pay less interest overall?",
+          answer:
+            "Choose a shorter loan term, secure a lower interest rate, or make extra payments toward the principal. Even small extra payments can save you thousands over the life of the loan.",
+        },
+        {
+          question: "Does this work for all types of loans?",
+          answer:
+            "Yes, it works perfectly for any fixed-rate installment loan, including mortgages, auto loans, and personal loans.",
+        },
+      ],
+    },
+  },
   {
-  id: "timezone-converter",
-  name: "Time Zone Converter",
-  description:
-    "Instantly convert any date and time between global time zones with precise, real-time accuracy.",
-  seoTitle:
-    "Free Time Zone Converter | Convert Time Between Cities & Countries Instantly",
-  seoDescription:
-    "Easily convert time across world time zones with our free Time Zone Converter. Perfect for scheduling global meetings, travel planning, and international coordination. Fast, accurate, and 100% private.",
-  icon: <TimeZoneConverterIcon />,
-  component: TimeZoneConverter,
-  category: ToolCategory.PRODUCTIVITY,
+    id: "timezone-converter",
+    name: "Time Zone Converter",
+    description:
+      "Instantly convert any date and time between global time zones with precise, real-time accuracy.",
+    seoTitle:
+      "Time Zone Converter | Instantly Convert Time Between Cities Worldwide",
+    seoDescription:
+      "Never get the time wrong again. Our free Time Zone Converter makes it easy to convert time between any cities in the world. Perfect for scheduling meetings, planning travel, and staying in sync with global teams.",
+    icon: <TimeZoneConverterIcon />,
+    component: TimeZoneConverter,
+    category: ToolCategory.PRODUCTIVITY,
 
-  keywords: [
-    "time zone converter",
-    "timezone calculator",
-    "world time converter",
-    "time difference calculator",
-    "international meeting scheduler",
-    "gmt to ist converter",
-    "pst to est converter",
-    "utc time converter"
-  ],
-
-  details: {
-    introduction:
-      "Stay perfectly in sync with the world using the Time Zone Converter. Whether you're coordinating global meetings, planning international travel, or simply checking the local time across continents, this tool gives you instant and accurate timezone conversions. No more confusion or guessing — see exactly what time it will be anywhere on the planet with clear, side-by-side results.",
-
-    howToUse: [
-      "Select the date and time you want to convert.",
-      "Choose your 'From' timezone and your target 'To' timezone using the dropdown lists.",
-      "The converted date and time will appear instantly for both locations.",
-      "Check the displayed hour difference between the two zones for context.",
-      "Use the swap button to quickly reverse the conversion directions.",
-      "Adjust time or date anytime to explore different scenarios."
+    keywords: [
+      "time zone converter",
+      "timezone calculator",
+      "world time converter",
+      "time difference calculator",
+      "international meeting scheduler",
+      "gmt to ist converter",
+      "pst to est converter",
+      "utc time converter",
+      "global clock",
     ],
 
-    features: [
-      "Instant, real-time conversion between any two global time zones.",
-      "Side-by-side display for easy comparison.",
-      "Accurate hour and day differences, including automatic DST adjustments.",
-      "Clean, searchable IANA timezone list grouped by region and city.",
-      "Correct day-of-week display for future or past conversions.",
-      "Swap button to quickly flip 'From' and 'To' zones.",
-      "Completely private — calculations happen entirely in your browser."
-    ],
+    details: {
+      introduction:
+        "Effortlessly sync with the world. The Time Zone Converter eliminates confusion when dealing with global times. Whether you're scheduling a meeting with an international client, planning your next trip, or coordinating with a remote team, this tool provides instant, accurate time conversions. See the exact time anywhere on the planet with a clean, simple interface.",
 
-    privacy: PRIVACY_STATEMENT,
+      howToUse: [
+        "Pick the date and time you want to convert.",
+        "Select your 'From' and 'To' time zones from the dropdown lists.",
+        "The converted date and time appear instantly.",
+        "Use the 'Swap' button to quickly reverse the conversion.",
+        "The tool automatically handles Daylight Saving Time (DST) for you.",
+      ],
 
-    explanation:
-      "The converter uses the browser’s Internationalization API (Intl) to ensure precise timezone handling. By creating a date object from your input and formatting it separately for each selected timezone, the tool automatically adapts to all regional rules, including Daylight Saving Time. This ensures reliable conversions without relying on external servers or APIs.",
+      features: [
+        "Instant & Accurate: Real-time conversions between any two global time zones.",
+        "Clear Comparison: A side-by-side display makes it easy to see the time difference.",
+        "DST Aware: Automatically adjusts for Daylight Saving Time so you don't have to.",
+        "Comprehensive List: Search from a clean, IANA-standard list of time zones.",
+        "Swap Functionality: Quickly flip your 'From' and 'To' locations with one click.",
+        "Completely Private: All calculations happen in your browser. Your data is never saved.",
+      ],
 
-    usageExamples: [
-      "A project manager schedules a cross-continent meeting by checking overlapping work hours.",
-      "A traveler adjusts their itinerary by previewing local arrival times.",
-      "A remote team member checks teammates’ local times before messaging.",
-      "Someone sends birthday wishes exactly at midnight in a friend’s timezone."
-    ],
+      privacy: PRIVACY_STATEMENT,
 
-    underlyingConcept:
-      "Using `Intl.DateTimeFormat`, the tool interprets a single date object through different IANA timezones such as 'America/New_York' or 'Asia/Tokyo'. This allows the same UTC timestamp to be rendered correctly for any region. By formatting both sides independently, the tool accurately reflects offsets, DST rules, and date boundaries.",
+      explanation:
+        "This converter uses your browser's built-in Internationalization API (Intl) for maximum accuracy. By formatting a single time object according to different IANA time zone rules (like 'America/New_York' or 'Asia/Tokyo'), it ensures every conversion is precise and accounts for regional complexities like Daylight Saving Time, all without needing external servers.",
 
-    faqs: [
-      {
-        question: "What are IANA timezones?",
-        answer:
-          "IANA timezones are standardized regional identifiers like 'Asia/Kolkata' or 'America/Chicago'. They follow global time regulations and DST rules, making them ideal for accurate conversions."
-      },
-      {
-        question: "Why does the converted time sometimes show a different day?",
-        answer:
-          "Large timezone differences can cross over midnight, causing the converted time to fall on the next or previous day. For instance, evening in one country might already be morning the next day elsewhere."
-      },
-      {
-        question: "Is my time data stored?",
-        answer:
-          "No. All conversions happen locally on your device, and nothing is saved or transmitted."
-      }
-    ]
-  }
-}
-,
+      usageExamples: [
+        "A project manager finding the perfect meeting time for a team spread across continents.",
+        "A traveler checking their arrival time in the local destination.",
+        "A remote worker making sure they don't message a colleague in the middle of the night.",
+        "Someone sending birthday wishes at exactly midnight in a friend's time zone.",
+      ],
+
+      underlyingConcept:
+        "Powered by `Intl.DateTimeFormat`, the tool renders a single UTC timestamp in the context of different IANA time zones. This modern approach guarantees accuracy by respecting regional offsets, DST rules, and date boundaries, providing a reliable conversion every time.",
+
+      faqs: [
+        {
+          question: "What are IANA time zones?",
+          answer:
+            "They are standardized identifiers for time zones, like 'America/Los_Angeles' or 'Europe/London'. They are the global standard and automatically account for local rules and DST.",
+        },
+        {
+          question: "Why is the converted day sometimes different?",
+          answer:
+            "When the time difference between two zones is large, it can cross over midnight. For example, evening in New York might already be the next morning in Tokyo.",
+        },
+        {
+          question: "Is my data private?",
+          answer:
+            "Absolutely. All conversions happen locally on your device. Nothing is ever stored or transmitted.",
+        },
+      ],
+    },
+  },
   {
     id: "case-converter",
     name: "Case Converter",
     description:
       "Convert text between uppercase, lowercase, title case, and more formats.",
-    seoTitle: "Case Converter - Change Text Case Online",
+    seoTitle: "Online Case Converter | Instantly Change Text Case",
     seoDescription:
-      "Easily convert text between uppercase, lowercase, title case, sentence case, and more with our free online Case Converter. No registration required, 100% private and secure.",
+      "Quickly convert text to UPPERCASE, lowercase, Title Case, Sentence case, and more with our free online tool. Perfect for headlines, essays, and code. 100% private and easy to use.",
     icon: <CaseIcon />,
     component: CaseConverter,
     category: ToolCategory.TEXT,
     featured: true,
     details: {
-      tip: "Use 'Title Case' for blog post headlines to make them look professional, and 'Sentence case' for paragraphs to keep them easy to read!",
+      tip: "Use 'Title Case' for professional-looking headlines and 'Sentence case' for easy-to-read paragraphs.",
       introduction:
-        "The Case Converter tool allows you to easily transform the case of your text. Whether you need your text in all uppercase, all lowercase, sentence case, or title case, this tool provides a quick and easy solution. It works by analyzing the input text and applying string manipulation techniques to change the casing of each character or word as per the selected option. This solves the common problem of manually editing text to fit specific formatting requirements, saving time and reducing errors in documents, emails, or code.",
+        "Tired of manually fixing text case? Our Case Converter tool instantly transforms your text into the format you need. Whether it's for a headline, a document, or a piece of code, you can switch between UPPERCASE, lowercase, Sentence case, Title Case, and more in a single click. Save time and eliminate errors with this simple yet powerful tool.",
       explanation:
-        'How does it work? The tool takes your input string and uses JavaScript string methods like toUpperCase(), toLowerCase(), or custom logic for title and sentence case. For title case, it capitalizes the first letter of each major word, ignoring minor words like "the" or "and" unless specified. Sentence case capitalizes only the first letter of each sentence. This automation eliminates the tedium of manual corrections, especially for large texts.',
+        "The tool uses smart logic to apply the correct case transformation. For Title Case, it capitalizes major words while ignoring minor ones (like 'a' or 'the'). For Sentence case, it capitalizes the first letter of each sentence. It's fast, efficient, and all done in your browser.",
       usageExamples: [
-        "A student writing an essay might use it to convert all text to title case for headings.",
-        "A developer could convert variable names from camelCase to UPPER_CASE for constants in code.",
-        "A marketer preparing email campaigns might switch text to sentence case for better readability in subject lines.",
+        "A writer converting a headline to Title Case for a blog post.",
+        "A developer changing variable names to UPPER_CASE for constants.",
+        "A student formatting an essay with proper Sentence case.",
       ],
       underlyingConcept:
-        "Text casing is a fundamental concept in typography and programming. It involves modifying the capitalization of letters to convey structure, emphasis, or style. For instance, uppercase is often used for shouting or acronyms, while title case is common in headlines. The tool leverages Unicode character properties to handle various languages and special characters accurately.",
+        "Text casing is crucial for readability and style. Different cases serve different purposes: uppercase for emphasis, title case for headlines, and sentence case for readability. This tool automates these conventions, handling various languages and special characters with Unicode support.",
       howToUse: [
-        "Paste or type your text into the input area.",
-        "Click one of the buttons for the desired case transformation (e.g., UPPER CASE, lower case).",
-        "The converted text will instantly appear in the result area below.",
-        "You can then copy the result to your clipboard.",
+        "Paste your text into the input box.",
+        "Click the button for the case you want (e.g., UPPER CASE, lower case).",
+        "Your converted text appears instantly in the result area.",
+        "Copy the result with a single click.",
       ],
       features: [
-        "Supports multiple case formats: UPPER, lower, Sentence, and Title case.",
-        "Instant conversion with no server-side processing.",
-        "Simple and intuitive interface.",
-        "Handles large blocks of text efficiently.",
+        "Multiple Formats: Supports UPPER, lower, Sentence, Title case, and more.",
+        "Instant Conversion: No delays, no server processing.",
+        "Simple Interface: Clean, intuitive, and easy to use.",
+        "Handles Large Text: Works efficiently even with long documents.",
       ],
       faqs: [
         {
-          question: "Does this tool support non-English characters?",
+          question: "Does it work with other languages?",
           answer:
-            "Yes, it handles Unicode characters, including accented letters and other alphabets.",
+            "Yes, it supports Unicode, so it works with accented letters and other alphabets.",
         },
         {
-          question: "Can I convert multiple paragraphs at once?",
+          question: "Can I convert a whole document?",
           answer:
-            "Absolutely, the tool processes any amount of text efficiently.",
+            "Absolutely. The tool can handle large blocks of text without a problem.",
         },
         {
-          question: "Is there a limit to the text length?",
+          question: "Is there a text limit?",
           answer:
-            "No strict limit, but very large texts may depend on your browser's memory.",
+            "No strict limit. Performance with extremely large texts depends on your browser.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
@@ -528,472 +528,455 @@ export const TOOLS: Tool[] = [
       "uppercase to lowercase",
       "title case generator",
       "sentence case tool",
+      "text formatting",
     ],
   },
   {
-  id: "word-counter",
-  name: "Word Counter",
-  description:
-    "Instantly count words, characters, sentences, and paragraphs with our advanced, real-time Word Counter tool.",
-  seoTitle: "Free Word Counter Online | Accurate Word & Character Count Tool",
-  seoDescription:
-    "Use our free online Word Counter to instantly count words, characters, sentences, and paragraphs. Perfect for writers, students, SEO experts, and content creators. 100% private, accurate, and fast.",
-  icon: <CounterIcon />,
-  component: WordCounter,
-  category: ToolCategory.TEXT,
-  keywords: [
-    "word counter",
-    "word count tool",
-    "character counter",
-    "online word counter",
-    "word calculator",
-    "sentence counter",
-    "paragraph counter",
-    "text analysis tool",
-    "reading time calculator",
-    "content writing tool"
-  ],
-  details: {
-    introduction:
-      "Our Free Word Counter Tool delivers fast, accurate, real-time text analysis designed for writers, students, editors, marketers, and content creators. Whether you're optimizing blog posts, crafting essays, preparing social media content, or meeting strict word limits, this powerful tool provides detailed metrics including word count, character count (with and without spaces), sentence count, paragraph count, and estimated reading time. With a clean interface and instant calculations, it ensures your writing stays polished, structured, and aligned with content requirements.",
-    howToUse: [
-      "Paste or type your text into the input area — supports up to 50,000 characters.",
-      "Monitor real-time word, character, sentence, and paragraph counts as you type.",
-      "Check reading time based on average reading speeds (200–300 WPM).",
-      "Use the distraction-free layout to stay focused while reviewing essential stats.",
-      "Copy specific counts or export the complete analysis for documentation or reports."
+    id: "word-counter",
+    name: "Word Counter",
+    description:
+      "Instantly count words, characters, sentences, and paragraphs with our advanced, real-time Word Counter tool.",
+    seoTitle: "Free Online Word Counter | Real-Time Word & Character Count",
+    seoDescription:
+      "Hit your writing goals with our free online Word Counter. Get instant, accurate counts for words, characters, sentences, and paragraphs, plus an estimated reading time. Perfect for writers, students, and SEOs.",
+    icon: <CounterIcon />,
+    component: WordCounter,
+    category: ToolCategory.TEXT,
+    keywords: [
+      "word counter",
+      "word count tool",
+      "character counter",
+      "online word counter",
+      "word calculator",
+      "sentence counter",
+      "paragraph counter",
+      "text analysis tool",
+      "reading time calculator",
+      "content writing tool",
     ],
-    features: [
-      "Real-time analytical counters for words, characters, sentences, and paragraphs.",
-      "Reading time estimation for casual and fast readers.",
-      "Multi-language support with Unicode compatibility.",
-      "Clean, minimalistic UI with dark mode for comfortable long-session writing.",
-      "Advanced sentence recognition that handles abbreviations and complex punctuation.",
-      "Privacy-first design — all processing is done locally in your browser."
-    ],
-    privacy: PRIVACY_STATEMENT,
-    explanation:
-      "This Word Counter uses advanced linguistic parsing to deliver precise metrics essential for academic, professional, and SEO-focused writing. Words are tokenized using space and punctuation rules; characters are counted both with and without whitespace for layout and SEO needs. Sentences are detected through regex-based boundary analysis, while paragraphs are recognized through line-break patterns. Reading time is calculated from research-backed reading speed averages. The result: accurate, insightful analytics that help refine writing style, improve readability, and meet publication or platform guidelines.",
-    usageExamples: [
-      "Students verifying word limits for essays, theses, and academic papers.",
-      "Bloggers optimizing article length for SEO and reader engagement.",
-      "Social media managers checking character limits for posts and captions.",
-      "Editors analyzing sentence structure and pacing in manuscripts.",
-      "Marketing teams reviewing email newsletters and ad copy for readability."
-    ],
-    faqs: [
-      {
-        question: "How does the tool count words?",
-        answer:
-          "Words are counted using standard tokenization rules: separated by spaces or punctuation. Hyphenated words and contractions count as single words for accuracy."
-      },
-      {
-        question: "What’s the difference between characters with and without spaces?",
-        answer:
-          "Characters with spaces include every visible character, ideal for layout planning. Characters without spaces measure pure letter count for SEO density and text analysis."
-      },
-      {
-        question: "Does it support non-English languages?",
-        answer:
-          "Yes. The tool supports Unicode, ensuring accurate counting for languages like Hindi, Chinese, Arabic, Tamil, and more."
-      },
-      {
-        question: "How accurate is the reading time estimate?",
-        answer:
-          "Reading time is calculated using widely accepted averages — 200 WPM for normal reading and 300 WPM for skim reading — but may vary based on content difficulty."
-      }
-    ],
-    underlyingConcept:
-      "The underlying technology uses computational linguistics principles for text tokenization and segmentation. Words are identified via delimiter rules, sentences via punctuation and regex detection, and paragraphs through line-break analysis. This mirrors the methodology used in NLP frameworks like NLTK, enabling deeper insights such as sentence length averages and content readability patterns. Providing both character counts (with and without spaces) supports designers, SEO specialists, and writers in understanding text density, visual layout impact, and structural consistency."
-  }
-}
-,
+    details: {
+      introduction:
+        "Every word matters. Our free Word Counter gives you a real-time analysis of your text, helping you write with precision and meet any requirement. Whether you're a student drafting an essay, a blogger optimizing for SEO, or a marketer crafting the perfect social media post, this tool provides the essential metrics you need: word count, character count, sentence and paragraph totals, and even an estimated reading time. It's fast, accurate, and designed to keep you focused.",
+      howToUse: [
+        "Start typing or paste your text into the input area.",
+        "Watch the counts for words, characters, sentences, and paragraphs update in real-time.",
+        "Check the estimated reading time to see how long it will take to read your content.",
+        "Use the clean, distraction-free interface to focus on your writing.",
+      ],
+      features: [
+        "Real-Time Analytics: Instant counts for words, characters, sentences, and paragraphs.",
+        "Reading Time Estimator: See how long your text will take to read.",
+        "Multi-Language Support: Works accurately with any language thanks to Unicode compatibility.",
+        "Clean & Focused UI: A minimalist design with dark mode for comfortable writing sessions.",
+        "Advanced Detection: Smartly recognizes sentences, even with abbreviations.",
+        "Privacy-First: All analysis is done locally in your browser. Your text is never stored.",
+      ],
+      privacy: PRIVACY_STATEMENT,
+      explanation:
+        "This Word Counter uses smart linguistic parsing to deliver precise metrics. Words are identified by spaces and punctuation, sentences by analyzing boundaries, and paragraphs by line breaks. This provides a deeper understanding of your writing style and structure, helping you improve readability and meet specific guidelines for any platform.",
+      usageExamples: [
+        "A student ensuring their essay meets the required word count.",
+        "A blogger optimizing an article's length for better reader engagement.",
+        "A social media manager checking character limits for a post.",
+        "An editor analyzing sentence structure and pacing in a manuscript.",
+      ],
+      faqs: [
+        {
+          question: "How are words counted?",
+          answer:
+            "Words are counted based on spaces and punctuation. Hyphenated words and contractions (like 'don't') are counted as single words for accuracy.",
+        },
+        {
+          question: "What's the difference between character counts?",
+          answer:
+            "Characters 'with spaces' includes every keystroke, while 'without spaces' measures only the letters and symbols, which is useful for certain SEO analyses.",
+        },
+        {
+          question: "Does it work for other languages?",
+          answer:
+            "Yes. The tool is built with Unicode support, ensuring accurate counts for languages like Spanish, Chinese, Arabic, and more.",
+        },
+        {
+          question: "How is reading time calculated?",
+          answer:
+            "It's estimated based on an average reading speed of 200-300 words per minute (WPM), but this can vary depending on the complexity of the text.",
+        },
+      ],
+      underlyingConcept:
+        "The tool uses computational linguistics to tokenize and segment text. Words are identified by delimiters, sentences by punctuation patterns, and paragraphs by line breaks. This mirrors the methods used in NLP frameworks, providing insights into text density, structure, and readability.",
+    },
+  },
   {
-  id: "character-counter",
-  name: "Character Counter",
-  description:
-    "Count characters, letters, and byte size instantly to ensure your text fits limits for social media, SMS, and online platforms.",
-  seoTitle: "Character Counter Tool | Online Letter, Symbol & Byte Counter",
-  seoDescription:
-    "Use our free Character Counter to instantly check characters, letters, symbols, and byte size of any text. Ideal for Twitter/X posts, SMS messages, social media, and data validation. 100% private and secure.",
-  icon: <CharacterCounterIcon />,
-  component: CharacterCounter,
-  category: ToolCategory.TEXT,
+    id: "character-counter",
+    name: "Character Counter",
+    description:
+      "Count characters, letters, and byte size instantly to ensure your text fits limits for social media, SMS, and online platforms.",
+    seoTitle: "Online Character Counter | Letter, Symbol & Byte Counter",
+    seoDescription:
+      "Never exceed the limit again. Our free Character Counter instantly checks characters, letters, and byte size. Perfect for Twitter/X posts, SMS, and more. 100% private and secure.",
+    icon: <CharacterCounterIcon />,
+    component: CharacterCounter,
+    category: ToolCategory.TEXT,
 
-  keywords: [
-    "character counter online",
-    "letter count tool",
-    "byte size calculator",
-    "text character limit",
-    "social media post counter",
-    "SMS character counter",
-    "Unicode character counter",
-    "emoji byte counter"
-  ],
-
-  details: {
-    introduction:
-      "The Character Counter is a precise online tool for writers, marketers, developers, and content creators who need to know the exact length of their text. It calculates characters with spaces, characters without spaces, and total byte size in UTF-8 encoding. Perfect for checking social media posts, SMS messages, API payloads, or database entries, this tool ensures your text always meets character and storage limits.",
-
-    explanation:
-      "This tool processes your text by iterating through each character, counting them in real time. For byte size, it encodes the text in UTF-8, measuring the exact storage requirement, including multi-byte characters such as emojis, accented letters, and symbols.",
-
-    usageExamples: [
-      "Check if a Twitter/X post stays within the 280-character limit.",
-      "Ensure SMS messages are under 160 characters to avoid splitting.",
-      "Verify API payload size does not exceed data limits using byte count.",
-      "Content creators confirm that captions or titles meet platform character limits.",
-      "Developers and database admins check string storage requirements."
+    keywords: [
+      "character counter online",
+      "letter count tool",
+      "byte size calculator",
+      "text character limit",
+      "social media post counter",
+      "SMS character counter",
+      "Unicode character counter",
+      "emoji byte counter",
     ],
 
-    underlyingConcept:
-      "Character counting combines text parsing with encoding awareness. UTF-8 encoding uses 1 byte for ASCII characters and multiple bytes for other Unicode characters. By distinguishing between visual characters and byte size, this tool helps writers and developers optimize text for readability, platform limits, and storage requirements.",
+    details: {
+      introduction:
+        "Stay within the limits. Our Character Counter is a precision tool for anyone who writes for digital platforms. It instantly calculates characters (with and without spaces) and total byte size, making it perfect for crafting social media posts, SMS messages, or API payloads. Ensure your text fits every time, without the guesswork.",
 
-    howToUse: [
-      "Paste or type your text into the input area.",
-      "The tool will instantly display characters (with and without spaces) and UTF-8 byte size.",
-      "Update your text and watch counts refresh in real time for immediate feedback."
-    ],
+      explanation:
+        "This tool counts every character in real-time. For byte size, it encodes your text in UTF-8 to measure the exact storage space required, which is crucial for handling multi-byte characters like emojis and international symbols.",
 
-    features: [
-      "Instant character counting with and without spaces.",
-      "Calculates UTF-8 byte size for accurate storage measurement.",
-      "Supports all Unicode characters, including emojis and accented letters.",
-      "Real-time updates as you type for fast feedback.",
-      "Perfect for social media, SMS, email marketing, and API development."
-    ],
+      usageExamples: [
+        "Crafting the perfect tweet that fits within the 280-character limit.",
+        "Ensuring an SMS message doesn't get split into multiple texts.",
+        "Verifying that an API payload won't exceed data limits.",
+        "Checking that a title or caption meets a platform's character requirements.",
+      ],
 
-    faqs: [
-      {
-        question: "Why is the byte size higher than the character count?",
-        answer: "Non-ASCII characters such as emojis, accented letters, and symbols require multiple bytes in UTF-8 encoding."
-      },
-      {
-        question: "Does it count spaces and line breaks?",
-        answer: "Yes, spaces, line breaks, and all visible characters are counted."
-      },
-      {
-        question: "Is it accurate for all languages?",
-        answer: "Yes, it fully supports Unicode, so any language script is counted accurately."
-      }
-    ],
+      underlyingConcept:
+        "Character counting is more than just counting letters. With UTF-8 encoding, standard ASCII characters use 1 byte, but special characters like emojis can use up to 4 bytes. This tool distinguishes between visual characters and their actual byte size, giving developers and writers the precise information they need.",
 
-    privacy: PRIVACY_STATEMENT
-  }
-}
-,
+      howToUse: [
+        "Paste or type your text into the input area.",
+        "Instantly see the counts for characters (with and without spaces) and the UTF-8 byte size.",
+        "The counts will update in real-time as you edit.",
+      ],
+
+      features: [
+        "Instant Character Counts: See counts with and without spaces as you type.",
+        "Accurate Byte Size: Calculates the UTF-8 byte size for technical precision.",
+        "Full Unicode Support: Correctly counts all characters, including emojis and symbols.",
+        "Real-Time Feedback: Watch the numbers update instantly as you write.",
+        "Essential for Digital Content: Perfect for social media, SMS, and development.",
+      ],
+
+      faqs: [
+        {
+          question: "Why is the byte size different from the character count?",
+          answer:
+            "Because special characters like emojis (👍) or accented letters (é) require more than one byte of storage in UTF-8 encoding.",
+        },
+        {
+          question: "Does it count spaces?",
+          answer:
+            "Yes, it provides counts both with and without spaces so you have all the information you need.",
+        },
+        {
+          question: "Is it accurate for all languages?",
+          answer:
+            "Yes, it fully supports Unicode, ensuring every language is counted correctly.",
+        },
+      ],
+
+      privacy: PRIVACY_STATEMENT,
+    },
+  },
   {
-  id: "lorem-ipsum-generator",
-  name: "Lorem Ipsum Generator",
-  description:
-    "Generate customizable placeholder text for web design, UI/UX prototypes, print layouts, and content mockups.",
-  seoTitle:
-    "Free Lorem Ipsum Generator | Placeholder Text Creator for Web & Design",
-  seoDescription:
-    "Quickly generate customizable Lorem Ipsum placeholder text for web design, UI/UX prototypes, and print layouts. Adjust length, paragraphs, or words with our free online tool. 100% private and secure.",
-  icon: <LoremIpsumIcon />,
-  component: LoremIpsumGenerator,
-  category: ToolCategory.TEXT,
+    id: "lorem-ipsum-generator",
+    name: "Lorem Ipsum Generator",
+    description:
+      "Generate customizable placeholder text for web design, UI/UX prototypes, print layouts, and content mockups.",
+    seoTitle:
+      "Lorem Ipsum Generator | Create Custom Placeholder Text",
+    seoDescription:
+      "Need placeholder text? Our free Lorem Ipsum Generator creates custom dummy text for your designs. Generate paragraphs, sentences, or words to perfect your layouts. Fast, easy, and professional.",
+    icon: <LoremIpsumIcon />,
+    component: LoremIpsumGenerator,
+    category: ToolCategory.TEXT,
 
-  keywords: [
-    "lorem ipsum generator",
-    "placeholder text generator",
-    "dummy text creator",
-    "mockup text tool",
-    "filler text generator",
-    "UI/UX placeholder text",
-    "web design dummy text",
-    "design content filler"
-  ],
-
-  details: {
-    introduction:
-      "Boost your design workflow with our Free Lorem Ipsum Generator. Whether you are a web designer, UI/UX developer, print designer, or front-end developer, this tool instantly creates realistic, customizable placeholder text. Generate paragraphs, sentences, or words to perfectly fill layouts, wireframes, or mockups, allowing you to focus on design, spacing, and typography without worrying about actual content. Ideal for responsive websites, app prototypes, and client presentations where visual structure matters most.",
-
-    howToUse: [
-      "Select the output format: paragraphs, sentences, or words to match your design layout.",
-      "Adjust the number of paragraphs, sentences, or words using sliders or input fields.",
-      "Optionally customize the starting text or use the default classic 'Lorem ipsum dolor sit amet'.",
-      "Click 'Generate' to produce placeholder text instantly, ready to copy and paste.",
-      "Preview the text to check spacing and visual flow before integrating it into your project.",
-      "Copy the generated text in one click for seamless use in design software or code editors."
+    keywords: [
+      "lorem ipsum generator",
+      "placeholder text generator",
+      "dummy text creator",
+      "mockup text tool",
+      "filler text generator",
+      "UI/UX placeholder text",
+      "web design dummy text",
+      "design content filler",
     ],
 
-    features: [
-      "Flexible generation modes: paragraphs, sentences, or words for precise layout filling.",
-      "Customizable length controls with easy sliders and inputs.",
-      "Traditional Latin or randomized variations for diverse placeholder aesthetics.",
-      "Real-time preview updates as you modify settings.",
-      "Clean, minimalist interface optimized for designers using Figma, Adobe XD, Sketch, or code editors.",
-      "Responsive design for use on desktop, tablet, and mobile devices.",
-      "No watermarks or branding – professional placeholder text ready for client presentations."
-    ],
+    details: {
+      introduction:
+        "Focus on design, not content. Our Lorem Ipsum Generator instantly creates professional placeholder text for your projects. Whether you're a designer crafting a website, a developer building a UI, or a strategist creating a wireframe, this tool provides the perfect filler text to make your layouts look complete. Generate paragraphs, sentences, or words to fit any design.",
 
-    privacy: PRIVACY_STATEMENT,
+      howToUse: [
+        "Choose whether you want to generate paragraphs, sentences, or words.",
+        "Use the slider to select the amount of text you need.",
+        "Click 'Generate' to create your custom placeholder text.",
+        "Copy the text with a single click and paste it into your design.",
+      ],
 
-    explanation:
-      "Derived from Cicero’s classical Latin text, lorem ipsum has been the standard placeholder text for decades. Our generator uses algorithmic recombination to create coherent passages that mimic real language flow without conveying meaning. Randomization ensures each generation is unique while maintaining realistic spacing, line breaks, and paragraph structure, preventing distraction from design elements and ensuring a natural appearance across various font sizes and layouts.",
+      features: [
+        "Flexible Generation: Create paragraphs, sentences, or words to fit any layout.",
+        "Customizable Length: Easily control the amount of text you generate.",
+        "Classic & Random: Uses traditional Latin text for a professional look.",
+        "Instant & Easy: Generate and copy text in seconds.",
+        "Perfect for Designers: Ideal for Figma, Sketch, Adobe XD, and more.",
+      ],
 
-    usageExamples: [
-      "Web designers filling responsive layouts to test typography and spacing.",
-      "UI/UX developers populating wireframes in Figma, Sketch, or Adobe XD.",
-      "Print designers creating brochure or flyer mockups to visualize content density.",
-      "Front-end developers styling components with realistic text for accurate rendering.",
-      "Marketing and design teams preparing client presentation decks with professional placeholder text.",
-      "Content strategists estimating page text volumes during sitemap and layout planning."
-    ],
+      privacy: PRIVACY_STATEMENT,
 
-    faqs: [
-      {
-        question: "Why use lorem ipsum instead of real content?",
-        answer:
-          "Lorem ipsum prevents distraction from content meaning, allowing focus on design, typography, spacing, and layout during reviews."
-      },
-      {
-        question: "Is the generated text real Latin?",
-        answer:
-          "Yes, it is based on authentic Cicero text but scrambled for placeholder use, maintaining realistic word and sentence structures."
-      },
-      {
-        question: "Can I generate text in other languages?",
-        answer:
-          "Currently the tool uses classic Latin. For other languages, you can use translation tools to adapt the generated text."
-      },
-      {
-        question: "How much text can I generate?",
-        answer:
-          "You can generate unlimited text, from a few words to thousands of paragraphs, suitable for any project size."
-      },
-      {
-        question: "Does lorem ipsum affect SEO during development?",
-        answer:
-          "No. Lorem ipsum is only for design and placeholder purposes. Replace it with real content before publishing to ensure proper SEO."
-      }
-    ],
+      explanation:
+        "Lorem Ipsum is the industry standard for placeholder text. It mimics the flow of real language without distracting from the design. Our generator uses a smart algorithm to create natural-looking passages, ensuring your mockups and wireframes look polished and professional.",
 
-    underlyingConcept:
-      "The generator applies procedural generation techniques, recombining Cicero-derived tokens while preserving syntactic validity through part-of-speech retention. Randomization avoids repetition, mimicking natural word frequency distributions (Zipf's law), and ensures realistic spacing, line breaks, and text flow for design testing. Unlike simple repeated text, algorithmic variation prevents pattern recognition, supporting cognitive load studies and iterative design evaluation."
-  }
-}
-,
+      usageExamples: [
+        "A web designer testing typography and spacing on a new site.",
+        "A UI/UX designer populating a wireframe in Figma or Sketch.",
+        "A print designer creating a mockup for a brochure or flyer.",
+        "A developer styling a component with realistic-looking text.",
+      ],
+
+      faqs: [
+        {
+          question: "Why use Lorem Ipsum?",
+          answer:
+            "It allows you and your clients to focus on the design and layout without getting distracted by the actual content.",
+        },
+        {
+          question: "Is this real Latin?",
+          answer:
+            "It's based on a classical Latin text by Cicero, but it's intentionally scrambled to be nonsensical, which is what makes it great for placeholder text.",
+        },
+        {
+          question: "Can I generate text in other languages?",
+          answer:
+            "This tool focuses on the classic Latin Lorem Ipsum. For other languages, you can use a translation tool on the generated text.",
+        },
+        {
+          question: "Will this hurt my SEO?",
+          answer:
+            "No, as long as you replace it with real content before you publish your site. Search engines are smart enough to ignore placeholder text.",
+        },
+      ],
+
+      underlyingConcept:
+        "The generator uses procedural generation to combine words and phrases from a classical Latin text, creating passages that have a natural rhythm and word distribution. This avoids the repetitive look of simple copy-pasted text, making your designs feel more realistic.",
+    },
+  },
   {
-  id: "text-reverser",
-  name: "Text Reverser",
-  description:
-    "Instantly reverse any string of text, words, letters, or symbols for fun, puzzles, or programming tasks.",
-  seoTitle: "Text Reverser Tool | Reverse Words, Letters & Strings Online",
-  seoDescription:
-    "Use our free Text Reverser to instantly flip any string of text, words, letters, or symbols. Ideal for fun, puzzles, social media, coding tests, or data manipulation. 100% private and secure.",
-  icon: <TextReverseIcon />,
-  component: TextReverser,
-  category: ToolCategory.TEXT,
+    id: "text-reverser",
+    name: "Text Reverser",
+    description:
+      "Instantly reverse any string of text, words, letters, or symbols for fun, puzzles, or programming tasks.",
+    seoTitle: "Online Text Reverser | Reverse Words, Letters & Strings",
+    seoDescription:
+      "Flip your text backwards with our free Text Reverser. Instantly reverse words, letters, and even emojis. Perfect for fun social media posts, puzzles, or coding challenges.",
+    icon: <TextReverseIcon />,
+    component: TextReverser,
+    category: ToolCategory.TEXT,
 
-  keywords: [
-    "text reverser online",
-    "reverse words tool",
-    "string reverser",
-    "backwards text generator",
-    "mirror text creator",
-    "flip letters online",
-    "reverse string tool",
-    "unicode text reverser"
-  ],
-
-  details: {
-    introduction:
-      "The Text Reverser is a fun and practical online tool for flipping any text string. Reverse letters, words, symbols, numbers, or emojis instantly. Perfect for creative projects, social media posts, puzzles, or even testing string manipulation in programming. This easy-to-use tool provides instant results while handling all Unicode characters seamlessly.",
-
-    explanation:
-      "The tool splits the input into individual characters, reverses their order, and rejoins them into a string. It preserves all characters, including emojis and special symbols, giving a complete reversed version of your input.",
-
-    usageExamples: [
-      "Social media users create reversed or 'backwards' posts for fun and engagement.",
-      "Puzzle designers generate reversed clues for games or escape rooms.",
-      "Programmers test string manipulation and reversal functions.",
-      "Designers create mirrored text effects for graphics and UI elements."
+    keywords: [
+      "text reverser online",
+      "reverse words tool",
+      "string reverser",
+      "backwards text generator",
+      "mirror text creator",
+      "flip letters online",
+      "reverse string tool",
+      "unicode text reverser",
     ],
 
-    underlyingConcept:
-      "Text reversal is a fundamental computer science operation, demonstrating array manipulation and string processing. By iterating from the end of the string to the start, each character is repositioned in reverse order, preserving integrity for Unicode and multi-byte characters.",
+    details: {
+      introduction:
+        "Type, and watch it flip! Our Text Reverser is a simple and fun tool that instantly reverses any text you enter. Whether you're creating a quirky social media post, making a puzzle, or just having fun, this tool flips letters, words, and even emojis in real-time. It's fast, easy, and works with any language.",
 
-    howToUse: [
-      "Paste or type your text into the 'Original Text' box.",
-      "The tool instantly displays the reversed version in the 'Reversed Text' box below."
-    ],
+      explanation:
+        "The tool takes your text, splits it into individual characters, reverses their order, and then joins them back together. It's a classic string manipulation that works seamlessly with all Unicode characters, including emojis.",
 
-    features: [
-      "Instant, real-time reversal of text as you type.",
-      "Supports all characters, symbols, emojis, and multi-line text.",
-      "Ideal for social media, fun puzzles, and coding experiments.",
-      "No registration required and fully private – all processing happens in your browser."
-    ],
+      usageExamples: [
+        "Creating fun, backwards posts for social media.",
+        "Making clues for a puzzle or game.",
+        "Testing a string reversal function for a coding interview.",
+        "Generating a 'mirror' effect for a design.",
+      ],
 
-    faqs: [
-      {
-        question: "Does it reverse the entire string or individual words?",
-        answer: "It reverses the entire string character by character."
-      },
-      {
-        question: "Are emojis reversed correctly?",
-        answer: "Yes, emojis are treated as whole units and reversed properly."
-      },
-      {
-        question: "Can I reverse multiple lines of text?",
-        answer: "Yes, the tool treats the whole input as a single string for reversal."
-      }
-    ],
+      underlyingConcept:
+        "Text reversal is a fundamental operation in computer science that demonstrates basic array and string manipulation. By iterating through a string from end to beginning, each character is repositioned to create a mirror image of the original text.",
 
-    privacy: PRIVACY_STATEMENT
-  }
-}
-,
+      howToUse: [
+        "Type or paste your text into the 'Original Text' box.",
+        "The reversed text will appear instantly in the box below.",
+        "Copy your new, backwards text with a single click.",
+      ],
+
+      features: [
+        "Instant Reversal: See your text flip in real-time as you type.",
+        "Full Unicode Support: Correctly reverses all characters, symbols, and emojis.",
+        "Simple & Fun: Easy to use for creative projects, puzzles, and more.",
+        "100% Private: All processing happens in your browser.",
+      ],
+
+      faqs: [
+        {
+          question: "Does it reverse the whole text or just the words?",
+          answer:
+            "It reverses the entire string, character by character. For example, 'hello world' becomes 'dlrow olleh'.",
+        },
+        {
+          question: "Are emojis reversed correctly?",
+          answer:
+            "Yes, emojis are treated as single characters and will appear correctly in the reversed text.",
+        },
+        {
+          question: "Can I reverse multiple lines?",
+          answer:
+            "Yes, the tool will reverse the entire block of text, including line breaks.",
+        },
+      ],
+
+      privacy: PRIVACY_STATEMENT,
+    },
+  },
   {
-  id: "markdown-previewer",
-  name: "Markdown Previewer",
-  description:
-    "Write Markdown and instantly see the rendered HTML in a live, real-time preview for documentation, blogs, and READMEs.",
-  seoTitle: "Markdown Previewer Online | Live Markdown to HTML Editor",
-  seoDescription:
-    "Use our free Markdown Previewer to write Markdown and view HTML output in real-time. Perfect for developers, bloggers, and technical writers drafting documentation, READMEs, or blog posts. 100% private and secure.",
-  icon: <MarkdownIcon />,
-  component: MarkdownPreviewer,
-  category: ToolCategory.TEXT,
+    id: "markdown-previewer",
+    name: "Markdown Previewer",
+    description:
+      "Write Markdown and instantly see the rendered HTML in a live, real-time preview for documentation, blogs, and READMEs.",
+    seoTitle: "Live Markdown Editor | Real-Time Markdown Previewer",
+    seoDescription:
+      "Write and preview Markdown side-by-side with our free live editor. Instantly see how your text will look as HTML. Perfect for READMEs, blogs, and documentation. Fast, secure, and easy to use.",
+    icon: <MarkdownIcon />,
+    component: MarkdownPreviewer,
+    category: ToolCategory.TEXT,
 
-  keywords: [
-    "markdown editor online",
-    "live markdown preview",
-    "markdown to html converter",
-    "readme editor",
-    "md file viewer",
-    "markdown live editor",
-    "markdown documentation tool",
-    "markdown blog preview"
-  ],
-
-  details: {
-    introduction:
-      "Our Markdown Previewer provides a seamless live-editing experience: write in Markdown syntax on one side and view the rendered HTML on the other instantly. Ideal for developers creating GitHub READMEs, bloggers drafting posts, and technical writers preparing documentation, it eliminates the need to switch between editing and preview modes, streamlining your workflow.",
-
-    explanation:
-      "The tool parses Markdown as you type using a robust library like marked or remark, converting it into clean HTML output instantly. It supports headers, lists, code blocks, links, images, tables, and more, providing a fully accurate visual representation of your final content.",
-
-    usageExamples: [
-      "Developers drafting and previewing GitHub READMEs with accurate formatting.",
-      "Bloggers composing posts and checking real-time HTML output before publishing.",
-      "Technical writers creating manuals, guides, or documentation with instant feedback.",
-      "Students or writers learning Markdown and testing formatting for projects.",
-      "Content managers ensuring Markdown-based content renders correctly in web platforms."
+    keywords: [
+      "markdown editor online",
+      "live markdown preview",
+      "markdown to html converter",
+      "readme editor",
+      "md file viewer",
+      "markdown live editor",
+      "markdown documentation tool",
+      "markdown blog preview",
     ],
 
-    underlyingConcept:
-      "Markdown, created by John Gruber in 2004, is a lightweight markup language that converts plain text into HTML, emphasizing readability. The previewer applies live parsing, rendering HTML as you type, ensuring accurate representation of Markdown syntax without needing advanced HTML knowledge.",
+    details: {
+      introduction:
+        "Write, preview, and perfect your Markdown in one seamless experience. Our live Markdown Previewer shows you exactly how your text will look as you type. With a side-by-side view of your code and the rendered HTML, it's the perfect tool for developers creating READMEs, bloggers drafting posts, and writers working on documentation. No more switching tabs or guessing formats—just fast, accurate, real-time results.",
 
-    howToUse: [
-      "Type your Markdown text in the left-hand editor panel.",
-      "The right-hand panel instantly displays the rendered HTML in real-time.",
-      "As you edit Markdown syntax, the preview updates automatically.",
-      "Use standard Markdown features like headers, lists, links, images, tables, and code blocks for full content formatting."
-    ],
+      explanation:
+        "The tool parses your Markdown syntax on the fly and converts it into clean, standard HTML. It supports all the essentials—headers, lists, code blocks, links, images, and tables—giving you an exact preview of your final document.",
 
-    features: [
-      "Live, side-by-side Markdown-to-HTML preview.",
-      "Supports full standard Markdown syntax, including GitHub Flavored Markdown (tables, task lists).",
-      "Clean, readable HTML output for accurate visualization.",
-      "Automatic rendering updates as you type.",
-      "Safe and sanitized output to prevent XSS and security issues.",
-      "No registration required and fully private – all processing is local in your browser."
-    ],
+      usageExamples: [
+        "A developer drafting a GitHub README and checking the formatting live.",
+        "A blogger writing a post and seeing how it will look before publishing.",
+        "A technical writer creating documentation with instant visual feedback.",
+        "Anyone learning Markdown and wanting to see how the syntax works.",
+      ],
 
-    faqs: [
-      {
-        question: "Does it support GitHub Flavored Markdown?",
-        answer: "Yes, including tables, task lists, and extended syntax."
-      },
-      {
-        question: "Can I embed images?",
-        answer: "Yes, using standard Markdown image syntax ![alt text](url)."
-      },
-      {
-        question: "Is the HTML preview safe from scripts?",
-        answer: "Yes, all content is sanitized to prevent XSS attacks and unsafe scripts."
-      }
-    ],
+      underlyingConcept:
+        "Markdown is a lightweight markup language designed for readability. This tool uses a powerful parser to instantly translate your plain text into structured HTML, making it easy to create beautiful, well-formatted web content without writing a single line of HTML.",
 
-    privacy: PRIVACY_STATEMENT
-  }
-}
-,
+      howToUse: [
+        "Type your Markdown in the editor on the left.",
+        "Watch the live preview appear on the right.",
+        "The preview updates automatically as you edit.",
+        "Use standard Markdown syntax for headers, lists, code blocks, and more.",
+      ],
+
+      features: [
+        "Live Side-by-Side Preview: See your changes instantly as you type.",
+        "Full Markdown Support: Works with standard and GitHub Flavored Markdown (GFM).",
+        "Clean HTML Output: Generates a perfect visual representation of your content.",
+        "Fast & Efficient: No delays, no lag. Just smooth, real-time rendering.",
+        "Secure & Private: All processing is done in your browser.",
+      ],
+
+      faqs: [
+        {
+          question: "Does it support GitHub Flavored Markdown (GFM)?",
+          answer:
+            "Yes, it supports GFM features like tables, task lists, and strikethrough.",
+        },
+        {
+          question: "Can I add images?",
+          answer:
+            "Absolutely. Just use the standard Markdown image syntax: `![alt text](image_url)`.",
+        },
+        {
+          question: "Is the preview safe?",
+          answer:
+            "Yes, all output is sanitized to prevent security risks like XSS attacks.",
+        },
+      ],
+
+      privacy: PRIVACY_STATEMENT,
+    },
+  },
   // Coding Tools
   {
     id: "base64-converter",
     name: "Base64 Converter",
-    description: "Instantly encode and decode text, images, and files to/from Base64 online.",
-    seoTitle: "Base64 Converter Online - Encode & Decode Text, Files, Images",
+    description:
+      "Instantly encode and decode text, images, and files to/from Base64 online.",
+    seoTitle:
+      "Online Base64 Converter | Encode & Decode Text, Files & Images",
     seoDescription:
-      "Convert text, images, and files to Base64 format or decode Base64 strings instantly with our free online Base64 Converter. Secure, fast, and easy to use without registration.",
+      "A free, powerful tool to encode and decode Base64. Easily convert text, images, or any file into a Base64 string and back again. Secure, fast, and all in your browser.",
     icon: <Base64Icon />,
     component: Base64Converter,
     category: ToolCategory.CODING,
     details: {
       introduction:
-        "Easily encode and decode text, images, and files with our Free Base64 Converter – the ultimate online tool for developers, web engineers, and digital creators. Transform plain text, images, or files into Base64 strings for safe transmission in URLs, CSS, JSON, or email content, and decode them back accurately. Avoid complex libraries or command-line tools with our instant, browser-based solution. Perfect for debugging APIs, embedding media, or preparing data for web applications.",
+        "The ultimate Base64 tool for developers. Our free Base64 Converter lets you effortlessly encode text and files into Base64 strings or decode them back to their original form. It's perfect for embedding images in CSS, transmitting data in JSON, or handling file uploads in web applications. Fast, secure, and entirely browser-based—no server uploads required.",
       howToUse: [
-        "Select 'Encode' to convert text or files to Base64, or 'Decode' to revert Base64 strings.",
-        "For text, paste your content in the input field (supports multi-line and special characters).",
-        "For files, upload images, documents, or binaries (up to 10MB).",
-        "Click 'Encode' or 'Decode' to process in real-time. Results appear instantly below.",
-        "Review the Base64 string, original file size, and download options for decoded files.",
-        "Copy the output with one click or download it for integration in your projects.",
+        "Choose whether you want to 'Encode' to Base64 or 'Decode' from it.",
+        "For text, simply paste your content into the input field.",
+        "For files, drag and drop an image, PDF, or any other file.",
+        "The tool processes it instantly, and the result appears below.",
+        "Copy the output with a single click or download the decoded file.",
       ],
       features: [
-        "Encode text, files, and images to Base64 or decode strings with full accuracy.",
-        "Supports file uploads for images, PDFs, and binary files directly in the browser.",
-        "Real-time preview with character count and size comparison.",
-        "URL-safe Base64 option for web-friendly transmission.",
-        "Error detection highlights invalid input and provides troubleshooting guidance.",
-        "Lightweight, browser-based tool with no installation or server upload required.",
-        "Export options include copy-to-clipboard, file download, and code snippet generation.",
+        "Encode & Decode: Seamlessly switch between encoding and decoding.",
+        "File Support: Works with images, PDFs, and other binary files.",
+        "Real-Time Processing: Instant results as you type or upload.",
+        "URL-Safe Option: Generate URL-safe Base64 for use in web addresses.",
+        "Error Highlighting: Instantly spots and flags invalid Base64 strings.",
+        "100% Browser-Based: Your data is never uploaded, ensuring complete privacy.",
       ],
       privacy: PRIVACY_STATEMENT,
       explanation:
-        "Base64 encoding converts binary data into ASCII strings using 64 characters (A-Z, a-z, 0-9, +, /) with padding (=). It expands data by ~33% to ensure safe transmission in text-only protocols like HTTP, SMTP, or JSON. Our tool follows RFC 4648, handling partial bytes and padding correctly. Decoding reverses this, validating input before outputting the original content. Ideal for web development, API testing, email encoding, and embedding assets directly into code.",
+        "Base64 is an encoding scheme that converts binary data into a text-based format, making it safe to transmit over protocols that only support plain text (like email or JSON). It works by translating binary data into a 64-character set. Our tool handles this process perfectly, including the necessary padding, so you get a reliable result every time.",
       usageExamples: [
-        "Embed small images as Base64 in CSS or HTML to reduce HTTP requests.",
-        "Encode JSON payloads with special characters for API testing.",
-        "Prepare HTML emails with inline Base64 images and CSS.",
-        "Serialize binary configs or tokens for databases or app storage.",
-        "Securely encode data snippets for sharing without exposing content.",
-        "Convert icons to Base64 for inline SVG usage in responsive UI components.",
+        "Embedding a small icon directly into a CSS file to reduce HTTP requests.",
+        "Encoding a JSON object for safe transmission in an API call.",
+        "Preparing an image for an inline `src` attribute in HTML.",
+        "Decoding a Base64 string from an API response to view the original content.",
       ],
       faqs: [
         {
           question: "What is Base64 used for?",
           answer:
-            "Base64 encodes binary data like images or files into text for safe transmission in emails, URLs, or JSON. It's not encryption but prevents corruption in text-only systems.",
+            "It's used to encode binary data (like images) into text so it can be safely sent over text-only systems like email or included in text files like HTML and CSS.",
         },
         {
-          question: "Does encoding increase file size?",
+          question: "Does Base64 make my data smaller?",
           answer:
-            "Yes, by ~33%. For small assets like icons, Base64 reduces HTTP requests and simplifies embedding.",
+            "No, it actually increases the size by about 33%. Its purpose is safe transmission, not compression.",
         },
         {
-          question: "Is your tool URL-safe?",
+          question: "Is this tool secure?",
           answer:
-            "Yes, we provide a URL-safe variant that replaces '+' with '-' and '/' with '_', removing padding for web use.",
+            "Yes. All encoding and decoding happens locally in your browser. Your data is never sent to our servers.",
         },
         {
-          question: "Can it handle large files?",
+          question: "Why did my decoding fail?",
           answer:
-            "Files up to 50MB are processed in chunks. Larger files may need server-side handling to avoid browser memory limits.",
-        },
-        {
-          question: "Why does decoding sometimes fail?",
-          answer:
-            "Errors occur due to incorrect padding, invalid characters, or non-Base64 input. Our tool highlights the issues for easy correction.",
+            "This usually happens if the text is not a valid Base64 string, has incorrect padding, or contains invalid characters. Our tool will highlight these errors for you.",
         },
       ],
       underlyingConcept:
-        "Base64 encoding maps 8-bit bytes into 6-bit indices using a 64-character alphabet, padding incomplete triplets with '='. Decoding validates the Base64 alphabet and reconstructs bytes. URL-safe variants replace '+' and '/' for safe URI usage. This ensures reliable transmission of binary data over text-based protocols and is widely used in web development, API testing, and data serialization.",
+        "Base64 encoding maps groups of 3 bytes of binary data into 4 characters from a 64-character alphabet. If the data is not a multiple of 3, padding (`=`) is added. This ensures that the binary data can be reliably transmitted through systems designed to handle only text.",
     },
     keywords: [
       "base64 converter online",
@@ -1001,48 +984,58 @@ export const TOOLS: Tool[] = [
       "decode base64 string",
       "file to base64 converter",
       "data uri generator online",
+      "base64 image",
     ],
   },
-   {
+  {
     id: "url-encoder",
     name: "URL Encoder/Decoder",
     description: "Encode and decode strings for safe URL transmission online.",
-    seoTitle: "URL Encoder/Decoder Online - Percent Encoding Tool",
+    seoTitle: "Online URL Encoder & Decoder | Percent-Encoding Tool",
     seoDescription:
-      "Safely encode or decode strings for URLs with our free online URL Encoder/Decoder. Handles spaces, special characters, and query parameters for 100% secure URL formatting.",
+      "Quickly and safely encode or decode strings for use in URLs. Our free tool handles special characters and spaces, preventing broken links. Perfect for developers and marketers.",
     icon: <UrlIcon />,
     component: UrlEncoder,
     category: ToolCategory.CODING,
     details: {
       introduction:
-        "Encode or decode URL components with our free online URL Encoder/Decoder. Perfect for developers, marketers, and testers needing safe URL transmission. Handle spaces, special characters, and query strings without breaking URLs in browsers or servers.",
+        "Ensure your URLs are always safe and valid. Our URL Encoder/Decoder makes it easy to convert strings with special characters (like spaces, `&`, or `?`) into a format that can be safely transmitted over the web. It's an essential tool for developers building APIs, marketers creating campaign links, or anyone who needs to handle complex URLs.",
       explanation:
-        "URL encoding (percent-encoding) replaces unsafe characters with '%' followed by their hexadecimal ASCII value. Use encodeURIComponent for individual components or encodeURI for entire URLs to ensure accurate, unambiguous transmission.",
+        "URL encoding, also known as percent-encoding, replaces unsafe characters with a `%` followed by their two-digit hex code. This prevents browsers and servers from misinterpreting your URLs. Our tool uses the standard `encodeURIComponent` function for maximum safety and compatibility.",
       usageExamples: [
-        "Building API query strings safely with user input.",
-        "Encoding file names or paths in download links.",
-        "Debugging and fixing malformed URLs from logs.",
+        "Building a search query with user-generated input.",
+        "Creating a link with special characters in the parameters.",
+        "Debugging a malformed URL from a server log.",
       ],
       underlyingConcept:
-        "Follows RFC 3986 standards. Reserved characters like ?, &, = are left intact for URL structure, while others are escaped to prevent parsing errors or security issues.",
+        "Following the RFC 3986 standard, URL encoding ensures that data in a URL is correctly interpreted. Reserved characters (like `?` and `&`) have special meanings, so they and other non-standard characters must be encoded to be treated as literal data.",
       howToUse: [
-        "Enter a string or URL into the input field.",
-        'Click "Encode" to convert it into a URL-safe format.',
-        'To reverse, paste an encoded string and click "Decode".',
-        "View the output in the result area instantly.",
+        "Paste your string or URL into the input box.",
+        "Click 'Encode' to convert it into a URL-safe format.",
+        "To reverse the process, paste an encoded string and click 'Decode'.",
       ],
       features: [
-        "Standard encodeURIComponent()/decodeURIComponent() functions used.",
-        "Handles all URL special characters safely.",
-        "Real-time encoding and decoding with error feedback.",
+        "Safe & Reliable: Uses the standard `encodeURIComponent()` function.",
+        "Handles All Special Characters: Correctly encodes spaces, symbols, and more.",
+        "Instant Results: Real-time encoding and decoding.",
+        "Simple Interface: Clean, fast, and easy to use.",
       ],
       faqs: [
         {
-          question: "Difference from encodeURI?",
-          answer: "encodeURIComponent escapes more characters, suitable for query parameters.",
+          question: "What's the difference between this and `encodeURI`?",
+          answer:
+            "`encodeURIComponent` is safer because it encodes more characters. It's best for encoding individual URL parameters, while `encodeURI` is for encoding a full URL.",
         },
-        { question: "Does it handle spaces?", answer: "Yes, spaces convert to %20." },
-        { question: "Safe for full URLs?", answer: "Yes, but use encodeURI for entire URLs." },
+        {
+          question: "How are spaces handled?",
+          answer:
+            "Spaces are typically converted to `%20` or `+`, depending on the context. Our tool uses `%20` for broad compatibility.",
+        },
+        {
+          question: "Is it safe for full URLs?",
+          answer:
+            "It's safest to encode only the components of a URL, not the entire thing, as that can break the `http://` part.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1052,47 +1045,62 @@ export const TOOLS: Tool[] = [
       "url safe encoding",
       "encodeURIComponent online",
       "query string encoder",
+      "url escape tool",
     ],
   },
   {
     id: "json-formatter",
     name: "JSON Formatter",
-    description: "Validate, format, and pretty-print your JSON data instantly online.",
-    seoTitle: "JSON Formatter Online - Validate, Beautify & Pretty Print JSON",
+    description:
+      "Validate, format, and pretty-print your JSON data instantly online.",
+    seoTitle: "Online JSON Formatter | Validate & Beautify JSON",
     seoDescription:
-      "Easily format, validate, and beautify JSON data with our free online JSON Formatter. Quickly debug API responses and minified JSON. 100% private and secure.",
+      "Clean up your messy JSON with our free online formatter. Instantly validate, format, and beautify your JSON data to make it readable. Perfect for developers debugging APIs.",
     icon: <JsonIcon />,
     component: JsonFormatter,
     category: ToolCategory.CODING,
     featured: true,
     details: {
-      tip: "Paste messy JSON from an API and click 'Format' to make it readable instantly!",
+      tip: "Paste a messy, single-line JSON response from an API and click 'Format' to make it beautiful and readable in a second!",
       introduction:
-        "Format, validate, and beautify JSON data online. Ideal for developers and testers who work with APIs, config files, or user-submitted JSON. Converts single-line or minified JSON into a clean, indented, readable structure.",
+        "Tired of trying to read ugly, minified JSON? Our JSON Formatter instantly transforms messy data into a clean, perfectly indented, and human-readable format. It also validates your JSON, pointing out any syntax errors so you can fix them fast. It's an essential tool for any developer working with APIs or configuration files.",
       explanation:
-        "Uses JSON.parse() to validate the input, then JSON.stringify() with indentation to pretty-print the data.",
+        "The tool first tries to parse your text using `JSON.parse()`. If it's valid JSON, it's then re-formatted with `JSON.stringify()` using indentation to make it 'pretty'. If it's not valid, it catches the error and tells you where to look.",
       usageExamples: [
-        "Debugging API responses in console logs.",
-        "Formatting JSON config files for readability.",
-        "Validating JSON submitted by users in forms or applications.",
+        "Debugging a JSON response from an API.",
+        "Formatting a `.json` configuration file to make it easier to read.",
+        "Validating JSON created by a user or another system.",
       ],
       underlyingConcept:
-        "JSON (JavaScript Object Notation) is a structured data format based on JS objects. Formatting adds whitespace to display nested structures clearly. Validation ensures proper syntax, including quoted keys and correct brackets.",
+        "JSON (JavaScript Object Notation) is a lightweight data-interchange format. While it's easy for machines to parse, it can be hard for humans to read when it's 'minified' (all on one line). 'Pretty-printing' adds indentation and line breaks to reveal its nested structure.",
       howToUse: [
-        "Paste your raw JSON into the input field.",
-        'Click "Format / Validate".',
-        "Valid JSON will be formatted and displayed with a success message.",
-        "Invalid JSON triggers a clear error message with line details.",
+        "Paste your raw JSON into the input box.",
+        "Click the 'Format / Validate' button.",
+        "If your JSON is valid, it will be beautifully formatted below.",
+        "If there's an error, a helpful message will appear telling you what's wrong.",
       ],
       features: [
-        "Pretty-prints minified JSON for readability.",
-        "Validates JSON syntax with descriptive error messages.",
-        "Uses monospaced fonts for easier analysis.",
+        "Pretty-Prints JSON: Turns minified JSON into a readable, indented structure.",
+        "Validates Your Code: Instantly checks for syntax errors.",
+        "Clear Error Messages: Helps you find and fix problems fast.",
+        "Clean Interface: Simple, fast, and easy to use.",
       ],
       faqs: [
-        { question: "Can it handle large JSON?", answer: "Yes, within browser memory limits." },
-        { question: "Does it sort keys?", answer: "No, preserves original key order." },
-        { question: "Syntax errors?", answer: "Displays line number and error description." },
+        {
+          question: "Can it handle large JSON files?",
+          answer:
+            "Yes, it can handle large amounts of text, though performance may depend on your browser.",
+        },
+        {
+          question: "Does it change the order of the keys?",
+          answer:
+            "No, the original order of the keys in your objects is preserved.",
+        },
+        {
+          question: "What if my JSON is invalid?",
+          answer:
+            "The tool will display a descriptive error message, often with a line number, to help you find the mistake.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1102,46 +1110,59 @@ export const TOOLS: Tool[] = [
       "pretty print json online",
       "json beautifier tool",
       "json viewer online",
+      "json lint",
     ],
   },
   {
     id: "regex-tester",
     name: "Regex Tester",
     description: "Test and debug regular expressions against strings online.",
-    seoTitle: "Regex Tester Online - Test & Debug Regular Expressions",
+    seoTitle: "Online Regex Tester | Test & Debug Regular Expressions",
     seoDescription:
-      "Test, validate, and debug your regular expressions in real-time with our free Regex Tester. Instantly view matches and capture groups. 100% private and secure.",
+      "Test your regular expressions in real-time with our free online Regex Tester. Instantly see matches and capture groups highlighted. Perfect for developers and data analysts. 100% private.",
     icon: <RegexIcon />,
     component: RegexTester,
     category: ToolCategory.CODING,
     details: {
       introduction:
-        "Test and debug regular expressions online. Instantly visualize matches and capture groups against sample text. A must-have tool for developers working with form validation, data extraction, and string parsing.",
+        "Stop the guesswork and master regular expressions. Our online Regex Tester lets you build and test your patterns in real-time, instantly showing you the matches and capture groups in your text. It's the perfect playground for developers, data analysts, and anyone looking to harness the power of regex for validation, parsing, or data extraction.",
       explanation:
-        "Creates a RegExp object with your pattern and flags, then uses matchAll() or exec() to find matches and display them in real-time.",
+        "The tool creates a JavaScript `RegExp` object from your pattern and flags, then uses it to find all matches in your test string. The results are highlighted instantly, giving you immediate feedback as you type.",
       usageExamples: [
-        "Validate email or phone input formats in forms.",
-        "Extract data from logs, HTML, or structured text.",
-        "Search and replace patterns in code or content.",
+        "Validating an email address or phone number format.",
+        "Extracting all the links from a block of HTML.",
+        "Building a search-and-replace pattern for your code editor.",
       ],
       underlyingConcept:
-        "Regular expressions define text patterns using quantifiers, character classes, and groups. They allow efficient search, validation, and extraction from strings based on formal pattern rules.",
+        "Regular expressions (regex) are powerful patterns used to match and manipulate text. They are a fundamental tool in programming for tasks like input validation, data scraping, and text processing. This tool provides a safe and easy way to experiment with them.",
       howToUse: [
-        "Enter your regex pattern in the input field.",
-        "Optionally add flags (g, i, m, s).",
-        'Paste or type the string to test against in the test area.',
-        "View results and matches instantly in the result panel.",
+        "Enter your regex pattern in the 'Regular Expression' field.",
+        "Add any flags you need (like `g` for global or `i` for case-insensitive).",
+        "Type or paste the text you want to test in the 'Test String' area.",
+        "See your matches highlighted instantly in the results panel.",
       ],
       features: [
-        "Real-time highlighting of matches and capture groups.",
-        "Support for global, case-insensitive, multiline, and other flags.",
-        "Displays detailed lists of all matches.",
-        "Error detection for invalid regular expressions.",
+        "Real-Time Highlighting: Matches and capture groups are highlighted as you type.",
+        "Flag Support: Supports all standard JavaScript regex flags (g, i, m, s, etc.).",
+        "Detailed Match List: See a clear list of all matches found.",
+        "Error Detection: Instantly flags invalid regex patterns.",
       ],
       faqs: [
-        { question: "Supported flags?", answer: "g, i, m, s, u, y etc." },
-        { question: "Show replacements?", answer: "Currently matches only; replace may come in future." },
-        { question: "JS-specific?", answer: "Yes, uses JavaScript RegExp engine." },
+        {
+          question: "What flags are supported?",
+          answer:
+            "It supports all standard JavaScript flags: `g` (global), `i` (case-insensitive), `m` (multiline), `s` (dotall), `u` (unicode), and `y` (sticky).",
+        },
+        {
+          question: "Is this specific to JavaScript regex?",
+          answer:
+            "Yes, this tool uses the JavaScript regex engine, so it's perfect for web developers.",
+        },
+        {
+          question: "Does it show replacements?",
+          answer:
+            "Currently, it focuses on matching and capturing. A replacement feature may be added in the future.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1151,44 +1172,58 @@ export const TOOLS: Tool[] = [
       "javascript regex checker",
       "validate regex pattern",
       "regex debugger online",
+      "regex live test",
     ],
   },
   {
     id: "uuid-generator",
     name: "UUID Generator",
     description: "Generate secure, random UUIDs (v4) online instantly.",
-    seoTitle: "UUID Generator Online - Create Random UUID v4",
+    seoTitle: "Online UUID Generator | Instantly Create Random UUIDs (v4)",
     seoDescription:
-      "Generate universally unique identifiers (UUID v4) with our free online UUID Generator. Perfect for databases, session IDs, and distributed systems. 100% private and secure.",
+      "Need a unique ID? Our free UUID Generator creates random, secure Version 4 UUIDs in a single click. Perfect for databases, session IDs, and any application needing a unique identifier.",
     icon: <UuidIcon />,
     component: UuidGenerator,
     category: ToolCategory.CODING,
     details: {
       introduction:
-        "Generate Version 4 UUIDs (Universally Unique Identifiers) quickly and securely online. Ideal for developers, database admins, and system architects who need collision-resistant IDs for records, sessions, or distributed systems.",
+        "Generate cryptographically strong, random Version 4 UUIDs (Universally Unique Identifiers) with a single click. This tool is essential for developers and database administrators who need guaranteed unique IDs for records, sessions, or distributed systems. No libraries, no commands—just instant, secure UUIDs.",
       explanation:
-        "Uses the browser's crypto.randomUUID() method to generate a random 128-bit UUID, formatted as 8-4-4-4-12 hexadecimal digits, following RFC 4122 standards.",
+        "This tool uses the browser's built-in `crypto.randomUUID()` method, which generates a 128-bit random UUID according to the RFC 4122 standard. This is the most secure and modern way to create UUIDs on the web.",
       usageExamples: [
-        "Assigning unique keys to database records.",
-        "Generating session or token IDs for web applications.",
-        "Tagging files or objects in content management systems.",
+        "Assigning a unique primary key to a new database record.",
+        "Generating a secure session ID for a user.",
+        "Creating a unique identifier for a transaction in a distributed system.",
       ],
       underlyingConcept:
-        "UUID v4 uses random 128-bit values to create globally unique identifiers, ensuring near-zero collision probability. It supports decentralized ID generation without relying on central servers.",
+        "A Version 4 UUID is a 128-bit number that is generated randomly. The sheer number of possible combinations (2^122) makes the probability of two randomly generated UUIDs being the same virtually zero, making them ideal for decentralized systems.",
       howToUse: [
-        'Click "Generate UUID" to create a new random UUID.',
-        "The generated UUID will appear instantly.",
-        'Click "Copy" to copy the UUID to your clipboard.',
+        "Click the 'Generate UUID' button.",
+        "A new, random UUID will appear instantly.",
+        "Click the 'Copy' button to copy it to your clipboard.",
       ],
       features: [
-        "Generates cryptographically strong random UUIDs (v4).",
-        "Secure, browser-based generation using Web Crypto API.",
-        "Instant one-click generation and copying of UUIDs.",
+        "Cryptographically Strong: Generates secure, random UUIDs (v4).",
+        "Browser-Native Security: Uses the Web Crypto API for maximum security.",
+        "One-Click Generation: Instantly create and copy a new UUID.",
+        "No Collisions: The probability of a duplicate is practically zero.",
       ],
       faqs: [
-        { question: "Is v4 truly unique?", answer: "Yes, extremely low collision probability." },
-        { question: "Can I generate multiple UUIDs?", answer: "Yes, click 'Generate' repeatedly." },
-        { question: "Other versions supported?", answer: "This tool focuses on UUID v4; v1 uses timestamps." },
+        {
+          question: "Is a v4 UUID truly unique?",
+          answer:
+            "For all practical purposes, yes. The chance of generating a duplicate is astronomically low.",
+        },
+        {
+          question: "Can I generate more than one?",
+          answer:
+            "Yes, just keep clicking the 'Generate UUID' button for as many as you need.",
+        },
+        {
+          question: "What about other UUID versions?",
+          answer:
+            "This tool focuses on Version 4, which is the most common and recommended version for generating random IDs. Other versions, like v1, are based on timestamps.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1198,93 +1233,120 @@ export const TOOLS: Tool[] = [
       "random uuid online",
       "guid generator",
       "unique identifier generator",
+      "crypto.randomuuid",
     ],
   },
   {
     id: "hash-generator",
     name: "Hash Generator",
-    description: "Create SHA-1, SHA-256, or SHA-512 hashes online from any text.",
-    seoTitle: "Hash Generator Online - Generate SHA Hashes Securely",
+    description:
+      "Create SHA-1, SHA-256, or SHA-512 hashes online from any text.",
+    seoTitle: "Online Hash Generator | Generate SHA-1, SHA-256 & SHA-512 Hashes",
     seoDescription:
-      "Generate SHA-1, SHA-256, and SHA-512 hashes from text using our free online Hash Generator. Powered by Web Crypto API, secure and private.",
+      "Instantly generate secure SHA-1, SHA-256, and SHA-512 hashes from any text with our free online tool. Powered by the Web Crypto API for maximum security. 100% private.",
     icon: <HashIcon />,
     component: HashGenerator,
     category: ToolCategory.CODING,
     details: {
       introduction:
-        "Create cryptographic hashes from any text online. Supports SHA-1, SHA-256, and SHA-512 for data integrity verification, password hashing, or generating unique keys.",
+        "Quickly generate secure cryptographic hashes from any text. Our Hash Generator supports SHA-1, SHA-256, and SHA-512, making it an essential tool for verifying data integrity, creating checksums, or hashing sensitive information. It's fast, secure, and runs entirely in your browser.",
       explanation:
-        "Text is converted into bytes and processed using the Web Crypto API’s subtle.digest() method, generating a secure hexadecimal hash.",
+        "The tool takes your text, converts it into bytes, and then uses the browser's native Web Crypto API to generate a secure hash. The result is a fixed-length hexadecimal string that is unique to your input.",
       usageExamples: [
-        "Verify file integrity with checksums.",
-        "Hash passwords or sensitive data before storage.",
-        "Generate unique identifiers or keys from strings.",
+        "Creating a checksum to verify that a file has not been altered.",
+        "Hashing a password before storing it in a database.",
+        "Generating a unique key from a string of text.",
       ],
       underlyingConcept:
-        "Hashing maps input data to a fixed-size, one-way value. SHA algorithms are cryptographically secure, collision-resistant, and widely used in blockchain, SSL, and authentication.",
+        "A cryptographic hash function is a one-way function that takes an input and produces a fixed-size string of bytes, known as the 'hash'. Good hash functions are designed to be fast, deterministic, and collision-resistant. SHA (Secure Hash Algorithm) is a family of widely-used cryptographic hash functions.",
       howToUse: [
-        "Enter the text you want to hash.",
-        "Select SHA-1, SHA-256, or SHA-512.",
-        'Click "Generate" to see the hash output in hexadecimal format.',
+        "Enter the text you want to hash in the input box.",
+        "Select the hash algorithm you want to use (SHA-1, SHA-256, or SHA-512).",
+        "Click 'Generate' to see the resulting hash in hexadecimal format.",
       ],
       features: [
-        "Supports SHA-1, SHA-256, SHA-512 algorithms.",
-        "Uses browser-native Web Crypto API for security.",
-        "No data leaves your browser; completely private.",
+        "Multiple Algorithms: Supports SHA-1, SHA-256, and SHA-512.",
+        "Secure & Private: Uses the browser's Web Crypto API, so your data never leaves your machine.",
+        "Instant Results: Generates hashes in real-time.",
+        "Easy to Use: A simple interface for quick hash generation.",
       ],
       faqs: [
-        { question: "Is SHA-1 secure?", answer: "No, use only for legacy; prefer SHA-256 or SHA-512." },
-        { question: "Can it hash files?", answer: "This tool is text-only; file hashing needs a different approach." },
-        { question: "What is hex output?", answer: "Hexadecimal representation of the hash digest." },
+        {
+          question: "Is SHA-1 still secure?",
+          answer:
+            "SHA-1 is considered insecure and should not be used for security purposes. It's included here for legacy use cases. For new applications, always use SHA-256 or SHA-512.",
+        },
+        {
+          question: "Can this tool hash files?",
+          answer:
+            "This tool is designed for text only. Hashing large files requires a different approach to read the file in chunks.",
+        },
+        {
+          question: "What does the hexadecimal output mean?",
+          answer:
+            "It's the standard way of representing the binary hash digest in a human-readable format.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
     keywords: [
       "sha256 generator online",
       "sha512 hash calculator",
-      "md5 generator online",
+      "sha1 generator online",
       "string to hash",
       "web crypto hash tool",
+      "text to sha256",
     ],
   },
   {
     id: "jwt-debugger",
     name: "JWT Decoder",
     description: "Decode JSON Web Tokens to view header and payload online.",
-    seoTitle: "JWT Decoder Online - Inspect JSON Web Tokens",
+    seoTitle: "Online JWT Decoder | Decode & Inspect JSON Web Tokens",
     seoDescription:
-      "Decode and inspect JWTs (JSON Web Tokens) online. View header and payload data securely with our free JWT Decoder. 100% private and browser-based.",
+      "Instantly decode and inspect JSON Web Tokens (JWTs) with our free online tool. View the header and payload in a readable format. Perfect for debugging authentication tokens. 100% private.",
     icon: <JwtIcon />,
     component: JwtDebugger,
     category: ToolCategory.CODING,
     details: {
       introduction:
-        "Decode JWTs quickly to inspect their header and payload. Useful for developers, security analysts, and testers working with authentication tokens.",
+        "Demystify your JSON Web Tokens. Our JWT Decoder instantly breaks down a JWT into its header and payload, displaying them in a clean, readable format. It's an essential tool for any developer or security analyst working with token-based authentication. Debug your tokens, inspect claims, and understand your auth flow with ease.",
       explanation:
-        "Splits the JWT by dots, Base64-decodes the header and payload, and parses them into readable JSON. Signature verification is not included.",
+        "A JWT consists of three parts separated by dots: the header, the payload, and the signature. This tool takes a JWT, Base64-decodes the first two parts, and then pretty-prints the resulting JSON. It does not and cannot verify the signature, as that requires your secret key.",
       usageExamples: [
-        "Debug API authentication tokens.",
-        "Inspect user claims in session data.",
-        "Verify JWT structure before integration into applications.",
+        "Debugging an authentication token from an API.",
+        "Inspecting the claims (like user ID or roles) inside a token.",
+        "Verifying the structure of a JWT before implementing it in an application.",
       ],
       underlyingConcept:
-        "JWT (RFC 7519) is a compact, URL-safe token format with a header, payload, and signature. Decoding reveals the claims; signature verification requires the secret key.",
+        "JWT (JSON Web Token) is a compact, URL-safe standard (RFC 7519) for creating access tokens. The header contains metadata, and the payload contains 'claims' (statements about the user and token). The signature is used to verify that the token has not been tampered with.",
       howToUse: [
-        "Paste your JWT string into the input field.",
-        "The tool automatically decodes header and payload.",
-        "View the decoded JSON content in separate, readable boxes.",
-        "Invalid tokens trigger an error message.",
+        "Paste your JWT into the input field.",
+        "The decoded header and payload will appear instantly in separate, readable boxes.",
+        "If the token is malformed, an error message will be displayed.",
       ],
       features: [
-        "Real-time decoding of JWTs as you type.",
-        "Separates header and payload clearly.",
-        "Pretty-prints JSON for readability.",
-        "Error detection for malformed tokens.",
+        "Real-Time Decoding: See the decoded header and payload as you type.",
+        "Clear Separation: Displays the header and payload in distinct, easy-to-read panels.",
+        "Pretty-Printed JSON: Automatically formats the JSON for readability.",
+        "Error Detection: Instantly flags malformed tokens.",
       ],
       faqs: [
-        { question: "Why no signature verification?", answer: "Requires secret key which varies per implementation." },
-        { question: "Can it decode encrypted JWTs?", answer: "No, only standard Base64-encoded JWTs." },
-        { question: "What info is in payload?", answer: "Claims like iss, sub, exp, and custom data." },
+        {
+          question: "Does this tool verify the signature?",
+          answer:
+            "No. Signature verification requires a secret key that should never be shared with a third-party tool. This decoder is for inspecting the public parts of the token only.",
+        },
+        {
+          question: "Can it decode encrypted JWTs (JWE)?",
+          answer:
+            "No, this tool is for standard, Base64-encoded JWTs (JWS), not encrypted ones.",
+        },
+        {
+          question: "What kind of information is in the payload?",
+          answer:
+            "The payload contains 'claims,' which are statements about the user and the token itself, such as the user's ID, roles, and the token's expiration time (`exp`).",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1294,314 +1356,371 @@ export const TOOLS: Tool[] = [
       "inspect jwt payload",
       "decode jwt online",
       "auth token debugger",
+      "jwt.io alternative",
     ],
   },
-   {
-    "id": "diff-checker",
-    "name": "Diff Checker",
-    "description": "Instantly compare text or code and highlight every difference in seconds.",
-    "seoTitle": "Diff Checker Online - Compare Text & Code Instantly",
-    "seoDescription": "Easily compare two blocks of text or code and see differences highlighted. Ideal for developers, writers, and editors. Fast, free, and secure.",
-    "icon": <DiffIcon />,
-    "component": DiffChecker,
-    "category": ToolCategory.CODING,
-    "details": {
-      "introduction": "Stop manually searching for changes in text or code. Diff Checker highlights added and removed lines instantly, helping you spot changes in documents, code, or any text content quickly and accurately.",
-      "explanation": "It uses advanced diff algorithms like LCS (Longest Common Subsequence) to detect insertions, deletions, and common sections, then visually highlights them for easy review.",
-      "usageExamples": [
-        "Code reviews and pull requests",
-        "Tracking document edits over versions",
-        "Comparing configuration or log files"
+  {
+    id: "diff-checker",
+    name: "Diff Checker",
+    description:
+      "Instantly compare text or code and highlight every difference in seconds.",
+    seoTitle: "Online Diff Checker | Instantly Compare Text & Code",
+    seoDescription:
+      "Easily compare two blocks of text or code and see the differences highlighted instantly. Our free Diff Checker is perfect for developers, writers, and editors. Fast, secure, and 100% private.",
+    icon: <DiffIcon />,
+    component: DiffChecker,
+    category: ToolCategory.CODING,
+    details: {
+      introduction:
+        "Stop wasting time manually searching for changes. Our Diff Checker instantly compares two blocks of text or code and highlights every difference, line by line. Whether you're reviewing a code change, comparing document versions, or checking for subtle edits, this tool helps you spot every modification in seconds.",
+      explanation:
+        "The tool uses a powerful diffing algorithm (similar to the one used in Git) to detect insertions, deletions, and modified lines between two texts. It then renders the results in a clean, side-by-side view, with additions highlighted in green and deletions in red.",
+      usageExamples: [
+        "A developer reviewing code changes before a merge.",
+        "A writer comparing two drafts of an article to see what's changed.",
+        "An editor checking for revisions in a document.",
       ],
-      "underlyingConcept": "Based on Unix diff utilities, it calculates minimal edits required to transform one text block into another. Useful for version control and tracking changes efficiently.",
-      "howToUse": [
-        "Paste the original text on the left.",
-        "Paste the updated text on the right.",
-        "See all differences instantly highlighted: green for additions, red for deletions."
+      underlyingConcept:
+        "Based on the principles of version control systems, a 'diff' (difference) algorithm calculates the minimal set of edits needed to transform one text into another. This allows for an efficient and accurate representation of changes.",
+      howToUse: [
+        "Paste the original text into the panel on the left.",
+        "Paste the modified text into the panel on the right.",
+        "The differences will be highlighted instantly.",
       ],
-      "features": [
-        "Side-by-side comparison for clarity",
-        "Line-by-line and real-time highlighting",
-        "Automatic updates as you edit",
-        "Perfect for developers, writers, and editors"
+      features: [
+        "Side-by-Side Comparison: A clear, intuitive view of the changes.",
+        "Line-by-Line Highlighting: Instantly spot additions (green) and deletions (red).",
+        "Real-Time Updates: The diff updates automatically as you edit.",
+        "Essential for Collaboration: Perfect for developers, writers, and editors.",
       ],
-      "faqs": [
+      faqs: [
         {
-          "question": "Does it support word-level comparison?",
-          "answer": "Currently line-based; word-level diffs are planned for future updates."
+          question: "Does it compare word by word?",
+          answer:
+            "Currently, it highlights differences on a line-by-line basis. Word-level highlighting is a planned future update.",
         },
         {
-          "question": "Can it handle very large texts?",
-          "answer": "Optimized for standard text and code blocks; extremely large files may be slower."
+          question: "Can it handle large files?",
+          answer:
+            "It's optimized for typical code and text files. Extremely large files may be slower to process depending on your browser.",
         },
         {
-          "question": "Can whitespace be ignored?",
-          "answer": "Not yet, but this feature may be added soon."
-        }
+          question: "Can I ignore whitespace changes?",
+          answer:
+            "This feature is not yet available but is on our roadmap for future improvements.",
+        },
       ],
-      "privacy": PRIVACY_STATEMENT
+      privacy: PRIVACY_STATEMENT,
     },
-    "keywords": [
+    keywords: [
       "diff tool online",
       "compare text",
       "compare code",
       "track changes",
-      "highlight differences"
-    ]
+      "highlight differences",
+      "text comparison tool",
+    ],
   },
   {
-    "id": "csv-to-json",
-    "name": "CSV to JSON",
-    "description": "Convert CSV files into structured JSON arrays instantly, no coding needed.",
-    "seoTitle": "CSV to JSON Converter Online - Free & Fast",
-    "seoDescription": "Convert your CSV data into JSON format easily. Perfect for web apps, APIs, and data analysis. Free, secure, and browser-based tool.",
-    "icon": <CsvToJsonIcon />,
-    "component": CsvToJson,
-    "category": ToolCategory.CODING,
-    "details": {
-      "introduction": "Transform CSV data into structured JSON quickly. The tool maps CSV headers to JSON keys, making it ideal for web apps, APIs, or data processing without any manual work.",
-      "explanation": "It parses CSV line by line, handles quotes correctly, and generates a well-formatted JSON array ready to use.",
-      "usageExamples": [
-        "Import spreadsheet data into web applications",
-        "Convert database exports for processing",
-        "Transform logs and CSV data for analysis tools"
+    id: "csv-to-json",
+    name: "CSV to JSON",
+    description:
+      "Convert CSV files into structured JSON arrays instantly, no coding needed.",
+    seoTitle: "Online CSV to JSON Converter | Free & Instant",
+    seoDescription:
+      "Effortlessly convert your CSV data into a structured JSON array with our free online tool. Perfect for developers working with APIs and web applications. Fast, secure, and browser-based.",
+    icon: <CsvToJsonIcon />,
+    component: CsvToJson,
+    category: ToolCategory.CODING,
+    details: {
+      introduction:
+        "Unlock your data. Our CSV to JSON converter instantly transforms your comma-separated data into a clean, structured JSON array. It's the perfect tool for developers needing to import spreadsheet data into a web application, prepare data for an API, or simply switch between formats. No coding, no hassle—just instant, accurate conversion.",
+      explanation:
+        "The tool parses your CSV, automatically using the first row as headers for the JSON keys. It correctly handles quoted values and newlines, generating a well-formatted JSON array that's ready to be used in your code.",
+      usageExamples: [
+        "Importing data from a spreadsheet into a web application.",
+        "Converting a database export into a format suitable for an API.",
+        "Transforming CSV log files for data analysis.",
       ],
-      "underlyingConcept": "CSV represents tabular data, while JSON is hierarchical. This tool converts rows into objects, and columns into keys for seamless data exchange.",
-      "howToUse": [
+      underlyingConcept:
+        "CSV is a tabular data format, while JSON is a hierarchical key-value format. This tool bridges the gap by converting each row of the CSV into a JSON object, with the column headers serving as the keys.",
+      howToUse: [
         "Paste your CSV content into the input box.",
-        "Click 'Convert' to generate JSON instantly.",
-        "Copy or download the JSON array for use in your projects."
+        "Click 'Convert' to instantly generate the JSON.",
+        "Copy the JSON array or download it as a file.",
       ],
-      "features": [
-        "Instant, client-side conversion",
-        "Supports standard CSV formats and quoted values",
-        "Pretty-printed JSON for readability"
+      features: [
+        "Instant Conversion: Client-side processing for maximum speed.",
+        "Smart Header Detection: Automatically uses the first row as JSON keys.",
+        "Handles Standard CSV: Correctly parses quoted values and delimiters.",
+        "Pretty-Printed Output: Generates clean, readable JSON.",
       ],
-      "faqs": [
+      faqs: [
         {
-          "question": "What if the CSV has no headers?",
-          "answer": "The first row is used as headers by default, otherwise numeric keys are assigned."
+          question: "What if my CSV doesn't have a header row?",
+          answer:
+            "The tool will use the first row as headers by default. If you need to handle CSVs without headers, that's a great suggestion for a future feature!",
         },
         {
-          "question": "Does it handle commas in quotes?",
-          "answer": "Yes, quoted commas are parsed correctly."
+          question: "Does it handle commas inside quotes?",
+          answer:
+            "Yes, it correctly parses fields that contain commas, as long as they are properly quoted.",
         },
         {
-          "question": "Can it handle large CSV files?",
-          "answer": "Limited by browser memory for very large datasets."
-        }
+          question: "Is there a file size limit?",
+          answer:
+            "Since the conversion happens in your browser, very large files may be limited by your browser's memory.",
+        },
       ],
-      "privacy": PRIVACY_STATEMENT
+      privacy: PRIVACY_STATEMENT,
     },
-    "keywords": [
+    keywords: [
       "csv to json online",
       "convert csv to json",
       "csv parser",
       "spreadsheet to json",
-      "data transformation tool"
-    ]
+      "data transformation tool",
+      "csv to json array",
+    ],
   },
   {
-    "id": "json-to-csv",
-    "name": "JSON to CSV",
-    "description": "Convert JSON arrays into CSV files for Excel or other spreadsheet tools instantly.",
-    "seoTitle": "JSON to CSV Converter Online - Free & Fast",
-    "seoDescription": "Quickly convert JSON arrays to CSV format for spreadsheets or reports. Browser-based, free, and secure tool for developers and analysts.",
-    "icon": <JsonToCsvIcon />,
-    "component": JsonToCsv,
-    "category": ToolCategory.CODING,
-    "details": {
-      "introduction": "Easily convert JSON data into CSV format. The tool extracts object keys as headers and generates clean CSV for Excel, reporting, or data export.",
-      "explanation": "It flattens JSON objects into rows, quoting fields when needed to preserve structure.",
-      "usageExamples": [
-        "Export API JSON to Excel",
-        "Generate CSV reports from JS objects",
-        "Migrate JSON data to spreadsheet tools"
+    id: "json-to-csv",
+    name: "JSON to CSV",
+    description:
+      "Convert JSON arrays into CSV files for Excel or other spreadsheet tools instantly.",
+    seoTitle: "Online JSON to CSV Converter | Free & Instant",
+    seoDescription:
+      "Quickly convert a JSON array into a clean CSV file with our free online tool. Perfect for exporting data for use in Excel or other spreadsheet software. Fast, secure, and browser-based.",
+    icon: <JsonToCsvIcon />,
+    component: JsonToCsv,
+    category: ToolCategory.CODING,
+    details: {
+      introduction:
+        "Easily transform your JSON data into a CSV file. Our JSON to CSV converter takes a JSON array and instantly turns it into a clean, well-formatted CSV, ready for Excel, Google Sheets, or any data analysis tool. It's the perfect way to export API data or JavaScript objects for reporting and analysis.",
+      explanation:
+        "The tool automatically detects the keys from the first object in your JSON array to create the CSV headers. It then flattens each object into a row, correctly quoting fields to handle commas and newlines.",
+      usageExamples: [
+        "Exporting the results of an API call to a CSV for a report.",
+        "Converting a JavaScript array of objects into a spreadsheet.",
+        "Migrating data from a JSON-based system to a CSV-based one.",
       ],
-      "underlyingConcept": "Reverse of CSV to JSON. Each JSON object is converted to a row, ensuring consistent headers across all data entries.",
-      "howToUse": [
-        "Paste your JSON array into the input area.",
-        "CSV is generated instantly in the output.",
-        "Copy or download the CSV file for use."
+      underlyingConcept:
+        "This tool performs the reverse of a CSV-to-JSON conversion. It takes a hierarchical data format (JSON) and flattens it into a tabular one (CSV), making it compatible with traditional spreadsheet applications.",
+      howToUse: [
+        "Paste your JSON array into the input box.",
+        "The CSV will be generated instantly in the output area.",
+        "Copy the CSV or download it as a file.",
       ],
-      "features": [
-        "Automatic header detection from JSON keys",
-        "Handles commas and newlines properly",
-        "Download CSV file instantly"
+      features: [
+        "Automatic Header Detection: Creates CSV headers from the JSON keys.",
+        "Smart Formatting: Correctly handles commas and newlines within your data.",
+        "Instant Download: Download your CSV file with a single click.",
+        "Client-Side & Secure: Your data is never sent to a server.",
       ],
-      "faqs": [
+      faqs: [
         {
-          "question": "What if JSON objects have different keys?",
-          "answer": "All unique keys are used; missing values are left empty."
+          question: "What if the objects in my JSON array have different keys?",
+          answer:
+            "The tool will create a column for every unique key found in the array. If an object doesn't have a particular key, that field will be left empty in the CSV.",
         },
         {
-          "question": "Does it support nested objects?",
-          "answer": "Nested objects are flattened or skipped; best for flat structures."
+          question: "Does it support nested JSON objects?",
+          answer:
+            "This tool works best with flat JSON arrays. Nested objects will be represented as `[object Object]`. For complex nested data, you may need to flatten your JSON first.",
         },
         {
-          "question": "What file format is generated?",
-          "answer": "UTF-8 encoded CSV."
-        }
+          question: "What format is the downloaded file?",
+          answer: "A standard, UTF-8 encoded `.csv` file.",
+        },
       ],
-      "privacy": PRIVACY_STATEMENT
+      privacy: PRIVACY_STATEMENT,
     },
-    "keywords": [
+    keywords: [
       "json to csv online",
       "convert json to csv",
       "export json to excel",
       "json array to csv",
-      "data export tool"
-    ]
+      "data export tool",
+      "json to spreadsheet",
+    ],
   },
   {
-    "id": "csv-to-xlsx",
-    "name": "CSV to XLSX",
-    "description": "Convert CSV data to Excel (.xlsx) spreadsheets instantly and securely.",
-    "seoTitle": "CSV to Excel Converter Online - Free & Fast",
-    "seoDescription": "Convert CSV files to Excel (.xlsx) quickly in your browser. Perfect for reporting, sharing, and analyzing data. Free and secure tool.",
-    "icon": <CsvToXlsxIcon />,
-    "component": CsvToXlsx,
-    "category": ToolCategory.CODING,
-    "details": {
-      "introduction": "Easily convert CSV files into Excel spreadsheets. This browser-based tool creates downloadable XLSX files quickly without installing software.",
-      "explanation": "Uses SheetJS to map CSV rows into Excel cells, preserving headers and basic data formatting, then triggers a download for instant use.",
-      "usageExamples": [
-        "Share CSV data with non-technical users",
-        "Import logs into Excel for analysis",
-        "Batch convert CSV reports to XLSX"
+    id: "csv-to-xlsx",
+    name: "CSV to XLSX",
+    description:
+      "Convert CSV data to Excel (.xlsx) spreadsheets instantly and securely.",
+    seoTitle: "Online CSV to Excel (XLSX) Converter | Free & Secure",
+    seoDescription:
+      "Quickly convert your CSV files into formatted Excel (.xlsx) spreadsheets with our free online tool. No software to install. Perfect for reporting and data analysis. 100% private.",
+    icon: <CsvToXlsxIcon />,
+    component: CsvToXlsx,
+    category: ToolCategory.CODING,
+    details: {
+      introduction:
+        "Effortlessly convert your CSV data into a professional Excel spreadsheet. Our browser-based tool instantly transforms your plain text data into a downloadable `.xlsx` file, ready for analysis, reporting, or sharing. No software installation required—just paste, click, and download.",
+      explanation:
+        "This tool uses the powerful SheetJS library to parse your CSV data and map it into the cells of a new Excel worksheet. It preserves your headers and data structure, creating a clean, ready-to-use spreadsheet.",
+      usageExamples: [
+        "Sharing data from a database export with non-technical colleagues.",
+        "Importing CSV log files into Excel for easier analysis and charting.",
+        "Quickly converting a CSV report into a more professional-looking XLSX format.",
       ],
-      "underlyingConcept": "XLSX is XML-based. This tool converts flat CSV rows to spreadsheet cells, making the data compatible with Excel and other spreadsheet tools.",
-      "howToUse": [
+      underlyingConcept:
+        "While CSV is a simple, plain-text format, XLSX is a more complex, XML-based format that supports features like multiple sheets, formatting, and formulas. This tool bridges that gap by converting the flat structure of a CSV into the cellular structure of a spreadsheet.",
+      howToUse: [
         "Paste your CSV content into the input box.",
-        "Click 'Download .xlsx' to generate the Excel file.",
-        "Save the file locally and open in Excel or other spreadsheet apps."
+        "Click the 'Download .xlsx' button.",
+        "Your browser will immediately download the generated Excel file.",
       ],
-      "features": [
-        "Direct CSV to XLSX conversion",
-        "Client-side processing; no data uploaded",
-        "Handles headers and data rows accurately"
+      features: [
+        "Direct CSV to XLSX Conversion: Creates a native Excel file instantly.",
+        "Client-Side & Secure: Your data is processed entirely in your browser and is never uploaded.",
+        "Accurate Data Mapping: Correctly handles headers and data rows.",
+        "No Software Needed: A completely online, browser-based solution.",
       ],
-      "faqs": [
+      faqs: [
         {
-          "question": "Does it support formulas?",
-          "answer": "No, it only converts plain data."
+          question: "Does it support formulas or styling?",
+          answer:
+            "No, this tool is designed for converting plain data only. It does not interpret formulas or apply styling.",
         },
         {
-          "question": "Can it handle large files?",
-          "answer": "Best for small to medium datasets due to browser limitations."
+          question: "Is there a file size limit?",
+          answer:
+            "The tool is best suited for small to medium-sized datasets, as very large files may be limited by your browser's memory.",
         },
         {
-          "question": "What encoding is used?",
-          "answer": "UTF-8."
-        }
+          question: "What encoding does it use?",
+          answer:
+            "It processes the data assuming UTF-8 encoding for broad compatibility.",
+        },
       ],
-      "privacy": PRIVACY_STATEMENT
+      privacy: PRIVACY_STATEMENT,
     },
-    "keywords": [
+    keywords: [
       "csv to excel online",
       "convert csv to xlsx",
       "spreadsheet conversion tool",
       "csv to xlsx browser",
-      "excel file generator"
-    ]
+      "excel file generator",
+      "csv to sheetjs",
+    ],
   },
   {
-    "id": "xlsx-to-csv",
-    "name": "XLSX to CSV",
-    "description": "Extract Excel spreadsheet data and convert it to CSV format instantly.",
-    "seoTitle": "XLSX to CSV Converter Online - Free Tool",
-    "seoDescription": "Convert Excel (.xlsx) files to CSV format quickly and securely in your browser. Perfect for importing or processing spreadsheet data.",
-    "icon": <XlsxToCsvIcon />,
-    "component": XlsxToCsv,
-    "category": ToolCategory.CODING,
-    "details": {
-      "introduction": "Upload an Excel file and convert the first sheet into CSV instantly. Browser-based conversion keeps your data private and ready for analysis or import.",
-      "explanation": "Reads the Excel file using FileReader, parses with SheetJS, extracts the first worksheet, and converts it into a CSV string.",
-      "usageExamples": [
-        "Extract data for scripts or analysis",
-        "Convert reports to plain CSV",
-        "Batch process spreadsheets for export"
+    id: "xlsx-to-csv",
+    name: "XLSX to CSV",
+    description:
+      "Extract Excel spreadsheet data and convert it to CSV format instantly.",
+    seoTitle: "Online XLSX to CSV Converter | Free Excel to CSV Tool",
+    seoDescription:
+      "Quickly and securely convert your Excel (.xlsx) files into CSV format with our free online tool. Extract data from your spreadsheets for use in scripts or other applications. 100% private.",
+    icon: <XlsxToCsvIcon />,
+    component: XlsxToCsv,
+    category: ToolCategory.CODING,
+    details: {
+      introduction:
+        "Unlock the data in your Excel files. Our XLSX to CSV converter lets you instantly extract the data from any Excel spreadsheet and convert it into a clean, simple CSV format. It's perfect for preparing data for import into other systems, running scripts, or just getting a plain text version of your spreadsheet. The entire process is done securely in your browser.",
+      explanation:
+        "The tool uses the SheetJS library to read your uploaded `.xlsx` file directly in the browser. It then parses the first worksheet and converts its rows and columns into a standard CSV string, which you can then copy or download.",
+      usageExamples: [
+        "Extracting data from an Excel report to be used in a Python script.",
+        "Converting a spreadsheet into a CSV for import into a database.",
+        "Getting a plain text version of a spreadsheet for version control.",
       ],
-      "underlyingConcept": "Reverse of CSV to XLSX. Extracts cell values and converts them to a CSV-friendly format while preserving basic data types.",
-      "howToUse": [
-        "Click 'Upload XLSX File' or drag-and-drop your file.",
-        "The first sheet will be converted to CSV instantly.",
-        "Copy or download the resulting CSV for use."
+      underlyingConcept:
+        "This tool performs the reverse of a CSV-to-XLSX conversion. It takes the cellular data from a spreadsheet and 'flattens' it into a plain-text, comma-separated format, making it universally accessible to a wide range of applications and programming languages.",
+      howToUse: [
+        "Drag and drop your `.xlsx` file onto the page, or click to upload it.",
+        "The tool will instantly convert the first sheet into CSV format.",
+        "You can then copy the resulting CSV or download it as a file.",
       ],
-      "features": [
-        "Supports .xlsx and common spreadsheet formats",
-        "Converts first worksheet to CSV",
-        "Copy or download CSV output easily"
+      features: [
+        "Supports Modern Excel Files: Works with `.xlsx` and other common spreadsheet formats.",
+        "Converts the First Sheet: Automatically extracts data from the first worksheet.",
+        "Instant & Secure: All processing happens in your browser; your files are never uploaded.",
+        "Easy Output: Copy the CSV to your clipboard or download it as a file.",
       ],
-      "faqs": [
+      faqs: [
         {
-          "question": "Does it support multiple sheets?",
-          "answer": "Only the first sheet is converted."
+          question: "Does it support multiple sheets?",
+          answer:
+            "No, this tool is designed to convert only the first sheet of the Excel file.",
         },
         {
-          "question": "Are formulas supported?",
-          "answer": "Only the calculated values are converted."
+          question: "Are formulas converted?",
+          answer:
+            "No, only the calculated values from the cells are converted, not the formulas themselves.",
         },
         {
-          "question": "Any file size limitations?",
-          "answer": "Depends on browser memory."
-        }
+          question: "Is there a file size limit?",
+          answer:
+            "Performance depends on your browser's memory, but it's best suited for small to medium-sized files.",
+        },
       ],
-      "privacy": PRIVACY_STATEMENT
+      privacy: PRIVACY_STATEMENT,
     },
-    "keywords": [
+    keywords: [
       "xlsx to csv online",
       "convert excel to csv",
       "extract data from xlsx",
       "spreadsheet to csv",
-      "csv file converter"
-    ]
+      "csv file converter",
+      "excel to csv tool",
+    ],
   },
   // Image Tools
   {
     id: "image-to-base64",
     name: "Image to Base64",
     description: "Convert an image file into a Base64 data URL string.",
-    seoTitle: "Image to Base64 Converter - Online Tool",
+    seoTitle: "Image to Base64 Converter | Instantly Encode Images Online",
     seoDescription:
-      "Convert any image file (PNG, JPEG, GIF, SVG) into a Base64 data URL string with our free online Image to Base64 converter. 100% private and secure.",
+      "Convert any image (PNG, JPG, SVG) into a Base64 data URL with our free online tool. Perfect for embedding images directly into HTML and CSS to improve site speed. 100% private.",
     icon: <ImageIcon />,
     component: ImageToBase64,
     category: ToolCategory.IMAGE,
     featured: true,
     details: {
-      tip: "Base64 is great for small icons or logos in your website's CSS. It can reduce HTTP requests and make your site load a tiny bit faster!",
+      tip: "Base64 is perfect for inlining small icons in CSS. It reduces HTTP requests, which can make your website load faster!",
       introduction:
-        "This tool converts an image file from your computer into a Base64-encoded Data URL. This format can be directly embedded in HTML or CSS files, which can be useful for reducing HTTP requests for small icons and images, solving performance issues in web pages.",
+        "Tired of managing countless small image files? Our Image to Base64 converter transforms any image into a single line of text that you can embed directly in your code. This is the secret to faster-loading websites, cleaner code, and easier-to-manage assets. Perfect for developers who want to inline small icons, logos, or background images.",
       explanation:
-        "How does it work? Uploads image, reads as data URL via FileReader, which includes Base64.",
+        "This tool reads your image file and uses the browser's FileReader API to create a Data URL. This URL includes the Base64-encoded version of your image, which can be used directly in web pages.",
       usageExamples: [
-        "Embedding logos in email signatures.",
-        "Inlining images in CSS for faster loads.",
-        "Storing images in JSON for apps.",
+        "Embedding a logo directly into an email signature.",
+        "Inlining small icons in a CSS file to reduce server requests.",
+        "Storing image data within a JSON file for a web application.",
       ],
       underlyingConcept:
-        "Data URLs (RFC 2397) embed resources inline. Base64 encodes binary to text, allowing image data in URLs like data:image/png;base64,...",
+        "Data URLs (defined in RFC 2397) allow content to be embedded in web pages as if they were external resources. Base64 is the encoding scheme used to convert the binary image data into a text format that can be included in the URL.",
       howToUse: [
-        'Click the "Upload an image" button and select an image file from your device.',
-        "An image preview will appear on the left.",
-        "The corresponding Base64 Data URL will be generated and displayed on the right.",
-        'Click the "Copy" button to copy the entire Base64 string.',
+        "Drag and drop your image or click to upload.",
+        "Instantly see a preview of your image on the left.",
+        "The Base64 data URL will be generated automatically on the right.",
+        "Click 'Copy' to grab the entire string and paste it into your HTML or CSS.",
       ],
       features: [
-        "Works with common image formats like PNG, JPEG, GIF, and SVG.",
-        "Provides an instant preview of the uploaded image.",
-        "Generates a complete Data URL, ready for use in `src` or `url()` attributes.",
+        "Supports All Major Formats: Works with PNG, JPEG, GIF, SVG, and more.",
+        "Instant Preview: See your uploaded image immediately.",
+        "Ready-to-Use Output: Generates a complete data URL for `src` attributes or CSS `url()`.",
+        "Improves Performance: Reduces HTTP requests by inlining small images.",
+        "100% Secure & Private: All conversions happen in your browser. Your images are never uploaded.",
       ],
       faqs: [
         {
-          question: "Why use Data URLs?",
-          answer: "Reduces server requests for small files.",
+          question: "Why should I use Data URLs?",
+          answer:
+            "They are great for small images because they eliminate the need for an extra server request, which can speed up page load times.",
         },
-        { question: "Size increase?", answer: "Yes, 33% overhead." },
         {
-          question: "Browser support?",
-          answer: "Universal for modern browsers.",
+          question: "Does this increase the file size?",
+          answer:
+            "Yes, Base64 encoding increases the size of the data by about 33%. It's best used for small images where the overhead is less than the cost of an HTTP request.",
+        },
+        {
+          question: "Is it supported in all browsers?",
+          answer:
+            "Yes, Data URLs are supported by all modern web browsers.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
@@ -1612,48 +1731,58 @@ export const TOOLS: Tool[] = [
       "embed image in html",
       "css background image base64",
       "png to base64",
+      "jpg to base64",
     ],
   },
   {
     id: "base64-to-image",
     name: "Base64 to Image",
     description: "Convert a Base64 data URL into a viewable image.",
-    seoTitle: "Base64 to Image Converter - Online Tool",
+    seoTitle: "Base64 to Image Converter | Decode & View Base64 Images",
     seoDescription:
-      "Convert a Base64 data URL string back into a viewable image with our free online Base64 to Image converter. 100% private and secure.",
+      "Have a Base64 string and want to see the image? Our free tool instantly decodes any Base64 data URL back into a viewable and downloadable image. Perfect for developers and designers.",
     icon: <Base64ToImageIcon />,
     component: Base64ToImage,
     category: ToolCategory.IMAGE,
     details: {
       introduction:
-        "If you have a Base64 Data URL, this tool can decode it back into a viewable image. You can then preview the image and download it as a file, solving the need to extract embedded images from code or data.",
+        "Found a Base64 string embedded in code and wondering what it is? Our Base64 to Image converter instantly decodes it, revealing the hidden image. Preview the image directly in your browser and download it as a standard file. It's the perfect tool for extracting embedded assets from CSS, HTML, or API responses.",
       explanation:
-        "How does it work? Sets the Data URL as img src for preview, then creates blob for download.",
+        "The tool takes your Base64 Data URL and sets it as the `src` of an image element to generate a preview. It then creates a 'blob' from the data, which allows you to download it as a file.",
       usageExamples: [
-        "Extracting images from CSS code.",
-        "Downloading embedded email images.",
-        "Converting API responses to files.",
+        "Extracting an embedded image from a CSS file.",
+        "Downloading an image from an email signature.",
+        "Converting a Base64 image from an API response into a file.",
       ],
       underlyingConcept:
-        "Reverse of encoding, parsing MIME type and Base64 to binary, then rendering as image.",
+        "This tool performs the reverse of Base64 encoding. It parses the MIME type and Base64 data from the Data URL, converts the Base64 text back into binary data, and then renders that data as an image.",
       howToUse: [
-        "Paste a valid Base64 Data URL (starting with `data:image/...`) into the text area.",
-        "The image will be rendered in the preview box below.",
-        'If the image is valid, a "Download Image" button will appear.',
-        "Click the button to save the image to your device.",
+        "Paste your Base64 data URL (it should start with `data:image/...`).",
+        "The image will instantly appear in the preview box.",
+        "Click the 'Download Image' button to save it to your device.",
       ],
       features: [
-        "Renders an image preview from a Base64 string.",
-        "Allows downloading of the decoded image.",
-        "Provides validation to ensure the string is a valid image Data URL.",
+        "Instant Decoding: Renders an image preview from any valid Base64 string.",
+        "Easy Download: Save the decoded image as a standard file (e.g., PNG, JPG).",
+        "Smart Validation: Automatically detects if the string is a valid image data URL.",
+        "Developer's Companion: An essential tool for working with APIs and web assets.",
       ],
       faqs: [
         {
-          question: "What formats?",
-          answer: "Any in Data URL, like PNG, JPG.",
+          question: "What formats can it decode?",
+          answer:
+            "It can decode any image format that can be represented in a Data URL, like PNG, JPEG, GIF, or SVG.",
         },
-        { question: "Invalid string?", answer: "Shows error." },
-        { question: "Download name?", answer: "Generic; rename after." },
+        {
+          question: "What if the string is invalid?",
+          answer:
+            "The tool will show an error message if the text you paste is not a valid image Data URL.",
+        },
+        {
+          question: "What will the downloaded file be named?",
+          answer:
+            "It will be given a generic name like 'download.png'. You can rename it after you save it.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1671,44 +1800,54 @@ export const TOOLS: Tool[] = [
     name: "Box Shadow Generator",
     description:
       "Create and customize CSS box-shadow effects with a visual editor.",
-    seoTitle: "CSS Box Shadow Generator - Visual Tool",
+    seoTitle: "CSS Box Shadow Generator | Visual & Interactive Tool",
     seoDescription:
-      "Create and customize CSS box-shadow effects with our free visual editor. Generate the perfect box-shadow for your project. 100% private and secure.",
+      "Design the perfect CSS box-shadow with our free visual generator. Control offsets, blur, spread, and color in real-time and get the code instantly. Perfect for modern UI design.",
     icon: <BoxShadowIcon />,
     component: BoxShadowGenerator,
     category: ToolCategory.CSS,
     details: {
       introduction:
-        "Visually design complex CSS `box-shadow` effects. This generator provides sliders and color pickers to intuitively create the perfect shadow, then gives you the CSS code to copy and paste. It solves trial-and-error in CSS editing for shadows.",
+        "Stop guessing your CSS shadows and start designing them. Our visual Box Shadow Generator gives you an interactive playground to create the perfect shadow effect. Use simple sliders and color pickers to design complex, layered shadows, and get the production-ready CSS code instantly. It's the fastest way to add depth and polish to your UI.",
       explanation:
-        'How does it work? Updates CSS property in preview element based on inputs, generates string like "x y blur spread color".',
+        "The tool dynamically builds a CSS `box-shadow` string by combining your inputs for horizontal/vertical offset, blur radius, spread radius, and color. This string is applied to a preview element in real-time, giving you instant feedback.",
       usageExamples: [
-        "Designing card components in UI.",
-        "Adding depth to buttons.",
-        "Creating neumorphic effects.",
+        "Designing modern, layered cards for a user interface.",
+        "Adding a subtle, realistic depth to buttons and interactive elements.",
+        "Creating trendy 'neumorphic' (soft UI) effects.",
       ],
       underlyingConcept:
-        "Box-shadow is CSS3 property for layered shadows. Concept mimics light and depth in 2D, with params for position, size, color.",
+        "The `box-shadow` CSS property is a powerful tool for creating depth in 2D. It allows you to apply one or more shadows to an element, each with its own position, blur, spread, and color. This generator simplifies the process of creating those layers.",
       howToUse: [
-        "Use the sliders to adjust the Horizontal and Vertical Offsets, Blur, and Spread.",
-        "Adjust the opacity slider and choose a shadow color.",
-        'Toggle the "Inset" checkbox to create an inner shadow.',
-        "A live preview of the shadow will be shown on the example element.",
-        "Copy the generated CSS code from the code box.",
+        "Use the sliders to adjust the Horizontal and Vertical Offsets.",
+        "Control the softness of the shadow with the Blur slider.",
+        "Increase or decrease the size of the shadow with the Spread slider.",
+        "Choose a shadow color and adjust its opacity.",
+        "Toggle 'Inset' to create an inner shadow for a 'pressed-in' effect.",
+        "Copy the generated CSS code with a single click.",
       ],
       features: [
-        "Live visual feedback for all shadow properties.",
-        "Controls for offset, blur, spread, color, and opacity.",
-        "Support for both outset and inset shadows.",
-        "One-click copy of the generated CSS rule.",
+        "Live Visual Preview: See your shadow update in real-time.",
+        "Full Control: Adjust offset, blur, spread, color, and opacity.",
+        "Inset & Outset: Easily switch between inner and outer shadows.",
+        "One-Click Copy: Grab the generated CSS rule instantly.",
       ],
       faqs: [
         {
-          question: "Multiple shadows?",
-          answer: "Not yet; comma-separated in future.",
+          question: "Can I create multiple shadows on one element?",
+          answer:
+            "This version focuses on creating a single, perfect shadow layer. The ability to stack multiple shadows is planned for a future update.",
         },
-        { question: "Browser compatibility?", answer: "CSS3 standard." },
-        { question: "Units?", answer: "Pixels." },
+        {
+          question: "What units are used?",
+          answer:
+            "The generator uses pixels (`px`) for all length values, which is the most common unit for box shadows.",
+        },
+        {
+          question: "Is this compatible with all browsers?",
+          answer:
+            "Yes, the `box-shadow` property is a standard part of CSS3 and is supported by all modern browsers.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1718,6 +1857,7 @@ export const TOOLS: Tool[] = [
       "css shadow creator",
       "drop shadow css",
       "inset shadow generator",
+      "css ui generator",
     ],
   },
   {
@@ -1725,9 +1865,9 @@ export const TOOLS: Tool[] = [
     name: "CSS Gradient Generator",
     description:
       "Create beautiful CSS gradients with color pickers and angle controls.",
-    seoTitle: "CSS Gradient Generator - Create Gradients Online",
+    seoTitle: "CSS Gradient Generator | Create Beautiful Gradients Online",
     seoDescription:
-      "Create beautiful linear and radial CSS gradients with our free visual editor. Perfect for modern web design. 100% private and secure.",
+      "Design stunning linear and radial CSS gradients with our free visual editor. Add multiple colors, control angles, and get production-ready code instantly. Perfect for modern web design.",
     icon: <GradientIcon />,
     component: CssGradientGenerator,
     category: ToolCategory.CSS,
@@ -1756,30 +1896,29 @@ export const TOOLS: Tool[] = [
         "Copy the generated CSS code from the output box.",
       ],
       features: [
-        "Support for both linear and radial gradients",
-        "Real-time visual preview",
-        "Add multiple color stops",
-        "Color picker and text input for precise color selection",
-        "Angle control for linear gradients",
-        "Position and shape control for radial gradients",
-        "A wide variety of presets to get you started",
+        "Linear & Radial Gradients: Switch between gradient types with one click.",
+        "Multi-Color Support: Add as many color stops as you need to create complex gradients.",
+        "Full Control: Adjust angles, positions, and shapes for precise results.",
+        "Live Preview: See your gradient come to life as you design it.",
+        "Inspiring Presets: Get started quickly with a variety of pre-made gradients.",
+        "Instant Code: Copy the generated CSS with a single click.",
       ],
       faqs: [
         {
-          question: "How do I create a CSS gradient background?",
+          question: "How do I use the generated code?",
           answer:
-            "Our tool makes it easy! Simply choose your colors, set the gradient type (linear or radial), and adjust the options. The tool will generate the CSS code for you, which you can then apply to the `background` property of any HTML element.",
+            "Simply copy the code and apply it to the `background` or `background-image` property of any HTML element in your CSS.",
         },
         {
           question:
-            "What is the difference between linear and radial gradients?",
+            "What's the difference between linear and radial gradients?",
           answer:
-            "A linear gradient creates a transition of colors along a straight line. You can control the direction of this line with an angle. A radial gradient, on the other hand, transitions colors outwards from a central point in a circular or elliptical shape.",
+            "A linear gradient transitions colors along a straight line (at any angle). A radial gradient transitions colors outwards from a central point in a circle or ellipse.",
         },
         {
-          question: "How to animate CSS gradients smoothly?",
+          question: "Can I animate these gradients?",
           answer:
-            "Animating the `background-gradient` property directly is not performant. A better technique is to create a larger gradient and animate its `background-position`. This creates a smooth, looping animation. While our tool doesn't generate the animation code directly, you can use the generated gradient as a starting point for this technique.",
+            "While you can't directly animate the `background-gradient` property, a common technique is to create a larger gradient and animate its `background-position`. Our tool is a great starting point for creating the gradient you'll use in such an animation.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
@@ -1812,51 +1951,53 @@ export const TOOLS: Tool[] = [
     name: "Border Radius Generator",
     description:
       "Create custom border radius values with individual corner controls.",
-    seoTitle: "CSS Border Radius Generator - Visual Tool",
+    seoTitle: "CSS Border Radius Generator | Create Custom Shapes",
     seoDescription:
-      "Create custom CSS border-radius values with our free visual editor. Control each corner individually to create unique shapes. 100% private and secure.",
+      "Visually design the perfect rounded corners with our free CSS Border Radius Generator. Control each corner individually to create unique shapes and get the code instantly.",
     icon: <BorderRadiusIcon />,
     component: BorderRadiusGenerator,
     category: ToolCategory.CSS,
     details: {
       introduction:
-        "Design perfect rounded corners with individual control over each corner. Create everything from subtle rounded squares to pill-shaped elements and unique organic shapes.",
+        "Go beyond simple rounded corners. Our Border Radius Generator gives you precise, individual control over each corner of an element, allowing you to create everything from subtle curves to unique, organic shapes. It's the perfect tool for designing modern cards, buttons, and other UI elements.",
       explanation:
-        "How does it work? Maps slider values to CSS border-radius property. Supports both px and % units with optional corner linking.",
+        "The tool maps the slider values to the `border-radius` CSS property. When you control the corners individually, it uses the long-form syntax (`border-top-left-radius`, etc.) to give you granular control.",
       usageExamples: [
-        "Creating modern card designs",
-        "Designing pill-shaped buttons",
-        "Building organic, rounded UI elements",
-        "Creating speech bubble shapes",
+        "Designing modern, friendly-looking cards and containers.",
+        "Creating pill-shaped buttons and tags.",
+        "Building organic, 'blob'-like shapes for visual interest.",
       ],
       underlyingConcept:
-        "Border-radius rounds corners by specifying radius values. Can be uniform or individual per corner (top-left, top-right, bottom-right, bottom-left).",
+        "The `border-radius` property in CSS can accept one, two, three, or four values to control the rounding of the top-left, top-right, bottom-right, and bottom-left corners respectively. This tool provides a visual interface for that control.",
       howToUse: [
-        "Choose between px or % units",
-        'Toggle "Link all corners" to control all corners together',
-        "Adjust individual corner sliders for custom shapes",
-        "Watch the live preview update in real-time",
-        "Copy the generated CSS code",
+        "Use the 'All Corners' slider for a uniform radius.",
+        "Uncheck 'Link all corners' to control each corner individually.",
+        "Switch between `px` and `%` units for different effects.",
+        "Watch the live preview update as you adjust the sliders.",
+        "Copy the generated CSS code with one click.",
       ],
       features: [
-        "Individual control for each corner",
-        "Link corners option for uniform rounding",
-        "Support for both px and % units",
-        "Real-time visual preview",
-        "Shape ideas and tips included",
+        "Individual Corner Control: Fine-tune each corner separately.",
+        "Uniform Radius Option: Link all corners for quick, uniform rounding.",
+        "Pixel & Percent Units: Switch between absolute and relative units.",
+        "Real-Time Visual Preview: See your shape come to life instantly.",
+        "Instant Code: Get clean, production-ready CSS.",
       ],
       faqs: [
         {
-          question: "Negative values?",
-          answer: "Not supported; radius must be positive.",
+          question: "Can I create a circle?",
+          answer:
+            "Yes! Just set the `border-radius` to `50%` on a square element.",
         },
         {
-          question: "Complex shapes?",
-          answer: "Use different values per corner.",
+          question: "How do I make a pill shape?",
+          answer:
+            "Use a large radius value (like 9999px) on a rectangular element.",
         },
         {
-          question: "Performance?",
-          answer: "Border-radius is well-optimized.",
+          question: "Is this performant?",
+          answer:
+            "Yes, `border-radius` is a highly optimized CSS property and is very performant.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
@@ -1874,46 +2015,54 @@ export const TOOLS: Tool[] = [
     name: "Text Shadow Generator",
     description:
       "Create beautiful text shadows with precise control over position and blur.",
-    seoTitle: "CSS Text Shadow Generator - Visual Tool",
+    seoTitle: "CSS Text Shadow Generator | Visual & Interactive Tool",
     seoDescription:
-      "Create beautiful CSS text-shadow effects with our free visual editor. Control position, blur, color, and opacity. 100% private and secure.",
+      "Design the perfect CSS text-shadow with our free visual generator. Control offsets, blur, color, and opacity in real-time and get the code instantly. Add depth and style to your text.",
     icon: <TextShadowIcon />,
     component: TextShadowGenerator,
     category: ToolCategory.CSS,
     details: {
       introduction:
-        "Add depth and style to your text with custom shadow effects. Control position, blur, color, and opacity to create everything from subtle depth to dramatic glow effects.",
+        "Make your text pop. Our Text Shadow Generator lets you visually design the perfect shadow effect for your typography. Control the position, blur, color, and opacity to create everything from subtle, readable depth to dramatic, glowing effects. It's the easiest way to add a professional touch to your headings and titles.",
       explanation:
-        "How does it work? Combines X/Y offsets, blur radius, and color with opacity to generate CSS text-shadow property. Updates preview text in real-time.",
+        "The tool combines your inputs for X/Y offsets, blur radius, and color into a valid CSS `text-shadow` property. The preview text is updated in real-time, giving you instant feedback on your design.",
       usageExamples: [
-        "Creating text with depth and dimension",
-        "Designing glowing text effects",
-        "Adding subtle shadows to headings",
-        "Building dramatic text treatments",
+        "Adding a subtle drop shadow to a heading to make it stand out from the background.",
+        "Creating a 'glowing' text effect with a blurred, colored shadow.",
+        "Designing a retro, 3D text effect with a hard, offset shadow.",
       ],
       underlyingConcept:
-        "Text-shadow creates a shadow behind text. Defined by horizontal offset, vertical offset, blur radius, and color.",
+        "The `text-shadow` CSS property applies a shadow directly to the text characters of an element. It's defined by a horizontal offset, a vertical offset, an optional blur radius, and a color.",
       howToUse: [
-        "Adjust the horizontal and vertical offset sliders",
-        "Set the blur radius for softness",
-        "Choose shadow color and adjust opacity",
-        "Customize text and background colors for preview",
-        "Copy the generated CSS code",
+        "Adjust the horizontal and vertical offset sliders to position the shadow.",
+        "Use the blur radius slider to control the softness of the shadow.",
+        "Choose a shadow color and set its opacity.",
+        "Customize the text and background colors to match your design.",
+        "Copy the generated CSS code with a single click.",
       ],
       features: [
-        "Precise control over shadow position and blur",
-        "Color picker with opacity control",
-        "Customizable text and background colors",
-        "Real-time preview with sample text",
-        "Full CSS example generation",
+        "Precise Control: Fine-tune the shadow's position and blur.",
+        "Color & Opacity: Use any color and control its transparency.",
+        "Customizable Preview: See how the shadow looks on your text and background colors.",
+        "Real-Time Feedback: Watch the preview update instantly.",
+        "Instant Code: Get a clean CSS rule ready to paste into your project.",
       ],
       faqs: [
         {
-          question: "Multiple shadows?",
-          answer: "Not yet; comma-separated in future.",
+          question: "Can I create multiple shadows?",
+          answer:
+            "This version focuses on creating a single shadow layer. The ability to stack multiple shadows (by separating them with commas) is planned for a future update.",
         },
-        { question: "Browser support?", answer: "Excellent; CSS3 standard." },
-        { question: "Performance?", answer: "Text-shadow is well-optimized." },
+        {
+          question: "Is this supported by all browsers?",
+          answer:
+            "Yes, `text-shadow` is a standard CSS property with excellent support across all modern browsers.",
+        },
+        {
+          question: "Is this performant?",
+          answer:
+            "Yes, `text-shadow` is highly optimized by modern browsers and is very performant.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1930,49 +2079,54 @@ export const TOOLS: Tool[] = [
     name: "Glassmorphism & Neumorphism Generator",
     description:
       "Create modern glassmorphism and neumorphism effects with visual controls.",
-    seoTitle: "Glassmorphism & Neumorphism Generator - CSS Tool",
+    seoTitle: "Glassmorphism & Neumorphism CSS Generator | Modern UI Tool",
     seoDescription:
-      "Create modern glassmorphism and neumorphism CSS effects with our free visual generator. Perfect for contemporary web design. 100% private and secure.",
+      "Easily create trendy Glassmorphism (frosted glass) and Neumorphism (soft UI) effects with our free visual CSS generator. Get the code for your modern UI designs instantly.",
     icon: <GlassmorphismIcon />,
     component: GlassmorphismGenerator,
     category: ToolCategory.CSS,
     details: {
       introduction:
-        "Create stunning modern UI effects including glassmorphism (frosted glass) and neumorphism (soft, extruded) designs. Perfect for contemporary web and mobile interfaces.",
+        "Step into the future of UI design. Our generator makes it easy to create two of the most popular modern design trends: Glassmorphism (a frosted-glass effect) and Neumorphism (a soft, extruded plastic look). Use our simple controls to design beautiful, contemporary UI elements and get the CSS code in seconds.",
       explanation:
-        "How does it work? Glassmorphism uses backdrop-filter with transparency, neumorphism uses dual shadows. Combines multiple CSS properties for complex effects.",
+        "Glassmorphism is achieved using the `backdrop-filter` property to blur the background, combined with transparency. Neumorphism uses a clever combination of two `box-shadow` values (one light, one dark) to create the illusion of a soft, extruded surface.",
       usageExamples: [
-        "Building modern mobile app interfaces",
-        "Creating frosted glass navigation bars",
-        "Designing soft, tactile UI elements",
-        "Building contemporary dashboard components",
+        "Designing a sleek, frosted-glass navigation bar or sidebar.",
+        "Creating a modern dashboard with glassmorphic cards.",
+        "Building a soft, tactile interface with neumorphic buttons and controls.",
       ],
       underlyingConcept:
-        "Glassmorphism mimics frosted glass with blur + transparency. Neumorphism creates soft, extruded surfaces with dual shadows.",
+        "Glassmorphism creates a sense of depth and hierarchy by mimicking frosted glass. Neumorphism (or 'soft UI') aims for a more realistic, physical look by playing with light and shadow to make elements appear as if they are part of the background.",
       howToUse: [
-        "Choose between Glassmorphism or Neumorphism style",
-        "For glassmorphism: adjust opacity, blur, and border settings",
-        "For neumorphism: set background color and shadow properties",
-        "Fine-tune shadow position, blur, and opacity",
-        "Copy the generated CSS code",
+        "Choose between the 'Glassmorphism' or 'Neumorphism' style.",
+        "For Glassmorphism, adjust the blur and opacity to get the perfect frosted look.",
+        "For Neumorphism, pick a background color and then fine-tune the shadow properties.",
+        "Watch the live preview update in real-time.",
+        "Copy the generated CSS code with a single click.",
       ],
       features: [
-        "Two distinct modern design styles",
-        "Comprehensive control over all effect parameters",
-        "Real-time visual preview with background",
-        "Detailed tips and usage guidance",
-        "Complete CSS code generation",
+        "Two Modern Styles: Create both Glassmorphism and Neumorphism effects.",
+        "Full Control: Adjust all the necessary parameters for each style.",
+        "Live Visual Preview: See your design on a sample background.",
+        "Instant Code: Get clean, production-ready CSS.",
+        "Helpful Tips: Includes guidance on how to best use these effects.",
       ],
       faqs: [
         {
-          question: "Browser support?",
-          answer: "Glassmorphism needs modern browsers.",
+          question: "Is Glassmorphism supported everywhere?",
+          answer:
+            "The `backdrop-filter` property is supported by all modern browsers, but not by Internet Explorer. It's a good idea to provide a fallback background color.",
         },
         {
-          question: "Performance?",
-          answer: "Backdrop-filter can be intensive.",
+          question: "Is Neumorphism accessible?",
+          answer:
+            "It can be challenging. Because it relies on subtle shadows, it's crucial to ensure you have enough contrast for your text and borders to be readable for everyone.",
         },
-        { question: "Accessibility?", answer: "Ensure sufficient contrast." },
+        {
+          question: "Is this performant?",
+          answer:
+            "The `backdrop-filter` used in Glassmorphism can be resource-intensive. Use it sparingly for the best performance. Neumorphism is generally very performant.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -1982,6 +2136,7 @@ export const TOOLS: Tool[] = [
       "neumorphism ui generator",
       "css blur background",
       "modern ui design",
+      "soft ui css",
     ],
   },
   // Color Tools
@@ -1989,46 +2144,52 @@ export const TOOLS: Tool[] = [
     id: "color-palette-generator",
     name: "Color Palette Generator",
     description: "Generate color palettes from a base color.",
-    seoTitle: "Color Palette Generator - Create Color Schemes",
+    seoTitle: "Color Palette Generator | Create Beautiful Color Schemes",
     seoDescription:
-      "Generate beautiful color palettes from a base color with our free Color Palette Generator. Create monochromatic, analogous, and complementary schemes. 100% private and secure.",
+      "Instantly generate beautiful, harmonious color palettes from any base color. Our free tool creates monochromatic, analogous, complementary, and triadic schemes for your designs.",
     icon: <PaletteIcon />,
     component: ColorPaletteGenerator,
     category: ToolCategory.COLOR,
     details: {
       introduction:
-        "Create harmonious color schemes based on a single base color. This tool can generate different types of palettes, such as monochromatic, analogous, complementary, and triadic, to help you with your design projects, solving color selection challenges.",
+        "Find the perfect color scheme in seconds. Our Color Palette Generator takes your base color and instantly creates a harmonious palette based on classic color theory. Whether you need a subtle monochromatic look or a bold complementary scheme, this tool provides the inspiration you need for your next design project.",
       explanation:
-        "How does it work? Uses HSL model to adjust hue, saturation, lightness based on scheme rules (e.g., complementary adds 180 degrees hue).",
+        "The tool uses the HSL (Hue, Saturation, Lightness) color model. Based on the scheme you choose, it calculates new colors by adjusting the hue, saturation, or lightness of your base color. For example, a complementary color is found by rotating the hue by 180 degrees.",
       usageExamples: [
-        "Designing website themes.",
-        "Creating brand color sets.",
-        "Inspiring art with variations.",
+        "A designer creating a color scheme for a new website.",
+        "A marketer developing a consistent color palette for a brand.",
+        "An artist looking for inspiration for a new piece.",
       ],
       underlyingConcept:
-        "Color theory: harmonious schemes from wheel positions. Monochromatic varies value, analogous adjacent hues, etc.",
+        "Color theory provides a set of guidelines for creating harmonious color combinations. Schemes like 'analogous' (colors next to each other on the color wheel) and 'complementary' (colors opposite each other) are proven to be aesthetically pleasing.",
       howToUse: [
-        "Select your base color using the color picker or by entering a HEX code.",
-        "Choose the type of palette you want to generate from the dropdown menu (e.g., Monochromatic).",
-        "The tool will instantly generate and display a 5-color palette.",
+        "Pick your starting color using the color picker or by entering a HEX code.",
+        "Choose the type of color scheme you want from the dropdown menu.",
+        "The tool will instantly generate a 5-color palette.",
         "Click on any color's HEX code to copy it to your clipboard.",
       ],
       features: [
-        "Generates Monochromatic, Analogous, Complementary, and Triadic palettes.",
-        "Starts from any base color you choose.",
-        "Visual preview of the generated color scheme.",
-        "Easy one-click copying of color codes.",
+        "Multiple Schemes: Generates Monochromatic, Analogous, Complementary, and Triadic palettes.",
+        "Custom Base Color: Start from any color you like.",
+        "Visual Preview: See your generated color scheme instantly.",
+        "One-Click Copy: Easily copy the HEX codes for use in your designs.",
       ],
       faqs: [
         {
-          question: "Custom shades?",
-          answer: "Fixed 5; adjustable in future.",
+          question: "Can I get more than 5 colors?",
+          answer:
+            "This version generates a standard 5-color palette. The ability to customize the number of colors is planned for a future update.",
         },
         {
-          question: "Accessibility check?",
-          answer: "No, but use contrast tools separately.",
+          question: "Does this check for accessibility?",
+          answer:
+            "No, this tool focuses on creating harmonious color schemes. You should always use a separate contrast checker to ensure your text is readable.",
         },
-        { question: "Export?", answer: "Copy codes; no file yet." },
+        {
+          question: "Can I export the palette?",
+          answer:
+            "Currently, you can copy the individual HEX codes. A full palette export feature may be added in the future.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2038,6 +2199,7 @@ export const TOOLS: Tool[] = [
       "design color combinations",
       "monochromatic color palette",
       "complementary colors",
+      "color wheel tool",
     ],
   },
   {
@@ -2045,53 +2207,54 @@ export const TOOLS: Tool[] = [
     name: "Color Theme Generator (Color Wheel)",
     description:
       "Generate color themes using an interactive color wheel and scheme presets (analogous, complementary, triad, etc.).",
-    seoTitle: "Color Theme Generator - Interactive Color Wheel",
+    seoTitle: "Interactive Color Wheel | Color Theme Generator",
     seoDescription:
-      "Generate beautiful color themes with our interactive color wheel. Choose from analogous, complementary, and triadic schemes. 100% private and secure.",
+      "Design beautiful color themes with our free interactive color wheel. Choose from analogous, complementary, and triadic schemes and export your palette as CSS variables or JSON.",
     icon: <PaletteIcon />,
     component: ColorThemeWheel,
     category: ToolCategory.COLOR,
     details: {
       introduction:
-        "Design color themes interactively with a color wheel. Pick your base hue and saturation on the wheel, set lightness, choose a scheme (monochromatic, analogous, complementary, split-complementary, triad, tetrad), and export CSS variables or JSON.",
+        "Visually design your next color palette with our interactive Color Wheel. Drag the picker to find your perfect base color, then choose from a variety of classic color harmony rules—like complementary, triadic, or analogous—to instantly generate a full theme. It's the most intuitive way to create beautiful, balanced color schemes for your UI, brand, or artwork.",
       howToUse: [
-        "Drag on the color wheel to select the hue (angle) and saturation (distance).",
-        "Use the Lightness slider to adjust perceived brightness.",
-        "Select a scheme from the dropdown to generate related colors.",
-        "Copy individual HEX values, or export the full set as CSS variables or JSON.",
+        "Drag the picker on the color wheel to select your base hue and saturation.",
+        "Use the Lightness slider to fine-tune the brightness.",
+        "Select a color harmony rule (like 'Triad' or 'Analogous') from the dropdown.",
+        "Your full color palette will be generated instantly.",
+        "Copy individual HEX codes, or export the entire palette as CSS variables or JSON.",
       ],
       features: [
-        "Interactive color wheel for hue and saturation.",
-        "Scheme presets: monochromatic, analogous, complementary, split-complementary, triad, tetrad.",
-        "Live swatch preview grid.",
-        "One-click export to CSS variables and JSON.",
-        "All computations in-browser.",
+        "Interactive Color Wheel: An intuitive way to explore hues and saturation.",
+        "Classic Color Harmonies: Generate palettes with Monochromatic, Analogous, Complementary, Triadic, and more.",
+        "Live Swatch Preview: See your full color palette update in real-time.",
+        "Export for Devs: One-click export to CSS variables or JSON for easy integration.",
+        "100% Private: All calculations happen in your browser.",
       ],
       privacy: PRIVACY_STATEMENT,
       explanation:
-        "The wheel maps pointer angle to hue (0–360°) and distance from center to saturation (0–100%). Generated palettes are computed by rotating the hue by fixed offsets for each scheme, with optional lightness variants to provide balance.",
+        "The tool maps the position of the picker on the wheel to HSL (Hue, Saturation, Lightness) values. The angle corresponds to the hue (0-360°), and the distance from the center corresponds to the saturation (0-100%). The different color harmony rules are then applied by mathematically rotating the hue on the wheel.",
       usageExamples: [
-        "Build a UI theme quickly by selecting a base color and triad scheme for accent pairs.",
-        "Create brand-compliant color sets by starting from the primary brand hue and using analogous variations.",
-        "Export CSS variables to wire a theme into a design system.",
+        "A UI designer building a theme for a new app by starting with a brand color and finding complementary accents.",
+        "A developer exporting a full color palette as CSS variables to quickly theme a website.",
+        "An artist exploring triadic color schemes for a new illustration.",
       ],
       underlyingConcept:
-        "Color harmonies are based on angular relationships on the color wheel. In HSL space, rotating hue while maintaining saturation/lightness approximates classic design relationships. Practical palettes also vary lightness to provide usable contrast.",
+        "Color harmony is based on the idea that certain combinations of colors, based on their position on a color wheel, are inherently pleasing. This tool automates the mathematical relationships (like 180° for complementary colors) to make applying color theory simple and fast.",
       faqs: [
         {
-          question: "Can I export more than 5 colors?",
+          question: "Can I save my palettes?",
           answer:
-            "This version outputs 5 swatches per scheme; you can regenerate new sets or extend manually.",
+            "Currently, you can export the palette as code. A feature to save palettes to your account may be added in the future.",
         },
         {
-          question: "Does it support alpha?",
+          question: "Does this support transparency (alpha)?",
           answer:
-            "This tool focuses on opaque HEX outputs; use the Color Code Converter for alpha.",
+            "This tool focuses on generating solid colors. For transparency, you can use our Color Code Converter to add an alpha channel to your chosen HEX codes.",
         },
         {
-          question: "Is the color wheel physically accurate?",
+          question: "Is the color wheel perceptually uniform?",
           answer:
-            "It uses a practical HSL-based approach suitable for UI work; not a perceptually uniform space.",
+            "No, it uses the standard HSL color model, which is great for intuitive design but is not perceptually uniform (meaning changes in value don't always correspond to how we perceive changes in brightness).",
         },
       ],
     },
@@ -2101,6 +2264,7 @@ export const TOOLS: Tool[] = [
       "triadic color scheme",
       "analogous colors",
       "color picker online",
+      "ui color palette generator",
     ],
   },
   {
@@ -2108,54 +2272,54 @@ export const TOOLS: Tool[] = [
     name: "CSS Color Code Converter",
     description:
       "Convert between HEX/HEXA, RGB/RGBA, HSL/HSLA, and CSS color keywords.",
-    seoTitle: "CSS Color Code Converter - HEX, RGB, HSL",
+    seoTitle: "CSS Color Code Converter | HEX, RGB & HSL Converter",
     seoDescription:
-      "Convert between HEX, RGB, and HSL color codes with our free online CSS Color Code Converter. Supports alpha channels (HEXA, RGBA, HSLA). 100% private and secure.",
+      "Instantly convert between HEX, RGB, and HSL color codes with our free online tool. Supports alpha channels (transparency) and CSS color names. Perfect for developers and designers.",
     icon: <ColorIcon />,
     component: CssColorCodeConverter,
     category: ToolCategory.COLOR,
     details: {
       introduction:
-        "Convert color values across HEX/HEXA, RGB/RGBA, HSL/HSLA, and CSS color keywords with synchronized inputs and a live preview. Perfect for designers and developers ensuring color consistency across tools and code.",
+        "Stop juggling different color formats. Our CSS Color Code Converter is the only tool you need to instantly translate any color between HEX, RGB, and HSL. It fully supports alpha channels (transparency) and even recognizes CSS color names. It's the perfect companion for any developer or designer working on the web.",
       howToUse: [
-        "Enter a color in any format: HEX/HEXA, RGB/RGBA, or HSL/HSLA.",
-        "Use the alpha slider to adjust transparency (applies to RGBA/HSLA/HEXA).",
-        "Optional: type a CSS color keyword (e.g., rebeccapurple) and click Resolve to convert it.",
-        "Click Copy on any format to copy the current color string to the clipboard.",
+        "Enter a color in any of the formats (HEX, RGB, or HSL).",
+        "All other formats will update instantly in real-time.",
+        "Use the alpha slider to adjust the transparency.",
+        "You can also type a CSS color name (like 'tomato') and click 'Resolve'.",
+        "Click the 'Copy' button next to any format to grab the code.",
       ],
       features: [
-        "Bidirectional synchronization across HEX, RGB, and HSL inputs.",
-        "HEXA and alpha support with a dedicated transparency slider.",
-        "CSS keyword resolver (e.g., tomato, slateblue).",
-        "Live preview swatch with brand-styled UI.",
-        "Validation with clear error messages.",
-        "All operations run locally in your browser.",
+        "Two-Way Sync: Edit any format, and all others update instantly.",
+        "Full Alpha Support: Works with HEXA, RGBA, and HSLA for transparency.",
+        "CSS Color Name Resolver: Converts names like 'rebeccapurple' to their codes.",
+        "Live Preview: See your color with its current transparency.",
+        "Error-Proof: Validates your input and provides clear error messages.",
       ],
       privacy: PRIVACY_STATEMENT,
       explanation:
-        "The converter parses the input format and normalizes to RGBA. RGB and HSL are converted using standard color space math. HEX/HEXA values are generated from the RGBA channels. CSS keywords are resolved by applying the keyword to a temporary element and reading the computed RGB value from the browser.",
+        "The converter takes your input, normalizes it into an RGBA (Red, Green, Blue, Alpha) format, and then uses standard color space formulas to calculate the equivalent values for HEX, HSL, and other formats. For CSS color names, it cleverly uses the browser to compute the exact RGB value.",
       usageExamples: [
-        "Convert a HEX brand color to HSL to create lighter/darker variants using the Lightness channel.",
-        "Convert an RGBA overlay to HEXA for use in CSS variables.",
-        "Translate a designer-provided HSL color to RGB for a canvas drawing routine.",
+        "A developer converting a HEX color from a design file into RGBA to add transparency.",
+        "A designer taking an HSL color and converting it to HEX for use in a style guide.",
+        "Quickly finding the HEX code for a standard CSS color name like 'cornflowerblue'.",
       ],
       underlyingConcept:
-        "RGB is an additive color model represented by red, green, and blue channels (0-255). HSL is a cylindrical representation with hue (0-360), saturation, and lightness (0-1). HEX is a compact hex-encoded representation of RGB (with optional alpha for HEXA). Conversions use deterministic formulas between these spaces.",
+        "RGB, HSL, and HEX are different ways to represent colors in a digital space. RGB is based on mixing red, green, and blue light. HSL is a more intuitive model based on hue, saturation, and lightness. HEX is just a compact, hexadecimal representation of RGB. This tool provides the math to switch between them.",
       faqs: [
         {
-          question: "Does it support alpha?",
+          question: "Does it support short HEX codes like #F0C?",
           answer:
-            "Yes. The alpha slider updates RGBA/HSLA and HEXA outputs. HEX (without alpha) is also available.",
+            "Yes, it supports 3-digit (e.g., #F0C) and 4-digit (e.g., #F0C8) shorthand HEX codes and will convert them correctly.",
         },
         {
-          question: "Can it handle short HEX like #abc?",
+          question: "What are CSS color keywords?",
           answer:
-            "Yes. 3-digit and 4-digit short HEX/HEXA are supported and expanded to full form internally.",
+            "They are a set of 140+ standard color names (like 'tomato', 'skyblue', 'gold') that are built into CSS. Our tool can convert these names to their corresponding codes.",
         },
         {
-          question: "Are named colors supported?",
+          question: "Is my data private?",
           answer:
-            "Yes. Enter a CSS color keyword (like rebeccapurple) and click Resolve.",
+            "Yes, all conversions happen locally in your browser. No data is ever sent to a server.",
         },
       ],
     },
@@ -2165,6 +2329,7 @@ export const TOOLS: Tool[] = [
       "rgba color picker",
       "css color converter",
       "color code translator",
+      "hex to hsl",
     ],
   },
   // Math Tools
@@ -2172,43 +2337,52 @@ export const TOOLS: Tool[] = [
     id: "unit-converter",
     name: "Unit Converter",
     description: "Convert between common units of measurement.",
-    seoTitle: "Unit Converter - Length, Weight, & More",
+    seoTitle: "Online Unit Converter | Length, Weight, Temperature & More",
     seoDescription:
-      "Convert between common units of measurement for length, weight, and more with our free online Unit Converter. 100% private and secure.",
+      "Quickly convert between common units of measurement with our free online Unit Converter. Supports length, weight, temperature, and more. Fast, accurate, and easy to use.",
     icon: <UnitConverterIcon />,
     component: UnitConverter,
     category: ToolCategory.MATH,
     details: {
       introduction:
-        "A versatile tool for converting between various units of measurement for length and weight. It provides quick and accurate conversions without needing to search online, solving everyday calculation needs in cooking, travel, or science.",
+        "Need a quick conversion? Our Unit Converter is a simple and powerful tool for instantly converting between various units of measurement. Whether you're in the kitchen, at your desk, or planning a trip, get fast and accurate conversions for length, weight, temperature, and more.",
       explanation:
-        "How does it work? Uses predefined factors (e.g., 1 inch = 2.54 cm) to multiply/divide input.",
+        "The tool uses standard, internationally recognized conversion factors to calculate the equivalent value between units. For example, it knows that 1 inch is exactly 2.54 centimeters.",
       usageExamples: [
-        "Converting recipe ingredients from grams to ounces.",
-        "Planning travel distances in km to miles.",
-        "Scientific data from metric to imperial.",
+        "Converting a recipe from grams to ounces.",
+        "Changing a travel distance from kilometers to miles.",
+        "Converting Celsius to Fahrenheit for a weather report.",
       ],
       underlyingConcept:
-        "Unit conversion uses ratios. Base units like meter/kg, others derived. Accuracy depends on precise constants.",
+        "Unit conversion is the process of converting a quantity from one unit of measurement to another using a 'conversion factor'. This tool automates that process for a wide range of common units.",
       howToUse: [
-        "Select the category of measurement (Length or Weight).",
-        'Enter the value you wish to convert in the "From" field.',
-        "Select the starting unit from the first dropdown.",
-        "Select the target unit from the second dropdown.",
-        'The converted value will instantly appear in the "To" field.',
+        "Select the type of measurement you want to convert (e.g., Length, Weight).",
+        "Enter the value you have in the 'From' field.",
+        "Select your starting unit and your target unit from the dropdowns.",
+        "The converted value will appear instantly in the 'To' field.",
       ],
       features: [
-        "Supports Length (meters, km, cm, miles, feet, inches) and Weight (kg, g, mg, pounds, ounces).",
-        "Intuitive interface for quick conversions.",
-        "Real-time calculation as you input values.",
+        "Multiple Categories: Supports Length, Weight, Temperature, and more.",
+        "Intuitive Interface: A clean and simple design for fast conversions.",
+        "Real-Time Calculation: Results appear instantly as you type.",
+        "Two-Way Conversion: Edit either field to convert in either direction.",
       ],
       faqs: [
         {
-          question: "More categories?",
-          answer: "Length/weight now; volume/temp future.",
+          question: "What categories are supported?",
+          answer:
+            "Currently, it supports Length, Weight, and Temperature, with more categories like Volume and Speed planned for the future.",
         },
-        { question: "Precision?", answer: "Up to decimals; rounds sensibly." },
-        { question: "Custom units?", answer: "No, standard only." },
+        {
+          question: "How accurate are the conversions?",
+          answer:
+            "The tool uses standard, high-precision conversion factors for maximum accuracy.",
+        },
+        {
+          question: "Can I use this offline?",
+          answer:
+            "Yes! Since all calculations happen in your browser, the tool works perfectly even without an internet connection.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2217,6 +2391,7 @@ export const TOOLS: Tool[] = [
       "metric to imperial converter",
       "length converter",
       "weight converter",
+      "temperature converter",
       "measurement conversion",
     ],
   },
@@ -2224,42 +2399,52 @@ export const TOOLS: Tool[] = [
     id: "currency-converter",
     name: "Currency Converter",
     description: "Convert between currencies with near real-time rates.",
-    seoTitle: "Currency Converter - Live Exchange Rates",
+    seoTitle: "Live Currency Converter | Real-Time Exchange Rates",
     seoDescription:
-      "Convert between currencies with near real-time exchange rates using our free Currency Converter. Supports a wide range of global currencies. 100% private and secure.",
+      "Get up-to-the-minute exchange rates with our free Live Currency Converter. Convert between all major global currencies. Perfect for travel, shopping, and business.",
     icon: <CurrencyIcon />,
     component: CurrencyConverter,
     category: ToolCategory.MATH,
     details: {
       introduction:
-        "This Currency Converter provides exchange rates for a wide range of global currencies. It fetches up-to-date rates to give you an accurate conversion based on the latest financial data, useful for travel, shopping, or finance.",
+        "Make smart financial decisions with our Live Currency Converter. It provides up-to-date exchange rates for global currencies, giving you an accurate picture of what your money is worth. It's an essential tool for travelers, online shoppers, and anyone dealing with international finance.",
       explanation:
-        "How does it work? Fetches rates from API, multiplies amount by rate.",
+        "The tool fetches the latest mid-market exchange rates from a reliable financial data API. It then performs the conversion by multiplying your input amount by the current rate.",
       usageExamples: [
-        "Travelers checking costs abroad.",
-        "Online shoppers comparing prices.",
-        "Businesses calculating invoices.",
+        "A traveler checking how much their money is worth in a foreign country.",
+        "An online shopper comparing the price of an item in different currencies.",
+        "A business calculating an invoice for an international client.",
       ],
       underlyingConcept:
-        "Exchange rates fluctuate based on markets. Conversion is simple multiplication, but rates update frequently.",
+        "Foreign exchange (forex) rates are constantly fluctuating based on supply and demand in global markets. This tool provides the 'mid-market' rate, which is the midpoint between the buy and sell rates and is the most accurate measure of a currency's current value.",
       howToUse: [
-        'Enter the amount you want to convert in either the "From" or "To" field.',
+        "Enter the amount you want to convert in either the 'From' or 'To' field.",
         "Select your desired currencies from the dropdown menus.",
-        "The tool will automatically calculate and display the converted amount.",
-        "Click the swap button to easily reverse the conversion direction.",
+        "The tool will instantly calculate and display the converted amount.",
+        "Click the swap button to easily reverse the conversion.",
       ],
       features: [
-        "Uses up-to-date exchange rates from an external API.",
-        "Supports a large number of international currencies.",
-        "Two-way conversion (editing either amount updates the other).",
+        "Live Exchange Rates: Uses up-to-date data from a financial API.",
+        "All Major Currencies: Supports a wide range of international currencies.",
+        "Two-Way Conversion: Edit either amount to convert in either direction.",
+        "Simple & Fast: A clean interface for quick and easy conversions.",
       ],
       faqs: [
         {
-          question: "How current are rates?",
-          answer: "Updated daily or hourly via API.",
+          question: "How often are the rates updated?",
+          answer:
+            "The rates are fetched from an API and are typically updated every few hours.",
         },
-        { question: "Fees included?", answer: "No, mid-market rates." },
-        { question: "Offline?", answer: "Needs internet for rates." },
+        {
+          question: "Are bank fees included in the conversion?",
+          answer:
+            "No, this tool shows you the mid-market rate. Your bank or credit card company will likely charge a small fee on top of this rate.",
+        },
+        {
+          question: "Does this work offline?",
+          answer:
+            "No, an internet connection is required to fetch the latest exchange rates.",
+        },
       ],
       privacy:
         "This tool fetches exchange rates from a third-party API (open.er-api.com). The amounts and currencies you select are used for calculation in your browser and are not sent to our servers. Please refer to the API provider's privacy policy for their data handling practices.",
@@ -2270,49 +2455,59 @@ export const TOOLS: Tool[] = [
       "forex converter",
       "dollar to euro",
       "live exchange rates",
+      "money converter",
     ],
   },
   {
     id: "bmi-calculator",
     name: "BMI Calculator",
     description: "Calculate your Body Mass Index.",
-    seoTitle: "BMI Calculator - Check Your Body Mass Index",
+    seoTitle: "BMI Calculator | Check Your Body Mass Index Instantly",
     seoDescription:
-      "Calculate your Body Mass Index (BMI) with our free online BMI Calculator. Supports both metric and imperial units. 100% private and secure.",
+      "Quickly calculate your Body Mass Index (BMI) with our free and simple online calculator. Supports both metric and imperial units. Get an instant snapshot of your weight status.",
     icon: <BmiIcon />,
     component: BmiCalculator,
     category: ToolCategory.MATH,
     details: {
       introduction:
-        "The Body Mass Index (BMI) Calculator is a tool that helps estimate body fat based on your weight and height. It provides a general indication of whether you are in a healthy weight range for your height, aiding health awareness.",
+        "Get a quick snapshot of your health with our simple BMI Calculator. Body Mass Index (BMI) is a widely used measure to estimate your body fat based on your height and weight. Our tool gives you an instant calculation and shows you where you fall on the standard BMI scale, helping you stay aware of your health.",
       explanation:
-        "How does it work? BMI = weight / height^2 (kg/m2), categorizes based on WHO ranges.",
+        "BMI is calculated with the formula: `weight (kg) / (height (m))^2`. The result is then categorized based on the standard World Health Organization (WHO) ranges to give you a general idea of your weight status.",
       usageExamples: [
-        "Personal health tracking.",
-        "Fitness apps input.",
-        "Medical quick checks.",
+        "Getting a quick check-up on your personal health.",
+        "Providing a starting point for a conversation with a doctor or fitness coach.",
+        "Tracking changes in your weight status over time.",
       ],
       underlyingConcept:
-        "BMI, devised by Quetelet in 1830s, correlates height/weight to fat. Limitations exist for athletes, but useful screen.",
+        "Developed in the 19th century, BMI is a simple statistical measure that correlates with body fat for most of the population. While it has limitations (it doesn't account for muscle mass), it remains a useful and easy-to-calculate screening tool.",
       howToUse: [
-        "Select your preferred unit system (Metric or Imperial).",
-        "Enter your height and weight in the appropriate fields.",
-        "The tool will automatically calculate your BMI and display the result.",
-        "Your BMI category (e.g., Underweight, Normal, Overweight) will also be shown.",
+        "Choose your preferred units (Metric or Imperial).",
+        "Enter your height and weight.",
+        "The tool will instantly calculate and display your BMI.",
+        "Your result will be color-coded and categorized according to the standard BMI scale.",
       ],
       features: [
-        "Supports both Metric (cm/kg) and Imperial (ft, in/lbs) units.",
-        "Instant BMI calculation.",
-        "Provides BMI value and corresponding weight status category.",
-        "Color-coded results for easy interpretation.",
+        "Metric & Imperial Units: Supports both cm/kg and ft/in/lbs.",
+        "Instant Calculation: Get your BMI result as you type.",
+        "Clear Results: Provides your BMI value and the corresponding weight category.",
+        "Color-Coded Scale: Easily see where you fall on the BMI spectrum.",
       ],
       faqs: [
         {
-          question: "Accurate for all?",
-          answer: "General; not for kids/athletes.",
+          question: "Is BMI accurate for everyone?",
+          answer:
+            "It's a good general indicator, but it can be misleading for very muscular individuals (like athletes) or for children and the elderly. It's best used as a screening tool, not a diagnostic one.",
         },
-        { question: "What's healthy BMI?", answer: "18.5-24.9 typically." },
-        { question: "Alternatives?", answer: "Body fat %, waist ratio." },
+        {
+          question: "What is a healthy BMI?",
+          answer:
+            "A BMI between 18.5 and 24.9 is generally considered to be in the healthy weight range for most adults.",
+        },
+        {
+          question: "What are the alternatives to BMI?",
+          answer:
+            "More accurate methods for measuring body fat include skinfold thickness measurements, bioelectrical impedance, and waist-to-hip ratio, but these usually require special equipment or a professional.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2322,45 +2517,57 @@ export const TOOLS: Tool[] = [
       "healthy weight calculator",
       "bmi chart",
       "fitness calculator",
+      "what is my bmi",
     ],
   },
   {
     id: "date-calculator",
     name: "Date Calculator",
     description: "Calculate duration between dates or add/subtract days.",
-    seoTitle: "Date Calculator - Add/Subtract Days & Find Duration",
+    seoTitle: "Date Calculator | Days Between Dates & Date Adder",
     seoDescription:
-      "Calculate the duration between two dates or find a future/past date by adding or subtracting days with our free online Date Calculator. 100% private and secure.",
+      "Our free Date Calculator makes date math easy. Find the duration (in days and weeks) between two dates, or calculate a future/past date by adding or subtracting days.",
     icon: <DateCalcIcon />,
     component: DateCalculator,
     category: ToolCategory.MATH,
     details: {
       introduction:
-        "This versatile Date Calculator has two modes. It can calculate the total duration (in days and weeks) between two dates, or it can calculate a future or past date by adding or subtracting a specific number of days from a starting date. Useful for planning, deadlines.",
+        "Date math made simple. Our versatile Date Calculator can do two things: calculate the exact duration (in days and weeks) between any two dates, or find a future or past date by adding or subtracting days from a starting point. It's perfect for project planning, tracking deadlines, or just satisfying your curiosity.",
       explanation:
-        "How does it work? Uses Date objects, milliseconds differences for duration, setDate for add/subtract.",
+        "The tool uses your browser's built-in Date objects to perform the calculations. For duration, it calculates the difference in milliseconds between the two dates and converts it to days. For adding/subtracting, it uses the `setDate` method, which correctly handles month and year rollovers.",
       usageExamples: [
-        "Calculating age in days.",
-        "Project deadline projections.",
-        "Vacation duration.",
+        "Calculating your age in days.",
+        "Figuring out the deadline for a 90-day project.",
+        "Finding out how many days are left until your next vacation.",
       ],
       underlyingConcept:
-        "Date math handles Gregorian calendar, leap years. Duration is (end - start) / 86400000 ms/day.",
+        "Date arithmetic is complex because of varying month lengths and leap years. By leveraging the browser's built-in date engine, this tool can perform these calculations accurately and instantly without you having to worry about the details.",
       howToUse: [
-        'Select a mode: "Duration Between Dates" or "Add/Subtract Days".',
-        "For Duration mode: select a Start Date and an End Date to see the time between them.",
-        'For Add/Subtract mode: select a Start Date, choose "Add" or "Subtract", and enter the number of days to calculate the resulting date.',
+        "Choose your mode: 'Duration Between Dates' or 'Add/Subtract Days'.",
+        "For 'Duration', pick a start and end date to see the time between them.",
+        "For 'Add/Subtract', pick a start date, choose 'Add' or 'Subtract', and enter the number of days.",
       ],
       features: [
-        "Dual modes for flexible date calculations.",
-        "Calculates duration in both days and weeks.",
-        "Easily add or subtract days from any given date.",
-        "User-friendly date pickers for easy input.",
+        "Dual Modes: Flexible calculations for duration or date addition/subtraction.",
+        "Clear Duration Results: Calculates the duration in both total days and in weeks + days.",
+        "Handles Leap Years: All calculations automatically account for leap years.",
+        "Simple Interface: Uses user-friendly date pickers for easy input.",
       ],
       faqs: [
-        { question: "Leap years?", answer: "Handled automatically." },
-        { question: "Time zones?", answer: "Local time." },
-        { question: "Months/years add?", answer: "Days only now." },
+        {
+          question: "Does this account for leap years?",
+          answer: "Yes, all calculations automatically handle leap years correctly.",
+        },
+        {
+          question: "Does it consider time zones?",
+          answer:
+            "The calculations are based on the local time zone of your browser.",
+        },
+        {
+          question: "Can I add or subtract months or years?",
+          answer:
+            "Currently, the tool only supports adding or subtracting days. Support for months and years may be added in the future.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2370,6 +2577,7 @@ export const TOOLS: Tool[] = [
       "add days to date",
       "time duration calculator",
       "date difference",
+      "date to date calculator",
     ],
   },
   // Productivity Tools
@@ -2377,40 +2585,52 @@ export const TOOLS: Tool[] = [
     id: "world-clock",
     name: "World Clock",
     description: "Display and compare the current time in different cities.",
-    seoTitle: "World Clock - Compare Time in Different Cities",
+    seoTitle: "World Clock | Compare Time Zones in Real-Time",
     seoDescription:
-      "Display and compare the current time in multiple cities around the world with our free online World Clock. Perfect for international teams. 100% private and secure.",
+      "Instantly compare the current time in multiple cities around the world with our free online World Clock. Perfect for scheduling meetings and coordinating with international teams.",
     icon: <WorldClockIcon />,
     component: WorldClock,
     category: ToolCategory.PRODUCTIVITY,
     details: {
       introduction:
-        "Keep track of the current time in multiple cities around the world. This tool is perfect for coordinating with international teams, scheduling meetings across time zones, or simply staying connected with friends and family abroad.",
+        "Stay in sync with the world. Our World Clock lets you easily track the current time in multiple cities at a glance. It's the perfect tool for anyone who works with international teams, schedules global meetings, or has friends and family across the globe. Your selected cities are saved in your browser for next time.",
       explanation:
-        "How does it work? Uses Intl.DateTimeFormat with timeZone option to format local time for each city.",
+        "The tool uses your browser's `Intl.DateTimeFormat` API, which can format a date and time according to any IANA time zone. This ensures the times are always accurate and automatically account for Daylight Saving Time.",
       usageExamples: [
-        "Remote workers syncing with global offices.",
-        "Travelers checking home time.",
-        "Event planners for international calls.",
+        "A remote worker keeping track of their colleagues' time zones.",
+        "A project manager finding the best time for a meeting with a global team.",
+        "A traveler checking the time back home.",
       ],
       underlyingConcept:
-        "Time zones are UTC offsets. Tool calculates from system time, handling DST via browser API.",
+        "All time zones are offsets from Coordinated Universal Time (UTC). This tool uses your system's current UTC time and then applies the correct offset for each selected city, automatically handling complex rules like Daylight Saving Time.",
       howToUse: [
-        "The clock displays a default set of cities.",
-        "To add a new city, select one from the dropdown menu.",
-        "To remove a city, click the trash can icon next to it.",
-        "Your selected cities are saved in your browser for your next visit.",
+        "A default set of cities is displayed to get you started.",
+        "Select a new city from the dropdown menu to add it to your clock list.",
+        "Click the trash can icon next to any city to remove it.",
+        "Your list of clocks is automatically saved in your browser.",
       ],
       features: [
-        "Displays time for multiple locations simultaneously.",
-        "Shows both the time and the current date for each location.",
-        "Your list of clocks is saved locally using `localStorage`.",
-        "Real-time updates every second.",
+        "Multiple Clocks: Display the time for as many locations as you need.",
+        "Date & Time: Shows both the current time and date for each location.",
+        "Persistent List: Your selected cities are saved locally for your next visit.",
+        "Real-Time Updates: The clocks tick and update every second.",
       ],
       faqs: [
-        { question: "DST handling?", answer: "Automatic via browser." },
-        { question: "City list?", answer: "Common ones; searchable." },
-        { question: "Offline?", answer: "Yes, but time from system." },
+        {
+          question: "Does it handle Daylight Saving Time (DST)?",
+          answer:
+            "Yes, it's handled automatically by your browser's internationalization API, so the times are always correct.",
+        },
+        {
+          question: "Can I add a city that's not on the list?",
+          answer:
+            "The list includes most major cities. If you'd like to see another added, please let us know!",
+        },
+        {
+          question: "Does this work offline?",
+          answer:
+            "Yes. As long as your computer's time is correct, the clock will continue to work even without an internet connection.",
+        },
       ],
       privacy:
         "Your selected clock preferences are stored in your browser's `localStorage` and are not sent to any server.",
@@ -2421,48 +2641,58 @@ export const TOOLS: Tool[] = [
       "global time checker",
       "time zone comparison",
       "international time",
+      "meeting planner",
     ],
   },
   {
     id: "timers-stopwatch",
     name: "Timers & Stopwatch",
     description: "Use a countdown timer or a stopwatch with lap functionality.",
-    seoTitle: "Timers & Stopwatch - Online Countdown & Lap Timer",
+    seoTitle: "Online Timer & Stopwatch | Countdown & Lap Timer",
     seoDescription:
-      "Use our free online Timer and Stopwatch with lap functionality. Perfect for workouts, cooking, and timing events. 100% private and secure.",
+      "A free and simple online Timer and Stopwatch. Use the countdown timer for tasks or the stopwatch with lap functionality for timing events. Perfect for workouts, cooking, and studying.",
     icon: <TimersIcon />,
     component: TimersAndStopwatch,
     category: ToolCategory.PRODUCTIVITY,
     details: {
       introduction:
-        "A multi-function timekeeping tool. Use the countdown Timer for tasks with a set duration, or switch to the Stopwatch to accurately measure elapsed time, complete with lap tracking. Great for workouts, cooking, or timing events.",
+        "Your all-in-one timekeeping tool. Switch between a simple countdown Timer for focused tasks and a precise Stopwatch with lap tracking for measuring events. Whether you're in the kitchen, at the gym, or at your desk, this tool has you covered.",
       explanation:
-        "How does it work? Uses setInterval for ticking, notifications for timer end.",
+        "The tool uses your browser's `setInterval` function to create a 'tick' every few milliseconds. For the timer, it counts down from your set time. For the stopwatch, it counts up. Laps are recorded by capturing the current time of the stopwatch.",
       usageExamples: [
-        "Timing study sessions.",
-        "Tracking race laps.",
-        "Cooking reminders.",
+        "Timing a 25-minute study session.",
+        "Tracking your lap times during a run.",
+        "Setting a reminder for something in the oven.",
       ],
       underlyingConcept:
-        "Timing uses system clock. Stopwatch accumulates, timer decrements. Laps snapshot intervals.",
+        "Digital timekeeping relies on the browser's internal clock. A timer decrements a set duration, while a stopwatch accumulates elapsed time from zero. Lap functionality simply records a snapshot of the elapsed time at a specific moment.",
       howToUse: [
-        'Select either "Timer" or "Stopwatch" mode.',
-        'For the Timer: set the hours, minutes, and seconds, then click "Start". You can also pause and reset.',
-        'For the Stopwatch: click "Start" to begin timing, "Stop" to pause, "Lap" to record a lap time, and "Reset" to clear.',
+        "Select either 'Timer' or 'Stopwatch' mode.",
+        "For the Timer: set the hours, minutes, and seconds, then click 'Start'.",
+        "For the Stopwatch: click 'Start' to begin, 'Stop' to pause, 'Lap' to record a split time, and 'Reset' to clear.",
       ],
       features: [
-        "Easy-to-use countdown timer with desktop notifications (if permission is granted).",
-        "Precise stopwatch with millisecond accuracy.",
-        "Lap recording functionality to track split times.",
-        "Clean interface showing only the relevant controls for each mode.",
+        "Countdown Timer: Easy to set and includes a desktop notification when time is up.",
+        "Precise Stopwatch: Measures time with millisecond accuracy.",
+        "Lap Recording: Track split times without stopping the main timer.",
+        "Clean Interface: A simple and focused design that's easy to use.",
       ],
       faqs: [
         {
-          question: "Background running?",
-          answer: "Browser may throttle; keep tab open.",
+          question: "Will the timer work if I switch tabs?",
+          answer:
+            "Modern browsers may slow down timers in background tabs to save power. For best results, keep the tab open.",
         },
-        { question: "Sound?", answer: "Yes for timer end." },
-        { question: "Multiple timers?", answer: "Single now." },
+        {
+          question: "Is there a sound notification?",
+          answer:
+            "Yes, a simple chime will play when the countdown timer finishes.",
+        },
+        {
+          question: "Can I run multiple timers at once?",
+          answer:
+            "This version supports one timer or stopwatch at a time. You can open the tool in another tab to run a second one.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2472,42 +2702,59 @@ export const TOOLS: Tool[] = [
       "lap timer",
       "kitchen timer",
       "study timer",
+      "online timer",
     ],
   },
   {
     id: "todo-list",
     name: "To-Do List",
     description: "A simple to-do list that saves your tasks in the browser.",
-    seoTitle: "To-Do List - Simple & Persistent Online",
+    seoTitle: "Simple To-Do List | Online & Persistent",
     seoDescription:
-      "A simple and persistent to-do list that saves your tasks in your browser. Organize your day with our free To-Do List tool. 100% private and secure.",
+      "A clean and simple to-do list that saves your tasks in your browser. Organize your day and stay on track with our free and private To-Do List tool.",
     icon: <TodoIcon />,
     component: TodoList,
     category: ToolCategory.PRODUCTIVITY,
     details: {
       introduction:
-        "A straightforward and persistent to-do list to help you stay organized. Add tasks, mark them as complete, and filter your view. Your tasks are automatically saved in your browser's local storage, for daily planning.",
+        "Capture your thoughts and organize your day. Our To-Do List is a clean, simple, and persistent tool to help you keep track of your tasks. Add items, mark them as complete, and filter your view to stay focused. Your list is automatically saved in your browser, so it's always here when you need it.",
       explanation:
-        "How does it work? Stores array in localStorage, updates UI on changes.",
-      usageExamples: ["Daily chores.", "Work tasks.", "Shopping lists."],
+        "The tool works by storing your list of tasks as an array in your browser's `localStorage`. Every time you add, complete, or delete a task, the UI updates and the array in `localStorage` is rewritten.",
+      usageExamples: [
+        "Keeping track of your daily chores.",
+        "Organizing your tasks for a work project.",
+        "Making a quick shopping list.",
+      ],
       underlyingConcept:
-        "Task management with states (active/complete). Persistence via key-value storage.",
+        "This is a simple implementation of task management, where each task has a state (active or completed). Persistence is achieved through `localStorage`, a key-value storage system built into modern browsers.",
       howToUse: [
-        'Type a new task into the input field and press Enter or click "Add".',
-        "Click the checkbox next to a task to mark it as completed.",
-        'Click the "X" icon to delete a task.',
-        'Use the filter buttons ("All", "Active", "Completed") to change your view.',
+        "Type a new task into the input field and press Enter or click 'Add'.",
+        "Click the checkbox next to a task to mark it as complete.",
+        "Click the 'X' icon to delete a task.",
+        "Use the filter buttons ('All', 'Active', 'Completed') to change your view.",
       ],
       features: [
-        "Add, complete, and delete tasks.",
-        "Filter tasks to see all, only active, or only completed items.",
-        "Data is saved to `localStorage`, so your tasks persist between sessions.",
-        "Clean and minimalist design.",
+        "Simple Task Management: Add, complete, and delete tasks with ease.",
+        "Filter Your View: Focus on what's important by filtering your list.",
+        "Persistent Storage: Your tasks are saved in your browser, so they don't disappear when you close the tab.",
+        "Clean & Minimalist: A distraction-free design to help you focus.",
       ],
       faqs: [
-        { question: "Sync across devices?", answer: "No, local only." },
-        { question: "Priorities?", answer: "Basic; no yet." },
-        { question: "Export?", answer: "Copy manually." },
+        {
+          question: "Can I sync my list across devices?",
+          answer:
+            "No, this is a simple, local-only tool. Your tasks are stored only in the browser you use to create them.",
+        },
+        {
+          question: "Can I set priorities or due dates?",
+          answer:
+            "Not yet. This tool is designed to be as simple as possible. More advanced features may be added in the future.",
+        },
+        {
+          question: "How do I export my list?",
+          answer:
+            "There is no export feature currently, but you can always copy and paste the text from your list.",
+        },
       ],
       privacy:
         "Your to-do list is stored in your browser's `localStorage`. This data is not transmitted to our servers and remains private to your device.",
@@ -2525,42 +2772,54 @@ export const TOOLS: Tool[] = [
     name: "Pomodoro Timer",
     description:
       "A simple timer to help you focus with the Pomodoro Technique.",
-    seoTitle: "Pomodoro Timer - Focus & Productivity Tool",
+    seoTitle: "Pomodoro Timer | Boost Your Focus & Productivity",
     seoDescription:
-      "Improve your focus and productivity with our free online Pomodoro Timer. Alternates between 25-minute work sessions and 5-minute breaks. 100% private and secure.",
+      "Improve your focus with our free online Pomodoro Timer. Work in 25-minute intervals with 5-minute breaks to boost productivity and avoid burnout. Simple, effective, and private.",
     icon: <PomodoroIcon />,
     component: PomodoroTimer,
     category: ToolCategory.PRODUCTIVITY,
     featured: true,
     details: {
-      tip: "Don't skip the breaks! The 5-minute rests in the Pomodoro Technique are just as important as the 25-minute focus sessions. They help your brain recharge.",
+      tip: "The 5-minute breaks are just as important as the 25-minute focus sessions. Use them to stand up, stretch, or grab a glass of water to reset your brain.",
       introduction:
-        "The Pomodoro Timer helps you manage your time and stay focused using the Pomodoro Technique. It alternates between focused work sessions (typically 25 minutes) and short breaks (5 minutes) to improve productivity and prevent burnout.",
+        "Master your focus and get more done. Our Pomodoro Timer is a simple tool based on the Pomodoro Technique, a proven time management method. It helps you break down your work into manageable 25-minute intervals, separated by short breaks, to improve focus and prevent mental fatigue.",
       explanation:
-        "How does it work? Counts down, switches modes, plays sound at end.",
+        "The timer counts down from 25 minutes. When the time is up, it plays a sound and automatically switches to a 5-minute break timer. This cycle helps you stay on task and gives your brain regular opportunities to rest and recharge.",
       usageExamples: [
-        "Studying with breaks.",
-        "Work focus sessions.",
-        "Task batching.",
+        "A student using it to power through a study session.",
+        "A developer staying focused on a single coding task.",
+        "A writer avoiding distraction and hitting their word count.",
       ],
       underlyingConcept:
-        "Pomodoro by Cirillo: 25 min work, 5 min break. Enhances focus via time boxing.",
+        "The Pomodoro Technique, developed by Francesco Cirillo, is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. The goal is to create a sense of urgency and reduce the impact of interruptions.",
       howToUse: [
-        'Click the "Start" button to begin a 25-minute work session.',
-        "The timer will count down, and a progress ring will visualize the remaining time.",
-        "When the timer finishes, a sound will play, and it will automatically switch to a 5-minute break.",
-        'Click "Pause" to stop the timer and "Reset" to return to the initial 25-minute work session.',
+        "Click 'Start' to begin a 25-minute focus session.",
+        "The timer will count down, and the progress ring will show the time remaining.",
+        "When the session ends, a sound will play, and a 5-minute break will begin automatically.",
+        "Use 'Pause' to stop the timer and 'Reset' to go back to the start.",
       ],
       features: [
-        "Standard 25-minute work and 5-minute break intervals.",
-        "Visual progress indicator.",
-        "Audio notification when a session ends.",
-        "Simple Start, Pause, and Reset controls.",
+        "Classic Pomodoro Cycle: Standard 25-minute work and 5-minute break intervals.",
+        "Visual Progress: A circular progress bar shows you the time remaining at a glance.",
+        "Audio Notifications: A simple chime lets you know when a session is over.",
+        "Simple Controls: Easy-to-use Start, Pause, and Reset buttons.",
       ],
       faqs: [
-        { question: "Custom times?", answer: "Fixed now; adjustable future." },
-        { question: "Long breaks?", answer: "After 4 pomodoros manually." },
-        { question: "Sound customizable?", answer: "Default only." },
+        {
+          question: "Can I change the timer lengths?",
+          answer:
+            "This version uses the classic 25/5 minute intervals. Customizable times are a great idea for a future update!",
+        },
+        {
+          question: "What about the longer break?",
+          answer:
+            "Traditionally, you take a longer break (15-30 minutes) after four 'pomodoros'. This timer doesn't track that automatically, so you'll have to manage that part yourself.",
+        },
+        {
+          question: "Can I change the notification sound?",
+          answer:
+            "Currently, there is only one default sound, but custom sounds may be added in the future.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2570,6 +2829,7 @@ export const TOOLS: Tool[] = [
       "25 minute timer",
       "study timer app",
       "productivity timer",
+      "pomodoro technique",
     ],
   },
   // Fun Tools
@@ -2577,40 +2837,52 @@ export const TOOLS: Tool[] = [
     id: "meme-generator",
     name: "Meme Generator",
     description: "Create your own memes by adding text to an image.",
-    seoTitle: "Meme Generator - Create Memes Online",
+    seoTitle: "Free Meme Generator | Create Memes Online Instantly",
     seoDescription:
-      "Create your own memes by adding text to an image with our free online Meme Generator. Upload your own image and share your creation. 100% private and secure.",
+      "Create your own memes with our free and easy online Meme Generator. Upload your image, add top and bottom text, and download your creation instantly. 100% private.",
     icon: <MemeIcon />,
     component: MemeGenerator,
     category: ToolCategory.FUN,
     details: {
       introduction:
-        "Create classic-style memes with this easy-to-use generator. Upload your own image, add top and bottom text, and download your creation to share. Fun for social media or humor.",
+        "Become a meme lord. Our simple Meme Generator lets you create classic-style memes in seconds. Just upload your image, add your witty top and bottom text, and download your creation to share with the world. It's fast, free, and all done in your browser.",
       explanation:
-        "How does it work? Draws image on canvas, overlays text with Impact font.",
+        "The tool uses the HTML5 Canvas to draw your uploaded image. It then overlays your text using the classic 'Impact' font with a black border, which ensures it's readable on any background.",
       usageExamples: [
-        "Making jokes for friends.",
-        "Social media posts.",
-        "Marketing with humor.",
+        "Making a quick, funny joke for your friends.",
+        "Creating a viral post for social media.",
+        "Adding a touch of humor to a presentation.",
       ],
       underlyingConcept:
-        "Memes are cultural ideas spread virally. Generator mimics Advice Animal style with bold text.",
+        "This tool emulates the classic 'Advice Animal' or 'Image Macro' meme format, which consists of an image superimposed with bold, capitalized text at the top and bottom. This format is one ofthe most recognizable and enduring forms of internet memes.",
       howToUse: [
-        'Click "Upload an Image" to select a picture from your device.',
-        'Enter your desired text in the "Top Text" and "Bottom Text" input fields.',
-        "The meme will be generated in real-time in the preview area.",
-        'When you\'re happy with it, click "Download Meme" to save it as a PNG file.',
+        "Click 'Upload an Image' to pick a picture from your device.",
+        "Type your text in the 'Top Text' and 'Bottom Text' fields.",
+        "Your meme will be generated in real-time in the preview area.",
+        "When it's perfect, click 'Download Meme' to save it as a PNG file.",
       ],
       features: [
-        "Works with any image you upload.",
-        "Classic Impact font with white text and a black outline for maximum readability.",
-        "Live preview of your meme as you type.",
-        "Easy one-click download.",
+        "Use Any Image: Upload your own image to get started.",
+        "Classic Meme Font: Automatically uses the bold, outlined Impact font for maximum readability.",
+        "Live Preview: See your meme come to life as you type.",
+        "One-Click Download: Easily save your finished meme.",
       ],
       faqs: [
-        { question: "Templates?", answer: "Upload own; no built-in." },
-        { question: "Text position?", answer: "Top/bottom fixed." },
-        { question: "File size?", answer: "Depends on image." },
+        {
+          question: "Can I use a different font or text color?",
+          answer:
+            "This tool is designed to create the classic meme style, so it only uses the standard white Impact font with a black outline. More customization options may be added in the future.",
+        },
+        {
+          question: "Can I move the text around?",
+          answer:
+            "No, the text is fixed to the top and bottom, in keeping with the classic meme format.",
+        },
+        {
+          question: "Are my images private?",
+          answer:
+            "Yes. All processing happens in your browser. Your images are never uploaded to a server.",
+        },
       ],
       privacy:
         "All image processing and text rendering happens in your browser. Your images are not uploaded to any server.",
@@ -2621,6 +2893,7 @@ export const TOOLS: Tool[] = [
       "image captioner",
       "meme maker",
       "funny meme creator",
+      "add text to image",
     ],
   },
   // Misc Tools
@@ -2629,42 +2902,54 @@ export const TOOLS: Tool[] = [
     name: "Password Generator",
     description:
       "Create strong, random passwords with customizable security options.",
-    seoTitle: "Password Generator - Create Strong Passwords",
+    seoTitle: "Strong Password Generator | Create Secure, Random Passwords",
     seoDescription:
-      "Generate strong, secure, and random passwords with our free online Password Generator. Customize length and character types. 100% private and secure.",
+      "Generate strong, secure, and random passwords with our free online tool. Customize the length and character types to create a password that's hard to crack. 100% private and secure.",
     icon: <PasswordIcon />,
     component: PasswordGenerator,
     category: ToolCategory.MISC,
     featured: true,
     details: {
-      tip: "A great password is long, random, and unique. Aim for at least 16 characters and use a password manager so you don't have to remember them all!",
+      tip: "A truly strong password is long, random, and unique for every site. Aim for at least 16 characters and use a password manager to keep track of them.",
       introduction:
-        "Generate strong, secure, and random passwords to protect your online accounts. This tool uses the browser's cryptographically secure random number generator for high-quality randomness, helping prevent weak password vulnerabilities.",
+        "Protect your digital life with a strong password. Our Password Generator creates secure, random passwords that are incredibly difficult to crack. It uses your browser's own cryptographically secure random number generator for the highest quality randomness, helping you defend against brute-force attacks and keep your accounts safe.",
       explanation:
-        "How does it work? Builds charset from options, picks random chars with crypto.getRandomValues.",
+        "The tool first builds a set of allowed characters based on your selections (uppercase, lowercase, etc.). It then uses the browser's `crypto.getRandomValues` API—a cryptographically secure random number generator—to pick characters from that set until the desired length is reached.",
       usageExamples: [
-        "New account creation.",
-        "Password resets.",
-        "Security audits.",
+        "Creating a new, secure password for an important account.",
+        "Resetting a password after a security breach.",
+        "Generating a random key for an application.",
       ],
       underlyingConcept:
-        "Strong passwords have high entropy. Random selection from large set resists brute force.",
+        "A password's strength comes from its 'entropy'—a measure of its unpredictability. A long password chosen randomly from a large set of characters (including letters, numbers, and symbols) has very high entropy, making it resistant to brute-force guessing attacks.",
       howToUse: [
-        'Adjust the "Length" slider to set the desired password length.',
-        "Use the checkboxes to include or exclude uppercase letters, lowercase letters, numbers, and symbols.",
-        "A new password that meets your criteria will be generated automatically.",
-        'Click "Regenerate" to create a new password with the same settings, or click "Copy" to copy the current one.',
+        "Adjust the 'Length' slider to set your desired password length.",
+        "Use the checkboxes to include or exclude uppercase, lowercase, numbers, and symbols.",
+        "A new, strong password will be generated automatically.",
+        "Click 'Regenerate' for a new one, or 'Copy' to copy the current password.",
       ],
       features: [
-        "Customizable password length (4-64 characters).",
-        "Options to include uppercase, lowercase, numbers, and symbols.",
-        "Uses the secure `crypto.getRandomValues` browser API.",
-        "One-click copy to clipboard.",
+        "Customizable Length: Choose a password length from 4 to 64 characters.",
+        "Character Options: Include or exclude uppercase, lowercase, numbers, and symbols.",
+        "Cryptographically Secure: Uses the browser's `crypto.getRandomValues` API for true randomness.",
+        "One-Click Copy: Easily copy the generated password to your clipboard.",
       ],
       faqs: [
-        { question: "How secure?", answer: "Cryptographic random." },
-        { question: "Memorable?", answer: "Random; use manager." },
-        { question: "Min length?", answer: "12 recommended." },
+        {
+          question: "How secure is this?",
+          answer:
+            "Very. It uses your browser's built-in cryptographic random number generator, which is the most secure way to generate randomness on the web.",
+        },
+        {
+          question: "How am I supposed to remember this?",
+          answer:
+            "You're not! The best practice is to use a password manager to store your long, random, unique passwords for each site.",
+        },
+        {
+          question: "What's a good password length?",
+          answer:
+            "Longer is always better. Most security experts recommend a minimum of 12-16 characters for important accounts.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2674,45 +2959,58 @@ export const TOOLS: Tool[] = [
       "secure password maker",
       "password security",
       "cryptographically secure password",
+      "password generator online",
     ],
   },
   {
     id: "qrcode-generator",
     name: "QR Code Generator",
     description: "Generate a QR code from a URL or text.",
-    seoTitle: "QR Code Generator - Create QR Codes Online",
+    seoTitle: "Free QR Code Generator | Create QR Codes Online",
     seoDescription:
-      "Generate a QR code from any URL or text with our free online QR Code Generator. Download your QR code as a high-quality PNG. 100% private and secure.",
+      "Instantly generate a high-quality QR code from any URL or text with our free online tool. Download your QR code as a PNG. Perfect for sharing links, Wi-Fi info, and more.",
     icon: <QrCodeIcon />,
     component: QrCodeGenerator,
     category: ToolCategory.MISC,
     details: {
       introduction:
-        "Create a QR Code from any text or URL. QR Codes are scannable barcodes that can store information and are easily read by smartphones, perfect for sharing links, contact info, or Wi-Fi credentials, simplifying data transfer.",
+        "Share information in a snap. Our QR Code Generator instantly turns any text or URL into a scannable QR code. QR codes are the perfect way to bridge the physical and digital worlds, making it easy to share website links, contact information, or Wi-Fi credentials. Create and download your high-quality QR code in seconds.",
       explanation:
-        "How does it work? Uses library like qrcode to encode data to matrix, render as image.",
+        "The tool uses a popular and robust QR code generation library to encode your text into the standard QR code matrix format. This matrix is then rendered as a high-quality image that you can download.",
       usageExamples: [
-        "Sharing website links on posters.",
-        "Quick Wi-Fi access.",
-        "Product info in stores.",
+        "Putting a link to your website on a poster or business card.",
+        "Sharing your Wi-Fi password with guests without them having to type it.",
+        "Adding a link to a product page on its packaging.",
       ],
       underlyingConcept:
-        "QR (Quick Response) from 1994, matrix barcode with error correction. Encodes text to patterns readable by cameras.",
+        "A QR (Quick Response) code is a type of two-dimensional barcode. It can store a surprising amount of information and is designed to be read quickly by a camera, like the one on your smartphone. It also includes error correction, so it can often be read even if it's partially damaged.",
       howToUse: [
-        "Enter the text or URL you want to encode into the text area.",
-        "The QR code image will be generated automatically in the preview area.",
-        'Click the "Download QR Code" button to save the image as a PNG file.',
+        "Enter the text or URL you want to encode in the text box.",
+        "The QR code image will be generated automatically as you type.",
+        "Click the 'Download QR Code' button to save the image as a high-quality PNG file.",
       ],
       features: [
-        "Real-time QR code generation.",
-        "Works with any text-based input, including URLs.",
-        "High-quality PNG download.",
-        "Simple and fast interface.",
+        "Real-Time Generation: Your QR code is created instantly as you type.",
+        "Works with Any Text: Encode URLs, phone numbers, plain text, and more.",
+        "High-Quality Download: Save your QR code as a crisp, high-resolution PNG.",
+        "Simple & Fast: A clean interface for quick and easy QR code creation.",
       ],
       faqs: [
-        { question: "Error correction?", answer: "Medium level." },
-        { question: "Size?", answer: "Auto; scalable." },
-        { question: "Colors?", answer: "Black/white; custom future." },
+        {
+          question: "What is error correction?",
+          answer:
+            "QR codes have built-in error correction, which allows them to be read even if they are partially dirty or damaged. This tool uses a medium level of error correction, which is a good balance for most use cases.",
+        },
+        {
+          question: "Can I change the color or add a logo?",
+          answer:
+            "This tool creates a standard black and white QR code. More advanced customization options may be added in the future.",
+        },
+        {
+          question: "What size is the downloaded image?",
+          answer:
+            "The downloaded PNG is a high-resolution, scalable image that will look sharp even when printed.",
+        },
       ],
       privacy: PRIVACY_STATEMENT,
     },
@@ -2722,6 +3020,7 @@ export const TOOLS: Tool[] = [
       "text to qr code",
       "url to qr code",
       "generate qr code",
+      "qr code for wifi",
     ],
   },
   {
@@ -2729,625 +3028,699 @@ export const TOOLS: Tool[] = [
     name: "Video Compressor",
     description:
       "Reduce the file size of your videos without significant quality loss.",
-    seoTitle: "Video Compressor - Reduce Video File Size Online",
+    seoTitle: "Online Video Compressor | Reduce Video File Size for Free",
     seoDescription:
-      "Reduce the file size of your videos without significant quality loss with our free online Video Compressor. Supports various video formats. 100% private and secure.",
+      "Easily reduce the file size of your videos with our free online compressor. Shrink MP4, AVI, MOV, and more without losing quality. Fast, secure, and all in your browser.",
     icon: <VideoCompressorIcon />,
     category: ToolCategory.VIDEO,
     component: VideoCompressor,
     details: {
       introduction:
-        "The Video Compressor helps you shrink video files to save space or for easier sharing, all within your browser.",
+        "Shrink your video files without losing quality. Our online Video Compressor makes it easy to reduce the size of your videos, so you can share them faster, save storage space, and upload them to the web with ease. The entire process is done securely in your browser—your files are never uploaded to a server.",
       howToUse: [
-        'Click the "Choose File" button to upload your video.',
-        'Click the "Compress Video" button.',
-        "Wait for the compression to finish.",
-        "Download your compressed video.",
+        "Click 'Choose File' to upload your video.",
+        "Click the 'Compress Video' button to start the process.",
+        "Wait for the compression to finish (it may take a few moments for large files).",
+        "Download your new, smaller video file.",
       ],
       features: [
-        "Reduce video file size without significant quality loss",
-        "Works entirely in your browser for privacy",
-        "Supports various video formats",
-        "Fast compression processing",
+        "Smart Compression: Reduces file size without a noticeable drop in quality.",
+        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
+        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
+        "Fast & Free: No software to install, no watermarks.",
       ],
       privacy:
         "All video processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "Video compression reduces file size by removing redundant data and optimizing encoding parameters while maintaining visual quality.",
+        "Video compression works by re-encoding the video with more efficient settings. This tool uses a smart algorithm to find the best balance between file size and visual quality, removing redundant data to make the file smaller.",
       usageExamples: [
-        "Compress large video files for email attachments",
-        "Reduce video size for faster web uploads",
-        "Create smaller files for mobile sharing",
+        "Compressing a large video to send it via email.",
+        "Reducing a video's file size for faster uploading to social media.",
+        "Creating smaller video files to save space on your phone or computer.",
       ],
       underlyingConcept:
-        "Video compression uses algorithms to reduce file size by removing spatial and temporal redundancy in video data.",
+        "Video compression algorithms analyze frames to find and remove spatial (within a frame) and temporal (between frames) redundancy. By using more efficient encoding parameters, the file size can be significantly reduced, often with minimal impact on perceived quality.",
       faqs: [
         {
-          question: "Will compression affect video quality?",
+          question: "How much will the quality be affected?",
           answer:
-            "The tool uses smart compression algorithms to minimize quality loss while significantly reducing file size.",
+            "Our tool is designed to minimize quality loss. For most videos, the difference will be barely noticeable, but the file size reduction will be significant.",
         },
         {
           question: "What video formats are supported?",
           answer:
-            "The tool supports most common video formats including MP4, AVI, MOV, and more.",
+            "The tool supports most common video formats, including MP4, AVI, MOV, and WebM.",
+        },
+        {
+          question: "Is there a file size limit?",
+          answer:
+            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
         },
       ],
     },
+    keywords: [
+      "video compressor online",
+      "reduce video file size",
+      "compress mp4",
+      "free video compressor",
+      "shrink video file",
+    ],
   },
   {
     id: "video-to-audio-converter",
     name: "Video to Audio Converter",
     description: "Extract audio from your video files and save it as an MP3.",
-    seoTitle: "Video to Audio Converter - Extract MP3 from Video",
+    seoTitle: "Video to Audio Converter | Extract MP3 from Video for Free",
     seoDescription:
-      "Extract audio from your video files and save it as an MP3 with our free online Video to Audio Converter. Supports various video formats. 100% private and secure.",
+      "Easily extract the audio from any video file and save it as a high-quality MP3. Our free online tool works with MP4, AVI, MOV, and more. Fast, secure, and all in your browser.",
     icon: <VideoToAudioIcon />,
     category: ToolCategory.VIDEO,
     component: VideoToAudioConverter,
     details: {
       introduction:
-        "This tool allows you to easily convert video files to high-quality MP3 audio.",
+        "Love the sound of a video? Our Video to Audio Converter lets you easily extract the audio track from any video file and save it as a high-quality MP3. It's perfect for creating podcasts from video interviews, saving music from a music video, or converting lectures into audio for listening on the go. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        'Click the "Choose File" button to upload your video.',
-        'Click the "Convert to Audio" button.',
+        "Click 'Choose File' to upload your video.",
+        "Click the 'Convert to Audio' button.",
         "Wait for the conversion to finish.",
-        "Download your audio file.",
+        "Download your new MP3 audio file.",
       ],
       features: [
-        "Extract audio from video files",
-        "Convert to high-quality MP3 format",
-        "Works entirely in your browser",
-        "Supports various video formats",
+        "High-Quality Extraction: Extracts the audio track and converts it to a high-quality MP3.",
+        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
+        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
+        "Fast & Free: No software to install, no watermarks.",
       ],
       privacy:
         "All video processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool extracts the audio track from video files and converts it to MP3 format for easy sharing and storage.",
+        "This tool works by reading your video file, separating the audio stream from the video stream, and then encoding that audio into the universal MP3 format, which can be played on any device.",
       usageExamples: [
-        "Extract music from video files",
-        "Create audio podcasts from video content",
-        "Convert video lectures to audio for listening on the go",
+        "Extracting the music from a music video.",
+        "Creating an audio podcast from a video recording.",
+        "Converting a video lecture into an audio file to listen to while commuting.",
       ],
       underlyingConcept:
-        "Audio extraction involves separating the audio track from video data and encoding it in MP3 format.",
+        "Most video files are 'containers' that hold multiple streams of data, typically a video stream and an audio stream. This tool effectively 'unpacks' the container, discards the video stream, and saves the audio stream as a new file.",
       faqs: [
         {
-          question: "What audio quality will I get?",
+          question: "What will the audio quality be?",
           answer:
-            "The tool extracts audio at the original quality from your video file and converts it to high-quality MP3.",
+            "The tool extracts the audio at its original quality and converts it to a high-bitrate MP3 to ensure the best possible sound.",
         },
         {
-          question: "Can I extract audio from any video format?",
+          question: "Can I convert any video?",
           answer:
-            "Yes, the tool supports most common video formats including MP4, AVI, MOV, and more.",
+            "Yes, the tool supports most common video formats, including MP4, AVI, MOV, and WebM.",
+        },
+        {
+          question: "Is there a file size limit?",
+          answer:
+            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
         },
       ],
     },
+    keywords: [
+      "video to audio converter",
+      "extract mp3 from video",
+      "mp4 to mp3",
+      "video to mp3 converter",
+      "free audio extractor",
+    ],
   },
   {
     id: "gif-maker",
     name: "GIF Maker from Video",
     description: "Create animated GIFs from your video files.",
-    seoTitle: "GIF Maker from Video - Create Animated GIFs Online",
+    seoTitle: "GIF Maker | Create Animated GIFs from Video for Free",
     seoDescription:
-      "Create animated GIFs from your video files with our free online GIF Maker. Convert video segments to high-quality animated GIFs. 100% private and secure.",
+      "Easily create high-quality animated GIFs from your video files with our free online GIF Maker. Convert clips from MP4, MOV, and more. Fast, secure, and all in your browser.",
     icon: <GifMakerIcon />,
     category: ToolCategory.VIDEO,
     component: GifMaker,
     details: {
       introduction:
-        "This tool helps you convert segments of your videos into high-quality animated GIFs.",
+        "Turn your favorite video moments into animated GIFs. Our online GIF Maker makes it easy to convert clips from your videos into high-quality GIFs that are perfect for sharing on social media, in chats, or on your website. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        'Click the "Choose File" button to upload your video.',
-        'Click the "Create GIF" button.',
-        "Wait for the GIF to be created.",
-        "Download your new GIF.",
+        "Click 'Choose File' to upload your video.",
+        "Use the sliders to select the start and end times of the clip you want to convert.",
+        "Click the 'Create GIF' button.",
+        "Wait for your GIF to be created, then download it.",
       ],
       features: [
-        "Convert video segments to animated GIFs",
-        "High-quality GIF output",
-        "Works entirely in your browser",
-        "Supports various video formats",
+        "Easy Clip Selection: Use sliders to pick the exact part of the video you want.",
+        "High-Quality Output: Creates smooth, high-quality animated GIFs.",
+        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
+        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
       ],
       privacy:
         "All video processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool extracts frames from your video and combines them into an animated GIF format.",
+        "This tool works by extracting the frames from the selected portion of your video and then combining them into the animated GIF format. It optimizes the color palette and frame rate to create a high-quality GIF with a reasonable file size.",
       usageExamples: [
-        "Create GIFs from funny video moments",
-        "Convert video tutorials to animated GIFs",
-        "Make GIFs from video clips for social media",
+        "Creating a reaction GIF from a funny video clip.",
+        "Making a short, looping GIF of a product for a website.",
+        "Converting a key moment from a sports highlight into a shareable GIF.",
       ],
       underlyingConcept:
-        "GIF creation involves extracting frames from video at regular intervals and encoding them as an animated sequence.",
+        "The GIF (Graphics Interchange Format) is an image format that supports animation by storing a sequence of frames in a single file. This tool automates the process of extracting those frames from a video and encoding them into the GIF format.",
       faqs: [
         {
           question: "What video formats are supported?",
           answer:
-            "The tool supports most common video formats including MP4, AVI, MOV, and more.",
+            "The tool supports most common video formats, including MP4, AVI, MOV, and WebM.",
         },
         {
-          question: "Can I control the GIF quality?",
+          question: "Can I control the quality and file size?",
           answer:
-            "The tool automatically optimizes GIF quality while keeping file size reasonable for web use.",
+            "The tool automatically optimizes the GIF for a good balance of quality and file size. More advanced options for frame rate and color reduction may be added in the future.",
+        },
+        {
+          question: "How long can my GIF be?",
+          answer:
+            "For best results and reasonable file sizes, it's recommended to keep your clips under 10 seconds.",
         },
       ],
     },
+    keywords: [
+      "gif maker",
+      "video to gif",
+      "create animated gif",
+      "mp4 to gif",
+      "free gif creator",
+    ],
   },
   {
     id: "trim-video",
     name: "Trim Video",
     description: "Cut and trim your video files to get the perfect clip.",
-    seoTitle: "Trim Video - Cut & Trim Videos Online",
+    seoTitle: "Online Video Trimmer | Cut & Trim Videos for Free",
     seoDescription:
-      "Cut and trim your video files to get the perfect clip with our free online Video Trimmer. Supports various video formats. 100% private and secure.",
+      "Easily cut and trim your video files with our free online Video Trimmer. Select the start and end points to create the perfect clip. Supports MP4, MOV, and more. Fast, secure, and browser-based.",
     icon: <TrimVideoIcon />,
     category: ToolCategory.VIDEO,
     component: TrimVideo,
     details: {
       introduction:
-        "This tool allows you to easily trim the start and end of your video files.",
+        "Get the perfect clip every time. Our online Video Trimmer makes it easy to cut down your video files by selecting the exact start and end times you want. It's perfect for removing unwanted parts, creating shorter clips for social media, or just getting to the good part. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        'Click the "Choose File" button to upload your video.',
-        "Set the start and end times for the trim.",
-        'Click the "Trim Video" button.',
-        "Wait for the video to be trimmed.",
-        "Download your trimmed video.",
+        "Click 'Choose File' to upload your video.",
+        "Use the sliders or input fields to set the start and end times for your clip.",
+        "Click the 'Trim Video' button.",
+        "Wait for the video to be processed, then download your new, trimmed clip.",
       ],
       features: [
-        "Trim video start and end points",
-        "Precise time control",
-        "Works entirely in your browser",
-        "Supports various video formats",
+        "Precise Trimming: Set the exact start and end points for your clip.",
+        "Easy-to-Use Interface: A simple and intuitive design for quick edits.",
+        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
+        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
       ],
       privacy:
         "All video processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool allows you to cut unwanted portions from the beginning or end of your video files.",
+        "This tool works by re-encoding your video, but only including the frames between your selected start and end times. This creates a new, shorter video file while preserving the original quality.",
       usageExamples: [
-        "Remove intro/outro from videos",
-        "Create shorter clips from long videos",
-        "Trim videos for social media platforms",
+        "Removing a long, boring intro from a video.",
+        "Creating a short highlight clip from a longer recording.",
+        "Trimming a video to meet the time limits of a social media platform.",
       ],
       underlyingConcept:
-        "Video trimming involves cutting specific time segments from video files while preserving quality.",
+        "Video trimming, or 'cutting', is the process of creating a new video file that contains only a specified segment of the original. This is done by seeking to the start time and stopping the encoding process at the end time, resulting in a shorter clip.",
       faqs: [
         {
-          question: "Can I trim from the middle of a video?",
+          question: "Can I cut a piece out of the middle of a video?",
           answer:
-            "Currently, the tool supports trimming from the start and end. For middle cuts, you may need to trim multiple times.",
+            "This tool is designed for trimming the start and end. To cut out a middle section, you would need to trim the video into two separate clips and then join them, which is a feature for a more advanced editor.",
         },
         {
-          question: "What video formats are supported?",
+          question: "Will this reduce the video quality?",
           answer:
-            "The tool supports most common video formats including MP4, AVI, MOV, and more.",
+            "No, the trimmed clip will have the same quality as the original video.",
+        },
+        {
+          question: "Is there a file size limit?",
+          answer:
+            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
         },
       ],
     },
+    keywords: [
+      "trim video online",
+      "cut video",
+      "video trimmer",
+      "mp4 cutter",
+      "free video editor",
+    ],
   },
   {
     id: "format-converter",
     name: "Video Format Converter",
     description:
       "Convert your video files to different formats like MP4, AVI, MOV, etc.",
-    seoTitle: "Video Format Converter - Convert Videos Online",
+    seoTitle: "Online Video Converter | Convert Video Files for Free",
     seoDescription:
-      "Convert your video files to different formats like MP4, AVI, MOV, and more with our free online Video Format Converter. 100% private and secure.",
+      "Easily convert your video files to different formats like MP4, AVI, MOV, and WebM with our free online tool. Fast, secure, and all in your browser. No software to install.",
     icon: <FormatConverterIcon />,
     category: ToolCategory.VIDEO,
     component: FormatConverter,
     details: {
       introduction:
-        "This tool allows you to easily convert your video files to various formats.",
+        "Ensure your videos play anywhere. Our online Video Format Converter makes it easy to convert your video files between all the most popular formats, like MP4, AVI, MOV, and WebM. Whether you need to make a video compatible with a specific device or prepare it for the web, this tool gets the job done. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        'Click the "Choose File" button to upload your video.',
-        "Select the desired output format.",
-        'Click the "Convert Format" button.',
-        "Wait for the conversion to finish.",
-        "Download your converted video.",
+        "Click 'Choose File' to upload your video.",
+        "Select the output format you want from the dropdown menu.",
+        "Click the 'Convert Format' button.",
+        "Wait for the conversion to finish, then download your new video file.",
       ],
       features: [
-        "Convert between multiple video formats",
-        "Supports MP4, AVI, MOV, and more",
-        "Works entirely in your browser",
-        "Maintains video quality",
+        "Multiple Formats: Convert between MP4, AVI, MOV, WebM, and more.",
+        "High-Quality Conversion: Preserves the quality of your original video.",
+        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
+        "Simple & Fast: A clean interface for quick and easy conversions.",
       ],
       privacy:
         "All video processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool converts video files from one format to another while preserving quality and compatibility.",
+        "This tool works by decoding your original video file and then re-encoding it into the new format you've selected. It uses efficient algorithms to ensure the conversion is done quickly and with minimal loss of quality.",
       usageExamples: [
-        "Convert videos for different devices",
-        "Change format for better compatibility",
-        "Convert videos for specific applications",
+        "Converting a MOV file from an iPhone to an MP4 for wider compatibility.",
+        "Changing an AVI file to a WebM for use on a website.",
+        "Making sure a video is in the correct format for a presentation.",
       ],
       underlyingConcept:
-        "Format conversion involves decoding video from one format and re-encoding it in another format.",
+        "Video format conversion (or 'transcoding') is the process of changing a video from one encoding format to another. This is often necessary because different devices and platforms have different requirements for the video formats they support.",
       faqs: [
         {
-          question: "Will conversion affect video quality?",
+          question: "Will converting the video reduce its quality?",
           answer:
-            "The tool uses high-quality conversion algorithms to minimize quality loss during format changes.",
+            "All video conversion involves some re-encoding, but our tool uses high-quality settings to minimize any noticeable loss in quality.",
         },
         {
-          question: "What formats are supported?",
+          question: "What are the most common formats?",
           answer:
-            "The tool supports most common formats including MP4, AVI, MOV, WebM, and more.",
+            "MP4 is the most universally supported format and is a great choice for web and general use. WebM is excellent for websites because of its good compression. MOV is common for Apple devices.",
+        },
+        {
+          question: "Is there a file size limit?",
+          answer:
+            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
         },
       ],
     },
+    keywords: [
+      "video format converter",
+      "convert video online",
+      "mp4 converter",
+      "mov to mp4",
+      "free video converter",
+    ],
   },
   {
     id: "video-thumbnail-extractor",
     name: "Video Thumbnail Extractor",
     description: "Extract thumbnails (frames) from your video files.",
-    seoTitle: "Video Thumbnail Extractor - Get Frames from Video",
+    seoTitle: "Video Thumbnail Extractor | Get a Frame from a Video",
     seoDescription:
-      "Extract thumbnails (frames) from your video files with our free online Video Thumbnail Extractor. Supports various video formats. 100% private and secure.",
+      "Easily extract a high-quality thumbnail (frame) from any video file with our free online tool. Just specify the timestamp and download the image. Fast, secure, and browser-based.",
     icon: <VideoThumbnailIcon />,
     category: ToolCategory.VIDEO,
     component: VideoThumbnailExtractor,
     details: {
       introduction:
-        "This tool helps you capture a specific frame from a video and save it as an image.",
+        "Need the perfect thumbnail for your video? Our Video Thumbnail Extractor lets you capture a single frame from any video and save it as a high-quality image. Just tell it the exact moment you want to capture, and it will do the rest. It's the easiest way to create a custom thumbnail for your video uploads or to grab a still image from a recording. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        'Click the "Choose File" button to upload your video.',
+        "Click 'Choose File' to upload your video.",
         "Enter the timestamp (in seconds) of the frame you want to extract.",
-        'Click the "Extract Thumbnail" button.',
-        "Wait for the thumbnail to be extracted.",
-        "Download your thumbnail image.",
+        "Click the 'Extract Thumbnail' button.",
+        "A preview of the frame will appear, and you can then download it as an image.",
       ],
       features: [
-        "Extract frames at specific timestamps",
-        "High-quality image output",
-        "Works entirely in your browser",
-        "Supports various video formats",
+        "Precise Extraction: Grab a frame from the exact timestamp you specify.",
+        "High-Quality Output: Saves the frame as a crisp, high-resolution image.",
+        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
+        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
       ],
       privacy:
         "All video processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool extracts a specific frame from your video at the timestamp you specify and saves it as an image.",
+        "This tool works by seeking to the exact timestamp you provide within the video file. It then captures the video data for that single frame and renders it as a static image, which you can then download.",
       usageExamples: [
-        "Create thumbnails for video previews",
-        "Extract frames for analysis",
-        "Capture screenshots from videos",
+        "Creating a custom thumbnail for a YouTube video.",
+        "Extracting a specific frame from a video for analysis or a presentation.",
+        "Grabbing a high-quality screenshot from a video recording.",
       ],
       underlyingConcept:
-        "Frame extraction involves seeking to a specific timestamp in the video and capturing that frame as an image.",
+        "Frame extraction is the process of isolating a single static image from a sequence of images that make up a video. By seeking to a specific point in the video's timeline, a single frame can be captured and saved.",
       faqs: [
         {
           question: "How accurate is the timestamp?",
           answer:
-            "The tool extracts frames at the exact timestamp you specify, with frame-level accuracy.",
+            "The tool can extract a frame with millisecond accuracy, allowing you to get the exact moment you want.",
         },
         {
-          question: "What image formats are supported?",
+          question: "What format will the downloaded image be?",
           answer:
-            "The tool outputs high-quality images in common formats like PNG and JPEG.",
+            "The tool saves the extracted frame as a high-quality PNG or JPEG image.",
+        },
+        {
+          question: "Is there a file size limit?",
+          answer:
+            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
         },
       ],
     },
+    keywords: [
+      "video thumbnail extractor",
+      "get frame from video",
+      "video to image",
+      "create thumbnail from video",
+      "free thumbnail maker",
+    ],
   },
   {
     id: "video-mute",
     name: "Mute Video",
     description: "Remove the audio track from a video file.",
-    seoTitle: "Mute Video - Remove Audio from Video Online",
+    seoTitle: "Mute Video | Remove Audio from Video for Free",
     seoDescription:
-      "Remove the audio track from a video file with our free online Video Muter. Supports various video formats. 100% private and secure.",
+      "Easily remove the audio track from any video file with our free online tool. Create a silent video while preserving the original video quality. Fast, secure, and browser-based.",
     icon: <VideoMuteIcon />,
     category: ToolCategory.VIDEO,
     component: VideoMute,
     details: {
       introduction:
-        "This tool allows you to easily mute a video by removing its audio track completely.",
+        "Need to silence a video? Our Mute Video tool lets you completely remove the audio track from any video file, leaving you with a silent version of your clip. It's perfect for when the audio is poor quality, contains unwanted noise, or you simply want the focus to be on the visuals. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        'Click the "Choose File" button to upload your video.',
-        'Click the "Mute Video" button.',
+        "Click 'Choose File' to upload your video.",
+        "Click the 'Mute Video' button.",
         "Wait for the video to be processed.",
-        "Download your muted video.",
+        "Download your new, silent video.",
       ],
       features: [
-        "Remove audio track from videos",
-        "Preserve video quality",
-        "Works entirely in your browser",
-        "Supports various video formats",
+        "Complete Audio Removal: Strips the audio track from your video entirely.",
+        "Preserves Video Quality: The video itself is not re-encoded, so the quality remains exactly the same.",
+        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
+        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
       ],
       privacy:
         "All video processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool removes the audio track from your video file while keeping the video content intact.",
+        "This tool works by separating the video and audio streams within your video file. It then creates a new video file containing only the original video stream, effectively discarding the audio.",
       usageExamples: [
-        "Create silent videos for presentations",
-        "Remove unwanted audio from videos",
-        "Prepare videos for silent playback",
+        "Creating a silent video for a background or presentation.",
+        "Removing unwanted background noise from a recording.",
+        "Preparing a video to have a new soundtrack or voiceover added later.",
       ],
       underlyingConcept:
-        "Audio removal involves extracting the video stream while discarding the audio stream from the video file.",
+        "Most video files are 'containers' that hold separate video and audio streams. This process, known as 'demuxing', involves separating these streams and then 'remuxing' (re-combining) only the video stream into a new container, resulting in a silent video.",
       faqs: [
         {
-          question: "Will the video quality be affected?",
+          question: "Will this affect the video quality?",
           answer:
-            "No, only the audio track is removed. The video quality remains exactly the same.",
+            "No. Because the video is not being re-encoded, its quality will be identical to the original.",
         },
         {
-          question: "Can I add audio back later?",
+          question: "Can I get the audio back later?",
           answer:
-            "Yes, you can use other tools to add new audio tracks to your muted video.",
+            "No, this process permanently removes the audio. Be sure to keep a copy of your original video if you might need the audio later.",
+        },
+        {
+          question: "Is there a file size limit?",
+          answer:
+            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
         },
       ],
     },
+    keywords: [
+      "mute video online",
+      "remove audio from video",
+      "video muter",
+      "silent video maker",
+      "free video editor",
+    ],
   },
   {
     id: "watermark-adder",
     name: "Watermark Adder",
     description:
       "Add watermarks or logos to your images with customizable positioning and opacity.",
-    seoTitle: "Watermark Adder - Add Watermark to Images Online",
+    seoTitle: "Add Watermark to Images Online | Free Watermark Tool",
     seoDescription:
-      "Add watermarks or logos to your images with our free online Watermark Adder. Customize position, size, and opacity. 100% private and secure.",
+      "Easily add a logo or text watermark to your images with our free online tool. Control the position, size, and opacity for the perfect result. Fast, secure, and browser-based.",
     icon: <WatermarkAdderIcon />,
     category: ToolCategory.IMAGE,
     component: WatermarkAdder,
     details: {
       introduction:
-        "The Watermark Adder allows you to add watermarks or logos to your images with full control over positioning, size, and opacity.",
+        "Protect and brand your images with ease. Our Watermark Adder lets you overlay your logo or a text watermark onto any image. You have full control over the watermark's position, size, and opacity, making it easy to get a professional look. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        'Upload your main image using the "Upload Main Image" section.',
-        'Upload your watermark/logo using the "Upload Watermark/Logo" section.',
-        "Adjust the watermark settings: opacity, size, position, and margin.",
-        "Preview the result and download your watermarked image.",
+        "Upload your main image.",
+        "Upload the image you want to use as a watermark.",
+        "Use the controls to adjust the watermark's opacity, size, and position.",
+        "Preview the result in real-time.",
+        "Download your new, watermarked image.",
       ],
       features: [
-        "Add custom watermarks or logos to images",
-        "Adjustable opacity (10% to 100%)",
-        "Flexible positioning (5 positions)",
-        "Customizable size (5% to 50% of image)",
-        "Adjustable margin from edges",
-        "Real-time preview",
-        "High-quality output",
-        "Works entirely in your browser",
+        "Image or Text Watermarks: Use your logo or any image as a watermark.",
+        "Full Control: Adjust the opacity, size, position, and margin of your watermark.",
+        "Real-Time Preview: See exactly how your watermarked image will look.",
+        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
+        "High-Quality Output: Your final image is saved without quality loss.",
       ],
       privacy:
         "All image processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool uses HTML5 Canvas to overlay your watermark onto the main image with customizable settings for professional results.",
+        "This tool uses the HTML5 Canvas to create a new image. It first draws your main image onto the canvas, and then it draws your watermark image on top, applying your chosen settings for opacity, size, and position.",
       usageExamples: [
-        "Add company logos to photos",
-        "Create branded images for social media",
-        "Add copyright watermarks to protect images",
-        "Create professional presentations with branded images",
+        "A photographer adding their logo to their photos before sharing them online.",
+        "A business adding a 'Confidential' watermark to a document screenshot.",
+        "A social media manager branding images with a company logo.",
       ],
       underlyingConcept:
-        "The tool uses HTML5 Canvas to draw the main image and then overlay the watermark with specified opacity, position, and size settings.",
+        "Watermarking is the process of overlaying one image on top of another, often with reduced opacity to make it semi-transparent. This is a common technique for protecting copyright or for branding images.",
       faqs: [
         {
           question: "What image formats are supported?",
           answer:
-            "The tool supports all common image formats including PNG, JPEG, GIF, and WebP.",
+            "The tool supports all common image formats, including PNG, JPEG, and WebP. For best results, use a PNG with a transparent background for your watermark.",
         },
         {
-          question: "Will the watermark quality be preserved?",
+          question: "Will this reduce the quality of my image?",
           answer:
-            "Yes, the watermark maintains its original quality and is scaled proportionally.",
+            "No, the tool is designed to preserve the quality of your original image.",
         },
         {
-          question: "Can I adjust the watermark after adding it?",
+          question: "Is there a file size limit?",
           answer:
-            "Yes, you can adjust all settings (opacity, position, size, margin) and the changes will be applied in real-time.",
-        },
-        {
-          question: "What is the maximum file size?",
-          answer:
-            "Main images can be up to 50MB and watermarks up to 10MB for optimal performance.",
+            "For best performance, it's recommended to use images under 50MB.",
         },
       ],
     },
+    keywords: [
+      "add watermark to image",
+      "watermark adder online",
+      "free watermark tool",
+      "logo adder",
+      "image watermarker",
+    ],
   },
   {
     id: "image-resizer",
     name: "Image Resizer",
     description:
       "Resize images by percentage or exact dimensions with aspect ratio preservation.",
-    seoTitle: "Image Resizer - Resize Images Online",
+    seoTitle: "Online Image Resizer | Resize Images for Free",
     seoDescription:
-      "Resize images by percentage or exact dimensions with our free online Image Resizer. Preserve aspect ratio and adjust quality. 100% private and secure.",
+      "Easily resize your images to exact dimensions or by percentage with our free online tool. Preserve aspect ratio and adjust quality. Fast, secure, and browser-based.",
     icon: <ImageResizerIcon />,
     category: ToolCategory.IMAGE,
     component: ImageResizer,
     details: {
       introduction:
-        "The Image Resizer allows you to resize images using percentage scaling or exact pixel dimensions, with options to preserve aspect ratio and adjust quality.",
+        "Get your images to the perfect size. Our Image Resizer lets you quickly resize any image by specifying exact pixel dimensions or a percentage. You can choose to preserve the aspect ratio to avoid distortion and even adjust the output quality to balance file size and appearance. It's the perfect tool for preparing images for your website, social media, or email. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        "Upload your image using the file upload section.",
-        "Choose between percentage or dimension-based resizing.",
-        "Adjust the resize settings (percentage, width, height, quality).",
-        'Toggle "Keep aspect ratio" to maintain proportions.',
-        "Preview the resized image and download the result.",
+        "Upload your image.",
+        "Choose whether you want to resize by 'Percentage' or 'Dimensions'.",
+        "Adjust the settings (e.g., enter the new width or select a percentage).",
+        "Check 'Keep aspect ratio' to prevent your image from being stretched.",
+        "Preview the result and download your new, resized image.",
       ],
       features: [
-        "Resize by percentage (1% to 500%)",
-        "Resize by exact pixel dimensions",
-        "Preserve aspect ratio option",
-        "Adjustable output quality (10% to 100%)",
-        "Real-time preview of original and resized images",
-        "Display original and resized dimensions",
-        "File size comparison",
-        "High-quality output with HTML5 Canvas",
-        "Works entirely in your browser",
+        "Resize by Percentage: Easily make an image larger or smaller.",
+        "Resize by Dimensions: Set the exact width and height in pixels.",
+        "Preserve Aspect Ratio: Avoid distortion with one click.",
+        "Adjustable Quality: Control the compression level of the output image.",
+        "Live Preview: See the original and resized dimensions and file sizes.",
+        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
       ],
       privacy:
         "All image processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool uses HTML5 Canvas to resize images with precise control over dimensions, quality, and aspect ratio preservation.",
+        "This tool uses the HTML5 Canvas to create a new image with your specified dimensions. It draws your original image into this new canvas, effectively resizing it. You can then control the quality setting when the new image is exported as a JPEG.",
       usageExamples: [
-        "Resize photos for web use",
-        "Create thumbnails from large images",
-        "Optimize images for social media",
-        "Scale images for presentations",
-        "Batch resize for consistent dimensions",
+        "Resizing a large photo to make it load faster on a website.",
+        "Creating a thumbnail for a blog post.",
+        "Making an image fit the required dimensions for a social media profile picture.",
       ],
       underlyingConcept:
-        "The tool uses HTML5 Canvas to draw the original image at the new dimensions, applying quality settings during the conversion process.",
+        "Image resizing (or 'resampling') is the process of creating a new version of an image with different dimensions. This tool uses interpolation algorithms built into the browser to ensure the resized image looks as smooth and clear as possible.",
       faqs: [
         {
           question: "What image formats are supported?",
           answer:
-            "The tool supports all common image formats including PNG, JPEG, GIF, and WebP. Output is always in JPEG format.",
+            "The tool accepts all common image formats (like PNG, JPEG, GIF), but the output will always be in JPEG format.",
         },
         {
-          question: "Will image quality be affected?",
+          question: "What does 'quality' do?",
           answer:
-            "Quality can be adjusted from 10% to 100%. Higher quality settings result in larger file sizes but better image quality.",
+            "The quality setting applies to JPEG compression. A lower quality will result in a smaller file size but may introduce visual artifacts. A higher quality will look better but have a larger file size.",
         },
         {
-          question: "How does aspect ratio preservation work?",
+          question: "What's the maximum image size?",
           answer:
-            "When enabled, the tool maintains the original proportions by scaling one dimension and calculating the other automatically.",
-        },
-        {
-          question: "What is the maximum image size?",
-          answer:
-            "Input images can be up to 50MB. Output dimensions can be set up to 4000x4000 pixels.",
+            "For best performance, it's recommended to use images under 50MB. The tool can create images up to 4000x4000 pixels.",
         },
       ],
     },
+    keywords: [
+      "image resizer online",
+      "resize image",
+      "photo resizer",
+      "change image size",
+      "free image resizer",
+    ],
   },
   {
     id: "image-converter",
     name: "Image Converter",
     description:
       "Convert images between different formats (JPEG, PNG, WebP, BMP) with quality control.",
-    seoTitle: "Image Converter - Convert Images Online",
+    seoTitle: "Online Image Converter | Convert Images for Free",
     seoDescription:
-      "Convert images between different formats (JPEG, PNG, WebP, BMP) with our free online Image Converter. Adjust quality and handle transparency. 100% private and secure.",
+      "Easily convert your images to JPEG, PNG, WebP, or BMP with our free online tool. Adjust quality and handle transparency. Fast, secure, and browser-based.",
     icon: <ImageConverterIcon />,
     category: ToolCategory.IMAGE,
     component: ImageConverter,
     details: {
       introduction:
-        "The Image Converter allows you to convert images between different formats including JPEG, PNG, WebP, and BMP with customizable quality settings.",
+        "Get your images in the right format. Our Image Converter lets you easily convert your images between all the most popular web formats: JPEG, PNG, WebP, and BMP. Whether you need a transparent PNG, a compressed JPEG, or a modern WebP, this tool has you covered. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        "Upload your image using the file upload section.",
-        "Select the desired output format (JPEG, PNG, WebP, or BMP).",
-        "Adjust quality settings for JPEG and WebP formats.",
-        "Enable transparency removal for JPEG conversion if needed.",
-        "Preview the converted image and download the result.",
+        "Upload your image.",
+        "Select the output format you want (e.g., JPEG, PNG, WebP).",
+        "For JPEG and WebP, you can adjust the quality slider.",
+        "Preview the result and download your new, converted image.",
       ],
       features: [
-        "Convert between JPEG, PNG, WebP, and BMP formats",
-        "Adjustable quality settings (10% to 100%)",
-        "Transparency handling for JPEG conversion",
-        "Real-time preview of original and converted images",
-        "Format-specific optimization",
-        "High-quality output with HTML5 Canvas",
-        "Works entirely in your browser",
+        "Multiple Formats: Convert to and from JPEG, PNG, WebP, and BMP.",
+        "Adjustable Quality: Control the compression level for JPEG and WebP files.",
+        "Transparency Control: Choose how to handle transparency when converting to JPEG.",
+        "Live Preview: See the original and converted image details side-by-side.",
+        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
       ],
       privacy:
         "All image processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool uses HTML5 Canvas to convert images between different formats while maintaining quality and handling transparency appropriately.",
+        "This tool uses the HTML5 Canvas to read your original image and then re-export it in the format you choose. This allows it to handle different formats and apply quality settings during the conversion process.",
       usageExamples: [
-        "Convert PNG to JPEG for web use",
-        "Convert JPEG to WebP for better compression",
-        "Convert images to BMP for legacy systems",
-        "Remove transparency from PNG images",
-        "Optimize images for different platforms",
+        "Converting a PNG with transparency to a JPEG with a white background.",
+        "Converting a large JPEG to a smaller, more efficient WebP for a website.",
+        "Changing a modern WebP image to a PNG for better compatibility with older software.",
       ],
       underlyingConcept:
-        "The tool uses HTML5 Canvas to draw the original image and export it in the desired format with appropriate quality settings.",
+        "Different image formats use different compression techniques and have different features (like transparency). JPEG is great for photos, PNG is great for graphics with transparency, and WebP is a modern format that offers excellent compression for both. This tool allows you to choose the best format for your needs.",
       faqs: [
         {
-          question: "What image formats are supported?",
+          question: "What image formats can I upload?",
           answer:
-            "The tool supports input from all common image formats and can output to JPEG, PNG, WebP, and BMP formats.",
+            "You can upload any common image format, including JPEG, PNG, GIF, WebP, and BMP.",
         },
         {
           question: "Will transparency be preserved?",
           answer:
-            "Transparency is preserved in PNG and WebP formats. For JPEG conversion, you can choose to remove transparency with a white background.",
+            "Transparency is preserved when converting to PNG and WebP. When converting to JPEG (which doesn't support transparency), you can choose to fill the background with white.",
         },
         {
           question: "Which format should I choose?",
           answer:
-            "JPEG for photos, PNG for graphics with transparency, WebP for modern web use, and BMP for uncompressed images.",
-        },
-        {
-          question: "What is the maximum file size?",
-          answer: "Input images can be up to 50MB for optimal performance.",
+            "Use JPEG for photos, PNG for graphics that need transparency, and WebP for a modern, efficient alternative to both. Use BMP only if you need an uncompressed format for a specific reason.",
         },
       ],
     },
+    keywords: [
+      "image converter online",
+      "convert image format",
+      "png to jpg",
+      "jpg to png",
+      "image to webp",
+      "free image converter",
+    ],
   },
   {
     id: "image-compressor",
     name: "Image Compressor",
     description:
       "Compress images to reduce file size while maintaining quality with advanced compression options.",
-    seoTitle: "Image Compressor - Compress Images Online",
+    seoTitle: "Online Image Compressor | Reduce Image File Size for Free",
     seoDescription:
-      "Compress images to reduce file size while maintaining quality with our free online Image Compressor. Supports JPEG, PNG, and WebP. 100% private and secure.",
+      "Easily compress your JPEG, PNG, and WebP images to reduce their file size with our free online tool. Balance quality and size for faster-loading websites. Fast, secure, and browser-based.",
     icon: <ImageCompressorIcon />,
     category: ToolCategory.IMAGE,
     component: ImageCompressor,
     details: {
       introduction:
-        "The Image Compressor helps you reduce image file sizes while maintaining visual quality through intelligent compression techniques.",
+        "Make your website faster with smaller images. Our Image Compressor intelligently reduces the file size of your images while maintaining the best possible quality. It's the perfect tool for optimizing images for the web, email, or storage. The entire process is fast, free, and done securely in your browser.",
       howToUse: [
-        "Upload your image using the file upload section.",
-        "Choose the output format (JPEG, PNG, or WebP).",
-        "Adjust quality settings and maximum dimensions.",
-        "Enable aggressive compression for maximum size reduction.",
-        "Preview compression results and download the optimized image.",
+        "Upload your image.",
+        "Choose your desired output format (JPEG, PNG, or WebP).",
+        "Adjust the quality slider to find the perfect balance between size and quality.",
+        "You can also resize the image at the same time.",
+        "See the compression results in real-time and download your optimized image.",
       ],
       features: [
-        "Intelligent compression with quality control",
-        "Resize images while compressing",
-        "Multiple output formats (JPEG, PNG, WebP)",
-        "Aggressive compression mode for maximum reduction",
-        "Real-time compression ratio display",
-        "Maintain aspect ratio option",
-        "Before/after file size comparison",
-        "High-quality output with HTML5 Canvas",
-        "Works entirely in your browser",
+        "Intelligent Compression: Smart algorithms to reduce file size with minimal quality loss.",
+        "Adjustable Quality: You have full control over the compression level.",
+        "Resize & Compress: Change the dimensions of your image while compressing it.",
+        "Multiple Formats: Works with JPEG, PNG, and WebP.",
+        "Live Preview: See the 'before' and 'after' file sizes instantly.",
+        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
       ],
       privacy:
         "All image processing happens locally in your browser. No files are uploaded to our servers.",
       explanation:
-        "This tool uses HTML5 Canvas with advanced compression techniques to reduce file sizes while preserving visual quality.",
+        "This tool uses the HTML5 Canvas to re-process your image. By adjusting the quality settings of the encoder (for JPEG and WebP) and optionally resizing the image, it can create a new image with a significantly smaller file size.",
       usageExamples: [
-        "Compress photos for web upload",
-        "Reduce image sizes for email attachments",
-        "Optimize images for mobile apps",
-        "Create thumbnails with compression",
-        "Batch compress multiple images",
+        "Compressing photos before uploading them to your blog or website.",
+        "Reducing the file size of an image to send it in an email.",
+        "Optimizing images for a faster mobile experience.",
       ],
       underlyingConcept:
-        "The tool combines dimension reduction, quality adjustment, and format optimization to achieve maximum compression while maintaining acceptable visual quality.",
+        "Image compression works by removing redundant or less noticeable data from an image file. 'Lossy' compression (like JPEG and WebP) can achieve very high compression ratios by discarding some data, while 'lossless' compression (like PNG) only removes redundant data.",
       faqs: [
         {
-          question: "How much can I compress an image?",
+          question: "How much can I compress my image?",
           answer:
-            "Compression depends on the original image. Typical reductions range from 20% to 80% of the original file size.",
+            "It depends on the image, but it's common to see file size reductions of 50-80% with very little noticeable difference in quality.",
         },
         {
-          question: "Will aggressive compression affect quality?",
+          question: "Which format gives the best compression?",
           answer:
-            "Aggressive compression may reduce quality significantly but can achieve maximum file size reduction. Use with caution for important images.",
+            "WebP is a modern format that generally provides the best compression. For photos, JPEG is also excellent. PNG is 'lossless', so it doesn't compress as well but perfectly preserves quality.",
         },
         {
-          question: "Which format compresses best?",
+          question: "What's the maximum file size?",
           answer:
-            "WebP generally provides the best compression, followed by JPEG, then PNG. Choose based on your compatibility needs.",
-        },
-        {
-          question: "What is the maximum file size?",
-          answer:
-            "Input images can be up to 50MB. The tool can resize images up to 4000x4000 pixels.",
+            "For best performance, it's recommended to use images under 50MB.",
         },
       ],
     },
+    keywords: [
+      "image compressor online",
+      "compress image",
+      "reduce image size",
+      "photo compressor",
+      "compress jpeg",
+      "compress png",
+    ],
   },
 ];
 
