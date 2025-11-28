@@ -35,8 +35,7 @@ import WorldClock from "@/tools/WorldClock";
 import TimersAndStopwatch from "@/tools/TimersAndStopwatch";
 import CsvToJson from "@/tools/CsvToJson";
 import JsonToCsv from "@/tools/JsonToCsv";
-import CsvToXlsx from "@/tools/CsvToXlsx";
-import XlsxToCsv from "@/tools/XlsxToCsv";
+import CsvXlsxConverter from "@/tools/CsvXlsxConverter";
 import CharacterCounter from "@/tools/CharacterCounter";
 import KeywordDensityAnalyzer from "@/tools/KeywordDensityAnalyzer";
 import ReadabilityScore from "@/tools/ReadabilityScore";
@@ -1545,54 +1544,46 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    id: "csv-to-xlsx",
-    name: "CSV to XLSX",
-    description:
-      "Convert CSV data to Excel (.xlsx) spreadsheets instantly and securely.",
-    seoTitle: "Online CSV to Excel (XLSX) Converter | Free & Secure",
-    seoDescription:
-      "Quickly convert your CSV files into formatted Excel (.xlsx) spreadsheets with our free online tool. No software to install. Perfect for reporting and data analysis. 100% private.",
-    icon: <CsvToXlsxIcon />,
-    component: CsvToXlsx,
+    id: "csv-xlsx-converter",
+    name: "CSV & XLSX Converter",
+    description: "Convert CSV data to Excel (.xlsx) spreadsheets and vice versa.",
+    seoTitle: "Online CSV and XLSX Converter | Free & Secure",
+    seoDescription: "Quickly convert your CSV files into formatted Excel (.xlsx) spreadsheets and vice versa with our free online tool. No software to install. 100% private.",
+    icon: <FileConversionIcon />,
+    component: CsvXlsxConverter,
     category: ToolCategory.CODING,
     details: {
-      introduction:
-        "Effortlessly convert your CSV data into a professional Excel spreadsheet. Our browser-based tool instantly transforms your plain text data into a downloadable `.xlsx` file, ready for analysis, reporting, or sharing. No software installation required—just paste, click, and download.",
-      explanation:
-        "This tool uses the powerful SheetJS library to parse your CSV data and map it into the cells of a new Excel worksheet. It preserves your headers and data structure, creating a clean, ready-to-use spreadsheet.",
+      introduction: "Effortlessly convert your data between CSV and Excel formats. Our browser-based tool instantly transforms your plain text data into a downloadable `.xlsx` file, or your `.xlsx` file into a CSV. It's ready for analysis, reporting, or sharing. No software installation required—just paste, click, and download.",
+      explanation: "This tool uses the powerful SheetJS library to parse your data and map it between formats. It preserves your headers and data structure, creating a clean, ready-to-use file.",
       usageExamples: [
         "Sharing data from a database export with non-technical colleagues.",
         "Importing CSV log files into Excel for easier analysis and charting.",
-        "Quickly converting a CSV report into a more professional-looking XLSX format.",
+        "Extracting data from an Excel report to be used in a Python script.",
+        "Converting a spreadsheet into a CSV for import into a a database.",
       ],
-      underlyingConcept:
-        "While CSV is a simple, plain-text format, XLSX is a more complex, XML-based format that supports features like multiple sheets, formatting, and formulas. This tool bridges that gap by converting the flat structure of a CSV into the cellular structure of a spreadsheet.",
+      underlyingConcept: "While CSV is a simple, plain-text format, XLSX is a more complex, XML-based format that supports features like multiple sheets, formatting, and formulas. This tool bridges that gap by converting the flat structure of a CSV into the cellular structure of a spreadsheet, and vice versa.",
       howToUse: [
-        "Paste your CSV content into the input box.",
-        "Click the 'Download .xlsx' button.",
-        "Your browser will immediately download the generated Excel file.",
+        "For CSV to XLSX: Paste your CSV content into the input box and click 'Download .xlsx'.",
+        "For XLSX to CSV: Drag and drop your `.xlsx` file, and then copy the CSV output or download it as a file.",
       ],
       features: [
-        "Direct CSV to XLSX Conversion: Creates a native Excel file instantly.",
-        "Client-Side & Secure: Your data is processed entirely in your browser and is never uploaded.",
+        "Direct CSV to XLSX and XLSX to CSV Conversion.",
+        "Client-Side & Secure: Your data is processed entirely in your browser.",
         "Accurate Data Mapping: Correctly handles headers and data rows.",
         "No Software Needed: A completely online, browser-based solution.",
       ],
       faqs: [
         {
           question: "Does it support formulas or styling?",
-          answer:
-            "No, this tool is designed for converting plain data only. It does not interpret formulas or apply styling.",
+          answer: "No, this tool is designed for converting plain data only. It does not interpret formulas or apply styling.",
         },
         {
           question: "Is there a file size limit?",
-          answer:
-            "The tool is best suited for small to medium-sized datasets, as very large files may be limited by your browser's memory.",
+          answer: "The tool is best suited for small to medium-sized datasets, as very large files may be limited by your browser's memory.",
         },
         {
           question: "What encoding does it use?",
-          answer:
-            "It processes the data assuming UTF-8 encoding for broad compatibility.",
+          answer: "It processes the data assuming UTF-8 encoding for broad compatibility.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
@@ -1604,62 +1595,6 @@ export const TOOLS: Tool[] = [
       "csv to xlsx browser",
       "excel file generator",
       "csv to sheetjs",
-    ],
-  },
-  {
-    id: "xlsx-to-csv",
-    name: "XLSX to CSV",
-    description:
-      "Extract Excel spreadsheet data and convert it to CSV format instantly.",
-    seoTitle: "Online XLSX to CSV Converter | Free Excel to CSV Tool",
-    seoDescription:
-      "Quickly and securely convert your Excel (.xlsx) files into CSV format with our free online tool. Extract data from your spreadsheets for use in scripts or other applications. 100% private.",
-    icon: <XlsxToCsvIcon />,
-    component: XlsxToCsv,
-    category: ToolCategory.CODING,
-    details: {
-      introduction:
-        "Unlock the data in your Excel files. Our XLSX to CSV converter lets you instantly extract the data from any Excel spreadsheet and convert it into a clean, simple CSV format. It's perfect for preparing data for import into other systems, running scripts, or just getting a plain text version of your spreadsheet. The entire process is done securely in your browser.",
-      explanation:
-        "The tool uses the SheetJS library to read your uploaded `.xlsx` file directly in the browser. It then parses the first worksheet and converts its rows and columns into a standard CSV string, which you can then copy or download.",
-      usageExamples: [
-        "Extracting data from an Excel report to be used in a Python script.",
-        "Converting a spreadsheet into a CSV for import into a database.",
-        "Getting a plain text version of a spreadsheet for version control.",
-      ],
-      underlyingConcept:
-        "This tool performs the reverse of a CSV-to-XLSX conversion. It takes the cellular data from a spreadsheet and 'flattens' it into a plain-text, comma-separated format, making it universally accessible to a wide range of applications and programming languages.",
-      howToUse: [
-        "Drag and drop your `.xlsx` file onto the page, or click to upload it.",
-        "The tool will instantly convert the first sheet into CSV format.",
-        "You can then copy the resulting CSV or download it as a file.",
-      ],
-      features: [
-        "Supports Modern Excel Files: Works with `.xlsx` and other common spreadsheet formats.",
-        "Converts the First Sheet: Automatically extracts data from the first worksheet.",
-        "Instant & Secure: All processing happens in your browser; your files are never uploaded.",
-        "Easy Output: Copy the CSV to your clipboard or download it as a file.",
-      ],
-      faqs: [
-        {
-          question: "Does it support multiple sheets?",
-          answer:
-            "No, this tool is designed to convert only the first sheet of the Excel file.",
-        },
-        {
-          question: "Are formulas converted?",
-          answer:
-            "No, only the calculated values from the cells are converted, not the formulas themselves.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "Performance depends on your browser's memory, but it's best suited for small to medium-sized files.",
-        },
-      ],
-      privacy: PRIVACY_STATEMENT,
-    },
-    keywords: [
       "xlsx to csv online",
       "convert excel to csv",
       "extract data from xlsx",
