@@ -1545,62 +1545,79 @@ export const TOOLS: Tool[] = [
   },
   {
     id: "csv-xlsx-converter",
-    name: "CSV & XLSX Converter",
-    description: "Convert CSV data to Excel (.xlsx) spreadsheets and vice versa.",
-    seoTitle: "Online CSV and XLSX Converter | Free & Secure",
-    seoDescription: "Quickly convert your CSV files into formatted Excel (.xlsx) spreadsheets and vice versa with our free online tool. No software to install. 100% private.",
+    name: "Data Converter",
+    description:
+      "The ultimate data conversion tool. Convert CSV or XLSX files to JSON, SQL, HTML, and more, instantly in your browser.",
+    seoTitle:
+      "Universal Data Converter | Convert CSV, XLSX, JSON, SQL, and more",
+    seoDescription:
+      "Our free online Data Converter instantly transforms your files. Convert CSV or Excel (XLSX) to JSON, SQL, HTML, Markdown, and more. Secure, browser-based, and incredibly fast.",
     icon: <FileConversionIcon />,
     component: CsvXlsxConverter,
     category: ToolCategory.CODING,
     details: {
-      introduction: "Effortlessly convert your data between CSV and Excel formats. Our browser-based tool instantly transforms your plain text data into a downloadable `.xlsx` file, or your `.xlsx` file into a CSV. It's ready for analysis, reporting, or sharing. No software installation required—just paste, click, and download.",
-      explanation: "This tool uses the powerful SheetJS library to parse your data and map it between formats. It preserves your headers and data structure, creating a clean, ready-to-use file.",
-      usageExamples: [
-        "Sharing data from a database export with non-technical colleagues.",
-        "Importing CSV log files into Excel for easier analysis and charting.",
-        "Extracting data from an Excel report to be used in a Python script.",
-        "Converting a spreadsheet into a CSV for import into a a database.",
-      ],
-      underlyingConcept: "While CSV is a simple, plain-text format, XLSX is a more complex, XML-based format that supports features like multiple sheets, formatting, and formulas. This tool bridges that gap by converting the flat structure of a CSV into the cellular structure of a spreadsheet, and vice versa.",
+      introduction:
+        "Stop wrestling with incompatible file formats. Our Universal Data Converter is your all-in-one solution for instantly transforming data. Whether you have a CSV from a database export, an Excel sheet from a colleague, or pasted data, you can convert it into JSON for your web app, SQL for your database, an HTML table for a report, or many other formats. It's powerful, fast, and 100% private.",
       howToUse: [
-        "For CSV to XLSX: Paste your CSV content into the input box and click 'Download .xlsx'.",
-        "For XLSX to CSV: Drag and drop your `.xlsx` file, and then copy the CSV output or download it as a file.",
+        "Upload a CSV or Excel (.xlsx) file, or paste your raw CSV data into the text area.",
+        "The tool instantly processes your input.",
+        "Select your desired output format from the list: JSON, SQL, HTML, Markdown, and more.",
+        "Configure advanced options if needed (like separators or table names).",
+        "Click 'Download' to get your newly converted file.",
       ],
       features: [
-        "Direct CSV to XLSX and XLSX to CSV Conversion.",
-        "Client-Side & Secure: Your data is processed entirely in your browser.",
-        "Accurate Data Mapping: Correctly handles headers and data rows.",
-        "No Software Needed: A completely online, browser-based solution.",
+        "Multi-Format Support: Convert from CSV or XLSX to JSON, SQL, HTML, Markdown, TSV, vCard, and more.",
+        "Two-Way Conversion: Not just from CSV/XLSX, but also enables conversions like JSON to CSV.",
+        "Intelligent Parsing: Automatically detects headers and handles various delimiters.",
+        "Advanced Options: Fine-tune your output with options for separators, headers, and SQL table names.",
+        "100% Browser-Based: Your data is never sent to a server. All conversions happen locally for maximum privacy and speed.",
+        "Handles Large Files: Efficiently processes large datasets right in your browser.",
+      ],
+      explanation:
+        "In a data-driven world, information rarely stays in one place or one format. A CSV file is great for spreadsheets, but a web application needs JSON. A data analyst might need SQL `INSERT` statements. This tool acts as a universal translator for your data, bridging the gap between different systems and requirements without needing complex software or command-line scripts.",
+      usageExamples: [
+        "A developer converting a client's Excel price list into a JSON object for an e-commerce site.",
+        "A data analyst transforming a CSV export into SQL `INSERT` statements to populate a database.",
+        "A project manager pasting tabular data and converting it to a Markdown table for a GitHub wiki.",
+        "An office administrator converting a XLSX contact list into vCards for easy import into a phone.",
       ],
       faqs: [
         {
-          question: "Does it support formulas or styling?",
-          answer: "No, this tool is designed for converting plain data only. It does not interpret formulas or apply styling.",
+          question: "What is the largest file size you support?",
+          answer:
+            "Since all processing happens in your browser, the limit depends on your computer's memory and browser version. It's optimized for typical datasets but may slow down with extremely large files (hundreds of megabytes).",
         },
         {
-          question: "Is there a file size limit?",
-          answer: "The tool is best suited for small to medium-sized datasets, as very large files may be limited by your browser's memory.",
+          question: "Are my files and data secure?",
+          answer:
+            "Yes. Your data never leaves your computer. All conversions are done locally, ensuring your information remains 100% private.",
         },
         {
-          question: "What encoding does it use?",
-          answer: "It processes the data assuming UTF-8 encoding for broad compatibility.",
+          question: "Can I convert from JSON to CSV?",
+          answer:
+            "This specific tool is optimized for converting *from* tabular data (CSV/XLSX) to other formats. For JSON to CSV, please use our dedicated 'JSON to CSV' converter.",
+        },
+        {
+          question: "Does the tool retain my original file's styling?",
+          answer:
+            "No. The converter focuses on extracting and transforming the raw data. It does not preserve any styling, formulas, or formatting from Excel files.",
         },
       ],
+      underlyingConcept:
+        "This tool leverages powerful JavaScript libraries like SheetJS (for XLSX parsing) and custom data-structure mapping to transform data. It first converts any input into a standardized internal representation (an array of objects), and then serializes that representation into the target output format, whether it's a structured language like SQL or a markup format like HTML.",
       privacy: PRIVACY_STATEMENT,
     },
     keywords: [
-      "csv to excel online",
-      "convert csv to xlsx",
-      "spreadsheet conversion tool",
-      "csv to xlsx browser",
-      "excel file generator",
-      "csv to sheetjs",
-      "xlsx to csv online",
-      "convert excel to csv",
-      "extract data from xlsx",
-      "spreadsheet to csv",
-      "csv file converter",
-      "excel to csv tool",
+      "data converter",
+      "file converter",
+      "csv to json",
+      "xlsx to csv",
+      "csv to sql",
+      "excel to json",
+      "json to csv",
+      "data transformation",
+      "file format converter",
+      "browser-based tools",
     ],
   },
   // Image Tools
