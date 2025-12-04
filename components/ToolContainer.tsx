@@ -15,6 +15,7 @@ interface ToolContainerProps {
   toolId?: string;
 }
 
+
 const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details, toolId }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +42,19 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
         {children} 
       </div>
 
+      {currentTool?.tags && currentTool.tags.length > 0 && (
+        <div className="mt-4">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">Tags:</span>
+            {currentTool.tags.map((tag) => (
+              <Link key={tag} href={`/tags/${tag.toLowerCase()}`} className="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors duration-200">
+                {tag}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
       {recommendedTools.length > 0 && (
         <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
           <div className="flex justify-between items-center mb-4">
@@ -63,9 +77,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
           <div ref={scrollContainerRef} className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide">
             {recommendedTools.map((tool) => (
               <div key={tool.id} className="flex-none w-64">
-                <Link href={`/tools/${tool.id}`} passHref>
-                  <ToolCard tool={tool as unknown as Tool} />
-                </Link>
+                <Link href={`/tools/${tool.id}`}><ToolCard tool={tool as unknown as Tool} /></Link>
               </div>
             ))}
           </div>

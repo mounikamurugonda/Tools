@@ -54,6 +54,33 @@ import WatermarkAdder from "@/tools/WatermarkAdder";
 import ImageResizer from "@/tools/ImageResizer";
 import ImageConverter from "@/tools/ImageConverter";
 import ImageCompressor from "@/tools/ImageCompressor";
+
+// New Tool Imports
+import JsonToTypescript from "@/tools/JsonToTypescript";
+import CodeToImage from "@/tools/CodeToImage";
+import SqlFormatter from "@/tools/SqlFormatter";
+import CronParser from "@/tools/CronParser";
+import SlugGenerator from "@/tools/SlugGenerator";
+import MetaTagGenerator from "@/tools/MetaTagGenerator";
+import ContrastChecker from "@/tools/ContrastChecker";
+import ChmodCalculator from "@/tools/ChmodCalculator";
+import UtmBuilder from "@/tools/UtmBuilder";
+import AspectRatio from "@/tools/AspectRatio";
+import CssTriangle from "@/tools/CssTriangle";
+import XmlFormatter from "@/tools/XmlFormatter";
+import MorseConverter from "@/tools/MorseConverter";
+import BinaryConverter from "@/tools/BinaryConverter";
+import PasswordStrength from "@/tools/PasswordStrength";
+import StringEscaper from "@/tools/StringEscaper";
+import PercentageCalculator from "@/tools/PercentageCalculator";
+import MarkdownTable from "@/tools/MarkdownTable";
+import ListRandomizer from "@/tools/ListRandomizer";
+import TextCleaner from "@/tools/TextCleaner";
+import AsciiArt from "@/tools/AsciiArt";
+import SvgToDataUri from "@/tools/SvgToDataUri";
+import YamlToJson from "@/tools/YamlToJson";
+import JsonToYaml from "@/tools/JsonToYaml";
+
 import {
   CaseIcon,
   CounterIcon,
@@ -121,13 +148,466 @@ import {
   XlsxToCsvIcon,
   Base64ToImageIcon,
   WordCounterIcon,
+  TerminalIcon,
+  CameraToolIcon,
+  SqlIcon,
+  CronIcon,
+  Link2Icon,
+  TagIcon,
+  ContrastIcon,
+  ChmodIcon,
+  UtmIcon,
+  TriangleIcon,
+  XmlIcon,
+  MorseIcon,
+  BinaryIcon,
+  ShieldCheckIcon,
+  StringEscaperIcon,
+  PercentIcon,
+  TableIcon,
+  ListIcon,
+  EraserIcon,
+  AsciiIconComponent,
+  AspectRatioIcon,
+  FileCodeIcon,
 } from "@/components/icons";
 
 const PRIVACY_STATEMENT =
   "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
 
 export const TOOLS: Tool[] = [
-  // Text Tools
+  {
+    id: "json-to-typescript",
+    name: "JSON to TypeScript",
+    description: "Instantly generate TypeScript interfaces from JSON objects.",
+    icon: <JsonIcon />,
+    component: JsonToTypescript,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Convert JSON to Typescript",
+      howToUse: ["Paste JSON", "Copy TS"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "code-to-image",
+    name: "Code to Image",
+    description: "Create beautiful images of your code snippets for sharing.",
+    icon: <CameraToolIcon />,
+    component: CodeToImage,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Create screenshots of code.",
+      howToUse: ["Paste Code", "Select Theme", "Snapshot"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "sql-formatter",
+    name: "SQL Formatter",
+    description: "Format and beautify your SQL queries.",
+    icon: <SqlIcon />,
+    component: SqlFormatter,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Format SQL queries.",
+      howToUse: ["Paste SQL", "Click Format"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "cron-generator",
+    name: "Cron Expression Generator",
+    description: "Visually build and explain cron job schedules.",
+    icon: <CronIcon />,
+    component: CronParser,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Build Cron expressions visually.",
+      howToUse: ["Select intervals", "Copy string"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "slug-generator",
+    name: "Slug Generator",
+    description: "Convert text into SEO-friendly URL slugs.",
+    icon: <Link2Icon />,
+    component: SlugGenerator,
+    category: ToolCategory.TEXT,
+    details: {
+      introduction: "Create URL slugs.",
+      howToUse: ["Type title", "Copy slug"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "meta-tag-generator",
+    name: "Meta Tag Generator",
+    description: "Generate SEO meta tags for your website.",
+    icon: <TagIcon />,
+    component: MetaTagGenerator,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Create HTML meta tags.",
+      howToUse: ["Enter details", "Copy HTML"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "contrast-checker",
+    name: "Contrast Checker",
+    description: "Check color contrast accessibility (WCAG).",
+    icon: <ContrastIcon />,
+    component: ContrastChecker,
+    category: ToolCategory.COLOR,
+    details: {
+      introduction: "Check color contrast.",
+      howToUse: ["Select colors", "See rating"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "chmod-calculator",
+    name: "Chmod Calculator",
+    description: "Visual calculator for Unix file permissions.",
+    icon: <ChmodIcon />,
+    component: ChmodCalculator,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Calculate Linux permissions.",
+      howToUse: ["Check boxes", "Copy code"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "utm-builder",
+    name: "UTM Builder",
+    description: "Build tracking URLs for marketing campaigns.",
+    icon: <UtmIcon />,
+    component: UtmBuilder,
+    category: ToolCategory.PRODUCTIVITY,
+    details: {
+      introduction: "Create tracking links.",
+      howToUse: ["Enter URL", "Add params", "Copy"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "aspect-ratio-calculator",
+    name: "Aspect Ratio Calculator",
+    description: "Calculate dimensions and aspect ratios for images and video.",
+    icon: <AspectRatioIcon />,
+    component: AspectRatio,
+    category: ToolCategory.IMAGE,
+    details: {
+      introduction: "Calculate aspect ratios.",
+      howToUse: ["Enter dims", "See ratio"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "css-triangle-generator",
+    name: "CSS Triangle Generator",
+    description: "Generate CSS code for geometric triangles.",
+    icon: <TriangleIcon />,
+    component: CssTriangle,
+    category: ToolCategory.CSS,
+    details: {
+      introduction: "Create CSS triangles.",
+      howToUse: ["Set direction/color", "Copy CSS"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "xml-formatter",
+    name: "XML Formatter",
+    description: "Beautify and format XML strings.",
+    icon: <XmlIcon />,
+    component: XmlFormatter,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Format XML.",
+      howToUse: ["Paste XML", "Copy formatted"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "morse-converter",
+    name: "Morse Code Converter",
+    description: "Translate text to Morse code and vice versa.",
+    icon: <MorseIcon />,
+    component: MorseConverter,
+    category: ToolCategory.FUN,
+    details: {
+      introduction: "Text to Morse conversion.",
+      howToUse: ["Type text", "See dots/dashes"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "binary-converter",
+    name: "Binary Converter",
+    description: "Translate text to binary code and back.",
+    icon: <BinaryIcon />,
+    component: BinaryConverter,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Convert text to 0s and 1s.",
+      howToUse: ["Type text", "Get binary"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "password-strength",
+    name: "Password Strength Checker",
+    description: "Test the strength of your passwords.",
+    icon: <ShieldCheckIcon />,
+    component: PasswordStrength,
+    category: ToolCategory.MISC,
+    details: {
+      introduction: "Check password strength.",
+      howToUse: ["Type password", "See score"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "string-escaper",
+    name: "String Escaper",
+    description: "Escape strings for JSON, HTML, URL, and Java.",
+    icon: <StringEscaperIcon />,
+    component: StringEscaper,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Escape special characters.",
+      howToUse: ["Paste text", "Select format"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "percentage-calculator",
+    name: "Percentage Calculator",
+    description: "Quickly calculate percentages for common math problems.",
+    icon: <PercentIcon />,
+    component: PercentageCalculator,
+    category: ToolCategory.MATH,
+    details: {
+      introduction: "Calculate percentages.",
+      howToUse: ["Enter numbers", "Get result"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "markdown-table-generator",
+    name: "Markdown Table Generator",
+    description: "Create Markdown tables easily with a visual editor.",
+    icon: <TableIcon />,
+    component: MarkdownTable,
+    category: ToolCategory.TEXT,
+    details: {
+      introduction: "Generate MD tables.",
+      howToUse: ["Set rows/cols", "Fill data", "Copy"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "list-randomizer",
+    name: "List Randomizer",
+    description: "Shuffle and randomize a list of items.",
+    icon: <ListIcon />,
+    component: ListRandomizer,
+    category: ToolCategory.FUN,
+    details: {
+      introduction: "Randomize lists.",
+      howToUse: ["Paste list", "Shuffle"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "text-cleaner",
+    name: "Text Cleaner",
+    description: "Remove extra spaces, line breaks, and format text.",
+    icon: <EraserIcon />,
+    component: TextCleaner,
+    category: ToolCategory.TEXT,
+    details: {
+      introduction: "Clean up text.",
+      howToUse: ["Paste text", "Click clean"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "ascii-art-generator",
+    name: "ASCII Art Generator",
+    description: "Generate simple ASCII art text banners.",
+    icon: <AsciiIconComponent />,
+    component: AsciiArt,
+    category: ToolCategory.FUN,
+    details: {
+      introduction: "Create text banners.",
+      howToUse: ["Type text", "See art"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "svg-to-data-uri",
+    name: "SVG to Data URI",
+    description: "Convert SVG code into a Data URI for use in CSS.",
+    icon: <ImageIcon />,
+    component: SvgToDataUri,
+    category: ToolCategory.IMAGE,
+    details: {
+      introduction: "Convert SVG to URI.",
+      howToUse: ["Paste SVG", "Copy URI"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "yaml-to-json",
+    name: "YAML to JSON",
+    description: "Convert simple YAML to JSON.",
+    icon: <FileCodeIcon />,
+    component: YamlToJson,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Convert YAML to JSON.",
+      howToUse: ["Paste YAML", "Get JSON"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "json-to-yaml",
+    name: "JSON to YAML",
+    description: "Convert JSON objects to YAML format.",
+    icon: <FileCodeIcon />,
+    component: JsonToYaml,
+    category: ToolCategory.CODING,
+    details: {
+      introduction: "Convert JSON to YAML.",
+      howToUse: ["Paste JSON", "Get YAML"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
   {
     id: "keyword-density-analyzer",
     name: "Keyword Density Analyzer",
@@ -308,8 +788,7 @@ export const TOOLS: Tool[] = [
     name: "Loan Calculator",
     description:
       "Calculate accurate monthly payments, interest costs, and a complete amortization schedule for any type of loan.",
-    seoTitle:
-      "Free Loan Calculator | Estimate Monthly Payments & Amortization",
+    seoTitle: "Free Loan Calculator | Estimate Monthly Payments & Amortization",
     seoDescription:
       "Take control of your finances. Our free Loan Calculator helps you estimate monthly payments, total interest, and see a full amortization schedule for any loan. Plan for mortgages, car loans, and more. Fast, accurate, and 100% private.",
 
@@ -538,7 +1017,7 @@ export const TOOLS: Tool[] = [
     seoTitle: "Free Online Word Counter | Real-Time Word & Character Count",
     seoDescription:
       "Hit your writing goals with our free online Word Counter. Get instant, accurate counts for words, characters, sentences, and paragraphs, plus an estimated reading time. Perfect for writers, students, and SEOs.",
-    icon: <CounterIcon />,
+    icon: <WordCounterIcon />,
     component: WordCounter,
     category: ToolCategory.TEXT,
     keywords: [
@@ -685,8 +1164,7 @@ export const TOOLS: Tool[] = [
     name: "Lorem Ipsum Generator",
     description:
       "Generate customizable placeholder text for web design, UI/UX prototypes, print layouts, and content mockups.",
-    seoTitle:
-      "Lorem Ipsum Generator | Create Custom Placeholder Text",
+    seoTitle: "Lorem Ipsum Generator | Create Custom Placeholder Text",
     seoDescription:
       "Need placeholder text? Our free Lorem Ipsum Generator creates custom dummy text for your designs. Generate paragraphs, sentences, or words to perfect your layouts. Fast, easy, and professional.",
     icon: <LoremIpsumIcon />,
@@ -918,8 +1396,7 @@ export const TOOLS: Tool[] = [
     name: "Base64 Converter",
     description:
       "Instantly encode and decode text, images, and files to/from Base64 online.",
-    seoTitle:
-      "Online Base64 Converter | Encode & Decode Text, Files & Images",
+    seoTitle: "Online Base64 Converter | Encode & Decode Text, Files & Images",
     seoDescription:
       "A free, powerful tool to encode and decode Base64. Easily convert text, images, or any file into a Base64 string and back again. Secure, fast, and all in your browser.",
     icon: <Base64Icon />,
@@ -1240,7 +1717,8 @@ export const TOOLS: Tool[] = [
     name: "Hash Generator",
     description:
       "Create SHA-1, SHA-256, or SHA-512 hashes online from any text.",
-    seoTitle: "Online Hash Generator | Generate SHA-1, SHA-256 & SHA-512 Hashes",
+    seoTitle:
+      "Online Hash Generator | Generate SHA-1, SHA-256 & SHA-512 Hashes",
     seoDescription:
       "Instantly generate secure SHA-1, SHA-256, and SHA-512 hashes from any text with our free online tool. Powered by the Web Crypto API for maximum security. 100% private.",
     icon: <HashIcon />,
@@ -1671,8 +2149,7 @@ export const TOOLS: Tool[] = [
         },
         {
           question: "Is it supported in all browsers?",
-          answer:
-            "Yes, Data URLs are supported by all modern web browsers.",
+          answer: "Yes, Data URLs are supported by all modern web browsers.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
@@ -2284,378 +2761,205 @@ export const TOOLS: Tool[] = [
       "hex to hsl",
     ],
   },
-  // Math Tools
   {
-    id: "unit-converter",
-    name: "Unit Converter",
-    description: "Convert between common units of measurement.",
-    seoTitle: "Online Unit Converter | Length, Weight, Temperature & More",
-    seoDescription:
-      "Quickly convert between common units of measurement with our free online Unit Converter. Supports length, weight, temperature, and more. Fast, accurate, and easy to use.",
-    icon: <UnitConverterIcon />,
-    component: UnitConverter,
-    category: ToolCategory.MATH,
+    id: "video-compressor",
+    name: "Video Compressor",
+    description: "Reduce video file size without significant quality loss.",
+    icon: <VideoCompressorIcon />,
+    component: VideoCompressor,
+    category: ToolCategory.VIDEO,
     details: {
-      introduction:
-        "Need a quick conversion? Our Unit Converter is a simple and powerful tool for instantly converting between various units of measurement. Whether you're in the kitchen, at your desk, or planning a trip, get fast and accurate conversions for length, weight, temperature, and more.",
-      explanation:
-        "The tool uses standard, internationally recognized conversion factors to calculate the equivalent value between units. For example, it knows that 1 inch is exactly 2.54 centimeters.",
-      usageExamples: [
-        "Converting a recipe from grams to ounces.",
-        "Changing a travel distance from kilometers to miles.",
-        "Converting Celsius to Fahrenheit for a weather report.",
-      ],
-      underlyingConcept:
-        "Unit conversion is the process of converting a quantity from one unit of measurement to another using a 'conversion factor'. This tool automates that process for a wide range of common units.",
-      howToUse: [
-        "Select the type of measurement you want to convert (e.g., Length, Weight).",
-        "Enter the value you have in the 'From' field.",
-        "Select your starting unit and your target unit from the dropdowns.",
-        "The converted value will appear instantly in the 'To' field.",
-      ],
-      features: [
-        "Multiple Categories: Supports Length, Weight, Temperature, and more.",
-        "Intuitive Interface: A clean and simple design for fast conversions.",
-        "Real-Time Calculation: Results appear instantly as you type.",
-        "Two-Way Conversion: Edit either field to convert in either direction.",
-      ],
-      faqs: [
-        {
-          question: "What categories are supported?",
-          answer:
-            "Currently, it supports Length, Weight, and Temperature, with more categories like Volume and Speed planned for the future.",
-        },
-        {
-          question: "How accurate are the conversions?",
-          answer:
-            "The tool uses standard, high-precision conversion factors for maximum accuracy.",
-        },
-        {
-          question: "Can I use this offline?",
-          answer:
-            "Yes! Since all calculations happen in your browser, the tool works perfectly even without an internet connection.",
-        },
-      ],
+      introduction: "Compress video files easily.",
+      howToUse: ["Upload video", "Click compress", "Download"],
+      features: [],
       privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
     },
-    keywords: [
-      "unit converter online",
-      "metric to imperial converter",
-      "length converter",
-      "weight converter",
-      "temperature converter",
-      "measurement conversion",
-    ],
   },
   {
-    id: "currency-converter",
-    name: "Currency Converter",
-    description: "Convert between currencies with near real-time rates.",
-    seoTitle: "Live Currency Converter | Real-Time Exchange Rates",
-    seoDescription:
-      "Get up-to-the-minute exchange rates with our free Live Currency Converter. Convert between all major global currencies. Perfect for travel, shopping, and business.",
-    icon: <CurrencyIcon />,
-    component: CurrencyConverter,
-    category: ToolCategory.MATH,
+    id: "video-to-audio-converter",
+    name: "Video to Audio Converter",
+    description: "Extract audio tracks from video files as MP3.",
+    icon: <VideoToAudioIcon />,
+    component: VideoToAudioConverter,
+    category: ToolCategory.VIDEO,
     details: {
-      introduction:
-        "Make smart financial decisions with our Live Currency Converter. It provides up-to-date exchange rates for global currencies, giving you an accurate picture of what your money is worth. It's an essential tool for travelers, online shoppers, and anyone dealing with international finance.",
-      explanation:
-        "The tool fetches the latest mid-market exchange rates from a reliable financial data API. It then performs the conversion by multiplying your input amount by the current rate.",
-      usageExamples: [
-        "A traveler checking how much their money is worth in a foreign country.",
-        "An online shopper comparing the price of an item in different currencies.",
-        "A business calculating an invoice for an international client.",
-      ],
-      underlyingConcept:
-        "Foreign exchange (forex) rates are constantly fluctuating based on supply and demand in global markets. This tool provides the 'mid-market' rate, which is the midpoint between the buy and sell rates and is the most accurate measure of a currency's current value.",
-      howToUse: [
-        "Enter the amount you want to convert in either the 'From' or 'To' field.",
-        "Select your desired currencies from the dropdown menus.",
-        "The tool will instantly calculate and display the converted amount.",
-        "Click the swap button to easily reverse the conversion.",
-      ],
-      features: [
-        "Live Exchange Rates: Uses up-to-date data from a financial API.",
-        "All Major Currencies: Supports a wide range of international currencies.",
-        "Two-Way Conversion: Edit either amount to convert in either direction.",
-        "Simple & Fast: A clean interface for quick and easy conversions.",
-      ],
-      faqs: [
-        {
-          question: "How often are the rates updated?",
-          answer:
-            "The rates are fetched from an API and are typically updated every few hours.",
-        },
-        {
-          question: "Are bank fees included in the conversion?",
-          answer:
-            "No, this tool shows you the mid-market rate. Your bank or credit card company will likely charge a small fee on top of this rate.",
-        },
-        {
-          question: "Does this work offline?",
-          answer:
-            "No, an internet connection is required to fetch the latest exchange rates.",
-        },
-      ],
-      privacy:
-        "This tool fetches exchange rates from a third-party API (open.er-api.com). The amounts and currencies you select are used for calculation in your browser and are not sent to our servers. Please refer to the API provider's privacy policy for their data handling practices.",
-    },
-    keywords: [
-      "currency converter online",
-      "exchange rate calculator",
-      "forex converter",
-      "dollar to euro",
-      "live exchange rates",
-      "money converter",
-    ],
-  },
-  {
-    id: "bmi-calculator",
-    name: "BMI Calculator",
-    description: "Calculate your Body Mass Index.",
-    seoTitle: "BMI Calculator | Check Your Body Mass Index Instantly",
-    seoDescription:
-      "Quickly calculate your Body Mass Index (BMI) with our free and simple online calculator. Supports both metric and imperial units. Get an instant snapshot of your weight status.",
-    icon: <BmiIcon />,
-    component: BmiCalculator,
-    category: ToolCategory.MATH,
-    details: {
-      introduction:
-        "Get a quick snapshot of your health with our simple BMI Calculator. Body Mass Index (BMI) is a widely used measure to estimate your body fat based on your height and weight. Our tool gives you an instant calculation and shows you where you fall on the standard BMI scale, helping you stay aware of your health.",
-      explanation:
-        "BMI is calculated with the formula: `weight (kg) / (height (m))^2`. The result is then categorized based on the standard World Health Organization (WHO) ranges to give you a general idea of your weight status.",
-      usageExamples: [
-        "Getting a quick check-up on your personal health.",
-        "Providing a starting point for a conversation with a doctor or fitness coach.",
-        "Tracking changes in your weight status over time.",
-      ],
-      underlyingConcept:
-        "Developed in the 19th century, BMI is a simple statistical measure that correlates with body fat for most of the population. While it has limitations (it doesn't account for muscle mass), it remains a useful and easy-to-calculate screening tool.",
-      howToUse: [
-        "Choose your preferred units (Metric or Imperial).",
-        "Enter your height and weight.",
-        "The tool will instantly calculate and display your BMI.",
-        "Your result will be color-coded and categorized according to the standard BMI scale.",
-      ],
-      features: [
-        "Metric & Imperial Units: Supports both cm/kg and ft/in/lbs.",
-        "Instant Calculation: Get your BMI result as you type.",
-        "Clear Results: Provides your BMI value and the corresponding weight category.",
-        "Color-Coded Scale: Easily see where you fall on the BMI spectrum.",
-      ],
-      faqs: [
-        {
-          question: "Is BMI accurate for everyone?",
-          answer:
-            "It's a good general indicator, but it can be misleading for very muscular individuals (like athletes) or for children and the elderly. It's best used as a screening tool, not a diagnostic one.",
-        },
-        {
-          question: "What is a healthy BMI?",
-          answer:
-            "A BMI between 18.5 and 24.9 is generally considered to be in the healthy weight range for most adults.",
-        },
-        {
-          question: "What are the alternatives to BMI?",
-          answer:
-            "More accurate methods for measuring body fat include skinfold thickness measurements, bioelectrical impedance, and waist-to-hip ratio, but these usually require special equipment or a professional.",
-        },
-      ],
+      introduction: "Convert video to audio.",
+      howToUse: ["Upload video", "Convert", "Download MP3"],
+      features: [],
       privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
     },
-    keywords: [
-      "bmi calculator",
-      "body mass index calculator",
-      "healthy weight calculator",
-      "bmi chart",
-      "fitness calculator",
-      "what is my bmi",
-    ],
   },
   {
-    id: "date-calculator",
-    name: "Date Calculator",
-    description: "Calculate duration between dates or add/subtract days.",
-    seoTitle: "Date Calculator | Days Between Dates & Date Adder",
-    seoDescription:
-      "Our free Date Calculator makes date math easy. Find the duration (in days and weeks) between two dates, or calculate a future/past date by adding or subtracting days.",
-    icon: <DateCalcIcon />,
-    component: DateCalculator,
-    category: ToolCategory.MATH,
+    id: "gif-maker",
+    name: "GIF Maker",
+    description: "Convert video clips into animated GIFs.",
+    icon: <GifMakerIcon />,
+    component: GifMaker,
+    category: ToolCategory.VIDEO,
     details: {
-      introduction:
-        "Date math made simple. Our versatile Date Calculator can do two things: calculate the exact duration (in days and weeks) between any two dates, or find a future or past date by adding or subtracting days from a starting point. It's perfect for project planning, tracking deadlines, or just satisfying your curiosity.",
-      explanation:
-        "The tool uses your browser's built-in Date objects to perform the calculations. For duration, it calculates the difference in milliseconds between the two dates and converts it to days. For adding/subtracting, it uses the `setDate` method, which correctly handles month and year rollovers.",
-      usageExamples: [
-        "Calculating your age in days.",
-        "Figuring out the deadline for a 90-day project.",
-        "Finding out how many days are left until your next vacation.",
-      ],
-      underlyingConcept:
-        "Date arithmetic is complex because of varying month lengths and leap years. By leveraging the browser's built-in date engine, this tool can perform these calculations accurately and instantly without you having to worry about the details.",
-      howToUse: [
-        "Choose your mode: 'Duration Between Dates' or 'Add/Subtract Days'.",
-        "For 'Duration', pick a start and end date to see the time between them.",
-        "For 'Add/Subtract', pick a start date, choose 'Add' or 'Subtract', and enter the number of days.",
-      ],
-      features: [
-        "Dual Modes: Flexible calculations for duration or date addition/subtraction.",
-        "Clear Duration Results: Calculates the duration in both total days and in weeks + days.",
-        "Handles Leap Years: All calculations automatically account for leap years.",
-        "Simple Interface: Uses user-friendly date pickers for easy input.",
-      ],
-      faqs: [
-        {
-          question: "Does this account for leap years?",
-          answer: "Yes, all calculations automatically handle leap years correctly.",
-        },
-        {
-          question: "Does it consider time zones?",
-          answer:
-            "The calculations are based on the local time zone of your browser.",
-        },
-        {
-          question: "Can I add or subtract months or years?",
-          answer:
-            "Currently, the tool only supports adding or subtracting days. Support for months and years may be added in the future.",
-        },
-      ],
+      introduction: "Create GIFs from video.",
+      howToUse: ["Upload video", "Create GIF", "Download"],
+      features: [],
       privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
     },
-    keywords: [
-      "date calculator",
-      "days between dates",
-      "add days to date",
-      "time duration calculator",
-      "date difference",
-      "date to date calculator",
-    ],
-  },
-  // Productivity Tools
-  {
-    id: "world-clock",
-    name: "World Clock",
-    description: "Display and compare the current time in different cities.",
-    seoTitle: "World Clock | Compare Time Zones in Real-Time",
-    seoDescription:
-      "Instantly compare the current time in multiple cities around the world with our free online World Clock. Perfect for scheduling meetings and coordinating with international teams.",
-    icon: <WorldClockIcon />,
-    component: WorldClock,
-    category: ToolCategory.PRODUCTIVITY,
-    details: {
-      introduction:
-        "Stay in sync with the world. Our World Clock lets you easily track the current time in multiple cities at a glance. It's the perfect tool for anyone who works with international teams, schedules global meetings, or has friends and family across the globe. Your selected cities are saved in your browser for next time.",
-      explanation:
-        "The tool uses your browser's `Intl.DateTimeFormat` API, which can format a date and time according to any IANA time zone. This ensures the times are always accurate and automatically account for Daylight Saving Time.",
-      usageExamples: [
-        "A remote worker keeping track of their colleagues' time zones.",
-        "A project manager finding the best time for a meeting with a global team.",
-        "A traveler checking the time back home.",
-      ],
-      underlyingConcept:
-        "All time zones are offsets from Coordinated Universal Time (UTC). This tool uses your system's current UTC time and then applies the correct offset for each selected city, automatically handling complex rules like Daylight Saving Time.",
-      howToUse: [
-        "A default set of cities is displayed to get you started.",
-        "Select a new city from the dropdown menu to add it to your clock list.",
-        "Click the trash can icon next to any city to remove it.",
-        "Your list of clocks is automatically saved in your browser.",
-      ],
-      features: [
-        "Multiple Clocks: Display the time for as many locations as you need.",
-        "Date & Time: Shows both the current time and date for each location.",
-        "Persistent List: Your selected cities are saved locally for your next visit.",
-        "Real-Time Updates: The clocks tick and update every second.",
-      ],
-      faqs: [
-        {
-          question: "Does it handle Daylight Saving Time (DST)?",
-          answer:
-            "Yes, it's handled automatically by your browser's internationalization API, so the times are always correct.",
-        },
-        {
-          question: "Can I add a city that's not on the list?",
-          answer:
-            "The list includes most major cities. If you'd like to see another added, please let us know!",
-        },
-        {
-          question: "Does this work offline?",
-          answer:
-            "Yes. As long as your computer's time is correct, the clock will continue to work even without an internet connection.",
-        },
-      ],
-      privacy:
-        "Your selected clock preferences are stored in your browser's `localStorage` and are not sent to any server.",
-    },
-    keywords: [
-      "world clock",
-      "time in different cities",
-      "global time checker",
-      "time zone comparison",
-      "international time",
-      "meeting planner",
-    ],
   },
   {
-    id: "timers-stopwatch",
-    name: "Timers & Stopwatch",
-    description: "Use a countdown timer or a stopwatch with lap functionality.",
-    seoTitle: "Online Timer & Stopwatch | Countdown & Lap Timer",
-    seoDescription:
-      "A free and simple online Timer and Stopwatch. Use the countdown timer for tasks or the stopwatch with lap functionality for timing events. Perfect for workouts, cooking, and studying.",
-    icon: <TimersIcon />,
-    component: TimersAndStopwatch,
-    category: ToolCategory.PRODUCTIVITY,
+    id: "trim-video",
+    name: "Trim Video",
+    description: "Cut and trim video files to desired length.",
+    icon: <TrimVideoIcon />,
+    component: TrimVideo,
+    category: ToolCategory.VIDEO,
     details: {
-      introduction:
-        "Your all-in-one timekeeping tool. Switch between a simple countdown Timer for focused tasks and a precise Stopwatch with lap tracking for measuring events. Whether you're in the kitchen, at the gym, or at your desk, this tool has you covered.",
-      explanation:
-        "The tool uses your browser's `setInterval` function to create a 'tick' every few milliseconds. For the timer, it counts down from your set time. For the stopwatch, it counts up. Laps are recorded by capturing the current time of the stopwatch.",
-      usageExamples: [
-        "Timing a 25-minute study session.",
-        "Tracking your lap times during a run.",
-        "Setting a reminder for something in the oven.",
-      ],
-      underlyingConcept:
-        "Digital timekeeping relies on the browser's internal clock. A timer decrements a set duration, while a stopwatch accumulates elapsed time from zero. Lap functionality simply records a snapshot of the elapsed time at a specific moment.",
-      howToUse: [
-        "Select either 'Timer' or 'Stopwatch' mode.",
-        "For the Timer: set the hours, minutes, and seconds, then click 'Start'.",
-        "For the Stopwatch: click 'Start' to begin, 'Stop' to pause, 'Lap' to record a split time, and 'Reset' to clear.",
-      ],
-      features: [
-        "Countdown Timer: Easy to set and includes a desktop notification when time is up.",
-        "Precise Stopwatch: Measures time with millisecond accuracy.",
-        "Lap Recording: Track split times without stopping the main timer.",
-        "Clean Interface: A simple and focused design that's easy to use.",
-      ],
-      faqs: [
-        {
-          question: "Will the timer work if I switch tabs?",
-          answer:
-            "Modern browsers may slow down timers in background tabs to save power. For best results, keep the tab open.",
-        },
-        {
-          question: "Is there a sound notification?",
-          answer:
-            "Yes, a simple chime will play when the countdown timer finishes.",
-        },
-        {
-          question: "Can I run multiple timers at once?",
-          answer:
-            "This version supports one timer or stopwatch at a time. You can open the tool in another tab to run a second one.",
-        },
-      ],
+      introduction: "Trim video clips.",
+      howToUse: ["Upload video", "Set start/end", "Trim"],
+      features: [],
       privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
     },
-    keywords: [
-      "online stopwatch",
-      "countdown timer",
-      "lap timer",
-      "kitchen timer",
-      "study timer",
-      "online timer",
-    ],
+  },
+  {
+    id: "format-converter",
+    name: "Video Format Converter",
+    description: "Convert videos between different formats like MP4, AVI, MOV.",
+    icon: <FormatConverterIcon />,
+    component: FormatConverter,
+    category: ToolCategory.VIDEO,
+    details: {
+      introduction: "Convert video formats.",
+      howToUse: ["Upload video", "Select format", "Convert"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "video-thumbnail-extractor",
+    name: "Video Thumbnail Extractor",
+    description:
+      "Extract image thumbnails from specific timestamps in a video.",
+    icon: <VideoThumbnailIcon />,
+    component: VideoThumbnailExtractor,
+    category: ToolCategory.VIDEO,
+    details: {
+      introduction: "Extract thumbnails from video.",
+      howToUse: ["Upload video", "Set time", "Extract"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "video-mute",
+    name: "Mute Video",
+    description: "Remove audio track from a video file.",
+    icon: <VideoMuteIcon />,
+    component: VideoMute,
+    category: ToolCategory.VIDEO,
+    details: {
+      introduction: "Remove audio from video.",
+      howToUse: ["Upload video", "Mute", "Download"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "watermark-adder",
+    name: "Watermark Adder",
+    description: "Add image or text watermarks to your photos.",
+    icon: <WatermarkAdderIcon />,
+    component: WatermarkAdder,
+    category: ToolCategory.IMAGE,
+    details: {
+      introduction: "Add watermark to images.",
+      howToUse: ["Upload image", "Upload watermark", "Apply"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "image-resizer",
+    name: "Image Resizer",
+    description: "Resize images by dimensions or percentage.",
+    icon: <ImageResizerIcon />,
+    component: ImageResizer,
+    category: ToolCategory.IMAGE,
+    details: {
+      introduction: "Resize images.",
+      howToUse: ["Upload image", "Set size", "Download"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "image-converter",
+    name: "Image Converter",
+    description: "Convert images between formats like PNG, JPG, WEBP.",
+    icon: <ImageConverterIcon />,
+    component: ImageConverter,
+    category: ToolCategory.IMAGE,
+    details: {
+      introduction: "Convert image formats.",
+      howToUse: ["Upload image", "Select format", "Convert"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
+  },
+  {
+    id: "image-compressor",
+    name: "Image Compressor",
+    description:
+      "Compress images to reduce file size while maintaining quality.",
+    icon: <ImageCompressorIcon />,
+    component: ImageCompressor,
+    category: ToolCategory.IMAGE,
+    details: {
+      introduction: "Compress images.",
+      howToUse: ["Upload image", "Set quality", "Compress"],
+      features: [],
+      privacy: PRIVACY_STATEMENT,
+      explanation: "",
+      usageExamples: [],
+      underlyingConcept: "",
+      faqs: [],
+    },
   },
   {
     id: "todo-list",
@@ -2671,1289 +2975,118 @@ export const TOOLS: Tool[] = [
       introduction:
         "Capture your thoughts and organize your day. Our To-Do List is a clean, simple, and persistent tool to help you keep track of your tasks. Add items, mark them as complete, and filter your view to stay focused. Your list is automatically saved in your browser, so it's always here when you need it.",
       explanation:
-        "The tool works by storing your list of tasks as an array in your browser's `localStorage`. Every time you add, complete, or delete a task, the UI updates and the array in `localStorage` is rewritten.",
+        "The tool uses your browser's local storage (LocalStorage) to save your task list directly on your device. This means your data persists even if you close the tab or restart your browser, but it is never sent to any external server.",
       usageExamples: [
-        "Keeping track of your daily chores.",
-        "Organizing your tasks for a work project.",
-        "Making a quick shopping list.",
+        "Keeping a daily task list.",
+        "Tracking a shopping list.",
+        "Managing a mini-project's steps.",
       ],
       underlyingConcept:
-        "This is a simple implementation of task management, where each task has a state (active or completed). Persistence is achieved through `localStorage`, a key-value storage system built into modern browsers.",
+        "LocalStorage is a web storage API that allows JavaScript sites and apps to store key/value pairs in a web browser with no expiration date.",
       howToUse: [
-        "Type a new task into the input field and press Enter or click 'Add'.",
-        "Click the checkbox next to a task to mark it as complete.",
-        "Click the 'X' icon to delete a task.",
-        "Use the filter buttons ('All', 'Active', 'Completed') to change your view.",
+        "Type a task in the input box and press Enter or click 'Add'.",
+        "Click the checkbox to mark a task as complete.",
+        "Use the filter buttons (All, Active, Completed) to change your view.",
+        "Click the trash icon to delete a task.",
       ],
       features: [
-        "Simple Task Management: Add, complete, and delete tasks with ease.",
-        "Filter Your View: Focus on what's important by filtering your list.",
-        "Persistent Storage: Your tasks are saved in your browser, so they don't disappear when you close the tab.",
-        "Clean & Minimalist: A distraction-free design to help you focus.",
+        "Persistent Storage: Tasks are saved automatically.",
+        "Filter Views: Easily see active or completed tasks.",
+        "Clean Design: No distractions, just your list.",
       ],
       faqs: [
         {
-          question: "Can I sync my list across devices?",
+          question: "Will I lose my tasks if I close the browser?",
           answer:
-            "No, this is a simple, local-only tool. Your tasks are stored only in the browser you use to create them.",
+            "No, they are saved in LocalStorage and will be there when you come back.",
         },
         {
-          question: "Can I set priorities or due dates?",
+          question: "Can I sync this with other devices?",
           answer:
-            "Not yet. This tool is designed to be as simple as possible. More advanced features may be added in the future.",
-        },
-        {
-          question: "How do I export my list?",
-          answer:
-            "There is no export feature currently, but you can always copy and paste the text from your list.",
-        },
-      ],
-      privacy:
-        "Your to-do list is stored in your browser's `localStorage`. This data is not transmitted to our servers and remains private to your device.",
-    },
-    keywords: [
-      "online todo list",
-      "task manager app",
-      "simple to-do list",
-      "daily planner online",
-      "persistent todo list",
-    ],
-  },
-  {
-    id: "pomodoro-timer",
-    name: "Pomodoro Timer",
-    description:
-      "A simple timer to help you focus with the Pomodoro Technique.",
-    seoTitle: "Pomodoro Timer | Boost Your Focus & Productivity",
-    seoDescription:
-      "Improve your focus with our free online Pomodoro Timer. Work in 25-minute intervals with 5-minute breaks to boost productivity and avoid burnout. Simple, effective, and private.",
-    icon: <PomodoroIcon />,
-    component: PomodoroTimer,
-    category: ToolCategory.PRODUCTIVITY,
-    featured: true,
-    details: {
-      tip: "The 5-minute breaks are just as important as the 25-minute focus sessions. Use them to stand up, stretch, or grab a glass of water to reset your brain.",
-      introduction:
-        "Master your focus and get more done. Our Pomodoro Timer is a simple tool based on the Pomodoro Technique, a proven time management method. It helps you break down your work into manageable 25-minute intervals, separated by short breaks, to improve focus and prevent mental fatigue.",
-      explanation:
-        "The timer counts down from 25 minutes. When the time is up, it plays a sound and automatically switches to a 5-minute break timer. This cycle helps you stay on task and gives your brain regular opportunities to rest and recharge.",
-      usageExamples: [
-        "A student using it to power through a study session.",
-        "A developer staying focused on a single coding task.",
-        "A writer avoiding distraction and hitting their word count.",
-      ],
-      underlyingConcept:
-        "The Pomodoro Technique, developed by Francesco Cirillo, is a time management method that uses a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks. The goal is to create a sense of urgency and reduce the impact of interruptions.",
-      howToUse: [
-        "Click 'Start' to begin a 25-minute focus session.",
-        "The timer will count down, and the progress ring will show the time remaining.",
-        "When the session ends, a sound will play, and a 5-minute break will begin automatically.",
-        "Use 'Pause' to stop the timer and 'Reset' to go back to the start.",
-      ],
-      features: [
-        "Classic Pomodoro Cycle: Standard 25-minute work and 5-minute break intervals.",
-        "Visual Progress: A circular progress bar shows you the time remaining at a glance.",
-        "Audio Notifications: A simple chime lets you know when a session is over.",
-        "Simple Controls: Easy-to-use Start, Pause, and Reset buttons.",
-      ],
-      faqs: [
-        {
-          question: "Can I change the timer lengths?",
-          answer:
-            "This version uses the classic 25/5 minute intervals. Customizable times are a great idea for a future update!",
-        },
-        {
-          question: "What about the longer break?",
-          answer:
-            "Traditionally, you take a longer break (15-30 minutes) after four 'pomodoros'. This timer doesn't track that automatically, so you'll have to manage that part yourself.",
-        },
-        {
-          question: "Can I change the notification sound?",
-          answer:
-            "Currently, there is only one default sound, but custom sounds may be added in the future.",
+            "No, the data is stored locally on this specific device and browser.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
     },
-    keywords: [
-      "pomodoro timer online",
-      "focus timer",
-      "25 minute timer",
-      "study timer app",
-      "productivity timer",
-      "pomodoro technique",
-    ],
-  },
-  // Fun Tools
-  {
-    id: "meme-generator",
-    name: "Meme Generator",
-    description: "Create your own memes by adding text to an image.",
-    seoTitle: "Free Meme Generator | Create Memes Online Instantly",
-    seoDescription:
-      "Create your own memes with our free and easy online Meme Generator. Upload your image, add top and bottom text, and download your creation instantly. 100% private.",
-    icon: <MemeIcon />,
-    component: MemeGenerator,
-    category: ToolCategory.FUN,
-    details: {
-      introduction:
-        "Become a meme lord. Our simple Meme Generator lets you create classic-style memes in seconds. Just upload your image, add your witty top and bottom text, and download your creation to share with the world. It's fast, free, and all done in your browser.",
-      explanation:
-        "The tool uses the HTML5 Canvas to draw your uploaded image. It then overlays your text using the classic 'Impact' font with a black border, which ensures it's readable on any background.",
-      usageExamples: [
-        "Making a quick, funny joke for your friends.",
-        "Creating a viral post for social media.",
-        "Adding a touch of humor to a presentation.",
-      ],
-      underlyingConcept:
-        "This tool emulates the classic 'Advice Animal' or 'Image Macro' meme format, which consists of an image superimposed with bold, capitalized text at the top and bottom. This format is one ofthe most recognizable and enduring forms of internet memes.",
-      howToUse: [
-        "Click 'Upload an Image' to pick a picture from your device.",
-        "Type your text in the 'Top Text' and 'Bottom Text' fields.",
-        "Your meme will be generated in real-time in the preview area.",
-        "When it's perfect, click 'Download Meme' to save it as a PNG file.",
-      ],
-      features: [
-        "Use Any Image: Upload your own image to get started.",
-        "Classic Meme Font: Automatically uses the bold, outlined Impact font for maximum readability.",
-        "Live Preview: See your meme come to life as you type.",
-        "One-Click Download: Easily save your finished meme.",
-      ],
-      faqs: [
-        {
-          question: "Can I use a different font or text color?",
-          answer:
-            "This tool is designed to create the classic meme style, so it only uses the standard white Impact font with a black outline. More customization options may be added in the future.",
-        },
-        {
-          question: "Can I move the text around?",
-          answer:
-            "No, the text is fixed to the top and bottom, in keeping with the classic meme format.",
-        },
-        {
-          question: "Are my images private?",
-          answer:
-            "Yes. All processing happens in your browser. Your images are never uploaded to a server.",
-        },
-      ],
-      privacy:
-        "All image processing and text rendering happens in your browser. Your images are not uploaded to any server.",
-    },
-    keywords: [
-      "meme generator online",
-      "create your own meme",
-      "image captioner",
-      "meme maker",
-      "funny meme creator",
-      "add text to image",
-    ],
-  },
-  // Misc Tools
-  {
-    id: "password-generator",
-    name: "Password Generator",
-    description:
-      "Create strong, random passwords with customizable security options.",
-    seoTitle: "Strong Password Generator | Create Secure, Random Passwords",
-    seoDescription:
-      "Generate strong, secure, and random passwords with our free online tool. Customize the length and character types to create a password that's hard to crack. 100% private and secure.",
-    icon: <PasswordIcon />,
-    component: PasswordGenerator,
-    category: ToolCategory.MISC,
-    featured: true,
-    details: {
-      tip: "A truly strong password is long, random, and unique for every site. Aim for at least 16 characters and use a password manager to keep track of them.",
-      introduction:
-        "Protect your digital life with a strong password. Our Password Generator creates secure, random passwords that are incredibly difficult to crack. It uses your browser's own cryptographically secure random number generator for the highest quality randomness, helping you defend against brute-force attacks and keep your accounts safe.",
-      explanation:
-        "The tool first builds a set of allowed characters based on your selections (uppercase, lowercase, etc.). It then uses the browser's `crypto.getRandomValues` API—a cryptographically secure random number generator—to pick characters from that set until the desired length is reached.",
-      usageExamples: [
-        "Creating a new, secure password for an important account.",
-        "Resetting a password after a security breach.",
-        "Generating a random key for an application.",
-      ],
-      underlyingConcept:
-        "A password's strength comes from its 'entropy'—a measure of its unpredictability. A long password chosen randomly from a large set of characters (including letters, numbers, and symbols) has very high entropy, making it resistant to brute-force guessing attacks.",
-      howToUse: [
-        "Adjust the 'Length' slider to set your desired password length.",
-        "Use the checkboxes to include or exclude uppercase, lowercase, numbers, and symbols.",
-        "A new, strong password will be generated automatically.",
-        "Click 'Regenerate' for a new one, or 'Copy' to copy the current password.",
-      ],
-      features: [
-        "Customizable Length: Choose a password length from 4 to 64 characters.",
-        "Character Options: Include or exclude uppercase, lowercase, numbers, and symbols.",
-        "Cryptographically Secure: Uses the browser's `crypto.getRandomValues` API for true randomness.",
-        "One-Click Copy: Easily copy the generated password to your clipboard.",
-      ],
-      faqs: [
-        {
-          question: "How secure is this?",
-          answer:
-            "Very. It uses your browser's built-in cryptographic random number generator, which is the most secure way to generate randomness on the web.",
-        },
-        {
-          question: "How am I supposed to remember this?",
-          answer:
-            "You're not! The best practice is to use a password manager to store your long, random, unique passwords for each site.",
-        },
-        {
-          question: "What's a good password length?",
-          answer:
-            "Longer is always better. Most security experts recommend a minimum of 12-16 characters for important accounts.",
-        },
-      ],
-      privacy: PRIVACY_STATEMENT,
-    },
-    keywords: [
-      "strong password generator",
-      "random password creator",
-      "secure password maker",
-      "password security",
-      "cryptographically secure password",
-      "password generator online",
-    ],
-  },
-  {
-    id: "qrcode-generator",
-    name: "QR Code Generator",
-    description: "Generate a QR code from a URL or text.",
-    seoTitle: "Free QR Code Generator | Create QR Codes Online",
-    seoDescription:
-      "Instantly generate a high-quality QR code from any URL or text with our free online tool. Download your QR code as a PNG. Perfect for sharing links, Wi-Fi info, and more.",
-    icon: <QrCodeIcon />,
-    component: QrCodeGenerator,
-    category: ToolCategory.MISC,
-    details: {
-      introduction:
-        "Share information in a snap. Our QR Code Generator instantly turns any text or URL into a scannable QR code. QR codes are the perfect way to bridge the physical and digital worlds, making it easy to share website links, contact information, or Wi-Fi credentials. Create and download your high-quality QR code in seconds.",
-      explanation:
-        "The tool uses a popular and robust QR code generation library to encode your text into the standard QR code matrix format. This matrix is then rendered as a high-quality image that you can download.",
-      usageExamples: [
-        "Putting a link to your website on a poster or business card.",
-        "Sharing your Wi-Fi password with guests without them having to type it.",
-        "Adding a link to a product page on its packaging.",
-      ],
-      underlyingConcept:
-        "A QR (Quick Response) code is a type of two-dimensional barcode. It can store a surprising amount of information and is designed to be read quickly by a camera, like the one on your smartphone. It also includes error correction, so it can often be read even if it's partially damaged.",
-      howToUse: [
-        "Enter the text or URL you want to encode in the text box.",
-        "The QR code image will be generated automatically as you type.",
-        "Click the 'Download QR Code' button to save the image as a high-quality PNG file.",
-      ],
-      features: [
-        "Real-Time Generation: Your QR code is created instantly as you type.",
-        "Works with Any Text: Encode URLs, phone numbers, plain text, and more.",
-        "High-Quality Download: Save your QR code as a crisp, high-resolution PNG.",
-        "Simple & Fast: A clean interface for quick and easy QR code creation.",
-      ],
-      faqs: [
-        {
-          question: "What is error correction?",
-          answer:
-            "QR codes have built-in error correction, which allows them to be read even if they are partially dirty or damaged. This tool uses a medium level of error correction, which is a good balance for most use cases.",
-        },
-        {
-          question: "Can I change the color or add a logo?",
-          answer:
-            "This tool creates a standard black and white QR code. More advanced customization options may be added in the future.",
-        },
-        {
-          question: "What size is the downloaded image?",
-          answer:
-            "The downloaded PNG is a high-resolution, scalable image that will look sharp even when printed.",
-        },
-      ],
-      privacy: PRIVACY_STATEMENT,
-    },
-    keywords: [
-      "qr code generator online",
-      "free qr code maker",
-      "text to qr code",
-      "url to qr code",
-      "generate qr code",
-      "qr code for wifi",
-    ],
-  },
-  {
-    id: "video-compressor",
-    name: "Video Compressor",
-    description:
-      "Reduce the file size of your videos without significant quality loss.",
-    seoTitle: "Online Video Compressor | Reduce Video File Size for Free",
-    seoDescription:
-      "Easily reduce the file size of your videos with our free online compressor. Shrink MP4, AVI, MOV, and more without losing quality. Fast, secure, and all in your browser.",
-    icon: <VideoCompressorIcon />,
-    category: ToolCategory.VIDEO,
-    component: VideoCompressor,
-    details: {
-      introduction:
-        "Shrink your video files without losing quality. Our online Video Compressor makes it easy to reduce the size of your videos, so you can share them faster, save storage space, and upload them to the web with ease. The entire process is done securely in your browser—your files are never uploaded to a server.",
-      howToUse: [
-        "Click 'Choose File' to upload your video.",
-        "Click the 'Compress Video' button to start the process.",
-        "Wait for the compression to finish (it may take a few moments for large files).",
-        "Download your new, smaller video file.",
-      ],
-      features: [
-        "Smart Compression: Reduces file size without a noticeable drop in quality.",
-        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
-        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
-        "Fast & Free: No software to install, no watermarks.",
-      ],
-      privacy:
-        "All video processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "Video compression works by re-encoding the video with more efficient settings. This tool uses a smart algorithm to find the best balance between file size and visual quality, removing redundant data to make the file smaller.",
-      usageExamples: [
-        "Compressing a large video to send it via email.",
-        "Reducing a video's file size for faster uploading to social media.",
-        "Creating smaller video files to save space on your phone or computer.",
-      ],
-      underlyingConcept:
-        "Video compression algorithms analyze frames to find and remove spatial (within a frame) and temporal (between frames) redundancy. By using more efficient encoding parameters, the file size can be significantly reduced, often with minimal impact on perceived quality.",
-      faqs: [
-        {
-          question: "How much will the quality be affected?",
-          answer:
-            "Our tool is designed to minimize quality loss. For most videos, the difference will be barely noticeable, but the file size reduction will be significant.",
-        },
-        {
-          question: "What video formats are supported?",
-          answer:
-            "The tool supports most common video formats, including MP4, AVI, MOV, and WebM.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
-        },
-      ],
-    },
-    keywords: [
-      "video compressor online",
-      "reduce video file size",
-      "compress mp4",
-      "free video compressor",
-      "shrink video file",
-    ],
-  },
-  {
-    id: "video-to-audio-converter",
-    name: "Video to Audio Converter",
-    description: "Extract audio from your video files and save it as an MP3.",
-    seoTitle: "Video to Audio Converter | Extract MP3 from Video for Free",
-    seoDescription:
-      "Easily extract the audio from any video file and save it as a high-quality MP3. Our free online tool works with MP4, AVI, MOV, and more. Fast, secure, and all in your browser.",
-    icon: <VideoToAudioIcon />,
-    category: ToolCategory.VIDEO,
-    component: VideoToAudioConverter,
-    details: {
-      introduction:
-        "Love the sound of a video? Our Video to Audio Converter lets you easily extract the audio track from any video file and save it as a high-quality MP3. It's perfect for creating podcasts from video interviews, saving music from a music video, or converting lectures into audio for listening on the go. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Click 'Choose File' to upload your video.",
-        "Click the 'Convert to Audio' button.",
-        "Wait for the conversion to finish.",
-        "Download your new MP3 audio file.",
-      ],
-      features: [
-        "High-Quality Extraction: Extracts the audio track and converts it to a high-quality MP3.",
-        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
-        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
-        "Fast & Free: No software to install, no watermarks.",
-      ],
-      privacy:
-        "All video processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool works by reading your video file, separating the audio stream from the video stream, and then encoding that audio into the universal MP3 format, which can be played on any device.",
-      usageExamples: [
-        "Extracting the music from a music video.",
-        "Creating an audio podcast from a video recording.",
-        "Converting a video lecture into an audio file to listen to while commuting.",
-      ],
-      underlyingConcept:
-        "Most video files are 'containers' that hold multiple streams of data, typically a video stream and an audio stream. This tool effectively 'unpacks' the container, discards the video stream, and saves the audio stream as a new file.",
-      faqs: [
-        {
-          question: "What will the audio quality be?",
-          answer:
-            "The tool extracts the audio at its original quality and converts it to a high-bitrate MP3 to ensure the best possible sound.",
-        },
-        {
-          question: "Can I convert any video?",
-          answer:
-            "Yes, the tool supports most common video formats, including MP4, AVI, MOV, and WebM.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
-        },
-      ],
-    },
-    keywords: [
-      "video to audio converter",
-      "extract mp3 from video",
-      "mp4 to mp3",
-      "video to mp3 converter",
-      "free audio extractor",
-    ],
-  },
-  {
-    id: "gif-maker",
-    name: "GIF Maker from Video",
-    description: "Create animated GIFs from your video files.",
-    seoTitle: "GIF Maker | Create Animated GIFs from Video for Free",
-    seoDescription:
-      "Easily create high-quality animated GIFs from your video files with our free online GIF Maker. Convert clips from MP4, MOV, and more. Fast, secure, and all in your browser.",
-    icon: <GifMakerIcon />,
-    category: ToolCategory.VIDEO,
-    component: GifMaker,
-    details: {
-      introduction:
-        "Turn your favorite video moments into animated GIFs. Our online GIF Maker makes it easy to convert clips from your videos into high-quality GIFs that are perfect for sharing on social media, in chats, or on your website. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Click 'Choose File' to upload your video.",
-        "Use the sliders to select the start and end times of the clip you want to convert.",
-        "Click the 'Create GIF' button.",
-        "Wait for your GIF to be created, then download it.",
-      ],
-      features: [
-        "Easy Clip Selection: Use sliders to pick the exact part of the video you want.",
-        "High-Quality Output: Creates smooth, high-quality animated GIFs.",
-        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
-        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
-      ],
-      privacy:
-        "All video processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool works by extracting the frames from the selected portion of your video and then combining them into the animated GIF format. It optimizes the color palette and frame rate to create a high-quality GIF with a reasonable file size.",
-      usageExamples: [
-        "Creating a reaction GIF from a funny video clip.",
-        "Making a short, looping GIF of a product for a website.",
-        "Converting a key moment from a sports highlight into a shareable GIF.",
-      ],
-      underlyingConcept:
-        "The GIF (Graphics Interchange Format) is an image format that supports animation by storing a sequence of frames in a single file. This tool automates the process of extracting those frames from a video and encoding them into the GIF format.",
-      faqs: [
-        {
-          question: "What video formats are supported?",
-          answer:
-            "The tool supports most common video formats, including MP4, AVI, MOV, and WebM.",
-        },
-        {
-          question: "Can I control the quality and file size?",
-          answer:
-            "The tool automatically optimizes the GIF for a good balance of quality and file size. More advanced options for frame rate and color reduction may be added in the future.",
-        },
-        {
-          question: "How long can my GIF be?",
-          answer:
-            "For best results and reasonable file sizes, it's recommended to keep your clips under 10 seconds.",
-        },
-      ],
-    },
-    keywords: [
-      "gif maker",
-      "video to gif",
-      "create animated gif",
-      "mp4 to gif",
-      "free gif creator",
-    ],
-  },
-  {
-    id: "trim-video",
-    name: "Trim Video",
-    description: "Cut and trim your video files to get the perfect clip.",
-    seoTitle: "Online Video Trimmer | Cut & Trim Videos for Free",
-    seoDescription:
-      "Easily cut and trim your video files with our free online Video Trimmer. Select the start and end points to create the perfect clip. Supports MP4, MOV, and more. Fast, secure, and browser-based.",
-    icon: <TrimVideoIcon />,
-    category: ToolCategory.VIDEO,
-    component: TrimVideo,
-    details: {
-      introduction:
-        "Get the perfect clip every time. Our online Video Trimmer makes it easy to cut down your video files by selecting the exact start and end times you want. It's perfect for removing unwanted parts, creating shorter clips for social media, or just getting to the good part. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Click 'Choose File' to upload your video.",
-        "Use the sliders or input fields to set the start and end times for your clip.",
-        "Click the 'Trim Video' button.",
-        "Wait for the video to be processed, then download your new, trimmed clip.",
-      ],
-      features: [
-        "Precise Trimming: Set the exact start and end points for your clip.",
-        "Easy-to-Use Interface: A simple and intuitive design for quick edits.",
-        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
-        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
-      ],
-      privacy:
-        "All video processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool works by re-encoding your video, but only including the frames between your selected start and end times. This creates a new, shorter video file while preserving the original quality.",
-      usageExamples: [
-        "Removing a long, boring intro from a video.",
-        "Creating a short highlight clip from a longer recording.",
-        "Trimming a video to meet the time limits of a social media platform.",
-      ],
-      underlyingConcept:
-        "Video trimming, or 'cutting', is the process of creating a new video file that contains only a specified segment of the original. This is done by seeking to the start time and stopping the encoding process at the end time, resulting in a shorter clip.",
-      faqs: [
-        {
-          question: "Can I cut a piece out of the middle of a video?",
-          answer:
-            "This tool is designed for trimming the start and end. To cut out a middle section, you would need to trim the video into two separate clips and then join them, which is a feature for a more advanced editor.",
-        },
-        {
-          question: "Will this reduce the video quality?",
-          answer:
-            "No, the trimmed clip will have the same quality as the original video.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
-        },
-      ],
-    },
-    keywords: [
-      "trim video online",
-      "cut video",
-      "video trimmer",
-      "mp4 cutter",
-      "free video editor",
-    ],
-  },
-  {
-    id: "format-converter",
-    name: "Video Format Converter",
-    description:
-      "Convert your video files to different formats like MP4, AVI, MOV, etc.",
-    seoTitle: "Online Video Converter | Convert Video Files for Free",
-    seoDescription:
-      "Easily convert your video files to different formats like MP4, AVI, MOV, and WebM with our free online tool. Fast, secure, and all in your browser. No software to install.",
-    icon: <FormatConverterIcon />,
-    category: ToolCategory.VIDEO,
-    component: FormatConverter,
-    details: {
-      introduction:
-        "Ensure your videos play anywhere. Our online Video Format Converter makes it easy to convert your video files between all the most popular formats, like MP4, AVI, MOV, and WebM. Whether you need to make a video compatible with a specific device or prepare it for the web, this tool gets the job done. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Click 'Choose File' to upload your video.",
-        "Select the output format you want from the dropdown menu.",
-        "Click the 'Convert Format' button.",
-        "Wait for the conversion to finish, then download your new video file.",
-      ],
-      features: [
-        "Multiple Formats: Convert between MP4, AVI, MOV, WebM, and more.",
-        "High-Quality Conversion: Preserves the quality of your original video.",
-        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
-        "Simple & Fast: A clean interface for quick and easy conversions.",
-      ],
-      privacy:
-        "All video processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool works by decoding your original video file and then re-encoding it into the new format you've selected. It uses efficient algorithms to ensure the conversion is done quickly and with minimal loss of quality.",
-      usageExamples: [
-        "Converting a MOV file from an iPhone to an MP4 for wider compatibility.",
-        "Changing an AVI file to a WebM for use on a website.",
-        "Making sure a video is in the correct format for a presentation.",
-      ],
-      underlyingConcept:
-        "Video format conversion (or 'transcoding') is the process of changing a video from one encoding format to another. This is often necessary because different devices and platforms have different requirements for the video formats they support.",
-      faqs: [
-        {
-          question: "Will converting the video reduce its quality?",
-          answer:
-            "All video conversion involves some re-encoding, but our tool uses high-quality settings to minimize any noticeable loss in quality.",
-        },
-        {
-          question: "What are the most common formats?",
-          answer:
-            "MP4 is the most universally supported format and is a great choice for web and general use. WebM is excellent for websites because of its good compression. MOV is common for Apple devices.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
-        },
-      ],
-    },
-    keywords: [
-      "video format converter",
-      "convert video online",
-      "mp4 converter",
-      "mov to mp4",
-      "free video converter",
-    ],
-  },
-  {
-    id: "video-thumbnail-extractor",
-    name: "Video Thumbnail Extractor",
-    description: "Extract thumbnails (frames) from your video files.",
-    seoTitle: "Video Thumbnail Extractor | Get a Frame from a Video",
-    seoDescription:
-      "Easily extract a high-quality thumbnail (frame) from any video file with our free online tool. Just specify the timestamp and download the image. Fast, secure, and browser-based.",
-    icon: <VideoThumbnailIcon />,
-    category: ToolCategory.VIDEO,
-    component: VideoThumbnailExtractor,
-    details: {
-      introduction:
-        "Need the perfect thumbnail for your video? Our Video Thumbnail Extractor lets you capture a single frame from any video and save it as a high-quality image. Just tell it the exact moment you want to capture, and it will do the rest. It's the easiest way to create a custom thumbnail for your video uploads or to grab a still image from a recording. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Click 'Choose File' to upload your video.",
-        "Enter the timestamp (in seconds) of the frame you want to extract.",
-        "Click the 'Extract Thumbnail' button.",
-        "A preview of the frame will appear, and you can then download it as an image.",
-      ],
-      features: [
-        "Precise Extraction: Grab a frame from the exact timestamp you specify.",
-        "High-Quality Output: Saves the frame as a crisp, high-resolution image.",
-        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
-        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
-      ],
-      privacy:
-        "All video processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool works by seeking to the exact timestamp you provide within the video file. It then captures the video data for that single frame and renders it as a static image, which you can then download.",
-      usageExamples: [
-        "Creating a custom thumbnail for a YouTube video.",
-        "Extracting a specific frame from a video for analysis or a presentation.",
-        "Grabbing a high-quality screenshot from a video recording.",
-      ],
-      underlyingConcept:
-        "Frame extraction is the process of isolating a single static image from a sequence of images that make up a video. By seeking to a specific point in the video's timeline, a single frame can be captured and saved.",
-      faqs: [
-        {
-          question: "How accurate is the timestamp?",
-          answer:
-            "The tool can extract a frame with millisecond accuracy, allowing you to get the exact moment you want.",
-        },
-        {
-          question: "What format will the downloaded image be?",
-          answer:
-            "The tool saves the extracted frame as a high-quality PNG or JPEG image.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
-        },
-      ],
-    },
-    keywords: [
-      "video thumbnail extractor",
-      "get frame from video",
-      "video to image",
-      "create thumbnail from video",
-      "free thumbnail maker",
-    ],
-  },
-  {
-    id: "video-mute",
-    name: "Mute Video",
-    description: "Remove the audio track from a video file.",
-    seoTitle: "Mute Video | Remove Audio from Video for Free",
-    seoDescription:
-      "Easily remove the audio track from any video file with our free online tool. Create a silent video while preserving the original video quality. Fast, secure, and browser-based.",
-    icon: <VideoMuteIcon />,
-    category: ToolCategory.VIDEO,
-    component: VideoMute,
-    details: {
-      introduction:
-        "Need to silence a video? Our Mute Video tool lets you completely remove the audio track from any video file, leaving you with a silent version of your clip. It's perfect for when the audio is poor quality, contains unwanted noise, or you simply want the focus to be on the visuals. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Click 'Choose File' to upload your video.",
-        "Click the 'Mute Video' button.",
-        "Wait for the video to be processed.",
-        "Download your new, silent video.",
-      ],
-      features: [
-        "Complete Audio Removal: Strips the audio track from your video entirely.",
-        "Preserves Video Quality: The video itself is not re-encoded, so the quality remains exactly the same.",
-        "Private & Secure: Works entirely in your browser. Your files never leave your computer.",
-        "Supports Major Formats: Works with MP4, AVI, MOV, WebM, and more.",
-      ],
-      privacy:
-        "All video processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool works by separating the video and audio streams within your video file. It then creates a new video file containing only the original video stream, effectively discarding the audio.",
-      usageExamples: [
-        "Creating a silent video for a background or presentation.",
-        "Removing unwanted background noise from a recording.",
-        "Preparing a video to have a new soundtrack or voiceover added later.",
-      ],
-      underlyingConcept:
-        "Most video files are 'containers' that hold separate video and audio streams. This process, known as 'demuxing', involves separating these streams and then 'remuxing' (re-combining) only the video stream into a new container, resulting in a silent video.",
-      faqs: [
-        {
-          question: "Will this affect the video quality?",
-          answer:
-            "No. Because the video is not being re-encoded, its quality will be identical to the original.",
-        },
-        {
-          question: "Can I get the audio back later?",
-          answer:
-            "No, this process permanently removes the audio. Be sure to keep a copy of your original video if you might need the audio later.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "Since the processing is done in your browser, performance depends on your computer's memory. It works best with small to medium-sized video files.",
-        },
-      ],
-    },
-    keywords: [
-      "mute video online",
-      "remove audio from video",
-      "video muter",
-      "silent video maker",
-      "free video editor",
-    ],
-  },
-  {
-    id: "watermark-adder",
-    name: "Watermark Adder",
-    description:
-      "Add watermarks or logos to your images with customizable positioning and opacity.",
-    seoTitle: "Add Watermark to Images Online | Free Watermark Tool",
-    seoDescription:
-      "Easily add a logo or text watermark to your images with our free online tool. Control the position, size, and opacity for the perfect result. Fast, secure, and browser-based.",
-    icon: <WatermarkAdderIcon />,
-    category: ToolCategory.IMAGE,
-    component: WatermarkAdder,
-    details: {
-      introduction:
-        "Protect and brand your images with ease. Our Watermark Adder lets you overlay your logo or a text watermark onto any image. You have full control over the watermark's position, size, and opacity, making it easy to get a professional look. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Upload your main image.",
-        "Upload the image you want to use as a watermark.",
-        "Use the controls to adjust the watermark's opacity, size, and position.",
-        "Preview the result in real-time.",
-        "Download your new, watermarked image.",
-      ],
-      features: [
-        "Image or Text Watermarks: Use your logo or any image as a watermark.",
-        "Full Control: Adjust the opacity, size, position, and margin of your watermark.",
-        "Real-Time Preview: See exactly how your watermarked image will look.",
-        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
-        "High-Quality Output: Your final image is saved without quality loss.",
-      ],
-      privacy:
-        "All image processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool uses the HTML5 Canvas to create a new image. It first draws your main image onto the canvas, and then it draws your watermark image on top, applying your chosen settings for opacity, size, and position.",
-      usageExamples: [
-        "A photographer adding their logo to their photos before sharing them online.",
-        "A business adding a 'Confidential' watermark to a document screenshot.",
-        "A social media manager branding images with a company logo.",
-      ],
-      underlyingConcept:
-        "Watermarking is the process of overlaying one image on top of another, often with reduced opacity to make it semi-transparent. This is a common technique for protecting copyright or for branding images.",
-      faqs: [
-        {
-          question: "What image formats are supported?",
-          answer:
-            "The tool supports all common image formats, including PNG, JPEG, and WebP. For best results, use a PNG with a transparent background for your watermark.",
-        },
-        {
-          question: "Will this reduce the quality of my image?",
-          answer:
-            "No, the tool is designed to preserve the quality of your original image.",
-        },
-        {
-          question: "Is there a file size limit?",
-          answer:
-            "For best performance, it's recommended to use images under 50MB.",
-        },
-      ],
-    },
-    keywords: [
-      "add watermark to image",
-      "watermark adder online",
-      "free watermark tool",
-      "logo adder",
-      "image watermarker",
-    ],
-  },
-  {
-    id: "image-resizer",
-    name: "Image Resizer",
-    description:
-      "Resize images by percentage or exact dimensions with aspect ratio preservation.",
-    seoTitle: "Online Image Resizer | Resize Images for Free",
-    seoDescription:
-      "Easily resize your images to exact dimensions or by percentage with our free online tool. Preserve aspect ratio and adjust quality. Fast, secure, and browser-based.",
-    icon: <ImageResizerIcon />,
-    category: ToolCategory.IMAGE,
-    component: ImageResizer,
-    details: {
-      introduction:
-        "Get your images to the perfect size. Our Image Resizer lets you quickly resize any image by specifying exact pixel dimensions or a percentage. You can choose to preserve the aspect ratio to avoid distortion and even adjust the output quality to balance file size and appearance. It's the perfect tool for preparing images for your website, social media, or email. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Upload your image.",
-        "Choose whether you want to resize by 'Percentage' or 'Dimensions'.",
-        "Adjust the settings (e.g., enter the new width or select a percentage).",
-        "Check 'Keep aspect ratio' to prevent your image from being stretched.",
-        "Preview the result and download your new, resized image.",
-      ],
-      features: [
-        "Resize by Percentage: Easily make an image larger or smaller.",
-        "Resize by Dimensions: Set the exact width and height in pixels.",
-        "Preserve Aspect Ratio: Avoid distortion with one click.",
-        "Adjustable Quality: Control the compression level of the output image.",
-        "Live Preview: See the original and resized dimensions and file sizes.",
-        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
-      ],
-      privacy:
-        "All image processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool uses the HTML5 Canvas to create a new image with your specified dimensions. It draws your original image into this new canvas, effectively resizing it. You can then control the quality setting when the new image is exported as a JPEG.",
-      usageExamples: [
-        "Resizing a large photo to make it load faster on a website.",
-        "Creating a thumbnail for a blog post.",
-        "Making an image fit the required dimensions for a social media profile picture.",
-      ],
-      underlyingConcept:
-        "Image resizing (or 'resampling') is the process of creating a new version of an image with different dimensions. This tool uses interpolation algorithms built into the browser to ensure the resized image looks as smooth and clear as possible.",
-      faqs: [
-        {
-          question: "What image formats are supported?",
-          answer:
-            "The tool accepts all common image formats (like PNG, JPEG, GIF), but the output will always be in JPEG format.",
-        },
-        {
-          question: "What does 'quality' do?",
-          answer:
-            "The quality setting applies to JPEG compression. A lower quality will result in a smaller file size but may introduce visual artifacts. A higher quality will look better but have a larger file size.",
-        },
-        {
-          question: "What's the maximum image size?",
-          answer:
-            "For best performance, it's recommended to use images under 50MB. The tool can create images up to 4000x4000 pixels.",
-        },
-      ],
-    },
-    keywords: [
-      "image resizer online",
-      "resize image",
-      "photo resizer",
-      "change image size",
-      "free image resizer",
-    ],
-  },
-  {
-    id: "image-converter",
-    name: "Image Converter",
-    description:
-      "Convert images between different formats (JPEG, PNG, WebP, BMP) with quality control.",
-    seoTitle: "Online Image Converter | Convert Images for Free",
-    seoDescription:
-      "Easily convert your images to JPEG, PNG, WebP, or BMP with our free online tool. Adjust quality and handle transparency. Fast, secure, and browser-based.",
-    icon: <ImageConverterIcon />,
-    category: ToolCategory.IMAGE,
-    component: ImageConverter,
-    details: {
-      introduction:
-        "Get your images in the right format. Our Image Converter lets you easily convert your images between all the most popular web formats: JPEG, PNG, WebP, and BMP. Whether you need a transparent PNG, a compressed JPEG, or a modern WebP, this tool has you covered. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Upload your image.",
-        "Select the output format you want (e.g., JPEG, PNG, WebP).",
-        "For JPEG and WebP, you can adjust the quality slider.",
-        "Preview the result and download your new, converted image.",
-      ],
-      features: [
-        "Multiple Formats: Convert to and from JPEG, PNG, WebP, and BMP.",
-        "Adjustable Quality: Control the compression level for JPEG and WebP files.",
-        "Transparency Control: Choose how to handle transparency when converting to JPEG.",
-        "Live Preview: See the original and converted image details side-by-side.",
-        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
-      ],
-      privacy:
-        "All image processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool uses the HTML5 Canvas to read your original image and then re-export it in the format you choose. This allows it to handle different formats and apply quality settings during the conversion process.",
-      usageExamples: [
-        "Converting a PNG with transparency to a JPEG with a white background.",
-        "Converting a large JPEG to a smaller, more efficient WebP for a website.",
-        "Changing a modern WebP image to a PNG for better compatibility with older software.",
-      ],
-      underlyingConcept:
-        "Different image formats use different compression techniques and have different features (like transparency). JPEG is great for photos, PNG is great for graphics with transparency, and WebP is a modern format that offers excellent compression for both. This tool allows you to choose the best format for your needs.",
-      faqs: [
-        {
-          question: "What image formats can I upload?",
-          answer:
-            "You can upload any common image format, including JPEG, PNG, GIF, WebP, and BMP.",
-        },
-        {
-          question: "Will transparency be preserved?",
-          answer:
-            "Transparency is preserved when converting to PNG and WebP. When converting to JPEG (which doesn't support transparency), you can choose to fill the background with white.",
-        },
-        {
-          question: "Which format should I choose?",
-          answer:
-            "Use JPEG for photos, PNG for graphics that need transparency, and WebP for a modern, efficient alternative to both. Use BMP only if you need an uncompressed format for a specific reason.",
-        },
-      ],
-    },
-    keywords: [
-      "image converter online",
-      "convert image format",
-      "png to jpg",
-      "jpg to png",
-      "image to webp",
-      "free image converter",
-    ],
-  },
-  {
-    id: "image-compressor",
-    name: "Image Compressor",
-    description:
-      "Compress images to reduce file size while maintaining quality with advanced compression options.",
-    seoTitle: "Online Image Compressor | Reduce Image File Size for Free",
-    seoDescription:
-      "Easily compress your JPEG, PNG, and WebP images to reduce their file size with our free online tool. Balance quality and size for faster-loading websites. Fast, secure, and browser-based.",
-    icon: <ImageCompressorIcon />,
-    category: ToolCategory.IMAGE,
-    component: ImageCompressor,
-    details: {
-      introduction:
-        "Make your website faster with smaller images. Our Image Compressor intelligently reduces the file size of your images while maintaining the best possible quality. It's the perfect tool for optimizing images for the web, email, or storage. The entire process is fast, free, and done securely in your browser.",
-      howToUse: [
-        "Upload your image.",
-        "Choose your desired output format (JPEG, PNG, or WebP).",
-        "Adjust the quality slider to find the perfect balance between size and quality.",
-        "You can also resize the image at the same time.",
-        "See the compression results in real-time and download your optimized image.",
-      ],
-      features: [
-        "Intelligent Compression: Smart algorithms to reduce file size with minimal quality loss.",
-        "Adjustable Quality: You have full control over the compression level.",
-        "Resize & Compress: Change the dimensions of your image while compressing it.",
-        "Multiple Formats: Works with JPEG, PNG, and WebP.",
-        "Live Preview: See the 'before' and 'after' file sizes instantly.",
-        "Private & Secure: Works entirely in your browser. Your images are never uploaded.",
-      ],
-      privacy:
-        "All image processing happens locally in your browser. No files are uploaded to our servers.",
-      explanation:
-        "This tool uses the HTML5 Canvas to re-process your image. By adjusting the quality settings of the encoder (for JPEG and WebP) and optionally resizing the image, it can create a new image with a significantly smaller file size.",
-      usageExamples: [
-        "Compressing photos before uploading them to your blog or website.",
-        "Reducing the file size of an image to send it in an email.",
-        "Optimizing images for a faster mobile experience.",
-      ],
-      underlyingConcept:
-        "Image compression works by removing redundant or less noticeable data from an image file. 'Lossy' compression (like JPEG and WebP) can achieve very high compression ratios by discarding some data, while 'lossless' compression (like PNG) only removes redundant data.",
-      faqs: [
-        {
-          question: "How much can I compress my image?",
-          answer:
-            "It depends on the image, but it's common to see file size reductions of 50-80% with very little noticeable difference in quality.",
-        },
-        {
-          question: "Which format gives the best compression?",
-          answer:
-            "WebP is a modern format that generally provides the best compression. For photos, JPEG is also excellent. PNG is 'lossless', so it doesn't compress as well but perfectly preserves quality.",
-        },
-        {
-          question: "What's the maximum file size?",
-          answer:
-            "For best performance, it's recommended to use images under 50MB.",
-        },
-      ],
-    },
-    keywords: [
-      "image compressor online",
-      "compress image",
-      "reduce image size",
-      "photo compressor",
-      "compress jpeg",
-      "compress png",
-    ],
   },
 ];
 
 export const CATEGORY_ORDER: ToolCategory[] = [
   ToolCategory.TEXT,
-  ToolCategory.VIDEO,
-  ToolCategory.CODING,
   ToolCategory.IMAGE,
   ToolCategory.CSS,
+  ToolCategory.CODING,
   ToolCategory.COLOR,
   ToolCategory.MATH,
   ToolCategory.PRODUCTIVITY,
   ToolCategory.FUN,
+  ToolCategory.VIDEO,
   ToolCategory.MISC,
 ];
 
-// SEO-friendly URL mapping for categories
 export const CATEGORY_URL_MAP: Record<ToolCategory, string> = {
-  [ToolCategory.TEXT]: "text-tools",
-  [ToolCategory.CODING]: "coding-tools",
-  [ToolCategory.IMAGE]: "image-tools",
-  [ToolCategory.CSS]: "css-tools",
-  [ToolCategory.COLOR]: "color-tools",
-  [ToolCategory.MATH]: "math-calculation-tools",
-  [ToolCategory.PRODUCTIVITY]: "productivity-tools",
-  [ToolCategory.FUN]: "fun-interactive-tools",
-  [ToolCategory.MISC]: "miscellaneous-tools",
-  [ToolCategory.VIDEO]: "video-tools",
+  [ToolCategory.TEXT]: "text",
+  [ToolCategory.IMAGE]: "image",
+  [ToolCategory.CSS]: "css",
+  [ToolCategory.CODING]: "coding",
+  [ToolCategory.COLOR]: "color",
+  [ToolCategory.MATH]: "calculator",
+  [ToolCategory.PRODUCTIVITY]: "productivity",
+  [ToolCategory.FUN]: "fun",
+  [ToolCategory.VIDEO]: "video",
+  [ToolCategory.MISC]: "other",
 };
 
-// Reverse mapping from URL to category
-export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = {
-  "text-tools": ToolCategory.TEXT,
-  "coding-tools": ToolCategory.CODING,
-  "image-tools": ToolCategory.IMAGE,
-  "css-tools": ToolCategory.CSS,
-  "color-tools": ToolCategory.COLOR,
-  "math-calculation-tools": ToolCategory.MATH,
-  "productivity-tools": ToolCategory.PRODUCTIVITY,
-  "fun-interactive-tools": ToolCategory.FUN,
-  "miscellaneous-tools": ToolCategory.MISC,
-  "video-tools": ToolCategory.VIDEO,
-};
+export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = Object.entries(
+  CATEGORY_URL_MAP
+).reduce((acc, [key, value]) => {
+  acc[value] = key as ToolCategory;
+  return acc;
+}, {} as Record<string, ToolCategory>);
 
 export const CATEGORY_ICONS: Record<
   ToolCategory,
-  React.FC<{ className?: string }>
+  React.ComponentType<{ className?: string }>
 > = {
   [ToolCategory.TEXT]: TextCategoryIcon,
-  [ToolCategory.CODING]: CodeCategoryIcon,
   [ToolCategory.IMAGE]: ImageCategoryIcon,
   [ToolCategory.CSS]: CssCategoryIcon,
+  [ToolCategory.CODING]: CodeCategoryIcon,
   [ToolCategory.COLOR]: ColorCategoryIcon,
   [ToolCategory.MATH]: MathCategoryIcon,
   [ToolCategory.PRODUCTIVITY]: ProductivityCategoryIcon,
   [ToolCategory.FUN]: FunCategoryIcon,
-  [ToolCategory.MISC]: MiscCategoryIcon,
   [ToolCategory.VIDEO]: VideoCategoryIcon,
+  [ToolCategory.MISC]: MiscCategoryIcon,
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
-  [ToolCategory.TEXT]: "Tools for text manipulation, counting, and analysis.",
-  [ToolCategory.CODING]:
-    "Utilities for developers to format, debug, and generate code.",
-  [ToolCategory.IMAGE]: "Tools for image conversion and manipulation.",
-  [ToolCategory.CSS]: "Helpers for generating and previewing CSS styles.",
-  [ToolCategory.COLOR]:
-    "Utilities for color conversion and palette generation.",
-  [ToolCategory.MATH]:
-    "Calculators and converters for mathematical operations.",
-  [ToolCategory.PRODUCTIVITY]: "Tools to help you stay organized and focused.",
-  [ToolCategory.FUN]: "Fun tools to create memes and more.",
-  [ToolCategory.MISC]: "A collection of other useful miscellaneous tools.",
-  [ToolCategory.VIDEO]:
-    "Tools for video processing, conversion, and manipulation.",
+  [ToolCategory.TEXT]: "Manipulate text, count words, and more.",
+  [ToolCategory.IMAGE]: "Edit, convert, and optimize images.",
+  [ToolCategory.CSS]: "Generate CSS code for your projects.",
+  [ToolCategory.CODING]: "Format, validate, and convert code.",
+  [ToolCategory.COLOR]: "Generate palettes and convert colors.",
+  [ToolCategory.MATH]: "Perform calculations and conversions.",
+  [ToolCategory.PRODUCTIVITY]: "Boost your efficiency with these tools.",
+  [ToolCategory.FUN]: "Have some fun with these generators.",
+  [ToolCategory.VIDEO]: "Edit and convert video files.",
+  [ToolCategory.MISC]: "Various useful tools.",
 };
 
-export const CATEGORY_CONTENT: Record<
-  ToolCategory,
+export const CATEGORY_CONTENT: Record<ToolCategory, { introduction: string }> =
   {
-    introduction: string;
-    benefits: string[];
-    useCases: string[];
-  }
-> = {
-  [ToolCategory.TEXT]: {
-    introduction:
-      "Master every aspect of text manipulation with our comprehensive Text Tools collection. Whether you're a content creator optimizing for SEO, a developer formatting code, or a student analyzing readability - our text utilities transform how you work with words. From instant case conversion to advanced keyword analysis, these tools help you create, edit, and optimize text content with professional precision.",
-    benefits: [
-      "Transform text formats instantly with case converters and text reversers",
-      "Analyze content quality with readability scores and keyword density tools",
-      "Count words, characters, and paragraphs for precise content requirements",
-      "Generate placeholder text for design mockups and development projects",
-      "Perfect for writers, developers, marketers, and content creators",
-    ],
-    useCases: [
-      "Content creators optimizing blog posts for SEO and readability",
-      "Developers converting code between naming conventions (camelCase, snake_case)",
-      "Students analyzing essay readability and word count requirements",
-      "Designers generating Lorem Ipsum text for website mockups",
-      "Marketers analyzing keyword density in marketing copy",
-    ],
-  },
-  [ToolCategory.CODING]: {
-    introduction:
-      "Streamline your development workflow with our powerful Coding Tools collection. From JSON formatting and Base64 encoding to regex testing and JWT debugging - these utilities handle the tedious tasks so you can focus on building amazing applications. All tools run locally in your browser, ensuring your code and data remain completely private while providing instant results.",
-    benefits: [
-      "Format and validate JSON, XML, and other data formats instantly",
-      "Encode/decode Base64, URLs, and other formats for web development",
-      "Test and debug regular expressions with real-time feedback",
-      "Generate secure UUIDs, hashes, and passwords for applications",
-      "Convert between CSV, JSON, and Excel formats seamlessly",
-      "All processing happens locally for maximum security and speed",
-    ],
-    useCases: [
-      "Frontend developers formatting API responses and debugging JSON",
-      "Backend engineers encoding data for secure transmission",
-      "Full-stack developers testing regex patterns for form validation",
-      "Data scientists converting CSV files to JSON for analysis",
-      "DevOps teams generating secure hashes and unique identifiers",
-      "QA engineers debugging JWT tokens and API responses",
-    ],
-  },
-  [ToolCategory.IMAGE]: {
-    introduction:
-      "Transform your images effortlessly with our comprehensive Image Tools collection. From Base64 conversion for web embedding to format conversion and optimization - these utilities handle all your image processing needs directly in your browser. Perfect for developers embedding images in code, designers optimizing assets, and content creators preparing visuals for web and mobile applications.",
-    benefits: [
-      "Convert images to Base64 for seamless web embedding",
-      "Transform images between different formats (PNG, JPG, WebP)",
-      "Optimize image files for faster loading and better performance",
-      "Resize images to specific dimensions for responsive design",
-      "Add watermarks and extract thumbnails for content protection",
-      "All processing happens locally - your images never leave your device",
-    ],
-    useCases: [
-      "Web developers embedding images directly in HTML/CSS code",
-      "Mobile app developers converting images for different platforms",
-      "Content creators optimizing images for social media and websites",
-      "Designers preparing assets for responsive web design",
-      "E-commerce managers creating product thumbnails and watermarks",
-      "Bloggers optimizing images for faster page loading",
-    ],
-  },
-  [ToolCategory.CSS]: {
-    introduction:
-      "Create stunning web designs with our powerful CSS Tools collection. From box shadows and gradients to modern glassmorphism effects - these visual generators help you craft beautiful, responsive designs without the guesswork. Perfect for developers, designers, and anyone who wants to create professional-looking websites with clean, optimized CSS code.",
-    benefits: [
-      "Generate complex CSS properties with intuitive visual controls",
-      "Create modern effects like glassmorphism and neumorphism",
-      "Preview styles in real-time before copying code",
-      "Generate cross-browser compatible CSS automatically",
-      "Perfect for rapid prototyping and design iteration",
-      "Copy-paste ready code that works across all modern browsers",
-    ],
-    useCases: [
-      "UI designers creating button shadows and hover effects",
-      "Frontend developers experimenting with modern CSS effects",
-      "Web designers generating custom gradients for backgrounds",
-      "CSS learners practicing with interactive visual tools",
-      "Freelancers creating professional website designs quickly",
-      "Agencies prototyping client designs with modern effects",
-    ],
-  },
-  [ToolCategory.COLOR]: {
-    introduction:
-      "Master the art of color with our comprehensive Color Tools collection. From palette generation to format conversion - these utilities help you create harmonious color schemes that bring your designs to life. Whether you're building a brand identity, designing a website, or creating digital art, our color tools provide the precision and inspiration you need.",
-    benefits: [
-      "Convert between color formats instantly (HEX, RGB, HSL, CMYK)",
-      "Generate harmonious palettes using color theory principles",
-      "Create monochromatic, complementary, and triadic color schemes",
-      "Interactive color wheel for intuitive color selection",
-      "Perfect for both beginners and professional designers",
-      "Export palettes for use in design software and code",
-    ],
-    useCases: [
-      "Graphic designers creating brand color schemes and identities",
-      "Web developers converting Photoshop colors to CSS formats",
-      "UI designers building consistent color systems for apps",
-      "Artists experimenting with color harmonies and combinations",
-      "Marketers ensuring consistent branding across platforms",
-      "Students learning color theory and design principles",
-    ],
-  },
-  [ToolCategory.MATH]: {
-    introduction:
-      "Solve real-world problems with our practical Math Tools collection. From unit conversions and currency exchange to financial calculations and health metrics - these utilities make complex math accessible and useful. Perfect for students, professionals, travelers, and anyone who needs accurate calculations for daily life and work.",
-    benefits: [
-      "Convert between metric and imperial units instantly",
-      "Calculate currency exchange rates with real-time data",
-      "Compute loan payments and amortization schedules",
-      "Calculate BMI and other health metrics accurately",
-      "All calculations performed locally for privacy and speed",
-      "Perfect for students, professionals, and everyday use",
-    ],
-    useCases: [
-      "Students converting units for science and math homework",
-      "Travelers checking currency exchange rates before trips",
-      "Homeowners calculating mortgage payments and loan terms",
-      "Fitness enthusiasts tracking BMI and health metrics",
-      "Engineers converting measurements for international projects",
-      "Business owners calculating financial projections and budgets",
-    ],
-  },
-  [ToolCategory.PRODUCTIVITY]: {
-    introduction:
-      "Boost your productivity and stay organized with our comprehensive Productivity Tools collection. From Pomodoro timers and world clocks to task management and time zone coordination - these utilities help you manage your time effectively and work more efficiently. Perfect for remote workers, students, freelancers, and anyone looking to optimize their daily workflow.",
-    benefits: [
-      "Pomodoro timer for focused work sessions and better concentration",
-      "World clock for coordinating meetings across time zones",
-      "Task management tools for organizing daily priorities",
-      "Stopwatch and timer for precise time tracking",
-      "All tools work offline and sync with your browser",
-      "Designed for modern remote and hybrid work environments",
-    ],
-    useCases: [
-      "Remote workers scheduling calls across different time zones",
-      "Students using Pomodoro technique for focused study sessions",
-      "Freelancers tracking billable hours with stopwatches",
-      "Project managers coordinating global team meetings",
-      "Content creators managing deadlines and work schedules",
-      "Professionals organizing daily tasks and priorities",
-    ],
-  },
-  [ToolCategory.FUN]: {
-    introduction:
-      "Add creativity and fun to your digital life with our entertaining Fun Tools collection. From meme generators to playful text effects - these utilities are perfect for creating shareable content, breaking up the workday, or just having some creative fun. Great for social media, team building, and unleashing your inner creativity.",
-    benefits: [
-      "Create viral memes and shareable graphics instantly",
-      "Generate playful text effects and creative content",
-      "Perfect for social media posts and team communications",
-      "No design skills required - just your imagination",
-      "Lightweight tools that work instantly in your browser",
-      "Great for team building and workplace fun",
-    ],
-    useCases: [
-      "Social media managers creating engaging meme content",
-      "Team members sharing funny posts in Slack and Discord",
-      "Content creators generating viral graphics for platforms",
-      "Students creating fun presentations and projects",
-      "Friends experimenting with text effects for messages",
-      "Marketing teams creating playful promotional content",
-    ],
-  },
-  [ToolCategory.MISC]: {
-    introduction:
-      "Handle essential digital tasks with our versatile Misc Tools collection. From password generation and QR code creation to unique ID generation - these utilities cover the important but often overlooked tasks that make digital life easier and more secure. Perfect for developers, business owners, and anyone who needs reliable tools for everyday digital tasks.",
-    benefits: [
-      "Generate strong, secure passwords with customizable options",
-      "Create QR codes for easy link sharing and marketing",
-      "Generate unique identifiers and codes for development",
-      "All tools process data locally for maximum security",
-      "Perfect for security-conscious users and developers",
-      "Versatile utilities that solve common digital problems",
-    ],
-    useCases: [
-      "Users creating strong passwords for new accounts and services",
-      "Business owners generating QR codes for products and marketing",
-      "Developers needing unique IDs and codes for testing",
-      "Marketers creating scannable codes for campaigns",
-      "Security-conscious individuals generating secure strings",
-      "Anyone sharing links and information via QR codes",
-    ],
-  },
-  [ToolCategory.VIDEO]: {
-    introduction:
-      "Master video content creation with our powerful Video Tools collection. From compression and format conversion to GIF creation and audio extraction - these utilities handle all your video processing needs directly in your browser. Perfect for content creators, marketers, students, and professionals who need to work with video content efficiently and securely.",
-    benefits: [
-      "Compress large video files without losing quality for easy sharing",
-      "Convert videos between different formats (MP4, AVI, MOV, WebM)",
-      "Extract audio tracks from videos for podcasts and music",
-      "Create animated GIFs from video clips for social media",
-      "Add watermarks and trim videos for content protection",
-      "All processing happens locally - your videos never leave your device",
-    ],
-    useCases: [
-      "Content creators compressing videos for social media platforms",
-      "Students extracting audio from educational videos for study",
-      "Marketers creating GIFs from promotional videos",
-      "Professionals converting video formats for presentations",
-      "Bloggers optimizing video content for faster loading",
-      "Developers testing video functionality in web applications",
-    ],
-  },
-};
+    [ToolCategory.TEXT]: {
+      introduction: "A collection of tools for text manipulation.",
+    },
+    [ToolCategory.IMAGE]: { introduction: "Tools for working with images." },
+    [ToolCategory.CSS]: { introduction: "Generators for CSS styles." },
+    [ToolCategory.CODING]: { introduction: "Utilities for developers." },
+    [ToolCategory.COLOR]: { introduction: "Color related tools." },
+    [ToolCategory.MATH]: { introduction: "Calculators and converters." },
+    [ToolCategory.PRODUCTIVITY]: {
+      introduction: "Tools to help you stay productive.",
+    },
+    [ToolCategory.FUN]: { introduction: "Just for fun." },
+    [ToolCategory.VIDEO]: { introduction: "Video processing tools." },
+    [ToolCategory.MISC]: { introduction: "Miscellaneous tools." },
+  };

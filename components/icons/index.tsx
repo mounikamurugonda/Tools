@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   // Category Icons
@@ -70,7 +71,23 @@ import {
   Stamp,
   Maximize2,
   FileImage,
-  Zap
+  Zap,
+  // New Icons
+  Terminal,
+  Camera as CameraIcon,
+  Table,
+  Link2,
+  Contrast,
+  Sliders,
+  Triangle,
+  MoreHorizontal,
+  Binary,
+  ShieldCheck,
+  Percent,
+  List,
+  Eraser,
+  Type as AsciiIcon,
+  Cpu
 } from 'lucide-react';
 
 const iconProps = {
@@ -241,6 +258,10 @@ export const QrCodeIcon: React.FC<{ className?: string }> = ({ className }) => (
 );
 
 export const MarkdownIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <FileCode {...iconProps} {...(className && { className })} />
+);
+
+export const FileCodeIcon: React.FC<{ className?: string }> = ({ className }) => (
   <FileCode {...iconProps} {...(className && { className })} />
 );
 
@@ -420,4 +441,89 @@ export const ImageCompressorIcon: React.FC<{ className?: string }> = ({ classNam
 
 export const FileUploadIcon: React.FC<{ className?: string }> = ({ className }) => (
   <Upload {...iconProps} {...(className && { className })} />
+);
+
+// New Icons for Added Tools
+export const TerminalIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Terminal {...iconProps} {...(className && { className })} />
+);
+
+export const CameraToolIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <CameraIcon {...iconProps} {...(className && { className })} />
+);
+
+export const SqlIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Database {...iconProps} {...(className && { className })} />
+);
+
+export const CronIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Clock {...iconProps} {...(className && { className })} />
+);
+
+export const Link2Icon: React.FC<{ className?: string }> = ({ className }) => (
+  <Link2 {...iconProps} {...(className && { className })} />
+);
+
+export const TagIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Code {...iconProps} {...(className && { className })} />
+);
+
+export const ContrastIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Contrast {...iconProps} {...(className && { className })} />
+);
+
+export const ChmodIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Sliders {...iconProps} {...(className && { className })} />
+);
+
+export const UtmIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Link {...iconProps} {...(className && { className })} />
+);
+
+export const TriangleIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Triangle {...iconProps} {...(className && { className })} />
+);
+
+export const XmlIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <FileCode {...iconProps} {...(className && { className })} />
+);
+
+export const MorseIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <MoreHorizontal {...iconProps} {...(className && { className })} />
+);
+
+export const BinaryIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Binary {...iconProps} {...(className && { className })} />
+);
+
+export const ShieldCheckIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <ShieldCheck {...iconProps} {...(className && { className })} />
+);
+
+export const StringEscaperIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Code {...iconProps} {...(className && { className })} />
+);
+
+export const PercentIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Percent {...iconProps} {...(className && { className })} />
+);
+
+export const TableIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Table {...iconProps} {...(className && { className })} />
+);
+
+export const ListIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <List {...iconProps} {...(className && { className })} />
+);
+
+export const EraserIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Eraser {...iconProps} {...(className && { className })} />
+);
+
+export const AsciiIconComponent: React.FC<{ className?: string }> = ({ className }) => (
+  <AsciiIcon {...iconProps} {...(className && { className })} />
+);
+
+export const AspectRatioIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Maximize2 {...iconProps} {...(className && { className })} />
 );

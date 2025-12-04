@@ -37,6 +37,7 @@ export interface Tool {
   details: ToolDetails;
   featured?: boolean;
   keywords?: string[];
+  tags?: string[];
 }
 
 export interface ToolProps {
