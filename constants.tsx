@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Tool, ToolCategory } from "./types";
 import CaseConverter from "@/tools/CaseConverter";
@@ -80,6 +81,28 @@ import AsciiArt from "@/tools/AsciiArt";
 import SvgToDataUri from "@/tools/SvgToDataUri";
 import YamlToJson from "@/tools/YamlToJson";
 import JsonToYaml from "@/tools/JsonToYaml";
+
+// Batch 3 Imports
+import YouTubeThumbnail from "@/tools/YouTubeThumbnail";
+import FancyFontGenerator from "@/tools/FancyFontGenerator";
+import HashtagExtractor from "@/tools/HashtagExtractor";
+import ImageFilters from "@/tools/ImageFilters";
+import SvgBlobGenerator from "@/tools/SvgBlobGenerator";
+import SvgWaveGenerator from "@/tools/SvgWaveGenerator";
+import KeycodeInfo from "@/tools/KeycodeInfo";
+import ScreenInfo from "@/tools/ScreenInfo";
+import TextToSpeech from "@/tools/TextToSpeech";
+import RomanNumeral from "@/tools/RomanNumeral";
+import AgeCalculator from "@/tools/AgeCalculator";
+import RandomNumber from "@/tools/RandomNumber";
+import DuplicateRemover from "@/tools/DuplicateRemover";
+import HtmlEntity from "@/tools/HtmlEntity";
+import CssCursors from "@/tools/CssCursors";
+import DeviceResolutions from "@/tools/DeviceResolutions";
+import LoremImage from "@/tools/LoremImage";
+import CssBorders from "@/tools/CssBorders";
+import CssPatterns from "@/tools/CssPatterns";
+import SignaturePad from "@/tools/SignaturePad";
 
 import {
   CaseIcon,
@@ -170,12 +193,33 @@ import {
   AsciiIconComponent,
   AspectRatioIcon,
   FileCodeIcon,
+  YoutubeIcon,
+  PenIcon,
+  TagsIcon,
+  FiltersIcon,
+  BlobIcon,
+  WavesIcon,
+  KeyboardIcon,
+  ScreenIcon,
+  MicIcon,
+  RomanIcon,
+  BabyIcon,
+  DiceIcon,
+  DuplicateIcon,
+  HtmlEntityIcon,
+  CursorIcon,
+  DevicesIcon,
+  PlaceholderIcon,
+  BorderIcon,
+  PatternIcon,
+  SignatureIcon
 } from "@/components/icons";
 
 const PRIVACY_STATEMENT =
   "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
 
 export const TOOLS: Tool[] = [
+  // ... existing tools
   {
     id: "json-to-typescript",
     name: "JSON to TypeScript",
@@ -183,16 +227,7 @@ export const TOOLS: Tool[] = [
     icon: <JsonIcon />,
     component: JsonToTypescript,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Convert JSON to Typescript",
-      howToUse: ["Paste JSON", "Copy TS"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert JSON to Typescript", howToUse: ["Paste JSON", "Copy TS"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "code-to-image",
@@ -201,16 +236,7 @@ export const TOOLS: Tool[] = [
     icon: <CameraToolIcon />,
     component: CodeToImage,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Create screenshots of code.",
-      howToUse: ["Paste Code", "Select Theme", "Snapshot"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Create screenshots of code.", howToUse: ["Paste Code", "Select Theme", "Snapshot"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "sql-formatter",
@@ -219,16 +245,7 @@ export const TOOLS: Tool[] = [
     icon: <SqlIcon />,
     component: SqlFormatter,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Format SQL queries.",
-      howToUse: ["Paste SQL", "Click Format"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Format SQL queries.", howToUse: ["Paste SQL", "Click Format"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "cron-generator",
@@ -237,16 +254,7 @@ export const TOOLS: Tool[] = [
     icon: <CronIcon />,
     component: CronParser,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Build Cron expressions visually.",
-      howToUse: ["Select intervals", "Copy string"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Build Cron expressions visually.", howToUse: ["Select intervals", "Copy string"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "slug-generator",
@@ -255,16 +263,7 @@ export const TOOLS: Tool[] = [
     icon: <Link2Icon />,
     component: SlugGenerator,
     category: ToolCategory.TEXT,
-    details: {
-      introduction: "Create URL slugs.",
-      howToUse: ["Type title", "Copy slug"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Create URL slugs.", howToUse: ["Type title", "Copy slug"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "meta-tag-generator",
@@ -273,16 +272,7 @@ export const TOOLS: Tool[] = [
     icon: <TagIcon />,
     component: MetaTagGenerator,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Create HTML meta tags.",
-      howToUse: ["Enter details", "Copy HTML"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Create HTML meta tags.", howToUse: ["Enter details", "Copy HTML"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "contrast-checker",
@@ -291,16 +281,7 @@ export const TOOLS: Tool[] = [
     icon: <ContrastIcon />,
     component: ContrastChecker,
     category: ToolCategory.COLOR,
-    details: {
-      introduction: "Check color contrast.",
-      howToUse: ["Select colors", "See rating"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Check color contrast.", howToUse: ["Select colors", "See rating"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "chmod-calculator",
@@ -309,16 +290,7 @@ export const TOOLS: Tool[] = [
     icon: <ChmodIcon />,
     component: ChmodCalculator,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Calculate Linux permissions.",
-      howToUse: ["Check boxes", "Copy code"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Calculate Linux permissions.", howToUse: ["Check boxes", "Copy code"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "utm-builder",
@@ -327,16 +299,7 @@ export const TOOLS: Tool[] = [
     icon: <UtmIcon />,
     component: UtmBuilder,
     category: ToolCategory.PRODUCTIVITY,
-    details: {
-      introduction: "Create tracking links.",
-      howToUse: ["Enter URL", "Add params", "Copy"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Create tracking links.", howToUse: ["Enter URL", "Add params", "Copy"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "aspect-ratio-calculator",
@@ -345,16 +308,7 @@ export const TOOLS: Tool[] = [
     icon: <AspectRatioIcon />,
     component: AspectRatio,
     category: ToolCategory.IMAGE,
-    details: {
-      introduction: "Calculate aspect ratios.",
-      howToUse: ["Enter dims", "See ratio"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Calculate aspect ratios.", howToUse: ["Enter dims", "See ratio"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "css-triangle-generator",
@@ -363,16 +317,7 @@ export const TOOLS: Tool[] = [
     icon: <TriangleIcon />,
     component: CssTriangle,
     category: ToolCategory.CSS,
-    details: {
-      introduction: "Create CSS triangles.",
-      howToUse: ["Set direction/color", "Copy CSS"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Create CSS triangles.", howToUse: ["Set direction/color", "Copy CSS"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "xml-formatter",
@@ -381,16 +326,7 @@ export const TOOLS: Tool[] = [
     icon: <XmlIcon />,
     component: XmlFormatter,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Format XML.",
-      howToUse: ["Paste XML", "Copy formatted"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Format XML.", howToUse: ["Paste XML", "Copy formatted"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "morse-converter",
@@ -399,16 +335,7 @@ export const TOOLS: Tool[] = [
     icon: <MorseIcon />,
     component: MorseConverter,
     category: ToolCategory.FUN,
-    details: {
-      introduction: "Text to Morse conversion.",
-      howToUse: ["Type text", "See dots/dashes"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Text to Morse conversion.", howToUse: ["Type text", "See dots/dashes"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "binary-converter",
@@ -417,16 +344,7 @@ export const TOOLS: Tool[] = [
     icon: <BinaryIcon />,
     component: BinaryConverter,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Convert text to 0s and 1s.",
-      howToUse: ["Type text", "Get binary"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert text to 0s and 1s.", howToUse: ["Type text", "Get binary"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "password-strength",
@@ -435,16 +353,7 @@ export const TOOLS: Tool[] = [
     icon: <ShieldCheckIcon />,
     component: PasswordStrength,
     category: ToolCategory.MISC,
-    details: {
-      introduction: "Check password strength.",
-      howToUse: ["Type password", "See score"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Check password strength.", howToUse: ["Type password", "See score"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "string-escaper",
@@ -453,16 +362,7 @@ export const TOOLS: Tool[] = [
     icon: <StringEscaperIcon />,
     component: StringEscaper,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Escape special characters.",
-      howToUse: ["Paste text", "Select format"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Escape special characters.", howToUse: ["Paste text", "Select format"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "percentage-calculator",
@@ -471,16 +371,7 @@ export const TOOLS: Tool[] = [
     icon: <PercentIcon />,
     component: PercentageCalculator,
     category: ToolCategory.MATH,
-    details: {
-      introduction: "Calculate percentages.",
-      howToUse: ["Enter numbers", "Get result"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Calculate percentages.", howToUse: ["Enter numbers", "Get result"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "markdown-table-generator",
@@ -489,16 +380,7 @@ export const TOOLS: Tool[] = [
     icon: <TableIcon />,
     component: MarkdownTable,
     category: ToolCategory.TEXT,
-    details: {
-      introduction: "Generate MD tables.",
-      howToUse: ["Set rows/cols", "Fill data", "Copy"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Generate MD tables.", howToUse: ["Set rows/cols", "Fill data", "Copy"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "list-randomizer",
@@ -507,16 +389,7 @@ export const TOOLS: Tool[] = [
     icon: <ListIcon />,
     component: ListRandomizer,
     category: ToolCategory.FUN,
-    details: {
-      introduction: "Randomize lists.",
-      howToUse: ["Paste list", "Shuffle"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Randomize lists.", howToUse: ["Paste list", "Shuffle"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "text-cleaner",
@@ -525,16 +398,7 @@ export const TOOLS: Tool[] = [
     icon: <EraserIcon />,
     component: TextCleaner,
     category: ToolCategory.TEXT,
-    details: {
-      introduction: "Clean up text.",
-      howToUse: ["Paste text", "Click clean"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Clean up text.", howToUse: ["Paste text", "Click clean"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "ascii-art-generator",
@@ -543,16 +407,7 @@ export const TOOLS: Tool[] = [
     icon: <AsciiIconComponent />,
     component: AsciiArt,
     category: ToolCategory.FUN,
-    details: {
-      introduction: "Create text banners.",
-      howToUse: ["Type text", "See art"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Create text banners.", howToUse: ["Type text", "See art"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "svg-to-data-uri",
@@ -561,16 +416,7 @@ export const TOOLS: Tool[] = [
     icon: <ImageIcon />,
     component: SvgToDataUri,
     category: ToolCategory.IMAGE,
-    details: {
-      introduction: "Convert SVG to URI.",
-      howToUse: ["Paste SVG", "Copy URI"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert SVG to URI.", howToUse: ["Paste SVG", "Copy URI"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "yaml-to-json",
@@ -579,16 +425,7 @@ export const TOOLS: Tool[] = [
     icon: <FileCodeIcon />,
     component: YamlToJson,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Convert YAML to JSON.",
-      howToUse: ["Paste YAML", "Get JSON"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert YAML to JSON.", howToUse: ["Paste YAML", "Get JSON"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "json-to-yaml",
@@ -597,112 +434,190 @@ export const TOOLS: Tool[] = [
     icon: <FileCodeIcon />,
     component: JsonToYaml,
     category: ToolCategory.CODING,
-    details: {
-      introduction: "Convert JSON to YAML.",
-      howToUse: ["Paste JSON", "Get YAML"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert JSON to YAML.", howToUse: ["Paste JSON", "Get YAML"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  // Batch 3
+  {
+    id: "youtube-thumbnail",
+    name: "YouTube Thumbnail Downloader",
+    description: "Download thumbnails from any YouTube video in max resolution.",
+    icon: <YoutubeIcon />,
+    component: YouTubeThumbnail,
+    category: ToolCategory.IMAGE,
+    details: { introduction: "Grab video thumbnails.", howToUse: ["Paste URL", "Get Images"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
-    id: "keyword-density-analyzer",
-    name: "Keyword Density Analyzer",
-    description:
-      "Analyze keyword frequency, density, and phrase patterns to optimize your SEO content and improve search rankings.",
-    seoTitle:
-      "Free Keyword Density Analyzer | Instantly Check & Optimize Your SEO",
-    seoDescription:
-      "Struggling with SEO? Our free Keyword Density Analyzer helps you find the perfect keyword balance to rank higher. Analyze frequency, avoid stuffing, and optimize your content like a pro. 100% private.",
-    icon: <KeywordDensityIcon />,
-    component: KeywordDensityAnalyzer,
+    id: "fancy-font",
+    name: "Fancy Font Generator",
+    description: "Generate stylish text for social media bios.",
+    icon: <PenIcon />,
+    component: FancyFontGenerator,
     category: ToolCategory.TEXT,
-
-    keywords: [
-      "keyword density analyzer",
-      "keyword density checker",
-      "seo keyword tool",
-      "keyword frequency checker",
-      "content optimization tool",
-      "on-page SEO analyzer",
-      "long-tail keyword analysis",
-      "SEO content checker",
-      "keyword percentage checker",
-      "keyword rank checker",
-      "free seo tools",
-    ],
-
-    details: {
-      introduction:
-        "Stop guessing and start ranking. Our Keyword Density Analyzer gives you the power to dissect your content's SEO performance in seconds. Uncover keyword frequency, identify valuable long-tail phrases, and strike the perfect balance to please both search engines and readers. Whether you're a blogger, marketer, or SEO pro, this tool is your secret weapon for creating content that dominates search results.",
-
-      howToUse: [
-        "Paste your content (article, blog post, or webpage copy) into the text area.",
-        "Instantly see a full analysis of one, two, and three-word keyword phrases.",
-        "Review the data table to see keyword counts, frequency, and density percentages.",
-        "Toggle 'Ignore Stop Words' to filter out common words and focus on what matters.",
-        "Sort your results to pinpoint top-performing keywords and optimization opportunities.",
-        "Copy the analysis to your clipboard for reports, audits, or content briefs.",
-      ],
-
-      features: [
-        "Instant Analysis: Get real-time keyword density metrics for single and multi-word phrases.",
-        "Precision Calculation: Avoid keyword stuffing with accurate density percentages.",
-        "Smart Filtering: Focus on high-impact keywords by removing generic stop words.",
-        "Sortable Results: Easily prioritize keywords for maximum SEO impact.",
-        "Long-Tail Discovery: Uncover valuable long-tail keywords to capture more organic traffic.",
-        "100% Private: Your data is yours. All analysis happens in your browser—nothing is ever stored.",
-      ],
-
-      privacy: PRIVACY_STATEMENT,
-
-      explanation:
-        "Keyword density is the secret sauce of on-page SEO. It measures how often a keyword appears relative to the total word count. The sweet spot is typically 1-2%—enough to signal relevance to Google without sounding robotic. Our tool goes beyond simple counting; it uses Natural Language Processing (NLP) to analyze n-grams (phrases) and calculate density with the formula: `(Keyword Count / Total Words) * 100`. This helps you optimize for user intent and dominate the SERPs.",
-
-      usageExamples: [
-        'Optimizing a blog post for keywords like "best digital marketing tools" or "SEO tips for beginners."',
-        "Analyzing competitor articles to discover their keyword density strategies and ranking phrases.",
-        "Improving e-commerce product descriptions by inserting relevant search terms naturally.",
-        "Performing an SEO audit on old content to increase keyword clarity and ranking potential.",
-        "Creating SEO reports for clients with before-and-after keyword density improvement data.",
-      ],
-
-      faqs: [
-        {
-          question: "What's the ideal keyword density for SEO?",
-          answer:
-            "Aim for 1-2% for your primary keywords to stay relevant without being penalized. Our tool makes it easy to hit this target.",
-        },
-        {
-          question: "Does this work for languages other than English?",
-          answer:
-            "Yes! The tool analyzes any language. For best results with non-English text, simply turn off the 'Ignore Stop Words' filter.",
-        },
-        {
-          question: "Can this tool analyze long articles?",
-          answer:
-            "Absolutely! It handles large texts with ease. For extremely long content, analyzing it in sections can provide even more granular insights.",
-        },
-        {
-          question: "How does stop-word removal help?",
-          answer:
-            'It filters out common filler words (like "the", "is", "and") so you can focus on the keywords that truly impact your SEO.',
-        },
-        {
-          question: "Is my text saved anywhere?",
-          answer:
-            "Never. Your privacy is paramount. All processing is done locally in your browser, and your content is never uploaded or stored.",
-        },
-      ],
-
-      underlyingConcept:
-        "This tool leverages Natural Language Processing (NLP) to perform sophisticated text analysis. It tokenizes your content, identifies n-grams (keyword phrases), and calculates term frequency. By filtering out stop-words, it helps you focus on semantically significant terms, mirroring techniques like TF-IDF to provide actionable insights for superior content optimization.",
-    },
+    details: { introduction: "Create fancy text.", howToUse: ["Type text", "Copy style"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
-
+  {
+    id: "hashtag-extractor",
+    name: "Hashtag Extractor",
+    description: "Extract hashtags from a block of text.",
+    icon: <TagsIcon />,
+    component: HashtagExtractor,
+    category: ToolCategory.TEXT,
+    details: { introduction: "Find all hashtags.", howToUse: ["Paste text", "Copy tags"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "image-filters",
+    name: "Instagram Photo Filters",
+    description: "Apply CSS filters like grayscale, sepia, and blur to images.",
+    icon: <FiltersIcon />,
+    component: ImageFilters,
+    category: ToolCategory.IMAGE,
+    details: { introduction: "Apply effects to images.", howToUse: ["Upload image", "Adjust sliders", "Download"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "svg-blob",
+    name: "SVG Blob Generator",
+    description: "Create organic blob shapes for backgrounds.",
+    icon: <BlobIcon />,
+    component: SvgBlobGenerator,
+    category: ToolCategory.IMAGE,
+    details: { introduction: "Generate random blobs.", howToUse: ["Adjust settings", "Copy SVG"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "svg-wave",
+    name: "SVG Wave Generator",
+    description: "Generate smooth wave dividers for your website.",
+    icon: <WavesIcon />,
+    component: SvgWaveGenerator,
+    category: ToolCategory.IMAGE,
+    details: { introduction: "Create page dividers.", howToUse: ["Set layers", "Copy SVG"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "keycode-info",
+    name: "Keycode Event Info",
+    description: "Get JavaScript event codes for any key press.",
+    icon: <KeyboardIcon />,
+    component: KeycodeInfo,
+    category: ToolCategory.CODING,
+    details: { introduction: "Find key codes.", howToUse: ["Press key", "See codes"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "screen-info",
+    name: "Screen Resolution Info",
+    description: "View your current screen and viewport dimensions.",
+    icon: <ScreenIcon />,
+    component: ScreenInfo,
+    category: ToolCategory.PRODUCTIVITY,
+    details: { introduction: "Check your resolution.", howToUse: ["Open tool", "See stats"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "text-to-speech",
+    name: "Text to Speech",
+    description: "Convert text to spoken audio in your browser.",
+    icon: <MicIcon />,
+    component: TextToSpeech,
+    category: ToolCategory.FUN,
+    details: { introduction: "Read text aloud.", howToUse: ["Type text", "Click speak"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "roman-numeral",
+    name: "Roman Numeral Converter",
+    description: "Convert numbers to Roman numerals and back.",
+    icon: <RomanIcon />,
+    component: RomanNumeral,
+    category: ToolCategory.MATH,
+    details: { introduction: "Convert numbers.", howToUse: ["Enter number", "See result"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "age-calculator",
+    name: "Age Calculator",
+    description: "Calculate your exact age in years, months, and days.",
+    icon: <BabyIcon />,
+    component: AgeCalculator,
+    category: ToolCategory.MATH,
+    details: { introduction: "Find your exact age.", howToUse: ["Enter birthdate", "See age"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "random-number",
+    name: "Random Number Generator",
+    description: "Generate random numbers within a specific range.",
+    icon: <DiceIcon />,
+    component: RandomNumber,
+    category: ToolCategory.MATH,
+    details: { introduction: "Get random numbers.", howToUse: ["Set range", "Generate"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "duplicate-remover",
+    name: "Duplicate Line Remover",
+    description: "Remove duplicate entries from a list of text.",
+    icon: <DuplicateIcon />,
+    component: DuplicateRemover,
+    category: ToolCategory.TEXT,
+    details: { introduction: "Clean lists.", howToUse: ["Paste list", "Remove dupes"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "html-entity",
+    name: "HTML Entity Encoder",
+    description: "Encode/Decode text to HTML entities.",
+    icon: <HtmlEntityIcon />,
+    component: HtmlEntity,
+    category: ToolCategory.CODING,
+    details: { introduction: "Escape HTML.", howToUse: ["Paste text", "Encode/Decode"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "css-cursors",
+    name: "CSS Cursor Viewer",
+    description: "Visual reference for all CSS cursor types.",
+    icon: <CursorIcon />,
+    component: CssCursors,
+    category: ToolCategory.CSS,
+    details: { introduction: "View CSS cursors.", howToUse: ["Hover boxes", "Copy CSS"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "device-resolutions",
+    name: "Device Resolution List",
+    description: "Reference guide for common device screen sizes.",
+    icon: <DevicesIcon />,
+    component: DeviceResolutions,
+    category: ToolCategory.PRODUCTIVITY,
+    details: { introduction: "Check device sizes.", howToUse: ["Search device", "See specs"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "lorem-image",
+    name: "Lorem Picsum Generator",
+    description: "Generate placeholder image URLs.",
+    icon: <PlaceholderIcon />,
+    component: LoremImage,
+    category: ToolCategory.IMAGE,
+    details: { introduction: "Get dummy images.", howToUse: ["Set size", "Copy URL"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "css-borders",
+    name: "CSS Border Preview",
+    description: "Visualizer for all CSS border styles.",
+    icon: <BorderIcon />,
+    component: CssBorders,
+    category: ToolCategory.CSS,
+    details: { introduction: "Preview borders.", howToUse: ["Click style", "Copy code"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "css-patterns",
+    name: "CSS Background Patterns",
+    description: "Generate pure CSS background patterns.",
+    icon: <PatternIcon />,
+    component: CssPatterns,
+    category: ToolCategory.CSS,
+    details: { introduction: "Create patterns.", howToUse: ["Select style", "Customize", "Copy"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "signature-pad",
+    name: "Signature Pad",
+    description: "Draw and save digital signatures.",
+    icon: <SignatureIcon />,
+    component: SignaturePad,
+    category: ToolCategory.MISC,
+    details: { introduction: "Draw signature.", howToUse: ["Draw", "Download"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  // ... rest of the existing tools (ensure Readability Score, Loan Calculator, etc. are preserved)
   {
     id: "readability-score-calculator",
     name: "Readability Score Calculator",
@@ -788,7 +703,8 @@ export const TOOLS: Tool[] = [
     name: "Loan Calculator",
     description:
       "Calculate accurate monthly payments, interest costs, and a complete amortization schedule for any type of loan.",
-    seoTitle: "Free Loan Calculator | Estimate Monthly Payments & Amortization",
+    seoTitle:
+      "Free Loan Calculator | Estimate Monthly Payments & Amortization",
     seoDescription:
       "Take control of your finances. Our free Loan Calculator helps you estimate monthly payments, total interest, and see a full amortization schedule for any loan. Plan for mortgages, car loans, and more. Fast, accurate, and 100% private.",
 
@@ -1164,7 +1080,8 @@ export const TOOLS: Tool[] = [
     name: "Lorem Ipsum Generator",
     description:
       "Generate customizable placeholder text for web design, UI/UX prototypes, print layouts, and content mockups.",
-    seoTitle: "Lorem Ipsum Generator | Create Custom Placeholder Text",
+    seoTitle:
+      "Lorem Ipsum Generator | Create Custom Placeholder Text",
     seoDescription:
       "Need placeholder text? Our free Lorem Ipsum Generator creates custom dummy text for your designs. Generate paragraphs, sentences, or words to perfect your layouts. Fast, easy, and professional.",
     icon: <LoremIpsumIcon />,
@@ -1396,7 +1313,8 @@ export const TOOLS: Tool[] = [
     name: "Base64 Converter",
     description:
       "Instantly encode and decode text, images, and files to/from Base64 online.",
-    seoTitle: "Online Base64 Converter | Encode & Decode Text, Files & Images",
+    seoTitle:
+      "Online Base64 Converter | Encode & Decode Text, Files & Images",
     seoDescription:
       "A free, powerful tool to encode and decode Base64. Easily convert text, images, or any file into a Base64 string and back again. Secure, fast, and all in your browser.",
     icon: <Base64Icon />,
@@ -1717,8 +1635,7 @@ export const TOOLS: Tool[] = [
     name: "Hash Generator",
     description:
       "Create SHA-1, SHA-256, or SHA-512 hashes online from any text.",
-    seoTitle:
-      "Online Hash Generator | Generate SHA-1, SHA-256 & SHA-512 Hashes",
+    seoTitle: "Online Hash Generator | Generate SHA-1, SHA-256 & SHA-512 Hashes",
     seoDescription:
       "Instantly generate secure SHA-1, SHA-256, and SHA-512 hashes from any text with our free online tool. Powered by the Web Crypto API for maximum security. 100% private.",
     icon: <HashIcon />,
@@ -2149,7 +2066,8 @@ export const TOOLS: Tool[] = [
         },
         {
           question: "Is it supported in all browsers?",
-          answer: "Yes, Data URLs are supported by all modern web browsers.",
+          answer:
+            "Yes, Data URLs are supported by all modern web browsers.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
@@ -2768,16 +2686,7 @@ export const TOOLS: Tool[] = [
     icon: <VideoCompressorIcon />,
     component: VideoCompressor,
     category: ToolCategory.VIDEO,
-    details: {
-      introduction: "Compress video files easily.",
-      howToUse: ["Upload video", "Click compress", "Download"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Compress video files easily.", howToUse: ["Upload video", "Click compress", "Download"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "video-to-audio-converter",
@@ -2786,16 +2695,7 @@ export const TOOLS: Tool[] = [
     icon: <VideoToAudioIcon />,
     component: VideoToAudioConverter,
     category: ToolCategory.VIDEO,
-    details: {
-      introduction: "Convert video to audio.",
-      howToUse: ["Upload video", "Convert", "Download MP3"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert video to audio.", howToUse: ["Upload video", "Convert", "Download MP3"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "gif-maker",
@@ -2804,16 +2704,7 @@ export const TOOLS: Tool[] = [
     icon: <GifMakerIcon />,
     component: GifMaker,
     category: ToolCategory.VIDEO,
-    details: {
-      introduction: "Create GIFs from video.",
-      howToUse: ["Upload video", "Create GIF", "Download"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Create GIFs from video.", howToUse: ["Upload video", "Create GIF", "Download"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "trim-video",
@@ -2822,16 +2713,7 @@ export const TOOLS: Tool[] = [
     icon: <TrimVideoIcon />,
     component: TrimVideo,
     category: ToolCategory.VIDEO,
-    details: {
-      introduction: "Trim video clips.",
-      howToUse: ["Upload video", "Set start/end", "Trim"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Trim video clips.", howToUse: ["Upload video", "Set start/end", "Trim"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "format-converter",
@@ -2840,35 +2722,16 @@ export const TOOLS: Tool[] = [
     icon: <FormatConverterIcon />,
     component: FormatConverter,
     category: ToolCategory.VIDEO,
-    details: {
-      introduction: "Convert video formats.",
-      howToUse: ["Upload video", "Select format", "Convert"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert video formats.", howToUse: ["Upload video", "Select format", "Convert"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "video-thumbnail-extractor",
     name: "Video Thumbnail Extractor",
-    description:
-      "Extract image thumbnails from specific timestamps in a video.",
+    description: "Extract image thumbnails from specific timestamps in a video.",
     icon: <VideoThumbnailIcon />,
     component: VideoThumbnailExtractor,
     category: ToolCategory.VIDEO,
-    details: {
-      introduction: "Extract thumbnails from video.",
-      howToUse: ["Upload video", "Set time", "Extract"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Extract thumbnails from video.", howToUse: ["Upload video", "Set time", "Extract"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "video-mute",
@@ -2877,16 +2740,7 @@ export const TOOLS: Tool[] = [
     icon: <VideoMuteIcon />,
     component: VideoMute,
     category: ToolCategory.VIDEO,
-    details: {
-      introduction: "Remove audio from video.",
-      howToUse: ["Upload video", "Mute", "Download"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Remove audio from video.", howToUse: ["Upload video", "Mute", "Download"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "watermark-adder",
@@ -2895,16 +2749,7 @@ export const TOOLS: Tool[] = [
     icon: <WatermarkAdderIcon />,
     component: WatermarkAdder,
     category: ToolCategory.IMAGE,
-    details: {
-      introduction: "Add watermark to images.",
-      howToUse: ["Upload image", "Upload watermark", "Apply"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Add watermark to images.", howToUse: ["Upload image", "Upload watermark", "Apply"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "image-resizer",
@@ -2913,16 +2758,7 @@ export const TOOLS: Tool[] = [
     icon: <ImageResizerIcon />,
     component: ImageResizer,
     category: ToolCategory.IMAGE,
-    details: {
-      introduction: "Resize images.",
-      howToUse: ["Upload image", "Set size", "Download"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Resize images.", howToUse: ["Upload image", "Set size", "Download"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "image-converter",
@@ -2931,35 +2767,16 @@ export const TOOLS: Tool[] = [
     icon: <ImageConverterIcon />,
     component: ImageConverter,
     category: ToolCategory.IMAGE,
-    details: {
-      introduction: "Convert image formats.",
-      howToUse: ["Upload image", "Select format", "Convert"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Convert image formats.", howToUse: ["Upload image", "Select format", "Convert"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "image-compressor",
     name: "Image Compressor",
-    description:
-      "Compress images to reduce file size while maintaining quality.",
+    description: "Compress images to reduce file size while maintaining quality.",
     icon: <ImageCompressorIcon />,
     component: ImageCompressor,
     category: ToolCategory.IMAGE,
-    details: {
-      introduction: "Compress images.",
-      howToUse: ["Upload image", "Set quality", "Compress"],
-      features: [],
-      privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
-    },
+    details: { introduction: "Compress images.", howToUse: ["Upload image", "Set quality", "Compress"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   },
   {
     id: "todo-list",
@@ -2997,18 +2814,16 @@ export const TOOLS: Tool[] = [
       faqs: [
         {
           question: "Will I lose my tasks if I close the browser?",
-          answer:
-            "No, they are saved in LocalStorage and will be there when you come back.",
+          answer: "No, they are saved in LocalStorage and will be there when you come back.",
         },
         {
           question: "Can I sync this with other devices?",
-          answer:
-            "No, the data is stored locally on this specific device and browser.",
+          answer: "No, the data is stored locally on this specific device and browser.",
         },
       ],
       privacy: PRIVACY_STATEMENT,
-    },
-  },
+    }
+  }
 ];
 
 export const CATEGORY_ORDER: ToolCategory[] = [
@@ -3025,29 +2840,24 @@ export const CATEGORY_ORDER: ToolCategory[] = [
 ];
 
 export const CATEGORY_URL_MAP: Record<ToolCategory, string> = {
-  [ToolCategory.TEXT]: "text",
-  [ToolCategory.IMAGE]: "image",
-  [ToolCategory.CSS]: "css",
-  [ToolCategory.CODING]: "coding",
-  [ToolCategory.COLOR]: "color",
-  [ToolCategory.MATH]: "calculator",
-  [ToolCategory.PRODUCTIVITY]: "productivity",
-  [ToolCategory.FUN]: "fun",
-  [ToolCategory.VIDEO]: "video",
-  [ToolCategory.MISC]: "other",
+  [ToolCategory.TEXT]: 'text',
+  [ToolCategory.IMAGE]: 'image',
+  [ToolCategory.CSS]: 'css',
+  [ToolCategory.CODING]: 'coding',
+  [ToolCategory.COLOR]: 'color',
+  [ToolCategory.MATH]: 'calculator',
+  [ToolCategory.PRODUCTIVITY]: 'productivity',
+  [ToolCategory.FUN]: 'fun',
+  [ToolCategory.VIDEO]: 'video',
+  [ToolCategory.MISC]: 'other',
 };
 
-export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = Object.entries(
-  CATEGORY_URL_MAP
-).reduce((acc, [key, value]) => {
+export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = Object.entries(CATEGORY_URL_MAP).reduce((acc, [key, value]) => {
   acc[value] = key as ToolCategory;
   return acc;
 }, {} as Record<string, ToolCategory>);
 
-export const CATEGORY_ICONS: Record<
-  ToolCategory,
-  React.ComponentType<{ className?: string }>
-> = {
+export const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<{ className?: string }>> = {
   [ToolCategory.TEXT]: TextCategoryIcon,
   [ToolCategory.IMAGE]: ImageCategoryIcon,
   [ToolCategory.CSS]: CssCategoryIcon,
@@ -3073,20 +2883,15 @@ export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
   [ToolCategory.MISC]: "Various useful tools.",
 };
 
-export const CATEGORY_CONTENT: Record<ToolCategory, { introduction: string }> =
-  {
-    [ToolCategory.TEXT]: {
-      introduction: "A collection of tools for text manipulation.",
-    },
-    [ToolCategory.IMAGE]: { introduction: "Tools for working with images." },
-    [ToolCategory.CSS]: { introduction: "Generators for CSS styles." },
-    [ToolCategory.CODING]: { introduction: "Utilities for developers." },
-    [ToolCategory.COLOR]: { introduction: "Color related tools." },
-    [ToolCategory.MATH]: { introduction: "Calculators and converters." },
-    [ToolCategory.PRODUCTIVITY]: {
-      introduction: "Tools to help you stay productive.",
-    },
-    [ToolCategory.FUN]: { introduction: "Just for fun." },
-    [ToolCategory.VIDEO]: { introduction: "Video processing tools." },
-    [ToolCategory.MISC]: { introduction: "Miscellaneous tools." },
-  };
+export const CATEGORY_CONTENT: Record<ToolCategory, { introduction: string }> = {
+  [ToolCategory.TEXT]: { introduction: "A collection of tools for text manipulation." },
+  [ToolCategory.IMAGE]: { introduction: "Tools for working with images." },
+  [ToolCategory.CSS]: { introduction: "Generators for CSS styles." },
+  [ToolCategory.CODING]: { introduction: "Format, validate, and convert code." },
+  [ToolCategory.COLOR]: { introduction: "Generate palettes and convert colors." },
+  [ToolCategory.MATH]: { introduction: "Perform calculations and conversions." },
+  [ToolCategory.PRODUCTIVITY]: { introduction: "Boost your efficiency with these tools." },
+  [ToolCategory.FUN]: { introduction: "Have some fun with these generators." },
+  [ToolCategory.VIDEO]: { introduction: "Edit and convert video files." },
+  [ToolCategory.MISC]: { introduction: "Various useful tools." },
+};

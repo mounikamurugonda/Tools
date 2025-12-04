@@ -87,7 +87,28 @@ import {
   List,
   Eraser,
   Type as AsciiIcon,
-  Cpu
+  Cpu,
+  // Even Newer Icons
+  Youtube,
+  PenTool,
+  Tags,
+  Aperture,
+  Cloud,
+  Waves,
+  Keyboard,
+  Monitor,
+  Mic,
+  Coins,
+  Baby,
+  Dices,
+  Copy,
+  Code2,
+  MousePointer2,
+  Smartphone,
+  ImagePlus,
+  Square,
+  Grid,
+  Pen
 } from 'lucide-react';
 
 const iconProps = {
@@ -526,4 +547,85 @@ export const AsciiIconComponent: React.FC<{ className?: string }> = ({ className
 
 export const AspectRatioIcon: React.FC<{ className?: string }> = ({ className }) => (
   <Maximize2 {...iconProps} {...(className && { className })} />
+);
+
+// Newly Added Icons
+export const YoutubeIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Youtube {...iconProps} {...(className && { className })} />
+);
+
+export const PenIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <PenTool {...iconProps} {...(className && { className })} />
+);
+
+export const TagsIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Tags {...iconProps} {...(className && { className })} />
+);
+
+export const FiltersIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Aperture {...iconProps} {...(className && { className })} />
+);
+
+export const BlobIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Cloud {...iconProps} {...(className && { className })} />
+);
+
+export const WavesIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Waves {...iconProps} {...(className && { className })} />
+);
+
+export const KeyboardIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Keyboard {...iconProps} {...(className && { className })} />
+);
+
+export const ScreenIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Monitor {...iconProps} {...(className && { className })} />
+);
+
+export const MicIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Mic {...iconProps} {...(className && { className })} />
+);
+
+export const RomanIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Coins {...iconProps} {...(className && { className })} />
+);
+
+export const BabyIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Baby {...iconProps} {...(className && { className })} />
+);
+
+export const DiceIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Dices {...iconProps} {...(className && { className })} />
+);
+
+export const DuplicateIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Copy {...iconProps} {...(className && { className })} />
+);
+
+export const HtmlEntityIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Code2 {...iconProps} {...(className && { className })} />
+);
+
+export const CursorIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <MousePointer2 {...iconProps} {...(className && { className })} />
+);
+
+export const DevicesIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Smartphone {...iconProps} {...(className && { className })} />
+);
+
+export const PlaceholderIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <ImagePlus {...iconProps} {...(className && { className })} />
+);
+
+export const BorderIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Square {...iconProps} {...(className && { className })} />
+);
+
+export const PatternIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Grid {...iconProps} {...(className && { className })} />
+);
+
+export const SignatureIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Pen {...iconProps} {...(className && { className })} />
 );
