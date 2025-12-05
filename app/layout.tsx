@@ -126,7 +126,7 @@ export default function RootLayout({
             }}
           />
       </head>
-      <body className="bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+      <body className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text">
         <ThemeProvider>
           <div className="min-h-screen w-full flex flex-col transition-colors duration-300">
             <Header />

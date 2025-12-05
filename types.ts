@@ -53,4 +53,7 @@ export interface Blog {
   author: string;
   category: string;
   content: string;
+  image?: string;
+  authorImage?: string;
+  relatedPosts?: string[];
 }
