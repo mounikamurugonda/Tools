@@ -2823,6 +2823,105 @@ export const TOOLS: Tool[] = [
       ],
       privacy: PRIVACY_STATEMENT,
     }
+  },
+  {
+    id: "password-generator",
+    name: "Password Generator",
+    description: "Generate strong, secure passwords.",
+    icon: <PasswordIcon />,
+    component: PasswordGenerator,
+    category: ToolCategory.CODING,
+    details: { introduction: "Generate strong passwords.", howToUse: ["Set length", "Click generate"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "qr-code-generator",
+    name: "QR Code Generator",
+    description: "Generate QR codes from text or URLs.",
+    icon: <QrCodeIcon />,
+    component: QrCodeGenerator,
+    category: ToolCategory.IMAGE,
+    details: { introduction: "Generate QR codes.", howToUse: ["Enter text", "Download QR code"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "date-calculator",
+    name: "Date Calculator",
+    description: "Calculate the difference between two dates.",
+    icon: <DateCalcIcon />,
+    component: DateCalculator,
+    category: ToolCategory.MATH,
+    details: { introduction: "Calculate date differences.", howToUse: ["Select dates", "See result"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "pomodoro-timer",
+    name: "Pomodoro Timer",
+    description: "A timer to help you focus using the Pomodoro Technique.",
+    icon: <PomodoroIcon />,
+    component: PomodoroTimer,
+    category: ToolCategory.PRODUCTIVITY,
+    details: { introduction: "Focus with the Pomodoro Timer.", howToUse: ["Start timer", "Work", "Take break"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "meme-generator",
+    name: "Meme Generator",
+    description: "Create your own memes with popular templates.",
+    icon: <MemeIcon />,
+    component: MemeGenerator,
+    category: ToolCategory.FUN,
+    details: { introduction: "Create memes.", howToUse: ["Select template", "Add text", "Download"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "unit-converter",
+    name: "Unit Converter",
+    description: "Convert between different units of measurement.",
+    icon: <UnitConverterIcon />,
+    component: UnitConverter,
+    category: ToolCategory.MATH,
+    details: { introduction: "Convert units.", howToUse: ["Select units", "Enter value", "See result"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "bmi-calculator",
+    name: "BMI Calculator",
+    description: "Calculate your Body Mass Index.",
+    icon: <BmiIcon />,
+    component: BmiCalculator,
+    category: ToolCategory.MATH,
+    details: { introduction: "Calculate BMI.", howToUse: ["Enter height and weight", "See result"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "currency-converter",
+    name: "Currency Converter",
+    description: "Convert between different currencies.",
+    icon: <CurrencyIcon />,
+    component: CurrencyConverter,
+    category: ToolCategory.MATH,
+    details: { introduction: "Convert currencies.", howToUse: ["Select currencies", "Enter amount", "See result"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "world-clock",
+    name: "World Clock",
+    description: "Check the time in different cities around the world.",
+    icon: <WorldClockIcon />,
+    component: WorldClock,
+    category: ToolCategory.PRODUCTIVITY,
+    details: { introduction: "Check world times.", howToUse: ["Search for city", "See time"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "timers-and-stopwatch",
+    name: "Timers and Stopwatch",
+    description: "A simple timer and stopwatch.",
+    icon: <TimersIcon />,
+    component: TimersAndStopwatch,
+    category: ToolCategory.PRODUCTIVITY,
+    details: { introduction: "Use a timer or stopwatch.", howToUse: ["Start", "Stop", "Reset"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
+  },
+  {
+    id: "keyword-density-analyzer",
+    name: "Keyword Density Analyzer",
+    description: "Analyze the keyword density of a text.",
+    icon: <KeywordDensityIcon />,
+    component: KeywordDensityAnalyzer,
+    category: ToolCategory.TEXT,
+    details: { introduction: "Analyze keyword density.", howToUse: ["Paste text", "See results"], features: [], privacy: PRIVACY_STATEMENT, explanation: "", usageExamples: [], underlyingConcept: "", faqs: [] }
   }
 ];
 

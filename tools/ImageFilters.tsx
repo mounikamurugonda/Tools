@@ -76,12 +76,12 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
         {image && (
             <div className="space-y-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
                 <h3 className="font-semibold text-lg">Adjustments</h3>
-                <FilterSlider label="Grayscale" value={filters.grayscale} onChange={v => setFilters({...filters, grayscale: v})} max={100} unit="%" />
-                <FilterSlider label="Sepia" value={filters.sepia} onChange={v => setFilters({...filters, sepia: v})} max={100} unit="%" />
-                <FilterSlider label="Brightness" value={filters.brightness} onChange={v => setFilters({...filters, brightness: v})} max={200} unit="%" />
-                <FilterSlider label="Contrast" value={filters.contrast} onChange={v => setFilters({...filters, contrast: v})} max={200} unit="%" />
-                <FilterSlider label="Blur" value={filters.blur} onChange={v => setFilters({...filters, blur: v})} max={20} unit="px" />
-                <FilterSlider label="Hue Rotate" value={filters.hueRotate} onChange={v => setFilters({...filters, hueRotate: v})} max={360} unit="deg" />
+                <FilterSlider label="Grayscale" value={filters.grayscale} onChange={(v: number) => setFilters({...filters, grayscale: v})} max={100} unit="%" />
+                <FilterSlider label="Sepia" value={filters.sepia} onChange={(v: number) => setFilters({...filters, sepia: v})} max={100} unit="%" />
+                <FilterSlider label="Brightness" value={filters.brightness} onChange={(v: number) => setFilters({...filters, brightness: v})} max={200} unit="%" />
+                <FilterSlider label="Contrast" value={filters.contrast} onChange={(v: number) => setFilters({...filters, contrast: v})} max={200} unit="%" />
+                <FilterSlider label="Blur" value={filters.blur} onChange={(v: number) => setFilters({...filters, blur: v})} max={20} unit="px" />
+                <FilterSlider label="Hue Rotate" value={filters.hueRotate} onChange={(v: number) => setFilters({...filters, hueRotate: v})} max={360} unit="deg" />
                 
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                     <button onClick={() => setFilters(DEFAULT_FILTERS)} className="text-sm text-blue-600 hover:underline">Reset Filters</button>
@@ -94,7 +94,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
   );
 };
 
-const FilterSlider = ({ label, value, onChange, max, unit }: any) => (
+const FilterSlider = ({ label, value, onChange, max, unit }: { label: string; value: number; onChange: (v: number) => void; max: number; unit: string; }) => (
     <div>
         <div className="flex justify-between mb-1">
             <label className="text-sm font-medium">{label}</label>
