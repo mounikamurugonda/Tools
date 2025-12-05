@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Link from 'next/link';
 import { blogs } from '@/lib/blogs';
@@ -6,8 +5,8 @@ import { Blog } from '@/types';
 import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
-  const categories = Array.from(new Set(blogs.map(blog => blog.category)));
-  return categories.map(category => ({
+  const categories = Array.from(new Set(blogs.map((blog) => blog.category)));
+  return categories.map((category) => ({
     categoryName: category,
   }));
 }
@@ -15,7 +14,7 @@ export async function generateStaticParams() {
 const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
   const { categoryName } = params;
   const filteredBlogs = blogs.filter(
-    blog => blog.category.toLowerCase() === categoryName.toLowerCase()
+    (blog) => blog.category.toLowerCase() === categoryName.toLowerCase(),
   );
 
   if (filteredBlogs.length === 0) {

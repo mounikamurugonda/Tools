@@ -4,7 +4,13 @@ import React, { useState, useRef, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import FileUpload from '@/components/FileUpload';
-import { Download, RotateCcw, Settings, Maximize2, Minimize2 } from 'lucide-react';
+import {
+  Download,
+  RotateCcw,
+  Settings,
+  Maximize2,
+  Minimize2,
+} from 'lucide-react';
 
 interface ResizeSettings {
   mode: 'percentage' | 'dimensions';
@@ -19,15 +25,21 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
   const [originalImage, setOriginalImage] = useState<File | null>(null);
   const [originalImageSrc, setOriginalImageSrc] = useState<string>('');
   const [resizedImageSrc, setResizedImageSrc] = useState<string>('');
-  const [originalDimensions, setOriginalDimensions] = useState<{ width: number; height: number } | null>(null);
-  const [resizedDimensions, setResizedDimensions] = useState<{ width: number; height: number } | null>(null);
+  const [originalDimensions, setOriginalDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+  const [resizedDimensions, setResizedDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const [settings, setSettings] = useState<ResizeSettings>({
     mode: 'percentage',
     percentage: 100,
     width: 800,
     height: 600,
     keepAspectRatio: true,
-    quality: 0.9
+    quality: 0.9,
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -39,16 +51,16 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
       reader.onload = () => {
         const result = reader.result as string;
         setOriginalImageSrc(result);
-        
+
         // Get original dimensions
         const img = new Image();
         img.onload = () => {
           setOriginalDimensions({ width: img.width, height: img.height });
           // Set initial dimensions based on original
-          setSettings(prev => ({
+          setSettings((prev) => ({
             ...prev,
             width: img.width,
-            height: img.height
+            height: img.height,
           }));
         };
         img.src = result;
@@ -66,7 +78,7 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
     if (!originalImageSrc || !originalDimensions) return;
 
     setIsProcessing(true);
-    
+
     try {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -86,11 +98,16 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
       let newHeight: number;
 
       if (settings.mode === 'percentage') {
-        newWidth = Math.round((originalDimensions.width * settings.percentage) / 100);
-        newHeight = Math.round((originalDimensions.height * settings.percentage) / 100);
+        newWidth = Math.round(
+          (originalDimensions.width * settings.percentage) / 100,
+        );
+        newHeight = Math.round(
+          (originalDimensions.height * settings.percentage) / 100,
+        );
       } else {
         if (settings.keepAspectRatio) {
-          const aspectRatio = originalDimensions.width / originalDimensions.height;
+          const aspectRatio =
+            originalDimensions.width / originalDimensions.height;
           if (settings.width / settings.height > aspectRatio) {
             // Height is the limiting factor
             newHeight = settings.height;
@@ -126,7 +143,7 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const downloadResizedImage = () => {
     if (!resizedImageSrc) return;
-    
+
     const link = document.createElement('a');
     link.href = resizedImageSrc;
     link.download = `resized_${originalImage?.name || 'image'}.jpg`;
@@ -170,15 +187,16 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
           maxSize={50}
         />
 
-
         {/* Resize Settings */}
         {originalImageSrc && (
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-4">
               <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Resize Settings</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                Resize Settings
+              </h3>
             </div>
-            
+
             <div className="space-y-4">
               {/* Resize Mode */}
               <div>
@@ -191,7 +209,12 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                       type="radio"
                       value="percentage"
                       checked={settings.mode === 'percentage'}
-                      onChange={(e) => setSettings(prev => ({ ...prev, mode: e.target.value as 'percentage' | 'dimensions' }))}
+                      onChange={(e) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          mode: e.target.value as 'percentage' | 'dimensions',
+                        }))
+                      }
                       className="mr-2"
                     />
                     Percentage (%)
@@ -201,7 +224,12 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                       type="radio"
                       value="dimensions"
                       checked={settings.mode === 'dimensions'}
-                      onChange={(e) => setSettings(prev => ({ ...prev, mode: e.target.value as 'percentage' | 'dimensions' }))}
+                      onChange={(e) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          mode: e.target.value as 'percentage' | 'dimensions',
+                        }))
+                      }
                       className="mr-2"
                     />
                     Dimensions (px)
@@ -221,7 +249,12 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                     max="500"
                     step="1"
                     value={settings.percentage}
-                    onChange={(e) => setSettings(prev => ({ ...prev, percentage: parseInt(e.target.value) }))}
+                    onChange={(e) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        percentage: parseInt(e.target.value),
+                      }))
+                    }
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                   />
                   <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -244,7 +277,12 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                       max="4000"
                       step="1"
                       value={settings.width}
-                      onChange={(e) => setSettings(prev => ({ ...prev, width: parseInt(e.target.value) }))}
+                      onChange={(e) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          width: parseInt(e.target.value),
+                        }))
+                      }
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                     />
                   </div>
@@ -258,7 +296,12 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                       max="4000"
                       step="1"
                       value={settings.height}
-                      onChange={(e) => setSettings(prev => ({ ...prev, height: parseInt(e.target.value) }))}
+                      onChange={(e) =>
+                        setSettings((prev) => ({
+                          ...prev,
+                          height: parseInt(e.target.value),
+                        }))
+                      }
                       className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                     />
                   </div>
@@ -271,10 +314,18 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                   type="checkbox"
                   id="keepAspectRatio"
                   checked={settings.keepAspectRatio}
-                  onChange={(e) => setSettings(prev => ({ ...prev, keepAspectRatio: e.target.checked }))}
+                  onChange={(e) =>
+                    setSettings((prev) => ({
+                      ...prev,
+                      keepAspectRatio: e.target.checked,
+                    }))
+                  }
                   className="rounded"
                 />
-                <label htmlFor="keepAspectRatio" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="keepAspectRatio"
+                  className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
                   Keep aspect ratio
                 </label>
               </div>
@@ -290,7 +341,12 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                   max="1"
                   step="0.1"
                   value={settings.quality}
-                  onChange={(e) => setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))}
+                  onChange={(e) =>
+                    setSettings((prev) => ({
+                      ...prev,
+                      quality: parseFloat(e.target.value),
+                    }))
+                  }
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 />
                 <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -307,18 +363,30 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid md:grid-cols-2 gap-6">
             {originalImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Original Image</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Original Image
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={originalImageSrc} alt="Original" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={originalImageSrc}
+                    alt="Original"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
               </div>
             )}
 
             {resizedImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Resized Image</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Resized Image
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={resizedImageSrc} alt="Resized" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={resizedImageSrc}
+                    alt="Resized"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
                 <div className="mt-3 flex gap-2">
                   <button
@@ -351,33 +419,73 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
         )}
 
-                {/* Image Information */}
+        {/* Image Information */}
         {originalDimensions && (
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-            <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">Image Information</h3>
+            <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
+              Image Information
+            </h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Original Image</h4>
+                <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Original Image
+                </h4>
                 <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                  <p><strong>Dimensions:</strong> {originalDimensions.width} × {originalDimensions.height} px</p>
-                  <p><strong>File Size:</strong> {originalImage ? formatFileSize(originalImage.size) : 'Unknown'}</p>
-                  <p><strong>Aspect Ratio:</strong> {(originalDimensions.width / originalDimensions.height).toFixed(2)}:1</p>
+                  <p>
+                    <strong>Dimensions:</strong> {originalDimensions.width} ×{' '}
+                    {originalDimensions.height} px
+                  </p>
+                  <p>
+                    <strong>File Size:</strong>{' '}
+                    {originalImage
+                      ? formatFileSize(originalImage.size)
+                      : 'Unknown'}
+                  </p>
+                  <p>
+                    <strong>Aspect Ratio:</strong>{' '}
+                    {(
+                      originalDimensions.width / originalDimensions.height
+                    ).toFixed(2)}
+                    :1
+                  </p>
                 </div>
               </div>
               {resizedDimensions && (
                 <div>
-                  <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Resized Image</h4>
+                  <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Resized Image
+                  </h4>
                   <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                    <p><strong>Dimensions:</strong> {resizedDimensions.width} × {resizedDimensions.height} px</p>
-                    <p><strong>Size Change:</strong> {originalDimensions ? Math.round(((resizedDimensions.width * resizedDimensions.height) / (originalDimensions.width * originalDimensions.height)) * 100) : 0}% of original</p>
-                    <p><strong>Aspect Ratio:</strong> {(resizedDimensions.width / resizedDimensions.height).toFixed(2)}:1</p>
+                    <p>
+                      <strong>Dimensions:</strong> {resizedDimensions.width} ×{' '}
+                      {resizedDimensions.height} px
+                    </p>
+                    <p>
+                      <strong>Size Change:</strong>{' '}
+                      {originalDimensions
+                        ? Math.round(
+                            ((resizedDimensions.width *
+                              resizedDimensions.height) /
+                              (originalDimensions.width *
+                                originalDimensions.height)) *
+                              100,
+                          )
+                        : 0}
+                      % of original
+                    </p>
+                    <p>
+                      <strong>Aspect Ratio:</strong>{' '}
+                      {(
+                        resizedDimensions.width / resizedDimensions.height
+                      ).toFixed(2)}
+                      :1
+                    </p>
                   </div>
                 </div>
               )}
             </div>
           </div>
         )}
-
 
         {/* Hidden canvas for processing */}
         <canvas ref={canvasRef} style={{ display: 'none' }} />

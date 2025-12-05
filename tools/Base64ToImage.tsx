@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -13,8 +12,11 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
     if (!base64) return;
     const link = document.createElement('a');
     link.href = base64;
-    
-    const mimeType = base64.substring(base64.indexOf(':') + 1, base64.indexOf(';'));
+
+    const mimeType = base64.substring(
+      base64.indexOf(':') + 1,
+      base64.indexOf(';'),
+    );
     const extension = mimeType.split('/')[1] || 'png';
     link.download = `image.${extension}`;
 
@@ -27,17 +29,23 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
     const value = e.target.value;
     setBase64(value);
     if (value && !value.startsWith('data:image')) {
-        setError('Invalid Base64 data URL. It should start with "data:image/...".');
+      setError(
+        'Invalid Base64 data URL. It should start with "data:image/...".',
+      );
     } else {
-        setError('');
+      setError('');
     }
-  }
+  };
 
   return (
-    <ToolContainer title="Base64 to Image Converter" details={details} toolId={toolId}>
+    <ToolContainer
+      title="Base64 to Image Converter"
+      details={details}
+      toolId={toolId}
+    >
       <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={handleDownload}
             disabled={!base64 || !!error}
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
@@ -49,7 +57,12 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Left side - Input */}
           <div className="space-y-4">
             <div className="relative">
-              <label htmlFor="base64-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Base64 Data URL</label>
+              <label
+                htmlFor="base64-input"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+              >
+                Base64 Data URL
+              </label>
               <textarea
                 id="base64-input"
                 value={base64}
@@ -63,10 +76,16 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
           {/* Right side - Preview */}
           <div className="space-y-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image Preview</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Image Preview
+            </label>
             <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 min-h-[300px] flex items-center justify-center">
               {base64 && !error ? (
-                <img src={base64} alt="Preview" className="max-h-full max-w-full rounded" />
+                <img
+                  src={base64}
+                  alt="Preview"
+                  className="max-h-full max-w-full rounded"
+                />
               ) : (
                 <div className="text-center text-gray-500 dark:text-gray-400">
                   <div className="text-2xl mb-2">🖼️</div>

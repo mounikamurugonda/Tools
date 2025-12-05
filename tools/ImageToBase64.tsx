@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -34,16 +33,22 @@ const ImageToBase64: React.FC<ToolProps> = ({ details, toolId }) => {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const copyToClipboard = () => {
-      if(base64) navigator.clipboard.writeText(base64);
-  }
+    if (base64) navigator.clipboard.writeText(base64);
+  };
 
   return (
-    <ToolContainer title="Image to Base64 Converter" details={details} toolId={toolId}>
+    <ToolContainer
+      title="Image to Base64 Converter"
+      details={details}
+      toolId={toolId}
+    >
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Upload an image</label>
+          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Upload an image
+          </label>
           <input
             type="file"
             accept="image/*"
@@ -57,7 +62,11 @@ const ImageToBase64: React.FC<ToolProps> = ({ details, toolId }) => {
             <h3 className="text-lg font-semibold mb-2">Preview</h3>
             <div className="h-64 bg-gray-50 dark:bg-gray-900 rounded border border-gray-200 dark:border-gray-700 flex items-center justify-center">
               {imageSrc ? (
-                <img src={imageSrc} alt="Preview" className="max-h-full max-w-full" />
+                <img
+                  src={imageSrc}
+                  alt="Preview"
+                  className="max-h-full max-w-full"
+                />
               ) : (
                 <p className="text-gray-500">Image preview will appear here</p>
               )}
@@ -72,12 +81,14 @@ const ImageToBase64: React.FC<ToolProps> = ({ details, toolId }) => {
                 placeholder="Base64 output..."
                 className="w-full h-64 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-2 text-gray-800 dark:text-gray-200 text-xs"
               />
-              {base64 && <button
-                onClick={copyToClipboard}
-                className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
-              >
-                Copy
-              </button>}
+              {base64 && (
+                <button
+                  onClick={copyToClipboard}
+                  className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
+                >
+                  Copy
+                </button>
+              )}
             </div>
           </div>
         </div>

@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -10,7 +9,7 @@ const CHARS = {
   LOWER: 'abcdefghijklmnopqrstuvwxyz',
   UPPER: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   NUMBERS: '0123456789',
-  SYMBOLS: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+  SYMBOLS: '!@#$%^&*()_+-=[]{}|;:,.<>?',
 };
 
 const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
@@ -29,8 +28,8 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     if (useSymbols) charset += CHARS.SYMBOLS;
 
     if (!charset) {
-        setPassword("Please select at least one character type.");
-        return;
+      setPassword('Please select at least one character type.');
+      return;
     }
 
     let newPassword = '';
@@ -41,7 +40,7 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     }
     setPassword(newPassword);
   };
-  
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     generatePassword();
@@ -56,33 +55,70 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
             value={password}
             className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-gray-800 dark:text-gray-200 font-mono text-lg pr-16"
           />
-          <CopyButton textToCopy={password} className="absolute top-1/2 right-2 transform -translate-y-1/2" />
+          <CopyButton
+            textToCopy={password}
+            className="absolute top-1/2 right-2 transform -translate-y-1/2"
+          />
         </div>
         <div className="space-y-4">
-            <div>
-                <label className="block text-gray-700 dark:text-gray-300 mb-2">Length: {length}</label>
-                <input type="range" min="4" max="64" value={length} onChange={e => setLength(parseInt(e.target.value))} className="w-full" />
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
-                    <input type="checkbox" checked={useUpper} onChange={() => setUseUpper(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                    <span>Uppercase (A-Z)</span>
-                </label>
-                <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
-                    <input type="checkbox" checked={useLower} onChange={() => setUseLower(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                    <span>Lowercase (a-z)</span>
-                </label>
-                 <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
-                    <input type="checkbox" checked={useNumbers} onChange={() => setUseNumbers(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                    <span>Numbers (0-9)</span>
-                </label>
-                 <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
-                    <input type="checkbox" checked={useSymbols} onChange={() => setUseSymbols(prev => !prev)} className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-                    <span>Symbols (!@#)</span>
-                </label>
-            </div>
+          <div>
+            <label className="block text-gray-700 dark:text-gray-300 mb-2">
+              Length: {length}
+            </label>
+            <input
+              type="range"
+              min="4"
+              max="64"
+              value={length}
+              onChange={(e) => setLength(parseInt(e.target.value))}
+              className="w-full"
+            />
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                checked={useUpper}
+                onChange={() => setUseUpper((prev) => !prev)}
+                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>Uppercase (A-Z)</span>
+            </label>
+            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                checked={useLower}
+                onChange={() => setUseLower((prev) => !prev)}
+                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>Lowercase (a-z)</span>
+            </label>
+            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                checked={useNumbers}
+                onChange={() => setUseNumbers((prev) => !prev)}
+                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>Numbers (0-9)</span>
+            </label>
+            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+              <input
+                type="checkbox"
+                checked={useSymbols}
+                onChange={() => setUseSymbols((prev) => !prev)}
+                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <span>Symbols (!@#)</span>
+            </label>
+          </div>
         </div>
-        <button onClick={generatePassword} className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold">Regenerate</button>
+        <button
+          onClick={generatePassword}
+          className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold"
+        >
+          Regenerate
+        </button>
       </div>
     </ToolContainer>
   );

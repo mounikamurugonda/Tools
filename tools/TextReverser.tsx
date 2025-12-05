@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -17,7 +16,10 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
         {/* Left side - Input */}
         <div className="space-y-4">
           <div className="relative">
-            <label htmlFor="input-text" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label
+              htmlFor="input-text"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
               Original Text
             </label>
             <textarea
@@ -27,14 +29,22 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
               placeholder="Enter text to reverse..."
               className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 resize-none"
             />
-            {input && <CopyButton textToCopy={input} className="absolute top-8 right-2" />}
+            {input && (
+              <CopyButton
+                textToCopy={input}
+                className="absolute top-8 right-2"
+              />
+            )}
           </div>
         </div>
 
         {/* Right side - Output */}
         <div className="space-y-4">
           <div className="relative">
-            <label htmlFor="output-text" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label
+              htmlFor="output-text"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
               Reversed Text
             </label>
             <textarea
@@ -44,7 +54,12 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
               placeholder="Reversed text will appear here..."
               className="w-full h-96 max-h-96 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-3 text-gray-800 dark:text-gray-200 resize-none"
             />
-            {reversedText && <CopyButton textToCopy={reversedText} className="absolute top-8 right-2" />}
+            {reversedText && (
+              <CopyButton
+                textToCopy={reversedText}
+                className="absolute top-8 right-2"
+              />
+            )}
           </div>
         </div>
       </div>

@@ -6,10 +6,13 @@ import TipCard from './TipCard';
 
 export default function TipsPageClient() {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const categories = useMemo(() => ['All', ...Array.from(new Set(TIPS.map(tip => tip.category)))], []);
+  const categories = useMemo(
+    () => ['All', ...Array.from(new Set(TIPS.map((tip) => tip.category)))],
+    [],
+  );
   const filteredTips = useMemo(() => {
     if (selectedCategory === 'All') return TIPS;
-    return TIPS.filter(tip => tip.category === selectedCategory);
+    return TIPS.filter((tip) => tip.category === selectedCategory);
   }, [selectedCategory]);
 
   return (
@@ -17,7 +20,7 @@ export default function TipsPageClient() {
       {/* Category Filter */}
       <div className="mb-8">
         <div className="flex flex-wrap gap-2">
-          {categories.map(category => (
+          {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}

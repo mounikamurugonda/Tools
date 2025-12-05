@@ -8,7 +8,12 @@ import { Download, RotateCcw, Settings } from 'lucide-react';
 
 interface WatermarkSettings {
   opacity: number;
-  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
+  position:
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-right'
+    | 'center';
   size: number; // percentage of image size
   margin: number; // pixels from edge
 }
@@ -23,7 +28,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
     opacity: 0.7,
     position: 'bottom-right',
     size: 20,
-    margin: 20
+    margin: 20,
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -60,7 +65,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
     if (!mainImageSrc || !watermarkImageSrc) return;
 
     setIsProcessing(true);
-    
+
     try {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -94,9 +99,9 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
       // Calculate watermark size and position
       const watermarkSize = Math.min(
         (mainImg.width * settings.size) / 100,
-        (mainImg.height * settings.size) / 100
+        (mainImg.height * settings.size) / 100,
       );
-      
+
       const watermarkAspectRatio = watermarkImg.width / watermarkImg.height;
       const watermarkWidth = watermarkSize;
       const watermarkHeight = watermarkSize / watermarkAspectRatio;
@@ -144,7 +149,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const downloadWatermarkedImage = () => {
     if (!watermarkedImageSrc) return;
-    
+
     const link = document.createElement('a');
     link.href = watermarkedImageSrc;
     link.download = `watermarked_${mainImage?.name || 'image'}.png`;
@@ -190,13 +195,15 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         {/* Settings Panel */}
-        {(mainImageSrc && watermarkImageSrc) && (
+        {mainImageSrc && watermarkImageSrc && (
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-4">
               <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Watermark Settings</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                Watermark Settings
+              </h3>
             </div>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -208,7 +215,12 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                   max="1"
                   step="0.1"
                   value={settings.opacity}
-                  onChange={(e) => setSettings(prev => ({ ...prev, opacity: parseFloat(e.target.value) }))}
+                  onChange={(e) =>
+                    setSettings((prev) => ({
+                      ...prev,
+                      opacity: parseFloat(e.target.value),
+                    }))
+                  }
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 />
               </div>
@@ -223,7 +235,12 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                   max="50"
                   step="5"
                   value={settings.size}
-                  onChange={(e) => setSettings(prev => ({ ...prev, size: parseInt(e.target.value) }))}
+                  onChange={(e) =>
+                    setSettings((prev) => ({
+                      ...prev,
+                      size: parseInt(e.target.value),
+                    }))
+                  }
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 />
               </div>
@@ -238,7 +255,12 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                   max="100"
                   step="5"
                   value={settings.margin}
-                  onChange={(e) => setSettings(prev => ({ ...prev, margin: parseInt(e.target.value) }))}
+                  onChange={(e) =>
+                    setSettings((prev) => ({
+                      ...prev,
+                      margin: parseInt(e.target.value),
+                    }))
+                  }
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 />
               </div>
@@ -249,7 +271,12 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                 </label>
                 <select
                   value={settings.position}
-                  onChange={(e) => setSettings(prev => ({ ...prev, position: e.target.value as WatermarkSettings['position'] }))}
+                  onChange={(e) =>
+                    setSettings((prev) => ({
+                      ...prev,
+                      position: e.target.value as WatermarkSettings['position'],
+                    }))
+                  }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                   <option value="top-left">Top Left</option>
@@ -268,27 +295,45 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {mainImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Original Image</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Original Image
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={mainImageSrc} alt="Original" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={mainImageSrc}
+                    alt="Original"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
               </div>
             )}
 
             {watermarkImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Watermark</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Watermark
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={watermarkImageSrc} alt="Watermark" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={watermarkImageSrc}
+                    alt="Watermark"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
               </div>
             )}
 
             {watermarkedImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Result</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Result
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={watermarkedImageSrc} alt="Watermarked" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={watermarkedImageSrc}
+                    alt="Watermarked"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
                 <div className="mt-3 flex gap-2">
                   <button

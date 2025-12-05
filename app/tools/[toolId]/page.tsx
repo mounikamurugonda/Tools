@@ -1,35 +1,54 @@
 import React from 'react';
-import { TOOLS } from "@/constants";
-import { getToolSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
+import { TOOLS } from '@/constants';
+import {
+  getToolSchema,
+  getWebsiteSchema,
+  getOrganizationSchema,
+  getBreadcrumbSchema,
+} from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
-import { notFound } from "next/navigation";
+import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
 
 type Props = {
-  params: { toolId: string }
-}
+  params: { toolId: string };
+};
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const tool = TOOLS.find(t => t.id === params.toolId);
+  const tool = TOOLS.find((t) => t.id === params.toolId);
 
   if (!tool) {
     return {
       title: 'Tool Not Found | UtilToolkits',
-      description: 'The requested tool could not be found. Browse our collection of free online developer tools.',
+      description:
+        'The requested tool could not be found. Browse our collection of free online developer tools.',
     };
   }
 
-  const title = tool.seoTitle || `${tool.name} - Free Online Tool | UtilToolkits`;
-  const description = tool.seoDescription || `${tool.description} Free browser-based ${tool.name.toLowerCase()} tool with no registration required. All processing happens locally for maximum privacy and speed.`;
+  const title =
+    tool.seoTitle || `${tool.name} - Free Online Tool | UtilToolkits`;
+  const description =
+    tool.seoDescription ||
+    `${tool.description} Free browser-based ${tool.name.toLowerCase()} tool with no registration required. All processing happens locally for maximum privacy and speed.`;
 
   return {
     title,
     description,
-    keywords: tool.keywords ? [...tool.keywords, 'developer tools', 'online tools', 'free utilities', 'browser tools', 'privacy tools', 'no registration required'] : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities, browser tools`,
+    keywords: tool.keywords
+      ? [
+          ...tool.keywords,
+          'developer tools',
+          'online tools',
+          'free utilities',
+          'browser tools',
+          'privacy tools',
+          'no registration required',
+        ]
+      : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities, browser tools`,
     authors: [{ name: 'UtilToolkits Team' }],
     creator: 'UtilToolkits',
     publisher: 'UtilToolkits',
@@ -74,7 +93,7 @@ export async function generateMetadata(
       'theme-color': '#3b82f6',
       'msapplication-TileColor': '#3b82f6',
     },
-  }
+  };
 }
 
 export async function generateStaticParams() {
@@ -84,8 +103,8 @@ export async function generateStaticParams() {
 }
 
 export default function ToolPage({ params }: { params: { toolId: string } }) {
-  const tool = TOOLS.find(t => t.id === params.toolId);
-  
+  const tool = TOOLS.find((t) => t.id === params.toolId);
+
   if (!tool) {
     notFound();
   }
@@ -95,8 +114,11 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
   const breadcrumbItems = [
     { name: 'Home', url: 'https://utiltoolkits.com' },
     { name: 'Tools', url: 'https://utiltoolkits.com/tools' },
-    { name: tool.category, url: `https://utiltoolkits.com/tools/category/${tool.category.toLowerCase().replace(/\s+/g, '-')}` },
-    { name: tool.name, url: `https://utiltoolkits.com/tools/${tool.id}` }
+    {
+      name: tool.category,
+      url: `https://utiltoolkits.com/tools/category/${tool.category.toLowerCase().replace(/\s+/g, '-')}`,
+    },
+    { name: tool.name, url: `https://utiltoolkits.com/tools/${tool.id}` },
   ];
 
   return (
@@ -106,7 +128,7 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
       <Schema schema={getOrganizationSchema()} />
       <Schema schema={getToolSchema(tool)} />
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
-      
+
       <ToolComponent details={tool.details} toolId={tool.id} />
     </AnalyticsWrapper>
   );

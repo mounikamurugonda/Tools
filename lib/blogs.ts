@@ -1,16 +1,14 @@
-
 import { Blog } from '@/types';
 
 export const blogs: Blog[] = [
   {
     id: '1',
     title: 'Getting Started with React',
-    description: 'A beginner\'s guide to building your first React application.',
+    description: "A beginner's guide to building your first React application.",
     date: '2024-07-15',
     author: 'John Doe',
-    authorImage: 'https://placehold.co/40x40',
     category: 'React',
-    image: 'https://placehold.co/600x400',
+    image: '',
     relatedPosts: ['2', '3'],
     content: `
       <p>React is a popular JavaScript library for building user interfaces. In this guide, we'll walk through the basics of setting up a new React project and creating your first component.</p>
@@ -45,12 +43,12 @@ export const blogs: Blog[] = [
   {
     id: '2',
     title: 'Understanding Hooks in React',
-    description: 'A deep dive into React Hooks and how they can simplify your components.',
+    description:
+      'A deep dive into React Hooks and how they can simplify your components.',
     date: '2024-07-18',
     author: 'Jane Smith',
-    authorImage: 'https://placehold.co/40x40',
     category: 'React',
-    image: 'https://placehold.co/600x400',
+    image: '',
     relatedPosts: ['1', '3'],
     content: `
       <p>React Hooks were introduced in version 16.8, and they have revolutionized how we write components. In this post, we'll explore some of the most common Hooks, such as <code>useState</code> and <code>useEffect</code>.</p>
@@ -92,12 +90,12 @@ export const blogs: Blog[] = [
   {
     id: '3',
     title: 'An Introduction to TypeScript',
-    description: 'Learn how TypeScript can improve your JavaScript projects with static typing.',
+    description:
+      'Learn how TypeScript can improve your JavaScript projects with static typing.',
     date: '2024-07-20',
     author: 'Sam Wilson',
-    authorImage: 'https://placehold.co/40x40',
     category: 'TypeScript',
-    image: 'https://placehold.co/600x400',
+    image: '',
     relatedPosts: ['1', '2'],
     content: `
       <p>TypeScript is a superset of JavaScript that adds static types. This can help you catch errors early and write more maintainable code.</p>

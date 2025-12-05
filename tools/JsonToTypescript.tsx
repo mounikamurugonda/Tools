@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -7,7 +6,9 @@ import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
 
 const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [jsonInput, setJsonInput] = useState('{\n  "id": 1,\n  "name": "UtilToolkits",\n  "features": ["Free", "Fast"],\n  "active": true\n}');
+  const [jsonInput, setJsonInput] = useState(
+    '{\n  "id": 1,\n  "name": "UtilToolkits",\n  "features": ["Free", "Fast"],\n  "active": true\n}',
+  );
   const [tsOutput, setTsOutput] = useState('');
   const [interfaceName, setInterfaceName] = useState('RootObject');
   const [error, setError] = useState('');
@@ -29,15 +30,23 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
 
     Object.entries(obj).forEach(([key, value]) => {
       let type = getType(value);
-      
-      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+
+      if (
+        typeof value === 'object' &&
+        value !== null &&
+        !Array.isArray(value)
+      ) {
         const nestedName = key.charAt(0).toUpperCase() + key.slice(1);
         type = nestedName;
         nestedInterfaces.push(generateInterface(value, nestedName));
-      } else if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
-         const nestedName = key.charAt(0).toUpperCase() + key.slice(1) + 'Item';
-         type = `${nestedName}[]`;
-         nestedInterfaces.push(generateInterface(value[0], nestedName));
+      } else if (
+        Array.isArray(value) &&
+        value.length > 0 &&
+        typeof value[0] === 'object'
+      ) {
+        const nestedName = key.charAt(0).toUpperCase() + key.slice(1) + 'Item';
+        type = `${nestedName}[]`;
+        nestedInterfaces.push(generateInterface(value[0], nestedName));
       }
 
       output += `  ${key}: ${type};\n`;
@@ -67,21 +76,30 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="JSON to TypeScript" details={details} toolId={toolId}>
       <div className="space-y-4">
         <div className="flex gap-4 items-end">
-            <div className="flex-grow">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Root Interface Name</label>
-                <input 
-                    type="text" 
-                    value={interfaceName} 
-                    onChange={(e) => setInterfaceName(e.target.value)} 
-                    className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2"
-                />
-            </div>
-            <button onClick={handleConvert} className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium h-10">Convert</button>
+          <div className="flex-grow">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Root Interface Name
+            </label>
+            <input
+              type="text"
+              value={interfaceName}
+              onChange={(e) => setInterfaceName(e.target.value)}
+              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2"
+            />
+          </div>
+          <button
+            onClick={handleConvert}
+            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium h-10"
+          >
+            Convert
+          </button>
         </div>
-        
+
         <div className="grid md:grid-cols-2 gap-4 h-[50vh]">
           <div className="relative flex flex-col">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">JSON Input</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              JSON Input
+            </label>
             <textarea
               value={jsonInput}
               onChange={(e) => setJsonInput(e.target.value)}
@@ -90,15 +108,22 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
             />
           </div>
           <div className="relative flex flex-col">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">TypeScript Output</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              TypeScript Output
+            </label>
             <div className="relative flex-grow">
-                <textarea
+              <textarea
                 readOnly
                 value={tsOutput}
                 className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 font-mono text-sm resize-none text-blue-600 dark:text-blue-400"
                 placeholder="TypeScript interfaces will appear here..."
+              />
+              {tsOutput && (
+                <CopyButton
+                  textToCopy={tsOutput}
+                  className="absolute top-2 right-2"
                 />
-                {tsOutput && <CopyButton textToCopy={tsOutput} className="absolute top-2 right-2" />}
+              )}
             </div>
           </div>
         </div>

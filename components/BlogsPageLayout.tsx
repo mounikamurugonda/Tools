@@ -1,4 +1,3 @@
-
 'use client';
 
 import React from 'react';
@@ -6,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { blogs } from '@/lib/blogs';
 
-const allCategories = Array.from(new Set(blogs.map(blog => blog.category)));
+const allCategories = Array.from(new Set(blogs.map((blog) => blog.category)));
 
 const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -15,7 +14,9 @@ const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="flex flex-col md:flex-row gap-12">
       <aside className="w-full md:w-1/4">
         <div className="sticky top-24">
-          <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">Categories</h3>
+          <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+            Categories
+          </h3>
           <ul className="space-y-2">
             <li>
               <Link
@@ -29,7 +30,7 @@ const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
                 All
               </Link>
             </li>
-            {allCategories.map(category => (
+            {allCategories.map((category) => (
               <li key={category}>
                 <Link
                   href={`/blogs/category/${category}`}

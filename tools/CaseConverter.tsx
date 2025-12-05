@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -11,11 +10,17 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [output, setOutput] = useState('');
 
   const toSentenceCase = (str: string) => {
-    return str.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+    return str
+      .toLowerCase()
+      .replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
   };
 
   const toTitleCase = (str: string) => {
-    return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    return str
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   };
 
   const handleConvert = (type: string) => {
@@ -41,15 +46,40 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="Case Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="flex flex-wrap gap-2">
-          <button onClick={() => handleConvert('uppercase')} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors">UPPER CASE</button>
-          <button onClick={() => handleConvert('lowercase')} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors">lower case</button>
-          <button onClick={() => handleConvert('sentence')} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors">Sentence case</button>
-          <button onClick={() => handleConvert('title')} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors">Title Case</button>
+          <button
+            onClick={() => handleConvert('uppercase')}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+          >
+            UPPER CASE
+          </button>
+          <button
+            onClick={() => handleConvert('lowercase')}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+          >
+            lower case
+          </button>
+          <button
+            onClick={() => handleConvert('sentence')}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+          >
+            Sentence case
+          </button>
+          <button
+            onClick={() => handleConvert('title')}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
+          >
+            Title Case
+          </button>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
           <div className="space-y-4">
-              <label htmlFor="case-input" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Input</label>
+            <label
+              htmlFor="case-input"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
+              Input
+            </label>
             <div className="relative">
               <textarea
                 id="case-input"
@@ -58,13 +88,23 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 placeholder="Enter text here..."
                 className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 resize-none"
               />
-              {input && <CopyButton textToCopy={input} className="absolute top-8 right-2" />}
+              {input && (
+                <CopyButton
+                  textToCopy={input}
+                  className="absolute top-8 right-2"
+                />
+              )}
             </div>
           </div>
 
           {/* Right side - Output */}
           <div className="space-y-4">
-            <label htmlFor="case-output" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Output</label>
+            <label
+              htmlFor="case-output"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            >
+              Output
+            </label>
             <div className="relative">
               <textarea
                 id="case-output"
@@ -73,7 +113,12 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 placeholder="Converted text will appear here..."
                 className="w-full h-96 max-h-96 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 text-gray-800 dark:text-gray-200 resize-none"
               />
-              {output && <CopyButton textToCopy={output} className="absolute top-2 right-2" />}
+              {output && (
+                <CopyButton
+                  textToCopy={output}
+                  className="absolute top-2 right-2"
+                />
+              )}
             </div>
           </div>
         </div>

@@ -14,9 +14,14 @@ const ToolCredits: React.FC<ToolCreditsProps> = ({ items }) => {
   return (
     <div className="mt-6 text-xs text-gray-500 dark:text-gray-400">
       <div className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span className="uppercase tracking-wide text-[10px] text-gray-400 dark:text-gray-500">Credits:</span>
+        <span className="uppercase tracking-wide text-[10px] text-gray-400 dark:text-gray-500">
+          Credits:
+        </span>
         {items.map((item, idx) => (
-          <span key={`${item.label}-${idx}`} className="inline-flex items-center gap-1">
+          <span
+            key={`${item.label}-${idx}`}
+            className="inline-flex items-center gap-1"
+          >
             {item.href ? (
               <a
                 href={item.href}
@@ -38,5 +43,3 @@ const ToolCredits: React.FC<ToolCreditsProps> = ({ items }) => {
 };
 
 export default ToolCredits;
-
-

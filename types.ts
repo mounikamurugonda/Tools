@@ -32,7 +32,7 @@ export interface Tool {
   seoTitle?: string;
   seoDescription?: string;
   icon: React.ReactNode;
-  component: React.FC<ToolProps>;
+  component: React.ComponentType<ToolProps> | any;
   category: ToolCategory;
   details: ToolDetails;
   featured?: boolean;

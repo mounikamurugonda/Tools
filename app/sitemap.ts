@@ -29,9 +29,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Tool routes with dynamic priorities based on popularity
   const toolRoutes = TOOLS.map((tool) => {
     // Assign higher priority to popular tools
-    const popularTools = ['json-formatter', 'base64-converter', 'password-generator', 'image-compressor', 'uuid-generator'];
+    const popularTools = [
+      'json-formatter',
+      'base64-converter',
+      'password-generator',
+      'image-compressor',
+      'uuid-generator',
+    ];
     const priority = popularTools.includes(tool.id) ? 0.8 : 0.7;
-    
+
     return {
       url: `${baseUrl}/tools/${tool.id}`,
       lastModified: new Date(),
@@ -42,7 +48,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Category routes
   const categoryRoutes = [
-    'text', 'image', 'video', 'converter', 'generator', 'calculator', 'analyzer'
+    'text',
+    'image',
+    'video',
+    'converter',
+    'generator',
+    'calculator',
+    'analyzer',
   ].map((category) => ({
     url: `${baseUrl}/tools/category/${category}`,
     lastModified: new Date(),
@@ -52,7 +64,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Tips category routes
   const tipsCategoryRoutes = [
-    'productivity', 'coding', 'design', 'workflow', 'tools'
+    'productivity',
+    'coding',
+    'design',
+    'workflow',
+    'tools',
   ].map((category) => ({
     url: `${baseUrl}/tips/category/${category}`,
     lastModified: new Date(),

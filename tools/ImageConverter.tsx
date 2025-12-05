@@ -20,43 +20,46 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [settings, setSettings] = useState<ConversionSettings>({
     outputFormat: 'jpeg',
     quality: 0.9,
-    removeTransparency: false
+    removeTransparency: false,
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const handleImageChange = useCallback((file: File | null) => {
-    setOriginalImage(file);
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        setOriginalImageSrc(result);
-        
-        // Extract format from MIME type
-        const format = file.type.split('/')[1]?.toLowerCase() || 'unknown';
-        setOriginalFormat(format);
-        
-        // Auto-set output format based on input
-        if (format === 'png' && !settings.removeTransparency) {
-          setSettings(prev => ({ ...prev, outputFormat: 'png' }));
-        } else if (format === 'jpeg' || format === 'jpg') {
-          setSettings(prev => ({ ...prev, outputFormat: 'jpeg' }));
-        }
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setOriginalImageSrc('');
-      setOriginalFormat('');
-      setConvertedImageSrc('');
-    }
-  }, [settings.removeTransparency]);
+  const handleImageChange = useCallback(
+    (file: File | null) => {
+      setOriginalImage(file);
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const result = reader.result as string;
+          setOriginalImageSrc(result);
+
+          // Extract format from MIME type
+          const format = file.type.split('/')[1]?.toLowerCase() || 'unknown';
+          setOriginalFormat(format);
+
+          // Auto-set output format based on input
+          if (format === 'png' && !settings.removeTransparency) {
+            setSettings((prev) => ({ ...prev, outputFormat: 'png' }));
+          } else if (format === 'jpeg' || format === 'jpg') {
+            setSettings((prev) => ({ ...prev, outputFormat: 'jpeg' }));
+          }
+        };
+        reader.readAsDataURL(file);
+      } else {
+        setOriginalImageSrc('');
+        setOriginalFormat('');
+        setConvertedImageSrc('');
+      }
+    },
+    [settings.removeTransparency],
+  );
 
   const convertImage = useCallback(async () => {
     if (!originalImageSrc) return;
 
     setIsProcessing(true);
-    
+
     try {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -121,10 +124,11 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const downloadConvertedImage = () => {
     if (!convertedImageSrc) return;
-    
+
     const link = document.createElement('a');
     link.href = convertedImageSrc;
-    const extension = settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
+    const extension =
+      settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
     link.download = `converted_${originalImage?.name?.split('.')[0] || 'image'}.${extension}`;
     document.body.appendChild(link);
     link.click();
@@ -149,11 +153,22 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const getFormatInfo = (format: string) => {
     const info = {
       jpeg: { name: 'JPEG', description: 'Best for photos, smaller file size' },
-      png: { name: 'PNG', description: 'Best for graphics, supports transparency' },
-      webp: { name: 'WebP', description: 'Modern format, excellent compression' },
-      bmp: { name: 'BMP', description: 'Uncompressed bitmap format' }
+      png: {
+        name: 'PNG',
+        description: 'Best for graphics, supports transparency',
+      },
+      webp: {
+        name: 'WebP',
+        description: 'Modern format, excellent compression',
+      },
+      bmp: { name: 'BMP', description: 'Uncompressed bitmap format' },
     };
-    return info[format as keyof typeof info] || { name: format.toUpperCase(), description: 'Image format' };
+    return (
+      info[format as keyof typeof info] || {
+        name: format.toUpperCase(),
+        description: 'Image format',
+      }
+    );
   };
 
   // Auto-convert when settings change
@@ -180,9 +195,11 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-4">
               <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Conversion Settings</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                Conversion Settings
+              </h3>
             </div>
-            
+
             <div className="space-y-4">
               {/* Output Format */}
               <div>
@@ -193,17 +210,28 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                   {(['jpeg', 'png', 'webp', 'bmp'] as const).map((format) => {
                     const info = getFormatInfo(format);
                     return (
-                      <label key={format} className="flex flex-col items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                      <label
+                        key={format}
+                        className="flex flex-col items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      >
                         <input
                           type="radio"
                           name="outputFormat"
                           value={format}
                           checked={settings.outputFormat === format}
-                          onChange={(e) => setSettings(prev => ({ ...prev, outputFormat: e.target.value as ConversionSettings['outputFormat'] }))}
+                          onChange={(e) =>
+                            setSettings((prev) => ({
+                              ...prev,
+                              outputFormat: e.target
+                                .value as ConversionSettings['outputFormat'],
+                            }))
+                          }
                           className="mb-2"
                         />
                         <span className="font-medium text-sm">{info.name}</span>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 text-center">{info.description}</span>
+                        <span className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                          {info.description}
+                        </span>
                       </label>
                     );
                   })}
@@ -211,7 +239,8 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
 
               {/* Quality (for JPEG and WebP) */}
-              {(settings.outputFormat === 'jpeg' || settings.outputFormat === 'webp') && (
+              {(settings.outputFormat === 'jpeg' ||
+                settings.outputFormat === 'webp') && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Quality: {Math.round(settings.quality * 100)}%
@@ -222,7 +251,12 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                     max="1"
                     step="0.1"
                     value={settings.quality}
-                    onChange={(e) => setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))}
+                    onChange={(e) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        quality: parseFloat(e.target.value),
+                      }))
+                    }
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                   />
                   <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -239,10 +273,18 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                     type="checkbox"
                     id="removeTransparency"
                     checked={settings.removeTransparency}
-                    onChange={(e) => setSettings(prev => ({ ...prev, removeTransparency: e.target.checked }))}
+                    onChange={(e) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        removeTransparency: e.target.checked,
+                      }))
+                    }
                     className="rounded"
                   />
-                  <label htmlFor="removeTransparency" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label
+                    htmlFor="removeTransparency"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
                     Remove transparency (fill with white background)
                   </label>
                 </div>
@@ -254,23 +296,45 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         {/* Image Information */}
         {originalImage && (
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-            <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">Image Information</h3>
+            <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
+              Image Information
+            </h3>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Original Image</h4>
+                <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Original Image
+                </h4>
                 <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                  <p><strong>Format:</strong> {originalFormat.toUpperCase()}</p>
-                  <p><strong>File Size:</strong> {formatFileSize(originalImage.size)}</p>
-                  <p><strong>File Name:</strong> {originalImage.name}</p>
+                  <p>
+                    <strong>Format:</strong> {originalFormat.toUpperCase()}
+                  </p>
+                  <p>
+                    <strong>File Size:</strong>{' '}
+                    {formatFileSize(originalImage.size)}
+                  </p>
+                  <p>
+                    <strong>File Name:</strong> {originalImage.name}
+                  </p>
                 </div>
               </div>
               {convertedImageSrc && (
                 <div>
-                  <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Converted Image</h4>
+                  <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Converted Image
+                  </h4>
                   <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                    <p><strong>Format:</strong> {settings.outputFormat.toUpperCase()}</p>
-                    <p><strong>Quality:</strong> {Math.round(settings.quality * 100)}%</p>
-                    <p><strong>Transparency:</strong> {settings.removeTransparency ? 'Removed' : 'Preserved'}</p>
+                    <p>
+                      <strong>Format:</strong>{' '}
+                      {settings.outputFormat.toUpperCase()}
+                    </p>
+                    <p>
+                      <strong>Quality:</strong>{' '}
+                      {Math.round(settings.quality * 100)}%
+                    </p>
+                    <p>
+                      <strong>Transparency:</strong>{' '}
+                      {settings.removeTransparency ? 'Removed' : 'Preserved'}
+                    </p>
                   </div>
                 </div>
               )}
@@ -283,18 +347,30 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid md:grid-cols-2 gap-6">
             {originalImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Original Image</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Original Image
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={originalImageSrc} alt="Original" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={originalImageSrc}
+                    alt="Original"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
               </div>
             )}
 
             {convertedImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Converted Image</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Converted Image
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={convertedImageSrc} alt="Converted" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={convertedImageSrc}
+                    alt="Converted"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
                 <div className="mt-3 flex gap-2">
                   <button

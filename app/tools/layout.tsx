@@ -1,11 +1,10 @@
-
-import Sidebar from "@/components/Sidebar";
-import BuyMeACoffeeCard from "@/components/BuyMeACoffeeCard";
+import Sidebar from '@/components/Sidebar';
+import BuyMeACoffeeCard from '@/components/BuyMeACoffeeCard';
 
 export default function ToolsLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col md:flex-row">
@@ -20,5 +19,5 @@ export default function ToolsLayout({
         </div>
       </main>
     </div>
-  )
+  );
 }

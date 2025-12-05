@@ -1,0 +1,18 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "app/layout.tsx",
+    "app/**/page.tsx",
+    "app/**/layout.tsx",
+    "app/**/template.tsx",
+    "app/api/**/route.ts",
+    "next.config.mjs",
+    "postcss.config.mjs",
+    "tailwind.config.ts"
+  ],
+  "ignore": ["use client"],
+  "ignoreExports": [
+    "components/icons/index.tsx",
+    "lib/credits.ts"
+  ]
+}

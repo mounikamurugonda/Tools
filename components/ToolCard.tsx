@@ -17,10 +17,16 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
             </div>
           </div>
           <div className="min-w-0 flex-1 text-left">
-            <h4 className="text-sm font-medium text-light-text dark:text-dark-text">{tool.name}</h4>
-            <p className="mt-1 text-gray-500 text-xs line-clamp-3 min-h-[3.75rem]">{tool.description}</p>
+            <h4 className="text-sm font-medium text-light-text dark:text-dark-text">
+              {tool.name}
+            </h4>
+            <p className="mt-1 text-gray-500 text-xs line-clamp-3 min-h-[3.75rem]">
+              {tool.description}
+            </p>
             <div className="mt-3">
-              <span className="inline-block text-xs font-semibold text-accent hover:underline">Read more</span>
+              <span className="inline-block text-xs font-semibold text-accent hover:underline">
+                Read more
+              </span>
             </div>
           </div>
         </div>
@@ -37,10 +43,16 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
           </div>
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="text-lg font-bold text-light-text dark:text-dark-text ">{tool.name}</h3>
-          <p className="mt-2 text-gray-500 text-sm line-clamp-3 ">{tool.description}</p>
+          <h3 className="text-lg font-bold text-light-text dark:text-dark-text ">
+            {tool.name}
+          </h3>
+          <p className="mt-2 text-gray-500 text-sm line-clamp-3 ">
+            {tool.description}
+          </p>
           <div className="mt-4">
-            <span className="inline-block text-sm font-semibold text-accent hover:underline">Try Now</span>
+            <span className="inline-block text-sm font-semibold text-accent hover:underline">
+              Try Now
+            </span>
           </div>
         </div>
       </div>

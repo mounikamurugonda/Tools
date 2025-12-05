@@ -15,10 +15,10 @@ interface FileUploadProps {
 const FileUpload: React.FC<FileUploadProps> = ({
   accept,
   onChange,
-  label = "Upload a file",
+  label = 'Upload a file',
   description,
   maxSize = 100, // 100MB default
-  className = ""
+  className = '',
 }) => {
   const [dragActive, setDragActive] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -28,9 +28,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
   const handleDrag = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
+    if (e.type === 'dragenter' || e.type === 'dragover') {
       setDragActive(true);
-    } else if (e.type === "dragleave") {
+    } else if (e.type === 'dragleave') {
       setDragActive(false);
     }
   };
@@ -39,7 +39,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFile(e.dataTransfer.files[0]);
     }
@@ -47,7 +47,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   const handleFile = (file: File) => {
     setError('');
-    
+
     // Check file size
     if (file.size > maxSize * 1024 * 1024) {
       setError(`File size must be less than ${maxSize}MB`);
@@ -55,11 +55,11 @@ const FileUpload: React.FC<FileUploadProps> = ({
     }
 
     // Check file type
-    const acceptedTypes = accept.split(',').map(type => type.trim());
+    const acceptedTypes = accept.split(',').map((type) => type.trim());
     const fileType = file.type;
     const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
-    
-    const isValidType = acceptedTypes.some(type => {
+
+    const isValidType = acceptedTypes.some((type) => {
       if (type.startsWith('.')) {
         return fileExtension === type;
       } else if (type.includes('/*')) {
@@ -106,9 +106,11 @@ const FileUpload: React.FC<FileUploadProps> = ({
       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
         {label}
       </label>
-      
+
       {description && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          {description}
+        </p>
       )}
 
       <div
@@ -116,8 +118,8 @@ const FileUpload: React.FC<FileUploadProps> = ({
           dragActive
             ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20'
             : selectedFile
-            ? 'border-green-400 bg-green-50 dark:bg-green-900/20'
-            : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+              ? 'border-green-400 bg-green-50 dark:bg-green-900/20'
+              : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
         }`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -131,7 +133,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
         />
-        
+
         {selectedFile ? (
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -162,8 +164,8 @@ const FileUpload: React.FC<FileUploadProps> = ({
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 <span className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300">
                   Click to upload
-                </span>
-                {' '}or drag and drop
+                </span>{' '}
+                or drag and drop
               </p>
               <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                 {accept} (max {maxSize}MB)

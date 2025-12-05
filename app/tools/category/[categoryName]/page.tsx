@@ -1,6 +1,18 @@
-import { TOOLS, CATEGORY_ORDER, CATEGORY_CONTENT, URL_TO_CATEGORY_MAP, CATEGORY_URL_MAP, CATEGORY_ICONS } from '@/constants';
+import {
+  TOOLS,
+  CATEGORY_ORDER,
+  CATEGORY_CONTENT,
+  URL_TO_CATEGORY_MAP,
+  CATEGORY_URL_MAP,
+  CATEGORY_ICONS,
+} from '@/constants';
 import ToolCard from '@/components/ToolCard';
-import { getCategoryPageSchema, getWebsiteSchema, getOrganizationSchema, getBreadcrumbSchema } from '@/lib/schema';
+import {
+  getCategoryPageSchema,
+  getWebsiteSchema,
+  getOrganizationSchema,
+  getBreadcrumbSchema,
+} from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import Link from 'next/link';
@@ -23,11 +35,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!category) {
     return {
       title: 'Category Not Found | UtilToolkits',
-      description: 'The requested category could not be found. Browse our collection of free online developer tools.',
+      description:
+        'The requested category could not be found. Browse our collection of free online developer tools.',
     };
   }
 
-  const tools = TOOLS.filter(tool => tool.category === category);
+  const tools = TOOLS.filter((tool) => tool.category === category);
   const content = CATEGORY_CONTENT[category];
   const enhancedDescription = `${content.introduction} Discover our collection of free ${category.toLowerCase()} tools for developers and designers. All tools run locally in your browser for maximum privacy and speed.`;
 
@@ -83,7 +96,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return CATEGORY_ORDER.map(category => ({
+  return CATEGORY_ORDER.map((category) => ({
     categoryName: CATEGORY_URL_MAP[category],
   }));
 }
@@ -95,13 +108,16 @@ export default function CategoryPage({ params }: Props) {
     notFound();
   }
 
-  const tools = TOOLS.filter(tool => tool.category === category);
+  const tools = TOOLS.filter((tool) => tool.category === category);
   const content = CATEGORY_CONTENT[category];
 
   const breadcrumbItems = [
     { name: 'Home', url: 'https://utiltoolkits.com' },
     { name: 'Tools', url: 'https://utiltoolkits.com/tools' },
-    { name: `${category} Tools`, url: `https://utiltoolkits.com/tools/category/${params.categoryName}` }
+    {
+      name: `${category} Tools`,
+      url: `https://utiltoolkits.com/tools/category/${params.categoryName}`,
+    },
   ];
 
   return (
@@ -111,41 +127,52 @@ export default function CategoryPage({ params }: Props) {
       <Schema schema={getOrganizationSchema()} />
       <Schema schema={getCategoryPageSchema(category, tools)} />
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
-      
+
       <div className="p-4 sm:p-6 md:p-8">
         {/* Category Header */}
         <div className="mb-12">
           <div className="flex items-center mb-6">
             <div className="flex-1">
-              <h1 className="text-2xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">{category} Tools</h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">{content.introduction}</p>
+              <h1 className="text-2xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                {category} Tools
+              </h1>
+              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                {content.introduction}
+              </p>
             </div>
           </div>
         </div>
-        
-        
-        
+
         {/* Tools Section */}
         <div className="mb-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tools.map(tool => (
-              <Link key={tool.id} href={`/tools/${tool.id}`} className="block group">
+            {tools.map((tool) => (
+              <Link
+                key={tool.id}
+                href={`/tools/${tool.id}`}
+                className="block group"
+              >
                 <ToolCard tool={tool} />
               </Link>
             ))}
           </div>
-          
+
           {tools.length === 0 && (
             <div className="text-center py-16">
               <div className="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-2xl text-gray-400">🔧</span>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No Tools Available Yet</h3>
-              <p className="text-gray-500 dark:text-gray-400">We&apos;re working hard to add more {category.toLowerCase()} tools. Check back soon!</p>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                No Tools Available Yet
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                We&apos;re working hard to add more {category.toLowerCase()}{' '}
+                tools. Check back soon!
+              </p>
             </div>
           )}
         </div>
-        
+
         {/* Additional Information */}
         <div className="bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800 dark:to-blue-900/20 rounded-2xl p-8 mb-8">
           <div className="max-w-2xl mx-auto text-center">
@@ -153,8 +180,10 @@ export default function CategoryPage({ params }: Props) {
               Ready to Get Started?
             </h3>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-              All our {category.toLowerCase()} tools are free to use, work entirely in your browser, and don&apos;t require any downloads or installations. 
-              Simply click on any tool above to start using it right away!
+              All our {category.toLowerCase()} tools are free to use, work
+              entirely in your browser, and don&apos;t require any downloads or
+              installations. Simply click on any tool above to start using it
+              right away!
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
               <span className="flex items-center">
@@ -176,8 +205,6 @@ export default function CategoryPage({ params }: Props) {
             </div>
           </div>
         </div>
-        
-        
       </div>
     </AnalyticsWrapper>
   );

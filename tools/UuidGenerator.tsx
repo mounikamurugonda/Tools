@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState } from 'react';
@@ -14,10 +13,19 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer title="UUID Generator (v4)" details={details} toolId={toolId}>
+    <ToolContainer
+      title="UUID Generator (v4)"
+      details={details}
+      toolId={toolId}
+    >
       <div className="space-y-4">
         <div className="flex items-center gap-4">
-          <button onClick={generateUuid} className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded">Generate UUID</button>
+          <button
+            onClick={generateUuid}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+          >
+            Generate UUID
+          </button>
         </div>
         {uuid && (
           <div className="relative">
@@ -26,7 +34,10 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               value={uuid}
               className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-gray-800 dark:text-gray-200 font-mono text-lg"
             />
-            <CopyButton textToCopy={uuid} className="absolute top-1/2 right-2 transform -translate-y-1/2" />
+            <CopyButton
+              textToCopy={uuid}
+              className="absolute top-1/2 right-2 transform -translate-y-1/2"
+            />
           </div>
         )}
       </div>

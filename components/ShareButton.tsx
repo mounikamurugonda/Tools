@@ -19,7 +19,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ toolId, title }) => {
   if (!isMounted) {
     return null;
   }
-  
+
   const url = `${window.location.origin}/tools/${toolId}`;
 
   const handleShare = async () => {

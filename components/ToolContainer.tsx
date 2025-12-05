@@ -15,39 +15,58 @@ interface ToolContainerProps {
   toolId?: string;
 }
 
-
-const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details, toolId }) => {
+const ToolContainer: React.FC<ToolContainerProps> = ({
+  title,
+  children,
+  details,
+  toolId,
+}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const currentTool = toolId ? TOOLS.find(tool => tool.id === toolId) : undefined;
+  const currentTool = toolId
+    ? TOOLS.find((tool) => tool.id === toolId)
+    : undefined;
   const currentToolCategory = currentTool ? currentTool.category : undefined;
 
   const scroll = (scrollOffset: number) => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: scrollOffset, behavior: 'smooth' });
+      scrollContainerRef.current.scrollBy({
+        left: scrollOffset,
+        behavior: 'smooth',
+      });
     }
   };
 
   const recommendedTools = currentToolCategory
-    ? TOOLS.filter(tool => tool.category === currentToolCategory && tool.id !== toolId)
+    ? TOOLS.filter(
+        (tool) => tool.category === currentToolCategory && tool.id !== toolId,
+      )
     : [];
 
   return (
     <div className=" animate-fade-in">
       <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
-        <h2 className="sm:text-2xl text-2xl font-bold text-gray-900 dark:text-white">{title}</h2>
+        <h2 className="sm:text-2xl text-2xl font-bold text-gray-900 dark:text-white">
+          {title}
+        </h2>
         {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
       <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-        {children} 
+        {children}
       </div>
 
       {currentTool?.tags && currentTool.tags.length > 0 && (
         <div className="mt-4">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">Tags:</span>
+            <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+              Tags:
+            </span>
             {currentTool.tags.map((tag) => (
-              <Link key={tag} href={`/tags/${tag.toLowerCase()}`} className="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors duration-200">
+              <Link
+                key={tag}
+                href={`/tags/${tag.toLowerCase()}`}
+                className="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors duration-200"
+              >
                 {tag}
               </Link>
             ))}
@@ -62,22 +81,55 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
               Recommended {currentToolCategory} Tools
             </h3>
             <div className="flex space-x-2">
-              <button onClick={() => scroll(-300)} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <button
+                onClick={() => scroll(-300)}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-800 dark:text-gray-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 19l-7-7 7-7"
+                  />
                 </svg>
               </button>
-              <button onClick={() => scroll(300)} className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <button
+                onClick={() => scroll(300)}
+                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 text-gray-800 dark:text-gray-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </button>
             </div>
           </div>
-          <div ref={scrollContainerRef} className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide">
+          <div
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide"
+          >
             {recommendedTools.map((tool) => (
               <div key={tool.id} className="flex-none w-64">
-                <Link href={`/tools/${tool.id}`}><ToolCard tool={tool as unknown as Tool} /></Link>
+                <Link href={`/tools/${tool.id}`}>
+                  <ToolCard tool={tool as unknown as Tool} />
+                </Link>
               </div>
             ))}
           </div>
@@ -85,7 +137,9 @@ const ToolContainer: React.FC<ToolContainerProps> = ({ title, children, details,
       )}
 
       <ToolDescription details={details} />
-      <ToolCredits items={[...(toolId ? (TOOL_CREDITS[toolId] || []) : []), ...SITE_CREDITS]} />
+      <ToolCredits
+        items={[...(toolId ? TOOL_CREDITS[toolId] || [] : []), ...SITE_CREDITS]}
+      />
     </div>
   );
 };

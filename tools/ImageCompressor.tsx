@@ -19,8 +19,14 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
   const [originalImage, setOriginalImage] = useState<File | null>(null);
   const [originalImageSrc, setOriginalImageSrc] = useState<string>('');
   const [compressedImageSrc, setCompressedImageSrc] = useState<string>('');
-  const [originalDimensions, setOriginalDimensions] = useState<{ width: number; height: number } | null>(null);
-  const [compressedDimensions, setCompressedDimensions] = useState<{ width: number; height: number } | null>(null);
+  const [originalDimensions, setOriginalDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
+  const [compressedDimensions, setCompressedDimensions] = useState<{
+    width: number;
+    height: number;
+  } | null>(null);
   const [originalSize, setOriginalSize] = useState<number>(0);
   const [compressedSize, setCompressedSize] = useState<number>(0);
   const [settings, setSettings] = useState<CompressionSettings>({
@@ -29,7 +35,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
     maxHeight: 1080,
     maintainAspectRatio: true,
     outputFormat: 'jpeg',
-    aggressiveCompression: false
+    aggressiveCompression: false,
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -42,16 +48,16 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
         const result = reader.result as string;
         setOriginalImageSrc(result);
         setOriginalSize(file.size);
-        
+
         // Get original dimensions
         const img = new Image();
         img.onload = () => {
           setOriginalDimensions({ width: img.width, height: img.height });
           // Set initial max dimensions based on original
-          setSettings(prev => ({
+          setSettings((prev) => ({
             ...prev,
             maxWidth: Math.min(img.width, 1920),
-            maxHeight: Math.min(img.height, 1080)
+            maxHeight: Math.min(img.height, 1080),
           }));
         };
         img.src = result;
@@ -71,7 +77,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
     if (!originalImageSrc || !originalDimensions) return;
 
     setIsProcessing(true);
-    
+
     try {
       const canvas = canvasRef.current;
       if (!canvas) return;
@@ -93,7 +99,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
       // Calculate new dimensions
       if (settings.maintainAspectRatio) {
         const aspectRatio = img.width / img.height;
-        
+
         if (img.width > settings.maxWidth || img.height > settings.maxHeight) {
           if (img.width / settings.maxWidth > img.height / settings.maxHeight) {
             // Width is the limiting factor
@@ -153,10 +159,14 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
 
       // Calculate compressed size
       const base64Length = compressedDataUrl.length;
-      const padding = compressedDataUrl.split(',')[0].split(';')[1]?.includes('base64') ? 2 : 0;
+      const padding = compressedDataUrl
+        .split(',')[0]
+        .split(';')[1]
+        ?.includes('base64')
+        ? 2
+        : 0;
       const sizeInBytes = Math.round((base64Length * 3) / 4) - padding;
       setCompressedSize(sizeInBytes);
-
     } catch (error) {
       console.error('Error compressing image:', error);
     } finally {
@@ -166,10 +176,11 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const downloadCompressedImage = () => {
     if (!compressedImageSrc) return;
-    
+
     const link = document.createElement('a');
     link.href = compressedImageSrc;
-    const extension = settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
+    const extension =
+      settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
     link.download = `compressed_${originalImage?.name?.split('.')[0] || 'image'}.${extension}`;
     document.body.appendChild(link);
     link.click();
@@ -223,9 +234,11 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-4">
               <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Compression Settings</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                Compression Settings
+              </h3>
             </div>
-            
+
             <div className="space-y-4">
               {/* Output Format */}
               <div>
@@ -240,7 +253,13 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                         name="outputFormat"
                         value={format}
                         checked={settings.outputFormat === format}
-                        onChange={(e) => setSettings(prev => ({ ...prev, outputFormat: e.target.value as CompressionSettings['outputFormat'] }))}
+                        onChange={(e) =>
+                          setSettings((prev) => ({
+                            ...prev,
+                            outputFormat: e.target
+                              .value as CompressionSettings['outputFormat'],
+                          }))
+                        }
                         className="mr-2"
                       />
                       {format.toUpperCase()}
@@ -260,7 +279,12 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                   max="1"
                   step="0.1"
                   value={settings.quality}
-                  onChange={(e) => setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))}
+                  onChange={(e) =>
+                    setSettings((prev) => ({
+                      ...prev,
+                      quality: parseFloat(e.target.value),
+                    }))
+                  }
                   className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                 />
                 <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
@@ -281,7 +305,12 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                     max="4000"
                     step="10"
                     value={settings.maxWidth}
-                    onChange={(e) => setSettings(prev => ({ ...prev, maxWidth: parseInt(e.target.value) }))}
+                    onChange={(e) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        maxWidth: parseInt(e.target.value),
+                      }))
+                    }
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                   />
                 </div>
@@ -295,7 +324,12 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                     max="4000"
                     step="10"
                     value={settings.maxHeight}
-                    onChange={(e) => setSettings(prev => ({ ...prev, maxHeight: parseInt(e.target.value) }))}
+                    onChange={(e) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        maxHeight: parseInt(e.target.value),
+                      }))
+                    }
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
                   />
                 </div>
@@ -308,10 +342,18 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                     type="checkbox"
                     id="maintainAspectRatio"
                     checked={settings.maintainAspectRatio}
-                    onChange={(e) => setSettings(prev => ({ ...prev, maintainAspectRatio: e.target.checked }))}
+                    onChange={(e) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        maintainAspectRatio: e.target.checked,
+                      }))
+                    }
                     className="rounded"
                   />
-                  <label htmlFor="maintainAspectRatio" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label
+                    htmlFor="maintainAspectRatio"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
                     Maintain aspect ratio
                   </label>
                 </div>
@@ -320,10 +362,18 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                     type="checkbox"
                     id="aggressiveCompression"
                     checked={settings.aggressiveCompression}
-                    onChange={(e) => setSettings(prev => ({ ...prev, aggressiveCompression: e.target.checked }))}
+                    onChange={(e) =>
+                      setSettings((prev) => ({
+                        ...prev,
+                        aggressiveCompression: e.target.checked,
+                      }))
+                    }
                     className="rounded"
                   />
-                  <label htmlFor="aggressiveCompression" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <label
+                    htmlFor="aggressiveCompression"
+                    className="text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
                     Aggressive compression (may reduce quality significantly)
                   </label>
                 </div>
@@ -337,28 +387,47 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
               <TrendingDown className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Compression Results</h3>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
+                Compression Results
+              </h3>
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Original Image</h4>
+                <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Original Image
+                </h4>
                 <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                  <p><strong>File Size:</strong> {formatFileSize(originalSize)}</p>
+                  <p>
+                    <strong>File Size:</strong> {formatFileSize(originalSize)}
+                  </p>
                   {originalDimensions && (
-                    <p><strong>Dimensions:</strong> {originalDimensions.width} × {originalDimensions.height} px</p>
+                    <p>
+                      <strong>Dimensions:</strong> {originalDimensions.width} ×{' '}
+                      {originalDimensions.height} px
+                    </p>
                   )}
                 </div>
               </div>
               {compressedImageSrc && (
                 <div>
-                  <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">Compressed Image</h4>
+                  <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Compressed Image
+                  </h4>
                   <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                    <p><strong>File Size:</strong> {formatFileSize(compressedSize)}</p>
+                    <p>
+                      <strong>File Size:</strong>{' '}
+                      {formatFileSize(compressedSize)}
+                    </p>
                     {compressedDimensions && (
-                      <p><strong>Dimensions:</strong> {compressedDimensions.width} × {compressedDimensions.height} px</p>
+                      <p>
+                        <strong>Dimensions:</strong>{' '}
+                        {compressedDimensions.width} ×{' '}
+                        {compressedDimensions.height} px
+                      </p>
                     )}
                     <p className="text-green-600 dark:text-green-400">
-                      <strong>Size Reduction:</strong> {getCompressionRatio()}% smaller
+                      <strong>Size Reduction:</strong> {getCompressionRatio()}%
+                      smaller
                     </p>
                   </div>
                 </div>
@@ -372,18 +441,30 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid md:grid-cols-2 gap-6">
             {originalImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Original Image</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Original Image
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={originalImageSrc} alt="Original" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={originalImageSrc}
+                    alt="Original"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
               </div>
             )}
 
             {compressedImageSrc && (
               <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Compressed Image</h3>
+                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
+                  Compressed Image
+                </h3>
                 <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img src={compressedImageSrc} alt="Compressed" className="max-w-full max-h-64 mx-auto rounded" />
+                  <img
+                    src={compressedImageSrc}
+                    alt="Compressed"
+                    className="max-w-full max-h-64 mx-auto rounded"
+                  />
                 </div>
                 <div className="mt-3 flex gap-2">
                   <button

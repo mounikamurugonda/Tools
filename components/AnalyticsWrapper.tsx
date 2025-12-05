@@ -2,7 +2,12 @@
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import { trackPageView, trackCategoryView, trackTipView, trackToolUsage } from '@/lib/analytics';
+import {
+  trackPageView,
+  trackCategoryView,
+  trackTipView,
+  trackToolUsage,
+} from '@/lib/analytics';
 
 interface AnalyticsWrapperProps {
   children: React.ReactNode;
@@ -10,12 +15,12 @@ interface AnalyticsWrapperProps {
   categoryName?: string;
   toolName?: string;
 }
- 
-const AnalyticsWrapper: React.FC<AnalyticsWrapperProps> = ({ 
-  children, 
+
+const AnalyticsWrapper: React.FC<AnalyticsWrapperProps> = ({
+  children,
   pageType = 'other',
   categoryName,
-  toolName 
+  toolName,
 }) => {
   const pathname = usePathname();
 

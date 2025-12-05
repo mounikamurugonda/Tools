@@ -5,11 +5,12 @@ import BuyMeACoffeeCard from './BuyMeACoffeeCard';
 
 const BuyMeACoffeeSection = () => {
   const pathname = usePathname();
-  
+
   // Show on all pages except specific ones where it might be redundant
   // Also hide on inner pages (tools and tips) as they will have their own scrollable version
   const hideOnPages = ['/contact', '/about'];
-  const isInnerPage = pathname.startsWith('/tools') || pathname.startsWith('/tips');
+  const isInnerPage =
+    pathname.startsWith('/tools') || pathname.startsWith('/tips');
   const shouldShow = !hideOnPages.includes(pathname) && !isInnerPage;
 
   if (!shouldShow) {

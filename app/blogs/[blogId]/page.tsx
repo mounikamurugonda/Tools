@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { blogs } from '@/lib/blogs';
 import { notFound } from 'next/navigation';
@@ -7,19 +6,19 @@ import Image from 'next/image';
 import ShareButton from '@/components/ShareButton';
 
 export async function generateStaticParams() {
-  return blogs.map(blog => ({
+  return blogs.map((blog) => ({
     blogId: blog.id,
   }));
 }
 
 const BlogPage = ({ params }: { params: { blogId: string } }) => {
-  const blog = blogs.find(blog => blog.id === params.blogId);
+  const blog = blogs.find((blog) => blog.id === params.blogId);
 
   if (!blog) {
     notFound();
   }
 
-  const relatedPosts = blogs.filter(p => blog.relatedPosts?.includes(p.id));
+  const relatedPosts = blogs.filter((p) => blog.relatedPosts?.includes(p.id));
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -34,7 +33,9 @@ const BlogPage = ({ params }: { params: { blogId: string } }) => {
         />
         <div>
           <p className="font-semibold">{blog.author}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{blog.date}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            {blog.date}
+          </p>
         </div>
       </div>
       {blog.image && (
@@ -52,13 +53,13 @@ const BlogPage = ({ params }: { params: { blogId: string } }) => {
       />
 
       <div className="my-8">
-        <ShareButton title={blog.title} />
+        <ShareButton title={blog.title} toolId={blog.id} />
       </div>
 
       <div>
         <h2 className="text-2xl font-bold my-8">Related Posts</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {relatedPosts.map(post => (
+          {relatedPosts.map((post) => (
             <Link href={`/blogs/${post.id}`} key={post.id}>
               <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
                 {post.image && (

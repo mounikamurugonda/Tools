@@ -17,16 +17,28 @@ const Footer = () => {
             </div>
 
             <nav className="flex flex-wrap justify-center md:justify-end items-center gap-x-6 gap-y-2">
-              <Link href="/about" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors">
+              <Link
+                href="/about"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors"
+              >
                 About
               </Link>
-              <Link href="/contact" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors">
+              <Link
+                href="/contact"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors"
+              >
                 Contact
               </Link>
-              <Link href="/privacy" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors">
+              <Link
+                href="/privacy"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors"
+              >
                 Privacy
               </Link>
-              <Link href="/terms" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors">
+              <Link
+                href="/terms"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors"
+              >
                 Terms
               </Link>
             </nav>
