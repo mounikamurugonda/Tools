@@ -1,5 +1,6 @@
 import React from 'react';
-import { TOOLS } from '@/constants';
+import { TOOL_CONFIGS, getToolDetails } from '@/lib/tool-config';
+import ToolLoader from '@/components/ToolLoader';
 import {
   getToolSchema,
   getWebsiteSchema,
@@ -19,7 +20,7 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const tool = TOOLS.find((t) => t.id === params.toolId);
+  const tool = TOOL_CONFIGS.find((t) => t.id === params.toolId);
 
   if (!tool) {
     return {
@@ -97,19 +98,17 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return TOOLS.map((tool) => ({
+  return TOOL_CONFIGS.map((tool) => ({
     toolId: tool.id,
   }));
 }
 
 export default function ToolPage({ params }: { params: { toolId: string } }) {
-  const tool = TOOLS.find((t) => t.id === params.toolId);
+  const tool = TOOL_CONFIGS.find((t) => t.id === params.toolId);
 
   if (!tool) {
     notFound();
   }
-
-  const ToolComponent = tool.component;
 
   const breadcrumbItems = [
     { name: 'Home', url: 'https://utiltoolkits.com' },
@@ -121,6 +120,8 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
     { name: tool.name, url: `https://utiltoolkits.com/tools/${tool.id}` },
   ];
 
+  const toolDetails = getToolDetails(tool.id);
+
   return (
     <AnalyticsWrapper pageType="tool" toolName={tool.name}>
       {/* Schema Markup */}
@@ -129,7 +130,7 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
       <Schema schema={getToolSchema(tool)} />
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
 
-      <ToolComponent details={tool.details} toolId={tool.id} />
+      <ToolLoader toolId={tool.id} details={toolDetails} />
     </AnalyticsWrapper>
   );
 }
