@@ -71,6 +71,9 @@ const Header: React.FC = () => {
               <Link href="/tips" onClick={closeAllMenus} className="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-md transition-colors">
                   Tips
               </Link>
+              <Link href="/blogs" onClick={closeAllMenus} className="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-md transition-colors">
+                  Blog
+              </Link>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
@@ -133,6 +136,9 @@ const Header: React.FC = () => {
                 <div className="border-t border-gray-100 dark:border-gray-800 pt-4">
                     <Link href="/about" onClick={closeAllMenus} className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
                         About
+                    </Link>
+                    <Link href="/blogs" onClick={closeAllMenus} className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
+                        Blog
                     </Link>
                     <Link href="/contact" onClick={closeAllMenus} className="block px-4 py-3 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg">
                         Contact

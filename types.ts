@@ -44,3 +44,13 @@ export interface ToolProps {
   details: ToolDetails;
   toolId?: string;
 }
+
+export interface Blog {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  author: string;
+  category: string;
+  content: string;
+}
