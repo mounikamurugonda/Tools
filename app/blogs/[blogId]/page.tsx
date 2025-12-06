@@ -24,39 +24,18 @@ const BlogPage = ({ params }: { params: { blogId: string } }) => {
   return (
     <div className="brand-container-narrow">
       <BreadcrumbWrapper />
-      <h1 className="brand-heading-1 mb-4">{blog.title}</h1>
-      <div className="flex items-center mb-8">
-        <Image
-          src={blog.authorImage || ''}
-          alt={blog.author}
-          width={40}
-          height={40}
-          className="rounded-full mr-4"
-        />
-        <div>
-          <p className="font-semibold">{blog.author}</p>
-          <p className="brand-text-muted">
-            {blog.date}
+      
+      <div>
+          <p className='space-x-4' ><span className="font-semibold">{blog.author}</span> 
+         <span className='text-sm'>   {blog.date}</span>
           </p>
         </div>
-      </div>
-      {blog.image && (
-        <Image
-          src={blog.image}
-          alt={blog.title}
-          width={800}
-          height={400}
-          className="rounded-lg mb-8"
-        />
-      )}
       <div
         className="prose dark:prose-invert max-w-none"
         dangerouslySetInnerHTML={{ __html: blog.content }}
       />
 
-      <div className="my-8">
-        <ShareButton title={blog.title} toolId={blog.id} />
-      </div>
+    
 
       <div>
         <h2 className="brand-heading-2 my-8">Related Posts</h2>

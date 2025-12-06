@@ -4,6 +4,7 @@ import React, { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 import { blogs } from '@/lib/blogs';
 import { Blog } from '@/types';
+import BreadcrumbWrapper from '@/components/BreadcrumbWrapper';
 
 const BlogsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +19,8 @@ const BlogsPage = () => {
 
   return (
     <div>
-      <h1 className="brand-heading-1 mb-4">All Blogs</h1>
+      <BreadcrumbWrapper />
+      <h1 className="brand-heading-2 mb-4">All Blogs</h1>
       <p className="brand-subheading mb-8">
         Welcome to our blog! Here you will find a collection of articles on
         various topics.
