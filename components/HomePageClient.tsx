@@ -4,6 +4,7 @@ import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { TOOLS } from '../constants';
 import ToolCard from './ToolCard';
+import CategoryCard from './CategoryCard';
 import type { Tool } from '../types';
 import { trackSearch, trackToolUsage } from '@/lib/analytics';
 import MostViewedTools from './MostViewedTools';
@@ -286,41 +287,29 @@ const HomePageClient: React.FC = () => {
               <ChevronRightIcon className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {visibleCategories.map((category, index) => {
               const CategoryIcon = CATEGORY_ICONS[category];
               const description = CATEGORY_DESCRIPTIONS[category];
+              const tool = {
+                id: CATEGORY_URL_MAP[category],
+                name: category,
+                description: description,
+                icon: <CategoryIcon className="w-8 h-8 text-blue-500" />,
+                category: 'Category',
+              } as Tool;
+
               return (
-                <div 
-                  key={category} 
-                  className="animate-fade-in-up" 
+                <div
+                  key={category}
+                  className="animate-fade-in-up"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   <Link
                     href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
-                    className="group block h-full"
+                    className="block h-full"
                   >
-                    <div className="brand-card p-6 h-full hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg transition-all duration-300">
-                      <div className="flex items-start gap-4 text-left">
-                        <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
-                          {CategoryIcon && (
-                            <CategoryIcon className="w-8 h-8 text-blue-500 group-hover:text-white transition-colors duration-300" />
-                          )}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {category}
-                          </h3>
-                          <p className="mt-2 text-base text-gray-500 dark:text-gray-400 line-clamp-3 group-hover:text-gray-600 dark:group-hover:text-gray-300">
-                            {description}
-                          </p>
-                          <div className="mt-4 flex items-center text-sm font-semibold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-                            Explore Tools
-                            <ChevronRightIcon className="w-4 h-4 ml-1" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <ToolCard tool={tool} />
                   </Link>
                 </div>
               );
