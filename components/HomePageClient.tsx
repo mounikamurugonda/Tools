@@ -7,7 +7,6 @@ import ToolCard from './ToolCard';
 import type { Tool } from '../types';
 import { trackSearch, trackToolUsage } from '@/lib/analytics';
 import MostViewedTools from './MostViewedTools';
-import Logo from './Logo';
 import { SearchIcon, ChevronRightIcon } from './icons';
 import Link from 'next/link';
 import {
@@ -118,29 +117,33 @@ const HomePageClient: React.FC = () => {
 
   return (
     <main className="brand-container brand-section">
-      <div className="brand-fade-in">
-        <div className="text-center mb-24">
-          <h1 className="brand-heading-1 mt-6">
+      <div className="animate-fade-in">
+        <div className="text-center mb-24 relative">
+          {/* Decorative background elements */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl -z-10 animate-pulse-slow pointer-events-none" />
+          
+          <h1 className="brand-heading-1 mt-6 animate-slide-in-right">
             Welcome to <span className="brand-gradient-text">UtilToolkits</span>
           </h1>
-          <p className="brand-subheading mt-6 max-w-3xl mx-auto">
+          <p className="brand-subheading mt-6 max-w-3xl mx-auto animate-slide-in-left delay-100">
             The ultimate collection of{' '}
             <strong>{toolCount}+ free online developer tools</strong>.
           </p>
-          <div className="mt-12 max-w-2xl mx-auto">
-            <form onSubmit={handleSearchSubmit} className="relative">
-              <div className="relative">
+          
+          <div className="mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200">
+            <form onSubmit={handleSearchSubmit} className="relative group">
+              <div className="relative transform transition-transform duration-300 group-focus-within:scale-105">
                 <input
                   ref={searchRef}
                   type="text"
                   placeholder={`Search for a tool... (e.g., "JSON Formatter")`}
-                  className="brand-input-xl w-full pl-14"
+                  className="brand-input-xl w-full pl-14 shadow-xl border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md"
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onKeyDown={handleKeyDown}
                   autoComplete="off"
                 />
-                <div className="absolute left-5 top-1/2 -translate-y-1/2">
+                <div className="absolute left-5 top-1/2 -translate-y-1/2 transition-transform duration-300 group-focus-within:scale-110 group-focus-within:text-blue-500">
                   <SearchIcon className="text-gray-400 w-6 h-6" />
                 </div>
               </div>
@@ -149,27 +152,27 @@ const HomePageClient: React.FC = () => {
               {showSuggestions && filteredTools.length > 0 && (
                 <div
                   ref={suggestionsRef}
-                  className="absolute top-full left-0 right-0 mt-2 brand-card z-[9998] max-h-96 overflow-y-auto"
+                  className="absolute top-full left-0 right-0 mt-3 brand-card z-[9998] max-h-96 overflow-y-auto animate-fade-in-up shadow-2xl border-gray-100 dark:border-gray-800"
                 >
                   {filteredTools.map((tool, index) => (
                     <div
                       key={tool.id}
                       onClick={() => handleSuggestionClick(tool)}
-                      className={`px-4 py-3 cursor-pointer brand-border-b last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-700/50 ${
+                      className={`px-4 py-3 cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150 ${
                         index === selectedIndex
                           ? 'bg-blue-50 dark:bg-blue-900/30'
                           : ''
                       }`}
                     >
                       <div className="flex items-center space-x-4">
-                        <div className="flex-shrink-0 inline-flex items-center justify-center w-7 h-7 text-accent">
+                        <div className="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-accent">
                           {tool.icon}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-light-text dark:text-dark-text truncate">
+                          <p className="font-medium text-gray-900 dark:text-white truncate">
                             {tool.name}
                           </p>
-                          <p className="brand-text-muted text-sm truncate mt-1">
+                          <p className="text-xs text-gray-500 dark:text-gray-400 truncate mt-0.5">
                             {tool.description}
                           </p>
                         </div>
@@ -183,7 +186,7 @@ const HomePageClient: React.FC = () => {
                   ))}
 
                   {/* Show all results link */}
-                  <div className="p-2 border-t brand-border-t bg-gray-50 dark:bg-gray-700/50">
+                  <div className="p-2 border-t border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800/50 rounded-b-xl">
                     <button
                       type="button"
                       onClick={() => {
@@ -192,7 +195,7 @@ const HomePageClient: React.FC = () => {
                         );
                         setShowSuggestions(false);
                       }}
-                      className="w-full text-center brand-button-tertiary"
+                      className="w-full text-center brand-button-tertiary py-2 hover:bg-white dark:hover:bg-gray-700 rounded-lg transition-colors"
                     >
                       View all results for &quot;{searchQuery}&quot;
                     </button>
@@ -204,124 +207,122 @@ const HomePageClient: React.FC = () => {
         </div>
 
         {/* Most Viewed Tools Section */}
-        <MostViewedTools />
+        <div className="animate-fade-in delay-300">
+          <MostViewedTools />
+        </div>
 
         {/* Why Choose UtilToolkits Section */}
-        <section className="my-24">
+        <section className="my-24 animate-fade-in delay-400">
           <div className="text-center mb-12">
             <h2 className="brand-heading-2 mb-4">
               Why Developers Love UtilToolkits
             </h2>
-            <p className="text-lg text-gray-400 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
               Join thousands of developers who trust UtilToolkits for their
               daily workflow.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-8 rounded-2xl brand-card">
-              <h3 className="font-semibold text-light-text dark:text-dark-text mb-2 text-lg">
-                100% Private
-              </h3>
-              <p className="text-sm text-gray-400">
-                All processing happens in your browser. Your data never leaves
-                your device.
-              </p>
-            </div>
-            <div className="text-center p-8 rounded-2xl brand-card">
-              <h3 className="font-semibold text-light-text dark:text-dark-text mb-2 text-lg">
-                Lightning Fast
-              </h3>
-              <p className="text-sm text-gray-400">
-                No server delays. Instant results with client-side processing.
-              </p>
-            </div>
-            <div className="text-center p-8 rounded-2xl brand-card">
-              <h3 className="font-semibold text-light-text dark:text-dark-text mb-2 text-lg">
-                Always Free
-              </h3>
-              <p className="text-sm text-gray-400">
-                No hidden costs, no premium tiers. All tools are completely
-                free.
-              </p>
-            </div>
-            <div className="text-center p-8 rounded-2xl brand-card">
-              <h3 className="font-semibold text-light-text dark:text-dark-text mb-2 text-lg">
-                No Registration
-              </h3>
-              <p className="text-sm text-gray-400">
-                Start using tools immediately. No accounts or sign-ups required.
-              </p>
-            </div>
+            {[
+              { title: '100% Private', desc: 'All processing happens in your browser. Your data never leaves your device.' },
+              { title: 'Lightning Fast', desc: 'No server delays. Instant results with client-side processing.' },
+              { title: 'Always Free', desc: 'No hidden costs, no premium tiers. All tools are completely free.' },
+              { title: 'No Registration', desc: 'Start using tools immediately. No accounts or sign-ups required.' },
+            ].map((feature, idx) => (
+              <div 
+                key={idx} 
+                className="text-center p-8 rounded-2xl brand-card hover:-translate-y-2 transition-transform duration-300"
+                style={{ transitionDelay: `${idx * 100}ms` }}
+              >
+                <h3 className="font-bold text-gray-900 dark:text-white mb-3 text-lg">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
+                  {feature.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* Featured Tools Section */}
         <section className="my-24">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="brand-heading-2 mb-4">Most Popular Tools</h2>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto">
               These are the tools our community uses most frequently.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            {featuredTools.map((tool) => (
-              <Link
-                key={tool.id}
-                href={`/tools/${tool.id}`}
-                className="block brand-scale-hover"
+            {featuredTools.map((tool, index) => (
+              <div 
+                key={tool.id} 
+                className="animate-fade-in-up" 
+                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <ToolCard tool={tool} />
-              </Link>
+                <Link
+                  href={`/tools/${tool.id}`}
+                  className="block h-full"
+                >
+                  <ToolCard tool={tool} />
+                </Link>
+              </div>
             ))}
           </div>
         </section>
 
         {/* Categories Section */}
         <section className="my-24">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="brand-heading-2 mb-4">Explore by Category</h2>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto mb-6">
+            <p className="text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
               Find the right tool for the job by browsing our categories.
             </p>
             <Link
               href="/tools"
-              className="inline-flex items-center text-accent hover:text-accent-hover font-medium"
+              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-bold transition-all hover:gap-2 group"
             >
               View All {toolCount} Tools{' '}
-              <ChevronRightIcon className="w-5 h-5 ml-1" />
+              <ChevronRightIcon className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {visibleCategories.map((category) => {
+            {visibleCategories.map((category, index) => {
               const CategoryIcon = CATEGORY_ICONS[category];
               const description = CATEGORY_DESCRIPTIONS[category];
               return (
-                <Link
-                  key={category}
-                  href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
-                  className="group block brand-scale-hover"
+                <div 
+                  key={category} 
+                  className="animate-fade-in-up" 
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="brand-card p-6 h-full">
-                    <div className="flex items-start gap-4 text-left">
-                      {CategoryIcon && (
-                        <CategoryIcon className="w-8 h-8 text-accent" />
-                      )}
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-xl font-bold text-light-text dark:text-dark-text">
-                          {category}
-                        </h3>
-                        <p className="mt-2 text-base text-gray-400 line-clamp-3">
-                          {description}
-                        </p>
-                        <div className="mt-3">
-                          <span className="inline-block text-sm font-semibold text-accent hover:underline">
-                            View Tools
-                          </span>
+                  <Link
+                    href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
+                    className="group block h-full"
+                  >
+                    <div className="brand-card p-6 h-full hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-lg transition-all duration-300">
+                      <div className="flex items-start gap-4 text-left">
+                        <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300">
+                          {CategoryIcon && (
+                            <CategoryIcon className="w-8 h-8 text-blue-500 group-hover:text-white transition-colors duration-300" />
+                          )}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            {category}
+                          </h3>
+                          <p className="mt-2 text-base text-gray-500 dark:text-gray-400 line-clamp-3 group-hover:text-gray-600 dark:group-hover:text-gray-300">
+                            {description}
+                          </p>
+                          <div className="mt-4 flex items-center text-sm font-semibold text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all duration-300">
+                            Explore Tools
+                            <ChevronRightIcon className="w-4 h-4 ml-1" />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               );
             })}
           </div>

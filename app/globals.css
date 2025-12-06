@@ -9,25 +9,24 @@
     height: 100%;
     width: 100%;
     overflow-x: hidden;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-light-background text-light-text text-base leading-6;
+    @apply bg-light-background text-light-text text-base leading-6 antialiased;
     background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
     background-size: 24px 24px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
   }
 
   .dark body {
     @apply bg-dark-background text-dark-text;
-    background-image: radial-gradient(#4a5568 1px, transparent 1px);
+    background-image: radial-gradient(#334155 1px, transparent 1px);
   }
 
   /* Refined Scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
 
   ::-webkit-scrollbar-track {
@@ -36,14 +35,16 @@
 
   ::-webkit-scrollbar-thumb {
     @apply bg-gray-300 dark:bg-gray-700;
-    border-radius: 3px;
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
   }
 
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-400 dark:bg-gray-600;
   }
 
-  /* Specific styling for sidebar scrollbar to be even more subtle */
+  /* Specific styling for sidebar scrollbar */
   .sidebar-scroll::-webkit-scrollbar {
     width: 4px;
   }
@@ -53,7 +54,17 @@
   }
 }
 
-/* Range input styling remains the same... */
+/* Staggered Animation Delays */
+.delay-75 { animation-delay: 75ms; }
+.delay-100 { animation-delay: 100ms; }
+.delay-150 { animation-delay: 150ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-700 { animation-delay: 700ms; }
+
+/* Range input styling */
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
@@ -66,6 +77,7 @@ input[type="range"]::-webkit-slider-runnable-track {
     background: #e5e7eb;
     height: 0.25rem;
     border-radius: 0.25rem;
+    transition: background-color 0.2s;
 }
 .dark input[type="range"]::-webkit-slider-runnable-track {
     background: #4b5563;
@@ -81,6 +93,10 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 9999px;
     border: 2px solid #fff;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.1s, background-color 0.2s;
+}
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.2);
 }
 .dark input[type="range"]::-webkit-slider-thumb {
     border-color: #1f2937;
@@ -102,6 +118,10 @@ input[type="range"]::-moz-range-thumb {
     width: 1rem;
     border-radius: 9999px;
     border: 2px solid #fff;
+    transition: transform 0.1s;
+}
+input[type="range"]:hover::-moz-range-thumb {
+    transform: scale(1.2);
 }
 .dark input[type="range"]::-moz-range-thumb {
     border-color: #1f2937;
@@ -121,9 +141,9 @@ input[type="range"]::-moz-range-thumb {
     @apply py-12 sm:py-16;
   }
 
-  /* Typography Refinements */
+  /* Typography */
   .brand-heading-1 {
-    @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-light-text dark:text-dark-text;
+    @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-light-text dark:text-dark-text leading-tight;
   }
   .brand-heading-2 {
     @apply text-3xl font-bold tracking-tight text-light-text dark:text-dark-text;
@@ -147,39 +167,39 @@ input[type="range"]::-moz-range-thumb {
   }
 
   .brand-gradient-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-accent to-blue-500;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400;
   }
 
   .brand-text-link {
-    @apply font-medium text-accent hover:text-accent-hover transition-colors inline-flex items-center;
+    @apply font-medium text-accent hover:text-accent-hover transition-colors inline-flex items-center hover:underline;
   }
 
-  /* Cards - Cleaner shadows */
+  /* Cards */
   .brand-card {
-    @apply bg-light-background dark:bg-dark-background rounded-xl border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg transition-shadow duration-200;
+    @apply bg-light-background dark:bg-dark-background rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300;
   }
 
   .brand-scale-hover {
-    @apply transition-transform duration-200 hover:-translate-y-1;
+    @apply transition-transform duration-300 hover:scale-[1.02] active:scale-[0.98];
   }
 
   /* Buttons */
   .brand-button-primary {
-    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-accent rounded-lg shadow-sm hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all;
+    @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-accent rounded-lg shadow-sm hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200 active:scale-95;
   }
   .brand-button-secondary {
-    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-light-text dark:text-dark-text bg-light-background dark:bg-dark-background border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors;
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-light-text dark:text-dark-text bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-200 active:scale-95;
   }
   .brand-button-tertiary {
-    @apply text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-accent dark:hover:text-accent-hover transition-colors;
+    @apply text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-accent dark:hover:text-accent-hover transition-colors duration-200;
   }
 
-  /* Inputs - Modernized */
+  /* Inputs */
   .brand-input {
-    @apply block w-full rounded-lg border-gray-300 dark:border-gray-700 bg-light-background dark:bg-dark-background shadow-sm focus:border-accent focus:ring-accent sm:text-sm px-3 py-2;
+    @apply block w-full rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm focus:border-accent focus:ring-accent sm:text-sm px-3 py-2 transition-all duration-200 placeholder:text-gray-400 dark:placeholder:text-gray-500;
   }
   .brand-input-xl {
-    @apply block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-light-background dark:bg-dark-background shadow-lg shadow-gray-200/50 dark:shadow-none focus:border-accent focus:ring-accent text-lg px-5 py-4 transition-shadow;
+    @apply block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50 shadow-lg shadow-gray-200/50 dark:shadow-none focus:border-accent focus:ring-accent text-lg px-5 py-4 transition-all duration-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 backdrop-blur-sm;
   }
 
   /* Misc */
@@ -188,15 +208,11 @@ input[type="range"]::-moz-range-thumb {
   }
 
   .brand-badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-accent;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300;
   }
 
   .brand-badge-secondary {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700/50 dark:text-gray-300;
-  }
-
-  .brand-fade-in {
-    @apply animate-fade-in;
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300;
   }
 
   .brand-border-b {
@@ -212,5 +228,9 @@ input[type="range"]::-moz-range-thumb {
 
   .brand-title {
     @apply text-3xl font-bold text-light-text dark:text-dark-text tracking-tight;
+  }
+  
+  .glass-panel {
+    @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl;
   }
 }

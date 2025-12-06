@@ -44,50 +44,53 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
     : [];
 
   return (
-    <div className=" animate-fade-in">
-      <div className="flex justify-between items-center mb-6 border-b border-gray-300 dark:border-gray-700 pb-4">
-        <h2 className="sm:text-2xl text-2xl font-bold text-gray-900 dark:text-white">
+    <div className="animate-fade-in space-y-8">
+      {/* Header */}
+      <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-800">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
           {title}
-        </h2>
+        </h1>
         {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
+
+      {/* Main Tool Area */}
+      <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in-up">
         {children}
       </div>
 
+      {/* Tags */}
       {currentTool?.tags && currentTool.tags.length > 0 && (
-        <div className="mt-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
-              Tags:
-            </span>
-            {currentTool.tags.map((tag) => (
-              <Link
-                key={tag}
-                href={`/tags/${tag.toLowerCase()}`}
-                className="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors duration-200"
-              >
-                {tag}
-              </Link>
-            ))}
-          </div>
+        <div className="flex flex-wrap items-center gap-2 animate-fade-in delay-200">
+          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">
+            Tags:
+          </span>
+          {currentTool.tags.map((tag) => (
+            <Link
+              key={tag}
+              href={`/tags/${tag.toLowerCase()}`}
+              className="px-3 py-1 text-sm font-medium text-blue-700 bg-blue-50 rounded-full dark:bg-blue-900/30 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:scale-105 transition-all duration-200"
+            >
+              #{tag}
+            </Link>
+          ))}
         </div>
       )}
 
+      {/* Recommended Tools */}
       {recommendedTools.length > 0 && (
-        <div className="mt-8 bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-200 dark:border-gray-700">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Recommended {currentToolCategory} Tools
+        <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 animate-fade-in delay-300">
+          <div className="flex justify-between items-center mb-6">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+              More {currentToolCategory} Tools
             </h3>
             <div className="flex space-x-2">
               <button
                 onClick={() => scroll(-300)}
-                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none"
+                className="p-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-gray-800 dark:text-gray-200"
+                  className="h-5 w-5 text-gray-600 dark:text-gray-300"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -102,11 +105,11 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
               </button>
               <button
                 onClick={() => scroll(300)}
-                className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 focus:outline-none"
+                className="p-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-gray-800 dark:text-gray-200"
+                  className="h-5 w-5 text-gray-600 dark:text-gray-300"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -123,12 +126,12 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
           </div>
           <div
             ref={scrollContainerRef}
-            className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide"
+            className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide snap-x"
           >
             {recommendedTools.map((tool) => (
-              <div key={tool.id} className="flex-none w-64">
-                <Link href={`/tools/${tool.id}`}>
-                  <ToolCard tool={tool as unknown as Tool} />
+              <div key={tool.id} className="flex-none w-72 snap-start">
+                <Link href={`/tools/${tool.id}`} className="block h-full">
+                  <ToolCard tool={tool as unknown as Tool} isCompact />
                 </Link>
               </div>
             ))}
@@ -136,10 +139,13 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
         </div>
       )}
 
-      <ToolDescription details={details} />
-      <ToolCredits
-        items={[...(toolId ? TOOL_CREDITS[toolId] || [] : []), ...SITE_CREDITS]}
-      />
+      {/* Description & Credits */}
+      <div className="animate-fade-in delay-500">
+        <ToolDescription details={details} />
+        <ToolCredits
+          items={[...(toolId ? TOOL_CREDITS[toolId] || [] : []), ...SITE_CREDITS]}
+        />
+      </div>
     </div>
   );
 };

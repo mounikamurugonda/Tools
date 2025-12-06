@@ -1,6 +1,7 @@
 import TipsSidebar from '@/components/TipsSidebar';
 import Footer from '@/components/Footer';
 import BuyMeACoffeeCard from '@/components/BuyMeACoffeeCard';
+import React from 'react';
 
 export default function TipsLayout({
   children,

@@ -2,37 +2,21 @@ import React from 'react';
 
 const Loader: React.FC = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
-      <div className="text-center">
-        {/* Animated Logo */}
-        <div className="mb-8">
-          <div className="inline-block animate-spin">
-            <div className="w-16 h-16 border-4 border-blue-200 dark:border-blue-800 border-t-blue-500 dark:border-t-blue-400 rounded-full"></div>
-          </div>
-        </div>
-
-        {/* Loading Text */}
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-            Loading UtilToolkits
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            Preparing your developer toolbox...
-          </p>
-        </div>
-
-        {/* Animated Dots */}
-        <div className="flex justify-center mt-6 space-x-1">
-          <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-          <div
-            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
-            style={{ animationDelay: '0.1s' }}
-          ></div>
-          <div
-            className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
-            style={{ animationDelay: '0.2s' }}
-          ></div>
-        </div>
+    <div className="min-h-[60vh] flex flex-col items-center justify-center p-8 animate-fade-in">
+      <div className="relative w-20 h-20 mb-8">
+        <div className="absolute inset-0 border-4 border-blue-100 dark:border-blue-900 rounded-full"></div>
+        <div className="absolute inset-0 border-4 border-blue-600 dark:border-blue-400 rounded-full border-t-transparent animate-spin"></div>
+        <div className="absolute inset-4 border-4 border-purple-100 dark:border-purple-900 rounded-full"></div>
+        <div className="absolute inset-4 border-4 border-purple-500 dark:border-purple-400 rounded-full border-b-transparent animate-spin-slow reverse"></div>
+      </div>
+      
+      <div className="text-center space-y-3">
+        <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 animate-pulse">
+          Loading UtilToolkits...
+        </h2>
+        <p className="text-gray-500 dark:text-gray-400 text-sm animate-fade-in-up delay-100">
+          Preparing your developer tools
+        </p>
       </div>
     </div>
   );

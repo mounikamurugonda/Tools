@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import Script from 'next/script';
 import ConditionalFooter from '@/components/ConditionalFooter';
 import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
+import React from 'react';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://utiltoolkits.com'),

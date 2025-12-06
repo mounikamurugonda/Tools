@@ -23,16 +23,17 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
       const localMatches = Array.from(testStr.matchAll(regex));
 
       let lastIndex = 0;
-      const parts = [];
+      const parts: string[] = [];
       localMatches.forEach((match) => {
-        if (match.index === undefined) return;
-        if (match.index > lastIndex) {
-          parts.push(testStr.substring(lastIndex, match.index));
+        const m = match as RegExpMatchArray;
+        if (m.index === undefined) return;
+        if (m.index > lastIndex) {
+          parts.push(testStr.substring(lastIndex, m.index));
         }
         parts.push(
-          `<mark class="bg-blue-500/30 dark:bg-blue-500/50 rounded px-1">${match[0]}</mark>`,
+          `<mark class="bg-blue-500/30 dark:bg-blue-500/50 rounded px-1">${m[0]}</mark>`,
         );
-        lastIndex = match.index + match[0].length;
+        lastIndex = m.index + m[0].length;
       });
       if (lastIndex < testStr.length) {
         parts.push(testStr.substring(lastIndex));
@@ -120,7 +121,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
                     </p>
                     {match.length > 1 && (
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Groups: {JSON.stringify(match.slice(1))}
+                        Groups: {JSON.stringify(Array.from(match).slice(1))}
                       </p>
                     )}
                   </div>

@@ -8,7 +8,7 @@ export default function BlogLayout({
 }) {
   return (
     <div className="container mx-auto px-4 py-8">
-      <BlogsPageLayout>{children}</BlogsPageLayout>
+      <BlogsPageLayout children={children} />
     </div>
   );
 }

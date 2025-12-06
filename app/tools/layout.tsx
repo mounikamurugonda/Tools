@@ -1,5 +1,6 @@
 import Sidebar from '@/components/Sidebar';
 import BuyMeACoffeeCard from '@/components/BuyMeACoffeeCard';
+import React from 'react';
 
 export default function ToolsLayout({
   children,

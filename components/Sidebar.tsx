@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
             behavior: 'smooth',
             block: 'start',
           });
-        }, 100);
+        }, 300);
       }
     }
   }, [activeToolId, activeCategoryName]);
@@ -76,82 +76,103 @@ const Sidebar: React.FC = () => {
     : activeCategoryName;
 
   return (
-    <aside className="hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 md:block w-full md:w-72 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll brand-fade-in">
-      <div className="sticky top-2">
-        <nav className="space-y-1 px-4 py-2">
-          {CATEGORY_ORDER.map((category) => {
-            const categoryTools = groupedTools[category];
-            if (!categoryTools || categoryTools.length === 0) return null;
+    <aside className="hidden bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 md:block w-full md:w-72 flex-shrink-0 h-[calc(100vh-81px)] overflow-y-auto sidebar-scroll border-r border-gray-200 dark:border-gray-700">
+      <div className="sticky top-0 p-4 space-y-2">
+        {CATEGORY_ORDER.map((category) => {
+          const categoryTools = groupedTools[category];
+          if (!categoryTools || categoryTools.length === 0) return null;
 
-            const CategoryIcon = CATEGORY_ICONS[category];
-            const isOpen = openCategories[category];
-            const isCurrentCategoryActive =
-              currentActiveCategory?.toLowerCase() === category.toLowerCase();
+          const CategoryIcon = CATEGORY_ICONS[category];
+          const isOpen = openCategories[category];
+          const isCurrentCategoryActive =
+            currentActiveCategory?.toLowerCase() === category.toLowerCase();
 
-            return (
+          return (
+            <div
+              key={category}
+              ref={(el) => {
+                categoryRefs.current[category] = el;
+              }}
+              className="group"
+            >
               <div
-                key={category}
-                ref={(el) => {
-                  categoryRefs.current[category] = el;
-                }}
+                className={`w-full flex items-center justify-between text-left p-2.5 rounded-lg transition-all duration-200 cursor-pointer ${
+                  isCurrentCategoryActive
+                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 font-semibold'
+                    : 'hover:bg-gray-100 dark:hover:bg-gray-700/50'
+                }`}
               >
-                <div
-                  className={`w-full flex items-center justify-between text-left p-2 rounded-lg ${isCurrentCategoryActive ? 'bg-gray-200 dark:bg-gray-700' : ''}`}
+                <Link
+                  href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
+                  className="flex items-center grow"
                 >
-                  <Link
-                    href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
-                    className="flex items-center grow text-gray-700 dark:text-gray-300 font-semibold"
-                  >
-                    {CategoryIcon && (
-                      <CategoryIcon className="w-5 h-5 mr-2 flex-shrink-0" />
-                    )}
-                    <span className="leading-none">{category}</span>
-                  </Link>
-                  <button
-                    onClick={() =>
-                      setOpenCategories((prev) => ({
-                        ...prev,
-                        [category]: !prev[category],
-                      }))
-                    }
-                    className="p-1 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
-                  >
-                    <ChevronDownIcon
-                      className={`w-5 h-5 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                  {CategoryIcon && (
+                    <CategoryIcon 
+                      className={`w-5 h-5 mr-3 flex-shrink-0 transition-colors ${
+                        isCurrentCategoryActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 group-hover:text-blue-500'
+                      }`} 
                     />
-                  </button>
-                </div>
-                {isOpen && (
-                  <div className="mt-1 space-y-1 pl-2 border-l-2 border-gray-200 dark:border-gray-700 ml-3 animate-fade-in">
-                    {categoryTools.map((tool) => {
-                      const isActive = activeToolId === tool.id;
-                      return (
-                        <Link
-                          key={tool.id}
-                          href={`/tools/${tool.id}`}
-                          className={`group flex items-center w-full text-left px-3 py-1.5 text-sm rounded-md transition-all ${
-                            isActive
-                              ? 'bg-blue-600 text-white font-semibold shadow-sm'
-                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white hover:-translate-x-0.5'
+                  )}
+                  <span className="leading-none">{category}</span>
+                </Link>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setOpenCategories((prev) => ({
+                      ...prev,
+                      [category]: !prev[category],
+                    }));
+                  }}
+                  className={`p-1 rounded-full transition-all duration-200 ${
+                    isOpen 
+                      ? 'bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-200' 
+                      : 'text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
+                  }`}
+                >
+                  <ChevronDownIcon
+                    className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              </div>
+              
+              {/* Smooth Collapsible Content */}
+              <div 
+                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                  isOpen ? 'max-h-[2000px] opacity-100 mt-1' : 'max-h-0 opacity-0 mt-0'
+                }`}
+              >
+                <div className="space-y-0.5 pl-3 border-l-2 border-gray-100 dark:border-gray-700 ml-3.5 mb-2">
+                  {categoryTools.map((tool) => {
+                    const isActive = activeToolId === tool.id;
+                    return (
+                      <Link
+                        key={tool.id}
+                        href={`/tools/${tool.id}`}
+                        className={`group/link flex items-center w-full text-left px-3 py-2 text-sm rounded-md transition-all duration-200 ${
+                          isActive
+                            ? 'bg-blue-600 text-white font-medium shadow-sm translate-x-1'
+                            : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 hover:text-gray-900 dark:hover:text-white hover:translate-x-1'
+                        }`}
+                      >
+                        <span
+                          className={`mr-3 flex-shrink-0 inline-flex items-center justify-center w-4 h-4 transition-colors ${
+                            isActive ? 'text-white' : 'text-gray-400 group-hover/link:text-blue-500'
                           }`}
                         >
-                          <span
-                            className={`mr-3 flex-shrink-0 inline-flex items-center justify-center w-5 h-5 ${isActive ? 'text-white' : 'text-blue-500/70 dark:text-blue-400/70 group-hover:text-blue-600 dark:group-hover:text-blue-300 transition-colors'}`}
-                          >
-                            {tool.icon}
-                          </span>
-                          <span className="truncate leading-none">
-                            {tool.name}
-                          </span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
+                          {React.cloneElement(tool.icon as React.ReactElement<{ className?: string }>, { className: "w-full h-full" })}
+                        </span>
+                        <span className="truncate leading-none">
+                          {tool.name}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
-            );
-          })}
-        </nav>
+            </div>
+          );
+        })}
       </div>
     </aside>
   );
