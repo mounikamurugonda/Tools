@@ -63,7 +63,6 @@ const Header: React.FC = () => {
             <nav className="flex items-center gap-2 mr-4">
               <NavLink href="/" onClick={closeAllMenus} pathname={pathname}>Home</NavLink>
               <NavLink href="/tools" onClick={closeAllMenus} pathname={pathname}>Tools</NavLink>
-              <NavLink href="/tips" onClick={closeAllMenus} pathname={pathname}>Tips</NavLink>
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>Blog</NavLink>
             </nav>
 
@@ -116,7 +115,6 @@ const Header: React.FC = () => {
               {[
                 { href: '/', label: 'Home' },
                 { href: '/tools', label: 'All Tools' },
-                { href: '/tips', label: 'Tips' },
                 { href: '/blogs', label: 'Blog' }
               ].map((item) => (
                 <Link

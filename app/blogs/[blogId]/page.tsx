@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import ShareButton from '@/components/ShareButton';
+import BreadcrumbWrapper from '@/components/BreadcrumbWrapper';
 
 export async function generateStaticParams() {
   return blogs.map((blog) => ({
@@ -21,8 +22,9 @@ const BlogPage = ({ params }: { params: { blogId: string } }) => {
   const relatedPosts = blogs.filter((p) => blog.relatedPosts?.includes(p.id));
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-4xl md:text-5xl font-bold mb-4">{blog.title}</h1>
+    <div className="brand-container-narrow">
+      <BreadcrumbWrapper />
+      <h1 className="brand-heading-1 mb-4">{blog.title}</h1>
       <div className="flex items-center mb-8">
         <Image
           src={blog.authorImage || ''}
@@ -33,7 +35,7 @@ const BlogPage = ({ params }: { params: { blogId: string } }) => {
         />
         <div>
           <p className="font-semibold">{blog.author}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="brand-text-muted">
             {blog.date}
           </p>
         </div>
@@ -57,23 +59,23 @@ const BlogPage = ({ params }: { params: { blogId: string } }) => {
       </div>
 
       <div>
-        <h2 className="text-2xl font-bold my-8">Related Posts</h2>
+        <h2 className="brand-heading-2 my-8">Related Posts</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {relatedPosts.map((post) => (
             <Link href={`/blogs/${post.id}`} key={post.id}>
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transform hover:scale-105 transition-transform duration-300">
+              <div className="brand-card">
                 {post.image && (
                   <Image
                     src={post.image}
                     alt={post.title}
                     width={600}
                     height={400}
-                    className="object-cover"
+                    className="object-cover rounded-t-xl"
                   />
                 )}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{post.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">
+                  <h3 className="brand-heading-3 mb-2">{post.title}</h3>
+                  <p className="brand-text-body">
                     {post.description}
                   </p>
                 </div>

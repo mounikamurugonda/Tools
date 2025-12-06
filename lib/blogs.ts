@@ -10,7 +10,7 @@ export const blogs: Blog[] = [
   author: 'UtilToolkits Team',
   category: 'Web Development',
   image: '',
-  relatedPosts: [],
+  relatedPosts: ['2', '3'],
   content: `
     <h1>Top 10 Free Web Tools Every Developer Should Use in 2025</h1>
 
@@ -183,7 +183,63 @@ export const blogs: Blog[] = [
     <p>Ready to get started? Visit the UtilToolkits tools hub: <a href="https://utiltoolkits.com/tools" target="_blank" rel="noopener">https://utiltoolkits.com/tools</a></p>
   `
 },
+{
+    id: '2',
+    title: 'The Ultimate Guide to Image Optimization for the Web',
+    description: 'Learn how to compress, resize, and convert images to improve website performance and user experience. This guide covers everything from choosing the right file format to advanced optimization techniques.',
+    date: '2025-11-20',
+    author: 'Jane Doe',
+    category: 'Web Performance',
+    image: '',
+    relatedPosts: ['1', '3'],
+    content: `
+      <h1>The Ultimate Guide to Image Optimization for the Web</h1>
+      <p>Image optimization is crucial for creating fast-loading websites. This guide will walk you through the entire process, from selecting the right image format to implementing advanced optimization strategies.</p>
+      <h2>Why Image Optimization Matters</h2>
+      <p>Large image files can significantly slow down your website, leading to a poor user experience and lower search engine rankings. By optimizing your images, you can improve page load times, reduce bounce rates, and enhance overall performance.</p>
+      <h2>Choosing the Right File Format</h2>
+      <p>Selecting the appropriate file format is the first step in image optimization. Here's a quick overview of the most common formats:</p>
+      <ul>
+        <li><strong>JPEG:</strong> Ideal for photographs and images with complex color gradients.</li>
+        <li><strong>PNG:</strong> Best for images with transparency, such as logos and icons.</li>
+        <li><strong>WebP:</strong> A modern format that offers superior compression and quality compared to JPEG and PNG.</li>
+      </ul>
+      <h2>Image Compression Techniques</h2>
+      <p>Compressing your images is essential for reducing their file size. There are two main types of compression:</p>
+      <ul>
+        <li><strong>Lossy:</strong> This method removes some data from the image, resulting in a smaller file size but a slight reduction in quality.</li>
+        <li><strong>Lossless:</strong> This technique reduces the file size without any loss of quality.</li>
+      </ul>
+      <p>Explore our <a href="https://utiltoolkits.com/tools/image-compressor" target="_blank" rel="noopener">Image Compressor</a> tool to easily optimize your images.</p>
+    `
+  },
+  {
+    id: '3',
+    title: 'A Beginner\'s Guide to Regular Expressions',
+    description: 'Master the art of regular expressions with this comprehensive guide. Learn how to use regex to find, match, and manipulate text with ease.',
+    date: '2025-11-15',
+    author: 'John Smith',
+    category: 'Programming',
+    image: '',
+    relatedPosts: ['1', '2'],
+    content: `
+      <h1>A Beginner's Guide to Regular Expressions</h1>
+      <p>Regular expressions, or regex, are a powerful tool for working with text. This guide will introduce you to the fundamentals of regex and show you how to apply them in your projects.</p>
+      <h2>What are Regular Expressions?</h2>
+      <p>A regular expression is a sequence of characters that defines a search pattern. You can use regex to perform complex text manipulations, such as finding specific patterns, validating input, and replacing text.</p>
+      <h2>Basic Syntax</h2>
+      <p>Here are some of the basic building blocks of regular expressions:</p>
+      <ul>
+        <li><strong>.:</strong> Matches any single character.</li>
+        <li><strong>*:</strong> Matches the preceding character zero or more times.</li>
+        <li><strong>+:</strong> Matches the preceding character one or more times.</li>
+        <li><strong>[]:</strong> Matches any single character within the brackets.</li>
+      </ul>
+      <p>Test your regex patterns with our <a href="https://utiltoolkits.com/tools/regex-tester" target="_blank" rel="noopener">Regex Tester</a> tool.</p>
+    `
+  }
 
  
 
 ];
+

@@ -5,12 +5,15 @@ import {
   getToolSchema,
   getWebsiteSchema,
   getOrganizationSchema,
-  getBreadcrumbSchema,
 } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
+import BreadcrumbWrapper from '@/components/BreadcrumbWrapper';
+import { TIPS } from '@/lib/tips';
+import TipCard from '@/components/TipCard';
+import ShareButton from '@/components/ShareButton';
 
 type Props = {
   params: { toolId: string };
@@ -110,17 +113,8 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
     notFound();
   }
 
-  const breadcrumbItems = [
-    { name: 'Home', url: 'https://utiltoolkits.com' },
-    { name: 'Tools', url: 'https://utiltoolkits.com/tools' },
-    {
-      name: tool.category,
-      url: `https://utiltoolkits.com/tools/category/${tool.category.toLowerCase().replace(/\s+/g, '-')}`,
-    },
-    { name: tool.name, url: `https://utiltoolkits.com/tools/${tool.id}` },
-  ];
-
   const toolDetails = getToolDetails(tool.id);
+  const randomTip = TIPS[Math.floor(Math.random() * TIPS.length)];
 
   return (
     <AnalyticsWrapper pageType="tool" toolName={tool.name}>
@@ -128,9 +122,12 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
       <Schema schema={getWebsiteSchema()} />
       <Schema schema={getOrganizationSchema()} />
       <Schema schema={getToolSchema(tool)} />
-      <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
 
-      <ToolLoader toolId={tool.id} details={toolDetails} />
+      <div className="container mx-auto px-4">
+        <ToolLoader toolId={tool.id} details={toolDetails} />
+        <TipCard tip={randomTip} />
+      </div>
     </AnalyticsWrapper>
   );
 }
+
