@@ -1,24 +1,23 @@
-'use client';
+"use client";
 
-import React, { useState, useMemo, useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { TOOLS } from '../constants';
-import ToolCard from './ToolCard';
-import CategoryCard from './CategoryCard';
-import type { Tool } from '../types';
-import { trackSearch, trackToolUsage } from '@/lib/analytics';
-import MostViewedTools from './MostViewedTools';
-import { SearchIcon, ChevronRightIcon } from './icons';
-import Link from 'next/link';
+import React, { useState, useMemo, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { TOOLS } from "../constants";
+import ToolCard from "./ToolCard";
+import type { Tool, ToolCategory, ToolDetails } from "../types";
+import { trackSearch, trackToolUsage } from "@/lib/analytics";
+import MostViewedTools from "./MostViewedTools";
+import { SearchIcon, ChevronRightIcon } from "./icons";
+import Link from "next/link";
 import {
   CATEGORY_ORDER,
   CATEGORY_ICONS,
   CATEGORY_DESCRIPTIONS,
   CATEGORY_URL_MAP,
-} from '@/constants';
+} from "@/constants";
 
 const HomePageClient: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -34,7 +33,7 @@ const HomePageClient: React.FC = () => {
       (tool) =>
         tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tool.category.toLowerCase().includes(searchQuery.toLowerCase()),
+        tool.category.toLowerCase().includes(searchQuery.toLowerCase())
     ).slice(0, 8); // Limit to 8 suggestions
   }, [searchQuery]);
 
@@ -65,19 +64,19 @@ const HomePageClient: React.FC = () => {
     if (!showSuggestions || filteredTools.length === 0) return;
 
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev < filteredTools.length - 1 ? prev + 1 : 0,
+          prev < filteredTools.length - 1 ? prev + 1 : 0
         );
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         setSelectedIndex((prev) =>
-          prev > 0 ? prev - 1 : filteredTools.length - 1,
+          prev > 0 ? prev - 1 : filteredTools.length - 1
         );
         break;
-      case 'Enter':
+      case "Enter":
         e.preventDefault();
         if (selectedIndex >= 0 && selectedIndex < filteredTools.length) {
           handleSuggestionClick(filteredTools[selectedIndex]);
@@ -85,7 +84,7 @@ const HomePageClient: React.FC = () => {
           handleSearchSubmit(e);
         }
         break;
-      case 'Escape':
+      case "Escape":
         setShowSuggestions(false);
         setSelectedIndex(-1);
         break;
@@ -106,31 +105,31 @@ const HomePageClient: React.FC = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const featuredTools = useMemo(
     () => TOOLS.filter((tool) => tool.featured),
-    [],
+    []
   );
   const visibleCategories = useMemo(() => CATEGORY_ORDER.slice(0, 6), []);
 
   return (
-    <main className="brand-container brand-section">
+    <main className="brand-container ">
       <div className="animate-fade-in">
         <div className="text-center mb-24 relative">
           {/* Decorative background elements */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl -z-10 animate-pulse-slow pointer-events-none" />
-          
+
           <h1 className="brand-heading-1 mt-6 animate-slide-in-right">
             Welcome to <span className="brand-gradient-text">UtilToolkits</span>
           </h1>
           <p className="brand-subheading mt-6 max-w-3xl mx-auto animate-slide-in-left delay-100">
-            The ultimate collection of{' '}
+            The ultimate collection of{" "}
             <strong>{toolCount}+ free online developer tools</strong>.
           </p>
-          
+
           <div className="mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200">
             <form onSubmit={handleSearchSubmit} className="relative group">
               <div className="relative transform transition-transform duration-300 group-focus-within:scale-105">
@@ -161,8 +160,8 @@ const HomePageClient: React.FC = () => {
                       onClick={() => handleSuggestionClick(tool)}
                       className={`px-4 py-3 cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150 ${
                         index === selectedIndex
-                          ? 'bg-blue-50 dark:bg-blue-900/30'
-                          : ''
+                          ? "bg-blue-50 dark:bg-blue-900/30"
+                          : ""
                       }`}
                     >
                       <div className="flex items-center space-x-4">
@@ -192,7 +191,9 @@ const HomePageClient: React.FC = () => {
                       type="button"
                       onClick={() => {
                         router.push(
-                          `/tools?search=${encodeURIComponent(searchQuery.trim())}`,
+                          `/tools?search=${encodeURIComponent(
+                            searchQuery.trim()
+                          )}`
                         );
                         setShowSuggestions(false);
                       }}
@@ -225,13 +226,25 @@ const HomePageClient: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: '100% Private', desc: 'All processing happens in your browser. Your data never leaves your device.' },
-              { title: 'Lightning Fast', desc: 'No server delays. Instant results with client-side processing.' },
-              { title: 'Always Free', desc: 'No hidden costs, no premium tiers. All tools are completely free.' },
-              { title: 'No Registration', desc: 'Start using tools immediately. No accounts or sign-ups required.' },
+              {
+                title: "100% Private",
+                desc: "All processing happens in your browser. Your data never leaves your device.",
+              },
+              {
+                title: "Lightning Fast",
+                desc: "No server delays. Instant results with client-side processing.",
+              },
+              {
+                title: "Always Free",
+                desc: "No hidden costs, no premium tiers. All tools are completely free.",
+              },
+              {
+                title: "No Registration",
+                desc: "Start using tools immediately. No accounts or sign-ups required.",
+              },
             ].map((feature, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="text-center p-8 rounded-2xl brand-card hover:-translate-y-2 transition-transform duration-300"
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
@@ -256,15 +269,12 @@ const HomePageClient: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
             {featuredTools.map((tool, index) => (
-              <div 
-                key={tool.id} 
-                className="animate-fade-in-up" 
+              <div
+                key={tool.id}
+                className="animate-fade-in-up"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <Link
-                  href={`/tools/${tool.id}`}
-                  className="block h-full"
-                >
+                <Link href={`/tools/${tool.id}`} className="block h-full">
                   <ToolCard tool={tool} />
                 </Link>
               </div>
@@ -283,7 +293,7 @@ const HomePageClient: React.FC = () => {
               href="/tools"
               className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-bold transition-all hover:gap-2 group"
             >
-              View All {toolCount} Tools{' '}
+              View All 10 Categories
               <ChevronRightIcon className="w-5 h-5 ml-1 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -291,13 +301,18 @@ const HomePageClient: React.FC = () => {
             {visibleCategories.map((category, index) => {
               const CategoryIcon = CATEGORY_ICONS[category];
               const description = CATEGORY_DESCRIPTIONS[category];
-              const tool = {
-                id: CATEGORY_URL_MAP[category],
-                name: category,
-                description: description,
+              const tool: Tool = {
+                id: CATEGORY_URL_MAP[category] ?? "default-id", // ensure id exists
+                name: category as ToolCategory,
+                description,
                 icon: <CategoryIcon className="w-8 h-8 text-blue-500" />,
-                category: 'Category',
-              } as Tool;
+                category: category as ToolCategory,
+                component: () => null, // placeholder component for now
+                details: {} as ToolDetails,
+                featured: false,
+                keywords: [],
+                tags: [],
+              };
 
               return (
                 <div
