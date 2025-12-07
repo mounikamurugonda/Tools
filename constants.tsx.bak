@@ -250,25 +250,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert JSON to Typescript",
       howToUse: ["Paste JSON", "Copy TS"],
-      features: ["Instantly generate TypeScript interfaces from JSON objects.", "Supports nested JSON objects and arrays.", "Copy generated TypeScript with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is JSON to TypeScript conversion?",
-          "answer": "It is the process of converting a JSON object into a TypeScript interface, which provides type safety and autocompletion in your code."
-        },
-        {
-          "question": "Why should I use a JSON to TypeScript converter?",
-          "answer": "It saves you time and effort by automatically generating TypeScript interfaces from your JSON data, reducing the chances of manual errors."
-        },
-        {
-          "question": "Is this tool free to use?",
-          "answer": "Yes, this is a completely free online tool to convert your JSON data to TypeScript interfaces."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -281,25 +268,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create screenshots of code.",
       howToUse: ["Paste Code", "Select Theme", "Snapshot"],
-      features: ["Create beautiful images of your code snippets.", "Supports multiple themes and languages.", "Customize background color and padding."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I create an image from my code?",
-          "answer": "You can use this tool to paste your code, select a theme, and then take a snapshot to create a beautiful image of your code."
-        },
-        {
-          "question": "Can I customize the appearance of the code image?",
-          "answer": "Yes, you can choose from multiple themes, and customize the background color and padding to match your style."
-        },
-        {
-          "question": "Is my code secure?",
-          "answer": "Yes, all the processing is done in your browser. Your code is not sent to any server."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -312,25 +286,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Format SQL queries.",
       howToUse: ["Paste SQL", "Click Format"],
-      features: ["Format and beautify your SQL queries.", "Supports various SQL dialects.", "Copy formatted SQL with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is an SQL formatter?",
-          "answer": "An SQL formatter is a tool that automatically formats your SQL queries to make them more readable and consistent with standard SQL formatting rules."
-        },
-        {
-          "question": "Does this tool support different SQL dialects?",
-          "answer": "Yes, this tool supports various SQL dialects, so you can format your queries correctly for your specific database."
-        },
-        {
-          "question": "Is it easy to use?",
-          "answer": "Yes, you just need to paste your SQL query and click the format button to get the beautifully formatted query."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -343,25 +304,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Build Cron expressions visually.",
       howToUse: ["Select intervals", "Copy string"],
-      features: ["Visually build and explain cron job schedules.", "Supports all cron expression fields.", "Generates human-readable descriptions of cron jobs."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is a cron expression?",
-          "answer": "A cron expression is a string of characters that defines a schedule for a cron job, which is a time-based job scheduler in Unix-like computer operating systems."
-        },
-        {
-          "question": "How can I generate a cron expression?",
-          "answer": "You can use this tool to visually build a cron expression by selecting the desired intervals for minutes, hours, days, months, and days of the week."
-        },
-        {
-          "question": "Does this tool explain the cron expression?",
-          "answer": "Yes, it generates a human-readable description of the cron job schedule, so you can easily understand what the expression means."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -374,25 +322,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create URL slugs.",
       howToUse: ["Type title", "Copy slug"],
-      features: ["Convert text into SEO-friendly URL slugs.", "Removes special characters and spaces.", "Supports multiple languages."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is a URL slug?",
-          "answer": "A URL slug is the part of a URL that identifies a particular page on a website in an easy-to-read form. It's usually a kebab-cased version of the page title."
-        },
-        {
-          "question": "Why are SEO-friendly slugs important?",
-          "answer": "SEO-friendly slugs are important because they can improve your website's search engine rankings by including relevant keywords and being easy for users to understand."
-        },
-        {
-          "question": "How does this slug generator work?",
-          "answer": "This tool converts your text into a URL-friendly slug by removing special characters, converting spaces to hyphens, and making the text lowercase."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -405,25 +340,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create HTML meta tags.",
       howToUse: ["Enter details", "Copy HTML"],
-      features: ["Generate SEO meta tags for your website.", "Includes title, description, and keywords.", "Generates tags for social media platforms."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What are meta tags?",
-          "answer": "Meta tags are snippets of text that describe a page's content; they don't appear on the page itself, but only in the page's code. They are important for SEO."
-        },
-        {
-          "question": "Which meta tags are important for SEO?",
-          "answer": "The most important meta tags for SEO are the title tag, meta description, and meta keywords. This tool helps you generate all of them."
-        },
-        {
-          "question": "Does this tool generate social media meta tags?",
-          "answer": "Yes, it generates Open Graph meta tags for social media platforms like Facebook and Twitter."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -436,25 +358,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Check color contrast.",
       howToUse: ["Select colors", "See rating"],
-      features: ["Check color contrast accessibility (WCAG).", "Supports AA and AAA levels.", "Provides a color picker to select colors."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is color contrast?",
-          "answer": "Color contrast is the difference in light between the foreground and background colors. It is important for accessibility, as it affects how people with visual impairments can read the text on your website."
-        },
-        {
-          "question": "What are WCAG AA and AAA levels?",
-          "answer": "WCAG (Web Content Accessibility Guidelines) defines two levels of contrast compliance: AA (minimum) and AAA (enhanced). This tool helps you check your color combinations against both levels."
-        },
-        {
-          "question": "How do I use this tool?",
-          "answer": "Simply select the foreground and background colors using the color pickers, and the tool will show you the contrast ratio and whether it passes the WCAG AA and AAA levels."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -467,25 +376,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Calculate Linux permissions.",
       howToUse: ["Check boxes", "Copy code"],
-      features: ["Visual calculator for Unix file permissions.", "Supports read, write, and execute permissions.", "Generates octal and symbolic notations."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is chmod?",
-          "answer": "chmod is a command in Unix and Unix-like operating systems that is used to change the access permissions of file system objects (files and directories)."
-        },
-        {
-          "question": "What are octal and symbolic notations?",
-          "answer": "Octal notation uses numbers to represent permissions (e.g., 755), while symbolic notation uses letters (e.g., rwxr-xr-x). This tool generates both."
-        },
-        {
-          "question": "How do I use this calculator?",
-          "answer": "Simply check the boxes for the read, write, and execute permissions for the owner, group, and others, and the tool will generate the corresponding chmod command."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -498,25 +394,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create tracking links.",
       howToUse: ["Enter URL", "Add params", "Copy"],
-      features: ["Build tracking URLs for marketing campaigns.", "Supports all UTM parameters.", "Generates short URLs with Bitly."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What are UTM parameters?",
-          "answer": "UTM parameters are tags that you add to a URL. When someone clicks on the URL, the tags are sent back to your Google Analytics for tracking."
-        },
-        {
-          "question": "Which UTM parameters are supported?",
-          "answer": "This tool supports all standard UTM parameters: utm_source, utm_medium, utm_campaign, utm_term, and utm_content."
-        },
-        {
-          "question": "Can I shorten the generated URL?",
-          "answer": "Yes, this tool can generate short URLs using the Bitly service."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -529,25 +412,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Calculate aspect ratios.",
       howToUse: ["Enter dims", "See ratio"],
-      features: ["Calculate dimensions and aspect ratios for images and video.", "Supports common aspect ratios.", "Calculates new dimensions based on a given aspect ratio."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is aspect ratio?",
-          "answer": "The aspect ratio of an image is the ratio of its width to its height. It is commonly expressed as two numbers separated by a colon, as in 16:9."
-        },
-        {
-          "question": "How can I calculate the aspect ratio?",
-          "answer": "You can use this tool to calculate the aspect ratio by entering the width and height of the image or video."
-        },
-        {
-          "question": "Can I calculate new dimensions with a given aspect ratio?",
-          "answer": "Yes, you can enter a known aspect ratio and one dimension (width or height) to calculate the other dimension."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -560,25 +430,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create CSS triangles.",
       howToUse: ["Set direction/color", "Copy CSS"],
-      features: ["Generate CSS code for geometric triangles.", "Customize triangle size and color.", "Supports all four directions."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How are CSS triangles created?",
-          "answer": "CSS triangles are created using the border property of an element. By setting the width and height to zero and making one border colored and the others transparent, you can create a triangle."
-        },
-        {
-          "question": "Can I customize the triangle?",
-          "answer": "Yes, you can customize the size, color, and direction of the triangle using this tool."
-        },
-        {
-          "question": "Is the generated CSS code cross-browser compatible?",
-          "answer": "Yes, the generated CSS code for triangles is compatible with all modern browsers."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -591,25 +448,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Format XML.",
       howToUse: ["Paste XML", "Copy formatted"],
-      features: ["Beautify and format XML strings.", "Supports indentation levels.", "Validates XML syntax."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is XML?",
-          "answer": "XML (eXtensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable."
-        },
-        {
-          "question": "Why should I format my XML?",
-          "answer": "Formatting your XML makes it easier to read and understand, which is especially helpful when you are working with large and complex XML files."
-        },
-        {
-          "question": "Does this tool validate my XML?",
-          "answer": "Yes, this tool also validates your XML syntax and will show you an error if it is not well-formed."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -622,25 +466,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Text to Morse conversion.",
       howToUse: ["Type text", "See dots/dashes"],
-      features: ["Translate text to Morse code and vice versa.", "Supports letters, numbers, and punctuation.", "Listen to the Morse code sound."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is Morse code?",
-          "answer": "Morse code is a method of transmitting text information as a series of on-off tones, lights, or clicks that can be directly understood by a skilled listener or observer without special equipment."
-        },
-        {
-          "question": "Can I translate from Morse code to text?",
-          "answer": "Yes, this tool can translate both from text to Morse code and from Morse code to text."
-        },
-        {
-          "question": "Can I listen to the Morse code?",
-          "answer": "Yes, you can listen to the sound of the Morse code for the text you have entered."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -653,25 +484,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert text to 0s and 1s.",
       howToUse: ["Type text", "Get binary"],
-      features: ["Translate text to binary code and back.", "Supports UTF-8 characters.", "Copy binary code with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is binary code?",
-          "answer": "Binary code is a system of representing text or computer processor instructions by the use of two-symbol system: '0' and '1'."
-        },
-        {
-          "question": "How does this tool convert text to binary?",
-          "answer": "This tool converts each character of the text into its corresponding 8-bit binary representation based on the UTF-8 encoding."
-        },
-        {
-          "question": "Can I convert binary back to text?",
-          "answer": "Yes, you can paste the binary code into the input field and the tool will convert it back to text."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -684,25 +502,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Check password strength.",
       howToUse: ["Type password", "See score"],
-      features: ["Test the strength of your passwords.", "Provides feedback on password complexity.", "Estimates time to crack the password."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What makes a password strong?",
-          "answer": "A strong password is long, complex (containing a mix of uppercase and lowercase letters, numbers, and symbols), and unpredictable."
-        },
-        {
-          "question": "How does this tool measure password strength?",
-          "answer": "This tool measures password strength based on several factors, including length, character variety, and common patterns. It then provides a score and an estimated time to crack the password."
-        },
-        {
-          "question": "Is my password safe with this tool?",
-          "answer": "Yes, your password is not sent to any server. All calculations are done in your browser, so your password remains private."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -715,25 +520,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Escape special characters.",
       howToUse: ["Paste text", "Select format"],
-      features: ["Escape strings for JSON, HTML, URL, and Java.", "Supports multiple escaping formats.", "Copy escaped string with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is string escaping?",
-          "answer": "String escaping is the process of converting special characters in a string to a representation that will not be misinterpreted by a computer program or data format."
-        },
-        {
-          "question": "Why do I need to escape strings?",
-          "answer": "You need to escape strings to prevent errors and security vulnerabilities when you are embedding them in another context, such as a JSON object, an HTML document, or a URL."
-        },
-        {
-          "question": "Which escaping formats does this tool support?",
-          "answer": "This tool supports escaping for JSON, HTML, URL, and Java."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -746,25 +538,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Calculate percentages.",
       howToUse: ["Enter numbers", "Get result"],
-      features: ["Quickly calculate percentages for common math problems.", "Supports various percentage calculations.", "Easy to use interface."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How do I calculate a percentage?",
-          "answer": "To calculate a percentage, you can use the formula: (part / whole) * 100. This tool makes it easy by providing fields for different percentage calculations."
-        },
-        {
-          "question": "What kind of percentage calculations can I do?",
-          "answer": "You can calculate what is X% of Y, X is what percent of Y, and the percentage increase or decrease from one number to another."
-        },
-        {
-          "question": "Is this calculator free to use?",
-          "answer": "Yes, this is a completely free online tool for all your percentage calculation needs."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -777,25 +556,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Generate MD tables.",
       howToUse: ["Set rows/cols", "Fill data", "Copy"],
-      features: ["Create Markdown tables easily with a visual editor.", "Add and remove rows and columns.", "Copy Markdown table with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is Markdown?",
-          "answer": "Markdown is a lightweight markup language with plain-text-formatting syntax. It is designed so that it can be converted to HTML and many other formats."
-        },
-        {
-          "question": "How do I create a table in Markdown?",
-          "answer": "You can create a table in Markdown by using pipes (|) to separate columns and hyphens (-) to create the header. This tool provides a visual editor to make it even easier."
-        },
-        {
-          "question": "Can I add or remove rows and columns?",
-          "answer": "Yes, you can easily add and remove rows and columns in the visual editor, and the Markdown code will be updated automatically."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -808,25 +574,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Randomize lists.",
       howToUse: ["Paste list", "Shuffle"],
-      features: ["Shuffle and randomize a list of items.", "Supports multi-line lists.", "Copy randomized list with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How does the list randomizer work?",
-          "answer": "This tool uses a shuffling algorithm to randomize the order of the items in your list. Each time you click the shuffle button, you will get a new random order."
-        },
-        {
-          "question": "Can I randomize a list with multiple lines?",
-          "answer": "Yes, you can paste a list with multiple lines, and each line will be treated as a separate item to be randomized."
-        },
-        {
-          "question": "Is the randomization truly random?",
-          "answer": "The randomization is based on the Fisher-Yates shuffle algorithm, which is a widely used and effective method for generating a random permutation of a finite sequence."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -839,25 +592,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Clean up text.",
       howToUse: ["Paste text", "Click clean"],
-      features: ["Remove extra spaces, line breaks, and format text.", "Supports multiple cleaning options.", "Copy cleaned text with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What does the text cleaner do?",
-          "answer": "The text cleaner removes unnecessary characters from your text, such as extra spaces, line breaks, and tabs, to make it clean and easy to read."
-        },
-        {
-          "question": "What cleaning options are available?",
-          "answer": "You can choose to remove extra spaces, remove all line breaks, or convert multiple spaces to a single space."
-        },
-        {
-          "question": "Is this tool safe to use with sensitive text?",
-          "answer": "Yes, all the text cleaning is done in your browser. Your text is not sent to any server, so it remains private."
-        }
-      ],
+      faqs: [],
     },
   },
 
@@ -871,25 +611,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert SVG to URI.",
       howToUse: ["Paste SVG", "Copy URI"],
-      features: ["Convert SVG code into a Data URI for use in CSS.", "URL-encodes the SVG for optimal compatibility.", "Copy the Data URI with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is a Data URI?",
-          "answer": "A Data URI is a scheme that provides a way to include data in-line in web pages as if they were external resources. It is commonly used to embed images in CSS or HTML."
-        },
-        {
-          "question": "Why should I convert SVG to a Data URI?",
-          "answer": "Converting SVG to a Data URI can improve performance by reducing the number of HTTP requests your website needs to make. It is especially useful for small icons and images."
-        },
-        {
-          "question": "How do I use the generated Data URI?",
-          "answer": "You can use the generated Data URI as the value for the `url()` function in your CSS, for example, as a `background-image`."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -902,25 +629,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert YAML to JSON.",
       howToUse: ["Paste YAML", "Get JSON"],
-      features: ["Convert simple YAML to JSON.", "Validates YAML syntax.", "Copy JSON with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is YAML?",
-          "answer": "YAML is a human-readable data serialization language. It is often used for configuration files and in applications where data is being stored or transmitted."
-        },
-        {
-          "question": "What is JSON?",
-          "answer": "JSON (JavaScript Object Notation) is a lightweight data-interchange format that is easy for humans to read and write and easy for machines to parse and generate."
-        },
-        {
-          "question": "Does this tool validate my YAML?",
-          "answer": "Yes, this tool validates your YAML syntax before converting it to JSON and will show an error if it is not valid."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -933,25 +647,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert JSON to YAML.",
       howToUse: ["Paste JSON", "Get YAML"],
-      features: ["Convert JSON objects to YAML format.", "Validates JSON syntax.", "Copy YAML with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "Why would I convert JSON to YAML?",
-          "answer": "YAML is often preferred for configuration files because it is more human-readable than JSON. This tool allows you to easily convert your JSON data to YAML."
-        },
-        {
-          "question": "Does this tool support all JSON features?",
-          "answer": "This tool supports all standard JSON features and will convert them to their corresponding YAML representation."
-        },
-        {
-          "question": "Is my JSON data secure?",
-          "answer": "Yes, all the conversion is done in your browser. Your JSON data is not sent to any server, so it remains private."
-        }
-      ],
+      faqs: [],
     },
   },
   // Batch 3
@@ -966,25 +667,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Grab video thumbnails.",
       howToUse: ["Paste URL", "Get Images"],
-      features: ["Download thumbnails from any YouTube video in max resolution.", "Supports all thumbnail sizes.", "Download thumbnails with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How do I download a YouTube thumbnail?",
-          "answer": "Simply paste the YouTube video URL into the input field, and this tool will generate all available thumbnail sizes for you to download."
-        },
-        {
-          "question": "What is the maximum resolution available?",
-          "answer": "This tool can download the maximum resolution thumbnail available for the video, which is usually 1280x720 pixels."
-        },
-        {
-          "question": "Is it legal to download YouTube thumbnails?",
-          "answer": "YouTube thumbnails are generally copyrighted by the video owner. You should only download thumbnails for personal use or with permission from the copyright holder."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -997,25 +685,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create fancy text.",
       howToUse: ["Type text", "Copy style"],
-      features: ["Generate stylish text for social media bios.", "Supports various font styles.", "Copy generated text with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I generate fancy fonts for my social media bio?",
-          "answer": "You can use this tool to type your text and it will generate a variety of stylish fonts that you can copy and paste into your social media bio."
-        },
-        {
-          "question": "Are these actual fonts?",
-          "answer": "No, these are not actual fonts. They are Unicode characters that look like different font styles. This is why you can copy and paste them anywhere."
-        },
-        {
-          "question": "Will the fancy fonts work on all social media platforms?",
-          "answer": "Most modern social media platforms support Unicode characters, so the fancy fonts should work on platforms like Instagram, Twitter, and Facebook."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1028,25 +703,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Find all hashtags.",
       howToUse: ["Paste text", "Copy tags"],
-      features: ["Extract hashtags from a block of text.", "Supports multi-line text.", "Copy extracted hashtags with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is a hashtag extractor?",
-          "answer": "A hashtag extractor is a tool that automatically finds and extracts all the hashtags from a block of text."
-        },
-        {
-          "question": "How do I use this tool?",
-          "answer": "Simply paste your text into the input field, and the tool will extract all the hashtags and display them in a list for you to copy."
-        },
-        {
-          "question": "Does it support multiple hashtags in a single line?",
-          "answer": "Yes, this tool can extract multiple hashtags from a single line of text, as well as from multi-line text."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1059,25 +721,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Apply effects to images.",
       howToUse: ["Upload image", "Adjust sliders", "Download"],
-      features: ["Apply CSS filters like grayscale, sepia, and blur to images.", "Adjust brightness, contrast, and saturation.", "Download the filtered image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I apply filters to my photos?",
-          "answer": "You can use this tool to upload your photo and apply various CSS filters like grayscale, sepia, and blur. You can also adjust the brightness, contrast, and saturation."
-        },
-        {
-          "question": "Are these the same filters as on Instagram?",
-          "answer": "These are not the exact same filters as on Instagram, but they are similar CSS-based filters that can give your photos a professional look."
-        },
-        {
-          "question": "Can I download the edited photo?",
-          "answer": "Yes, after you have applied the filters and adjusted the settings, you can download the filtered image to your device."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1090,25 +739,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Generate random blobs.",
       howToUse: ["Adjust settings", "Copy SVG"],
-      features: ["Create organic blob shapes for backgrounds.", "Customize complexity and contrast.", "Copy the SVG code with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is an SVG blob?",
-          "answer": "An SVG blob is an organic, irregular shape created with SVG (Scalable Vector Graphics). They are often used as background elements in web design to add a modern and creative touch."
-        },
-        {
-          "question": "How can I customize the blob shape?",
-          "answer": "You can customize the complexity and contrast of the blob shape using the sliders in this tool. You can also generate a new random blob with a single click."
-        },
-        {
-          "question": "How do I use the generated SVG code?",
-          "answer": "You can copy the SVG code and paste it directly into your HTML file, or save it as an .svg file and use it as an image."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1121,25 +757,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create page dividers.",
       howToUse: ["Set layers", "Copy SVG"],
-      features: ["Generate smooth wave dividers for your website.", "Customize wave height, layers, and color.", "Copy the SVG code with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What are SVG waves?",
-          "answer": "SVG waves are smooth, wave-like shapes created with SVG (Scalable Vector Graphics) that are often used as page dividers or background elements in web design."
-        },
-        {
-          "question": "How can I customize the waves?",
-          "answer": "You can customize the height, layers, and color of the waves using the controls in this tool. You can also randomize the waves to get a unique shape."
-        },
-        {
-          "question": "Can I use the generated SVG code on my website?",
-          "answer": "Yes, you can copy the SVG code and paste it directly into your HTML or use it in your CSS to create beautiful wave dividers on your website."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1152,25 +775,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Find key codes.",
       howToUse: ["Press key", "See codes"],
-      features: ["Get JavaScript event codes for any key press.", "Displays key, code, and which properties.", "Useful for keyboard event handling in JavaScript."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What are key codes?",
-          "answer": "Key codes are numerical values that represent the keys on a keyboard. They are used in JavaScript to detect which key has been pressed."
-        },
-        {
-          "question": "What is the difference between key, code, and which?",
-          "answer": "`key` returns the value of the key pressed, `code` returns the physical key code, and `which` is a deprecated property that returns the key code."
-        },
-        {
-          "question": "Why would I need this tool?",
-          "answer": "This tool is useful for developers who are working with keyboard events in JavaScript and need to know the key codes for different keys."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1183,25 +793,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Check your resolution.",
       howToUse: ["Open tool", "See stats"],
-      features: ["View your current screen and viewport dimensions.", "Includes color depth and pixel ratio.", "Useful for responsive design testing."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is screen resolution?",
-          "answer": "Screen resolution is the number of distinct pixels in each dimension that can be displayed on a screen. It is usually quoted as width × height."
-        },
-        {
-          "question": "What is the difference between screen resolution and viewport size?",
-          "answer": "Screen resolution is the total number of pixels on your screen, while viewport size is the visible area of the web page in your browser window."
-        },
-        {
-          "question": "Why is this information useful?",
-          "answer": "This information is useful for web developers who are testing the responsive design of their websites on different screen sizes."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1214,25 +811,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Read text aloud.",
       howToUse: ["Type text", "Click speak"],
-      features: ["Convert text to spoken audio in your browser.", "Supports multiple voices and languages.", "Adjust pitch and speed of the voice."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How does text-to-speech work?",
-          "answer": "Text-to-speech (TTS) is a type of assistive technology that reads digital text aloud. It's sometimes called 'read aloud' technology."
-        },
-        {
-          "question": "Can I choose a different voice or language?",
-          "answer": "Yes, this tool supports multiple voices and languages. You can select your preferred voice and language from the dropdown menus."
-        },
-        {
-          "question": "Can I adjust the speed and pitch of the voice?",
-          "answer": "Yes, you can adjust the pitch and speed of the voice using the sliders to make it sound just the way you want it."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1245,25 +829,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert numbers.",
       howToUse: ["Enter number", "See result"],
-      features: ["Convert numbers to Roman numerals and back.", "Supports both integer to Roman and Roman to integer conversion.", "Easy to use interface."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What are Roman numerals?",
-          "answer": "Roman numerals are a numeral system that originated in ancient Rome and remained the usual way of writing numbers throughout Europe well into the Late Middle Ages."
-        },
-        {
-          "question": "How do I convert a number to a Roman numeral?",
-          "answer": "You can use this tool to enter a number and it will be automatically converted to its Roman numeral representation."
-        },
-        {
-          "question": "Can I convert a Roman numeral to a number?",
-          "answer": "Yes, you can also enter a Roman numeral and the tool will convert it back to a number."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1276,25 +847,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Find your exact age.",
       howToUse: ["Enter birthdate", "See age"],
-      features: ["Calculate your exact age in years, months, and days.", "Shows the total number of days you have lived.", "Easy to use interface."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I calculate my age?",
-          "answer": "You can use this tool to calculate your exact age in years, months, and days by entering your date of birth."
-        },
-        {
-          "question": "Does it show my age in days?",
-          "answer": "Yes, this tool also shows the total number of days you have lived since your date of birth."
-        },
-        {
-          "question": "Is my date of birth stored anywhere?",
-          "answer": "No, your date of birth is not stored anywhere. All calculations are done in your browser, so your data remains private."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1307,25 +865,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Get random numbers.",
       howToUse: ["Set range", "Generate"],
-      features: ["Generate random numbers within a specific range.", "Set minimum and maximum values.", "Generate multiple random numbers at once."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I generate a random number?",
-          "answer": "You can use this tool to generate a random number within a specific range by setting the minimum and maximum values."
-        },
-        {
-          "question": "Can I generate more than one random number at a time?",
-          "answer": "Yes, you can specify the number of random numbers you want to generate, and the tool will generate them for you."
-        },
-        {
-          "question": "Is the generated number truly random?",
-          "answer": "The numbers are pseudo-random, which means they are generated by an algorithm that produces a sequence of numbers that appears to be random. For most purposes, they are random enough."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1338,25 +883,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Clean lists.",
       howToUse: ["Paste list", "Remove dupes"],
-      features: ["Remove duplicate entries from a list of text.", "Supports case-sensitive and case-insensitive matching.", "Copy the cleaned list with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How do I remove duplicate lines from my text?",
-          "answer": "Simply paste your text into the input field, and this tool will automatically remove all the duplicate lines, leaving you with a clean list of unique lines."
-        },
-        {
-          "question": "Does it matter if the duplicates have different capitalization?",
-          "answer": "You can choose whether you want the comparison to be case-sensitive or case-insensitive. If you choose case-insensitive, 'Apple' and 'apple' will be treated as duplicates."
-        },
-        {
-          "question": "Will this tool preserve the original order of the list?",
-          "answer": "Yes, this tool will preserve the original order of the unique items in your list."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1369,25 +901,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Escape HTML.",
       howToUse: ["Paste text", "Encode/Decode"],
-      features: ["Encode/Decode text to HTML entities.", "Supports all HTML special characters.", "Copy the result with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What are HTML entities?",
-          "answer": "HTML entities are used to display reserved characters in HTML. For example, if you want to display the less than sign (<), you need to use the entity &lt;."
-        },
-        {
-          "question": "Why do I need to encode HTML entities?",
-          "answer": "You need to encode HTML entities to prevent the browser from misinterpreting your text as HTML code. This is especially important when you are displaying code snippets or user-generated content."
-        },
-        {
-          "question": "Can I decode HTML entities as well?",
-          "answer": "Yes, this tool can both encode and decode HTML entities, so you can easily convert between the two formats."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1400,25 +919,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "View CSS cursors.",
       howToUse: ["Hover boxes", "Copy CSS"],
-      features: ["Visual reference for all CSS cursor types.", "Hover to see the cursor in action.", "Copy the CSS code with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is the CSS cursor property?",
-          "answer": "The CSS cursor property specifies the mouse cursor to be displayed when pointing over an element."
-        },
-        {
-          "question": "How can I see the different cursor types?",
-          "answer": "You can hover over the boxes in this tool to see a live preview of each cursor type. You can then copy the CSS code for the cursor you want to use."
-        },
-        {
-          "question": "Are all these cursors supported by all browsers?",
-          "answer": "Most of these cursors are supported by all modern browsers. However, some of the less common cursors may have limited support."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1431,25 +937,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Check device sizes.",
       howToUse: ["Search device", "See specs"],
-      features: ["Reference guide for common device screen sizes.", "Includes viewport size, resolution, and pixel density.", "Search for specific devices."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "Why is it important to know the screen resolutions of different devices?",
-          "answer": "It is important for web developers and designers to know the screen resolutions of different devices to ensure that their websites are responsive and look good on all screen sizes."
-        },
-        {
-          "question": "What is the difference between viewport size and resolution?",
-          "answer": "Resolution is the total number of pixels on the screen, while viewport size is the visible area of the web page in the browser window. The viewport size can be smaller than the resolution if the user has zoomed in or if there are browser toolbars."
-        },
-        {
-          "question": "Can I search for a specific device?",
-          "answer": "Yes, you can use the search bar to find the screen size information for a specific device."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1462,25 +955,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Get dummy images.",
       howToUse: ["Set size", "Copy URL"],
-      features: ["Generate placeholder image URLs.", "Customize image size and grayscale.", "Get a random image or a specific one by ID."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is a placeholder image?",
-          "answer": "A placeholder image is a temporary image that is used in a design to represent a final image that is not yet available. It is often used in web design and development to test the layout and design of a page."
-        },
-        {
-          "question": "How can I customize the placeholder image?",
-          "answer": "You can customize the size of the image, and you can also choose to have a grayscale image. You can also get a specific image by providing an ID."
-        },
-        {
-          "question": "How do I use the generated URL?",
-          "answer": "You can copy the generated URL and use it as the `src` attribute of an `<img>` tag in your HTML."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1493,25 +973,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Preview borders.",
       howToUse: ["Click style", "Copy code"],
-      features: ["Visualizer for all CSS border styles.", "Click to see the border style in action.", "Copy the CSS code with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is the CSS border property?",
-          "answer": "The CSS border property is a shorthand property for setting the individual border properties (border-width, border-style, and border-color) in one place in a style sheet."
-        },
-        {
-          "question": "How can I see the different border styles?",
-          "answer": "You can click on the different border styles in this tool to see a live preview of how they look. You can then copy the CSS code for the border style you want to use."
-        },
-        {
-          "question": "Are all these border styles supported by all browsers?",
-          "answer": "Yes, all the border styles in this tool are part of the CSS standard and are supported by all modern browsers."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1524,25 +991,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create patterns.",
       howToUse: ["Select style", "Customize", "Copy"],
-      features: ["Generate pure CSS background patterns.", "Customize colors and pattern size.", "Copy the CSS code with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What are CSS background patterns?",
-          "answer": "CSS background patterns are repeating patterns created with CSS that can be used as the background for an element on a web page. They are a lightweight alternative to using images for backgrounds."
-        },
-        {
-          "question": "How can I customize the patterns?",
-          "answer": "You can customize the colors and the size of the pattern using the controls in this tool. You can also choose from a variety of different pattern styles."
-        },
-        {
-          "question": "Is the generated CSS code cross-browser compatible?",
-          "answer": "Yes, the generated CSS code for the background patterns is compatible with all modern browsers."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -1555,25 +1009,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Draw signature.",
       howToUse: ["Draw", "Download"],
-      features: ["Draw and save digital signatures.", "Customize pen color and thickness.", "Download the signature as a PNG image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "What is an online signature pad?",
-          "answer": "An online signature pad is a tool that allows you to draw your signature digitally using a mouse, stylus, or touchscreen. You can then save the signature as an image to use in digital documents."
-        },
-        {
-          "question": "How can I create a digital signature for free?",
-          "answer": "You can use our free Signature Pad tool to draw your signature and download it as a high-quality PNG image. No sign-up is required."
-        },
-        {
-          "question": "Is my signature stored on your servers?",
-          "answer": "No. Your privacy is our priority. All drawing and processing happen in your browser, and your signature is never uploaded or stored on our servers."
-        }
-      ],
+      faqs: [],
     },
   },
   // ... rest of the existing tools (ensure Readability Score, Loan Calculator, etc. are preserved)
@@ -3645,25 +3086,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Compress video files easily.",
       howToUse: ["Upload video", "Click compress", "Download"],
-      features: ["Reduce video file size without significant quality loss.", "Adjust compression level.", "Preview compressed video before downloading."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I reduce the size of a video file for free?",
-          "answer": "Our online video compressor allows you to upload your video, adjust the compression level, and download the smaller file. It's a simple way to shrink video files for easier sharing and storage."
-        },
-        {
-          "question": "Will compressing a video lower its quality?",
-          "answer": "Compression always involves a trade-off between file size and quality. Our tool is designed to minimize visible quality loss, and you can control the level of compression to find the right balance."
-        },
-        {
-          "question": "Is my video uploaded to a server?",
-          "answer": "No. All video compression is handled securely in your browser. Your files are never sent to our servers, ensuring your data remains private."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -3676,25 +3104,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert video to audio.",
       howToUse: ["Upload video", "Convert", "Download MP3"],
-      features: ["Extract audio tracks from video files as MP3.", "High-quality audio extraction.", "Supports various video formats."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How do I convert a video to an MP3 file?",
-          "answer": "Simply upload your video file, and our tool will automatically extract the audio track and convert it into a high-quality MP3 file that you can download."
-        },
-        {
-          "question": "What video formats are supported?",
-          "answer": "Our converter supports a wide range of popular video formats, so you can easily turn your MP4, MOV, AVI, and other video files into audio."
-        },
-        {
-          "question": "Is this service free and private?",
-          "answer": "Yes, it's completely free. All processing is done in your browser, meaning your video files are never uploaded to our servers, ensuring your privacy."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -3707,25 +3122,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create GIFs from video.",
       howToUse: ["Upload video", "Create GIF", "Download"],
-      features: ["Convert video clips into animated GIFs.", "Set GIF duration and frame rate.", "High-quality GIF output."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How do I make a GIF from a video?",
-          "answer": "Upload your video clip, select the start and end times for the GIF, and our tool will generate a high-quality animated GIF for you to download."
-        },
-        {
-          "question": "Can I control the quality and size of the GIF?",
-          "answer": "Yes, you can adjust the frame rate and resolution to balance the GIF's quality and file size. A higher frame rate will result in a smoother animation but a larger file."
-        },
-        {
-          "question": "Is it free to create GIFs with this tool?",
-          "answer": "Yes, our GIF maker is completely free to use. All processing is done in your browser, so your files remain private."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -3738,25 +3140,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Trim video clips.",
       howToUse: ["Upload video", "Set start/end", "Trim"],
-      features: ["Cut and trim video files to desired length.", "Easy-to-use timeline for trimming.", "Preview trimmed video before downloading."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I trim a video online for free?",
-          "answer": "Our video trimmer allows you to upload your video, select the start and end points on a timeline, and cut the video to the desired length. You can then download the trimmed clip."
-        },
-        {
-          "question": "Will trimming a video affect its quality?",
-          "answer": "No, trimming a video with our tool does not re-encode it, so the quality of the trimmed portion remains the same as the original video."
-        },
-        {
-          "question": "Are my video files secure?",
-          "answer": "Yes, we prioritize your privacy. All video processing is done directly in your browser, and your files are never uploaded to our servers."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -3769,25 +3158,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert video formats.",
       howToUse: ["Upload video", "Select format", "Convert"],
-      features: ["Convert videos between different formats like MP4, AVI, MOV.", "High-speed conversion.", "Supports a wide range of video formats."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I convert a video from one format to another?",
-          "answer": "Our online video converter allows you to upload a video, select a new format (like MP4, AVI, or MOV), and convert it. You can then download the video in the new format."
-        },
-        {
-          "question": "Will converting the video reduce its quality?",
-          "answer": "The quality of the converted video depends on the format you choose. Our tool aims to provide the best possible quality for the selected format."
-        },
-        {
-          "question": "Is this video converter free to use?",
-          "answer": "Yes, you can convert your videos for free. All conversions happen in your browser, ensuring your files remain private and secure."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -3801,25 +3177,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Extract thumbnails from video.",
       howToUse: ["Upload video", "Set time", "Extract"],
-      features: ["Extract image thumbnails from specific timestamps in a video.", "Select thumbnail size.", "Download thumbnail as a PNG image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I get a thumbnail from a video?",
-          "answer": "Upload your video, pause it at the frame you want to capture, and click the 'Extract' button. Our tool will generate a high-quality PNG thumbnail for you to download."
-        },
-        {
-          "question": "Can I choose the size of the thumbnail?",
-          "answer": "Yes, you can select from various thumbnail sizes before extracting the image to fit your needs."
-        },
-        {
-          "question": "Is this tool free and private?",
-          "answer": "Absolutely. The tool is free to use, and all processing happens in your browser. Your videos are never uploaded to our servers."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -3832,25 +3195,12 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Remove audio from video.",
       howToUse: ["Upload video", "Mute", "Download"],
-      features: ["Remove audio track from a video file.", "Supports various video formats.", "Download muted video with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [
-        {
-          "question": "How can I remove the audio from a video?",
-          "answer": "Upload your video, and our tool will process it to remove the audio track completely. You can then download the silent video."
-        },
-        {
-          "question": "Does muting a video change its quality or format?",
-          "answer": "No, the video quality and format will remain the same. The tool only removes the audio stream, leaving the video track untouched."
-        },
-        {
-          "question": "Is it safe to use this tool with my videos?",
-          "answer": "Yes, your privacy is protected. The entire process happens in your browser, and your videos are never uploaded to our servers."
-        }
-      ],
+      faqs: [],
     },
   },
   {
@@ -3863,7 +3213,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Add watermark to images.",
       howToUse: ["Upload image", "Upload watermark", "Apply"],
-      features: ["Add image or text watermarks to your photos.", "Adjust watermark opacity and position.", "Download watermarked image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -3881,7 +3231,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Resize images.",
       howToUse: ["Upload image", "Set size", "Download"],
-      features: ["Resize images by dimensions or percentage.", "Maintain aspect ratio.", "Download resized image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -3899,7 +3249,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert image formats.",
       howToUse: ["Upload image", "Select format", "Convert"],
-      features: ["Convert images between formats like PNG, JPG, WEBP.", "High-quality image conversion.", "Download converted image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -3918,7 +3268,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Compress images.",
       howToUse: ["Upload image", "Set quality", "Compress"],
-      features: ["Compress images to reduce file size while maintaining quality.", "Adjust compression level.", "Preview compressed image before downloading."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -3984,7 +3334,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Generate strong passwords.",
       howToUse: ["Set length", "Click generate"],
-      features: ["Generate strong, secure passwords.", "Customize password length and character types.", "Copy generated password with a single click."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4002,7 +3352,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Generate QR codes.",
       howToUse: ["Enter text", "Download QR code"],
-      features: ["Generate QR codes from text or URLs.", "Customize QR code color and size.", "Download QR code as a PNG image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4020,7 +3370,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Calculate date differences.",
       howToUse: ["Select dates", "See result"],
-      features: ["Calculate the difference between two dates.", "Add or subtract days from a date.", "Shows the difference in years, months, and days."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4038,7 +3388,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Focus with the Pomodoro Timer.",
       howToUse: ["Start timer", "Work", "Take break"],
-      features: ["A timer to help you focus using the Pomodoro Technique.", "Customizable work and break intervals.", "Audio and visual notifications."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4056,7 +3406,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Create memes.",
       howToUse: ["Select template", "Add text", "Download"],
-      features: ["Create your own memes with popular templates.", "Add top and bottom text.", "Download the meme as a JPG image."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4074,7 +3424,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert units.",
       howToUse: ["Select units", "Enter value", "See result"],
-      features: ["Convert between different units of measurement.", "Supports length, weight, temperature, and more.", "Easy to use interface."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4092,7 +3442,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Calculate BMI.",
       howToUse: ["Enter height and weight", "See result"],
-      features: ["Calculate your Body Mass Index.", "Shows your BMI category.", "Supports metric and imperial units."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4110,7 +3460,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Convert currencies.",
       howToUse: ["Select currencies", "Enter amount", "See result"],
-      features: ["Convert between different currencies.", "Real-time exchange rates.", "Supports over 150 currencies."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4128,7 +3478,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Check world times.",
       howToUse: ["Search for city", "See time"],
-      features: ["Check the time in different cities around the world.", "Add multiple cities to your dashboard.", "Shows the current date and time."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4146,7 +3496,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Use a timer or stopwatch.",
       howToUse: ["Start", "Stop", "Reset"],
-      features: ["A simple timer and stopwatch.", "Set a countdown timer.", "Record laps with the stopwatch."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
@@ -4164,7 +3514,7 @@ export const TOOLS: Tool[] = [
     details: {
       introduction: "Analyze keyword density.",
       howToUse: ["Paste text", "See results"],
-      features: ["Analyze the keyword density of a text.", "Shows one, two, and three-word keyword densities.", "Exclude certain words from the analysis."],
+      features: [],
       privacy: PRIVACY_STATEMENT,
       explanation: "",
       usageExamples: [],
