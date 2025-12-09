@@ -12,7 +12,10 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
   const [tsOutput, setTsOutput] = useState('');
   const [interfaceName, setInterfaceName] = useState('RootObject');
   const [error, setError] = useState('');
+  const [isConverting, setIsConverting] = useState(false);
 
+  // Helper functions moved inside but could be outside if pure.
+  // Keeping them pure and synchronous for simplicity, but we will wrap execution.
   const getType = (value: any): string => {
     if (value === null) return 'any';
     if (Array.isArray(value)) {
@@ -20,7 +23,7 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
       const type = getType(value[0]);
       return `${type}[]`;
     }
-    if (typeof value === 'object') return 'object'; // Simplified for recursive handling elsewhere
+    if (typeof value === 'object') return 'object';
     return typeof value;
   };
 
@@ -56,20 +59,28 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
     return nestedInterfaces.join('\n') + '\n' + output;
   };
 
-  const handleConvert = () => {
-    try {
-      if (!jsonInput.trim()) {
+  const handleConvert = async () => {
+    setError('');
+    setIsConverting(true);
+
+    // Use setTimeout to allow the UI to show the loading state before blocking
+    setTimeout(() => {
+      try {
+        if (!jsonInput.trim()) {
+          setTsOutput('');
+          setIsConverting(false);
+          return;
+        }
+        const parsed = JSON.parse(jsonInput);
+        const result = generateInterface(parsed, interfaceName);
+        setTsOutput(result.trim());
+      } catch (e) {
+        setError('Invalid JSON input');
         setTsOutput('');
-        return;
+      } finally {
+        setIsConverting(false);
       }
-      const parsed = JSON.parse(jsonInput);
-      const result = generateInterface(parsed, interfaceName);
-      setTsOutput(result.trim());
-      setError('');
-    } catch (e) {
-      setError('Invalid JSON input');
-      setTsOutput('');
-    }
+    }, 10);
   };
 
   return (
@@ -89,9 +100,13 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
           <button
             onClick={handleConvert}
-            className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium h-10"
+            disabled={isConverting}
+            className={`px-6 py-2 rounded font-medium h-10 text-white transition-colors ${isConverting
+                ? 'bg-blue-400 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700'
+              }`}
           >
-            Convert
+            {isConverting ? 'Processing...' : 'Convert'}
           </button>
         </div>
 
