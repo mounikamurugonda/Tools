@@ -9,7 +9,7 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
   const [data, setData] = useState<string[][]>(
-    Array(3).fill(Array(3).fill('')),
+    Array.from({ length: 3 }, () => Array(3).fill('')),
   );
 
   const updateCell = (r: number, c: number, val: string) => {
@@ -20,6 +20,7 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   const generateMarkdown = () => {
+    if (!data.length || !data[0]) return '';
     const header = '| ' + data[0].map(() => 'Header').join(' | ') + ' |';
     const separator = '| ' + data[0].map(() => '---').join(' | ') + ' |';
     const body = data
@@ -44,7 +45,9 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
               onChange={(e) => {
                 setRows(Number(e.target.value));
                 setData(
-                  Array(Number(e.target.value)).fill(Array(cols).fill('')),
+                  Array.from({ length: Number(e.target.value) }, () =>
+                    Array(cols).fill(''),
+                  ),
                 );
               }}
               className="w-16 brand-input inline-block"
@@ -58,7 +61,9 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
               onChange={(e) => {
                 setCols(Number(e.target.value));
                 setData(
-                  Array(rows).fill(Array(Number(e.target.value)).fill('')),
+                  Array.from({ length: rows }, () =>
+                    Array(Number(e.target.value)).fill(''),
+                  ),
                 );
               }}
               className="w-16 brand-input inline-block"

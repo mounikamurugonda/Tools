@@ -1,6 +1,5 @@
-import Sidebar from '@/components/Sidebar';
-import BuyMeACoffeeCard from '@/components/BuyMeACoffeeCard';
 import React from 'react';
+import Sidebar from '@/components/Sidebar';
 
 export default function ToolsLayout({
   children,
@@ -8,16 +7,10 @@ export default function ToolsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex min-h-[calc(100vh-64px)]">
       <Sidebar />
-      <main className="w-full md:flex-1 bg-gray-50 dark:bg-gray-900 flex flex-col h-[calc(100vh-81px)] overflow-y-auto">
-        <div className="flex-grow p-4 md:p-6">
-          {children}
-          {/* Buy me a coffee section as scrollable component */}
-          <div className="mt-8 p-4 md:p-6 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 rounded-lg">
-            <BuyMeACoffeeCard />
-          </div>
-        </div>
+      <main className="flex-1 w-0 min-w-0">
+        {children}
       </main>
     </div>
   );

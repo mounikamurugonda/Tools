@@ -32,7 +32,7 @@ export const TOOL_CONFIGS: ToolMetadata[] = [
   { id: 'keyword-density-analyzer', name: 'Keyword Density Analyzer', description: 'Analyze the keyword density of a text.', category: ToolCategory.TEXT },
   { id: 'readability-score', name: 'Readability Score', description: 'Calculate readability score of your text.', category: ToolCategory.TEXT },
   { id: 'text-cleaner', name: 'Text Cleaner', description: 'Clean and format text by removing extra whitespace.', category: ToolCategory.TEXT },
-  { id: 'markdown-table', name: 'Markdown Table Generator', description: 'Create Markdown tables easily.', category: ToolCategory.TEXT },
+  { id: 'markdown-table-generator', name: 'Markdown Table Generator', description: 'Create Markdown tables easily.', category: ToolCategory.TEXT },
   { id: 'hashtag-extractor', name: 'Hashtag Extractor', description: 'Extract hashtags from text.', category: ToolCategory.TEXT },
   { id: 'duplicate-remover', name: 'Duplicate Remover', description: 'Remove duplicate lines from text.', category: ToolCategory.TEXT },
 
@@ -127,7 +127,7 @@ export const TOOL_CONFIGS: ToolMetadata[] = [
 
   // File Conversion Tools
   { id: 'json-csv-converter', name: 'JSON <> CSV Converter', description: 'Convert between JSON and CSV formats.', category: ToolCategory.MISC },
-  { id: 'csv-to-xlsx', name: 'CSV to XLSX', description: 'Convert CSV to Excel format.', category: ToolCategory.MISC },
+  { id: 'csv-xlsx-converter', name: 'Data Converter', description: 'Convert CSV/XLSX to JSON, SQL, HTML, and more.', category: ToolCategory.CODING },
 
   // SVG Tools
   { id: 'svg-to-data-uri', name: 'SVG to Data URI', description: 'Convert SVG to Data URI.', category: ToolCategory.MISC },
@@ -180,7 +180,7 @@ export const TOOL_COMPONENT_MAP: Record<string, string> = {
   'world-clock': 'WorldClock',
   'timers-and-stopwatch': 'TimersAndStopwatch',
   'json-csv-converter': 'JsonCsvConverter',
-  'csv-to-xlsx': 'CsvXlsxConverter',
+  'csv-xlsx-converter': 'CsvXlsxConverter',
   'character-counter': 'CharacterCounter',
   'keyword-density-analyzer': 'KeywordDensityAnalyzer',
   'readability-score': 'ReadabilityScore',
@@ -215,7 +215,7 @@ export const TOOL_COMPONENT_MAP: Record<string, string> = {
   'password-strength': 'PasswordStrength',
   'string-escaper': 'StringEscaper',
   'percentage-calculator': 'PercentageCalculator',
-  'markdown-table': 'MarkdownTable',
+  'markdown-table-generator': 'MarkdownTable',
   'list-randomizer': 'ListRandomizer',
   'text-cleaner': 'TextCleaner',
   'svg-to-data-uri': 'SvgToDataUri',
