@@ -250,12 +250,25 @@ export const TOOL_COMPONENT_MAP: Record<string, string> = {
  * Create tool details dynamically
  * Used by the server to avoid importing all components
  */
+import { TOOL_DETAILS } from './tool-details';
+
+/**
+ * Create tool details dynamically
+ * Used by the server to avoid importing all components
+ */
 export function getToolDetails(toolId: string) {
   const PRIVACY_STATEMENT_DESC =
     'All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.';
 
+  const details = TOOL_DETAILS[toolId];
+
+  if (details) {
+    return details;
+  }
+
+  // Fallback if details are not found
   return {
-    introduction: 'Tool details',
+    introduction: '',
     howToUse: [],
     features: [],
     privacy: PRIVACY_STATEMENT_DESC,

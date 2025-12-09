@@ -34,7 +34,7 @@ export interface Tool {
   icon: React.ReactNode;
   component: React.ComponentType<ToolProps> | any;
   category: ToolCategory;
-  details: ToolDetails;
+  details?: ToolDetails;
   featured?: boolean;
   keywords?: string[];
   tags?: string[];

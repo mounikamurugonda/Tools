@@ -39,8 +39,8 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
 
   const recommendedTools = currentToolCategory
     ? TOOLS.filter(
-        (tool) => tool.category === currentToolCategory && tool.id !== toolId,
-      )
+      (tool) => tool.category === currentToolCategory && tool.id !== toolId,
+    )
     : [];
 
   return (
