@@ -39,7 +39,7 @@ const BlogPage = ({ params }: { params: { blogId: string } }) => {
 
       <div>
         <h2 className="brand-heading-2 my-8">Related Posts</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2  gap-8">
           {relatedPosts.map((post) => (
             <Link href={`/blogs/${post.id}`} key={post.id}>
               <div className="brand-card">
