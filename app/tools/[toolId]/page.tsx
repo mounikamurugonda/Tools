@@ -44,14 +44,14 @@ export async function generateMetadata(
     description,
     keywords: tool.keywords
       ? [
-          ...tool.keywords,
-          'developer tools',
-          'online tools',
-          'free utilities',
-          'browser tools',
-          'privacy tools',
-          'no registration required',
-        ]
+        ...tool.keywords,
+        'developer tools',
+        'online tools',
+        'free utilities',
+        'browser tools',
+        'privacy tools',
+        'no registration required',
+      ]
       : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities, browser tools`,
     authors: [{ name: 'UtilToolkits Team' }],
     creator: 'UtilToolkits',
@@ -123,7 +123,7 @@ export default function ToolPage({ params }: { params: { toolId: string } }) {
       <Schema schema={getOrganizationSchema()} />
       <Schema schema={getToolSchema(tool)} />
 
-      <div className="container mx-auto px-4">
+      <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <ToolLoader toolId={tool.id} details={toolDetails} />
         <TipCard tip={randomTip} />
       </div>

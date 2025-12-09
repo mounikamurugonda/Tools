@@ -13,6 +13,7 @@ interface ToolContainerProps {
   children: React.ReactNode;
   details: ToolDetails;
   toolId?: string;
+  headerContent?: React.ReactNode;
 }
 
 const ToolContainer: React.FC<ToolContainerProps> = ({
@@ -20,6 +21,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
   children,
   details,
   toolId,
+  headerContent,
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -44,17 +46,20 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
     : [];
 
   return (
-    <div className="animate-fade-in space-y-8">
+    <div className="animate-fade-in space-y-4">
       {/* Header */}
-      <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-800">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
-          {title}
-        </h1>
+      <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-800 gap-4">
+        <div className="flex items-center gap-4 flex-1">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
+            {title}
+          </h1>
+          {headerContent}
+        </div>
         {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
 
       {/* Main Tool Area */}
-      <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in-up">
+      <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in-up">
         {children}
       </div>
 

@@ -15,7 +15,7 @@ const BreadcrumbWrapper = () => {
   }
 
   return (
-    <div className="container mx-auto py-2">
+    <div className="py-2">
       <Breadcrumb items={breadcrumbItems} />
     </div>
   );

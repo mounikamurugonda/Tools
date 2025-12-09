@@ -102,18 +102,24 @@ const JsonYamlConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     };
 
     return (
-        <ToolContainer title="JSON <> YAML Converter" details={details} toolId={toolId}>
-            <div className="space-y-6">
-                {/* Mode Swithcer */}
-                <div className="flex justify-center">
+        <ToolContainer
+            title="JSON <> YAML Converter"
+            details={details}
+            toolId={toolId}
+            headerContent={
+                <div className="flex items-center space-x-2">
                     <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-lg inline-flex">
-                        <button onClick={() => setMode('json-to-yaml')} className={`px-4 py-2 rounded-md transition-all ${mode === 'json-to-yaml' ? 'bg-white dark:bg-gray-700 shadow-sm font-medium text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400'}`}>JSON to YAML</button>
-                        <button onClick={() => setMode('yaml-to-json')} className={`px-4 py-2 rounded-md transition-all ${mode === 'yaml-to-json' ? 'bg-white dark:bg-gray-700 shadow-sm font-medium text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400'}`}>YAML to JSON</button>
+                        <button onClick={() => setMode('json-to-yaml')} className={`px-3 py-1.5 text-sm rounded-md transition-all ${mode === 'json-to-yaml' ? 'bg-white dark:bg-gray-700 shadow-sm font-medium text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400'}`}>JSON to YAML</button>
+                        <button onClick={() => setMode('yaml-to-json')} className={`px-3 py-1.5 text-sm rounded-md transition-all ${mode === 'yaml-to-json' ? 'bg-white dark:bg-gray-700 shadow-sm font-medium text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-400'}`}>YAML to JSON</button>
                     </div>
-                    <button onClick={swapMode} className="ml-4 p-2 text-gray-500 hover:text-blue-600" title="Swap">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10h14l-4-4" /><path d="M17 14H3l4 4" /></svg>
+                    <button onClick={swapMode} className="p-1.5 text-gray-500 hover:text-blue-600 transition-colors" title="Swap Inputs">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10h14l-4-4" /><path d="M17 14H3l4 4" /></svg>
                     </button>
                 </div>
+            }
+        >
+            <div className="space-y-6">
+                {/* Mode Switcher moved to header */}
 
                 <div className="grid md:grid-cols-2 gap-4 h-[50vh]">
                     <div className="flex flex-col relative">
