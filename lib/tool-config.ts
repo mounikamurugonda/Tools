@@ -80,8 +80,7 @@ export const TOOL_CONFIGS: ToolMetadata[] = [
   { id: 'xml-formatter', name: 'XML Formatter', description: 'Format and validate XML.', category: ToolCategory.CODING },
   { id: 'string-escaper', name: 'String Escaper', description: 'Escape special characters in strings.', category: ToolCategory.CODING },
   { id: 'html-entity', name: 'HTML Entity Converter', description: 'Convert HTML entities.', category: ToolCategory.CODING },
-  { id: 'yaml-to-json', name: 'YAML to JSON', description: 'Convert YAML to JSON.', category: ToolCategory.CODING },
-  { id: 'json-to-yaml', name: 'JSON to YAML', description: 'Convert JSON to YAML.', category: ToolCategory.CODING },
+  { id: 'json-yaml-converter', name: 'JSON <> YAML Converter', description: 'Convert between JSON and YAML.', category: ToolCategory.CODING },
 
   // Color Tools
   { id: 'color-palette-generator', name: 'Color Palette Generator', description: 'Generate color palettes.', category: ToolCategory.COLOR },
@@ -127,8 +126,7 @@ export const TOOL_CONFIGS: ToolMetadata[] = [
   { id: 'watermark-adder', name: 'Watermark Adder', description: 'Add watermarks to videos.', category: ToolCategory.VIDEO },
 
   // File Conversion Tools
-  { id: 'csv-to-json', name: 'CSV to JSON', description: 'Convert CSV to JSON format.', category: ToolCategory.MISC },
-  { id: 'json-to-csv', name: 'JSON to CSV', description: 'Convert JSON to CSV format.', category: ToolCategory.MISC },
+  { id: 'json-csv-converter', name: 'JSON <> CSV Converter', description: 'Convert between JSON and CSV formats.', category: ToolCategory.MISC },
   { id: 'csv-to-xlsx', name: 'CSV to XLSX', description: 'Convert CSV to Excel format.', category: ToolCategory.MISC },
 
   // SVG Tools
@@ -181,8 +179,7 @@ export const TOOL_COMPONENT_MAP: Record<string, string> = {
   'currency-converter': 'CurrencyConverter',
   'world-clock': 'WorldClock',
   'timers-and-stopwatch': 'TimersAndStopwatch',
-  'csv-to-json': 'CsvToJson',
-  'json-to-csv': 'JsonToCsv',
+  'json-csv-converter': 'JsonCsvConverter',
   'csv-to-xlsx': 'CsvXlsxConverter',
   'character-counter': 'CharacterCounter',
   'keyword-density-analyzer': 'KeywordDensityAnalyzer',
@@ -222,8 +219,7 @@ export const TOOL_COMPONENT_MAP: Record<string, string> = {
   'list-randomizer': 'ListRandomizer',
   'text-cleaner': 'TextCleaner',
   'svg-to-data-uri': 'SvgToDataUri',
-  'yaml-to-json': 'YamlToJson',
-  'json-to-yaml': 'JsonToYaml',
+  'json-yaml-converter': 'JsonYamlConverter',
   'youtube-thumbnail': 'YouTubeThumbnail',
   'fancy-font-generator': 'FancyFontGenerator',
   'hashtag-extractor': 'HashtagExtractor',
