@@ -252,9 +252,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste JSON", "Copy TS"],
       features: ["Instantly generate TypeScript interfaces from JSON objects.", "Supports nested JSON objects and arrays.", "Copy generated TypeScript with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "This tool simplifies front-end and back-end development by automating the creation of TypeScript interfaces and types from raw JSON data. Instead of manually defining each property and its type, you can paste your JSON, and the tool will infer the structure and generate the corresponding TypeScript code, saving significant development time and reducing errors.",
+      usageExamples: [
+        "Generating type definitions for API responses in a web application.",
+        "Creating interfaces for configuration files that use JSON format.",
+        "Quickly prototyping data models for new features or projects.",
+        "Learning how JSON structures map to TypeScript types."
+      ],
+      underlyingConcept: "The tool works by parsing the input JSON string into a JavaScript object. It then recursively traverses this object, inferring the data type of each key-value pair (e.g., string, number, boolean, array, object). For arrays, it analyzes the first element to determine the array's item type. Finally, it constructs the TypeScript `interface` or `type` definitions based on these inferred types.",
       faqs: [
         {
           "question": "What is JSON to TypeScript conversion?",
@@ -283,9 +288,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste Code", "Select Theme", "Snapshot"],
       features: ["Create beautiful images of your code snippets.", "Supports multiple themes and languages.", "Customize background color and padding."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Code to Image tool transforms plain code snippets into visually appealing images. This is particularly useful for presentations, social media sharing, or documentation where you want to showcase code with attractive styling, syntax highlighting, and customizable backgrounds without it being editable.",
+      usageExamples: [
+        "Creating stunning code screenshots for a technical blog post or article.",
+        "Generating images of code examples for a presentation slide deck.",
+        "Sharing beautifully formatted code snippets on social media platforms like Twitter or LinkedIn.",
+        "Embedding static code visuals in documentation where interactivity is not required."
+      ],
+      underlyingConcept: "This tool leverages client-side rendering to interpret the code input. It applies syntax highlighting using a library (like Prism.js or Highlight.js) and then uses HTML5 Canvas or SVG to render the styled text onto an image. The user's styling choices (theme, background, padding) are applied during this rendering process, and the final image is generated for download without server interaction.",
       faqs: [
         {
           "question": "How can I create an image from my code?",
@@ -314,9 +324,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste SQL", "Click Format"],
       features: ["Format and beautify your SQL queries.", "Supports various SQL dialects.", "Copy formatted SQL with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The SQL Formatter tool takes unformatted or poorly formatted SQL queries and restructures them into a clean, readable, and consistent style. This process involves proper indentation, line breaks, and consistent capitalization of keywords, making complex SQL statements much easier to understand, debug, and maintain.",
+      usageExamples: [
+        "Beautifying a long, single-line SQL query received from a colleague.",
+        "Standardizing the format of SQL scripts across a development team.",
+        "Debugging complex stored procedures or database migrations by making the code legible.",
+        "Preparing SQL code for presentations or documentation to ensure clarity."
+      ],
+      underlyingConcept: "SQL formatting is typically achieved by parsing the SQL query into an Abstract Syntax Tree (AST) or tokenizing it into individual keywords, operators, and identifiers. The formatter then traverses this structure, applying a predefined set of rules (e.g., indent `SELECT` clauses, new line after `FROM`, uppercase keywords) to reconstruct the query in a standardized, human-readable format.",
       faqs: [
         {
           "question": "What is an SQL formatter?",
@@ -345,9 +360,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Select intervals", "Copy string"],
       features: ["Visually build and explain cron job schedules.", "Supports all cron expression fields.", "Generates human-readable descriptions of cron jobs."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Cron Expression Generator simplifies the creation and understanding of cron job schedules. Cron expressions are strings used by Unix-like operating systems to schedule tasks, but their syntax can be complex. This tool provides a user-friendly interface to visually construct these expressions and translates them into human-readable descriptions, preventing errors and ensuring tasks run as intended.",
+      usageExamples: [
+        "Scheduling a daily backup script to run at 2:00 AM.",
+        "Setting up a weekly report generation every Monday at 9:00 AM.",
+        "Configuring a server to clear temporary files on the first day of every month.",
+        "Understanding an existing cron expression to debug a scheduled task issue."
+      ],
+      underlyingConcept: "A cron expression consists of five or six fields representing minute, hour, day of month, month, day of week, and an optional year. Each field can contain numbers, ranges, lists, and wildcards (`*`) to specify execution times. The tool's visual interface maps user selections to these fields, and its explanation logic parses the resulting string back into natural language by analyzing each field's value.",
       faqs: [
         {
           "question": "What is a cron expression?",
@@ -376,9 +396,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Type title", "Copy slug"],
       features: ["Convert text into SEO-friendly URL slugs.", "Removes special characters and spaces.", "Supports multiple languages."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Slug Generator is a utility that transforms ordinary text, such as a blog post title or product name, into a clean, URL-friendly string known as a \"slug.\" This process typically involves converting text to lowercase, replacing spaces with hyphens, and removing special characters, resulting in a format optimized for search engines and readability in web addresses.",
+      usageExamples: [
+        "Creating SEO-friendly URLs for blog posts or articles from their titles.",
+        "Generating unique identifiers for product pages on an e-commerce website.",
+        "Normalizing user-generated content titles into web-safe formats.",
+        "Preparing human-readable file names from complex string inputs."
+      ],
+      underlyingConcept: "A slug is a web-friendly version of a title that appears in a URL. The generation process involves several steps: transliteration (converting non-ASCII characters to their closest ASCII equivalents), lowercasing the entire string, replacing all whitespace with a separator (usually a hyphen), and removing any characters that are not alphanumeric or the chosen separator. This ensures the resulting string is valid for use in URLs and is easily understood by both humans and search engine crawlers.",
       faqs: [
         {
           "question": "What is a URL slug?",
@@ -407,9 +432,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Enter details", "Copy HTML"],
       features: ["Generate SEO meta tags for your website.", "Includes title, description, and keywords.", "Generates tags for social media platforms."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Meta Tag Generator helps website owners and SEO professionals create essential HTML meta tags that provide search engines and social media platforms with crucial information about a webpage's content. These tags, while not visible on the page itself, are vital for improving search engine rankings, controlling how content appears when shared, and enhancing overall online visibility.",
+      usageExamples: [
+        "Crafting compelling title tags and meta descriptions to improve click-through rates from search results.",
+        "Generating Open Graph tags for Facebook and Twitter Cards to control how links are previewed on social media.",
+        "Setting `robots` meta tags to instruct search engine crawlers on how to index (or not index) a page.",
+        "Quickly creating a set of standard meta tags for new web pages."
+      ],
+      underlyingConcept: "Meta tags are snippets of text that live in the `<head>` section of an HTML document. They serve as metadata – data about data – providing structured information that browsers, search engines, and social media platforms can understand. Different types of meta tags (e.g., `<title>`, `<meta name=\"description\">`, `<meta property=\"og:title\">`) adhere to specific standards (like HTML5 and Open Graph Protocol) to convey different aspects of a page's identity and content.",
       faqs: [
         {
           "question": "What are meta tags?",
@@ -438,9 +468,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Select colors", "See rating"],
       features: ["Check color contrast accessibility (WCAG).", "Supports AA and AAA levels.", "Provides a color picker to select colors."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Contrast Checker tool evaluates the legibility of text against its background color, ensuring accessibility for users with visual impairments. It provides instant feedback on whether your color combinations meet the Web Content Accessibility Guidelines (WCAG) standards, specifically AA and AAA levels, which are crucial for inclusive web design.",
+      usageExamples: [
+        "Verifying color schemes for website text and backgrounds to ensure WCAG compliance.",
+        "Designing accessible buttons or interactive elements where text needs to stand out.",
+        "Auditing existing designs to identify and fix poor contrast issues.",
+        "Selecting accessible color palettes for branding and user interfaces."
+      ],
+      underlyingConcept: "Color contrast is a measure of the difference in luminance (light intensity) or color between two adjacent colors. WCAG defines specific mathematical formulas and thresholds for minimum contrast ratios to ensure content is readable by a wide range of users, including those with color blindness or low vision. This tool applies these formulas to the input colors to calculate and report the contrast ratio.",
       faqs: [
         {
           "question": "What is color contrast?",
@@ -469,9 +504,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Check boxes", "Copy code"],
       features: ["Visual calculator for Unix file permissions.", "Supports read, write, and execute permissions.", "Generates octal and symbolic notations."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Chmod Calculator provides a user-friendly interface to easily determine and understand Unix-like file permissions. Instead of memorizing octal codes or symbolic representations, you can visually select read, write, and execute permissions for the owner, group, and others. The tool then instantly generates both the octal and symbolic notations, simplifying file permission management.",
+      usageExamples: [
+        "Setting appropriate permissions for shell scripts (`755` for execute, read, write for owner, read/execute for group/others).",
+        "Restricting access to sensitive configuration files (`600` for read/write only for owner).",
+        "Understanding the permissions of a shared directory or file on a Linux server.",
+        "Quickly generating the `chmod` command needed to apply specific permissions."
+      ],
+      underlyingConcept: "Unix-like file permissions control who can read, write, or execute a file or directory. These permissions are assigned to three entities: the file owner, the group the file belongs to, and others (everyone else). Each permission (read, write, execute) has a numerical value (4, 2, 1 respectively). The octal representation is a sum of these values for each entity, while the symbolic representation uses letters (r, w, x) and hyphens.",
       faqs: [
         {
           "question": "What is chmod?",
@@ -500,9 +540,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Enter URL", "Add params", "Copy"],
       features: ["Build tracking URLs for marketing campaigns.", "Supports all UTM parameters.", "Generates short URLs with Bitly."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The UTM Builder helps marketers and analysts create custom URLs with UTM (Urchin Tracking Module) parameters. These parameters are small pieces of code added to a URL that enable web analytics tools, like Google Analytics, to track the source, medium, campaign, and content of traffic to your website. This provides valuable insights into the effectiveness of your marketing efforts.",
+      usageExamples: [
+        "Tracking the performance of a specific email marketing campaign.",
+        "Analyzing which social media platforms drive the most conversions.",
+        "Differentiating traffic from various ad creatives within the same campaign.",
+        "Measuring the success of affiliate links or sponsored content."
+      ],
+      underlyingConcept: "UTM parameters (utm_source, utm_medium, utm_campaign, utm_term, utm_content) are standardized tags appended to a URL as query string parameters. When a user clicks a URL with these tags, the analytics software on the destination website records the values, allowing you to segment and analyze your traffic data to understand visitor behavior and campaign ROI.",
       faqs: [
         {
           "question": "What are UTM parameters?",
@@ -531,9 +576,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Enter dims", "See ratio"],
       features: ["Calculate dimensions and aspect ratios for images and video.", "Supports common aspect ratios.", "Calculates new dimensions based on a given aspect ratio."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Aspect Ratio Calculator is a tool designed to help users accurately calculate and maintain the proportional relationship between an image's or video's width and height. This is crucial for ensuring that media content appears correctly scaled across different screens and platforms, preventing distortion and maintaining visual integrity.",
+      usageExamples: [
+        "Determining new dimensions for an image while preserving its original aspect ratio for web design.",
+        "Calculating the correct video resolution for platforms like YouTube or social media stories.",
+        "Cropping images or videos to a specific aspect ratio without distorting the content.",
+        "Understanding the aspect ratio of a given screen or display."
+      ],
+      underlyingConcept: "An aspect ratio is a ratio of an image's width to its height. It is commonly expressed as two numbers separated by a colon, such as 16:9 or 4:3. The calculator works by taking two known values (e.g., original width and height, or one new dimension and the aspect ratio) and applying simple proportional mathematics to solve for the unknown dimension, thereby maintaining the desired ratio.",
       faqs: [
         {
           "question": "What is aspect ratio?",
@@ -562,9 +612,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Set direction/color", "Copy CSS"],
       features: ["Generate CSS code for geometric triangles.", "Customize triangle size and color.", "Supports all four directions."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The CSS Triangle Generator simplifies the creation of geometric triangle shapes using pure CSS. By manipulating borders of an HTML element, developers can create various triangle orientations and sizes without the need for image assets. This tool provides a visual interface to define the triangle's direction, size, and color, and then outputs the exact CSS code for easy integration into web projects.",
+      usageExamples: [
+        "Creating dropdown menu arrows or tooltips with directional pointers.",
+        "Designing speech bubbles or chat message indicators in user interfaces.",
+        "Building decorative elements or abstract shapes in web layouts.",
+        "Adding subtle design accents to buttons or navigation items."
+      ],
+      underlyingConcept: "CSS triangles are a clever trick exploiting the way borders render in block-level elements. When an element has zero width and height, its borders meet at a point. By making three of the four borders transparent and giving the remaining border a color, a triangle pointing in the direction of the colored border is formed. Adjusting the width of the transparent borders and the colored border allows for control over the triangle's size and shape.",
       faqs: [
         {
           "question": "How are CSS triangles created?",
@@ -593,9 +648,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste XML", "Copy formatted"],
       features: ["Beautify and format XML strings.", "Supports indentation levels.", "Validates XML syntax."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The XML Formatter is a specialized tool designed to take unformatted or irregularly structured XML code and transform it into a clean, well-indented, and human-readable format. This process significantly improves the clarity of complex XML documents, making them easier for developers, data analysts, and content managers to read, debug, and work with.",
+      usageExamples: [
+        "Beautifying minified XML responses from APIs for easier debugging.",
+        "Standardizing the indentation and structure of XML configuration files.",
+        "Improving the readability of XML data extracts for analysis or reporting.",
+        "Preparing XML code snippets for documentation or presentations."
+      ],
+      underlyingConcept: "XML (Extensible Markup Language) uses a tree-like structure of elements and attributes to organize data. When XML is not properly formatted (e.g., all on one line), its hierarchical nature becomes difficult to discern. An XML formatter parses the document, identifies its elements, attributes, and text nodes, and then reconstructs the document by applying consistent indentation and line breaks, revealing its logical structure.",
       faqs: [
         {
           "question": "What is XML?",
@@ -624,9 +684,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Type text", "See dots/dashes"],
       features: ["Translate text to Morse code and vice versa.", "Supports letters, numbers, and punctuation.", "Listen to the Morse code sound."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Morse Code Converter provides a seamless way to translate text into Morse code and decode Morse code back into readable text. This tool serves both as a practical utility for communication and an educational resource for learning the historic telegraphic code. It supports standard characters, numbers, and common punctuation, offering both visual representation and an optional audio output of the Morse signals.",
+      usageExamples: [
+        "Learning and practicing Morse code by seeing instant translations.",
+        "Sending coded messages to friends for fun or puzzles.",
+        "Transcribing historical telegraphs or signals.",
+        "Exploring an alternative method of communication."
+      ],
+      underlyingConcept: "Morse code assigns a series of dots (short signals) and dashes (long signals) to each letter of the Latin alphabet, numbers, and some punctuation marks. The converter operates by mapping input characters to their corresponding Morse sequences (for encoding) or by recognizing patterns of dots and dashes and mapping them back to characters (for decoding). The timing between dots, dashes, and the spaces between them is crucial for accurate interpretation.",
       faqs: [
         {
           "question": "What is Morse code?",
@@ -655,9 +720,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Type text", "Get binary"],
       features: ["Translate text to binary code and back.", "Supports UTF-8 characters.", "Copy binary code with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Binary Converter facilitates the translation of human-readable text into its binary representation and vice-versa. Binary code, composed solely of 0s and 1s, is the fundamental language of computers. This tool allows users to see how text is encoded at a machine level, which can be useful for educational purposes, low-level debugging, or simply understanding data representation.",
+      usageExamples: [
+        "Exploring how characters are represented in digital systems.",
+        "Debugging data corruption issues by examining the underlying binary.",
+        "Creating a unique, machine-level representation of short messages.",
+        "Understanding the basics of computer data storage and transmission."
+      ],
+      underlyingConcept: "At its core, the tool performs character encoding. Each character in the input text is typically converted into its numerical Unicode (or ASCII) value, and then this numerical value is translated into its binary equivalent. For decoding, the process is reversed: binary strings are grouped, converted back to their numerical values, and then mapped to their corresponding characters based on the chosen encoding standard (e.g., UTF-8).",
       faqs: [
         {
           "question": "What is binary code?",
@@ -686,9 +756,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Type password", "See score"],
       features: ["Test the strength of your passwords.", "Provides feedback on password complexity.", "Estimates time to crack the password."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Password Strength Checker analyzes a given password and provides an immediate assessment of its security. It evaluates factors like length, character diversity (uppercase, lowercase, numbers, symbols), and common patterns or dictionary words to help users create robust passwords that are resistant to guessing and brute-force attacks. The tool often offers suggestions for improvement and may estimate the time it would take to crack the password.",
+      usageExamples: [
+        "Testing the strength of a new password before using it for an online account.",
+        "Educating users on best practices for creating secure and memorable passwords.",
+        "Auditing a set of existing passwords for potential vulnerabilities.",
+        "As a component in user registration forms to enforce strong password policies."
+      ],
+      underlyingConcept: "Password strength algorithms typically work by assigning points or a score based on various criteria. Points are added for length, inclusion of different character types, and randomness, while points are deducted for common patterns, repeated characters, or dictionary words. Advanced algorithms might use entropy calculations (measuring randomness) and compare the password against databases of compromised or common passwords to provide a more accurate strength assessment.",
       faqs: [
         {
           "question": "What makes a password strong?",
@@ -717,9 +792,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste text", "Select format"],
       features: ["Escape strings for JSON, HTML, URL, and Java.", "Supports multiple escaping formats.", "Copy escaped string with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The String Escaper tool converts special characters within a string into their appropriate \"escaped\" representations for various programming and markup contexts like JSON, HTML, URLs, and Java. This is crucial for preventing syntax errors, data corruption, and security vulnerabilities (such as cross-site scripting in HTML or SQL injection) when embedding raw string data into a different format or language.",
+      usageExamples: [
+        "Sanitizing user-generated input before inserting it into an HTML page to prevent XSS attacks.",
+        "Preparing a string that contains special characters (like quotes or backslashes) to be a valid JSON value.",
+        "Encoding parts of a URL to ensure all characters are properly transmitted and interpreted by web servers.",
+        "Handling literal strings in Java code that might otherwise conflict with syntax (e.g., file paths with backslashes)."
+      ],
+      underlyingConcept: "Escaping is a mechanism used to represent characters that have a special meaning in a particular context as literal data. For example, a double quote `\"` has a special meaning in JSON (denoting the start/end of a string). To include a literal double quote within a JSON string, it must be \"escaped\" as `\\\"`. The specific escaping rules and characters vary between different contexts (e.g., HTML uses `&lt;` for `<`, URLs use `%20` for space). The tool applies these context-specific rules to transform the input string.",
       faqs: [
         {
           "question": "What is string escaping?",
@@ -748,9 +828,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Enter numbers", "Get result"],
       features: ["Quickly calculate percentages for common math problems.", "Supports various percentage calculations.", "Easy to use interface."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Percentage Calculator is a versatile online tool designed to simplify a variety of percentage-related computations. Whether you need to find a percentage of a number, determine what percentage one number is of another, or calculate percentage increases and decreases, this tool provides instant and accurate results, eliminating manual calculations.",
+      usageExamples: [
+        "Calculating discounts on sale items while shopping.",
+        "Determining tips at a restaurant or service charge percentages.",
+        "Finding the percentage change in sales figures month-over-month.",
+        "Calculating interest on loans or investments."
+      ],
+      underlyingConcept: "Percentages are a way of expressing a number as a fraction of 100. The core concept revolves around the formula `Part = (Percentage / 100) * Whole`. This tool applies this fundamental relationship and its algebraic rearrangements to solve for the unknown variable, allowing for quick computation across different percentage problems.",
       faqs: [
         {
           "question": "How do I calculate a percentage?",
@@ -779,9 +864,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Set rows/cols", "Fill data", "Copy"],
       features: ["Create Markdown tables easily with a visual editor.", "Add and remove rows and columns.", "Copy Markdown table with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Markdown Table Generator provides an intuitive visual interface to create tables for Markdown documents. Markdown's syntax for tables can be cumbersome to write manually, especially for complex structures. This tool simplifies the process by allowing users to define rows and columns, input data, and then automatically generates the correctly formatted Markdown table code, saving time and reducing syntax errors.",
+      usageExamples: [
+        "Quickly creating data tables for GitHub README files or project documentation.",
+        "Preparing tabular data for blog posts written in Markdown.",
+        "Converting spreadsheet-like information into a version-controllable text format.",
+        "Learning and experimenting with Markdown table syntax."
+      ],
+      underlyingConcept: "Markdown tables rely on pipe (`|`) characters to delineate columns and hyphens (`-`) to separate the header row from the data rows. Alignment (left, right, center) is indicated by colons within the header separator line. The generator dynamically constructs this character-based structure based on the user's visual input, ensuring proper alignment and syntax required for rendering by Markdown parsers.",
       faqs: [
         {
           "question": "What is Markdown?",
@@ -810,9 +900,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste list", "Shuffle"],
       features: ["Shuffle and randomize a list of items.", "Supports multi-line lists.", "Copy randomized list with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The List Randomizer is a straightforward utility designed to shuffle and reorder any given list of items. Whether you need to randomize names, ideas, or selections for a lottery, this tool provides a quick and unbiased way to generate a new, random sequence from your input, making decisions fair or simply adding an element of chance.",
+      usageExamples: [
+        "Randomly selecting a winner from a list of participants for a giveaway.",
+        "Shuffling a playlist or a sequence of tasks for variety.",
+        "Generating random team assignments for sports or group projects.",
+        "Aiding in decision-making when an unbiased order is required."
+      ],
+      underlyingConcept: "At its core, the List Randomizer employs a shuffling algorithm to rearrange the elements of the input list. A common and effective algorithm for this purpose is the Fisher-Yates shuffle (or Knuth shuffle), which ensures that every possible permutation of the list is equally likely. This method guarantees a truly random reordering of the items, providing fairness and unpredictability.",
       faqs: [
         {
           "question": "How does the list randomizer work?",
@@ -841,9 +936,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste text", "Click clean"],
       features: ["Remove extra spaces, line breaks, and format text.", "Supports multiple cleaning options.", "Copy cleaned text with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Text Cleaner is a utility designed to quickly tidy up raw text by removing unwanted characters, excessive whitespace, and inconsistent formatting. It's particularly useful for processing text copied from various sources (websites, documents, PDFs) which often come with extraneous line breaks, multiple spaces, or non-standard characters, making the text clean and consistent for further use.",
+      usageExamples: [
+        "Cleaning text copied from web pages before pasting into a document or email.",
+        "Removing extra line breaks from raw data dumps or logs.",
+        "Standardizing whitespace and formatting in user-generated content for a consistent look.",
+        "Preparing text for analysis where uniform formatting is crucial."
+      ],
+      underlyingConcept: "Text cleaning typically involves applying regular expressions or string manipulation functions to identify and replace specific patterns. For instance, multiple spaces can be replaced with a single space, various line break characters (`\\n`, `\\r\\n`) can be standardized or removed, and non-printable characters can be stripped. The tool systematically processes the input string based on a set of defined cleaning rules to produce a refined output.",
       faqs: [
         {
           "question": "What does the text cleaner do?",
@@ -873,9 +973,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste SVG", "Copy URI"],
       features: ["Convert SVG code into a Data URI for use in CSS.", "URL-encodes the SVG for optimal compatibility.", "Copy the Data URI with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The SVG to Data URI converter transforms raw SVG (Scalable Vector Graphics) code into a compact, URL-encoded string that can be directly embedded into HTML or CSS. This eliminates the need for external image files, reducing HTTP requests and potentially speeding up web page load times, especially for small icons and graphics.",
+      usageExamples: [
+        "Inlining small SVG icons directly into CSS backgrounds to optimize website performance.",
+        "Embedding SVG graphics within HTML without linking to an external file.",
+        "Using dynamically generated SVG for interactive elements without server-side processing.",
+        "Simplifying asset management by having graphics directly within the stylesheet or markup."
+      ],
+      underlyingConcept: "A Data URI is a scheme that allows content to be embedded directly within web documents, rather than linking to it externally. For SVG, the process involves URL-encoding the XML-based SVG code (converting special characters like `<`, `>`, and `#` into their percent-encoded equivalents) and then prepending it with the `data:image/svg+xml,` MIME type. This results in a single, self-contained string that represents the entire SVG image.",
       faqs: [
         {
           "question": "What is a Data URI?",
@@ -904,9 +1009,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste YAML", "Get JSON"],
       features: ["Convert simple YAML to JSON.", "Validates YAML syntax.", "Copy JSON with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The YAML to JSON converter provides a simple and efficient way to transform data structured in YAML (YAML Ain't Markup Language) format into JSON (JavaScript Object Notation). Both are popular human-readable data serialization standards, but JSON is often preferred for data interchange in web applications and APIs due to its widespread JavaScript compatibility. This tool bridges the gap, allowing for seamless data translation.",
+      usageExamples: [
+        "Converting configuration files from YAML to JSON for use in JavaScript applications.",
+        "Preparing data received in YAML format for consumption by RESTful APIs that expect JSON.",
+        "Migrating data between systems that use different serialization formats.",
+        "Debugging and comparing data structures by viewing them in a more familiar JSON format."
+      ],
+      underlyingConcept: "YAML and JSON represent hierarchical data structures. YAML uses indentation and dashes to denote structure and lists, while JSON uses curly braces `{}` for objects and square brackets `[]` for arrays. The conversion process involves parsing the YAML input to build an internal data representation (e.g., a JavaScript object or a tree structure) and then serializing that representation into the standardized JSON string format, ensuring proper key-value pairs, arrays, and nesting.",
       faqs: [
         {
           "question": "What is YAML?",
@@ -935,9 +1045,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste JSON", "Get YAML"],
       features: ["Convert JSON objects to YAML format.", "Validates JSON syntax.", "Copy YAML with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The JSON to YAML converter provides a straightforward method to transform data structured in JSON (JavaScript Object Notation) into YAML (YAML Ain't Markup Language). While both are popular for data serialization, YAML is often favored for configuration files due to its more human-readable, minimal syntax. This tool allows developers and system administrators to easily switch between these formats, catering to different application requirements or personal preferences.",
+      usageExamples: [
+        "Converting API responses from JSON to YAML for easier human inspection or storage in configuration management systems.",
+        "Preparing application settings from a JSON format to a more readable YAML file.",
+        "Migrating existing data structures from JSON-based systems to YAML-based ones.",
+        "Debugging complex JSON structures by viewing them in YAML's cleaner format."
+      ],
+      underlyingConcept: "Both JSON and YAML represent hierarchical data. The conversion process involves parsing the JSON input into an internal data structure (such as a JavaScript object or a tree representation). Then, this internal structure is serialized into the YAML string format. The tool handles the differences in syntax, converting JSON's explicit curly braces and square brackets into YAML's indentation-based structure and list notation, while preserving the integrity of the data.",
       faqs: [
         {
           "question": "Why would I convert JSON to YAML?",
@@ -968,9 +1083,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste URL", "Get Images"],
       features: ["Download thumbnails from any YouTube video in max resolution.", "Supports all thumbnail sizes.", "Download thumbnails with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The YouTube Thumbnail Downloader is a utility that allows users to quickly extract and download high-resolution thumbnail images from any YouTube video. By simply providing the video's URL, the tool accesses YouTube's API to retrieve all available thumbnail sizes, offering a convenient way to get promotional images for content creators, designers, or anyone needing a snapshot from a video.",
+      usageExamples: [
+        "Downloading a specific frame as a thumbnail for a blog post featuring a YouTube video.",
+        "Content creators saving their own thumbnails for backup or repurposing.",
+        "Designers needing high-quality images for mockups or presentations related to YouTube content.",
+        "Creating custom share images for social media posts linking to YouTube videos."
+      ],
+      underlyingConcept: "YouTube automatically generates several thumbnail images for each uploaded video in various resolutions (e.g., default, medium, high, standard, maxres). These thumbnails are publicly accessible via predictable URL patterns based on the video ID. This tool extracts the video ID from the provided YouTube URL and then constructs the direct URLs to these high-resolution thumbnails, allowing the user to view and download them.",
       faqs: [
         {
           "question": "How do I download a YouTube thumbnail?",
@@ -999,9 +1119,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Type text", "Copy style"],
       features: ["Generate stylish text for social media bios.", "Supports various font styles.", "Copy generated text with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Fancy Font Generator transforms ordinary text into a wide array of decorative and stylish character combinations. Unlike traditional fonts that require installation, this tool uses Unicode characters that resemble different typestyles, allowing users to create visually unique text that can be copied and pasted into social media bios, posts, or messages to add flair and stand out.",
+      usageExamples: [
+        "Creating eye-catching social media bios with unique and artistic text.",
+        "Designing special headings or titles for personal blogs or creative projects.",
+        "Adding decorative text to chat messages or online forums.",
+        "Making announcements or promotional content more visually appealing."
+      ],
+      underlyingConcept: "The tool works by leveraging the extensive character set of Unicode. Beyond standard alphanumeric characters, Unicode includes thousands of symbols, diacritics, and stylistic variations that, when combined, can mimic different font styles. Each \"fancy font\" is essentially a mapping of standard characters to these alternative Unicode characters, which are then rendered by any system that supports Unicode.",
       faqs: [
         {
           "question": "How can I generate fancy fonts for my social media bio?",
@@ -1030,9 +1155,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste text", "Copy tags"],
       features: ["Extract hashtags from a block of text.", "Supports multi-line text.", "Copy extracted hashtags with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Hashtag Extractor is a specialized tool that scans a given block of text and automatically identifies and lists all embedded hashtags. This utility is invaluable for social media managers, content strategists, and data analysts who need to quickly pinpoint trending topics, analyze campaign performance, or organize user-generated content by relevant tags.",
+      usageExamples: [
+        "Analyzing the trending hashtags in a collection of social media posts.",
+        "Extracting relevant hashtags from customer feedback or comments for sentiment analysis.",
+        "Curating a list of popular tags for a marketing campaign.",
+        "Cleaning text data by separating hashtags from the main content."
+      ],
+      underlyingConcept: "Hashtags are words or phrases prefixed with a hash symbol (`#`) and are used on social media platforms to categorize content and make it discoverable. The tool operates by applying pattern matching, typically using regular expressions, to identify sequences of characters that start with `#` and are followed by alphanumeric characters (and sometimes underscores), until a whitespace or punctuation mark is encountered.",
       faqs: [
         {
           "question": "What is a hashtag extractor?",
@@ -1061,9 +1191,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload image", "Adjust sliders", "Download"],
       features: ["Apply CSS filters like grayscale, sepia, and blur to images.", "Adjust brightness, contrast, and saturation.", "Download the filtered image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Image Filters tool allows users to apply various visual effects to images directly within their browser. Utilizing CSS filter properties, it enables real-time adjustments such as grayscale conversion, sepia toning, blurring, brightness control, and more, all without needing complex image editing software. This makes it ideal for quick edits, design prototyping, and experimenting with visual styles.",
+      usageExamples: [
+        "Quickly adjusting the brightness or contrast of a photo for web use.",
+        "Applying a vintage sepia tone to an image for a nostalgic effect.",
+        "Blurring sensitive areas of an image before sharing.",
+        "Experimenting with different filter combinations for creative design."
+      ],
+      underlyingConcept: "CSS filters are a powerful feature that can be applied to elements on a webpage, including images, to achieve various visual effects. These filters operate directly on the pixels of the rendered element. For instance, `grayscale()` converts an image to shades of gray, `sepia()` gives it a brownish tint, and `blur()` applies a Gaussian blur effect. The tool provides sliders or input fields that directly manipulate the values of these CSS properties, which are then applied to the image in real-time using JavaScript.",
       faqs: [
         {
           "question": "How can I apply filters to my photos?",
@@ -1092,9 +1227,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Adjust settings", "Copy SVG"],
       features: ["Create organic blob shapes for backgrounds.", "Customize complexity and contrast.", "Copy the SVG code with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The SVG Blob Generator is a creative tool that allows users to easily design unique, organic, and irregularly shaped SVG (Scalable Vector Graphics) blobs. These versatile shapes are popular in modern web design for adding a playful, fluid, and dynamic touch to backgrounds, sections, or UI elements, without the performance overhead of raster images.",
+      usageExamples: [
+        "Designing abstract background elements for website hero sections or banners.",
+        "Creating unique shapes for UI components like buttons, cards, or containers.",
+        "Adding organic design elements to digital art or illustrations.",
+        "Experimenting with fluid geometric forms for branding or visual identity."
+      ],
+      underlyingConcept: "SVG blobs are typically generated using mathematical curves, often Bézier curves, which allow for smooth, continuous shapes. The tool manipulates parameters such as the number of control points, their distances from the center, and the smoothness of the curves to create a wide variety of \"blobby\" forms. These parameters are often randomized to produce unique shapes with each generation, and the output is pure SVG code, which is resolution-independent and highly scalable.",
       faqs: [
         {
           "question": "What is an SVG blob?",
@@ -1123,9 +1263,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Set layers", "Copy SVG"],
       features: ["Generate smooth wave dividers for your website.", "Customize wave height, layers, and color.", "Copy the SVG code with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The SVG Wave Generator is a creative design tool that enables users to effortlessly produce smooth, customizable wave shapes in SVG (Scalable Vector Graphics) format. These waves are commonly employed as elegant visual dividers or background elements on websites, adding a modern, dynamic, and aesthetically pleasing touch to layouts without relying on raster images that can pixelate or increase load times.",
+      usageExamples: [
+        "Creating stylish section dividers between different content blocks on a webpage.",
+        "Designing unique background patterns for hero sections or footers.",
+        "Adding fluid, organic shapes to presentations or digital art.",
+        "Enhancing the visual appeal of web applications with custom wave designs."
+      ],
+      underlyingConcept: "Similar to SVG blobs, SVG waves are constructed using mathematical curves, typically Bézier curves, which define the path of the wave. The generator allows manipulation of parameters such as amplitude (wave height), frequency (number of waves), layers, and color. By adjusting these parameters, the tool dynamically generates the SVG path data that renders the desired wave pattern, providing a lightweight, responsive, and resolution-independent graphic.",
       faqs: [
         {
           "question": "What are SVG waves?",
@@ -1154,9 +1299,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Press key", "See codes"],
       features: ["Get JavaScript event codes for any key press.", "Displays key, code, and which properties.", "Useful for keyboard event handling in JavaScript."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Keycode Event Info tool is an interactive utility for web developers and programmers to quickly identify JavaScript event properties (like `key`, `code`, and `which`) associated with any keyboard key press. This real-time feedback is invaluable for accurately implementing keyboard shortcuts, game controls, or any interactive feature that relies on specific key inputs in web applications.",
+      usageExamples: [
+        "Developing custom keyboard shortcuts for a web-based text editor or application.",
+        "Implementing game controls in a browser-based game using specific key inputs.",
+        "Debugging unexpected behavior in JavaScript keydown/keyup event listeners.",
+        "Learning about the different key identifiers available in JavaScript event objects."
+      ],
+      underlyingConcept: "When a key is pressed on a keyboard, the browser generates a keyboard event object. This object contains several properties that describe the event, including `key` (the string value of the key, accounting for modifiers like Shift), `code` (the physical key pressed, regardless of modifiers), and the deprecated `which` (the ASCII value or virtual key code). The tool listens for these DOM keyboard events and displays these properties in real-time, providing immediate insight into the event data.",
       faqs: [
         {
           "question": "What are key codes?",
@@ -1185,9 +1335,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Open tool", "See stats"],
       features: ["View your current screen and viewport dimensions.", "Includes color depth and pixel ratio.", "Useful for responsive design testing."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Screen Resolution Info tool provides detailed information about your current display environment, including screen resolution, viewport dimensions, color depth, and pixel ratio. This is particularly valuable for web developers, designers, and testers who need to ensure their content renders optimally across a wide array of devices and screen configurations, aiding in responsive design and accessibility efforts.",
+      usageExamples: [
+        "Verifying the actual viewport size when developing responsive web applications.",
+        "Testing how designs scale on different screen resolutions.",
+        "Debugging layout issues that appear only on specific display configurations.",
+        "Understanding pixel density (DPI/PPI) for optimizing image assets."
+      ],
+      underlyingConcept: "Web browsers provide access to various screen and window properties through the JavaScript `window.screen` and `window.innerWidth`/`innerHeight` objects. `window.screen` gives information about the physical screen (total resolution, color depth), while `window.innerWidth`/`innerHeight` provides the dimensions of the browser's viewport (the visible area of the webpage). The tool queries these browser APIs in real-time to display the relevant statistics to the user.",
       faqs: [
         {
           "question": "What is screen resolution?",
@@ -1216,9 +1371,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Type text", "Click speak"],
       features: ["Convert text to spoken audio in your browser.", "Supports multiple voices and languages.", "Adjust pitch and speed of the voice."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Text to Speech (TTS) tool converts written text into synthesized spoken audio directly within your web browser. This accessibility feature is invaluable for users with visual impairments, learning disabilities, or anyone who prefers to listen to content. It offers customizable voices, languages, and speech parameters, making digital content more engaging and accessible.",
+      usageExamples: [
+        "Listening to articles, e-books, or long documents while multitasking.",
+        "Assisting individuals with reading difficulties or visual impairments to consume digital content.",
+        "Practicing pronunciation in different languages.",
+        "Creating audio versions of short texts for presentations or educational materials."
+      ],
+      underlyingConcept: "The tool utilizes the Web Speech API (specifically, `SpeechSynthesis` and `SpeechSynthesisUtterance`) available in modern web browsers. This API allows JavaScript to access the device's built-in text-to-speech capabilities. When text is input, an `SpeechSynthesisUtterance` object is created with the text and desired parameters (voice, pitch, rate), which is then spoken by the `SpeechSynthesis` interface. All processing happens client-side, ensuring privacy.",
       faqs: [
         {
           "question": "How does text-to-speech work?",
@@ -1247,9 +1407,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Enter number", "See result"],
       features: ["Convert numbers to Roman numerals and back.", "Supports both integer to Roman and Roman to integer conversion.", "Easy to use interface."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Roman Numeral Converter is a utility for translating modern Arabic numerals into their ancient Roman counterparts and vice-versa. This tool simplifies working with a numeral system that, despite its historical significance, can be challenging to manipulate manually, especially for larger numbers. It's useful for educational purposes, historical contexts, or specific design applications.",
+      usageExamples: [
+        "Converting years (e.g., 2023) into Roman numerals for architectural inscriptions or copyright dates.",
+        "Reading and understanding Roman numerals found in historical documents or movie credits.",
+        "Using Roman numerals for aesthetic numbering in outlines or lists.",
+        "Educational purposes to learn the Roman numeral system."
+      ],
+      underlyingConcept: "The Roman numeral system uses seven basic symbols (I, V, X, L, C, D, M) which represent specific values. Numbers are formed by combining these symbols, often following a principle of addition (symbols placed right of a larger value add to it) and subtraction (symbols placed left of a larger value subtract from it, e.g., IV = 4). The converter implements an algorithm that iteratively subtracts or adds values based on these rules to perform the conversion.",
       faqs: [
         {
           "question": "What are Roman numerals?",
@@ -1278,9 +1443,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Enter birthdate", "See age"],
       features: ["Calculate your exact age in years, months, and days.", "Shows the total number of days you have lived.", "Easy to use interface."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Age Calculator is a simple yet precise tool that determines a person's exact age in years, months, and days based on their birth date and the current date. Beyond just providing the age, it offers a detailed breakdown of the duration, useful for various personal, administrative, or ceremonial purposes.",
+      usageExamples: [
+        "Quickly finding out someone's exact age for personal records or curiosity.",
+        "Calculating age for legal or administrative purposes where precise age is required.",
+        "Determining the time remaining until a significant future event, like a birthday.",
+        "Educational purposes to understand date arithmetic."
+      ],
+      underlyingConcept: "The Age Calculator performs date arithmetic. It takes two date inputs (birth date and current date) and calculates the difference by sequentially subtracting years, then months, then days. Special attention is paid to handling month and day rollovers (e.g., crossing month boundaries or leap years) to ensure the exact number of days, months, and years between the two dates is accurately computed.",
       faqs: [
         {
           "question": "How can I calculate my age?",
@@ -1309,9 +1479,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Set range", "Generate"],
       features: ["Generate random numbers within a specific range.", "Set minimum and maximum values.", "Generate multiple random numbers at once."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Random Number Generator is a utility that produces a sequence of numbers or a single number with no discernible pattern, within a user-defined range. This tool is valuable for simulations, games, statistical sampling, or any scenario where unpredictability and a lack of bias are desired. Users can specify minimum, maximum, and whether to generate integers or floating-point numbers.",
+      usageExamples: [
+        "Drawing lottery numbers or making random selections for games.",
+        "Simulating dice rolls or coin flips for a game or experimental setup.",
+        "Generating unique IDs or temporary passwords for testing purposes.",
+        "Creating random data sets for statistical analysis or machine learning model training."
+      ],
+      underlyingConcept: "While true randomness is difficult to achieve in deterministic computer systems, this tool typically employs a pseudorandom number generator (PRNG). A PRNG starts with an initial value (seed) and uses a deterministic algorithm to produce a sequence of numbers that appear random. Modern browsers often use cryptographically secure PRNGs (CSPRNGs) which are suitable for most general-purpose random number generation tasks, providing a high degree of statistical randomness and unpredictability.",
       faqs: [
         {
           "question": "How can I generate a random number?",
@@ -1340,9 +1515,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste list", "Remove dupes"],
       features: ["Remove duplicate entries from a list of text.", "Supports case-sensitive and case-insensitive matching.", "Copy the cleaned list with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Duplicate Line Remover is an essential utility for data cleaning and text processing. It efficiently scans a given block of text or a list of items and eliminates redundant entries, leaving only unique lines. This helps in refining data sets, ensuring accuracy, and improving the efficiency of various text-based tasks by removing unnecessary repetition.",
+      usageExamples: [
+        "Cleaning mailing lists or contact databases to remove duplicate entries.",
+        "Consolidating log files or server output to focus on unique events.",
+        "Refining keyword lists for SEO campaigns to avoid targeting the same phrases multiple times.",
+        "Preparing unique items for a randomized selection process."
+      ],
+      underlyingConcept: "The tool typically processes the input text line by line. Each line is compared against a collection of lines already encountered. If a line is found to be identical to one already in the collection (based on either case-sensitive or case-insensitive comparison, depending on user settings), it is discarded. Otherwise, it is added to the collection of unique lines and retained in the output. This comparison is usually performed using hash tables or set data structures for optimal performance.",
       faqs: [
         {
           "question": "How do I remove duplicate lines from my text?",
@@ -1371,9 +1551,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Paste text", "Encode/Decode"],
       features: ["Encode/Decode text to HTML entities.", "Supports all HTML special characters.", "Copy the result with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The HTML Entity Encoder/Decoder converts special characters in text into their corresponding HTML entity references (e.g., `&lt;` for `<`) and vice-versa. This is essential for correctly displaying reserved HTML characters in web content without them being interpreted as markup, preventing layout issues, and mitigating certain types of security vulnerabilities like Cross-Site Scripting (XSS).",
+      usageExamples: [
+        "Displaying code snippets or mathematical symbols accurately within an HTML document.",
+        "Sanitizing user-generated content before rendering it on a webpage to prevent malicious script injection (XSS).",
+        "Converting special characters in database entries to a web-safe format for consistent display.",
+        "Decoding HTML entities back into their original characters for readability or further text processing."
+      ],
+      underlyingConcept: "HTML entities are special codes used in HTML to represent characters that are reserved (like `<`, `>`, `&`, `\"`) or not easily typable on a standard keyboard (like `©`, `™`). Encoding involves replacing these actual characters with their entity references. Decoding reverses this process. The tool implements a lookup table or character mapping to perform these conversions according to the HTML standard, ensuring characters are rendered as intended by browsers.",
       faqs: [
         {
           "question": "What are HTML entities?",
@@ -1402,9 +1587,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Hover boxes", "Copy CSS"],
       features: ["Visual reference for all CSS cursor types.", "Hover to see the cursor in action.", "Copy the CSS code with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The CSS Cursor Viewer is a practical reference tool that visually showcases all available CSS cursor properties. By hovering over each example, users can instantly see how different cursor styles appear, making it easy to select the perfect cursor for interactive web elements. This eliminates the need for guesswork or repeated testing, streamlining the design and development process for user interfaces.",
+      usageExamples: [
+        "Choosing an appropriate cursor for draggable elements (`grab`, `grabbing`).",
+        "Indicating interactive elements that are clickable (`pointer`) versus static text (`text`).",
+        "Designing custom resize handles (`nw-resize`, `se-resize`).",
+        "Providing visual cues for loading states (`wait`, `progress`)."
+      ],
+      underlyingConcept: "The `cursor` CSS property defines the mouse cursor to display when the pointer is over an element. Browsers provide a set of predefined keyword values (e.g., `auto`, `default`, `none`, `pointer`, `help`, `wait`, `text`, `move`, `not-allowed`, `zoom-in`, `alias`, `copy`, `grab`, `grabbing`, and various resizing cursors). The tool simply renders elements with these different `cursor` property values and allows users to interactively preview them.",
       faqs: [
         {
           "question": "What is the CSS cursor property?",
@@ -1433,9 +1623,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Search device", "See specs"],
       features: ["Reference guide for common device screen sizes.", "Includes viewport size, resolution, and pixel density.", "Search for specific devices."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Device Resolution List serves as a comprehensive reference guide for web developers and designers, cataloging common screen sizes and resolutions across various devices (desktops, laptops, tablets, and mobile phones). This resource is crucial for designing and testing responsive web layouts, ensuring optimal user experience regardless of the device used to access the content.",
+      usageExamples: [
+        "Designing responsive layouts that adapt seamlessly to different screen dimensions.",
+        "Testing website breakpoints and media queries against real-world device sizes.",
+        "Ensuring content is readable and interactive on various mobile and tablet displays.",
+        "Making informed decisions about image and video asset optimization based on common device pixel densities."
+      ],
+      underlyingConcept: "Modern web design heavily relies on responsive principles, where layouts fluidly adjust to the user's screen size. This tool provides a curated dataset of these common dimensions. While browsers offer APIs to detect screen/viewport sizes, having a static reference helps in planning and ensuring cross-device compatibility, especially considering the vast and ever-growing ecosystem of digital devices.",
       faqs: [
         {
           "question": "Why is it important to know the screen resolutions of different devices?",
@@ -1464,9 +1659,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Set size", "Copy URL"],
       features: ["Generate placeholder image URLs.", "Customize image size and grayscale.", "Get a random image or a specific one by ID."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Lorem Picsum Generator provides a simple and efficient way to generate placeholder image URLs. These URLs can be used in web development and design mockups to quickly populate layouts with visually appealing, royalty-free images of various sizes and styles. It eliminates the need to source or create temporary image assets, streamlining the prototyping and development process.",
+      usageExamples: [
+        "Rapidly populating image galleries or hero sections in web development mockups.",
+        "Testing responsive image loading with different dimensions.",
+        "Creating placeholders for design wireframes or presentations.",
+        "Generating quick, visually diverse images for development sandbox environments."
+      ],
+      underlyingConcept: "Lorem Picsum operates as an image placeholder service. When a request is made to its API (typically through a URL containing desired width, height, and optional parameters), the service dynamically serves a random or specific image from its collection. The tool generates these specialized URLs, allowing developers to integrate diverse placeholders without local storage or complex setup, relying on the external service to deliver the image content.",
       faqs: [
         {
           "question": "What is a placeholder image?",
@@ -1495,9 +1695,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Click style", "Copy code"],
       features: ["Visualizer for all CSS border styles.", "Click to see the border style in action.", "Copy the CSS code with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The CSS Border Preview tool offers an interactive visual guide to all standard CSS border styles. Developers and designers can quickly explore how different border styles (like solid, dotted, dashed, groove, ridge, inset, outset) render, select a style, and instantly get the corresponding CSS code. This streamlines the process of adding custom and visually distinct borders to web elements.",
+      usageExamples: [
+        "Experimenting with various border styles to find the perfect visual treatment for UI elements.",
+        "Designing visually distinct containers or sections on a webpage.",
+        "Creating emphasis around specific content blocks.",
+        "Quickly obtaining CSS code for standard border properties without manual lookup."
+      ],
+      underlyingConcept: "The `border-style` CSS property defines the style of an element's four borders. It accepts a range of keywords, each with a specific rendering behavior defined by the CSS specification. For example, `solid` creates a single, straight line, `dotted` creates a series of dots, and `groove` creates a carved-in appearance. The tool dynamically applies these `border-style` properties to a sample element and displays them, allowing for direct visual comparison and code generation.",
       faqs: [
         {
           "question": "What is the CSS border property?",
@@ -1526,9 +1731,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Select style", "Customize", "Copy"],
       features: ["Generate pure CSS background patterns.", "Customize colors and pattern size.", "Copy the CSS code with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The CSS Background Patterns tool enables web developers and designers to create intricate and visually appealing background patterns using only CSS, completely avoiding image files. This approach results in lightweight, resolution-independent, and easily customizable patterns that can enhance the aesthetic of any webpage without negatively impacting load times or scalability.",
+      usageExamples: [
+        "Designing subtle textured backgrounds for website sections or entire pages.",
+        "Creating repeating geometric patterns for banners or hero images.",
+        "Implementing unique visual motifs for UI components or cards.",
+        "Experimenting with different pattern densities and color combinations for branding."
+      ],
+      underlyingConcept: "Pure CSS patterns are typically generated using a combination of CSS `background-image` properties with multiple linear or radial gradients, `background-size`, and `background-position`. By strategically layering and repeating these gradients, complex visual effects can be achieved. For example, a simple grid pattern might involve two linear gradients crossing each other. The tool provides a visual interface to manipulate these CSS properties and then outputs the generated CSS snippet.",
       faqs: [
         {
           "question": "What are CSS background patterns?",
@@ -1557,9 +1767,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Draw", "Download"],
       features: ["Draw and save digital signatures.", "Customize pen color and thickness.", "Download the signature as a PNG image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Signature Pad is an interactive tool that enables users to create and save digital representations of their handwritten signatures directly in the browser. It provides a canvas where users can draw with a mouse or touchscreen, offering customizable pen styles. This is useful for digitizing signatures for online documents, forms, or personal use without the need for scanning or external hardware.",
+      usageExamples: [
+        "Signing digital documents or online forms that require a handwritten signature.",
+        "Creating a personal digital signature for emails or artistic projects.",
+        "Quickly digitizing a signature for use in presentations or design mockups.",
+        "Collecting consent or approval for online agreements in a visually authentic manner."
+      ],
+      underlyingConcept: "The Signature Pad utilizes HTML5 Canvas technology to provide a drawing surface. When a user interacts with the canvas (e.g., mouse down, move, up events), the tool captures these coordinates and renders lines between them, creating the appearance of a handwritten stroke. The final signature can then be exported as an image (typically PNG or SVG) by converting the canvas content into a data URL. All drawing and processing occur client-side for user privacy.",
       faqs: [
         {
           "question": "What is an online signature pad?",
@@ -3647,9 +3862,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload video", "Click compress", "Download"],
       features: ["Reduce video file size without significant quality loss.", "Adjust compression level.", "Preview compressed video before downloading."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Video Compressor tool efficiently reduces the file size of video clips while striving to maintain visual quality. This is crucial for optimizing videos for web upload, email attachments, or saving storage space. By adjusting various compression parameters, users can achieve a balance between file size and acceptable quality for their specific needs, making videos easier to share and distribute.",
+      usageExamples: [
+        "Compressing large video files for faster uploading to YouTube, Vimeo, or social media platforms.",
+        "Reducing the size of video attachments to send via email without exceeding limits.",
+        "Optimizing video content for mobile viewing, ensuring quick loading times on slower connections.",
+        "Saving disk space on devices by compressing stored video collections."
+      ],
+      underlyingConcept: "Video compression works by removing redundant information from the video stream. This can involve spatial redundancy (pixels that are identical or very similar within a single frame), temporal redundancy (pixels that remain the same across consecutive frames), and psycho-visual redundancy (information that the human eye is less likely to perceive). Common compression algorithms (codecs) like H.264 or H.265 are employed, often by re-encoding the video with a lower bitrate or by adjusting resolution, frame rate, and other parameters that directly impact file size and perceived quality.",
       faqs: [
         {
           "question": "How can I reduce the size of a video file for free?",
@@ -3678,9 +3898,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload video", "Convert", "Download MP3"],
       features: ["Extract audio tracks from video files as MP3.", "High-quality audio extraction.", "Supports various video formats."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Video to Audio Converter is a utility that extracts the audio track from a video file and converts it into a standalone audio format, typically MP3. This is highly useful for users who need only the sound portion of a video, such as for podcasts, background music, or speech analysis, without the visual component. The conversion happens client-side, ensuring privacy.",
+      usageExamples: [
+        "Extracting audio from a music video to create an MP3 for listening on a portable device.",
+        "Converting a lecture or presentation video into an audio-only format for easier note-taking or listening on the go.",
+        "Creating audio snippets from longer video clips for use in podcasts or multimedia projects.",
+        "Saving storage space by keeping only the audio part of a video recording."
+      ],
+      underlyingConcept: "Video files contain both a video stream (visual data) and one or more audio streams (sound data), multiplexed together. This tool demultiplexes (separates) these streams, discards the video stream, and then transcodes (converts) the extracted audio stream into a desired audio format like MP3. Modern web browsers support the WebCodecs API or similar technologies which enable efficient client-side media processing for this type of conversion.",
       faqs: [
         {
           "question": "How do I convert a video to an MP3 file?",
@@ -3740,9 +3965,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload video", "Set start/end", "Trim"],
       features: ["Cut and trim video files to desired length.", "Easy-to-use timeline for trimming.", "Preview trimmed video before downloading."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Trim Video tool allows users to precisely cut and shorten video clips to their desired length. This is invaluable for editing out unwanted sections, extracting specific highlights, or preparing videos for platforms with duration limits. By providing an intuitive interface to set start and end points, the tool simplifies video editing without requiring complex software.",
+      usageExamples: [
+        "Trimming the beginning or end of a home video to remove irrelevant footage.",
+        "Extracting a short, impactful clip from a longer recording for social media sharing.",
+        "Shortening a presentation video to focus on key segments.",
+        "Preparing video testimonials or highlights within specific time constraints."
+      ],
+      underlyingConcept: "Video trimming fundamentally involves selecting a start and end timestamp within a video file and then creating a new video that only contains the frames between those two points. For client-side tools, this process often leverages web APIs such as the HTML5 `video` element and Canvas for frame manipulation, or more advanced libraries that can re-encode segments of the video. The goal is to perform this operation without re-encoding the entire video, which preserves quality and speeds up processing, only re-encoding the cut points if necessary.",
       faqs: [
         {
           "question": "How can I trim a video online for free?",
@@ -3771,9 +4001,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload video", "Select format", "Convert"],
       features: ["Convert videos between different formats like MP4, AVI, MOV.", "High-speed conversion.", "Supports a wide range of video formats."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Video Format Converter is a versatile tool that enables users to effortlessly change video files from one format to another (e.g., MP4 to AVI, MOV to WebM). This is essential for ensuring compatibility across various devices, media players, and online platforms, as different systems often support a limited range of video codecs and containers. The tool simplifies the transcoding process, making videos accessible wherever they need to be.",
+      usageExamples: [
+        "Converting a video to MP4 for universal compatibility across most devices and web browsers.",
+        "Changing a video's format to meet specific upload requirements for social media platforms or video hosting sites.",
+        "Transcoding older video formats (like AVI) into more modern and efficient ones (like WebM) to save storage space.",
+        "Preparing video content for specialized editing software that requires a particular input format."
+      ],
+      underlyingConcept: "Video conversion (transcoding) involves decoding the original video file, which breaks it down into raw audio and video streams, and then re-encoding these streams into the new target format's specified codecs and container. This process can be computationally intensive but allows for significant flexibility in video usage. Client-side tools leverage browser APIs and JavaScript libraries (often WebAssembly-powered for performance) to perform this decoding and re-encoding without uploading the video to a server, ensuring user privacy and faster processing for smaller files.",
       faqs: [
         {
           "question": "How can I convert a video from one format to another?",
@@ -3803,9 +4038,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload video", "Set time", "Extract"],
       features: ["Extract image thumbnails from specific timestamps in a video.", "Select thumbnail size.", "Download thumbnail as a PNG image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Video Thumbnail Extractor allows users to capture high-quality still images (thumbnails) from any point within a video file. This is particularly useful for creating preview images for video content, generating custom social media assets, or simply extracting memorable frames without needing to play through the entire video or use complex editing software.",
+      usageExamples: [
+        "Creating compelling thumbnail images for YouTube videos or other video hosting platforms to attract viewers.",
+        "Extracting key frames from a tutorial or presentation video for use in documentation or slide decks.",
+        "Generating custom preview images for video content shared on social media platforms.",
+        "Saving a favorite moment from a home video as a high-resolution still image."
+      ],
+      underlyingConcept: "Video files are composed of a sequence of individual frames. This tool leverages browser APIs (like the HTML5 `video` element and Canvas) to load the video, seek to a specific timestamp, and then draw that precise video frame onto a hidden canvas element. The content of this canvas is then converted into an image file (e.g., PNG), which can be downloaded by the user. All processing occurs client-side, ensuring user privacy and fast extraction.",
       faqs: [
         {
           "question": "How can I get a thumbnail from a video?",
@@ -3834,9 +4074,14 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload video", "Mute", "Download"],
       features: ["Remove audio track from a video file.", "Supports various video formats.", "Download muted video with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
+      explanation: "The Mute Video tool provides a simple and efficient way to remove the audio track from any video file. This is particularly useful when the video's sound is unnecessary, distracting, or needs to be replaced with new audio. By stripping out the audio, the tool can also slightly reduce the overall file size, making the video more suitable for specific sharing or playback contexts.",
+      usageExamples: [
+        "Creating silent video loops for background elements on a website.",
+        "Removing unwanted background noise or conversations from recorded footage.",
+        "Preparing a video to have a new voiceover or music track added.",
+        "Sharing sensitive video content without compromising privacy through accompanying audio."
+      ],
+      underlyingConcept: "Video files typically contain separate streams for video (visual data) and audio (sound data). When a video is muted, the tool doesn't re-encode the entire video; instead, it either removes the audio stream entirely or sets its volume to zero during the transcoding process. This ensures that the visual quality of the video remains unaffected while achieving the desired silent output. Client-side processing ensures user privacy.",
       faqs: [
         {
           "question": "How can I remove the audio from a video?",
@@ -3865,10 +4110,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload image", "Upload watermark", "Apply"],
       features: ["Add image or text watermarks to your photos.", "Adjust watermark opacity and position.", "Download watermarked image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Watermark Adder tool enables users to protect their images by embedding customizable text or image watermarks directly onto their photos. This is an essential feature for photographers, artists, and businesses to assert ownership, prevent unauthorized use, and promote their brand across digital platforms. The tool offers flexibility in design, allowing adjustments to position, size, and transparency.",
+      usageExamples: [
+        "Adding a copyright notice or logo to professional photographs before sharing online.",
+        "Protecting original artwork or illustrations from unauthorized use or replication.",
+        "Branding product images for e-commerce websites or digital catalogs.",
+        "Creating a subtle visual signature for personal photos shared on social media."
+      ],
+      underlyingConcept: "Watermarking digitally modifies an image's pixel data to embed a visual identifier. For text watermarks, the tool renders the text onto a transparent layer, which is then composited onto the original image. For image watermarks (like logos), the watermark image is similarly composited. Options for opacity control the blending of the watermark with the base image. All operations are typically performed client-side using Canvas APIs, ensuring that original images are not uploaded to servers and user privacy is maintained.",
+      faqs: [
+        {
+          "question": "How can I add a watermark to my photos online?",
+          "answer": "Our free Watermark Adder tool allows you to easily upload your photo and then add either text or image watermarks. You can customize the watermark's position, size, and transparency before downloading your watermarked image."
+        },
+        {
+          "question": "Can I add both text and image watermarks?",
+          "answer": "Yes, this tool supports adding both custom text watermarks and image watermarks (like your logo) to your photos, giving you flexibility to protect your work."
+        },
+        {
+          "question": "Is my photo secure when adding a watermark?",
+          "answer": "Absolutely. All watermarking processes are done directly in your browser. Your photos are never uploaded to our servers, ensuring your privacy and security."
+        }
+      ],
     },
   },
   {
@@ -3883,10 +4146,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload image", "Set size", "Download"],
       features: ["Resize images by dimensions or percentage.", "Maintain aspect ratio.", "Download resized image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Image Resizer tool provides a straightforward solution for adjusting the dimensions of images, either by specifying exact pixel values or by a percentage scale. This is vital for optimizing images for different contexts, such as web display, social media, or print, ensuring they fit within required specifications while controlling file size and maintaining visual quality.",
+      usageExamples: [
+        "Reducing large photos for faster website loading times without affecting page layout.",
+        "Cropping or resizing images to fit specific aspect ratios for social media banners or profile pictures.",
+        "Preparing images for email attachments to avoid large file sizes.",
+        "Scaling down high-resolution images for use in presentations or documents."
+      ],
+      underlyingConcept: "Image resizing involves re-sampling the pixel data of an image to a new set of dimensions. When an image is scaled down, pixels are discarded; when scaled up, new pixels are interpolated based on neighboring pixel values. Maintaining the aspect ratio during this process is crucial to prevent stretching or squishing the image. The tool typically performs these operations client-side using Canvas APIs, allowing for direct manipulation of image data within the browser.",
+      faqs: [
+        {
+          "question": "How can I resize an image online for free?",
+          "answer": "Our free Image Resizer tool allows you to easily upload your image and then resize it by specific dimensions (width and height) or by a percentage. You can maintain the aspect ratio to prevent distortion."
+        },
+        {
+          "question": "Will resizing my image affect its quality?",
+          "answer": "When you reduce the size of an image, there is typically minimal to no loss in visible quality. However, significantly enlarging a small image can lead to pixelation. Our tool helps you balance size and quality."
+        },
+        {
+          "question": "Is my image secure when I use this resizer?",
+          "answer": "Yes, your privacy is our priority. All image resizing operations are performed directly in your browser. Your images are never uploaded to our servers, ensuring your data remains completely private."
+        }
+      ],
     },
   },
   {
@@ -3901,10 +4182,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload image", "Select format", "Convert"],
       features: ["Convert images between formats like PNG, JPG, WEBP.", "High-quality image conversion.", "Download converted image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Image Converter is a versatile tool designed to change image files from one format to another (e.g., JPG to PNG, PNG to WebP). This is crucial for ensuring compatibility across various platforms, optimizing images for web performance, or meeting specific requirements for print or other applications. The tool simplifies the conversion process, making it easy to adapt images to any digital context.",
+      usageExamples: [
+        "Converting high-quality PNG images to smaller JPG files for faster website loading.",
+        "Changing images to WebP format to leverage modern web optimization techniques.",
+        "Transforming images from less common formats into universally supported ones like JPG or PNG.",
+        "Preparing images for specific software or devices that only accept certain file types."
+      ],
+      underlyingConcept: "Image conversion involves decoding the pixel data from the original image format and then re-encoding it into the new target format. Different image formats employ various compression algorithms (e.g., JPEG uses lossy compression, PNG uses lossless compression, WebP uses both). The tool manages these decoding and re-encoding processes, often leveraging client-side browser APIs or specialized JavaScript libraries, to produce the desired output format while attempting to preserve image quality based on the characteristics of the chosen format.",
+      faqs: [
+        {
+          "question": "How can I convert an image to a different format online?",
+          "answer": "Our free Image Converter tool allows you to easily upload your image and then select your desired output format, such as PNG, JPG, or WEBP. The conversion happens quickly, and you can then download your image in the new format."
+        },
+        {
+          "question": "What image formats are supported for conversion?",
+          "answer": "Our tool supports a wide range of popular image formats for both input and output, including JPG, PNG, WEBP, GIF, and many others. This ensures flexibility for all your conversion needs."
+        },
+        {
+          "question": "Will converting my image reduce its quality?",
+          "answer": "While some formats (like JPG) use lossy compression, our converter is designed to maintain the highest possible quality during the conversion process. For formats like PNG and WEBP, quality loss is minimal or non-existent, and you often gain smaller file sizes."
+        }
+      ],
     },
   },
   {
@@ -3920,10 +4219,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Upload image", "Set quality", "Compress"],
       features: ["Compress images to reduce file size while maintaining quality.", "Adjust compression level.", "Preview compressed image before downloading."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Image Compressor tool efficiently reduces the file size of digital images while striving to preserve their visual quality. This optimization is crucial for improving website loading speeds, reducing bandwidth usage, and saving storage space. Users can typically adjust the compression level to achieve a desired balance between file size reduction and image fidelity, making it a valuable tool for webmasters, photographers, and digital artists.",
+      usageExamples: [
+        "Optimizing images for a website or blog to enhance page load performance and SEO.",
+        "Reducing the size of photo attachments for email to ensure they send quickly and fit mailbox limits.",
+        "Compressing large image libraries to free up storage space on devices or cloud services.",
+        "Preparing images for specific platforms (e.g., social media) that have file size restrictions."
+      ],
+      underlyingConcept: "Image compression relies on various algorithms to eliminate redundant or less perceptually important data from an image file. Lossy compression (common in JPEG) discards some data permanently to achieve significant size reduction, while lossless compression (common in PNG) reduces file size without losing any information. The tool processes the image pixels, applies a chosen compression algorithm (often by converting to a more efficient format like WebP or by adjusting JPEG quality settings), and then generates the smaller output file.",
+      faqs: [
+        {
+          "question": "How can I compress an image online to reduce its file size?",
+          "answer": "Our free Image Compressor tool allows you to upload your image and then adjust the compression level to significantly reduce its file size. You can preview the compressed image before downloading to ensure quality."
+        },
+        {
+          "question": "Will compressing my image affect its visual quality?",
+          "answer": "Our tool is designed to provide smart compression, minimizing file size while preserving as much visual quality as possible. You can control the compression level to find the perfect balance between file size and image clarity."
+        },
+        {
+          "question": "Is my image protected during compression?",
+          "answer": "Yes, absolutely. All image compression processes occur locally in your browser. Your images are never uploaded to our servers, ensuring complete privacy and security for your data."
+        }
+      ],
     },
   },
   {
@@ -3986,10 +4303,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Set length", "Click generate"],
       features: ["Generate strong, secure passwords.", "Customize password length and character types.", "Copy generated password with a single click."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Password Generator is a utility designed to create highly secure and unique passwords. It allows users to customize the password's length and character types (uppercase, lowercase, numbers, and symbols), ensuring the generated passwords are robust against common cracking methods like brute-force attacks and dictionary attacks. This tool promotes stronger online security by making it easy to create complex and unpredictable credentials.",
+      usageExamples: [
+        "Creating a new, strong password for an online account or service.",
+        "Generating secure, random passwords for Wi-Fi networks or encrypted archives.",
+        "Educating users on the importance of password complexity and randomness.",
+        "As a quick source for unique character strings for testing or development purposes."
+      ],
+      underlyingConcept: "Password generation relies on pseudo-random number generation to select characters from a defined set based on user preferences. The strength of the generated password is directly proportional to its length and the size of the character set (entropy). By allowing combinations of various character types, the tool increases the search space for potential attackers, making brute-force attempts computationally infeasible within a reasonable timeframe. Modern implementations often use cryptographically secure random number generators for enhanced security.",
+      faqs: [
+        {
+          "question": "How can I generate a strong, secure password online?",
+          "answer": "Our free Password Generator creates highly secure, random passwords. Simply choose your desired length and select character types (uppercase, lowercase, numbers, symbols), then click generate to get an instant strong password."
+        },
+        {
+          "question": "What makes a password generated by this tool secure?",
+          "answer": "Our tool creates passwords that are random and complex, combining various character types and lengths, which makes them extremely difficult to guess or crack by brute-force methods. The more random and longer the password, the stronger it is."
+        },
+        {
+          "question": "Is it safe to generate passwords using an online tool?",
+          "answer": "Yes, this tool is safe to use. All password generation happens locally in your browser. The generated passwords are never sent to our servers or stored anywhere, ensuring your privacy and security."
+        }
+      ],
     },
   },
   {
@@ -4004,10 +4339,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Enter text", "Download QR code"],
       features: ["Generate QR codes from text or URLs.", "Customize QR code color and size.", "Download QR code as a PNG image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The QR Code Generator is a digital utility that creates Quick Response (QR) codes from various types of input, such as plain text, website URLs, contact information, or Wi-Fi credentials. These matrix barcodes can be scanned by smartphones or other devices to quickly access the encoded information, bridging the gap between physical and digital worlds for marketing, information sharing, and convenience.",
+      usageExamples: [
+        "Generating QR codes for website links to be displayed on print materials or product packaging.",
+        "Creating QR codes with Wi-Fi login details for guests at a business or home.",
+        "Embedding contact information (vCard) into a QR code for easy sharing at networking events.",
+        "Using QR codes for quick access to menus, promotions, or event registration."
+      ],
+      underlyingConcept: "QR codes are two-dimensional barcodes that can store a significant amount of data. The generator translates the input data into a standardized binary format, which is then mapped onto a grid of black and white squares. Error correction algorithms are typically applied during generation to ensure the QR code remains scannable even if partially damaged or obscured. The visual pattern is a direct representation of this encoded and error-corrected binary data.",
+      faqs: [
+        {
+          "question": "How can I generate a QR code online for free?",
+          "answer": "Our free QR Code Generator allows you to easily create QR codes from any text or URL. Simply type or paste your content, and an instant QR code image will be generated for you to download."
+        },
+        {
+          "question": "Can I customize the appearance of my QR code?",
+          "answer": "Yes, you can customize your QR code's appearance by selecting different colors and adjusting its size. This helps ensure your QR code matches your brand or design aesthetics."
+        },
+        {
+          "question": "What can I use a generated QR code for?",
+          "answer": "QR codes are versatile! You can use them to share website links, contact information, Wi-Fi credentials, app download links, or even plain text messages quickly and efficiently."
+        }
+      ],
     },
   },
   {
@@ -4022,10 +4375,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Select dates", "See result"],
       features: ["Calculate the difference between two dates.", "Add or subtract days from a date.", "Shows the difference in years, months, and days."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Date Calculator is a practical utility for performing various calculations involving dates. It allows users to quickly determine the duration between two specific dates, add or subtract days/months/years from a given date, or even find a future/past date based on a starting point and an interval. This tool is valuable for planning, scheduling, or simply understanding time spans.",
+      usageExamples: [
+        "Calculating the exact number of days between two events or deadlines.",
+        "Determining a project's completion date by adding a certain number of working days.",
+        "Finding a birth date or anniversary by subtracting an age from the current date.",
+        "Planning travel itineraries or scheduling appointments with precise date calculations."
+      ],
+      underlyingConcept: "Date calculations are complex due to varying month lengths and the existence of leap years. The tool performs arithmetic operations on date objects, taking these factors into account. It often normalizes dates to a common reference point (like Unix epoch time) for accurate subtraction and addition, and then converts the resulting time difference back into human-readable years, months, and days, ensuring precision across different calendar scenarios.",
+      faqs: [
+        {
+          "question": "How can I calculate the difference between two dates online?",
+          "answer": "Our free Date Calculator allows you to easily find the duration between any two dates. Simply select the start and end dates, and the tool will instantly show you the difference in years, months, and days."
+        },
+        {
+          "question": "Can this tool add or subtract days from a specific date?",
+          "answer": "Yes, in addition to finding the difference, you can also use this calculator to add or subtract a specified number of days from any given date to find a future or past date."
+        },
+        {
+          "question": "Is this date calculator accurate for all time zones?",
+          "answer": "This tool performs calculations based on standard date arithmetic. While it doesn't specifically account for time zones, it provides accurate day counts. For time zone specific calculations, consider our Time Zone Converter tool."
+        }
+      ],
     },
   },
   {
@@ -4040,10 +4411,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Start timer", "Work", "Take break"],
       features: ["A timer to help you focus using the Pomodoro Technique.", "Customizable work and break intervals.", "Audio and visual notifications."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Pomodoro Timer is a productivity tool based on the Pomodoro Technique, a time management method that breaks down work into focused intervals, typically 25 minutes long, separated by short breaks. This structured approach helps users maintain concentration, prevent burnout, and improve overall efficiency. The timer guides users through these cycles with customizable durations and clear notifications.",
+      usageExamples: [
+        "Improving focus and productivity for students studying for exams or completing assignments.",
+        "Enhancing work efficiency for professionals tackling complex tasks or projects.",
+        "Preventing digital distractions by committing to focused work blocks.",
+        "Structuring creative sessions or deep work periods to maximize output."
+      ],
+      underlyingConcept: "The Pomodoro Technique relies on the idea that frequent short breaks can improve mental agility and sustain focus over longer periods. The timer enforces a strict rhythm: a \"pomodoro\" (work interval) followed by a short break, and after several pomodoros, a longer break. This systematic segmentation of time helps in managing cognitive load and reinforces a cycle of concentration and rest, which is believed to optimize mental performance and reduce mental fatigue.",
+      faqs: [
+        {
+          "question": "What is the Pomodoro Technique and how does this timer help?",
+          "answer": "The Pomodoro Technique is a time management method that uses a timer to break down work into intervals, traditionally 25 minutes in length, separated by short breaks. Our Pomodoro Timer helps you stick to these intervals, improving focus and productivity."
+        },
+        {
+          "question": "Can I customize the work and break durations with this timer?",
+          "answer": "Yes, our Pomodoro Timer is fully customizable. You can set your preferred lengths for both work sessions and short/long breaks to best suit your personal workflow and concentration needs."
+        },
+        {
+          "question": "Does this timer provide notifications?",
+          "answer": "Absolutely. The timer includes both audio and visual notifications to alert you when a work interval ends and a break begins (and vice versa), ensuring you transition smoothly between tasks and rests without constantly checking the clock."
+        }
+      ],
     },
   },
   {
@@ -4058,10 +4447,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Select template", "Add text", "Download"],
       features: ["Create your own memes with popular templates.", "Add top and bottom text.", "Download the meme as a JPG image."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Meme Generator is a fun and creative tool that allows users to quickly generate popular internet memes using a selection of templates and custom text. It simplifies the process of adding top and bottom text captions to iconic images, enabling users to express humor, reactions, or commentary in a widely recognized digital format for sharing across social media and messaging platforms.",
+      usageExamples: [
+        "Creating humorous content for social media posts or online communities.",
+        "Expressing reactions or inside jokes within chat conversations.",
+        "Crafting viral marketing campaigns or engaging digital content.",
+        "Participating in online meme trends and cultural discussions."
+      ],
+      underlyingConcept: "Memes typically combine a recognizable image (template) with custom, often witty, text. The tool operates by taking a chosen template image and overlaying user-inputted text onto predefined regions (e.g., top and bottom of the image). The text rendering involves selecting appropriate fonts, sizes, and colors for legibility, usually with a dark outline for contrast. The final output is then rendered into a standard image format (like JPG) for easy sharing.",
+      faqs: [
+        {
+          "question": "How can I create my own memes online for free?",
+          "answer": "Our free Meme Generator allows you to quickly create custom memes. Simply choose from popular meme templates, add your desired top and bottom text, and then download your unique meme as a JPG image to share with friends."
+        },
+        {
+          "question": "Can I use my own images or only pre-loaded templates?",
+          "answer": "Currently, our tool focuses on providing a wide selection of popular meme templates. Support for uploading your own images to create memes may be a feature added in the future."
+        },
+        {
+          "question": "Is the generated meme saved with a watermark?",
+          "answer": "No, memes generated using our tool are completely free of watermarks. You can download and share your creations without any branding, ensuring full creative freedom."
+        }
+      ],
     },
   },
   {
@@ -4076,10 +4483,28 @@ export const TOOLS: Tool[] = [
       howToUse: ["Select units", "Enter value", "See result"],
       features: ["Convert between different units of measurement.", "Supports length, weight, temperature, and more.", "Easy to use interface."],
       privacy: PRIVACY_STATEMENT,
-      explanation: "",
-      usageExamples: [],
-      underlyingConcept: "",
-      faqs: [],
+      explanation: "The Unit Converter is a comprehensive utility designed to facilitate conversions between a vast array of measurement units across different categories. From fundamental quantities like length, mass, and time to more specialized units for temperature, volume, and data storage, this tool provides instant and accurate conversions, eliminating manual calculations and ensuring precision in various fields.",
+      usageExamples: [
+        "Converting kilometers to miles for travel planning or understanding international distances.",
+        "Changing Celsius to Fahrenheit for weather reports or cooking recipes.",
+        "Converting grams to ounces for ingredient measurements in culinary arts.",
+        "Translating data sizes from megabytes to gigabytes for file management."
+      ],
+      underlyingConcept: "Unit conversion relies on established conversion factors between different units within the same measurement system (e.g., meters to centimeters) or across different systems (e.g., meters to inches). The tool applies these precise numerical factors: it takes an input value and its original unit, looks up the corresponding conversion factor to the target unit, and then performs the necessary multiplication or division to yield the converted value. This mathematical process ensures the equivalence of the physical quantity despite the change in its unit of measure.",
+      faqs: [
+        {
+          "question": "How can I convert between different units of measurement online?",
+          "answer": "Our free Unit Converter tool makes it simple to convert between various units. Just select the categories (like length, weight, or temperature), input your value, choose the units to convert from and to, and get an instant, accurate result."
+        },
+        {
+          "question": "What types of units can this converter handle?",
+          "answer": "This versatile tool supports a wide range of measurement categories, including length (e.g., meters to feet), weight (e.g., kilograms to pounds), temperature (e.g., Celsius to Fahrenheit), volume, area, and many more, covering most common conversion needs."
+        },
+        {
+          "question": "Is this unit converter accurate?",
+          "answer": "Yes, our Unit Converter uses precise conversion factors to ensure all calculations are highly accurate. It's designed to provide reliable results for both everyday use and professional applications."
+        }
+      ],
     },
   },
   {
@@ -4097,7 +4522,20 @@ export const TOOLS: Tool[] = [
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [],
+      faqs: [
+        {
+          "question": "How can I calculate my Body Mass Index (BMI) online?",
+          "answer": "Our free BMI Calculator makes it easy to determine your Body Mass Index. Simply enter your height and weight, and the tool will instantly calculate your BMI and tell you which category it falls into (e.g., underweight, normal, overweight)."
+        },
+        {
+          "question": "Does this BMI calculator support both metric and imperial units?",
+          "answer": "Yes, our versatile BMI calculator supports both metric (kilograms and centimeters) and imperial (pounds and inches) units, allowing you to use the measurements you are most comfortable with."
+        },
+        {
+          "question": "What does my BMI result mean?",
+          "answer": "Your BMI is a screening tool that indicates whether you have a healthy weight for your height. The result places you into a category (underweight, normal weight, overweight, obese), which can help identify potential health risks, though it should be discussed with a healthcare professional."
+        }
+      ],
     },
   },
   {
@@ -4115,7 +4553,20 @@ export const TOOLS: Tool[] = [
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [],
+      faqs: [
+        {
+          "question": "How can I convert currencies online with real-time rates?",
+          "answer": "Our free Currency Converter allows you to easily convert between various world currencies using up-to-date exchange rates. Simply select your 'from' and 'to' currencies, enter the amount, and get an instant conversion result."
+        },
+        {
+          "question": "How many currencies does this converter support?",
+          "answer": "Our tool supports over 150 global currencies, including major world currencies and many local ones, ensuring you can perform nearly any currency conversion you need."
+        },
+        {
+          "question": "Is the exchange rate data reliable?",
+          "answer": "Yes, our Currency Converter uses data from reputable financial sources to provide real-time or near real-time exchange rates, making our conversions as accurate as possible for planning and estimation."
+        }
+      ],
     },
   },
   {
@@ -4133,7 +4584,20 @@ export const TOOLS: Tool[] = [
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [],
+      faqs: [
+        {
+          "question": "How can I check the current time in different cities globally?",
+          "answer": "Our free World Clock tool allows you to easily find the current local time for cities across the globe. Simply search for a city by name, and its current date and time will be displayed instantly."
+        },
+        {
+          "question": "Can I add multiple cities to track simultaneously?",
+          "answer": "Yes, you can build a personalized dashboard by adding multiple cities to track. This feature is perfect for coordinating with international teams, family abroad, or planning global events."
+        },
+        {
+          "question": "Does the World Clock automatically adjust for Daylight Saving Time (DST)?",
+          "answer": "Yes, our World Clock automatically accounts for Daylight Saving Time changes in each respective city, ensuring the displayed times are always accurate without you needing to manually adjust."
+        }
+      ],
     },
   },
   {
@@ -4151,7 +4615,20 @@ export const TOOLS: Tool[] = [
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [],
+      faqs: [
+        {
+          "question": "How can I use the online stopwatch and timer functions?",
+          "answer": "Our free Timers and Stopwatch tool provides both a simple countdown timer and a precise stopwatch. For the timer, set your desired duration and click start. For the stopwatch, simply click start, stop, and reset to measure elapsed time or record laps."
+        },
+        {
+          "question": "Can I set multiple timers or record laps with the stopwatch?",
+          "answer": "This tool offers a single, easy-to-use countdown timer. For the stopwatch function, you can indeed record multiple laps, making it convenient for tracking intervals during workouts or tasks."
+        },
+        {
+          "question": "Is this tool suitable for precise timing, like for sports or experiments?",
+          "answer": "While our digital stopwatch is designed for accuracy, it relies on your browser's performance. For highly critical, scientific, or professional sports timing where milliseconds are paramount, dedicated hardware might be more appropriate."
+        }
+      ],
     },
   },
   {
@@ -4169,7 +4646,20 @@ export const TOOLS: Tool[] = [
       explanation: "",
       usageExamples: [],
       underlyingConcept: "",
-      faqs: [],
+      faqs: [
+        {
+          "question": "How can I analyze the keyword density of my text online?",
+          "answer": "Our free Keyword Density Analyzer allows you to easily check how frequently certain keywords appear in your content. Simply paste your text into the analyzer, and it will instantly calculate the density for one, two, and three-word phrases."
+        },
+        {
+          "question": "Why is keyword density important for SEO?",
+          "answer": "Keyword density is a factor in Search Engine Optimization (SEO) as it helps search engines understand what your content is about. Maintaining an optimal keyword density can improve your content's relevance for target queries and enhance its search engine ranking."
+        },
+        {
+          "question": "Can I exclude specific words from the keyword density analysis?",
+          "answer": "Yes, our tool provides an option to exclude common words (like \"and,\" \"the,\" \"is\") or any other specific words you deem irrelevant from the analysis. This helps you focus on the most impactful keywords in your content."
+        }
+      ],
     },
   },
 ];

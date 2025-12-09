@@ -81,7 +81,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
         <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 animate-fade-in delay-300">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-              More {currentToolCategory} Tools
+              More {currentToolCategory}
             </h3>
             <div className="flex space-x-2">
               <button
