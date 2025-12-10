@@ -591,7 +591,7 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    id: "fancy-font",
+    id: "fancy-font-generator",
     name: "Fancy Font Generator",
     description: "Generate stylish text for social media bios.",
     seoTitle: "Fancy Font Generator | Stylish Text for Instagram & Bio",
@@ -648,7 +648,7 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    id: "svg-blob",
+    id: "svg-blob-generator",
     name: "SVG Blob Generator",
     description: "Create organic blob shapes for backgrounds.",
     seoTitle: "SVG Blob Generator | Create Organic Shapes",
@@ -667,7 +667,7 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    id: "svg-wave",
+    id: "svg-wave-generator",
     name: "SVG Wave Generator",
     description: "Generate smooth wave dividers for your website.",
     seoTitle: "SVG Wave Generator | Create Website Section Dividers",
@@ -732,7 +732,7 @@ export const TOOLS: Tool[] = [
     ],
   },
   {
-    id: "roman-numeral",
+    id: "roman-numeral-converter",
     name: "Roman Numeral Converter",
     description: "Convert numbers to Roman numerals and back.",
     icon: <RomanIcon />,
@@ -748,7 +748,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.MATH,
   },
   {
-    id: "random-number",
+    id: "random-number-generator",
     name: "Random Number Generator",
     description: "Generate random numbers within a specific range.",
     icon: <DiceIcon />,
@@ -810,7 +810,7 @@ export const TOOLS: Tool[] = [
     category: ToolCategory.PRODUCTIVITY,
   },
   {
-    id: "lorem-image",
+    id: "lorem-image-generator",
     name: "Lorem Picsum Generator",
     description: "Generate placeholder image URLs.",
     seoTitle: "Lorem Picsum Generator | Random Placeholder Images",

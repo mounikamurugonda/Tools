@@ -675,7 +675,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       }
     ],
   },
-  'fancy-font': {
+  'fancy-font-generator': {
     introduction: "Create fancy text.",
     howToUse: ["Type text", "Copy style"],
     features: ["Generate stylish text for social media bios.", "Supports various font styles.", "Copy generated text with a single click."],
@@ -759,7 +759,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       }
     ],
   },
-  'svg-blob': {
+  'svg-blob-generator': {
     introduction: "Generate random blobs.",
     howToUse: ["Adjust settings", "Copy SVG"],
     features: ["Create organic blob shapes for backgrounds.", "Customize complexity and contrast.", "Copy the SVG code with a single click."],
@@ -787,7 +787,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       }
     ],
   },
-  'svg-wave': {
+  'svg-wave-generator': {
     introduction: "Create page dividers.",
     howToUse: ["Set layers", "Copy SVG"],
     features: ["Generate smooth wave dividers for your website.", "Customize wave height, layers, and color.", "Copy the SVG code with a single click."],
@@ -899,7 +899,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       }
     ],
   },
-  'roman-numeral': {
+  'roman-numeral-converter': {
     introduction: "Convert numbers.",
     howToUse: ["Enter number", "See result"],
     features: ["Convert numbers to Roman numerals and back.", "Supports both integer to Roman and Roman to integer conversion.", "Easy to use interface."],
@@ -955,7 +955,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       }
     ],
   },
-  'random-number': {
+  'random-number-generator': {
     introduction: "Get random numbers.",
     howToUse: ["Set range", "Generate"],
     features: ["Generate random numbers within a specific range.", "Set minimum and maximum values.", "Generate multiple random numbers at once."],
@@ -1095,7 +1095,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       }
     ],
   },
-  'lorem-image': {
+  'lorem-image-generator': {
     introduction: "Get dummy images.",
     howToUse: ["Set size", "Copy URL"],
     features: ["Generate placeholder image URLs.", "Customize image size and grayscale.", "Get a random image or a specific one by ID."],

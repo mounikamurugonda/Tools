@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "knip:fix": "knip --fix"
+    "knip:fix": "knip --fix",
+    "test": "playwright test",
+    "test:e2e": "playwright test e2e/link-validation.spec.ts"
   },
   "dependencies": {
     "@ffmpeg/ffmpeg": "^0.12.15",
@@ -18,26 +20,28 @@
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.544.0",
     "marked": "^12.0.2",
-    "next": "14.2.33",
+    "next": "^15.1.6",
     "prismjs": "^1.30.0",
     "qrcode": "^1.5.3",
-    "react": "^18",
-    "react-dom": "^18",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-select": "^5.10.2"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.7",
-    "@tailwindcss/typography": "^0.5.13",
+    "@playwright/test": "^1.57.0",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/diff": "^5.2.0",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/prismjs": "^1.26.5",
     "@types/qrcode": "^1.5.5",
-    "@types/react": "^18",
-    "autoprefixer": "^10.4.19",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.4.20",
     "eslint": "^9.39.1",
     "knip": "^5.71.0",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.18",
     "typescript": "^5"
   }
 }

@@ -16,14 +16,15 @@ import TipCard from '@/components/TipCard';
 import ShareButton from '@/components/ShareButton';
 
 type Props = {
-  params: { toolId: string };
+  params: Promise<{ toolId: string }>;
 };
 
 export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
-  const tool = TOOL_CONFIGS.find((t) => t.id === params.toolId);
+  const { toolId } = await params;
+  const tool = TOOL_CONFIGS.find((t) => t.id === toolId);
 
   if (!tool) {
     return {
@@ -106,8 +107,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function ToolPage({ params }: { params: { toolId: string } }) {
-  const tool = TOOL_CONFIGS.find((t) => t.id === params.toolId);
+export default async function ToolPage({ params }: { params: Promise<{ toolId: string }> }) {
+  const { toolId } = await params;
+  const tool = TOOL_CONFIGS.find((t) => t.id === toolId);
 
   if (!tool) {
     notFound();
