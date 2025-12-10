@@ -54,7 +54,7 @@ function ToolsContent() {
       <Schema schema={getToolsPageSchema(searchQuery)} />
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
 
-      <div className="brand-fade-in">
+      <div className="brand-fade-in p-6">
         <div className="mb-8">
           <h1 className="brand-heading-2">
             {searchQuery ? `Search Results for "${searchQuery}"` : 'All Tools'}

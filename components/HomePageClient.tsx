@@ -130,7 +130,7 @@ const HomePageClient: React.FC = () => {
             <strong>{toolCount}+ free online developer tools</strong>.
           </p>
 
-          <div className="mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200">
+          <div className="mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200 relative z-50">
             <form onSubmit={handleSearchSubmit} className="relative group">
               <div className="relative transform transition-transform duration-300 group-focus-within:scale-105">
                 <input
@@ -158,11 +158,10 @@ const HomePageClient: React.FC = () => {
                     <div
                       key={tool.id}
                       onClick={() => handleSuggestionClick(tool)}
-                      className={`px-4 py-3 cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150 ${
-                        index === selectedIndex
+                      className={`px-4 py-3 cursor-pointer border-b border-gray-100 dark:border-gray-800 last:border-b-0 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-150 ${index === selectedIndex
                           ? "bg-blue-50 dark:bg-blue-900/30"
                           : ""
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center space-x-4">
                         <div className="flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-accent">
