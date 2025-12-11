@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Button from '@/components/ui/Button';
 
 const WORK_MINUTES = 25;
 const BREAK_MINUTES = 5;
@@ -89,8 +90,8 @@ const PomodoroTimer: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Pomodoro Timer" details={details} toolId={toolId}>
-      <div className="flex flex-col items-center space-y-8">
-        <div className="relative w-64 h-64">
+      <div className="flex flex-col items-center space-y-12 py-8">
+        <div className="relative w-80 h-80">
           <svg
             className="w-full h-full transform -rotate-90"
             viewBox="0 0 120 120"
@@ -101,8 +102,8 @@ const PomodoroTimer: React.FC<ToolProps> = ({ details, toolId }) => {
               r="54"
               fill="none"
               stroke="currentColor"
-              strokeWidth="12"
-              className="text-gray-200 dark:text-gray-700"
+              strokeWidth="8"
+              className="text-gray-100 dark:text-gray-800"
             />
             <circle
               cx="60"
@@ -110,33 +111,37 @@ const PomodoroTimer: React.FC<ToolProps> = ({ details, toolId }) => {
               r="54"
               fill="none"
               stroke="currentColor"
-              strokeWidth="12"
+              strokeWidth="8"
               strokeDasharray="339.292"
               strokeDashoffset={339.292 - (progress / 100) * 339.292}
-              className="text-blue-500 transition-all duration-1000"
+              className={`transition-all duration-1000 ${mode === 'work' ? 'text-blue-500' : 'text-green-500'
+                }`}
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <p className="text-2xl font-mono font-bold">{formatTime(time)}</p>
-            <p className="text-lg uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <p className="text-5xl font-bold font-mono text-gray-900 dark:text-white mb-2">{formatTime(time)}</p>
+            <p className="text-xl uppercase tracking-widest text-gray-500 dark:text-gray-400 font-medium">
               {mode}
             </p>
           </div>
         </div>
 
-        <div className="flex space-x-4">
-          <button
+        <div className="flex gap-4 w-full max-w-md justify-center">
+          <Button
             onClick={toggleTimer}
-            className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-lg w-32"
+            size="lg"
+            className="w-40"
           >
             {isActive ? 'Pause' : 'Start'}
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={resetTimer}
-            className="px-8 py-3 bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 dark:hover:bg-gray-700 text-white rounded-lg font-bold text-lg w-32"
+            variant="secondary"
+            size="lg"
+            className="w-40"
           >
             Reset
-          </button>
+          </Button>
         </div>
       </div>
     </ToolContainer>

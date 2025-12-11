@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
 
 const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [uuid, setUuid] = useState('');
@@ -18,21 +20,16 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div className="flex items-center gap-4">
-          <button
-            onClick={generateUuid}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
-          >
-            Generate UUID
-          </button>
+          <Button onClick={generateUuid}>Generate UUID</Button>
         </div>
         {uuid && (
           <div className="relative">
-            <input
+            <Input
               readOnly
               value={uuid}
-              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-gray-800 dark:text-gray-200 font-mono text-lg"
+              className="font-mono text-lg pr-16"
             />
             <CopyButton
               textToCopy={uuid}

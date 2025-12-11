@@ -4,6 +4,10 @@ import React, { useState, useRef } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import FileUpload from '@/components/FileUpload';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Slider from '@/components/ui/Slider';
+import { Download, RotateCcw, Image as ImageIcon } from 'lucide-react';
 
 interface Filters {
   grayscale: number;
@@ -68,7 +72,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
     >
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-4">
-          <div className="relative min-h-[400px] flex items-center justify-center bg-gray-100 dark:bg-gray-900 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+          <Card className="min-h-[400px] flex items-center justify-center p-0 overflow-hidden relative bg-gray-100 dark:bg-gray-900/50 border-dashed border-2 border-gray-200 dark:border-gray-800 group">
             {image ? (
               <img
                 src={image}
@@ -77,128 +81,138 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
                 alt="Preview"
               />
             ) : (
-              <FileUpload
-                accept="image/*"
-                onChange={handleUpload}
-                className="w-full h-full"
-              />
+              <div className="absolute inset-0 p-6">
+                <FileUpload
+                  accept="image/*"
+                  onChange={handleUpload}
+                  className="w-full h-full"
+                />
+              </div>
             )}
-          </div>
+            {image && (
+              <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity flex gap-2">
+                <Button
+                  size="sm"
+                  variant="primary"
+                  onClick={() => {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    input.onchange = (e) => {
+                      const file = (e.target as HTMLInputElement).files?.[0];
+                      handleUpload(file || null);
+                    };
+                    input.click();
+                  }}
+                >
+                  Change Image
+                </Button>
+              </div>
+            )}
+          </Card>
+
           {image && (
-            <div className="flex gap-4">
-              <button
+            <Card className="flex gap-4">
+              <Button
                 onClick={downloadImage}
-                className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium"
+                className="flex-1"
+                variant="primary"
               >
-                Download Image
-              </button>
-              <button
+                <Download className="w-4 h-4 mr-2" /> Download Image
+              </Button>
+              <Button
+                onClick={() => {
+                  setFilters(DEFAULT_FILTERS);
+                }}
+                variant="secondary"
+              >
+                <RotateCcw className="w-4 h-4 mr-2" /> Reset Filters
+              </Button>
+              <Button
                 onClick={() => {
                   setImage('');
                   setFilters(DEFAULT_FILTERS);
                 }}
-                className="px-6 py-3 bg-gray-600 hover:bg-gray-700 text-white rounded font-medium"
+                variant="outline"
+                className="text-red-600 hover:text-red-700 border-red-200 hover:bg-red-50 dark:hover:bg-red-900/20"
               >
-                Reset
-              </button>
-            </div>
+                Clear
+              </Button>
+            </Card>
           )}
         </div>
 
-        {image && (
-          <div className="space-y-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="font-semibold text-lg">Adjustments</h3>
-            <FilterSlider
-              label="Grayscale"
-              value={filters.grayscale}
-              onChange={(v: number) => setFilters({ ...filters, grayscale: v })}
-              max={100}
-              unit="%"
-            />
-            <FilterSlider
-              label="Sepia"
-              value={filters.sepia}
-              onChange={(v: number) => setFilters({ ...filters, sepia: v })}
-              max={100}
-              unit="%"
-            />
-            <FilterSlider
-              label="Brightness"
-              value={filters.brightness}
-              onChange={(v: number) =>
-                setFilters({ ...filters, brightness: v })
-              }
-              max={200}
-              unit="%"
-            />
-            <FilterSlider
-              label="Contrast"
-              value={filters.contrast}
-              onChange={(v: number) => setFilters({ ...filters, contrast: v })}
-              max={200}
-              unit="%"
-            />
-            <FilterSlider
-              label="Blur"
-              value={filters.blur}
-              onChange={(v: number) => setFilters({ ...filters, blur: v })}
-              max={20}
-              unit="px"
-            />
-            <FilterSlider
-              label="Hue Rotate"
-              value={filters.hueRotate}
-              onChange={(v: number) => setFilters({ ...filters, hueRotate: v })}
-              max={360}
-              unit="deg"
-            />
+        {image ? (
+          <div className="space-y-6">
+            <Card title="Adjustments" className="h-[calc(100%-1rem)]">
+              <div className="space-y-6">
+                <Slider
+                  label="Grayscale"
+                  value={filters.grayscale}
+                  onChange={(e) => setFilters({ ...filters, grayscale: parseInt(e.target.value) })}
+                  max={100}
+                  valueDisplay={`${filters.grayscale}%`}
+                />
+                <Slider
+                  label="Sepia"
+                  value={filters.sepia}
+                  onChange={(e) => setFilters({ ...filters, sepia: parseInt(e.target.value) })}
+                  max={100}
+                  valueDisplay={`${filters.sepia}%`}
+                />
+                <Slider
+                  label="Brightness"
+                  value={filters.brightness}
+                  onChange={(e) => setFilters({ ...filters, brightness: parseInt(e.target.value) })}
+                  max={200}
+                  valueDisplay={`${filters.brightness}%`}
+                />
+                <Slider
+                  label="Contrast"
+                  value={filters.contrast}
+                  onChange={(e) => setFilters({ ...filters, contrast: parseInt(e.target.value) })}
+                  max={200}
+                  valueDisplay={`${filters.contrast}%`}
+                />
+                <Slider
+                  label="Blur"
+                  value={filters.blur}
+                  onChange={(e) => setFilters({ ...filters, blur: parseInt(e.target.value) })}
+                  max={20}
+                  valueDisplay={`${filters.blur}px`}
+                />
+                <Slider
+                  label="Hue Rotate"
+                  value={filters.hueRotate}
+                  onChange={(e) => setFilters({ ...filters, hueRotate: parseInt(e.target.value) })}
+                  max={360}
+                  valueDisplay={`${filters.hueRotate}°`}
+                />
 
-            <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-              <button
-                onClick={() => setFilters(DEFAULT_FILTERS)}
-                className="text-sm text-blue-600 hover:underline"
-              >
-                Reset Filters
-              </button>
-            </div>
+                <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                  <Button
+                    onClick={() => setFilters(DEFAULT_FILTERS)}
+                    variant="ghost"
+                    size="sm"
+                    className="w-full text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                  >
+                    Reset to Default
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        ) : (
+          <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 p-8 flex flex-col items-center justify-center text-center text-gray-400 dark:text-gray-500 h-[400px]">
+            <ImageIcon className="w-16 h-16 mb-4 opacity-50" />
+            <p>Upload an image to start editing</p>
           </div>
         )}
+
         <canvas ref={canvasRef} className="hidden" />
       </div>
     </ToolContainer>
   );
 };
-
-const FilterSlider = ({
-  label,
-  value,
-  onChange,
-  max,
-  unit,
-}: {
-  label: string;
-  value: number;
-  onChange: (v: number) => void;
-  max: number;
-  unit: string;
-}) => (
-  <div>
-    <div className="flex justify-between mb-1">
-      <label className="text-sm font-medium">{label}</label>
-      <span className="text-sm text-gray-500">
-        {value}
-        {unit}
-      </span>
-    </div>
-    <input
-      type="range"
-      min="0"
-      max={max}
-      value={value}
-      onChange={(e) => onChange(Number(e.target.value))}
-      className="w-full"
-    />
-  </div>
-);
 
 export default ImageFilters;

@@ -4,6 +4,11 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import { Search, ExternalLink, Image as ImageIcon, Video } from 'lucide-react';
 
 const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
   const [url, setUrl] = useState('');
@@ -39,50 +44,97 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="space-y-6">
-        <div className="flex gap-4">
-          <input
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            className="flex-grow brand-input"
-            placeholder="Paste YouTube URL here..."
-          />
-          <button
-            onClick={handleFetch}
-            className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded font-medium"
-          >
-            Fetch
-          </button>
-        </div>
-        {error && <p className="text-red-500">{error}</p>}
+      <div className="space-y-8">
+        <Card>
+          <div className="flex flex-col sm:flex-row gap-4 items-end">
+            <div className="flex-grow space-y-2 w-full">
+              <Label htmlFor="youtube-url">YouTube Video URL</Label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                  <Video className="h-4 w-4" />
+                </div>
+                <Input
+                  id="youtube-url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://www.youtube.com/watch?v=..."
+                  className="pl-10"
+                  onKeyDown={(e) => e.key === 'Enter' && handleFetch()}
+                />
+              </div>
+            </div>
+            <Button
+              onClick={handleFetch}
+              variant="primary"
+              className="w-full sm:w-auto"
+            >
+              <Search className="w-4 h-4 mr-2" /> Fetch Thumbnails
+            </Button>
+          </div>
+          {error && (
+            <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+        </Card>
 
         {thumbnails.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {thumbnails.map((thumb, i) => (
-              <div key={i} className="space-y-2">
-                <img
-                  src={thumb}
-                  alt="Thumbnail"
-                  className="w-full rounded-lg shadow"
-                />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-gray-500">
-                    {['Max Res', 'Standard', 'High', 'Medium'][i]}
-                  </span>
+              <Card
+                key={i}
+                className="p-0 overflow-hidden"
+                action={
                   <div className="flex gap-2">
-                    <CopyButton textToCopy={thumb} />
-                    <a
-                      href={thumb}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700"
+                    <Button
+                      size="sm"
+                      variant="primary"
+                      onClick={() => window.open(thumb, '_blank')}
                     >
-                      Open
-                    </a>
+                      <ExternalLink size={14} className="mr-1" /> Open
+                    </Button>
+                    <CopyButton textToCopy={thumb} className="h-8" />
+                  </div>
+                }
+                title={['Max Resolution (HD)', 'Standard Quality', 'High Quality', 'Medium Quality'][i]}
+              >
+                <div className="aspect-video bg-gray-100 dark:bg-gray-800 relative group">
+                  <img
+                    src={thumb}
+                    alt="Thumbnail"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://placehold.co/640x480?text=Thumbnail+Not+Found';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
+                    <Button
+                      variant="secondary"
+                      onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = thumb;
+                        link.download = `thumbnail-${i}.jpg`;
+                        link.target = "_blank";
+                        link.click();
+                      }}
+                    >
+                      <ImageIcon className="w-4 h-4 mr-2" /> Download
+                    </Button>
                   </div>
                 </div>
-              </div>
+              </Card>
             ))}
+          </div>
+        )}
+
+        {thumbnails.length === 0 && !error && (
+          <div className="text-center py-12 text-gray-400 dark:text-gray-500">
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+              <ImageIcon className="w-10 h-10 opacity-50" />
+            </div>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No Thumbnails Yet</h3>
+            <p className="max-w-sm mx-auto mt-2">Enter a YouTube video URL above to fetch and download high-quality thumbnails.</p>
           </div>
         )}
       </div>

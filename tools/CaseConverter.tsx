@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Button from '@/components/ui/Button';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
 
 const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -45,78 +48,48 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Case Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => handleConvert('uppercase')}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-          >
-            UPPER CASE
-          </button>
-          <button
-            onClick={() => handleConvert('lowercase')}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-          >
-            lower case
-          </button>
-          <button
-            onClick={() => handleConvert('sentence')}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-          >
-            Sentence case
-          </button>
-          <button
-            onClick={() => handleConvert('title')}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors"
-          >
-            Title Case
-          </button>
+        <div className="flex flex-wrap gap-3">
+          <Button onClick={() => handleConvert('uppercase')}>UPPER CASE</Button>
+          <Button onClick={() => handleConvert('lowercase')}>lower case</Button>
+          <Button onClick={() => handleConvert('sentence')}>Sentence case</Button>
+          <Button onClick={() => handleConvert('title')}>Title Case</Button>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
-          <div className="space-y-4">
-            <label
-              htmlFor="case-input"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Input
-            </label>
+          <div className="space-y-2">
+            <Label htmlFor="case-input">Input</Label>
             <div className="relative">
-              <textarea
+              <TextArea
                 id="case-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Enter text here..."
-                className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 resize-none"
+                className="h-96 max-h-96"
               />
               {input && (
                 <CopyButton
                   textToCopy={input}
-                  className="absolute top-8 right-2"
+                  className="absolute top-4 right-4"
                 />
               )}
             </div>
           </div>
 
           {/* Right side - Output */}
-          <div className="space-y-4">
-            <label
-              htmlFor="case-output"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Output
-            </label>
+          <div className="space-y-2">
+            <Label htmlFor="case-output">Output</Label>
             <div className="relative">
-              <textarea
+              <TextArea
                 id="case-output"
                 readOnly
                 value={output}
                 placeholder="Converted text will appear here..."
-                className="w-full h-96 max-h-96 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 text-gray-800 dark:text-gray-200 resize-none"
+                className="h-96 max-h-96 bg-gray-50 dark:bg-gray-900"
               />
               {output && (
                 <CopyButton
                   textToCopy={output}
-                  className="absolute top-2 right-2"
+                  className="absolute top-4 right-4"
                 />
               )}
             </div>

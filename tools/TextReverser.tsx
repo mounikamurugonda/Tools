@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
 
 const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -14,50 +16,40 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="Text Reverser" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Input */}
-        <div className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="input-text">Original Text</Label>
           <div className="relative">
-            <label
-              htmlFor="input-text"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Original Text
-            </label>
-            <textarea
+            <TextArea
               id="input-text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter text to reverse..."
-              className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 resize-none"
+              className="h-96 max-h-96"
             />
             {input && (
               <CopyButton
                 textToCopy={input}
-                className="absolute top-8 right-2"
+                className="absolute top-4 right-4"
               />
             )}
           </div>
         </div>
 
         {/* Right side - Output */}
-        <div className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="output-text">Reversed Text</Label>
           <div className="relative">
-            <label
-              htmlFor="output-text"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Reversed Text
-            </label>
-            <textarea
+            <TextArea
               id="output-text"
               readOnly
               value={reversedText}
               placeholder="Reversed text will appear here..."
-              className="w-full h-96 max-h-96 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-3 text-gray-800 dark:text-gray-200 resize-none"
+              className="h-96 max-h-96 bg-gray-50 dark:bg-gray-900"
             />
             {reversedText && (
               <CopyButton
                 textToCopy={reversedText}
-                className="absolute top-8 right-2"
+                className="absolute top-4 right-4"
               />
             )}
           </div>

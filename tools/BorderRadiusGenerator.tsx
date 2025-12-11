@@ -3,6 +3,11 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Slider from '@/components/ui/Slider';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Label from '@/components/ui/Label';
+import { Copy } from 'lucide-react';
 
 const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [topLeft, setTopLeft] = useState(10);
@@ -24,12 +29,13 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     navigator.clipboard.writeText(`border-radius: ${borderRadiusValue};`);
   };
 
-  const handleLinkedChange = (value: number) => {
-    setTopLeft(value);
+  const handleLinkedChange = (value: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseFloat(value.target.value);
+    setTopLeft(val);
     if (linkCorners) {
-      setTopRight(value);
-      setBottomLeft(value);
-      setBottomRight(value);
+      setTopRight(val);
+      setBottomLeft(val);
+      setBottomRight(val);
     }
   };
 
@@ -41,191 +47,138 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     >
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <label className="text-gray-700 dark:text-gray-300">Unit</label>
-            <div className="flex space-x-4">
-              <label className="flex items-center">
+          <Card title="Settings">
+            <div className="space-y-6">
+              <div className="flex items-center justify-between">
+                <Label className="mb-0">Unit</Label>
+                <div className="flex space-x-4">
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      value="px"
+                      checked={unit === 'px'}
+                      onChange={(e) => setUnit(e.target.value as 'px' | '%')}
+                      className="mr-2 text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="text-gray-700 dark:text-gray-300">px</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      value="%"
+                      checked={unit === '%'}
+                      onChange={(e) => setUnit(e.target.value as 'px' | '%')}
+                      className="mr-2 text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="text-gray-700 dark:text-gray-300">%</span>
+                  </label>
+                </div>
+              </div>
+
+              <label className="flex items-center space-x-2 cursor-pointer">
                 <input
-                  type="radio"
-                  value="px"
-                  checked={unit === 'px'}
-                  onChange={(e) => setUnit(e.target.value as 'px' | '%')}
-                  className="mr-2"
+                  type="checkbox"
+                  checked={linkCorners}
+                  onChange={() => setLinkCorners((p) => !p)}
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                px
+                <span className="text-gray-700 dark:text-gray-300 font-medium">Link all corners</span>
               </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  value="%"
-                  checked={unit === '%'}
-                  onChange={(e) => setUnit(e.target.value as 'px' | '%')}
-                  className="mr-2"
+
+              <div className="space-y-4">
+                <Slider
+                  label="Top Left"
+                  value={topLeft}
+                  onChange={linkCorners ? handleLinkedChange : (e) => setTopLeft(parseFloat(e.target.value))}
+                  min={0}
+                  max={unit === 'px' ? 100 : 50}
+                  valueDisplay={`${topLeft}${unit}`}
                 />
-                %
-              </label>
+
+                <Slider
+                  label="Top Right"
+                  value={topRight}
+                  onChange={(e) => setTopRight(parseFloat(e.target.value))}
+                  min={0}
+                  max={unit === 'px' ? 100 : 50}
+                  disabled={linkCorners}
+                  valueDisplay={`${topRight}${unit}`}
+                />
+
+                <Slider
+                  label="Bottom Right"
+                  value={bottomRight}
+                  onChange={(e) => setBottomRight(parseFloat(e.target.value))}
+                  min={0}
+                  max={unit === 'px' ? 100 : 50}
+                  disabled={linkCorners}
+                  valueDisplay={`${bottomRight}${unit}`}
+                />
+
+                <Slider
+                  label="Bottom Left"
+                  value={bottomLeft}
+                  onChange={(e) => setBottomLeft(parseFloat(e.target.value))}
+                  min={0}
+                  max={unit === 'px' ? 100 : 50}
+                  disabled={linkCorners}
+                  valueDisplay={`${bottomLeft}${unit}`}
+                />
+              </div>
             </div>
-          </div>
+          </Card>
 
-          <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
-            <input
-              type="checkbox"
-              checked={linkCorners}
-              onChange={() => setLinkCorners((p) => !p)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-            />
-            <span>Link all corners</span>
-          </label>
-
-          <div className="space-y-4">
-            <RangeSlider
-              label="Top Left"
-              value={topLeft}
-              setValue={linkCorners ? handleLinkedChange : setTopLeft}
-              min={0}
-              max={unit === 'px' ? 100 : 50}
-            />
-
-            <RangeSlider
-              label="Top Right"
-              value={topRight}
-              setValue={setTopRight}
-              min={0}
-              max={unit === 'px' ? 100 : 50}
-              disabled={linkCorners}
-            />
-
-            <RangeSlider
-              label="Bottom Right"
-              value={bottomRight}
-              setValue={setBottomRight}
-              min={0}
-              max={unit === 'px' ? 100 : 50}
-              disabled={linkCorners}
-            />
-
-            <RangeSlider
-              label="Bottom Left"
-              value={bottomLeft}
-              setValue={setBottomLeft}
-              min={0}
-              max={unit === 'px' ? 100 : 50}
-              disabled={linkCorners}
-            />
-          </div>
-
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-            <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/50">
+            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
               Shape Ideas
             </h4>
             <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-              <p>
-                • <strong>Pill shape:</strong> 50% on all corners
-              </p>
-              <p>
-                • <strong>Rounded square:</strong> 10-20px on all corners
-              </p>
-              <p>
-                • <strong>Speech bubble:</strong> 0px on one corner
-              </p>
-              <p>
-                • <strong>Card design:</strong> Different values for each corner
-              </p>
+              <p>• <strong>Pill shape:</strong> 50% on all corners</p>
+              <p>• <strong>Rounded square:</strong> 10-20px on all corners</p>
+              <p>• <strong>Speech bubble:</strong> 0px on one corner</p>
+              <p>• <strong>Card design:</strong> Different values for each corner</p>
             </div>
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div className="h-48 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center p-8">
+        <div className="space-y-6">
+          <Card title="Preview" className="h-[300px] flex items-center justify-center bg-gray-100 dark:bg-gray-800/50">
             <div
-              className="w-32 h-32 bg-blue-500 shadow-lg"
+              className="w-48 h-48 bg-blue-500 shadow-lg transition-all duration-300 ease-in-out"
               style={{ borderRadius: borderRadiusValue }}
-            ></div>
-          </div>
+            />
+          </Card>
 
-          <div className="relative">
-            <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
+          <Card className="relative group">
+            <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800">
               <code>border-radius: {borderRadiusValue};</code>
             </pre>
-            <button
-              onClick={copyToClipboard}
-              className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
-            >
-              Copy
-            </button>
-          </div>
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button size="sm" variant="secondary" onClick={copyToClipboard} className="shadow-sm">
+                <Copy className="w-3 h-3 mr-1" /> Copy
+              </Button>
+            </div>
+          </Card>
 
-          <div className="grid grid-cols-2 gap-2 text-sm">
-            <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-center">
-              <div className="font-medium">Top Left</div>
-              <div className="text-gray-600 dark:text-gray-400">
-                {topLeft}
-                {unit}
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            {[
+              { label: 'Top Left', value: topLeft },
+              { label: 'Top Right', value: topRight },
+              { label: 'Bottom Right', value: bottomRight },
+              { label: 'Bottom Left', value: bottomLeft },
+            ].map((item, i) => (
+              <div key={i} className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+                <div className="font-medium text-gray-900 dark:text-gray-100">{item.label}</div>
+                <div className="text-gray-600 dark:text-gray-400">
+                  {item.value}{unit}
+                </div>
               </div>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-center">
-              <div className="font-medium">Top Right</div>
-              <div className="text-gray-600 dark:text-gray-400">
-                {topRight}
-                {unit}
-              </div>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-center">
-              <div className="font-medium">Bottom Right</div>
-              <div className="text-gray-600 dark:text-gray-400">
-                {bottomRight}
-                {unit}
-              </div>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-2 rounded text-center">
-              <div className="font-medium">Bottom Left</div>
-              <div className="text-gray-600 dark:text-gray-400">
-                {bottomLeft}
-                {unit}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
     </ToolContainer>
   );
 };
-
-interface RangeSliderProps {
-  label: string;
-  value: number;
-  setValue: (value: number) => void;
-  min?: number;
-  max?: number;
-  step?: number;
-  disabled?: boolean;
-}
-
-const RangeSlider: React.FC<RangeSliderProps> = ({
-  label,
-  value,
-  setValue,
-  min = 0,
-  max = 100,
-  step = 1,
-  disabled = false,
-}) => (
-  <div>
-    <label className="flex justify-between text-gray-700 dark:text-gray-300 mb-1">
-      <span>{label}</span>
-      <span>{value}</span>
-    </label>
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={(e) => setValue(parseFloat(e.target.value))}
-      disabled={disabled}
-      className={`w-full ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-    />
-  </div>
-);
 
 export default BorderRadiusGenerator;

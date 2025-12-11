@@ -3,6 +3,11 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import { Download, AlertCircle, Image as ImageIcon } from 'lucide-react';
 
 const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   const [base64, setBase64] = useState('');
@@ -44,55 +49,58 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <button
+        <div className="flex justify-end">
+          <Button
             onClick={handleDownload}
             disabled={!base64 || !!error}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+            variant="primary"
           >
+            <Download className="w-4 h-4 mr-2" />
             Download Image
-          </button>
+          </Button>
         </div>
+
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
           <div className="space-y-4">
-            <div className="relative">
-              <label
-                htmlFor="base64-input"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >
-                Base64 Data URL
-              </label>
-              <textarea
-                id="base64-input"
-                value={base64}
-                onChange={handleInputChange}
-                placeholder="Paste your Base64 data URL here (e.g., data:image/png;base64,...)"
-                className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-xs resize-none"
-              />
-            </div>
-            {error && <p className="text-red-400">{error}</p>}
+            <Card title="Input" className="h-full">
+              <div className="space-y-4 h-full flex flex-col">
+                <Label htmlFor="base64-input">Base64 Data URL</Label>
+                <TextArea
+                  id="base64-input"
+                  value={base64}
+                  onChange={handleInputChange}
+                  placeholder="Paste your Base64 data URL here (e.g., data:image/png;base64,...)"
+                  className="flex-grow min-h-[300px] font-mono text-xs resize-none"
+                />
+                {error && (
+                  <div className="flex items-center text-red-500 text-sm mt-2 bg-red-50 dark:bg-red-900/10 p-2 rounded">
+                    <AlertCircle className="w-4 h-4 mr-2" />
+                    {error}
+                  </div>
+                )}
+              </div>
+            </Card>
           </div>
 
           {/* Right side - Preview */}
           <div className="space-y-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Image Preview
-            </label>
-            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 min-h-[300px] flex items-center justify-center">
-              {base64 && !error ? (
-                <img
-                  src={base64}
-                  alt="Preview"
-                  className="max-h-full max-w-full rounded"
-                />
-              ) : (
-                <div className="text-center text-gray-500 dark:text-gray-400">
-                  <div className="text-2xl mb-2">🖼️</div>
-                  <p>Image preview will appear here</p>
-                </div>
-              )}
-            </div>
+            <Card title="Preview" className="h-full">
+              <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-200 dark:border-gray-700 h-full min-h-[300px] flex items-center justify-center p-4">
+                {base64 && !error ? (
+                  <img
+                    src={base64}
+                    alt="Preview"
+                    className="max-h-full max-w-full rounded shadow-md object-contain"
+                  />
+                ) : (
+                  <div className="text-center text-gray-400 dark:text-gray-500 flex flex-col items-center">
+                    <ImageIcon className="w-16 h-16 mb-4 opacity-50" />
+                    <p>Image preview will appear here</p>
+                  </div>
+                )}
+              </div>
+            </Card>
           </div>
         </div>
       </div>

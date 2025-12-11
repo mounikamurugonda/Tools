@@ -5,6 +5,8 @@ import Select, { OnChangeValue } from 'react-select';
 import type { ToolProps } from '@/types';
 import { timezones } from '@/lib/timezones';
 import ToolContainer from '@/components/ToolContainer';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
 
 interface TimezoneOption {
   value: string;
@@ -72,6 +74,8 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
       borderColor: 'hsl(var(--border))',
       color: 'hsl(var(--foreground))',
       width: '100%',
+      minHeight: '46px',
+      borderRadius: '0.75rem',
     }),
     menu: (provided: any) => ({
       ...provided,
@@ -109,7 +113,7 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
           <Select<TimezoneOption>
             options={TIMEZONE_OPTIONS}
             onChange={addTimezone}
-            placeholder="-- Add a city --"
+            placeholder="-- Add time zone --"
             value={null}
             styles={customStyles}
             className="flex-grow text-gray-800 dark:text-gray-200"
@@ -117,12 +121,12 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
         <div className="space-y-4">
           {selectedTimezones.map((tz) => (
-            <div
+            <Card
               key={tz}
-              className="flex items-center justify-between bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm"
+              className="flex items-center justify-between p-4"
             >
               <div>
-                <p className="text-xl font-semibold text-gray-900 dark:text-white">
+                <p className="text-xl font-bold text-gray-900 dark:text-white">
                   {tz.replace(/_/g, ' ').split('/').pop()}
                 </p>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -135,19 +139,21 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
                 </p>
               </div>
               <div className="flex items-center gap-4">
-                <p className="text-3xl font-mono font-bold text-blue-500 dark:text-blue-400">
+                <p className="text-3xl font-mono font-bold text-blue-600 dark:text-blue-400">
                   {currentTime.toLocaleTimeString(undefined, {
                     timeZone: tz,
                     hour12: false,
                   })}
                 </p>
-                <button
+                <Button
                   onClick={() => removeTimezone(tz)}
-                  className="text-gray-500 hover:text-red-500 dark:hover:text-red-400"
+                  variant="ghost"
+                  size="sm"
+                  className="!p-2 text-gray-500 hover:text-red-500 dark:hover:text-red-400"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -159,9 +165,9 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
                       d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                     />
                   </svg>
-                </button>
+                </Button>
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

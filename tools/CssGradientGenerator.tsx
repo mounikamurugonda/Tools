@@ -3,8 +3,13 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import CopyButton from '@/components/CopyButton';
-import { Plus, Trash2 } from 'lucide-react';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Slider from '@/components/ui/Slider';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Select from '@/components/ui/Select';
+import { Plus, Trash2, Copy, RefreshCw } from 'lucide-react';
 
 interface ColorStop {
   id: number;
@@ -12,7 +17,7 @@ interface ColorStop {
   position: number;
 }
 
-const presets = [
+const PRESETS = [
   {
     name: 'Sunset',
     colors: [
@@ -112,8 +117,12 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   }, [colors, angle, gradientType, radialShape, position]);
 
+  const sortedColors = useMemo(
+    () => [...colors].sort((a, b) => a.position - b.position),
+    [colors],
+  );
+
   const addColor = (index: number) => {
-    const sortedColors = [...colors].sort((a, b) => a.position - b.position);
     const prevColor = sortedColors[index];
     const nextColor = sortedColors[index + 1];
 
@@ -158,12 +167,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     setColors(presetColors.map((c, i) => ({ ...c, id: Date.now() + i })));
   };
 
-  const sortedColors = useMemo(
-    () => [...colors].sort((a, b) => a.position - b.position),
-    [colors],
-  );
-
-  const getPresetStyle = (p: (typeof presets)[0]) => {
+  const getPresetStyle = (p: (typeof PRESETS)[0]) => {
     const colorStops = p.colors
       .map((c) => `${c.color} ${c.position}%`)
       .join(', ');
@@ -173,6 +177,10 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     return { background: `radial-gradient(circle at center, ${colorStops})` };
   };
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`background: ${gradientValue};`);
+  };
+
   return (
     <ToolContainer
       title="CSS Gradient Generator"
@@ -180,234 +188,179 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="grid md:grid-cols-2 gap-8">
-        <div className="space-y-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Settings</h3>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            <button
-              onClick={() => setGradientType('linear')}
-              className={`px-4 py-2 rounded-md text-sm font-medium ${gradientType === 'linear' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Linear
-            </button>
-            <button
-              onClick={() => setGradientType('radial')}
-              className={`px-4 py-2 rounded-md text-sm font-medium ${gradientType === 'radial' ? 'bg-blue-500 text-white' : 'bg-gray-200 dark:bg-gray-700'}`}
-            >
-              Radial
-            </button>
-          </div>
-
-          {gradientType === 'linear' && (
-            <RangeSlider
-              label="Angle"
-              value={angle}
-              setValue={setAngle}
-              min={0}
-              max={360}
-              unit="°"
-            />
-          )}
-
-          {gradientType === 'radial' && (
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Shape
-                </label>
-                <select
-                  value={radialShape}
-                  onChange={(e) =>
-                    setRadialShape(e.target.value as 'circle' | 'ellipse')
-                  }
-                  className="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <div className="space-y-6">
+          <Card title="Settings">
+            <div className="space-y-6">
+              <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                <button
+                  onClick={() => setGradientType('linear')}
+                  className={`flex-1 py-1.5 px-3 text-sm font-medium rounded-md transition-all ${gradientType === 'linear' ? 'bg-white dark:bg-gray-700 shadow text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
                 >
-                  <option value="circle">Circle</option>
-                  <option value="ellipse">Ellipse</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Position
-                </label>
-                <select
-                  value={position}
-                  onChange={(e) => setPosition(e.target.value)}
-                  className="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  Linear
+                </button>
+                <button
+                  onClick={() => setGradientType('radial')}
+                  className={`flex-1 py-1.5 px-3 text-sm font-medium rounded-md transition-all ${gradientType === 'radial' ? 'bg-white dark:bg-gray-700 shadow text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
                 >
-                  {[
-                    'center',
-                    'top left',
-                    'top right',
-                    'bottom left',
-                    'bottom right',
-                    'top',
-                    'bottom',
-                    'left',
-                    'right',
-                  ].map((p) => (
-                    <option key={p} value={p}>
-                      {p.charAt(0).toUpperCase() + p.slice(1)}
-                    </option>
-                  ))}
-                </select>
+                  Radial
+                </button>
               </div>
-            </div>
-          )}
 
-          <div className="space-y-2">
-            <h4 className="font-semibold">Colors</h4>
-            {sortedColors.map((color, index) => (
-              <React.Fragment key={color.id}>
-                <ColorStop
-                  {...color}
-                  onUpdate={updateColor}
-                  onRemove={removeColor}
-                  canRemove={colors.length > 2}
+              {gradientType === 'linear' && (
+                <Slider
+                  label="Angle"
+                  value={angle}
+                  onChange={(e) => setAngle(parseFloat(e.target.value))}
+                  min={0}
+                  max={360}
+                  valueDisplay={`${angle}°`}
                 />
-                {index < sortedColors.length - 1 && (
-                  <div className="flex justify-center my-1">
-                    <button
-                      onClick={() => addColor(index)}
-                      className="p-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400"
-                    >
-                      <Plus size={16} />
-                    </button>
+              )}
+
+              {gradientType === 'radial' && (
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label>Shape</Label>
+                    <Select
+                      options={[
+                        { value: 'circle', label: 'Circle' },
+                        { value: 'ellipse', label: 'Ellipse' }
+                      ]}
+                      value={{ value: radialShape, label: radialShape.charAt(0).toUpperCase() + radialShape.slice(1) }}
+                      onChange={(option) => setRadialShape(option?.value as 'circle' | 'ellipse')}
+                    />
                   </div>
-                )}
-              </React.Fragment>
-            ))}
-          </div>
+                  <div>
+                    <Label>Position</Label>
+                    <Select
+                      options={[
+                        'center',
+                        'top left',
+                        'top right',
+                        'bottom left',
+                        'bottom right',
+                        'top',
+                        'bottom',
+                        'left',
+                        'right',
+                      ].map(p => ({ value: p, label: p.charAt(0).toUpperCase() + p.slice(1) }))}
+                      value={{ value: position, label: position.charAt(0).toUpperCase() + position.slice(1) }}
+                      onChange={(option) => setPosition(option?.value as string)}
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="space-y-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                <Label className="text-base">Color Stops</Label>
+                <div className="space-y-3">
+                  {sortedColors.map((color, index) => (
+                    <React.Fragment key={color.id}>
+                      <ColorStopRow
+                        {...color}
+                        onUpdate={updateColor}
+                        onRemove={removeColor}
+                        canRemove={colors.length > 2}
+                      />
+                      {index < sortedColors.length - 1 && (
+                        <div className="flex justify-center relative h-4">
+                          <div className="absolute top-1/2 left-0 right-0 h-px bg-gray-200 dark:bg-gray-700 -z-10"></div>
+                          <button
+                            onClick={() => addColor(index)}
+                            className="p-1 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-500 text-gray-400 hover:text-blue-500 transition-colors shadow-sm"
+                            title="Add color stop"
+                          >
+                            <Plus size={14} />
+                          </button>
+                        </div>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </Card>
         </div>
 
         <div className="space-y-6">
-          <GradientPreview gradient={gradientValue} />
-          <CodeOutput gradient={gradientValue} />
-          <div>
-            <h4 className="font-semibold mb-2">Presets</h4>
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-              {presets.map((p) => (
+          <Card title="Preview" className="h-[300px] bg-gray-50 dark:bg-gray-800/50 flex flex-col p-4">
+            <div
+              className="flex-grow w-full rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
+              style={{ background: gradientValue }}
+            ></div>
+          </Card>
+
+          <Card className="relative group">
+            <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800">
+              <code>{`background: ${gradientValue};`}</code>
+            </pre>
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button size="sm" variant="secondary" onClick={copyToClipboard} className="shadow-sm">
+                <Copy className="w-3 h-3 mr-1" /> Copy
+              </Button>
+            </div>
+          </Card>
+
+          <Card title="Presets">
+            <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+              {PRESETS.map((p) => (
                 <button
                   key={p.name}
                   onClick={() => applyPreset(p.colors)}
-                  className="h-10 w-full rounded-md transition-transform duration-200 hover:scale-105"
+                  className="h-12 w-full rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-transform duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   style={getPresetStyle(p)}
                   title={p.name}
                 ></button>
               ))}
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>
   );
 };
 
-const ColorStop: React.FC<
-  ColorStop & {
-    onUpdate: (id: number, color?: string, position?: number) => void;
-    onRemove: (id: number) => void;
-    canRemove: boolean;
-  }
-> = ({ id, color, position, onUpdate, onRemove, canRemove }) => {
-  return (
-    <div className="p-3 bg-gray-100 dark:bg-gray-900/50 rounded-lg space-y-3">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <input
-            type="color"
-            value={color}
-            onChange={(e) => onUpdate(id, e.target.value)}
-            className="w-10 h-10 bg-transparent border-none rounded cursor-pointer"
-          />
-          <input
-            type="text"
-            value={color}
-            onChange={(e) => onUpdate(id, e.target.value)}
-            className="w-24 px-2 py-1 text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded font-mono"
-          />
-        </div>
-        {canRemove && (
-          <button
-            onClick={() => onRemove(id)}
-            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            <Trash2 size={16} className="text-red-500" />
-          </button>
-        )}
-      </div>
-      <RangeSlider
-        label="Position"
-        value={position}
-        setValue={(val) => onUpdate(id, undefined, val)}
-        min={0}
-        max={100}
-        unit="%"
-      />
-    </div>
-  );
-};
-
-const GradientPreview: React.FC<{ gradient: string }> = ({ gradient }) => (
-  <div
-    className="h-64 w-full rounded-lg shadow-inner"
-    style={{ background: gradient }}
-  ></div>
-);
-
-const CodeOutput: React.FC<{ gradient: string }> = ({ gradient }) => {
-  const code = `background: ${gradient};`;
-
-  return (
-    <div className="relative">
-      <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
-        <code>{code}</code>
-      </pre>
-      <CopyButton textToCopy={code} className="absolute top-2 right-2" />
-    </div>
-  );
-};
-
-interface RangeSliderProps {
-  label: string;
-  value: number;
-  setValue: (value: number) => void;
-  min?: number;
-  max?: number;
-  step?: number;
-  unit?: string;
+interface ColorStopRowProps extends ColorStop {
+  onUpdate: (id: number, color?: string, position?: number) => void;
+  onRemove: (id: number) => void;
+  canRemove: boolean;
 }
 
-const RangeSlider: React.FC<RangeSliderProps> = ({
-  label,
-  value,
-  setValue,
-  min = 0,
-  max = 100,
-  step = 1,
-  unit = '',
-}) => (
-  <div>
-    <label className="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-      <span>{label}</span>
-      <span>
-        {value}
-        {unit}
-      </span>
-    </label>
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={(e) => setValue(parseFloat(e.target.value))}
-      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-    />
-  </div>
-);
+const ColorStopRow: React.FC<ColorStopRowProps> = ({ id, color, position, onUpdate, onRemove, canRemove }) => {
+  return (
+    <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
+      <div className="flex-shrink-0">
+        <input
+          type="color"
+          value={color}
+          onChange={(e) => onUpdate(id, e.target.value)}
+          className="w-8 h-8 rounded cursor-pointer border-0 p-0 overflow-hidden"
+        />
+      </div>
+      <div className="flex-grow mx-2">
+        <Slider
+          value={position}
+          onChange={(e) => onUpdate(id, undefined, parseFloat(e.target.value))}
+          min={0}
+          max={100}
+          className="w-full"
+          valueDisplay={`${position}%`}
+        />
+      </div>
+      {canRemove && (
+        <Button
+          size="sm"
+          variant="ghost"
+          onClick={() => onRemove(id)}
+          className="text-gray-400 hover:text-red-500 px-2"
+        >
+          <Trash2 size={16} />
+        </Button>
+      )}
+    </div>
+  );
+};
 
 function interpolateColor(color1: string, color2: string, factor: number) {
   const result = color1

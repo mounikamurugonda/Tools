@@ -3,6 +3,10 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Select from '@/components/ui/Select';
+import Label from '@/components/ui/Label';
 
 const CONVERSION_FACTORS = {
   length: {
@@ -57,63 +61,65 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Unit Converter" details={details} toolId={toolId}>
-      <div className="space-y-4 max-w-xl mx-auto">
-        <div className="p-1 bg-gray-200 dark:bg-gray-700 rounded-lg flex">
+      <div className="space-y-8 max-w-2xl mx-auto">
+        <div className="p-1 bg-gray-100 dark:bg-gray-800 rounded-xl flex">
           <button
             onClick={() => handleCategoryChange('length')}
-            className={`w-1/2 py-2 rounded-md ${category === 'length' ? 'bg-blue-600 text-white' : ''}`}
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'length'
+              ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+              }`}
           >
             Length
           </button>
           <button
             onClick={() => handleCategoryChange('weight')}
-            className={`w-1/2 py-2 rounded-md ${category === 'weight' ? 'bg-blue-600 text-white' : ''}`}
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'weight'
+              ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+              }`}
           >
             Weight
           </button>
         </div>
 
-        <div className="grid sm:grid-cols-2 gap-4 items-end">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              From
-            </label>
-            <input
+        <div className="grid sm:grid-cols-2 gap-6 items-start">
+          <div className="space-y-2">
+            <Label>From</Label>
+            <Input
               type="number"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md p-2 text-2xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-lg font-medium"
             />
-            <select
+            <Select
               value={fromUnit}
               onChange={(e) => setFromUnit(e.target.value)}
-              className="w-full mt-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {units.map((unit) => (
                 <option key={unit} value={unit}>
                   {unit}
                 </option>
               ))}
-            </select>
+            </Select>
           </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              To
-            </label>
-            <div className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-md p-2 text-2xl text-blue-400 font-bold">
-              {result}
+          <div className="space-y-2">
+            <Label>To</Label>
+            <div className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center min-h-[46px]">
+              <span className="text-lg font-bold text-blue-600 dark:text-blue-400 break-all">
+                {result}
+              </span>
             </div>
-            <select
+            <Select
               value={toUnit}
               onChange={(e) => setToUnit(e.target.value)}
-              className="w-full mt-2 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               {units.map((unit) => (
                 <option key={unit} value={unit}>
                   {unit}
                 </option>
               ))}
-            </select>
+            </Select>
           </div>
         </div>
       </div>

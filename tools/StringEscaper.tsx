@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Button from '@/components/ui/Button';
+import TextArea from '@/components/ui/TextArea';
 
 const StringEscaper: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('Hello "World" & <Friends>');
@@ -33,34 +35,35 @@ const StringEscaper: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="String Escaper" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg w-fit">
+      <div className="space-y-6">
+        <div className="flex gap-2">
           {['json', 'html', 'url', 'java'].map((m) => (
-            <button
+            <Button
               key={m}
               onClick={() => setMode(m)}
-              className={`px-4 py-1 rounded capitalize ${mode === m ? 'bg-white dark:bg-gray-600 shadow' : ''}`}
+              variant={mode === m ? 'primary' : 'secondary'}
+              className="capitalize"
             >
               {m}
-            </button>
+            </Button>
           ))}
         </div>
         <div className="grid md:grid-cols-2 gap-4">
-          <textarea
+          <TextArea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="w-full h-48 brand-input"
+            className="h-64"
             placeholder="Input string..."
           />
           <div className="relative">
-            <textarea
+            <TextArea
               readOnly
               value={output}
-              className="w-full h-48 brand-input bg-gray-50 dark:bg-gray-900"
+              className="h-64 bg-gray-50 dark:bg-gray-900"
             />
             <CopyButton
               textToCopy={output}
-              className="absolute top-2 right-2"
+              className="absolute top-4 right-4"
             />
           </div>
         </div>

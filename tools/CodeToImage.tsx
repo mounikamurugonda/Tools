@@ -3,6 +3,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Select from '@/components/ui/Select';
+import Slider from '@/components/ui/Slider';
+import Label from '@/components/ui/Label';
+import Input from '@/components/ui/Input';
 import { toPng, toJpeg, toSvg } from 'html-to-image';
 import Prism from 'prismjs';
 import {
@@ -212,50 +218,49 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
         {/* Controls Sidebar */}
         <div className="w-full lg:w-80 flex-shrink-0 space-y-6">
           {/* Export Actions - Prominent at top on mobile, or keep in flow */}
-          <div className="grid grid-cols-2 gap-3 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-xl border border-gray-200 dark:border-gray-700">
-            <button
+          <Card className="grid grid-cols-2 gap-3 !p-4">
+            <Button
               onClick={() => handleExport('png')}
               disabled={isExporting}
-              className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+              variant="primary"
+              size="sm"
+              className="w-full"
             >
-              <Download size={16} /> PNG
-            </button>
-            <button
+              <Download size={16} className="mr-2" /> PNG
+            </Button>
+            <Button
               onClick={() => handleExport('svg')}
               disabled={isExporting}
-              className="flex items-center justify-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+              variant="secondary"
+              size="sm"
+              className="w-full"
             >
-              <Download size={16} /> SVG
-            </button>
-            <button
+              <Download size={16} className="mr-2" /> SVG
+            </Button>
+            <Button
               onClick={() => handleExport('copy')}
               disabled={isExporting}
-              className="col-span-2 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+              variant="outline"
+              size="sm"
+              className="col-span-2 w-full text-green-600 border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20"
             >
-              <Copy size={16} /> Copy to Clipboard
-            </button>
-          </div>
+              <Copy size={16} className="mr-2" /> Copy to Clipboard
+            </Button>
+          </Card>
 
           {/* Styling Section */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
-              <Palette size={16} /> Styling
-            </h3>
-
+          <Card title="Styling" icon={<Palette size={16} />} className="space-y-4">
             <div className="space-y-3">
-              <label className="block text-xs font-medium text-gray-700 dark:text-gray-300">
-                Theme
-              </label>
+              <Label>Theme</Label>
               <div className="grid grid-cols-2 gap-2">
                 {THEMES.map((t) => (
                   <button
                     key={t.name}
                     onClick={() => setTheme(t)}
-                    className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${
-                      theme.name === t.name
+                    className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${theme.name === t.name
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
                         : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
-                    }`}
+                      }`}
                   >
                     <div
                       className="w-3 h-3 rounded-full border border-black/10"
@@ -268,15 +273,13 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
 
             <div className="space-y-3">
-              <label className="block text-xs font-medium text-gray-700 dark:text-gray-300">
-                Background
-              </label>
+              <Label>Background</Label>
               <div className="grid grid-cols-5 gap-2">
                 {BACKGROUNDS.map((bg, i) => (
                   <button
                     key={i}
                     onClick={() => setBackground(bg.value)}
-                    className={`w-8 h-8 rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 ${background === bg.value ? 'border-white ring-2 ring-blue-500 shadow-md' : 'border-transparent'}`}
+                    className={`aspect-square w-full rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 ${background === bg.value ? 'border-white ring-2 ring-blue-500 shadow-md' : 'border-transparent'}`}
                     style={{ background: bg.value }}
                     title={bg.name}
                     aria-label={`Select background ${bg.name}`}
@@ -288,51 +291,18 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 ))}
               </div>
             </div>
-          </div>
-
-          <hr className="border-gray-200 dark:border-gray-700" />
+          </Card>
 
           {/* Window Settings */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
-              <Layout size={16} /> Window
-            </h3>
-
+          <Card title="Window" icon={<Layout size={16} />} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Padding
-                </label>
-                <input
-                  type="range"
-                  min="16"
-                  max="128"
-                  step="8"
-                  value={padding}
-                  onChange={(e) => setPadding(Number(e.target.value))}
-                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Shadow
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="60"
-                  value={shadowBlur}
-                  onChange={(e) => setShadowBlur(Number(e.target.value))}
-                  className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
-                />
-              </div>
+              <Slider label="Padding" min={16} max={128} step={8} value={padding} onChange={(e) => setPadding(Number(e.target.value))} valueDisplay={`${padding}px`} />
+              <Slider label="Shadow" min={0} max={60} value={shadowBlur} onChange={(e) => setShadowBlur(Number(e.target.value))} valueDisplay={`${shadowBlur}px`} />
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3 pt-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-700 dark:text-gray-300">
-                  Window Controls
-                </span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Window Controls</span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -343,50 +313,29 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                   <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                 </label>
               </div>
-
               <div>
-                <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Window Title
-                </label>
-                <input
-                  type="text"
+                <Label>Window Title</Label>
+                <Input
                   value={windowTitle}
                   onChange={(e) => setWindowTitle(e.target.value)}
-                  className="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Snippet.js"
                 />
               </div>
             </div>
-          </div>
-
-          <hr className="border-gray-200 dark:border-gray-700" />
+          </Card>
 
           {/* Editor Settings */}
-          <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
-              <Type size={16} /> Editor
-            </h3>
-
+          <Card title="Editor" icon={<Type size={16} />} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Language
-              </label>
-              <select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-                className="w-full px-3 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                {LANGUAGES.map((l) => (
-                  <option key={l.value} value={l.value}>
-                    {l.name}
-                  </option>
-                ))}
-              </select>
+              <Label>Language</Label>
+              <Select
+                value={{ value: language, label: LANGUAGES.find(l => l.value === language)?.name || language }}
+                onChange={(option) => setLanguage(option?.value || 'javascript')}
+                options={LANGUAGES.map(l => ({ value: l.value, label: l.name }))}
+              />
             </div>
-
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-700 dark:text-gray-300">
-                Line Numbers
-              </span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Line Numbers</span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -397,15 +346,15 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
               </label>
             </div>
-          </div>
+          </Card>
         </div>
 
         {/* Preview Area */}
         <div className="flex-1 w-full lg:sticky lg:top-6">
-          <>
+          <Card className="p-0 overflow-hidden min-h-[500px] flex items-center justify-center relative">
             {/* Checkerboard background for transparency */}
             <div
-              className="absolute inset-0 opacity-10"
+              className="absolute inset-0 opacity-10 pointer-events-none"
               style={{
                 backgroundImage:
                   'radial-gradient(#4b5563 1px, transparent 1px)',
@@ -413,7 +362,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
               }}
             ></div>
 
-            <div className="overflow-auto max-w-full max-h-full flex items-center justify-center w-full">
+            <div className="overflow-auto max-w-full max-h-full flex items-center justify-center w-full p-8">
               {/* Export Container */}
               <div
                 ref={exportRef}
@@ -421,7 +370,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                   background,
                   padding: `${padding}px`,
                 }}
-                className="transition-all duration-300 ease-out min-w-[320px] sm:min-w-[480px]"
+                className="transition-all duration-300 ease-out min-w-[320px] sm:min-w-[480px] rounded-lg"
               >
                 {/* Window */}
                 <div
@@ -491,7 +440,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                                 __html: Prism.highlight(
                                   line || ' ',
                                   Prism.languages[language] ||
-                                    Prism.languages.javascript,
+                                  Prism.languages.javascript,
                                   language,
                                 ),
                               }}
@@ -506,7 +455,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
 
             {isExporting && (
-              <div className="absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 flex items-center justify-center rounded-xl">
+              <div className="absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 flex items-center justify-center">
                 <div className="bg-white dark:bg-gray-800 px-6 py-4 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 flex items-center gap-3">
                   <div className="animate-spin rounded-full h-5 w-5 border-2 border-blue-500 border-t-transparent"></div>
                   <span className="font-medium text-gray-900 dark:text-white">
@@ -515,7 +464,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 </div>
               </div>
             )}
-          </>
+          </Card>
         </div>
       </div>
     </ToolContainer>

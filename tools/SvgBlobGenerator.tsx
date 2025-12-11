@@ -4,6 +4,13 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Slider from '@/components/ui/Slider';
+import Label from '@/components/ui/Label';
+import Input from '@/components/ui/Input';
+import TextArea from '@/components/ui/TextArea';
+import { Dices, RefreshCw } from 'lucide-react';
 
 // Simple blob generation logic
 const generateBlobPath = (
@@ -59,68 +66,81 @@ const SvgBlobGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="SVG Blob Generator" details={details} toolId={toolId}>
-      <div className="grid md:grid-cols-2 gap-8 items-center">
+      <div className="grid md:grid-cols-2 gap-8 items-start">
         <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium mb-1">Complexity</label>
-            <input
-              type="range"
-              min="3"
-              max="20"
-              value={complexity}
-              onChange={(e) => setComplexity(Number(e.target.value))}
-              className="w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Uniqueness</label>
-            <input
-              type="range"
-              min="0"
-              max="1"
-              step="0.1"
-              value={contrast}
-              onChange={(e) => setContrast(Number(e.target.value))}
-              className="w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Color</label>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="w-full h-10 cursor-pointer"
-            />
-          </div>
-          <button
-            onClick={() => setSeed(Date.now())}
-            className="w-full py-2 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-          >
-            Randomize 🎲
-          </button>
+          <Card title="Settings">
+            <div className="space-y-6">
+              <Slider
+                label="Complexity"
+                min={3}
+                max={20}
+                value={complexity}
+                onChange={(e) => setComplexity(Number(e.target.value))}
+                valueDisplay={`${complexity}`}
+              />
+              <Slider
+                label="Uniqueness"
+                min={0}
+                max={1}
+                step={0.1}
+                value={contrast}
+                onChange={(e) => setContrast(Number(e.target.value))}
+                valueDisplay={`${contrast}`}
+              />
+              <div>
+                <Label className="mb-2 block">Color</Label>
+                <div className="flex gap-3">
+                  <Input
+                    type="color"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                    className="w-12 h-10 p-1 cursor-pointer"
+                  />
+                  <Input
+                    type="text"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                    className="flex-1 font-mono"
+                  />
+                </div>
+              </div>
+
+              <Button
+                onClick={() => setSeed(Date.now())}
+                variant="secondary"
+                className="w-full"
+              >
+                <Dices className="w-4 h-4 mr-2" /> Randomize
+              </Button>
+            </div>
+          </Card>
         </div>
 
-        <div className="space-y-4">
-          <div className="bg-white border border-gray-200 rounded-lg flex items-center justify-center p-4 h-80">
-            <svg
-              viewBox="0 0 400 400"
-              className="w-64 h-64 transition-all duration-300"
-            >
-              <path fill={color} d={path} />
-            </svg>
-          </div>
-          <div className="relative">
-            <textarea
-              readOnly
-              value={svgString}
-              className="w-full h-32 brand-input font-mono text-xs"
-            />
-            <CopyButton
-              textToCopy={svgString}
-              className="absolute top-2 right-2"
-            />
-          </div>
+        <div className="space-y-6">
+          <Card title="Preview">
+            <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg flex items-center justify-center p-4 h-80 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#888 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+              <svg
+                viewBox="0 0 400 400"
+                className="w-64 h-64 transition-all duration-300 drop-shadow-xl"
+              >
+                <path fill={color} d={path} />
+              </svg>
+            </div>
+          </Card>
+
+          <Card title="SVG Code">
+            <div className="relative">
+              <TextArea
+                readOnly
+                value={svgString}
+                className="w-full h-32 font-mono text-xs resize-none"
+              />
+              <div className="absolute top-2 right-2">
+                <CopyButton textToCopy={svgString} />
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>

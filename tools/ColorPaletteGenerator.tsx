@@ -3,6 +3,12 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Select from '@/components/ui/Select';
+import { Copy, RefreshCw } from 'lucide-react';
 
 type PaletteType = 'monochromatic' | 'analogous' | 'complementary' | 'triadic';
 
@@ -10,10 +16,10 @@ const hexToRgb = (hex: string): [number, number, number] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
     ? [
-        parseInt(result[1], 16),
-        parseInt(result[2], 16),
-        parseInt(result[3], 16),
-      ]
+      parseInt(result[1], 16),
+      parseInt(result[2], 16),
+      parseInt(result[3], 16),
+    ]
     : [0, 0, 0];
 };
 
@@ -71,6 +77,13 @@ const rgbToHex = (r: number, g: number, b: number): string => {
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 };
 
+const PALETTE_OPTIONS = [
+  { value: 'monochromatic', label: 'Monochromatic' },
+  { value: 'analogous', label: 'Analogous' },
+  { value: 'complementary', label: 'Complementary' },
+  { value: 'triadic', label: 'Triadic' },
+];
+
 const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [baseColor, setBaseColor] = useState('#3b82f6');
   const [paletteType, setPaletteType] = useState<PaletteType>('monochromatic');
@@ -126,54 +139,58 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row gap-4 items-center">
-          <input
-            type="color"
-            value={baseColor}
-            onChange={(e) => setBaseColor(e.target.value)}
-            className="w-20 h-20 bg-transparent border-none cursor-pointer"
-          />
-          <div className="flex-grow space-y-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Base Color (HEX)
-            </label>
-            <input
-              type="text"
-              value={baseColor}
-              onChange={(e) => setBaseColor(e.target.value)}
-              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
-            />
+      <div className="space-y-8">
+        <Card>
+          <div className="grid md:grid-cols-2 gap-6 items-end">
+            <div>
+              <Label>Base Color</Label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={baseColor}
+                  onChange={(e) => setBaseColor(e.target.value)}
+                  className="h-10 w-12 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
+                />
+                <Input
+                  value={baseColor}
+                  onChange={(e) => setBaseColor(e.target.value)}
+                  className="font-mono flex-grow"
+                  placeholder="#000000"
+                />
+              </div>
+            </div>
+            <div>
+              <Label>Palette Type</Label>
+              <Select
+                options={PALETTE_OPTIONS}
+                value={PALETTE_OPTIONS.find(o => o.value === paletteType)}
+                onChange={(option) => setPaletteType(option?.value as PaletteType)}
+                className="w-full"
+              />
+            </div>
           </div>
-          <div className="flex-grow space-y-2">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Palette Type
-            </label>
-            <select
-              value={paletteType}
-              onChange={(e) => setPaletteType(e.target.value as PaletteType)}
-              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              <option value="monochromatic">Monochromatic</option>
-              <option value="analogous">Analogous</option>
-              <option value="complementary">Complementary</option>
-              <option value="triadic">Triadic</option>
-            </select>
-          </div>
-        </div>
+        </Card>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
           {palette.map((color, index) => (
-            <div key={index} className="space-y-2 text-center">
+            <div key={index} className="group relative">
               <div
-                className="h-24 rounded-lg"
+                className="h-32 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 transition-transform group-hover:scale-105"
                 style={{ backgroundColor: color }}
               ></div>
-              <div
-                className="bg-gray-200 dark:bg-gray-700 p-2 rounded-md text-sm font-mono cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-600"
-                onClick={() => copyToClipboard(color)}
-              >
-                {color}
+              <div className="mt-3 text-center">
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-2 border border-gray-200 dark:border-gray-700 flex items-center justify-between px-3">
+                  <span className="font-mono text-sm uppercase text-gray-700 dark:text-gray-300">{color}</span>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => copyToClipboard(color)}
+                    className="!p-1.5 h-auto text-gray-500 hover:text-blue-600 dark:hover:text-blue-400"
+                    title="Copy Hex"
+                  >
+                    <Copy className="w-3.5 h-3.5" />
+                  </Button>
+                </div>
               </div>
             </div>
           ))}

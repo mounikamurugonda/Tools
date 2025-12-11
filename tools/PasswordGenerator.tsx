@@ -4,6 +4,10 @@ import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
 
 const CHARS = {
   LOWER: 'abcdefghijklmnopqrstuvwxyz',
@@ -50,75 +54,80 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="Password Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="relative">
-          <input
+          <Input
             readOnly
             value={password}
-            className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded p-3 text-gray-800 dark:text-gray-200 font-mono text-lg pr-16"
+            className="font-mono text-lg pr-16"
           />
           <CopyButton
             textToCopy={password}
             className="absolute top-1/2 right-2 transform -translate-y-1/2"
           />
         </div>
-        <div className="space-y-4">
+
+        <Card className="space-y-6">
           <div>
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">
-              Length: {length}
-            </label>
+            <Label className="flex justify-between">
+              <span>Password Length</span>
+              <span className="text-blue-600 font-bold">{length}</span>
+            </Label>
             <input
               type="range"
               min="4"
               max="64"
               value={length}
               onChange={(e) => setLength(parseInt(e.target.value))}
-              className="w-full"
+              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
             />
           </div>
+
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
               <input
                 type="checkbox"
                 checked={useUpper}
                 onChange={() => setUseUpper((prev) => !prev)}
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
               />
-              <span>Uppercase (A-Z)</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Uppercase</span>
             </label>
-            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
               <input
                 type="checkbox"
                 checked={useLower}
                 onChange={() => setUseLower((prev) => !prev)}
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
               />
-              <span>Lowercase (a-z)</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Lowercase</span>
             </label>
-            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
               <input
                 type="checkbox"
                 checked={useNumbers}
                 onChange={() => setUseNumbers((prev) => !prev)}
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
               />
-              <span>Numbers (0-9)</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Numbers</span>
             </label>
-            <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
+            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
               <input
                 type="checkbox"
                 checked={useSymbols}
                 onChange={() => setUseSymbols((prev) => !prev)}
-                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
               />
-              <span>Symbols (!@#)</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Symbols</span>
             </label>
           </div>
-        </div>
-        <button
+        </Card>
+
+        <Button
           onClick={generatePassword}
-          className="w-full px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold"
+          fullWidth
+          size="lg"
         >
-          Regenerate
-        </button>
+          Regenerate Password
+        </Button>
       </div>
     </ToolContainer>
   );

@@ -4,6 +4,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Select from '@/components/ui/Select';
+import Label from '@/components/ui/Label';
+import Input from '@/components/ui/Input';
 import figlet from 'figlet';
 
 // List of popular fonts available on cdnjs/figlet
@@ -255,94 +260,72 @@ const AsciiArt: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-6">
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="md:col-span-2 space-y-4">
+        <Card title="Settings">
+          <div className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Text
-              </label>
-              <input
+              <Label>Text</Label>
+              <Input
                 value={text}
                 onChange={(e) => setText(e.target.value)}
-                className="brand-input"
                 placeholder="Type something..."
+                className="w-full"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Font
-                </label>
-                <select
-                  value={font}
-                  onChange={(e) => setFont(e.target.value)}
-                  className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-sm"
-                >
-                  {FONTS.map((f) => (
-                    <option key={f} value={f}>
-                      {f}
-                    </option>
-                  ))}
-                </select>
+                <Label>Font</Label>
+                <Select
+                  value={{ value: font, label: font }}
+                  onChange={(option) => setFont(option?.value || 'Graffiti')}
+                  options={FONTS.map(f => ({ value: f, label: f }))}
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  H. Layout
-                </label>
-                <select
-                  value={horizontalLayout}
-                  onChange={(e) => setHorizontalLayout(e.target.value as any)}
-                  className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-sm"
-                >
-                  <option value="default">Default</option>
-                  <option value="full">Full</option>
-                  <option value="fitted">Fitted</option>
-                  <option value="controlled smushing">
-                    Controlled Smushing
-                  </option>
-                  <option value="universal smushing">Universal Smushing</option>
-                </select>
+                <Label>H. Layout</Label>
+                <Select
+                  value={{ value: horizontalLayout, label: horizontalLayout.charAt(0).toUpperCase() + horizontalLayout.slice(1) }}
+                  onChange={(option) => setHorizontalLayout(option?.value as any)}
+                  options={[
+                    { value: 'default', label: 'Default' },
+                    { value: 'full', label: 'Full' },
+                    { value: 'fitted', label: 'Fitted' },
+                    { value: 'controlled smushing', label: 'Controlled Smushing' },
+                    { value: 'universal smushing', label: 'Universal Smushing' }
+                  ]}
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  V. Layout
-                </label>
-                <select
-                  value={verticalLayout}
-                  onChange={(e) => setVerticalLayout(e.target.value as any)}
-                  className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 text-sm"
-                >
-                  <option value="default">Default</option>
-                  <option value="full">Full</option>
-                  <option value="fitted">Fitted</option>
-                  <option value="controlled smushing">
-                    Controlled Smushing
-                  </option>
-                  <option value="universal smushing">Universal Smushing</option>
-                </select>
+                <Label>V. Layout</Label>
+                <Select
+                  value={{ value: verticalLayout, label: verticalLayout.charAt(0).toUpperCase() + verticalLayout.slice(1) }}
+                  onChange={(option) => setVerticalLayout(option?.value as any)}
+                  options={[
+                    { value: 'default', label: 'Default' },
+                    { value: 'full', label: 'Full' },
+                    { value: 'fitted', label: 'Fitted' },
+                    { value: 'controlled smushing', label: 'Controlled Smushing' },
+                    { value: 'universal smushing', label: 'Universal Smushing' }
+                  ]}
+                />
               </div>
             </div>
-          </div>
 
-          <div className="flex flex-col justify-end">
-            <button
-              onClick={generateArt}
-              className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium transition-colors"
-              disabled={loading}
-            >
-              {loading ? 'Generating...' : 'Regenerate'}
-            </button>
+            <div className="flex justify-end">
+              <Button
+                onClick={generateArt}
+                disabled={loading}
+              >
+                {loading ? 'Generating...' : 'Regenerate'}
+              </Button>
+            </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="relative">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-            Output
-          </label>
-          <div className="relative w-full bg-gray-900 rounded-lg border border-gray-700 overflow-hidden">
+        <Card title="Output">
+          <div className="relative w-full bg-gray-950 dark:bg-gray-950 rounded-lg border border-gray-800 dark:border-gray-800 overflow-hidden shadow-2xl">
             {/* Terminal Controls */}
-            <div className="flex items-center px-4 py-2 bg-gray-800 border-b border-gray-700">
+            <div className="flex items-center px-4 py-2 bg-gray-900 border-b border-gray-800">
               <div className="flex space-x-2">
                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -353,20 +336,22 @@ const AsciiArt: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
             </div>
 
-            <pre className="p-4 text-green-400 font-mono overflow-x-auto text-sm md:text-base leading-tight min-h-[200px] w-full">
+            <pre className="p-4 text-green-400 font-mono overflow-x-auto text-sm md:text-base leading-tight min-h-[200px] w-full scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
               {loading
                 ? 'Loading font and generating...'
                 : error || output || ' '}
             </pre>
 
             {output && !loading && !error && (
-              <CopyButton
-                textToCopy={output}
-                className="absolute top-12 right-4 bg-gray-800 hover:bg-gray-700 text-gray-300"
-              />
+              <div className="absolute top-12 right-4">
+                <CopyButton
+                  textToCopy={output}
+                  className="bg-gray-800/80 hover:bg-gray-700 text-gray-300 backdrop-blur-sm"
+                />
+              </div>
             )}
           </div>
-        </div>
+        </Card>
       </div>
     </ToolContainer>
   );

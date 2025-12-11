@@ -3,6 +3,13 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import Slider from '@/components/ui/Slider';
+import Input from '@/components/ui/Input';
+import Select from '@/components/ui/Select';
+import Button from '@/components/ui/Button';
+import Label from '@/components/ui/Label';
+import { Copy } from 'lucide-react';
 
 // Color utilities (HSL <-> RGB/HEX)
 function clamp(n: number, min: number, max: number) {
@@ -20,7 +27,7 @@ function hslToRgb(h: number, s: number, l: number) {
   else if (2 <= hp && hp < 3) [r1, g1, b1] = [0, c, x];
   else if (3 <= hp && hp < 4) [r1, g1, b1] = [0, x, c];
   else if (4 <= hp && hp < 5) [r1, g1, b1] = [x, 0, c];
-  else [r1, g1, b1] = [c, 0, x];
+  else[r1, g1, b1] = [c, 0, x];
   const m = l - c / 2;
   return {
     r: Math.round((r1 + m) * 255),
@@ -105,6 +112,15 @@ function makePalette(h: number, s: number, l: number, scheme: Scheme) {
   }
 }
 
+const SCHEME_OPTIONS = [
+  { value: 'monochromatic', label: 'Monochromatic' },
+  { value: 'analogous', label: 'Analogous' },
+  { value: 'complementary', label: 'Complementary' },
+  { value: 'split-complementary', label: 'Split-Complementary' },
+  { value: 'triad', label: 'Triad' },
+  { value: 'tetrad', label: 'Tetrad' },
+];
+
 const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
   // Base HSL
   const [h, setH] = useState(217);
@@ -183,7 +199,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
   const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-    } catch {}
+    } catch { }
   };
 
   const cssVars = useMemo(() => {
@@ -203,7 +219,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer
-      title="Color Theme Generator (with Color Wheel)"
+      title="Color Theme Generator"
       details={details}
       toolId={toolId}
     >
@@ -211,195 +227,147 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
         {/* Controls */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Wheel */}
-          <div className="border border-gray-200 dark:border-gray-700 p-6">
-            <div className="flex items-center justify-between mb-4">
+          <Card title="Color Wheel" className="flex flex-col items-center">
+            <div className="w-full flex items-center justify-between mb-4 px-2">
               <div>
-                <div className="brand-kicker">Base Color</div>
-                <div className="brand-heading-4 mt-1">
+                <Label className="mb-0">Base Color</Label>
+                <div className="text-lg font-bold text-gray-900 dark:text-white mt-1">
                   {baseHex.toUpperCase()}
                 </div>
-                <div className="brand-text-muted mt-1">
-                  H {h}° · S {Math.round(s * 100)}% · L {Math.round(l * 100)}%
-                </div>
+              </div>
+              <div className="text-right text-xs text-gray-500 font-mono">
+                H {h}° <br /> S {Math.round(s * 100)}% <br /> L {Math.round(l * 100)}%
               </div>
             </div>
-            <div className="flex flex-col lg:flex-row items-center gap-6">
+
+            <div className="relative w-64 h-64 my-4">
               <div
                 ref={wheelRef}
                 onMouseDown={onMouseDown}
                 onTouchStart={onTouchStart}
-                className="relative w-64 h-64 rounded-full cursor-crosshair select-none shadow-lg"
+                className="relative w-full h-full rounded-full cursor-crosshair select-none shadow-lg"
                 style={{
-                  // Hue wheel via conic-gradient; saturation via radial mask overlay
-                  background:
-                    'conic-gradient(red, yellow, lime, cyan, blue, magenta, red)',
-                  WebkitMaskImage:
-                    'radial-gradient(circle, #000 60%, transparent 61%)',
-                  maskImage:
-                    'radial-gradient(circle, #000 60%, transparent 61%)',
+                  background: 'conic-gradient(red, yellow, lime, cyan, blue, magenta, red)',
+                  WebkitMaskImage: 'radial-gradient(circle, #000 60%, transparent 61%)',
+                  maskImage: 'radial-gradient(circle, #000 60%, transparent 61%)',
                 }}
               >
-                {/* Saturation overlay: radial gradient from white center to transparent edge handled via background-blend? Use an overlay circle */}
                 <div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background:
-                      'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 65%)',
+                    background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 65%)',
                     mixBlendMode: 'overlay',
                   }}
                 />
-                {/* Pointer showing current H and S */}
                 <Pointer h={h} s={s} />
               </div>
-              <div className="flex-1 w-full space-y-4">
+            </div>
+          </Card>
+
+          <Card title="Settings">
+            <div className="space-y-6">
+              <Slider
+                label="Lightness"
+                min={0}
+                max={1}
+                step={0.01}
+                value={l}
+                onChange={(e) => setL(parseFloat(e.target.value))}
+                valueDisplay={`${Math.round(l * 100)}%`}
+              />
+
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                    Lightness
-                  </label>
-                  <div className="flex items-center gap-4">
-                    <input
-                      type="range"
-                      min={0}
-                      max={1}
-                      step={0.01}
-                      value={l}
-                      onChange={(e) => setL(parseFloat(e.target.value))}
-                      className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer"
-                    />
-                    <span className="w-12 text-right font-mono text-sm">
-                      {Math.round(l * 100)}%
-                    </span>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                      Hue
-                    </label>
-                    <input
-                      className="brand-input"
-                      type="number"
-                      min={0}
-                      max={360}
-                      value={h}
-                      onChange={(e) =>
-                        setH(clamp(parseInt(e.target.value || '0'), 0, 360))
-                      }
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                      Saturation (%)
-                    </label>
-                    <input
-                      className="brand-input"
-                      type="number"
-                      min={0}
-                      max={100}
-                      value={Math.round(s * 100)}
-                      onChange={(e) =>
-                        setS(clamp(parseInt(e.target.value || '0') / 100, 0, 1))
-                      }
-                    />
-                  </div>
+                  <Label>Hue</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={360}
+                    value={h}
+                    onChange={(e) => setH(clamp(parseInt(e.target.value || '0'), 0, 360))}
+                  />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                    Scheme
-                  </label>
-                  <select
-                    className="brand-input"
-                    value={scheme}
-                    onChange={(e) => setScheme(e.target.value as Scheme)}
-                  >
-                    <option value="monochromatic">Monochromatic</option>
-                    <option value="analogous">Analogous</option>
-                    <option value="complementary">Complementary</option>
-                    <option value="split-complementary">
-                      Split-Complementary
-                    </option>
-                    <option value="triad">Triad</option>
-                    <option value="tetrad">Tetrad</option>
-                  </select>
+                  <Label>Saturation (%)</Label>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={Math.round(s * 100)}
+                    onChange={(e) => setS(clamp(parseInt(e.target.value || '0') / 100, 0, 1))}
+                  />
                 </div>
               </div>
+
+              <div>
+                <Label>Scheme</Label>
+                <Select
+                  options={SCHEME_OPTIONS}
+                  value={SCHEME_OPTIONS.find(o => o.value === scheme)}
+                  onChange={(option) => setScheme(option?.value as Scheme)}
+                />
+              </div>
             </div>
+          </Card>
+        </div>
+
+        <Card title="Generated Palette">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {swatches.map((sw, idx) => (
+              <div
+                key={idx}
+                className="rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm transition-transform hover:scale-105"
+              >
+                <div className="h-24" style={{ backgroundColor: sw.hex }} />
+                <div className="p-2 flex flex-col items-center gap-2 bg-gray-50 dark:bg-gray-800">
+                  <code className="font-mono text-xs font-semibold text-gray-700 dark:text-gray-300">
+                    {sw.hex.toUpperCase()}
+                  </code>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => copy(sw.hex)}
+                    className="!p-1 h-auto text-xs"
+                  >
+                    <Copy className="w-3 h-3 mr-1" /> Copy
+                  </Button>
+                </div>
+              </div>
+            ))}
           </div>
 
-          {/* Palette */}
-          <div className="border border-gray-200 dark:border-gray-700  p-6">
-            <div className="brand-kicker">Palette</div>
-            <div className="brand-heading-4 mt-1">Generated Colors</div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
-              {swatches.map((sw, idx) => (
-                <div
-                  key={idx}
-                  className="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm"
-                >
-                  <div className="h-20" style={{ backgroundColor: sw.hex }} />
-                  <div className="p-2 flex items-center justify-between bg-gray-50 dark:bg-gray-700">
-                    <code className="font-mono text-sm text-gray-700 dark:text-gray-300">
-                      {sw.hex.toUpperCase()}
-                    </code>
-                    <button
-                      className="brand-button-tertiary text-xs px-2 py-1"
-                      onClick={() => copy(sw.hex)}
-                    >
-                      Copy
-                    </button>
-                  </div>
-                </div>
-              ))}
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <Label>CSS Variables</Label>
+                <Button size="sm" variant="secondary" onClick={() => copy(cssVars)}>Copy CSS</Button>
+              </div>
+              <textarea
+                className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"
+                readOnly
+                value={cssVars}
+              />
             </div>
-            <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <div className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                  Export as CSS Variables
-                </div>
-                <textarea
-                  className="w-full h-32 brand-input font-mono text-sm"
-                  readOnly
-                  value={cssVars}
-                />
-                <div className="mt-2">
-                  <button
-                    className="brand-button-secondary"
-                    onClick={() => copy(cssVars)}
-                  >
-                    Copy CSS
-                  </button>
-                </div>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <Label>JSON Export</Label>
+                <Button size="sm" variant="secondary" onClick={() => copy(jsonExport)}>Copy JSON</Button>
               </div>
-              <div>
-                <div className="text-sm font-semibold mb-2 text-gray-700 dark:text-gray-300">
-                  Export as JSON
-                </div>
-                <textarea
-                  className="w-full h-32 brand-input font-mono text-sm"
-                  readOnly
-                  value={jsonExport}
-                />
-                <div className="mt-2">
-                  <button
-                    className="brand-button-secondary"
-                    onClick={() => copy(jsonExport)}
-                  >
-                    Copy JSON
-                  </button>
-                </div>
-              </div>
+              <textarea
+                className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"
+                readOnly
+                value={jsonExport}
+              />
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </ToolContainer>
   );
 };
 
 const Pointer: React.FC<{ h: number; s: number }> = ({ h, s }) => {
-  // position pointer based on h angle and s radius (% of radius)
-  const r = 128; // half of 256 reference; actual parent is 256/64? We'll compute proportionally using transform
-  const angle = (h - 90) * (Math.PI / 180); // subtract 90 to rotate so 0° is at right
+  const angle = (h - 90) * (Math.PI / 180);
   const rx = Math.cos(angle) * s;
   const ry = Math.sin(angle) * s;
   const left = 50 + rx * 50; // %
@@ -414,8 +382,8 @@ const Pointer: React.FC<{ h: number; s: number }> = ({ h, s }) => {
       }}
     >
       <div
-        className="w-4 h-4 rounded-full border-2 border-white shadow-lg"
-        style={{ background: 'rgba(0,0,0,0.7)' }}
+        className="w-4 h-4 rounded-full border-2 border-white shadow-lg cursor-pointer hover:scale-110 transition-transform"
+        style={{ background: 'rgba(0,0,0,0.5)' }}
       />
     </div>
   );

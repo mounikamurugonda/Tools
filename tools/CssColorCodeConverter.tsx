@@ -3,6 +3,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
+import Label from '@/components/ui/Label';
+import Slider from '@/components/ui/Slider';
+import { Copy, RefreshCw } from 'lucide-react';
 
 // Utility functions for color parsing and conversion
 function clamp(n: number, min = 0, max = 1) {
@@ -109,7 +115,7 @@ function hslToRgb(h: number, s: number, l: number) {
   else if (120 <= h && h < 180) [r1, g1, b1] = [0, c, x];
   else if (180 <= h && h < 240) [r1, g1, b1] = [0, x, c];
   else if (240 <= h && h < 300) [r1, g1, b1] = [x, 0, c];
-  else [r1, g1, b1] = [c, 0, x];
+  else[r1, g1, b1] = [c, 0, x];
   return {
     r: Math.round((r1 + m) * 255),
     g: Math.round((g1 + m) * 255),
@@ -275,7 +281,7 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-    } catch {}
+    } catch { }
   };
 
   return (
@@ -285,181 +291,115 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-6">
-        {/* Preview */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="brand-card p-4 flex items-center justify-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-800/50">
             <div
-              className="w-40 h-40 rounded-xl border border-gray-200 dark:border-gray-700 shadow-inner"
+              className="w-40 h-40 rounded-full border-4 border-white dark:border-gray-700 shadow-xl transition-colors duration-300"
               style={{
                 backgroundColor: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`,
               }}
             />
-          </div>
-          <div className="md:col-span-2 brand-card p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          </Card>
+
+          <Card className="md:col-span-2 space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-semibold mb-2">
-                  HEX / HEXA
-                </label>
+                <Label>HEX / HEXA</Label>
                 <div className="flex gap-2">
-                  <input
+                  <Input
                     value={hexInput}
                     onChange={(e) => handleHexChange(e.target.value)}
-                    placeholder="#3b82f6 or #3b82f6cc"
-                    className="brand-input font-mono"
+                    placeholder="#3b82f6"
+                    className="font-mono text-sm uppercase"
                   />
-                  <button
-                    className="brand-button-secondary whitespace-nowrap"
-                    onClick={() => copy(hexInput)}
-                  >
-                    Copy
-                  </button>
+                  <Button variant="secondary" onClick={() => copy(hexInput)} className="px-3">
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-2">
-                  RGB / RGBA
-                </label>
+                <Label>RGB / RGBA</Label>
                 <div className="flex gap-2">
-                  <input
+                  <Input
                     value={rgbInput}
                     onChange={(e) => handleRgbChange(e.target.value)}
-                    placeholder="rgb(59, 130, 246) or rgba(59, 130, 246, 0.7)"
-                    className="brand-input font-mono"
+                    placeholder="rgb(59, 130, 246)"
+                    className="font-mono text-sm"
                   />
-                  <button
-                    className="brand-button-secondary whitespace-nowrap"
-                    onClick={() => copy(rgbInput)}
-                  >
-                    Copy
-                  </button>
+                  <Button variant="secondary" onClick={() => copy(rgbInput)} className="px-3">
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-2">
-                  HSL / HSLA
-                </label>
+                <Label>HSL / HSLA</Label>
                 <div className="flex gap-2">
-                  <input
+                  <Input
                     value={hslInput}
                     onChange={(e) => handleHslChange(e.target.value)}
-                    placeholder="hsl(217, 91%, 60%) or hsla(217, 91%, 60%, 0.7)"
-                    className="brand-input font-mono"
+                    placeholder="hsl(217, 91%, 60%)"
+                    className="font-mono text-sm"
                   />
-                  <button
-                    className="brand-button-secondary whitespace-nowrap"
-                    onClick={() => copy(hslInput)}
-                  >
-                    Copy
-                  </button>
+                  <Button variant="secondary" onClick={() => copy(hslInput)} className="px-3">
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
+
               <div>
-                <label className="block text-sm font-semibold mb-2">
-                  Alpha
-                </label>
-                <div className="flex items-center gap-4">
-                  <input
-                    type="range"
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    value={rgba.a}
-                    onChange={(e) =>
-                      setRgba((prev) => ({
-                        ...prev,
-                        a: parseFloat(e.target.value),
-                      }))
-                    }
-                  />
-                  <span className="w-12 text-right tabular-nums">
-                    {rgba.a.toFixed(2)}
-                  </span>
-                </div>
+                <Slider
+                  label="Alpha (Transparency)"
+                  min={0}
+                  max={1}
+                  step={0.01}
+                  value={rgba.a}
+                  onChange={(e) => setRgba(prev => ({ ...prev, a: parseFloat(e.target.value) }))}
+                  valueDisplay={rgba.a.toFixed(2)}
+                />
               </div>
             </div>
-          </div>
+          </Card>
         </div>
 
-        {/* Keyword resolver */}
-        <div className="brand-card p-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
-            <div>
-              <label className="block text-sm font-semibold mb-2">
-                CSS Color Keyword
-              </label>
-              <input
+        <Card title="Keyword Resolver">
+          <div className="flex flex-col md:flex-row gap-4 items-end">
+            <div className="flex-grow w-full">
+              <Label>CSS Color Keyword</Label>
+              <Input
                 value={keywordInput}
                 onChange={(e) => setKeywordInput(e.target.value)}
                 placeholder="e.g., rebeccapurple, tomato, slateblue"
-                className="brand-input"
               />
-              <p className="brand-text-muted mt-2">
-                Enter a CSS color keyword and click Resolve to convert to
-                HEX/RGB/HSL.
-              </p>
+              <p className="text-xs text-gray-500 mt-1">Enter a valid CSS color name to resolve its values.</p>
             </div>
-            <div className="flex gap-2 md:justify-end">
-              <button
-                className="brand-button-primary"
-                onClick={handleKeywordResolve}
-              >
-                Resolve
-              </button>
+            <Button onClick={handleKeywordResolve} className="w-full md:w-auto">
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Resolve
+            </Button>
+          </div>
+          {error && (
+            <div className="mt-4 p-3 rounded-lg bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm border border-red-200 dark:border-red-800">
+              {error}
             </div>
-          </div>
-        </div>
+          )}
+        </Card>
 
-        {error && (
-          <div className="p-3 rounded-md bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800">
-            {error}
-          </div>
-        )}
-
-        {/* Export values quick copy */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="brand-card p-4">
-            <div className="text-sm font-semibold mb-2">HEX</div>
-            <div className="flex items-center gap-2">
-              <code className="px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">
-                {derived.hex}
-              </code>
-              <button
-                className="brand-button-secondary"
-                onClick={() => copy(derived.hex)}
-              >
-                Copy
-              </button>
+          {['HEX', 'RGB', 'HSL'].map((type) => (
+            <div key={type} className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 flex justify-between items-center shadow-sm">
+              <div>
+                <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{type}</div>
+                <code className="text-sm font-mono font-medium text-gray-900 dark:text-gray-100">
+                  {type === 'HEX' ? derived.hex : type === 'RGB' ? derived.rgb : derived.hsl}
+                </code>
+              </div>
+              <Button size="sm" variant="ghost" className="!p-2 text-gray-400 hover:text-blue-600" onClick={() => copy(type === 'HEX' ? derived.hex : type === 'RGB' ? derived.rgb : derived.hsl)}>
+                <Copy className="w-4 h-4" />
+              </Button>
             </div>
-          </div>
-          <div className="brand-card p-4">
-            <div className="text-sm font-semibold mb-2">RGB</div>
-            <div className="flex items-center gap-2">
-              <code className="px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">
-                {derived.rgb}
-              </code>
-              <button
-                className="brand-button-secondary"
-                onClick={() => copy(derived.rgb)}
-              >
-                Copy
-              </button>
-            </div>
-          </div>
-          <div className="brand-card p-4">
-            <div className="text-sm font-semibold mb-2">HSL</div>
-            <div className="flex items-center gap-2">
-              <code className="px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 font-mono text-sm">
-                {derived.hsl}
-              </code>
-              <button
-                className="brand-button-secondary"
-                onClick={() => copy(derived.hsl)}
-              >
-                Copy
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </ToolContainer>

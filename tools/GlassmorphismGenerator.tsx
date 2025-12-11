@@ -3,6 +3,12 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import Slider from '@/components/ui/Slider';
+import Button from '@/components/ui/Button';
+import Label from '@/components/ui/Label';
+import Input from '@/components/ui/Input';
+import { Copy } from 'lucide-react';
 
 const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [style, setStyle] = useState<'glassmorphism' | 'neumorphism'>(
@@ -73,23 +79,23 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     shadowOpacity,
   ]);
 
-  const copyToClipboard = () => {
-    const css =
-      style === 'glassmorphism'
-        ? `.glassmorphism {
+  const cssCode = style === 'glassmorphism'
+    ? `.glassmorphism {
   background: rgba(255, 255, 255, ${opacity});
   backdrop-filter: blur(${blur}px);
   border-radius: ${borderRadius}px;
   border: ${borderWidth}px solid ${borderColorWithOpacity};
   box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColorWithOpacity};
 }`
-        : `.neumorphism {
+    : `.neumorphism {
   background: ${background};
   border-radius: ${borderRadius}px;
   box-shadow: ${-shadowX}px ${-shadowY}px ${shadowBlur}px rgba(255, 255, 255, ${shadowOpacity}), 
               ${shadowX}px ${shadowY}px ${shadowBlur}px rgba(0, 0, 0, ${shadowOpacity});
 }`;
-    navigator.clipboard.writeText(css);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(cssCode);
   };
 
   return (
@@ -98,294 +104,162 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-6  pr-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Style Type
-              </label>
-              <div className="flex space-x-4">
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    value="glassmorphism"
-                    checked={style === 'glassmorphism'}
-                    onChange={(e) =>
-                      setStyle(
-                        e.target.value as 'glassmorphism' | 'neumorphism',
-                      )
-                    }
-                    className="mr-2"
-                  />
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <Card title="Settings">
+            <div className="space-y-6">
+              <div className="flex gap-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                <button
+                  onClick={() => setStyle('glassmorphism')}
+                  className={`flex-1 py-1.5 px-3 text-sm font-medium rounded-md transition-all ${style === 'glassmorphism' ? 'bg-white dark:bg-gray-700 shadow text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
+                >
                   Glassmorphism
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    value="neumorphism"
-                    checked={style === 'neumorphism'}
-                    onChange={(e) =>
-                      setStyle(
-                        e.target.value as 'glassmorphism' | 'neumorphism',
-                      )
-                    }
-                    className="mr-2"
-                  />
+                </button>
+                <button
+                  onClick={() => setStyle('neumorphism')}
+                  className={`flex-1 py-1.5 px-3 text-sm font-medium rounded-md transition-all ${style === 'neumorphism' ? 'bg-white dark:bg-gray-700 shadow text-blue-600 dark:text-blue-400' : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'}`}
+                >
                   Neumorphism
-                </label>
+                </button>
               </div>
-            </div>
 
-            {style === 'glassmorphism' ? (
-              <>
-                <RangeSlider
-                  label="Opacity"
-                  value={opacity}
-                  setValue={setOpacity}
-                  min={0}
-                  max={1}
-                  step={0.01}
-                />
-                <RangeSlider
-                  label="Blur (px)"
-                  value={blur}
-                  setValue={setBlur}
-                  min={0}
-                  max={50}
-                />
-                <RangeSlider
-                  label="Border Radius (px)"
-                  value={borderRadius}
-                  setValue={setBorderRadius}
-                  min={0}
-                  max={50}
-                />
-                <RangeSlider
-                  label="Border Width (px)"
-                  value={borderWidth}
-                  setValue={setBorderWidth}
-                  min={0}
-                  max={5}
-                />
+              {style === 'glassmorphism' ? (
+                <>
+                  <Slider label="Opacity" value={opacity} onChange={(e) => setOpacity(parseFloat(e.target.value))} min={0} max={1} step={0.01} valueDisplay={`${opacity}`} />
+                  <Slider label="Blur (px)" value={blur} onChange={(e) => setBlur(parseFloat(e.target.value))} min={0} max={50} valueDisplay={`${blur}px`} />
+                  <Slider label="Border Radius (px)" value={borderRadius} onChange={(e) => setBorderRadius(parseFloat(e.target.value))} min={0} max={50} valueDisplay={`${borderRadius}px`} />
+                  <Slider label="Border Width (px)" value={borderWidth} onChange={(e) => setBorderWidth(parseFloat(e.target.value))} min={0} max={5} valueDisplay={`${borderWidth}px`} />
 
-                <div className="flex items-center justify-between">
-                  <label className="text-gray-700 dark:text-gray-300">
-                    Border Color
-                  </label>
-                  <div className="flex items-center space-x-2">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Border Color</Label>
+                      <input
+                        type="color"
+                        value={borderColor}
+                        onChange={(e) => setBorderColor(e.target.value)}
+                        className="h-10 w-full rounded cursor-pointer border border-gray-300 dark:border-gray-600"
+                      />
+                    </div>
+                    <div className="mt-1">
+                      <Slider label="Border Opacity" value={borderOpacity} onChange={(e) => setBorderOpacity(parseFloat(e.target.value))} min={0} max={1} step={0.01} valueDisplay={`${borderOpacity}`} />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  <Label>Background Color</Label>
+                  <div className="flex gap-2">
                     <input
                       type="color"
-                      value={borderColor}
-                      onChange={(e) => setBorderColor(e.target.value)}
-                      className="w-12 h-8 bg-transparent border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
+                      value={background}
+                      onChange={(e) => setBackground(e.target.value)}
+                      className="h-10 w-12 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
                     />
-                    <RangeSlider
-                      label="Border Opacity"
-                      value={borderOpacity}
-                      setValue={setBorderOpacity}
-                      min={0}
-                      max={1}
-                      step={0.01}
-                    />
+                    <Input value={background} onChange={(e) => setBackground(e.target.value)} className="flex-grow font-mono" />
                   </div>
                 </div>
-              </>
-            ) : (
-              <div className="flex items-center justify-between">
-                <label className="text-gray-700 dark:text-gray-300">
-                  Background Color
-                </label>
-                <input
-                  type="color"
-                  value={background}
-                  onChange={(e) => setBackground(e.target.value)}
-                  className="w-12 h-8 bg-transparent border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
-                />
-              </div>
-            )}
+              )}
 
-            <div className="space-y-4">
-              <h4 className="font-medium text-gray-700 dark:text-gray-300">
-                Shadow Settings
-              </h4>
-              <RangeSlider
-                label="Shadow X (px)"
-                value={shadowX}
-                setValue={setShadowX}
-                min={-20}
-                max={20}
-              />
-              <RangeSlider
-                label="Shadow Y (px)"
-                value={shadowY}
-                setValue={setShadowY}
-                min={-20}
-                max={20}
-              />
-              <RangeSlider
-                label="Shadow Blur (px)"
-                value={shadowBlur}
-                setValue={setShadowBlur}
-                min={0}
-                max={50}
-              />
-              <RangeSlider
-                label="Shadow Spread (px)"
-                value={shadowSpread}
-                setValue={setShadowSpread}
-                min={-20}
-                max={20}
-              />
+              <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">Shadow Settings</h4>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <Slider label="Shadow X" value={shadowX} onChange={(e) => setShadowX(parseFloat(e.target.value))} min={-20} max={20} valueDisplay={`${shadowX}px`} />
+                    <Slider label="Shadow Y" value={shadowY} onChange={(e) => setShadowY(parseFloat(e.target.value))} min={-20} max={20} valueDisplay={`${shadowY}px`} />
+                  </div>
+                  <Slider label="Shadow Blur" value={shadowBlur} onChange={(e) => setShadowBlur(parseFloat(e.target.value))} min={0} max={50} valueDisplay={`${shadowBlur}px`} />
+                  <Slider label="Shadow Spread" value={shadowSpread} onChange={(e) => setShadowSpread(parseFloat(e.target.value))} min={-20} max={20} valueDisplay={`${shadowSpread}px`} />
 
-              <div className="flex items-center justify-between">
-                <label className="text-gray-700 dark:text-gray-300">
-                  Shadow Color
-                </label>
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="color"
-                    value={shadowColor}
-                    onChange={(e) => setShadowColor(e.target.value)}
-                    className="w-12 h-8 bg-transparent border border-gray-300 dark:border-gray-600 rounded cursor-pointer"
-                  />
-                  <RangeSlider
-                    label="Shadow Opacity"
-                    value={shadowOpacity}
-                    setValue={setShadowOpacity}
-                    min={0}
-                    max={1}
-                    step={0.01}
-                  />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Shadow Color</Label>
+                      <input
+                        type="color"
+                        value={shadowColor}
+                        onChange={(e) => setShadowColor(e.target.value)}
+                        className="h-10 w-full rounded cursor-pointer border border-gray-300 dark:border-gray-600"
+                      />
+                    </div>
+                    <div className="mt-1">
+                      <Slider label="Shadow Opacity" value={shadowOpacity} onChange={(e) => setShadowOpacity(parseFloat(e.target.value))} min={0} max={1} step={0.01} valueDisplay={`${shadowOpacity}`} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </Card>
 
-            <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <h4 className="font-medium text-blue-900 dark:text-blue-100 mb-2">
-                {style === 'glassmorphism'
-                  ? 'Glassmorphism Tips'
-                  : 'Neumorphism Tips'}
-              </h4>
-              <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-                {style === 'glassmorphism' ? (
-                  <>
-                    <p>
-                      • <strong>Low opacity:</strong> 0.1-0.3 for subtle effect
-                    </p>
-                    <p>
-                      • <strong>High blur:</strong> 10-20px for frosted glass
-                      look
-                    </p>
-                    <p>
-                      • <strong>Light borders:</strong> White with low opacity
-                    </p>
-                    <p>
-                      • <strong>Background:</strong> Use colorful gradients
-                      behind
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p>
-                      • <strong>Soft shadows:</strong> Similar X/Y values, high
-                      blur
-                    </p>
-                    <p>
-                      • <strong>Light source:</strong> Top-left for raised
-                      effect
-                    </p>
-                    <p>
-                      • <strong>Colors:</strong> Use subtle, muted backgrounds
-                    </p>
-                    <p>
-                      • <strong>Contrast:</strong> Keep shadows subtle
-                    </p>
-                  </>
-                )}
-              </div>
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/50">
+            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+              {style === 'glassmorphism'
+                ? 'Glassmorphism Tips'
+                : 'Neumorphism Tips'}
+            </h4>
+            <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
+              {style === 'glassmorphism' ? (
+                <>
+                  <p>• <strong>Low opacity:</strong> 0.1-0.3 for subtle effect</p>
+                  <p>• <strong>High blur:</strong> 10-20px for frosted glass look</p>
+                  <p>• <strong>Light borders:</strong> White with low opacity</p>
+                  <p>• <strong>Background:</strong> Use colorful gradients behind</p>
+                </>
+              ) : (
+                <>
+                  <p>• <strong>Soft shadows:</strong> Similar X/Y values, high blur</p>
+                  <p>• <strong>Light source:</strong> Top-left for raised effect</p>
+                  <p>• <strong>Colors:</strong> Use subtle, muted backgrounds</p>
+                  <p>• <strong>Contrast:</strong> Keep shadows subtle</p>
+                </>
+              )}
             </div>
           </div>
+        </div>
 
-          <div className="space-y-4 sticky top-0 self-start">
+        <div className="space-y-6">
+          <Card title="Preview" className="h-[300px] flex items-center justify-center p-0 overflow-hidden relative" >
             <div
-              className="h-48 rounded flex items-center justify-center p-8 relative overflow-hidden"
+              className="absolute inset-0"
               style={{
-                background:
-                  style === 'glassmorphism'
-                    ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                    : '#e5e7eb',
+                background: style === 'glassmorphism'
+                  ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  : '#e5e7eb'
+              }}
+            />
+
+            {/* Decorative circles for glassmorphism */}
+            {style === 'glassmorphism' && (
+              <>
+                <div className="absolute top-10 left-10 w-20 h-20 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+                <div className="absolute top-10 right-10 w-20 h-20 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+                <div className="absolute -bottom-8 left-20 w-20 h-20 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
+              </>
+            )}
+
+            <div
+              className="w-48 h-48 flex items-center justify-center text-xl font-medium transition-all duration-300"
+              style={{
+                ...glassmorphismStyles,
+                color: style === 'glassmorphism' ? 'white' : '#4b5563'
               }}
             >
-              <div
-                className="w-32 h-32 flex items-center justify-center text-white font-medium"
-                style={glassmorphismStyles}
-              >
-                {style === 'glassmorphism' ? 'Glass' : 'Soft'}
-              </div>
+              {style === 'glassmorphism' ? 'Glass' : 'Soft'}
             </div>
+          </Card>
 
-            <div className="relative">
-              <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
-                <code>
-                  {style === 'glassmorphism'
-                    ? `background: rgba(255, 255, 255, ${opacity});
-backdrop-filter: blur(${blur}px);
-border-radius: ${borderRadius}px;
-border: ${borderWidth}px solid ${borderColorWithOpacity};
-box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColorWithOpacity};`
-                    : `background: ${background};
-border-radius: ${borderRadius}px;
-box-shadow: ${-shadowX}px ${-shadowY}px ${shadowBlur}px rgba(255, 255, 255, ${shadowOpacity}), 
-            ${shadowX}px ${shadowY}px ${shadowBlur}px rgba(0, 0, 0, ${shadowOpacity});`}
-                </code>
-              </pre>
-              <button
-                onClick={copyToClipboard}
-                className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
-              >
-                Copy
-              </button>
+          <Card className="relative group">
+            <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800">
+              <code>{cssCode}</code>
+            </pre>
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button size="sm" variant="secondary" onClick={copyToClipboard} className="shadow-sm">
+                <Copy className="w-3 h-3 mr-1" /> Copy CSS
+              </Button>
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>
   );
 };
-
-interface RangeSliderProps {
-  label: string;
-  value: number;
-  setValue: (value: number) => void;
-  min?: number;
-  max?: number;
-  step?: number;
-}
-
-const RangeSlider: React.FC<RangeSliderProps> = ({
-  label,
-  value,
-  setValue,
-  min = 0,
-  max = 100,
-  step = 1,
-}) => (
-  <div>
-    <label className="flex justify-between text-gray-700 dark:text-gray-300 mb-1">
-      <span>{label}</span>
-      <span>{value}</span>
-    </label>
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={(e) => setValue(parseFloat(e.target.value))}
-      className="w-full"
-    />
-  </div>
-);
 
 export default GlassmorphismGenerator;

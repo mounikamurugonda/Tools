@@ -3,6 +3,10 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
 
 const RandomNumber: React.FC<ToolProps> = ({ details, toolId }) => {
   const [min, setMin] = useState(1);
@@ -25,47 +29,45 @@ const RandomNumber: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-6">
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-6">
           <div>
-            <label className="block text-sm font-medium mb-1">Min</label>
-            <input
+            <Label>Min</Label>
+            <Input
               type="number"
               value={min}
               onChange={(e) => setMin(Number(e.target.value))}
-              className="brand-input"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Max</label>
-            <input
+            <Label>Max</Label>
+            <Input
               type="number"
               value={max}
               onChange={(e) => setMax(Number(e.target.value))}
-              className="brand-input"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Count</label>
-            <input
+            <Label>Count</Label>
+            <Input
               type="number"
               min="1"
               max="100"
               value={count}
               onChange={(e) => setCount(Number(e.target.value))}
-              className="brand-input"
             />
           </div>
         </div>
 
-        <button
+        <Button
           onClick={generate}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold text-lg shadow-md transition-transform active:scale-95"
+          fullWidth
+          size="lg"
         >
           Generate
-        </button>
+        </Button>
 
         {results.length > 0 && (
-          <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl min-h-[100px] flex flex-wrap items-center justify-center gap-4">
+          <Card className="min-h-[100px] flex flex-wrap items-center justify-center gap-4">
             {results.map((n, i) => (
               <span
                 key={i}
@@ -75,7 +77,7 @@ const RandomNumber: React.FC<ToolProps> = ({ details, toolId }) => {
                 {i < results.length - 1 ? ',' : ''}
               </span>
             ))}
-          </div>
+          </Card>
         )}
       </div>
     </ToolContainer>

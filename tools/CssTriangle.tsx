@@ -3,7 +3,12 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import CopyButton from '@/components/CopyButton';
+import Card from '@/components/ui/Card';
+import Slider from '@/components/ui/Slider';
+import Button from '@/components/ui/Button';
+import Label from '@/components/ui/Label';
+import Input from '@/components/ui/Input';
+import { Copy, ChevronUp, ChevronRight, ChevronDown, ChevronLeft } from 'lucide-react';
 
 const CssTriangle: React.FC<ToolProps> = ({ details, toolId }) => {
   const [direction, setDirection] = useState('top');
@@ -45,6 +50,10 @@ border-style: solid;
 border-width: ${getBorderStyles().borderWidth};
 border-color: ${getBorderStyles().borderColor};`;
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(cssOutput);
+  };
+
   return (
     <ToolContainer
       title="CSS Triangle Generator"
@@ -53,71 +62,83 @@ border-color: ${getBorderStyles().borderColor};`;
     >
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium mb-2">Direction</label>
-            <div className="flex flex-wrap gap-2">
-              {['top', 'right', 'bottom', 'left'].map((d) => (
-                <button
-                  key={d}
-                  onClick={() => setDirection(d)}
-                  className={`px-4 py-2 capitalize rounded border ${direction === d ? 'bg-blue-600 text-white border-blue-600' : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600'}`}
-                >
-                  {d}
-                </button>
-              ))}
+          <Card title="Settings">
+            <div className="space-y-6">
+              <div>
+                <Label>Direction</Label>
+                <div className="grid grid-cols-4 gap-2">
+                  {[
+                    { val: 'top', icon: ChevronUp },
+                    { val: 'right', icon: ChevronRight },
+                    { val: 'bottom', icon: ChevronDown },
+                    { val: 'left', icon: ChevronLeft }
+                  ].map(({ val, icon: Icon }) => (
+                    <Button
+                      key={val}
+                      variant={direction === val ? 'primary' : 'outline'}
+                      onClick={() => setDirection(val)}
+                      className="flex items-center justify-center py-3"
+                      title={val.charAt(0).toUpperCase() + val.slice(1)}
+                    >
+                      <Icon size={20} />
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              <Slider
+                label="Width"
+                min={0}
+                max={300}
+                value={width}
+                onChange={(e) => setWidth(parseFloat(e.target.value))}
+                valueDisplay={`${width}px`}
+              />
+
+              <Slider
+                label="Height"
+                min={0}
+                max={300}
+                value={height}
+                onChange={(e) => setHeight(parseFloat(e.target.value))}
+                valueDisplay={`${height}px`}
+              />
+
+              <div>
+                <Label>Color</Label>
+                <div className="flex gap-2">
+                  <input
+                    type="color"
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                    className="h-10 w-12 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
+                  />
+                  <Input
+                    value={color}
+                    onChange={(e) => setColor(e.target.value)}
+                    className="flex-grow font-mono"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Width ({width}px)
-            </label>
-            <input
-              type="range"
-              min="0"
-              max="300"
-              value={width}
-              onChange={(e) => setWidth(Number(e.target.value))}
-              className="w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Height ({height}px)
-            </label>
-            <input
-              type="range"
-              min="0"
-              max="300"
-              value={height}
-              onChange={(e) => setHeight(Number(e.target.value))}
-              className="w-full"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Color</label>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="w-full h-10"
-            />
-          </div>
+          </Card>
         </div>
-        <div className="flex flex-col items-center justify-center space-y-6">
-          <div className="w-64 h-64 border border-gray-200 dark:border-gray-700 flex items-center justify-center bg-gray-50 dark:bg-gray-900 rounded">
-            <div style={getBorderStyles()}></div>
-          </div>
-          <div className="relative w-full">
-            <textarea
-              readOnly
-              value={cssOutput}
-              className="w-full h-32 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded p-3 font-mono text-xs"
-            />
-            <CopyButton
-              textToCopy={cssOutput}
-              className="absolute top-2 right-2"
-            />
-          </div>
+
+        <div className="space-y-6">
+          <Card title="Preview" className="h-[300px] flex items-center justify-center bg-gray-50 dark:bg-gray-800/50">
+            <div style={getBorderStyles()} className="transition-all duration-200"></div>
+          </Card>
+
+          <Card className="relative group">
+            <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800 h-40">
+              <code>{cssOutput}</code>
+            </pre>
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button size="sm" variant="secondary" onClick={copyToClipboard} className="shadow-sm">
+                <Copy className="w-3 h-3 mr-1" /> Copy CSS
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>

@@ -3,6 +3,12 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Slider from '@/components/ui/Slider';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Label from '@/components/ui/Label';
+import Input from '@/components/ui/Input';
+import { Copy } from 'lucide-react';
 
 const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [hOffset, setHOffset] = useState(10);
@@ -34,120 +40,105 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <RangeSlider
-            label="Horizontal Offset (px)"
-            value={hOffset}
-            setValue={setHOffset}
-            min={-50}
-            max={50}
-          />
-          <RangeSlider
-            label="Vertical Offset (px)"
-            value={vOffset}
-            setValue={setVOffset}
-            min={-50}
-            max={50}
-          />
-          <RangeSlider
-            label="Blur Radius (px)"
-            value={blur}
-            setValue={setBlur}
-            min={0}
-            max={100}
-          />
-          <RangeSlider
-            label="Spread Radius (px)"
-            value={spread}
-            setValue={setSpread}
-            min={-50}
-            max={50}
-          />
-          <RangeSlider
-            label="Opacity"
-            value={opacity}
-            setValue={setOpacity}
-            min={0}
-            max={1}
-            step={0.01}
-          />
+        <div className="space-y-6">
+          <Card title="Settings">
+            <div className="space-y-6">
+              <Slider
+                label="Horizontal Offset"
+                value={hOffset}
+                onChange={(e) => setHOffset(parseFloat(e.target.value))}
+                min={-50}
+                max={50}
+                valueDisplay={`${hOffset}px`}
+              />
+              <Slider
+                label="Vertical Offset"
+                value={vOffset}
+                onChange={(e) => setVOffset(parseFloat(e.target.value))}
+                min={-50}
+                max={50}
+                valueDisplay={`${vOffset}px`}
+              />
+              <Slider
+                label="Blur Radius"
+                value={blur}
+                onChange={(e) => setBlur(parseFloat(e.target.value))}
+                min={0}
+                max={100}
+                valueDisplay={`${blur}px`}
+              />
+              <Slider
+                label="Spread Radius"
+                value={spread}
+                onChange={(e) => setSpread(parseFloat(e.target.value))}
+                min={-50}
+                max={50}
+                valueDisplay={`${spread}px`}
+              />
+              <Slider
+                label="Opacity"
+                value={opacity}
+                onChange={(e) => setOpacity(parseFloat(e.target.value))}
+                min={0}
+                max={1}
+                step={0.01}
+                valueDisplay={`${opacity}`}
+              />
 
-          <div className="flex items-center justify-between">
-            <label className="text-gray-700 dark:text-gray-300">Color</label>
-            <input
-              type="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-              className="w-12 h-8 bg-transparent border border-gray-300 dark:border-gray-600 rounded"
-            />
-          </div>
+              <div className="flex items-center gap-4">
+                <div className="flex-grow">
+                  <Label>Shadow Color</Label>
+                  <div className="flex gap-2">
+                    <input
+                      type="color"
+                      value={color}
+                      onChange={(e) => setColor(e.target.value)}
+                      className="h-10 w-12 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
+                    />
+                    <Input
+                      value={color}
+                      onChange={(e) => setColor(e.target.value)}
+                      className="flex-grow font-mono"
+                    />
+                  </div>
+                </div>
+              </div>
 
-          <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
-            <input
-              type="checkbox"
-              checked={inset}
-              onChange={() => setInset((p) => !p)}
-              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-            />
-            <span>Inset</span>
-          </label>
+              <label className="flex items-center space-x-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={inset}
+                  onChange={() => setInset((p) => !p)}
+                  className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                />
+                <span className="text-gray-700 dark:text-gray-300 font-medium">Inset</span>
+              </label>
+            </div>
+          </Card>
         </div>
-        <div className="space-y-4">
-          <div className="h-48 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center p-8">
+
+        <div className="space-y-6">
+          <Card title="Preview" className="h-[300px] flex items-center justify-center bg-gray-100 dark:bg-gray-800/50">
             <div
-              className="w-32 h-32 bg-blue-500 rounded-lg"
+              className="w-40 h-40 bg-blue-500 rounded-xl transition-all duration-300"
               style={{ boxShadow: boxShadowValue }}
-            ></div>
-          </div>
-          <div className="relative">
-            <pre className="bg-gray-50 dark:bg-gray-900 p-4 rounded border border-gray-300 dark:border-gray-600 text-sm overflow-x-auto">
+            />
+          </Card>
+
+          <Card className="relative group">
+            <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800">
               <code>box-shadow: {boxShadowValue};</code>
             </pre>
-            <button
-              onClick={copyToClipboard}
-              className="absolute top-2 right-2 px-3 py-1 bg-gray-600 hover:bg-gray-500 text-white text-sm rounded"
-            >
-              Copy
-            </button>
-          </div>
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button size="sm" variant="secondary" onClick={copyToClipboard} className="shadow-sm">
+                <Copy className="w-3 h-3 mr-1" /> Copy
+              </Button>
+            </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>
   );
 };
-
-interface RangeSliderProps {
-  label: string;
-  value: number;
-  setValue: (value: number) => void;
-  min?: number;
-  max?: number;
-  step?: number;
-}
-
-const RangeSlider: React.FC<RangeSliderProps> = ({
-  label,
-  value,
-  setValue,
-  min = -100,
-  max = 100,
-  step = 1,
-}) => (
-  <div>
-    <label className="flex justify-between text-gray-700 dark:text-gray-300 mb-1">
-      <span>{label}</span>
-      <span>{value}</span>
-    </label>
-    <input
-      type="range"
-      min={min}
-      max={max}
-      step={step}
-      value={value}
-      onChange={(e) => setValue(parseFloat(e.target.value))}
-      className="w-full"
-    />
-  </div>
-);
 
 export default BoxShadowGenerator;

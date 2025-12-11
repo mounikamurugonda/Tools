@@ -3,6 +3,9 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
 
 const ContrastChecker: React.FC<ToolProps> = ({ details, toolId }) => {
   const [foreground, setForeground] = useState('#000000');
@@ -30,70 +33,73 @@ const ContrastChecker: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Contrast Checker" details={details} toolId={toolId}>
-      <div className="space-y-6">
-        <div className="grid grid-cols-2 gap-6">
-          <div>
-            <label className="block text-sm font-medium mb-2">Text Color</label>
-            <div className="flex gap-2">
-              <input
-                type="color"
-                value={foreground}
-                onChange={(e) => setForeground(e.target.value)}
-                className="h-10 w-10 cursor-pointer"
-              />
-              <input
-                type="text"
-                value={foreground}
-                onChange={(e) => setForeground(e.target.value)}
-                className="brand-input"
-              />
+      <div className="max-w-4xl mx-auto space-y-8">
+        <Card>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <Label>Text Color</Label>
+              <div className="flex gap-3">
+                <input
+                  type="color"
+                  value={foreground}
+                  onChange={(e) => setForeground(e.target.value)}
+                  className="h-12 w-14 rounded-lg border border-gray-300 dark:border-gray-600 cursor-pointer shadow-sm"
+                />
+                <Input
+                  type="text"
+                  value={foreground}
+                  onChange={(e) => setForeground(e.target.value)}
+                  className="font-mono uppercase"
+                  maxLength={7}
+                />
+              </div>
+            </div>
+            <div>
+              <Label>Background Color</Label>
+              <div className="flex gap-3">
+                <input
+                  type="color"
+                  value={background}
+                  onChange={(e) => setBackground(e.target.value)}
+                  className="h-12 w-14 rounded-lg border border-gray-300 dark:border-gray-600 cursor-pointer shadow-sm"
+                />
+                <Input
+                  type="text"
+                  value={background}
+                  onChange={(e) => setBackground(e.target.value)}
+                  className="font-mono uppercase"
+                  maxLength={7}
+                />
+              </div>
             </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Background Color
-            </label>
-            <div className="flex gap-2">
-              <input
-                type="color"
-                value={background}
-                onChange={(e) => setBackground(e.target.value)}
-                className="h-10 w-10 cursor-pointer"
-              />
-              <input
-                type="text"
-                value={background}
-                onChange={(e) => setBackground(e.target.value)}
-                className="brand-input"
-              />
-            </div>
-          </div>
-        </div>
+        </Card>
 
-        <div
-          className="p-8 rounded-lg text-center"
-          style={{ backgroundColor: background, color: foreground }}
-        >
-          <h2 className="text-4xl font-bold mb-2">Contrast Ratio</h2>
-          <p className="text-6xl font-bold">{ratioFixed}:1</p>
-          <p className="mt-4 text-lg">
+        <Card className="min-h-[200px] flex flex-col items-center justify-center text-center transition-colors duration-300 border-2" style={{ backgroundColor: background, color: foreground, borderColor: ratio >= 4.5 ? 'rgba(74, 222, 128, 0.5)' : 'rgba(248, 113, 113, 0.5)' }}>
+          <h2 className="text-5xl font-extrabold mb-2">Contrast Ratio</h2>
+          <p className="text-7xl font-black tracking-tight">{ratioFixed}:1</p>
+          <p className="mt-8 text-xl font-medium opacity-90 max-w-2xl">
             The quick brown fox jumps over the lazy dog.
           </p>
-        </div>
+        </Card>
 
-        <div className="grid grid-cols-2 gap-4 text-center">
-          <div
-            className={`p-4 rounded border ${ratio >= 4.5 ? 'bg-green-50 border-green-200 text-green-800' : 'bg-red-50 border-red-200 text-red-800'}`}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Card
+            className={`text-center border-l-4 ${ratio >= 4.5 ? 'border-l-green-500 bg-green-50/50 dark:bg-green-900/20' : 'border-l-red-500 bg-red-50/50 dark:bg-red-900/20'}`}
           >
-            <h3 className="font-bold">Normal Text (AA)</h3>
-            <p className="text-xl">{getRating(ratio)}</p>
-          </div>
-          <div
-            className={`p-4 rounded border ${ratio >= 3 ? 'bg-green-50 border-green-200 text-green-800' : 'bg-red-50 border-red-200 text-red-800'}`}
+            <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-100">Normal Text (AA)</h3>
+            <div className={`text-4xl font-bold ${ratio >= 4.5 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+              {getRating(ratio)}
+            </div>
+          </Card>
+          <Card
+            className={`text-center border-l-4 ${ratio >= 3 ? 'border-l-green-500 bg-green-50/50 dark:bg-green-900/20' : 'border-l-red-500 bg-red-50/50 dark:bg-red-900/20'}`}
           >
-            <h3 className="font-bold">Large Text (AA)</h3>
-            <p className="text-xl">{getLargeTextRating(ratio)}</p>
-          </div>
+            <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-gray-100">Large Text (AA)</h3>
+            <div className={`text-4xl font-bold ${ratio >= 3 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+              {getLargeTextRating(ratio)}
+            </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>

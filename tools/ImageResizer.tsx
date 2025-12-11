@@ -4,12 +4,19 @@ import React, { useState, useRef, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import FileUpload from '@/components/FileUpload';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import Slider from '@/components/ui/Slider';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
 import {
   Download,
   RotateCcw,
   Settings,
   Maximize2,
   Minimize2,
+  Image as ImageIcon,
+  Check
 } from 'lucide-react';
 
 interface ResizeSettings {
@@ -179,310 +186,187 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="Image Resizer" details={details} toolId={toolId}>
       <div className="space-y-6">
         {/* File Upload */}
-        <FileUpload
-          accept="image/*"
-          onChange={handleImageChange}
-          label="Upload Image to Resize"
-          description="Select an image file to resize"
-          maxSize={50}
-        />
+        {!originalImageSrc && (
+          <Card title="Upload Image">
+            <FileUpload
+              accept="image/*"
+              onChange={handleImageChange}
+              label="Upload Image to Resize"
+              description="Select an image file to resize"
+              maxSize={50}
+            />
+          </Card>
+        )}
 
         {/* Resize Settings */}
         {originalImageSrc && (
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-            <div className="flex items-center gap-2 mb-4">
-              <Settings className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-                Resize Settings
-              </h3>
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Sidebar Settings */}
+            <div className="space-y-6">
+              <Card title="Resize Settings" icon={<Settings className="w-5 h-5" />}>
+                <div className="space-y-6">
+                  {/* Resize Mode */}
+                  <div>
+                    <Label>Resize Mode</Label>
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button
+                        variant={settings.mode === 'percentage' ? 'primary' : 'outline'}
+                        onClick={() => setSettings(prev => ({ ...prev, mode: 'percentage' }))}
+                        size="sm"
+                      >
+                        Percentage
+                      </Button>
+                      <Button
+                        variant={settings.mode === 'dimensions' ? 'primary' : 'outline'}
+                        onClick={() => setSettings(prev => ({ ...prev, mode: 'dimensions' }))}
+                        size="sm"
+                      >
+                        Dimensions
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Percentage Mode */}
+                  {settings.mode === 'percentage' && (
+                    <Slider
+                      label="Scale"
+                      min={1}
+                      max={200}
+                      value={settings.percentage}
+                      onChange={(e) => setSettings(prev => ({ ...prev, percentage: parseInt(e.target.value) }))}
+                      valueDisplay={`${settings.percentage}%`}
+                    />
+                  )}
+
+                  {/* Dimensions Mode */}
+                  {settings.mode === 'dimensions' && (
+                    <div className="space-y-4">
+                      <Slider
+                        label="Width (px)"
+                        min={1}
+                        max={4000}
+                        value={settings.width}
+                        onChange={(e) => setSettings(prev => ({ ...prev, width: parseInt(e.target.value) }))}
+                        valueDisplay={`${settings.width}`}
+                      />
+                      <Slider
+                        label="Height (px)"
+                        min={1}
+                        max={4000}
+                        value={settings.height}
+                        onChange={(e) => setSettings(prev => ({ ...prev, height: parseInt(e.target.value) }))}
+                        valueDisplay={`${settings.height}`}
+                      />
+                    </div>
+                  )}
+
+                  {/* Keep Aspect Ratio */}
+                  <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-900 rounded-lg">
+                    <div
+                      className={`w-5 h-5 flex items-center justify-center rounded border cursor-pointer ${settings.keepAspectRatio ? 'bg-blue-600 border-blue-600' : 'border-gray-300 dark:border-gray-600'}`}
+                      onClick={() => setSettings(prev => ({ ...prev, keepAspectRatio: !prev.keepAspectRatio }))}
+                    >
+                      {settings.keepAspectRatio && <Check className="w-3.5 h-3.5 text-white" />}
+                    </div>
+                    <label
+                      className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer select-none"
+                      onClick={() => setSettings(prev => ({ ...prev, keepAspectRatio: !prev.keepAspectRatio }))}
+                    >
+                      Keep aspect ratio
+                    </label>
+                  </div>
+
+                  {/* Quality */}
+                  <Slider
+                    label="Quality"
+                    min={0.1}
+                    max={1}
+                    step={0.1}
+                    value={settings.quality}
+                    onChange={(e) => setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))}
+                    valueDisplay={`${Math.round(settings.quality * 100)}%`}
+                  />
+
+                  <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
+                    <Button
+                      onClick={resetAll}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      <RotateCcw className="w-4 h-4 mr-2" />
+                      Start Over
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+
+              {/* Image Info Card */}
+              {originalDimensions && (
+                <Card title="Image Info">
+                  <div className="space-y-4 text-sm">
+                    <div className="space-y-1">
+                      <p className="text-gray-500 dark:text-gray-400 font-medium uppercase text-xs">Original</p>
+                      <p className="font-mono">{originalDimensions.width} × {originalDimensions.height} px</p>
+                      <p className="text-gray-600 dark:text-gray-400">{originalImage ? formatFileSize(originalImage.size) : 'Unknown'}</p>
+                    </div>
+
+                    {resizedDimensions && (
+                      <div className="pt-2 border-t border-gray-100 dark:border-gray-800 space-y-1">
+                        <p className="text-gray-500 dark:text-gray-400 font-medium uppercase text-xs">Resized</p>
+                        <p className="font-mono">{resizedDimensions.width} × {resizedDimensions.height} px</p>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          {originalDimensions
+                            ? Math.round(((resizedDimensions.width * resizedDimensions.height) / (originalDimensions.width * originalDimensions.height)) * 100)
+                            : 0}
+                          % of original
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </Card>
+              )}
             </div>
 
-            <div className="space-y-4">
-              {/* Resize Mode */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Resize Mode
-                </label>
-                <div className="flex gap-4">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      value="percentage"
-                      checked={settings.mode === 'percentage'}
-                      onChange={(e) =>
-                        setSettings((prev) => ({
-                          ...prev,
-                          mode: e.target.value as 'percentage' | 'dimensions',
-                        }))
-                      }
-                      className="mr-2"
-                    />
-                    Percentage (%)
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      value="dimensions"
-                      checked={settings.mode === 'dimensions'}
-                      onChange={(e) =>
-                        setSettings((prev) => ({
-                          ...prev,
-                          mode: e.target.value as 'percentage' | 'dimensions',
-                        }))
-                      }
-                      className="mr-2"
-                    />
-                    Dimensions (px)
-                  </label>
+            {/* Preview Area */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Processing Indicator */}
+              {isProcessing && (
+                <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 px-4 py-2 rounded-lg flex items-center justify-center gap-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current"></div>
+                  Processing...
                 </div>
-              </div>
+              )}
 
-              {/* Percentage Mode */}
-              {settings.mode === 'percentage' && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Scale: {settings.percentage}%
-                  </label>
-                  <input
-                    type="range"
-                    min="1"
-                    max="500"
-                    step="1"
-                    value={settings.percentage}
-                    onChange={(e) =>
-                      setSettings((prev) => ({
-                        ...prev,
-                        percentage: parseInt(e.target.value),
-                      }))
+              <div className="grid gap-6">
+                {originalImageSrc && (
+                  <Card title="Original" className="bg-gray-50 dark:bg-gray-900/50">
+                    <div className="flex items-center justify-center p-4 min-h-[200px]">
+                      <img src={originalImageSrc} alt="Original" className="max-w-full max-h-[300px] object-contain rounded shadow-sm" />
+                    </div>
+                  </Card>
+                )}
+
+                {resizedImageSrc && (
+                  <Card
+                    title="Resized Output"
+                    className="bg-gray-50 dark:bg-gray-900/50 border-blue-200 dark:border-blue-900"
+                    action={
+                      <Button
+                        onClick={downloadResizedImage}
+                        size="sm"
+                        variant="primary"
+                      >
+                        <Download className="w-4 h-4 mr-2" />
+                        Download
+                      </Button>
                     }
-                    className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-                  />
-                  <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                    <span>1%</span>
-                    <span>500%</span>
-                  </div>
-                </div>
-              )}
-
-              {/* Dimensions Mode */}
-              {settings.mode === 'dimensions' && (
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Width: {settings.width}px
-                    </label>
-                    <input
-                      type="range"
-                      min="1"
-                      max="4000"
-                      step="1"
-                      value={settings.width}
-                      onChange={(e) =>
-                        setSettings((prev) => ({
-                          ...prev,
-                          width: parseInt(e.target.value),
-                        }))
-                      }
-                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                      Height: {settings.height}px
-                    </label>
-                    <input
-                      type="range"
-                      min="1"
-                      max="4000"
-                      step="1"
-                      value={settings.height}
-                      onChange={(e) =>
-                        setSettings((prev) => ({
-                          ...prev,
-                          height: parseInt(e.target.value),
-                        }))
-                      }
-                      className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Keep Aspect Ratio */}
-              <div className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  id="keepAspectRatio"
-                  checked={settings.keepAspectRatio}
-                  onChange={(e) =>
-                    setSettings((prev) => ({
-                      ...prev,
-                      keepAspectRatio: e.target.checked,
-                    }))
-                  }
-                  className="rounded"
-                />
-                <label
-                  htmlFor="keepAspectRatio"
-                  className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  Keep aspect ratio
-                </label>
-              </div>
-
-              {/* Quality */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Quality: {Math.round(settings.quality * 100)}%
-                </label>
-                <input
-                  type="range"
-                  min="0.1"
-                  max="1"
-                  step="0.1"
-                  value={settings.quality}
-                  onChange={(e) =>
-                    setSettings((prev) => ({
-                      ...prev,
-                      quality: parseFloat(e.target.value),
-                    }))
-                  }
-                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-                />
-                <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mt-1">
-                  <span>10%</span>
-                  <span>100%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Preview and Results */}
-        {(originalImageSrc || resizedImageSrc) && (
-          <div className="grid md:grid-cols-2 gap-6">
-            {originalImageSrc && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
-                  Original Image
-                </h3>
-                <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img
-                    src={originalImageSrc}
-                    alt="Original"
-                    className="max-w-full max-h-64 mx-auto rounded"
-                  />
-                </div>
-              </div>
-            )}
-
-            {resizedImageSrc && (
-              <div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">
-                  Resized Image
-                </h3>
-                <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
-                  <img
-                    src={resizedImageSrc}
-                    alt="Resized"
-                    className="max-w-full max-h-64 mx-auto rounded"
-                  />
-                </div>
-                <div className="mt-3 flex gap-2">
-                  <button
-                    onClick={downloadResizedImage}
-                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
                   >
-                    <Download className="w-4 h-4" />
-                    Download
-                  </button>
-                  <button
-                    onClick={resetAll}
-                    className="flex items-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded-md transition-colors"
-                  >
-                    <RotateCcw className="w-4 h-4" />
-                    Reset
-                  </button>
-                </div>
+                    <div className="flex items-center justify-center p-4 min-h-[200px]">
+                      <img src={resizedImageSrc} alt="Resized" className="max-w-full max-h-[400px] object-contain rounded shadow-lg" />
+                    </div>
+                  </Card>
+                )}
               </div>
-            )}
-          </div>
-        )}
-
-        {/* Processing Indicator */}
-        {isProcessing && (
-          <div className="text-center py-4">
-            <div className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 dark:border-blue-400"></div>
-              Resizing image...
-            </div>
-          </div>
-        )}
-
-        {/* Image Information */}
-        {originalDimensions && (
-          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-            <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-              Image Information
-            </h3>
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Original Image
-                </h4>
-                <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                  <p>
-                    <strong>Dimensions:</strong> {originalDimensions.width} ×{' '}
-                    {originalDimensions.height} px
-                  </p>
-                  <p>
-                    <strong>File Size:</strong>{' '}
-                    {originalImage
-                      ? formatFileSize(originalImage.size)
-                      : 'Unknown'}
-                  </p>
-                  <p>
-                    <strong>Aspect Ratio:</strong>{' '}
-                    {(
-                      originalDimensions.width / originalDimensions.height
-                    ).toFixed(2)}
-                    :1
-                  </p>
-                </div>
-              </div>
-              {resizedDimensions && (
-                <div>
-                  <h4 className="font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Resized Image
-                  </h4>
-                  <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                    <p>
-                      <strong>Dimensions:</strong> {resizedDimensions.width} ×{' '}
-                      {resizedDimensions.height} px
-                    </p>
-                    <p>
-                      <strong>Size Change:</strong>{' '}
-                      {originalDimensions
-                        ? Math.round(
-                            ((resizedDimensions.width *
-                              resizedDimensions.height) /
-                              (originalDimensions.width *
-                                originalDimensions.height)) *
-                              100,
-                          )
-                        : 0}
-                      % of original
-                    </p>
-                    <p>
-                      <strong>Aspect Ratio:</strong>{' '}
-                      {(
-                        resizedDimensions.width / resizedDimensions.height
-                      ).toFixed(2)}
-                      :1
-                    </p>
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         )}

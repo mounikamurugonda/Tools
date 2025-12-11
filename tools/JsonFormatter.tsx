@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Button from '@/components/ui/Button';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
 
 const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -54,73 +57,60 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <button
-            onClick={handleFormat}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
-          >
-            Format / Beautify
-          </button>
-          <button
-            onClick={() => {
-              setInput('');
-              setOutput('');
-              setStatus({ type: 'idle', message: '' });
-            }}
-            className="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white rounded"
-          >
-            Clear
-          </button>
-          <p className={`text-sm ${getStatusColor()}`}>
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="flex gap-3">
+            <Button onClick={handleFormat}>Format / Beautify</Button>
+            <Button
+              onClick={() => {
+                setInput('');
+                setOutput('');
+                setStatus({ type: 'idle', message: '' });
+              }}
+              variant="secondary"
+            >
+              Clear
+            </Button>
+          </div>
+          <p className={`text-sm font-medium ${getStatusColor()}`}>
             {status.message || 'Ready'}
           </p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
-          <div className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="json-input">JSON Input</Label>
             <div className="relative">
-              <label
-                htmlFor="json-input"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >
-                JSON Input
-              </label>
-              <textarea
+              <TextArea
                 id="json-input"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Paste your JSON here..."
-                className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono resize-none"
+                className="h-96 max-h-96 font-mono"
               />
               {input && (
                 <CopyButton
                   textToCopy={input}
-                  className="absolute top-8 right-2"
+                  className="absolute top-4 right-4"
                 />
               )}
             </div>
           </div>
 
           {/* Right side - Output */}
-          <div className="space-y-4">
-            <label
-              htmlFor="json-output"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Formatted Output
-            </label>
+          <div className="space-y-2">
+            <Label htmlFor="json-output">Formatted Output</Label>
             <div className="relative">
-              <textarea
+              <TextArea
                 id="json-output"
                 readOnly
                 value={output}
                 placeholder="Formatted JSON will appear here..."
-                className="w-full h-96 max-h-96 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 text-gray-800 dark:text-gray-200 font-mono resize-none"
+                className="h-96 max-h-96 bg-gray-50 dark:bg-gray-900 font-mono"
               />
               {output && (
                 <CopyButton
                   textToCopy={output}
-                  className="absolute top-2 right-2"
+                  className="absolute top-4 right-4"
                 />
               )}
             </div>

@@ -4,6 +4,8 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
 
 const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -35,25 +37,20 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
     >
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Input */}
-        <div className="space-y-4">
+        <div className="space-y-2">
           <div className="relative">
-            <label
-              htmlFor="word-input"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Text Input
-            </label>
-            <textarea
+            <Label htmlFor="word-input">Text Input</Label>
+            <TextArea
               id="word-input"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Enter text here..."
-              className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 resize-none"
+              className="h-96 max-h-96"
             />
             {input && (
               <CopyButton
                 textToCopy={input}
-                className="absolute top-8 right-2"
+                className="absolute top-9 right-4"
               />
             )}
           </div>
@@ -61,33 +58,31 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
 
         {/* Right side - Statistics */}
         <div className="space-y-4">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Statistics
-          </label>
+          <Label>Statistics</Label>
           <div className="grid grid-cols-2 gap-4 text-center">
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-              <div className="text-3xl font-bold text-blue-400">
+            <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700">
+              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                 {stats.words}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Words</div>
+              <div className="text-gray-500 dark:text-gray-400 font-medium">Words</div>
             </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-              <div className="text-3xl font-bold text-blue-400">
+            <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700">
+              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                 {stats.characters}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Characters</div>
+              <div className="text-gray-500 dark:text-gray-400 font-medium">Characters</div>
             </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-              <div className="text-3xl font-bold text-blue-400">
+            <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700">
+              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                 {stats.sentences}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Sentences</div>
+              <div className="text-gray-500 dark:text-gray-400 font-medium">Sentences</div>
             </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-              <div className="text-3xl font-bold text-blue-400">
+            <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700">
+              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
                 {stats.lines}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">Lines</div>
+              <div className="text-gray-500 dark:text-gray-400 font-medium">Lines</div>
             </div>
           </div>
         </div>
