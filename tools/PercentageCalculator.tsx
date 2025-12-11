@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Input from '@/components/ui/Input';
+import Card from '@/components/ui/Card';
 
 const PercentageCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [val1, setVal1] = useState(10);
@@ -17,53 +19,57 @@ const PercentageCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="space-y-8 max-w-2xl mx-auto">
-        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-          <h3 className="font-bold mb-4">What is X% of Y?</h3>
+      <div className="space-y-8 max-w-3xl mx-auto">
+        <Card title="What is X% of Y?">
           <div className="flex items-center gap-4 flex-wrap">
-            <span>What is</span>
-            <input
+            <span className="whitespace-nowrap">What is</span>
+            <Input
               type="number"
               value={val1}
               onChange={(e) => setVal1(Number(e.target.value))}
-              className="w-20 brand-input"
+              className="w-24"
             />
-            <span>% of</span>
-            <input
+            <span className="whitespace-nowrap">% of</span>
+            <Input
               type="number"
               value={total1}
               onChange={(e) => setTotal1(Number(e.target.value))}
-              className="w-24 brand-input"
+              className="w-32"
             />
             <span>?</span>
           </div>
-          <div className="mt-4 text-2xl font-bold text-blue-600">
-            = {((val1 / 100) * total1).toFixed(2)}
+          <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-900">
+            <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Result</div>
+            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+              {((val1 / 100) * total1).toFixed(2)}
+            </div>
           </div>
-        </div>
+        </Card>
 
-        <div className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl">
-          <h3 className="font-bold mb-4">X is what % of Y?</h3>
+        <Card title="X is what % of Y?">
           <div className="flex items-center gap-4 flex-wrap">
-            <input
+            <Input
               type="number"
               value={val2}
               onChange={(e) => setVal2(Number(e.target.value))}
-              className="w-20 brand-input"
+              className="w-24"
             />
-            <span>is what % of</span>
-            <input
+            <span className="whitespace-nowrap">is what % of</span>
+            <Input
               type="number"
               value={total2}
               onChange={(e) => setTotal2(Number(e.target.value))}
-              className="w-24 brand-input"
+              className="w-32"
             />
             <span>?</span>
           </div>
-          <div className="mt-4 text-2xl font-bold text-green-600">
-            = {((val2 / total2) * 100).toFixed(2)}%
+          <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-xl border border-green-100 dark:border-green-900">
+            <div className="text-sm text-gray-500 dark:text-gray-400 mb-1">Result</div>
+            <div className="text-3xl font-bold text-green-600 dark:text-green-400">
+              {((val2 / total2) * 100).toFixed(2)}%
+            </div>
           </div>
-        </div>
+        </Card>
       </div>
     </ToolContainer>
   );

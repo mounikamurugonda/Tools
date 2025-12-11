@@ -1,9 +1,11 @@
-'use client';
-
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Input from '@/components/ui/Input';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
 
 const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [title, setTitle] = useState('');
@@ -22,61 +24,62 @@ const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Meta Tag Generator" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Page Title</label>
-            <input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="brand-input"
-              maxLength={60}
-            />
-            <p className="text-xs text-right text-gray-500">
-              {title.length}/60
-            </p>
+        <Card title="Page Details" className="h-[calc(100%-1rem)]">
+          <div className="space-y-4">
+            <div>
+              <div className="flex justify-between">
+                <Label>Page Title</Label>
+                <span className="text-xs text-gray-500">{title.length}/60</span>
+              </div>
+              <Input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                maxLength={60}
+                placeholder="Enter page title"
+              />
+            </div>
+            <div>
+              <div className="flex justify-between">
+                <Label>Description</Label>
+                <span className="text-xs text-gray-500">{description.length}/160</span>
+              </div>
+              <TextArea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                maxLength={160}
+                placeholder="Enter page description"
+                className="h-24"
+              />
+            </div>
+            <div>
+              <Label>Keywords (comma separated)</Label>
+              <Input
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+                placeholder="keyword1, keyword2, keyword3"
+              />
+            </div>
+            <div>
+              <Label>Author</Label>
+              <Input
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                placeholder="Author name"
+              />
+            </div>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Description
-            </label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="brand-input h-24"
-              maxLength={160}
+        </Card>
+
+        <Card title="Generated HTML" className="h-full">
+          <div className="relative h-full flex flex-col">
+            <TextArea
+              readOnly
+              value={output}
+              className="flex-1 min-h-[300px] font-mono text-sm resize-none"
             />
-            <p className="text-xs text-right text-gray-500">
-              {description.length}/160
-            </p>
+            <CopyButton textToCopy={output} className="absolute top-2 right-2" />
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">
-              Keywords (comma separated)
-            </label>
-            <input
-              value={keywords}
-              onChange={(e) => setKeywords(e.target.value)}
-              className="brand-input"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Author</label>
-            <input
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-              className="brand-input"
-            />
-          </div>
-        </div>
-        <div className="relative">
-          <label className="block text-sm font-medium mb-1">HTML Code</label>
-          <textarea
-            readOnly
-            value={output}
-            className="w-full h-full min-h-[300px] bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 font-mono text-sm"
-          />
-          <CopyButton textToCopy={output} className="absolute top-8 right-2" />
-        </div>
+        </Card>
       </div>
     </ToolContainer>
   );

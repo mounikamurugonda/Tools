@@ -1,10 +1,11 @@
-'use client';
-
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { jwtDecode } from 'jwt-decode';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Card from '@/components/ui/Card';
+import Label from '@/components/ui/Label';
 
 const JwtDebugger: React.FC<ToolProps> = ({ details, toolId }) => {
   const [token, setToken] = useState('');
@@ -29,22 +30,26 @@ const JwtDebugger: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="JWT Decoder" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <div className="relative">
-          <textarea
-            value={token}
-            onChange={(e) => setToken(e.target.value)}
-            placeholder="Paste your JSON Web Token here..."
-            className="w-full h-32 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 font-mono"
-          />
-          {token && <CopyButton textToCopy={token} />}
-        </div>
+      <div className="space-y-6">
+        <Card title="Input Token">
+          <div className="relative">
+            <TextArea
+              value={token}
+              onChange={(e) => setToken(e.target.value)}
+              placeholder="Paste your JSON Web Token here..."
+              className="font-mono min-h-[120px]"
+            />
+            {token && <CopyButton textToCopy={token} className="absolute top-2 right-2" />}
+          </div>
+        </Card>
+
         {decoded.error && (
-          <div className="p-3 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 rounded text-red-700 dark:text-red-300">
+          <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-red-700 dark:text-red-300">
             {decoded.error}
           </div>
         )}
-        <div className="grid md:grid-cols-2 gap-4">
+
+        <div className="grid md:grid-cols-2 gap-6">
           <JsonViewer title="Header" data={decoded.header} />
           <JsonViewer title="Payload" data={decoded.payload} />
         </div>
@@ -59,17 +64,14 @@ interface JsonViewerProps {
 }
 
 const JsonViewer: React.FC<JsonViewerProps> = ({ title, data }) => (
-  <div className="space-y-2">
-    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-      {title}
-    </h3>
-    <div className="relative">
-      <pre className="w-full h-64 bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-3 text-sm text-gray-800 dark:text-gray-200 font-mono overflow-auto">
-        {data ? JSON.stringify(data, null, 2) : ''}
-      </pre>
-      {data && <CopyButton textToCopy={JSON.stringify(data, null, 2)} />}
+  <Card title={title} className="h-full">
+    <div className="relative h-full min-h-[250px]">
+      <div className="w-full h-full bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 font-mono text-sm overflow-auto text-gray-800 dark:text-gray-200">
+        {data ? JSON.stringify(data, null, 2) : <span className="text-gray-400 italic">No data</span>}
+      </div>
+      {data && <CopyButton textToCopy={JSON.stringify(data, null, 2)} className="absolute top-2 right-2" />}
     </div>
-  </div>
+  </Card>
 );
 
 export default JwtDebugger;

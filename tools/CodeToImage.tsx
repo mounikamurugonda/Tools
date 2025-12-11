@@ -9,6 +9,7 @@ import Select from '@/components/ui/Select';
 import Slider from '@/components/ui/Slider';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
+import FileUpload from '@/components/ui/FileUpload';
 import { toPng, toJpeg, toSvg } from 'html-to-image';
 import Prism from 'prismjs';
 import {
@@ -20,6 +21,8 @@ import {
   Monitor,
   Type,
   CheckCircle2,
+  FileText,
+  Upload
 } from 'lucide-react';
 
 // Background Presets
@@ -92,9 +95,10 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   const [showLineNumbers, setShowLineNumbers] = useState(true);
   const [shadowBlur, setShadowBlur] = useState(20);
   const [shadowOpacity, setShadowOpacity] = useState(0.5);
+  const [isExporting, setIsExporting] = useState(false);
+  const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
 
   const exportRef = useRef<HTMLDivElement>(null);
-  const [isExporting, setIsExporting] = useState(false);
 
   // Highlight code logic is handled dynamically in render via Prism.highlight
 
@@ -146,6 +150,25 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
     } finally {
       setIsExporting(false);
     }
+  };
+
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result;
+      if (typeof text === 'string') {
+        setCode(text);
+        setInputMode('text');
+        // Simple auto-detect attempt (very basic)
+        if (file.name.endsWith('.ts') || file.name.endsWith('.tsx')) setLanguage('typescript');
+        else if (file.name.endsWith('.js') || file.name.endsWith('.jsx')) setLanguage('javascript');
+        else if (file.name.endsWith('.css')) setLanguage('css');
+        else if (file.name.endsWith('.html')) setLanguage('html');
+        else if (file.name.endsWith('.py')) setLanguage('python');
+        else if (file.name.endsWith('.json')) setLanguage('json');
+      }
+    };
+    reader.readAsText(file);
   };
 
   // Theme-specific Prism styles injector
@@ -240,16 +263,43 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
             <Button
               onClick={() => handleExport('copy')}
               disabled={isExporting}
-              variant="outline"
+              variant="secondary"
               size="sm"
-              className="col-span-2 w-full text-green-600 border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20"
+              className="col-span-2 w-full text-green-600 border border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20"
             >
               <Copy size={16} className="mr-2" /> Copy to Clipboard
             </Button>
+            {/* Input Mode Toggle */}
+            <div className="col-span-2 flex gap-2 mt-2 pt-2 border-t border-gray-100 dark:border-gray-800">
+              <Button
+                variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => setInputMode('text')}
+                className="w-full text-xs"
+              >
+                <FileText size={14} className="mr-2" /> Paste
+              </Button>
+              <Button
+                variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                size="sm"
+                onClick={() => setInputMode('file')}
+                className="w-full text-xs"
+              >
+                <Upload size={14} className="mr-2" /> Upload
+              </Button>
+            </div>
+            {inputMode === 'file' && (
+              <div className="col-span-2">
+                <FileUpload
+                  onFileSelect={handleFileUpload}
+                  className="h-20"
+                />
+              </div>
+            )}
           </Card>
 
           {/* Styling Section */}
-          <Card title="Styling" icon={<Palette size={16} />} className="space-y-4">
+          <Card title="Styling" className="space-y-4">
             <div className="space-y-3">
               <Label>Theme</Label>
               <div className="grid grid-cols-2 gap-2">
@@ -258,8 +308,8 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                     key={t.name}
                     onClick={() => setTheme(t)}
                     className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${theme.name === t.name
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
-                        : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
+                      : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
                       }`}
                   >
                     <div
@@ -294,7 +344,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           </Card>
 
           {/* Window Settings */}
-          <Card title="Window" icon={<Layout size={16} />} className="space-y-4">
+          <Card title="Window" className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <Slider label="Padding" min={16} max={128} step={8} value={padding} onChange={(e) => setPadding(Number(e.target.value))} valueDisplay={`${padding}px`} />
               <Slider label="Shadow" min={0} max={60} value={shadowBlur} onChange={(e) => setShadowBlur(Number(e.target.value))} valueDisplay={`${shadowBlur}px`} />
@@ -325,14 +375,17 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           </Card>
 
           {/* Editor Settings */}
-          <Card title="Editor" icon={<Type size={16} />} className="space-y-4">
+          <Card title="Editor" className="space-y-4">
             <div>
               <Label>Language</Label>
               <Select
-                value={{ value: language, label: LANGUAGES.find(l => l.value === language)?.name || language }}
-                onChange={(option) => setLanguage(option?.value || 'javascript')}
-                options={LANGUAGES.map(l => ({ value: l.value, label: l.name }))}
-              />
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
+              >
+                {LANGUAGES.map(l => (
+                  <option key={l.value} value={l.value}>{l.name}</option>
+                ))}
+              </Select>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Line Numbers</span>

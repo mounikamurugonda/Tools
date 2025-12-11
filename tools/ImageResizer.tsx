@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Slider from '@/components/ui/Slider';
@@ -190,10 +190,9 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
           <Card title="Upload Image">
             <FileUpload
               accept="image/*"
-              onChange={handleImageChange}
-              label="Upload Image to Resize"
+              onFileSelect={handleImageChange}
+              title="Upload Image to Resize"
               description="Select an image file to resize"
-              maxSize={50}
             />
           </Card>
         )}
@@ -203,21 +202,21 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Sidebar Settings */}
             <div className="space-y-6">
-              <Card title="Resize Settings" icon={<Settings className="w-5 h-5" />}>
+              <Card title="Resize Settings">
                 <div className="space-y-6">
                   {/* Resize Mode */}
                   <div>
                     <Label>Resize Mode</Label>
                     <div className="grid grid-cols-2 gap-2">
                       <Button
-                        variant={settings.mode === 'percentage' ? 'primary' : 'outline'}
+                        variant={settings.mode === 'percentage' ? 'primary' : 'secondary'}
                         onClick={() => setSettings(prev => ({ ...prev, mode: 'percentage' }))}
                         size="sm"
                       >
                         Percentage
                       </Button>
                       <Button
-                        variant={settings.mode === 'dimensions' ? 'primary' : 'outline'}
+                        variant={settings.mode === 'dimensions' ? 'primary' : 'secondary'}
                         onClick={() => setSettings(prev => ({ ...prev, mode: 'dimensions' }))}
                         size="sm"
                       >
@@ -290,7 +289,7 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                   <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
                     <Button
                       onClick={resetAll}
-                      variant="outline"
+                      variant="secondary"
                       className="w-full"
                     >
                       <RotateCcw className="w-4 h-4 mr-2" />
@@ -347,22 +346,21 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                 )}
 
                 {resizedImageSrc && (
-                  <Card
-                    title="Resized Output"
-                    className="bg-gray-50 dark:bg-gray-900/50 border-blue-200 dark:border-blue-900"
-                    action={
-                      <Button
-                        onClick={downloadResizedImage}
-                        size="sm"
-                        variant="primary"
-                      >
-                        <Download className="w-4 h-4 mr-2" />
-                        Download
-                      </Button>
-                    }
-                  >
-                    <div className="flex items-center justify-center p-4 min-h-[200px]">
-                      <img src={resizedImageSrc} alt="Resized" className="max-w-full max-h-[400px] object-contain rounded shadow-lg" />
+                  <Card title="Resized Output" className="bg-gray-50 dark:bg-gray-900/50 border-blue-200 dark:border-blue-900">
+                    <div className="flex flex-col gap-4">
+                      <div className="flex items-center justify-center p-4 min-h-[200px]">
+                        <img src={resizedImageSrc} alt="Resized" className="max-w-full max-h-[400px] object-contain rounded shadow-lg" />
+                      </div>
+                      <div className="flex justify-end border-t border-gray-200 dark:border-gray-700 pt-4">
+                        <Button
+                          onClick={downloadResizedImage}
+                          size="sm"
+                          variant="primary"
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          Download
+                        </Button>
+                      </div>
                     </div>
                   </Card>
                 )}

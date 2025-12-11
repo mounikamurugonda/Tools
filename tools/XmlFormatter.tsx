@@ -1,9 +1,10 @@
-'use client';
-
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
 
 const XmlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState(
@@ -46,35 +47,43 @@ const XmlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="XML Formatter" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <div className="grid md:grid-cols-2 gap-4 h-[60vh]">
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="w-full h-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 font-mono text-sm resize-none"
-            placeholder="Paste XML here..."
-          />
-          <div className="relative h-full">
-            <textarea
-              readOnly
-              value={output}
-              className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 font-mono text-sm text-blue-600 dark:text-blue-400 resize-none"
-              placeholder="Formatted XML..."
+      <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-6 h-[60vh] min-h-[500px]">
+          <Card title="Input XML" className="h-full">
+            <TextArea
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="h-[calc(100%-2rem)] font-mono text-sm resize-none border-0 focus:ring-0 p-0"
+              placeholder="Paste XML here..."
             />
-            {output && (
-              <CopyButton
-                textToCopy={output}
-                className="absolute top-2 right-2"
+          </Card>
+
+          <Card title="Formatted XML" className="h-full">
+            <div className="relative h-full flex flex-col">
+              <TextArea
+                readOnly
+                value={output}
+                className="flex-1 font-mono text-sm resize-none border-0 focus:ring-0 p-0 text-blue-600 dark:text-blue-400"
+                placeholder="Formatted XML will appear here..."
               />
-            )}
-          </div>
+              {output && (
+                <CopyButton
+                  textToCopy={output}
+                  className="absolute top-0 right-0"
+                />
+              )}
+            </div>
+          </Card>
         </div>
-        <button
+
+        <Button
           onClick={formatXml}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded font-medium"
+          fullWidth
+          size="lg"
+          variant="primary"
         >
           Format XML
-        </button>
+        </Button>
       </div>
     </ToolContainer>
   );

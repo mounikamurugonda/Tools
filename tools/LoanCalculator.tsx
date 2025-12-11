@@ -1,8 +1,10 @@
-'use client';
-
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Input from '@/components/ui/Input';
+import Select from '@/components/ui/Select';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
 
 const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [loanAmount, setLoanAmount] = useState('250000');
@@ -85,126 +87,116 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Loan Calculator" details={details} toolId={toolId}>
       <div className="grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1 space-y-4">
-          <NumberInput
-            label="Loan Amount ($)"
-            value={loanAmount}
-            onChange={setLoanAmount}
-          />
-          <NumberInput
-            label="Interest Rate (%)"
-            value={interestRate}
-            onChange={setInterestRate}
-            step="0.01"
-          />
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Loan Term
-            </label>
-            <div className="flex">
-              <input
-                type="number"
-                value={loanTerm}
-                onChange={(e) => setLoanTerm(e.target.value)}
-                className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-l p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <select
-                value={termUnit}
-                onChange={(e) => setTermUnit(e.target.value as any)}
-                className="bg-gray-200 dark:bg-gray-800 border-t border-b border-r border-gray-300 dark:border-gray-600 rounded-r p-2 focus:outline-none"
-              >
-                <option value="years">Years</option>
-                <option value="months">Months</option>
-              </select>
+        <div className="lg:col-span-1 space-y-6">
+          <Card title="Loan Details">
+            <div className="space-y-4">
+              <div>
+                <Label>Loan Amount ($)</Label>
+                <Input
+                  type="number"
+                  value={loanAmount}
+                  onChange={(e) => setLoanAmount(e.target.value)}
+                  placeholder="e.g. 250000"
+                />
+              </div>
+              <div>
+                <Label>Interest Rate (%)</Label>
+                <Input
+                  type="number"
+                  value={interestRate}
+                  onChange={(e) => setInterestRate(e.target.value)}
+                  step="0.01"
+                  placeholder="e.g. 5.5"
+                />
+              </div>
+              <div>
+                <Label>Loan Term</Label>
+                <div className="flex gap-2">
+                  <Input
+                    type="number"
+                    value={loanTerm}
+                    onChange={(e) => setLoanTerm(e.target.value)}
+                    className="flex-1"
+                  />
+                  <div className="w-32">
+                    <Select
+                      value={termUnit}
+                      onChange={(e) => setTermUnit(e.target.value as 'years' | 'months')}
+                    >
+                      <option value="years">Years</option>
+                      <option value="months">Months</option>
+                    </Select>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="pt-4 space-y-4">
-            <SummaryCard
-              label="Monthly Payment"
-              value={formatCurrency(monthlyPayment)}
-            />
-            <SummaryCard
-              label="Total Interest Paid"
-              value={formatCurrency(totalInterest)}
-            />
-            <SummaryCard
-              label="Total Cost of Loan"
-              value={formatCurrency(totalPayment)}
-            />
-          </div>
+          </Card>
+
+          <Card title="Summary" className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+            <div className="space-y-4">
+              <div className="flex justify-between items-center pb-2 border-b border-blue-200 dark:border-blue-800">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Monthly Payment</span>
+                <span className="text-xl font-bold text-blue-600 dark:text-blue-400">{formatCurrency(monthlyPayment)}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Total Interest</span>
+                <span className="font-medium text-gray-900 dark:text-white">{formatCurrency(totalInterest)}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-gray-600 dark:text-gray-300">Total Cost</span>
+                <span className="font-medium text-gray-900 dark:text-white">{formatCurrency(totalPayment)}</span>
+              </div>
+            </div>
+          </Card>
         </div>
+
         <div className="lg:col-span-2">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800 dark:text-gray-200">
-            Amortization Schedule
-          </h3>
-          <div className="overflow-auto h-[60vh] border border-gray-200 dark:border-gray-700 rounded-lg">
-            <table className="w-full text-sm text-left">
-              <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-100 dark:bg-gray-700 sticky top-0">
-                <tr>
-                  <th className="px-4 py-2">Month</th>
-                  <th className="px-4 py-2 text-right">Payment</th>
-                  <th className="px-4 py-2 text-right">Principal</th>
-                  <th className="px-4 py-2 text-right">Interest</th>
-                  <th className="px-4 py-2 text-right">Balance</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                {schedule.map((row) => (
-                  <tr key={row.month}>
-                    <td className="px-4 py-2">{row.month}</td>
-                    <td className="px-4 py-2 text-right">
-                      {formatCurrency(row.payment)}
-                    </td>
-                    <td className="px-4 py-2 text-right text-green-600 dark:text-green-400">
-                      {formatCurrency(row.principal)}
-                    </td>
-                    <td className="px-4 py-2 text-right text-red-600 dark:text-red-400">
-                      {formatCurrency(row.interest)}
-                    </td>
-                    <td className="px-4 py-2 text-right font-semibold">
-                      {formatCurrency(row.balance)}
-                    </td>
+          <Card title="Amortization Schedule" className="h-full">
+            <div className="overflow-auto max-h-[600px] -mx-6">
+              <table className="w-full text-sm text-left">
+                <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-800/50 sticky top-0 backdrop-blur-sm z-10">
+                  <tr>
+                    <th className="px-6 py-3">Month</th>
+                    <th className="px-6 py-3 text-right">Payment</th>
+                    <th className="px-6 py-3 text-right">Principal</th>
+                    <th className="px-6 py-3 text-right">Interest</th>
+                    <th className="px-6 py-3 text-right">Balance</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
+                  {schedule.length > 0 ? (
+                    schedule.map((row) => (
+                      <tr key={row.month} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
+                        <td className="px-6 py-3 font-medium text-gray-900 dark:text-white">{row.month}</td>
+                        <td className="px-6 py-3 text-right text-gray-600 dark:text-gray-300">
+                          {formatCurrency(row.payment)}
+                        </td>
+                        <td className="px-6 py-3 text-right text-green-600 dark:text-green-400 font-medium">
+                          {formatCurrency(row.principal)}
+                        </td>
+                        <td className="px-6 py-3 text-right text-red-600 dark:text-red-400 font-medium">
+                          {formatCurrency(row.interest)}
+                        </td>
+                        <td className="px-6 py-3 text-right font-semibold text-gray-900 dark:text-white">
+                          {formatCurrency(row.balance)}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
+                        Enter loan details to view the schedule.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>
   );
 };
-
-const NumberInput: React.FC<{
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  step?: string;
-}> = ({ label, value, onChange, step = '1' }) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-      {label}
-    </label>
-    <input
-      type="number"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      step={step}
-      className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-  </div>
-);
-
-const SummaryCard: React.FC<{ label: string; value: string }> = ({
-  label,
-  value,
-}) => (
-  <div className="bg-gray-100 dark:bg-gray-700/50 p-4 rounded-lg">
-    <p className="text-sm text-gray-500 dark:text-gray-400">{label}</p>
-    <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">
-      {value}
-    </p>
-  </div>
-);
 
 export default LoanCalculator;

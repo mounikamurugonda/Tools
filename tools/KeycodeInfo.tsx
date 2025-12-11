@@ -1,8 +1,7 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
 
 const KeycodeInfo: React.FC<ToolProps> = ({ details, toolId }) => {
   const [event, setEvent] = useState<KeyboardEvent | null>(null);
@@ -18,25 +17,28 @@ const KeycodeInfo: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Keycode Info" details={details} toolId={toolId}>
-      <div className="space-y-8 text-center">
+      <div className="space-y-8 text-center max-w-4xl mx-auto">
         {!event ? (
-          <div className="p-12 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl font-semibold text-gray-500">
+          <div className="p-16 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-2xl bg-gray-50 dark:bg-gray-800/50 flex flex-col items-center justify-center min-h-[300px]">
+            <div className="text-6xl mb-6 opacity-20">⌨️</div>
+            <p className="text-2xl font-semibold text-gray-500 dark:text-gray-400">
               Press any key on your keyboard
             </p>
           </div>
         ) : (
-          <div className="space-y-8">
-            <div className="p-8 bg-blue-50 dark:bg-blue-900/20 rounded-xl inline-block">
-              <span className="block text-sm text-gray-500 dark:text-gray-400 mb-2">
-                JavaScript Key Code
-              </span>
-              <span className="text-8xl font-bold text-blue-600 dark:text-blue-400">
-                {event.keyCode}
-              </span>
-            </div>
+          <div className="space-y-6">
+            <Card className="inline-block min-w-[300px] border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-900/20">
+              <div className="p-4">
+                <span className="block text-sm font-medium text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-wide">
+                  JavaScript Key Code
+                </span>
+                <span className="text-8xl font-bold text-gray-900 dark:text-white">
+                  {event.keyCode}
+                </span>
+              </div>
+            </Card>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <InfoCard label="event.key" value={event.key} />
               <InfoCard label="event.code" value={event.code} />
               <InfoCard label="event.which" value={event.which.toString()} />
@@ -46,15 +48,15 @@ const KeycodeInfo: React.FC<ToolProps> = ({ details, toolId }) => {
               />
             </div>
 
-            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg text-left">
-              <h3 className="font-bold mb-2">Modifiers</h3>
-              <div className="flex gap-4">
+            <Card className="text-left">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Modifiers</h3>
+              <div className="flex gap-4 flex-wrap">
                 <Badge label="Shift" active={event.shiftKey} />
                 <Badge label="Ctrl" active={event.ctrlKey} />
                 <Badge label="Alt" active={event.altKey} />
                 <Badge label="Meta" active={event.metaKey} />
               </div>
-            </div>
+            </Card>
           </div>
         )}
       </div>
@@ -63,9 +65,9 @@ const KeycodeInfo: React.FC<ToolProps> = ({ details, toolId }) => {
 };
 
 const InfoCard = ({ label, value }: { label: string; value: string }) => (
-  <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
-    <span className="block text-xs text-gray-500 mb-1">{label}</span>
-    <span className="text-lg font-mono font-bold text-gray-800 dark:text-gray-200">
+  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex flex-col items-center justify-center gap-2">
+    <span className="text-xs text-gray-500 font-mono">{label}</span>
+    <span className="text-xl font-mono font-bold text-gray-900 dark:text-white truncate max-w-full">
       {value === ' ' ? '(Space)' : value}
     </span>
   </div>
@@ -73,7 +75,10 @@ const InfoCard = ({ label, value }: { label: string; value: string }) => (
 
 const Badge = ({ label, active }: { label: string; active: boolean }) => (
   <span
-    className={`px-3 py-1 rounded-full text-sm font-medium ${active ? 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' : 'bg-gray-200 text-gray-500 dark:bg-gray-700 dark:text-gray-400'}`}
+    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${active
+        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+        : 'bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500'
+      }`}
   >
     {label}
   </span>

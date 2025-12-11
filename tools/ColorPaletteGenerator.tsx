@@ -162,11 +162,14 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
             <div>
               <Label>Palette Type</Label>
               <Select
-                options={PALETTE_OPTIONS}
-                value={PALETTE_OPTIONS.find(o => o.value === paletteType)}
-                onChange={(option) => setPaletteType(option?.value as PaletteType)}
+                value={paletteType}
+                onChange={(e) => setPaletteType(e.target.value as PaletteType)}
                 className="w-full"
-              />
+              >
+                {PALETTE_OPTIONS.map(o => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </Select>
             </div>
           </div>
         </Card>

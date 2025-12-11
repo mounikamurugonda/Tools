@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
 import { Download, RotateCcw } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
@@ -227,10 +227,9 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
         {/* File Upload */}
         <FileUpload
           accept="image/*"
-          onChange={handleImageChange}
-          label="Upload Image to Compress"
+          onFileSelect={handleImageChange}
+          title="Upload Image to Compress"
           description="Select an image file to compress and reduce file size"
-          maxSize={50}
         />
 
         {/* Compression Settings */}

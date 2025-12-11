@@ -184,19 +184,16 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                     <div>
                       <Label className="mb-2">Output Format</Label>
                       <Select
-                        value={{ value: settings.outputFormat, label: settings.outputFormat.toUpperCase() }}
-                        onChange={(option) => {
-                          if (option) {
-                            setSettings(prev => ({ ...prev, outputFormat: option.value as ConversionSettings['outputFormat'] }))
-                          }
+                        value={settings.outputFormat}
+                        onChange={(e) => {
+                          setSettings(prev => ({ ...prev, outputFormat: e.target.value as ConversionSettings['outputFormat'] }))
                         }}
-                        options={[
-                          { value: 'jpeg', label: 'JPEG' },
-                          { value: 'png', label: 'PNG' },
-                          { value: 'webp', label: 'WebP' },
-                          { value: 'bmp', label: 'BMP' },
-                        ]}
-                      />
+                      >
+                        <option value="jpeg">JPEG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WebP</option>
+                        <option value="bmp">BMP</option>
+                      </Select>
                     </div>
 
                     {(settings.outputFormat === 'jpeg' || settings.outputFormat === 'webp') && (
@@ -291,7 +288,7 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
             {convertedImageSrc && (
               <div className="flex justify-end gap-3">
-                <Button onClick={resetAll} variant="outline">
+                <Button onClick={resetAll} variant="secondary">
                   <RotateCcw className="w-4 h-4 mr-2" /> Start Over
                 </Button>
                 <Button onClick={downloadConvertedImage} variant="primary">

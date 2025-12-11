@@ -9,6 +9,8 @@ import Button from '@/components/ui/Button';
 import Select from '@/components/ui/Select';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
+import FileUpload from '@/components/ui/FileUpload';
+import { FileText, Upload } from 'lucide-react';
 import figlet from 'figlet';
 
 // List of popular fonts available on cdnjs/figlet
@@ -204,6 +206,7 @@ const AsciiArt: React.FC<ToolProps> = ({ details, toolId }) => {
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
 
   useEffect(() => {
     // Initialize figlet with CDN font path
@@ -253,6 +256,18 @@ const AsciiArt: React.FC<ToolProps> = ({ details, toolId }) => {
     return () => clearTimeout(timer);
   }, [generateArt]);
 
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result;
+      if (typeof content === 'string') {
+        setText(content);
+        setInputMode('text');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <ToolContainer
       title="ASCII Art Generator"
@@ -263,51 +278,81 @@ const AsciiArt: React.FC<ToolProps> = ({ details, toolId }) => {
         <Card title="Settings">
           <div className="space-y-6">
             <div>
-              <Label>Text</Label>
-              <Input
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-                placeholder="Type something..."
-                className="w-full"
-              />
+              <div className="flex justify-between items-center mb-2">
+                <Label>Text to Convert</Label>
+                <div className="flex gap-1">
+                  <Button
+                    variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                    size="sm"
+                    onClick={() => setInputMode('text')}
+                    title="Type Text"
+                  >
+                    <FileText className="w-4 h-4" />
+                  </Button>
+                  <Button
+                    variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                    size="sm"
+                    onClick={() => setInputMode('file')}
+                    title="Upload File"
+                  >
+                    <Upload className="w-4 h-4" />
+                  </Button>
+                </div>
+              </div>
+
+              {inputMode === 'file' ? (
+                <FileUpload
+                  onFileSelect={handleFileUpload}
+                  className="h-24"
+                  accept=".txt,.md,.json,.js,.ts,.tsx,.css,.html"
+                />
+              ) : (
+                <Input
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                  placeholder="Type something..."
+                  className="w-full"
+                />
+              )}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <Label>Font</Label>
                 <Select
-                  value={{ value: font, label: font }}
-                  onChange={(option) => setFont(option?.value || 'Graffiti')}
-                  options={FONTS.map(f => ({ value: f, label: f }))}
-                />
+                  value={font}
+                  onChange={(e) => setFont(e.target.value)}
+                >
+                  {FONTS.map(f => (
+                    <option key={f} value={f}>{f}</option>
+                  ))}
+                </Select>
               </div>
               <div>
                 <Label>H. Layout</Label>
                 <Select
-                  value={{ value: horizontalLayout, label: horizontalLayout.charAt(0).toUpperCase() + horizontalLayout.slice(1) }}
-                  onChange={(option) => setHorizontalLayout(option?.value as any)}
-                  options={[
-                    { value: 'default', label: 'Default' },
-                    { value: 'full', label: 'Full' },
-                    { value: 'fitted', label: 'Fitted' },
-                    { value: 'controlled smushing', label: 'Controlled Smushing' },
-                    { value: 'universal smushing', label: 'Universal Smushing' }
-                  ]}
-                />
+                  value={horizontalLayout}
+                  onChange={(e) => setHorizontalLayout(e.target.value as any)}
+                >
+                  <option value="default">Default</option>
+                  <option value="full">Full</option>
+                  <option value="fitted">Fitted</option>
+                  <option value="controlled smushing">Controlled Smushing</option>
+                  <option value="universal smushing">Universal Smushing</option>
+                </Select>
               </div>
               <div>
                 <Label>V. Layout</Label>
                 <Select
-                  value={{ value: verticalLayout, label: verticalLayout.charAt(0).toUpperCase() + verticalLayout.slice(1) }}
-                  onChange={(option) => setVerticalLayout(option?.value as any)}
-                  options={[
-                    { value: 'default', label: 'Default' },
-                    { value: 'full', label: 'Full' },
-                    { value: 'fitted', label: 'Fitted' },
-                    { value: 'controlled smushing', label: 'Controlled Smushing' },
-                    { value: 'universal smushing', label: 'Universal Smushing' }
-                  ]}
-                />
+                  value={verticalLayout}
+                  onChange={(e) => setVerticalLayout(e.target.value as any)}
+                >
+                  <option value="default">Default</option>
+                  <option value="full">Full</option>
+                  <option value="fitted">Fitted</option>
+                  <option value="controlled smushing">Controlled Smushing</option>
+                  <option value="universal smushing">Universal Smushing</option>
+                </Select>
               </div>
             </div>
 

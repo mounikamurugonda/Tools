@@ -8,6 +8,8 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
 import Card from '@/components/ui/Card';
+import Slider from '@/components/ui/Slider';
+import { Check } from 'lucide-react';
 
 const CHARS = {
   LOWER: 'abcdefghijklmnopqrstuvwxyz',
@@ -50,14 +52,38 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     generatePassword();
   }, [length, useUpper, useLower, useNumbers, useSymbols]);
 
+  const toggleOption = (setter: React.Dispatch<React.SetStateAction<boolean>>) => {
+    setter(prev => !prev);
+  }
+
+  const OptionButton = ({ label, active, onClick }: { label: string, active: boolean, onClick: () => void }) => (
+    <button
+      onClick={onClick}
+      className={`flex items-center justify-between p-4 rounded-xl border transition-all ${active
+          ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800'
+          : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
+        }`}
+    >
+      <span className={`font-medium ${active ? 'text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}`}>
+        {label}
+      </span>
+      <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${active
+          ? 'bg-blue-600 border-blue-600'
+          : 'border-gray-300 dark:border-gray-600'
+        }`}>
+        {active && <Check size={14} className="text-white" />}
+      </div>
+    </button>
+  );
+
   return (
     <ToolContainer title="Password Generator" details={details} toolId={toolId}>
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-4xl mx-auto">
         <div className="relative">
           <Input
             readOnly
             value={password}
-            className="font-mono text-lg pr-16"
+            className="font-mono text-xl pr-16 h-14 text-center tracking-wider bg-white dark:bg-gray-800"
           />
           <CopyButton
             textToCopy={password}
@@ -65,59 +91,23 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
           />
         </div>
 
-        <Card className="space-y-6">
-          <div>
-            <Label className="flex justify-between">
-              <span>Password Length</span>
-              <span className="text-blue-600 font-bold">{length}</span>
-            </Label>
-            <input
-              type="range"
-              min="4"
-              max="64"
+        <Card title="Configuration" className="space-y-6">
+          <div className="space-y-4">
+            <Slider
+              label="Password Length"
               value={length}
               onChange={(e) => setLength(parseInt(e.target.value))}
-              className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-blue-600"
+              min={4}
+              max={64}
+              valueDisplay={length}
             />
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
-              <input
-                type="checkbox"
-                checked={useUpper}
-                onChange={() => setUseUpper((prev) => !prev)}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-              />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Uppercase</span>
-            </label>
-            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
-              <input
-                type="checkbox"
-                checked={useLower}
-                onChange={() => setUseLower((prev) => !prev)}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-              />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Lowercase</span>
-            </label>
-            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
-              <input
-                type="checkbox"
-                checked={useNumbers}
-                onChange={() => setUseNumbers((prev) => !prev)}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-              />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Numbers</span>
-            </label>
-            <label className="flex items-center space-x-3 p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
-              <input
-                type="checkbox"
-                checked={useSymbols}
-                onChange={() => setUseSymbols((prev) => !prev)}
-                className="w-5 h-5 text-blue-600 rounded focus:ring-blue-500 border-gray-300"
-              />
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Symbols</span>
-            </label>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <OptionButton label="Uppercase (A-Z)" active={useUpper} onClick={() => toggleOption(setUseUpper)} />
+            <OptionButton label="Lowercase (a-z)" active={useLower} onClick={() => toggleOption(setUseLower)} />
+            <OptionButton label="Numbers (0-9)" active={useNumbers} onClick={() => toggleOption(setUseNumbers)} />
+            <OptionButton label="Symbols (!@#...)" active={useSymbols} onClick={() => toggleOption(setUseSymbols)} />
           </div>
         </Card>
 
@@ -125,6 +115,8 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
           onClick={generatePassword}
           fullWidth
           size="lg"
+          variant="primary"
+          className="h-12 text-lg"
         >
           Regenerate Password
         </Button>

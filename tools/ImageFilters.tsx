@@ -3,7 +3,7 @@
 import React, { useState, useRef } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Slider from '@/components/ui/Slider';
@@ -84,7 +84,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
               <div className="absolute inset-0 p-6">
                 <FileUpload
                   accept="image/*"
-                  onChange={handleUpload}
+                  onFileSelect={(file) => handleUpload(file)}
                   className="w-full h-full"
                 />
               </div>
@@ -133,7 +133,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
                   setImage('');
                   setFilters(DEFAULT_FILTERS);
                 }}
-                variant="outline"
+                variant="secondary"
                 className="text-red-600 hover:text-red-700 border-red-200 hover:bg-red-50 dark:hover:bg-red-900/20"
               >
                 Clear

@@ -7,11 +7,13 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
-import { Download, AlertCircle, Image as ImageIcon } from 'lucide-react';
+import FileUpload from '@/components/ui/FileUpload';
+import { Download, AlertCircle, Image as ImageIcon, FileText, Upload } from 'lucide-react';
 
 const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   const [base64, setBase64] = useState('');
   const [error, setError] = useState('');
+  const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
 
   const handleDownload = () => {
     if (!base64) return;
@@ -33,6 +35,10 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setBase64(value);
+    validateBase64(value);
+  };
+
+  const validateBase64 = (value: string) => {
     if (value && !value.startsWith('data:image')) {
       setError(
         'Invalid Base64 data URL. It should start with "data:image/...".',
@@ -40,6 +46,19 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
     } else {
       setError('');
     }
+  };
+
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result;
+      if (typeof content === 'string') {
+        setBase64(content);
+        validateBase64(content);
+        setInputMode('text');
+      }
+    };
+    reader.readAsText(file);
   };
 
   return (
@@ -65,14 +84,46 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="space-y-4">
             <Card title="Input" className="h-full">
               <div className="space-y-4 h-full flex flex-col">
-                <Label htmlFor="base64-input">Base64 Data URL</Label>
-                <TextArea
-                  id="base64-input"
-                  value={base64}
-                  onChange={handleInputChange}
-                  placeholder="Paste your Base64 data URL here (e.g., data:image/png;base64,...)"
-                  className="flex-grow min-h-[300px] font-mono text-xs resize-none"
-                />
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="base64-input">Base64 Data URL</Label>
+                  <div className="flex gap-1">
+                    <Button
+                      variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                      size="sm"
+                      onClick={() => setInputMode('text')}
+                      title="Paste Text"
+                    >
+                      <FileText className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                      size="sm"
+                      onClick={() => setInputMode('file')}
+                      title="Upload Text File"
+                    >
+                      <Upload className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+
+                {inputMode === 'text' ? (
+                  <TextArea
+                    id="base64-input"
+                    value={base64}
+                    onChange={handleInputChange}
+                    placeholder="Paste your Base64 data URL here (e.g., data:image/png;base64,...)"
+                    className="flex-grow min-h-[300px] font-mono text-xs resize-none"
+                  />
+                ) : (
+                  <div className="flex-grow flex flex-col min-h-[300px]">
+                    <FileUpload
+                      onFileSelect={handleFileUpload}
+                      accept=".txt,.b64"
+                      className="h-full"
+                    />
+                  </div>
+                )}
+
                 {error && (
                   <div className="flex items-center text-red-500 text-sm mt-2 bg-red-50 dark:bg-red-900/10 p-2 rounded">
                     <AlertCircle className="w-4 h-4 mr-2" />

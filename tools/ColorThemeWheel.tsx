@@ -302,10 +302,13 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
               <div>
                 <Label>Scheme</Label>
                 <Select
-                  options={SCHEME_OPTIONS}
-                  value={SCHEME_OPTIONS.find(o => o.value === scheme)}
-                  onChange={(option) => setScheme(option?.value as Scheme)}
-                />
+                  value={scheme}
+                  onChange={(e) => setScheme(e.target.value as Scheme)}
+                >
+                  {SCHEME_OPTIONS.map(o => (
+                    <option key={o.value} value={o.value}>{o.label}</option>
+                  ))}
+                </Select>
               </div>
             </div>
           </Card>
