@@ -59,7 +59,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
       </div>
 
       {/* Main Tool Area */}
-      <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in-up">
+      <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in-up relative z-20">
         {children}
       </div>
 

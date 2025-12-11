@@ -231,8 +231,8 @@ const Header: React.FC = () => {
                         <button
                           onClick={() => toggleCategory(category)}
                           className={`w-full flex items-center justify-between px-4 py-3 transition-colors ${isOpen
-                              ? 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white'
-                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            ? 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
                             }`}
                         >
                           <div className="flex items-center gap-3">
