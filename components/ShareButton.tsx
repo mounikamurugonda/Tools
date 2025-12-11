@@ -4,11 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { Share2 } from 'lucide-react';
 
 interface ShareButtonProps {
-  toolId: string;
+  toolId?: string;
   title: string;
+  url?: string;
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({ toolId, title }) => {
+const ShareButton: React.FC<ShareButtonProps> = ({ toolId, title, url: customUrl }) => {
   const [copied, setCopied] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -20,14 +21,14 @@ const ShareButton: React.FC<ShareButtonProps> = ({ toolId, title }) => {
     return null;
   }
 
-  const url = `${window.location.origin}/tools/${toolId}`;
+  const url = customUrl || `${window.location.origin}/tools/${toolId}`;
 
   const handleShare = async () => {
     if (navigator.share) {
       try {
         await navigator.share({
           title: title,
-          text: `Check out this tool: ${title}`,
+          text: `Check out this: ${title}`,
           url: url,
         });
       } catch (error) {

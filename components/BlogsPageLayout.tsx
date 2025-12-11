@@ -10,42 +10,44 @@ const allCategories = Array.from(new Set(blogs.map((blog) => blog.category)));
 const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
+  const isSidebarVisible = pathname === '/blogs' || pathname.startsWith('/blogs/category/');
+
   return (
-    <div className="flex flex-col md:flex-row gap-12">
-      <aside className="w-full md:w-1/4">
-        <div className="sticky top-24">
-          <h3 className="brand-heading-3 mb-4">Categories</h3>
-          <ul className="space-y-2">
-            <li>
-              <Link
-                href="/blogs"
-                className={`block w-full text-left ${
-                  pathname === '/blogs'
-                    ? 'brand-button-primary'
-                    : 'brand-button-secondary'
-                }`}
-              >
-                All
-              </Link>
-            </li>
-            {allCategories.map((category) => (
-              <li key={category}>
+    <div className={`flex flex-col md:flex-row gap-12 ${!isSidebarVisible ? 'justify-center' : ''}`}>
+      {isSidebarVisible && (
+        <aside className="w-full md:w-1/4">
+          <div className="sticky top-24">
+            <h3 className="brand-heading-3 mb-4">Categories</h3>
+            <ul className="space-y-2">
+              <li>
                 <Link
-                  href={`/blogs/category/${category}`}
-                  className={`block w-full text-left ${
-                    pathname === `/blogs/category/${category}`
+                  href="/blogs"
+                  className={`block w-full text-left ${pathname === '/blogs'
                       ? 'brand-button-primary'
                       : 'brand-button-secondary'
-                  }`}
+                    }`}
                 >
-                  {category}
+                  All
                 </Link>
               </li>
-            ))}
-          </ul>
-        </div>
-      </aside>
-      <main className="w-full md:w-3/4">{children}</main>
+              {allCategories.map((category) => (
+                <li key={category}>
+                  <Link
+                    href={`/blogs/category/${category}`}
+                    className={`block w-full text-left ${pathname === `/blogs/category/${category}`
+                        ? 'brand-button-primary'
+                        : 'brand-button-secondary'
+                      }`}
+                  >
+                    {category}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      )}
+      <main className={`w-full ${isSidebarVisible ? 'md:w-3/4' : 'w-full'}`}>{children}</main>
     </div>
   );
 };

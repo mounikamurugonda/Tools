@@ -56,4 +56,5 @@ export interface Blog {
   image?: string;
   authorImage?: string;
   relatedPosts?: string[];
+  relatedTools?: string[];
 }
