@@ -216,7 +216,10 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <div className="space-y-6">
-          <Card title="Preview" className="h-[300px] flex items-center justify-center p-0 overflow-hidden relative" >
+          <Card className="h-[300px] flex items-center justify-center p-0 overflow-hidden relative" >
+            <div className="absolute top-4 left-4 z-10 text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/50 dark:bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
+              Preview
+            </div>
             <div
               className="absolute inset-0"
               style={{

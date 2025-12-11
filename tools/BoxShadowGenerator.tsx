@@ -118,7 +118,10 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <div className="space-y-6">
-          <Card title="Preview" className="h-[300px] flex items-center justify-center bg-gray-100 dark:bg-gray-800/50">
+          <Card className="h-[300px] flex items-center justify-center bg-gray-100 dark:bg-gray-800/50 relative">
+            <div className="absolute top-4 left-4 text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/50 dark:bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
+              Preview
+            </div>
             <div
               className="w-40 h-40 bg-blue-500 rounded-xl transition-all duration-300"
               style={{ boxShadow: boxShadowValue }}

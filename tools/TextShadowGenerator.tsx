@@ -90,7 +90,10 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <div className="space-y-6">
-          <Card title="Preview" className="h-[250px] flex items-center justify-center p-0 overflow-hidden relative transition-colors duration-300" style={{ backgroundColor }}>
+          <Card className="h-[250px] flex items-center justify-center p-0 overflow-hidden relative transition-colors duration-300" style={{ backgroundColor }}>
+            <div className="absolute top-4 left-4 text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/50 dark:bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
+              Preview
+            </div>
             <h2
               className="text-5xl font-bold transition-all duration-300 p-8 text-center leading-tight"
               style={{

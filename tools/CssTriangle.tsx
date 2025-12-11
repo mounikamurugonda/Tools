@@ -125,7 +125,10 @@ border-color: ${getBorderStyles().borderColor};`;
         </div>
 
         <div className="space-y-6">
-          <Card title="Preview" className="h-[300px] flex items-center justify-center bg-gray-50 dark:bg-gray-800/50">
+          <Card className="h-[300px] flex items-center justify-center bg-gray-50 dark:bg-gray-800/50 relative">
+            <div className="absolute top-4 left-4 text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/50 dark:bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
+              Preview
+            </div>
             <div style={getBorderStyles()} className="transition-all duration-200"></div>
           </Card>
 

@@ -98,7 +98,7 @@ const MemeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               />
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-4 pt-6 border-t border-gray-100 dark:border-gray-800">
               <Label className="flex items-center gap-2">
                 <Type className="w-4 h-4" /> 2. Add Text
               </Label>

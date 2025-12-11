@@ -1,5 +1,5 @@
 import HomePageClient from '@/components/HomePageClient';
-import Loader from '@/components/Loader';
+import { HomeSkeleton } from '@/components/SkeletonLoader';
 import {
   getHomepageSchema,
   getWebsiteSchema,
@@ -71,7 +71,7 @@ export default function Home() {
       <Schema schema={getOrganizationSchema()} />
       <Schema schema={getHomepageSchema()} />
 
-      <Suspense fallback={<Loader />}>
+      <Suspense fallback={<HomeSkeleton />}>
         <HomePageClient />
       </Suspense>
     </>

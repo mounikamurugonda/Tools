@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import type { ToolProps } from '@/types';
 import { TOOL_COMPONENT_MAP } from '@/lib/tool-config';
-import Loader from '@/components/Loader';
+import { ToolSkeleton } from '@/components/SkeletonLoader';
 import BreadcrumbWrapper from './BreadcrumbWrapper';
 
 interface ToolLoaderProps {
@@ -35,12 +35,12 @@ const ToolLoader: React.FC<ToolLoaderProps> = ({ toolId, details, children }) =>
   const DynamicToolComponent = dynamic(
     () => import(`@/tools/${componentName}`),
     {
-      loading: () => <Loader />,
+      loading: () => <ToolSkeleton />,
     },
   ) as React.ComponentType<ToolProps>;
 
   return (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<ToolSkeleton />}>
       {/* {children} */}
       <BreadcrumbWrapper />
       <DynamicToolComponent details={details} toolId={toolId} />
