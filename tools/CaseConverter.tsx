@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
@@ -86,14 +86,14 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Left side - Input */}
           <div className="space-y-2">
             <Label htmlFor="case-input">Input</Label>
-            <Card className="p-0 overflow-hidden">
+            <Card className="p-0 overflow-hidden text-black dark:text-white">
               <div className="relative">
                 <TextArea
                   id="case-input"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Enter text here..."
-                  className="h-96 max-h-96 border-none focus:ring-0 rounded-none"
+                  className="h-96 max-h-96 border-none focus:ring-0 rounded-none bg-white dark:bg-gray-900"
                 />
                 {input && (
                   <div className="absolute top-2 right-2">
@@ -107,7 +107,7 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Right side - Output */}
           <div className="space-y-2">
             <Label htmlFor="case-output">Output</Label>
-            <Card className="p-0 overflow-hidden">
+            <Card className="p-0 overflow-hidden text-black dark:text-white">
               <div className="relative">
                 <TextArea
                   id="case-output"

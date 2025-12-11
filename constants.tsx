@@ -1,128 +1,5 @@
-import React from "react";
+﻿import React from "react";
 import { Tool, ToolCategory } from "./types";
-import dynamic from "next/dynamic";
-
-const CommaSeparator = dynamic(() => import("@/tools/CommaSeparator"));
-const CaseConverter = dynamic(() => import("@/tools/CaseConverter"));
-const WordCounter = dynamic(() => import("@/tools/WordCounter"));
-const LoremIpsumGenerator = dynamic(
-  () => import("@/tools/LoremIpsumGenerator")
-);
-const Base64Converter = dynamic(() => import("@/tools/Base64Converter"));
-const UrlEncoder = dynamic(() => import("@/tools/UrlEncoder"));
-const JsonFormatter = dynamic(() => import("@/tools/JsonFormatter"));
-const UuidGenerator = dynamic(() => import("@/tools/UuidGenerator"));
-const PasswordGenerator = dynamic(() => import("@/tools/PasswordGenerator"));
-const ImageToBase64 = dynamic(() => import("@/tools/ImageToBase64"));
-const TextReverser = dynamic(() => import("@/tools/TextReverser"));
-const Base64ToImage = dynamic(() => import("@/tools/Base64ToImage"));
-const BoxShadowGenerator = dynamic(() => import("@/tools/BoxShadowGenerator"));
-const CssGradientGenerator = dynamic(
-  () => import("@/tools/CssGradientGenerator")
-);
-const BorderRadiusGenerator = dynamic(
-  () => import("@/tools/BorderRadiusGenerator")
-);
-const TextShadowGenerator = dynamic(
-  () => import("@/tools/TextShadowGenerator")
-);
-const GlassmorphismGenerator = dynamic(
-  () => import("@/tools/GlassmorphismGenerator")
-);
-const HashGenerator = dynamic(() => import("@/tools/HashGenerator"));
-const JwtDebugger = dynamic(() => import("@/tools/JwtDebugger"));
-const QrCodeGenerator = dynamic(() => import("@/tools/QrCodeGenerator"));
-const MarkdownPreviewer = dynamic(() => import("@/tools/MarkdownPreviewer"));
-const DateCalculator = dynamic(() => import("@/tools/DateCalculator"));
-const DiffChecker = dynamic(() => import("@/tools/DiffChecker"));
-const PomodoroTimer = dynamic(() => import("@/tools/PomodoroTimer"));
-const MemeGenerator = dynamic(() => import("@/tools/MemeGenerator"));
-const RegexTester = dynamic(() => import("@/tools/RegexTester"));
-const ColorPaletteGenerator = dynamic(
-  () => import("@/tools/ColorPaletteGenerator")
-);
-const ColorThemeWheel = dynamic(() => import("@/tools/ColorThemeWheel"));
-const UnitConverter = dynamic(() => import("@/tools/UnitConverter"));
-const BmiCalculator = dynamic(() => import("@/tools/BmiCalculator"));
-const TodoList = dynamic(() => import("@/tools/TodoList"));
-const CurrencyConverter = dynamic(() => import("@/tools/CurrencyConverter"));
-const WorldClock = dynamic(() => import("@/tools/WorldClock"));
-const TimersAndStopwatch = dynamic(() => import("@/tools/TimersAndStopwatch"));
-const JsonCsvConverter = dynamic(() => import("@/tools/JsonCsvConverter"));
-const CsvXlsxConverter = dynamic(() => import("@/tools/CsvXlsxConverter"));
-const CharacterCounter = dynamic(() => import("@/tools/CharacterCounter"));
-const KeywordDensityAnalyzer = dynamic(
-  () => import("@/tools/KeywordDensityAnalyzer")
-);
-const ReadabilityScore = dynamic(() => import("@/tools/ReadabilityScore"));
-const LoanCalculator = dynamic(() => import("@/tools/LoanCalculator"));
-const TimeZoneConverter = dynamic(() => import("@/tools/TimeZoneConverter"));
-const CssColorCodeConverter = dynamic(
-  () => import("@/tools/CssColorCodeConverter")
-);
-
-const VideoCompressor = dynamic(() => import("@/tools/VideoCompressor"));
-const VideoToAudioConverter = dynamic(
-  () => import("@/tools/VideoToAudioConverter")
-);
-const GifMaker = dynamic(() => import("@/tools/GifMaker"));
-const TrimVideo = dynamic(() => import("@/tools/TrimVideo"));
-const FormatConverter = dynamic(() => import("@/tools/FormatConverter"));
-const VideoThumbnailExtractor = dynamic(
-  () => import("@/tools/VideoThumbnailExtractor")
-);
-const VideoMute = dynamic(() => import("@/tools/VideoMute"));
-const WatermarkAdder = dynamic(() => import("@/tools/WatermarkAdder"));
-const ImageResizer = dynamic(() => import("@/tools/ImageResizer"));
-const ImageConverter = dynamic(() => import("@/tools/ImageConverter"));
-const ImageCompressor = dynamic(() => import("@/tools/ImageCompressor"));
-
-const JsonToTypescript = dynamic(() => import("@/tools/JsonToTypescript"));
-const CodeToImage = dynamic(() => import("@/tools/CodeToImage"));
-const SqlFormatter = dynamic(() => import("@/tools/SqlFormatter"));
-const CronParser = dynamic(() => import("@/tools/CronParser"));
-const SlugGenerator = dynamic(() => import("@/tools/SlugGenerator"));
-const MetaTagGenerator = dynamic(() => import("@/tools/MetaTagGenerator"));
-const ContrastChecker = dynamic(() => import("@/tools/ContrastChecker"));
-const ChmodCalculator = dynamic(() => import("@/tools/ChmodCalculator"));
-const UtmBuilder = dynamic(() => import("@/tools/UtmBuilder"));
-const AspectRatio = dynamic(() => import("@/tools/AspectRatio"));
-const CssTriangle = dynamic(() => import("@/tools/CssTriangle"));
-const XmlFormatter = dynamic(() => import("@/tools/XmlFormatter"));
-const MorseConverter = dynamic(() => import("@/tools/MorseConverter"));
-const BinaryConverter = dynamic(() => import("@/tools/BinaryConverter"));
-const PasswordStrength = dynamic(() => import("@/tools/PasswordStrength"));
-const StringEscaper = dynamic(() => import("@/tools/StringEscaper"));
-const PercentageCalculator = dynamic(
-  () => import("@/tools/PercentageCalculator")
-);
-const MarkdownTable = dynamic(() => import("@/tools/MarkdownTable"));
-const ListRandomizer = dynamic(() => import("@/tools/ListRandomizer"));
-const TextCleaner = dynamic(() => import("@/tools/TextCleaner"));
-const SvgToDataUri = dynamic(() => import("@/tools/SvgToDataUri"));
-const JsonYamlConverter = dynamic(() => import("@/tools/JsonYamlConverter"));
-
-const YouTubeThumbnail = dynamic(() => import("@/tools/YouTubeThumbnail"));
-const FancyFontGenerator = dynamic(() => import("@/tools/FancyFontGenerator"));
-const HashtagExtractor = dynamic(() => import("@/tools/HashtagExtractor"));
-const ImageFilters = dynamic(() => import("@/tools/ImageFilters"));
-const SvgBlobGenerator = dynamic(() => import("@/tools/SvgBlobGenerator"));
-const SvgWaveGenerator = dynamic(() => import("@/tools/SvgWaveGenerator"));
-const KeycodeInfo = dynamic(() => import("@/tools/KeycodeInfo"));
-const ScreenInfo = dynamic(() => import("@/tools/ScreenInfo"));
-const TextToSpeech = dynamic(() => import("@/tools/TextToSpeech"));
-const RomanNumeral = dynamic(() => import("@/tools/RomanNumeral"));
-const AgeCalculator = dynamic(() => import("@/tools/AgeCalculator"));
-const RandomNumber = dynamic(() => import("@/tools/RandomNumber"));
-const DuplicateRemover = dynamic(() => import("@/tools/DuplicateRemover"));
-const HtmlEntity = dynamic(() => import("@/tools/HtmlEntity"));
-const CssCursors = dynamic(() => import("@/tools/CssCursors"));
-const DeviceResolutions = dynamic(() => import("@/tools/DeviceResolutions"));
-const LoremImage = dynamic(() => import("@/tools/LoremImage"));
-const CssBorders = dynamic(() => import("@/tools/CssBorders"));
-const CssPatterns = dynamic(() => import("@/tools/CssPatterns"));
-const SignaturePad = dynamic(() => import("@/tools/SignaturePad"));
-
 import {
   CaseIcon,
   CounterIcon,
@@ -248,7 +125,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert JSON objects into TypeScript interfaces instantly. Our free online tool handles nested objects and arrays, saving you time. 100% private and secure.",
     icon: <JsonIcon />,
-    component: JsonToTypescript,
     category: ToolCategory.CODING,
     keywords: [
       "json to typescript",
@@ -267,7 +143,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Turn your code into beautiful, shareable images. Customize themes, fonts, and backgrounds with our free online Code to Image tool. Perfect for social media.",
     icon: <CameraToolIcon />,
-    component: CodeToImage,
     category: ToolCategory.CODING,
     keywords: [
       "code to image",
@@ -286,7 +161,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Format and beautify your SQL queries instantly online. Support for MySQL, PostgreSQL, SQL Server, and more. Clean up messy code with our free SQL Formatter.",
     icon: <SqlIcon />,
-    component: SqlFormatter,
     category: ToolCategory.CODING,
     keywords: [
       "sql formatter",
@@ -305,7 +179,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Create and learn cron expressions with our easy-to-use visual generator. Schedule jobs for Linux/Unix systems without syntax errors. Free and instant.",
     icon: <CronIcon />,
-    component: CronParser,
     category: ToolCategory.CODING,
     keywords: [
       "cron generator",
@@ -324,7 +197,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly create clean, SEO-friendly URL slugs from any text. Remove special characters and optimize your links for better search ranking. Free and private.",
     icon: <Link2Icon />,
-    component: SlugGenerator,
     category: ToolCategory.TEXT,
     keywords: [
       "slug generator",
@@ -343,7 +215,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Generate perfect SEO meta tags for your website in seconds. Create title, description, keywords, and Open Graph tags to boost your search rankings.",
     icon: <TagIcon />,
-    component: MetaTagGenerator,
     category: ToolCategory.CODING,
     keywords: [
       "meta tag generator",
@@ -359,7 +230,6 @@ export const TOOLS: Tool[] = [
     name: "Contrast Checker",
     description: "Check color contrast accessibility (WCAG).",
     icon: <ContrastIcon />,
-    component: ContrastChecker,
     category: ToolCategory.COLOR,
   },
   {
@@ -370,7 +240,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Calculate numeric (octal) and symbolic (rwx) file permissions for Unix/Linux systems. Visual Chmod Calculator makes setting permissions safe and easy.",
     icon: <ChmodIcon />,
-    component: ChmodCalculator,
     category: ToolCategory.CODING,
     keywords: [
       "chmod calculator",
@@ -386,7 +255,6 @@ export const TOOLS: Tool[] = [
     name: "UTM Builder",
     description: "Build tracking URLs for marketing campaigns.",
     icon: <UtmIcon />,
-    component: UtmBuilder,
     category: ToolCategory.PRODUCTIVITY,
   },
   {
@@ -397,7 +265,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Calculate aspect ratios and dimensions for images and videos instantly. Essential tool for designers and video editors to find precise width and height.",
     icon: <AspectRatioIcon />,
-    component: AspectRatio,
     category: ToolCategory.IMAGE,
     keywords: [
       "aspect ratio calculator",
@@ -413,7 +280,6 @@ export const TOOLS: Tool[] = [
     name: "CSS Triangle Generator",
     description: "Generate CSS code for geometric triangles.",
     icon: <TriangleIcon />,
-    component: CssTriangle,
     category: ToolCategory.CSS,
   },
   {
@@ -424,7 +290,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Format, validate, and beautify your XML data instantly. Our free online XML Formatter makes XML readable and easier to debug. 100% private.",
     icon: <XmlIcon />,
-    component: XmlFormatter,
     category: ToolCategory.CODING,
     keywords: [
       "xml formatter",
@@ -440,7 +305,6 @@ export const TOOLS: Tool[] = [
     name: "Morse Code Converter",
     description: "Translate text to Morse code and vice versa.",
     icon: <MorseIcon />,
-    component: MorseConverter,
     category: ToolCategory.FUN,
   },
   {
@@ -448,7 +312,6 @@ export const TOOLS: Tool[] = [
     name: "Binary Converter",
     description: "Translate text to binary code and back.",
     icon: <BinaryIcon />,
-    component: BinaryConverter,
     category: ToolCategory.CODING,
   },
   {
@@ -456,7 +319,6 @@ export const TOOLS: Tool[] = [
     name: "Password Strength Checker",
     description: "Test the strength of your passwords.",
     icon: <ShieldCheckIcon />,
-    component: PasswordStrength,
     category: ToolCategory.MISC,
   },
   {
@@ -467,7 +329,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Quickly escape special characters for JSON, HTML, URLs, Java, and JavaScript. Prevent syntax errors and security issues with our free String Escaper.",
     icon: <StringEscaperIcon />,
-    component: StringEscaper,
     category: ToolCategory.CODING,
     keywords: [
       "string escaper",
@@ -483,7 +344,6 @@ export const TOOLS: Tool[] = [
     name: "Percentage Calculator",
     description: "Quickly calculate percentages for common math problems.",
     icon: <PercentIcon />,
-    component: PercentageCalculator,
     category: ToolCategory.MATH,
   },
   {
@@ -494,7 +354,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Easily create and format Markdown tables with our free visual editor. Convert CSV or Excel data to Markdown instantly. Perfect for READMEs and documentation.",
     icon: <TableIcon />,
-    component: MarkdownTable,
     category: ToolCategory.TEXT,
     keywords: [
       "markdown table generator",
@@ -510,7 +369,6 @@ export const TOOLS: Tool[] = [
     name: "List Randomizer",
     description: "Shuffle and randomize a list of items.",
     icon: <ListIcon />,
-    component: ListRandomizer,
     category: ToolCategory.FUN,
   },
   {
@@ -521,7 +379,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Clean and format your text instantly. Remove extra spaces, line breaks, HTML tags, and more with our free online Text Cleaner. Perfect for writers and developers.",
     icon: <EraserIcon />,
-    component: TextCleaner,
     category: ToolCategory.TEXT,
     keywords: [
       "text cleaner online",
@@ -541,7 +398,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert SVG code into a base64 Data URI instantly. Optimize your web performance by embedding SVGs directly into CSS or HTML.",
     icon: <ImageIcon />,
-    component: SvgToDataUri,
     category: ToolCategory.IMAGE,
     keywords: [
       "svg to data uri",
@@ -560,7 +416,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert JSON to YAML and YAML to JSON instantly. Our free online tool ensures accurate conversion for configuration files and data structures.",
     icon: <FileCodeIcon />,
-    component: JsonYamlConverter,
     category: ToolCategory.CODING,
     keywords: [
       "json to yaml",
@@ -581,7 +436,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Download high-quality thumbnails from any YouTube video. Get Max Res, HD, SD, and default sizes instantly. fast, free, and easy to use.",
     icon: <YoutubeIcon />,
-    component: YouTubeThumbnail,
     category: ToolCategory.IMAGE,
     keywords: [
       "youtube thumbnail downloader",
@@ -600,7 +454,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Generate cool, fancy text styles for your Instagram bio, Twitter, and other social media. Copy and paste stylish fonts with our free online generator.",
     icon: <PenIcon />,
-    component: FancyFontGenerator,
     category: ToolCategory.TEXT,
     keywords: [
       "fancy font generator",
@@ -619,7 +472,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly extract all hashtags from any text block. Perfect for social media managers and marketers to analyze and collect tags from posts.",
     icon: <TagsIcon />,
-    component: HashtagExtractor,
     category: ToolCategory.TEXT,
     keywords: [
       "hashtag extractor",
@@ -638,7 +490,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Enhance your photos with free online filters. Apply Grayscale, Sepia, Blur, Brightness, and more instantly directly in your browser.",
     icon: <FiltersIcon />,
-    component: ImageFilters,
     category: ToolCategory.IMAGE,
     keywords: [
       "online photo filters",
@@ -657,7 +508,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Generate unique, organic SVG blobs for your web design backgrounds. Customize complexity and contrast to create the perfect shape. Free and open-source.",
     icon: <BlobIcon />,
-    component: SvgBlobGenerator,
     category: ToolCategory.IMAGE,
     keywords: [
       "svg blob generator",
@@ -676,7 +526,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Create beautiful SVG waves for your website headers and footers. Customize layers, height, and color to generate the perfect wave divider.",
     icon: <WavesIcon />,
-    component: SvgWaveGenerator,
     category: ToolCategory.IMAGE,
     keywords: [
       "svg wave generator",
@@ -695,7 +544,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Press any key to get its JavaScript KeyCode, code, key, and other event properties. Essential tool for web developers handling keyboard events.",
     icon: <KeyboardIcon />,
-    component: KeycodeInfo,
     category: ToolCategory.CODING,
     keywords: [
       "javascript keycode",
@@ -711,7 +559,6 @@ export const TOOLS: Tool[] = [
     name: "Screen Resolution Info",
     description: "View your current screen and viewport dimensions.",
     icon: <ScreenIcon />,
-    component: ScreenInfo,
     category: ToolCategory.PRODUCTIVITY,
   },
   {
@@ -722,7 +569,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert any text to lifelike speech instantly. Choose from multiple voices and languages with our free, browser-based Text to Speech (TTS) tool.",
     icon: <MicIcon />,
-    component: TextToSpeech,
     category: ToolCategory.FUN,
     keywords: [
       "text to speech online",
@@ -738,7 +584,6 @@ export const TOOLS: Tool[] = [
     name: "Roman Numeral Converter",
     description: "Convert numbers to Roman numerals and back.",
     icon: <RomanIcon />,
-    component: RomanNumeral,
     category: ToolCategory.MATH,
   },
   {
@@ -746,7 +591,6 @@ export const TOOLS: Tool[] = [
     name: "Age Calculator",
     description: "Calculate your exact age in years, months, and days.",
     icon: <BabyIcon />,
-    component: AgeCalculator,
     category: ToolCategory.MATH,
   },
   {
@@ -754,7 +598,6 @@ export const TOOLS: Tool[] = [
     name: "Random Number Generator",
     description: "Generate random numbers within a specific range.",
     icon: <DiceIcon />,
-    component: RandomNumber,
     category: ToolCategory.MATH,
   },
   {
@@ -765,7 +608,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly remove duplicate lines from your text list. Clean up data, emails, or inventory lists with our free, secure duplicate remover tool.",
     icon: <DuplicateIcon />,
-    component: DuplicateRemover,
     category: ToolCategory.TEXT,
     keywords: [
       "duplicate remover",
@@ -784,7 +626,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert text to HTML entities and back. Safely escape special characters like <, >, and & for use in web pages. Free, fast, and secure.",
     icon: <HtmlEntityIcon />,
-    component: HtmlEntity,
     category: ToolCategory.CODING,
     keywords: [
       "html entity encoder",
@@ -800,7 +641,6 @@ export const TOOLS: Tool[] = [
     name: "CSS Cursor Viewer",
     description: "Visual reference for all CSS cursor types.",
     icon: <CursorIcon />,
-    component: CssCursors,
     category: ToolCategory.CSS,
   },
   {
@@ -808,7 +648,6 @@ export const TOOLS: Tool[] = [
     name: "Device Resolution List",
     description: "Reference guide for common device screen sizes.",
     icon: <DevicesIcon />,
-    component: DeviceResolutions,
     category: ToolCategory.PRODUCTIVITY,
   },
   {
@@ -819,7 +658,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Generate random, high-quality placeholder images for your web designs. Get customizable URLs for specific sizes and effects (grayscale, blur).",
     icon: <PlaceholderIcon />,
-    component: LoremImage,
     category: ToolCategory.IMAGE,
     keywords: [
       "placeholder image generator",
@@ -835,7 +673,6 @@ export const TOOLS: Tool[] = [
     name: "CSS Border Preview",
     description: "Visualizer for all CSS border styles.",
     icon: <BorderIcon />,
-    component: CssBorders,
     category: ToolCategory.CSS,
   },
   {
@@ -843,7 +680,6 @@ export const TOOLS: Tool[] = [
     name: "CSS Background Patterns",
     description: "Generate pure CSS background patterns.",
     icon: <PatternIcon />,
-    component: CssPatterns,
     category: ToolCategory.CSS,
   },
   {
@@ -851,7 +687,6 @@ export const TOOLS: Tool[] = [
     name: "Signature Pad",
     description: "Draw and save digital signatures.",
     icon: <SignatureIcon />,
-    component: SignaturePad,
     category: ToolCategory.MISC,
   },
   // ... rest of the existing tools (ensure Readability Score, Loan Calculator, etc. are preserved)
@@ -865,7 +700,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Is your writing easy to understand? Our free Readability Score Calculator gives you instant feedback with Flesch-Kincaid scores. Write clearer, more effective content for everyone. 100% private.",
     icon: <ReadabilityIcon />,
-    component: ReadabilityScore,
     category: ToolCategory.TEXT,
 
     keywords: [
@@ -892,7 +726,6 @@ export const TOOLS: Tool[] = [
       "Take control of your finances. Our free Loan Calculator helps you estimate monthly payments, total interest, and see a full amortization schedule for any loan. Plan for mortgages, car loans, and more. Fast, accurate, and 100% private.",
 
     icon: <LoanCalculatorIcon />,
-    component: LoanCalculator,
     category: ToolCategory.MATH,
 
     keywords: [
@@ -918,7 +751,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Never get the time wrong again. Our free Time Zone Converter makes it easy to convert time between any cities in the world. Perfect for scheduling meetings, planning travel, and staying in sync with global teams.",
     icon: <TimeZoneConverterIcon />,
-    component: TimeZoneConverter,
     category: ToolCategory.PRODUCTIVITY,
 
     keywords: [
@@ -944,7 +776,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Free online tool to convert lists to comma-separated values (CSV) and vice versa. Support for custom delimiters, wrapping, sorting, and duplicate removal.",
     icon: <SeparatorIcon />,
-    component: CommaSeparator,
     category: ToolCategory.TEXT,
     keywords: [
       "comma separator",
@@ -965,7 +796,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Quickly convert text to UPPERCASE, lowercase, Title Case, Sentence case, and more with our free online tool. Perfect for headlines, essays, and code. 100% private and easy to use.",
     icon: <CaseIcon />,
-    component: CaseConverter,
     category: ToolCategory.TEXT,
     featured: true,
     keywords: [
@@ -986,7 +816,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Hit your writing goals with our free online Word Counter. Get instant, accurate counts for words, characters, sentences, and paragraphs, plus an estimated reading time. Perfect for writers, students, and SEOs.",
     icon: <WordCounterIcon />,
-    component: WordCounter,
     category: ToolCategory.TEXT,
     keywords: [
       "word counter",
@@ -1010,7 +839,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Never exceed the limit again. Our free Character Counter instantly checks characters, letters, and byte size. Perfect for Twitter/X posts, SMS, and more. 100% private and secure.",
     icon: <CharacterCounterIcon />,
-    component: CharacterCounter,
     category: ToolCategory.TEXT,
 
     keywords: [
@@ -1034,7 +862,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Need placeholder text? Our free Lorem Ipsum Generator creates custom dummy text for your designs. Generate paragraphs, sentences, or words to perfect your layouts. Fast, easy, and professional.",
     icon: <LoremIpsumIcon />,
-    component: LoremIpsumGenerator,
     category: ToolCategory.TEXT,
 
     keywords: [
@@ -1058,7 +885,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Flip your text backwards with our free Text Reverser. Instantly reverse words, letters, and even emojis. Perfect for fun social media posts, puzzles, or coding challenges.",
     icon: <TextReverseIcon />,
-    component: TextReverser,
     category: ToolCategory.TEXT,
 
     keywords: [
@@ -1082,7 +908,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Write and preview Markdown side-by-side with our free live editor. Instantly see how your text will look as HTML. Perfect for READMEs, blogs, and documentation. Fast, secure, and easy to use.",
     icon: <MarkdownIcon />,
-    component: MarkdownPreviewer,
     category: ToolCategory.TEXT,
 
     keywords: [
@@ -1107,7 +932,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "A free, powerful tool to encode and decode Base64. Easily convert text, images, or any file into a Base64 string and back again. Secure, fast, and all in your browser.",
     icon: <Base64Icon />,
-    component: Base64Converter,
     category: ToolCategory.CODING,
     keywords: [
       "base64 converter online",
@@ -1126,7 +950,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Quickly and safely encode or decode strings for use in URLs. Our free tool handles special characters and spaces, preventing broken links. Perfect for developers and marketers.",
     icon: <UrlIcon />,
-    component: UrlEncoder,
     category: ToolCategory.CODING,
     keywords: [
       "url encoder decoder online",
@@ -1146,7 +969,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Clean up your messy JSON with our free online formatter. Instantly validate, format, and beautify your JSON data to make it readable. Perfect for developers debugging APIs.",
     icon: <JsonIcon />,
-    component: JsonFormatter,
     category: ToolCategory.CODING,
     featured: true,
     keywords: [
@@ -1166,7 +988,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Test your regular expressions in real-time with our free online Regex Tester. Instantly see matches and capture groups highlighted. Perfect for developers and data analysts. 100% private.",
     icon: <RegexIcon />,
-    component: RegexTester,
     category: ToolCategory.CODING,
     keywords: [
       "regex tester online",
@@ -1185,7 +1006,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Need a unique ID? Our free UUID Generator creates random, secure Version 4 UUIDs in a single click. Perfect for databases, session IDs, and any application needing a unique identifier.",
     icon: <UuidIcon />,
-    component: UuidGenerator,
     category: ToolCategory.CODING,
     keywords: [
       "uuid generator online",
@@ -1206,7 +1026,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly generate secure SHA-1, SHA-256, and SHA-512 hashes from any text with our free online tool. Powered by the Web Crypto API for maximum security. 100% private.",
     icon: <HashIcon />,
-    component: HashGenerator,
     category: ToolCategory.CODING,
     keywords: [
       "sha256 generator online",
@@ -1225,7 +1044,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly decode and inspect JSON Web Tokens (JWTs) with our free online tool. View the header and payload in a readable format. Perfect for debugging authentication tokens. 100% private.",
     icon: <JwtIcon />,
-    component: JwtDebugger,
     category: ToolCategory.CODING,
     keywords: [
       "jwt decoder online",
@@ -1245,7 +1063,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Easily compare two blocks of text or code and see the differences highlighted instantly. Our free Diff Checker is perfect for developers, writers, and editors. Fast, secure, and 100% private.",
     icon: <DiffIcon />,
-    component: DiffChecker,
     category: ToolCategory.CODING,
     keywords: [
       "diff tool online",
@@ -1265,7 +1082,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Effortlessly convert between JSON and CSV formats with our free online tool. Perfect for developers and data analysts. Fast, secure, and browser-based.",
     icon: <CsvToJsonIcon />,
-    component: JsonCsvConverter,
     category: ToolCategory.CODING,
     keywords: [
       "csv to json online",
@@ -1286,7 +1102,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Our free online Data Converter instantly transforms your files. Convert CSV or Excel (XLSX) to JSON, SQL, HTML, Markdown, and more. Secure, browser-based, and incredibly fast.",
     icon: <FileConversionIcon />,
-    component: CsvXlsxConverter,
     category: ToolCategory.CODING,
     keywords: [
       "data converter",
@@ -1310,7 +1125,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert any image (PNG, JPG, SVG) into a Base64 data URL with our free online tool. Perfect for embedding images directly into HTML and CSS to improve site speed. 100% private.",
     icon: <ImageIcon />,
-    component: ImageToBase64,
     category: ToolCategory.IMAGE,
     featured: true,
     keywords: [
@@ -1330,7 +1144,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Have a Base64 string and want to see the image? Our free tool instantly decodes any Base64 data URL back into a viewable and downloadable image. Perfect for developers and designers.",
     icon: <Base64ToImageIcon />,
-    component: Base64ToImage,
     category: ToolCategory.IMAGE,
     keywords: [
       "base64 to image converter",
@@ -1350,7 +1163,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Design the perfect CSS box-shadow with our free visual generator. Control offsets, blur, spread, and color in real-time and get the code instantly. Perfect for modern UI design.",
     icon: <BoxShadowIcon />,
-    component: BoxShadowGenerator,
     category: ToolCategory.CSS,
     keywords: [
       "css box shadow generator",
@@ -1370,7 +1182,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Design stunning linear and radial CSS gradients with our free visual editor. Add multiple colors, control angles, and get production-ready code instantly. Perfect for modern web design.",
     icon: <GradientIcon />,
-    component: CssGradientGenerator,
     category: ToolCategory.CSS,
     keywords: [
       "css gradient generator",
@@ -1404,7 +1215,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Visually design the perfect rounded corners with our free CSS Border Radius Generator. Control each corner individually to create unique shapes and get the code instantly.",
     icon: <BorderRadiusIcon />,
-    component: BorderRadiusGenerator,
     category: ToolCategory.CSS,
     keywords: [
       "css border radius generator",
@@ -1423,7 +1233,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Design the perfect CSS text-shadow with our free visual generator. Control offsets, blur, color, and opacity in real-time and get the code instantly. Add depth and style to your text.",
     icon: <TextShadowIcon />,
-    component: TextShadowGenerator,
     category: ToolCategory.CSS,
     keywords: [
       "css text shadow generator",
@@ -1442,7 +1251,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Easily create trendy Glassmorphism (frosted glass) and Neumorphism (soft UI) effects with our free visual CSS generator. Get the code for your modern UI designs instantly.",
     icon: <GlassmorphismIcon />,
-    component: GlassmorphismGenerator,
     category: ToolCategory.CSS,
     keywords: [
       "glassmorphism css generator",
@@ -1462,7 +1270,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly generate beautiful, harmonious color palettes from any base color. Our free tool creates monochromatic, analogous, complementary, and triadic schemes for your designs.",
     icon: <PaletteIcon />,
-    component: ColorPaletteGenerator,
     category: ToolCategory.COLOR,
     keywords: [
       "color palette generator",
@@ -1482,7 +1289,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Design beautiful color themes with our free interactive color wheel. Choose from analogous, complementary, and triadic schemes and export your palette as CSS variables or JSON.",
     icon: <PaletteIcon />,
-    component: ColorThemeWheel,
     category: ToolCategory.COLOR,
     keywords: [
       "color wheel tool",
@@ -1502,7 +1308,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly convert between HEX, RGB, and HSL color codes with our free online tool. Supports alpha channels (transparency) and CSS color names. Perfect for developers and designers.",
     icon: <ColorIcon />,
-    component: CssColorCodeConverter,
     category: ToolCategory.COLOR,
     keywords: [
       "hex to rgb converter",
@@ -1521,7 +1326,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Compress MP4, MOV, and AVI video files online for free. Reduce file size without losing quality. Perfect for sharing on WhatsApp, Email, or Web.",
     icon: <VideoCompressorIcon />,
-    component: VideoCompressor,
     category: ToolCategory.VIDEO,
     keywords: [
       "video compressor online",
@@ -1540,7 +1344,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Extract audio from any video file instantly. Convert MP4 to MP3, WAV, or AAC with our free online Video to Audio Converter.",
     icon: <VideoToAudioIcon />,
-    component: VideoToAudioConverter,
     category: ToolCategory.VIDEO,
     keywords: [
       "video to audio",
@@ -1559,7 +1362,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Create funny animated GIFs from your videos instantly. Convert MP4 to GIF with customizable start/end times and dimensions.",
     icon: <GifMakerIcon />,
-    component: GifMaker,
     category: ToolCategory.VIDEO,
     keywords: [
       "gif maker online",
@@ -1578,7 +1380,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Trim and cut your video files online for free. Remove unwanted parts from the beginning, middle, or end of your videos easily.",
     icon: <TrimVideoIcon />,
-    component: TrimVideo,
     category: ToolCategory.VIDEO,
     keywords: [
       "trim video online",
@@ -1597,7 +1398,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert video files to any format (MP4, AVI, MKV, MOV, WEBM) for free. Fast, secure, and high-quality online video converter.",
     icon: <FormatConverterIcon />,
-    component: FormatConverter,
     category: ToolCategory.VIDEO,
     keywords: [
       "video format converter",
@@ -1616,7 +1416,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Extract high-quality image frames from any video. Pick a timestamp and save the frame as JPG or PNG for thumbnails.",
     icon: <VideoThumbnailIcon />,
-    component: VideoThumbnailExtractor,
     category: ToolCategory.VIDEO,
     keywords: [
       "video thumbnail extractor",
@@ -1635,7 +1434,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Instantly remove the audio track from any video. Mute background noise or create a silent video clips for social media.",
     icon: <VideoMuteIcon />,
-    component: VideoMute,
     category: ToolCategory.VIDEO,
     keywords: [
       "mute video online",
@@ -1654,7 +1452,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Protect your images with our free online Watermark Adder. Add text or logo watermarks to photos easily to prevent theft.",
     icon: <WatermarkAdderIcon />,
-    component: WatermarkAdder,
     category: ToolCategory.IMAGE,
     keywords: [
       "add watermark online",
@@ -1673,7 +1470,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Resize images online to any dimension or percentage. Change width and height of JPG, PNG, and WebP images without losing quality.",
     icon: <ImageResizerIcon />,
-    component: ImageResizer,
     category: ToolCategory.IMAGE,
     keywords: [
       "image resizer",
@@ -1692,7 +1488,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert images to any format (JPG, PNG, WebP) instantly. Free online image converter with bulk processing support.",
     icon: <ImageConverterIcon />,
-    component: ImageConverter,
     category: ToolCategory.IMAGE,
     keywords: [
       "image converter online",
@@ -1711,7 +1506,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Compress JPG, PNG, and WebP images online. Reduce file size by up to 80% without visible quality loss. Speed up your website.",
     icon: <ImageCompressorIcon />,
-    component: ImageCompressor,
     category: ToolCategory.IMAGE,
     keywords: [
       "image compressor",
@@ -1730,7 +1524,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "A clean and simple to-do list that saves your tasks in your browser. Organize your day and stay on track with our free and private To-Do List tool.",
     icon: <TodoIcon />,
-    component: TodoList,
     category: ToolCategory.PRODUCTIVITY,
   },
   {
@@ -1741,7 +1534,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Create random, secure passwords with custom length and characters. Protect your accounts with strong, uncrackable passwords created instantly.",
     icon: <PasswordIcon />,
-    component: PasswordGenerator,
     category: ToolCategory.CODING,
     keywords: [
       "password generator",
@@ -1760,7 +1552,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Create custom QR codes for URLs, text, Wi-Fi, and more. Download your high-quality QR code in PNG or SVG format instantly.",
     icon: <QrCodeIcon />,
-    component: QrCodeGenerator,
     category: ToolCategory.IMAGE,
     keywords: [
       "qr code generator",
@@ -1779,7 +1570,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Calculate the exact duration between two dates in years, months, weeks, and days. Perfect for event planning and scheduling.",
     icon: <DateCalcIcon />,
-    component: DateCalculator,
     category: ToolCategory.MATH,
     keywords: [
       "date calculator",
@@ -1798,7 +1588,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Boost your productivity with our free online Pomodoro Timer. Use the 25-minute work / 5-minute break technique to stay focused and get more done.",
     icon: <PomodoroIcon />,
-    component: PomodoroTimer,
     category: ToolCategory.PRODUCTIVITY,
     keywords: [
       "pomodoro timer",
@@ -1817,7 +1606,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Make your own memes with our free online Meme Generator. Upload your images or caption popular templates. fast, funny, and no watermark.",
     icon: <MemeIcon />,
-    component: MemeGenerator,
     category: ToolCategory.FUN,
     keywords: [
       "meme generator",
@@ -1837,7 +1625,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert between thousands of units of measurement. Length, weight, temperature, volume, and more with our free online Unit Converter.",
     icon: <UnitConverterIcon />,
-    component: UnitConverter,
     category: ToolCategory.MATH,
     keywords: [
       "unit converter",
@@ -1856,7 +1643,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Calculate your Body Mass Index (BMI) instantly. Enter your height and weight to see if you are in a healthy weight range. Free and private.",
     icon: <BmiIcon />,
-    component: BmiCalculator,
     category: ToolCategory.MATH,
     keywords: [
       "bmi calculator",
@@ -1875,7 +1661,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Convert between 150+ global currencies with live exchange rates. Fast, accurate, and free online Currency Converter.",
     icon: <CurrencyIcon />,
-    component: CurrencyConverter,
     category: ToolCategory.MATH,
     keywords: [
       "currency converter",
@@ -1894,7 +1679,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Check the current time in major cities around the world. Track multiple time zones instantly with our free World Clock tool.",
     icon: <WorldClockIcon />,
-    component: WorldClock,
     category: ToolCategory.PRODUCTIVITY,
     keywords: [
       "world clock",
@@ -1913,7 +1697,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "A simple, full-screen online timer and stopwatch. Set alarms, countdowns, and track laps easily directly in your browser.",
     icon: <TimersIcon />,
-    component: TimersAndStopwatch,
     category: ToolCategory.PRODUCTIVITY,
     keywords: [
       "online timer",
@@ -1932,7 +1715,6 @@ export const TOOLS: Tool[] = [
     seoDescription:
       "Check the keyword density of your text to avoid stuffing and improve SEO. Analyze word frequency and optimize your content for search engines.",
     icon: <KeywordDensityIcon />,
-    component: KeywordDensityAnalyzer,
     category: ToolCategory.TEXT,
     keywords: [
       "keyword density checker",
