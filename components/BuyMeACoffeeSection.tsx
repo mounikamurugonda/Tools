@@ -3,13 +3,18 @@
 import { usePathname } from 'next/navigation';
 import BuyMeACoffeeCard from './BuyMeACoffeeCard';
 
-const BuyMeACoffeeSection = () => {
+const BuyMeACoffeeSection = ({ forceShow = false }: { forceShow?: boolean }) => {
   const pathname = usePathname();
 
   // Show on all pages except specific ones where it might be redundant
   // Also hide on inner pages (tools and tips) as they will have their own scrollable version
   const hideOnPages = ['/contact', '/about'];
-  const shouldShow = !hideOnPages.includes(pathname);
+
+  if (!forceShow && pathname?.startsWith('/tools')) {
+    return null;
+  }
+
+  const shouldShow = forceShow || !hideOnPages.includes(pathname);
 
   if (!shouldShow) {
     return null;
