@@ -9,7 +9,7 @@ import Button from '@/components/ui/Button';
 import Select from '@/components/ui/Select';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
-import { Settings, RefreshCw, ArrowRightLeft, Trash2 } from 'lucide-react';
+import { Settings, RefreshCw, ArrowRightLeft, Trash2, ArrowRight } from 'lucide-react';
 
 const DELIMITERS = [
     { label: 'Commma (,)', value: ',' },
@@ -38,7 +38,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
     const [output, setOutput] = useState('');
 
     // Settings
-    const [inputDelimiter, setInputDelimiter] = useState('\n');
+    const [inputDelimiter, setInputDelimiter] = useState('auto');
     const [inputCustomDelimiter, setInputCustomDelimiter] = useState('');
 
     const [outputDelimiter, setOutputDelimiter] = useState(',');
@@ -68,13 +68,23 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
 
         // 1. Determine Input Splitter
         let splitter = inputDelimiter;
-        if (inputDelimiter === 'custom') splitter = inputCustomDelimiter;
 
-        // Auto-detect fallback if splitter logic needed, but explicit is safer for now.
-        // If splitter is empty and not "custom" empty, output might be weird.
+        if (inputDelimiter === 'auto') {
+            const candidates = [
+                { val: '\n', count: (text.match(/\n/g) || []).length },
+                { val: ',', count: (text.match(/,/g) || []).length },
+                { val: ';', count: (text.match(/;/g) || []).length },
+                { val: '\t', count: (text.match(/\t/g) || []).length },
+                { val: '|', count: (text.match(/\|/g) || []).length },
+                { val: ':', count: (text.match(/:/g) || []).length },
+            ];
 
-        // Special handling for new lines if user selected something else but pasted distinct lines? 
-        // Usually tool assumes input format matches setting.
+            // Find the delimiter with the highest occurrence count
+            const winner = candidates.reduce((prev, current) => (prev.count > current.count) ? prev : current);
+            splitter = winner.count > 0 ? winner.val : '\n';
+        } else if (inputDelimiter === 'custom') {
+            splitter = inputCustomDelimiter;
+        }
 
         let items = text.split(splitter);
 
@@ -144,28 +154,6 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="flex items-center justify-between gap-4 w-full">
             <span>Input Data</span>
             <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2 border-r border-gray-200 dark:border-gray-700 pr-3 mr-1">
-                    <span className="text-xs font-normal text-gray-500 hidden sm:inline-block">Delimiter:</span>
-                    <select
-                        value={inputDelimiter}
-                        onChange={(e) => setInputDelimiter(e.target.value)}
-                        className="text-sm border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 focus:ring-blue-500 focus:border-blue-500 py-1 pl-2 pr-8"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <option value="auto">Auto-Detect</option>
-                        {DELIMITERS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
-                    </select>
-                    {inputDelimiter === 'custom' && (
-                        <input
-                            placeholder="Custom"
-                            value={inputCustomDelimiter}
-                            onChange={(e) => setInputCustomDelimiter(e.target.value)}
-                            onClick={(e) => e.stopPropagation()}
-                            className="w-20 text-sm border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 py-1 px-2"
-                        />
-                    )}
-                </div>
-
                 <span className="text-xs text-gray-500 font-normal whitespace-nowrap hidden sm:inline-block">
                     {inputDelimiter === '\n' || inputDelimiter === 'auto' ? input.split('\n').filter(x => x.trim()).length : input.split(inputDelimiter === 'custom' ? inputCustomDelimiter : inputDelimiter).length} items
                 </span>
@@ -220,38 +208,10 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
                 {/* Collapsible Configuration */}
                 {showOptions && (
                     <Card title="Advanced Configuration" className="animate-in fade-in slide-in-from-top-4 duration-200">
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
-                            {/* Col 1: Output Delimiter */}
-                            <div>
-                                <Label className="flex items-center gap-2 mb-2">
-                                    <ArrowRightLeft className="w-4 h-4" /> Output Delimiter
-                                </Label>
-                                <Select value={outputDelimiter} onChange={(e) => setOutputDelimiter(e.target.value)} className="w-full">
-                                    {DELIMITERS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
-                                </Select>
-                                {outputDelimiter === 'custom' && (
-                                    <Input
-                                        placeholder="Custom delimiter"
-                                        value={outputCustomDelimiter}
-                                        onChange={(e) => setOutputCustomDelimiter(e.target.value)}
-                                        className="mt-2 w-full"
-                                    />
-                                )}
-                                <div className="mt-2 flex items-center gap-2">
-                                    <input
-                                        type="checkbox"
-                                        id="newLineAfter"
-                                        checked={options.newLineAfter}
-                                        onChange={(e) => setOptions({ ...options, newLineAfter: e.target.checked })}
-                                        className="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
-                                    />
-                                    <label htmlFor="newLineAfter" className="text-sm text-gray-600 dark:text-gray-300">Add New Line after delimiter</label>
-                                </div>
-                            </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
                             {/* Col 2: Formatting */}
-                            <div className="border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 pt-4 md:pt-0 md:pl-6">
+                            <div>
                                 <Label className="mb-2 block">Item Formatting</Label>
                                 <div className="space-y-4">
                                     <div>
@@ -280,7 +240,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
                             </div>
 
                             {/* Col 3: Filters */}
-                            <div className="border-t md:border-t-0 md:border-l border-gray-200 dark:border-gray-700 pt-4 md:pt-0 md:pl-6">
+                            <div>
                                 <Label className="mb-3 block">Filters & Sorting</Label>
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-2">
@@ -325,6 +285,19 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
                                             </label>
                                         </div>
                                     </div>
+
+                                    <div className="pt-2 border-t border-gray-200 dark:border-gray-700 mt-2">
+                                        <div className="flex items-center gap-2">
+                                            <input
+                                                type="checkbox"
+                                                id="newLineAfter"
+                                                checked={options.newLineAfter}
+                                                onChange={(e) => setOptions({ ...options, newLineAfter: e.target.checked })}
+                                                className="rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
+                                            />
+                                            <label htmlFor="newLineAfter" className="text-sm text-gray-600 dark:text-gray-300">Add New Line after delimiter</label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -332,7 +305,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
                 )}
 
                 {/* Bottom: Inputs & Outputs */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-4">
                     {/* Input Data */}
                     <Card title={InputCardHeader} className="h-full flex flex-col">
                         <textarea
@@ -342,6 +315,43 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
                             onChange={(e) => setInput(e.target.value)}
                         />
                     </Card>
+
+                    {/* Convert Action & Controls */}
+                    <div className="flex flex-col justify-center items-center gap-6 p-2">
+
+                        {/* Control Panel */}
+
+
+
+                        {/* Output Delimiter */}
+                        <div className="space-y-1">
+                            <Label className="text-xs text-gray-500">Output Separator</Label>
+                            <Select
+                                value={outputDelimiter}
+                                onChange={(e) => setOutputDelimiter(e.target.value)}
+                                className="w-full text-sm"
+                            >
+                                {DELIMITERS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
+                            </Select>
+                            {outputDelimiter === 'custom' && (
+                                <Input
+                                    placeholder="Custom"
+                                    value={outputCustomDelimiter}
+                                    onChange={(e) => setOutputCustomDelimiter(e.target.value)}
+                                    className="mt-1 w-full h-8 text-sm"
+                                />
+                            )}
+                        </div>
+
+                        <Button
+                            onClick={processText}
+                            className="rounded-full h-12 px-6 flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all bg-blue-600 hover:bg-blue-700 text-white font-medium"
+                            title="Convert"
+                        >
+                            <span className="hidden lg:inline">Convert</span>
+                            <ArrowRight className="w-5 h-5 transform rotate-90 lg:rotate-0" />
+                        </Button>
+                    </div>
 
                     {/* Output Result */}
                     <Card title={ResultCardHeader} className="h-full flex flex-col">

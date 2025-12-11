@@ -14,25 +14,12 @@ const Select: React.FC<SelectProps> = ({ className = '', error, ...props }) => {
     return (
         <div className="relative">
             <select
-                className={`${baseStyles} ${borderStyles} ${className}`}
+                className={`pr-6 ${baseStyles} ${borderStyles} ${className}`}
+                style={{ WebkitAppearance: 'none', MozAppearance: 'none', appearance: 'none' }}
                 {...props}
             />
-            <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
-                <svg
-                    className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                    />
-                </svg>
-            </div>
-        </div>
+
+        </div >
     );
 };
 
