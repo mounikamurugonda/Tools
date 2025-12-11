@@ -7,6 +7,7 @@ import { MenuIcon, CloseIcon } from './icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import SearchBar from './SearchBar';
+import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
 
 interface NavLinkProps {
   href: string;
@@ -23,8 +24,8 @@ const NavLink = ({ href, children, onClick, pathname }: NavLinkProps) => {
       href={href}
       onClick={onClick}
       className={`relative px-3 py-2 text-sm font-medium transition-colors group ${isActive
-          ? 'text-blue-600 dark:text-blue-400'
-          : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+        ? 'text-blue-600 dark:text-blue-400'
+        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
         }`}
     >
       {children}
@@ -66,13 +67,61 @@ const Header: React.FC = () => {
           <div className="hidden md:flex items-center gap-2 flex-shrink-0">
             <nav className="flex items-center gap-2 mr-2">
               <NavLink href="/" onClick={closeAllMenus} pathname={pathname}>Home</NavLink>
-              <NavLink href="/tools" onClick={closeAllMenus} pathname={pathname}>Tools</NavLink>
+
+              {/* Categories Dropdown */}
+              <div className="relative group">
+                <button
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors ${pathname.startsWith('/tools/category')
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    }`}
+                >
+                  Categories
+                  <svg className="w-3 h-3 ml-1 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 transform origin-left transition-transform duration-300 ease-out ${pathname.startsWith('/tools/category') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
+                />
+
+                {/* Dropdown Menu */}
+                <div className="absolute left-0 mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-2 max-h-96 overflow-y-auto">
+                    {CATEGORY_ORDER.map((category) => {
+                      const CategoryIcon = CATEGORY_ICONS[category];
+                      const urlSlug = CATEGORY_URL_MAP[category];
+                      return (
+                        <Link
+                          key={category}
+                          href={`/tools/category/${urlSlug}`}
+                          onClick={closeAllMenus}
+                          className="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <div className="flex-shrink-0 text-blue-600 dark:text-blue-400">
+                            <CategoryIcon className="w-5 h-5" />
+                          </div>
+                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{category}</span>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>Blog</NavLink>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
 
             <div className="flex items-center gap-3">
+              <Link
+                href="/request-tool"
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg transition-colors"
+              >
+                Request a Tool
+              </Link>
               <ThemeSwitcher />
             </div>
           </div>
@@ -116,9 +165,17 @@ const Header: React.FC = () => {
             </div>
 
             <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+              {/* Request a Tool Button */}
+              <Link
+                href="/request-tool"
+                onClick={closeAllMenus}
+                className="block px-4 py-3 text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all active:scale-95 mb-4"
+              >
+                Request a Tool
+              </Link>
+
               {[
                 { href: '/', label: 'Home' },
-                { href: '/tools', label: 'All Tools' },
                 { href: '/blogs', label: 'Blog' }
               ].map((item) => (
                 <Link
@@ -133,6 +190,34 @@ const Header: React.FC = () => {
                   {item.label}
                 </Link>
               ))}
+
+              {/* Categories Section */}
+              <div className="pt-2">
+                <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                  Categories
+                </div>
+                <div className="space-y-1">
+                  {CATEGORY_ORDER.map((category) => {
+                    const CategoryIcon = CATEGORY_ICONS[category];
+                    const urlSlug = CATEGORY_URL_MAP[category];
+                    const isActive = pathname === `/tools/category/${urlSlug}`;
+                    return (
+                      <Link
+                        key={category}
+                        href={`/tools/category/${urlSlug}`}
+                        onClick={closeAllMenus}
+                        className={`flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all active:scale-95 ${isActive
+                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                          }`}
+                      >
+                        <CategoryIcon className="w-5 h-5" />
+                        <span className="text-sm font-medium">{category}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
             </nav>
           </div>
         </div>

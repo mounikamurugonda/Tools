@@ -131,22 +131,21 @@ export default async function CategoryPage({ params }: Props) {
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
 
       <div className="p-4 sm:p-6 md:p-8">
-        {/* Category Header */}
-        <div className="mb-12">
-          <div className="flex items-center mb-6">
-            <div className="flex-1">
-              <h1 className="text-2xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                {category} Tools
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                {content.introduction}
-              </p>
-            </div>
-          </div>
+        {/* Hero Section */}
+        <div className="mb-12 max-w-4xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            Online {category} Tools For Free
+          </h1>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            {content.introduction} Our {category.toLowerCase()} tools are the best on the web and they're all available for free. Whether you're looking for a tool to help you with editing, formatting, converting, or manipulating content, we've got you covered.
+          </p>
         </div>
 
-        {/* Tools Section */}
-        <div className="mb-12">
+        {/* Tools Collection Section */}
+        <div className="mb-16">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            {category} Tools Collection
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tools.map((tool) => (
               <Link
@@ -173,6 +172,19 @@ export default async function CategoryPage({ params }: Props) {
               </p>
             </div>
           )}
+        </div>
+
+        {/* Why Use These Tools Section */}
+        <div className="mb-16 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Top {category} Tools On The Web
+          </h2>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+            In the age of the internet, there are a plethora of {category.toLowerCase()} tools available online. These tools can be used for a variety of purposes, such as editing, formatting, generating, and analyzing content. While some of these tools are designed for general use, others are specifically tailored for specific tasks.
+          </p>
+          <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mt-4">
+            No matter what your needs are, there is sure to be a {category.toLowerCase()} tool that can help you in UtilToolkits. Each tool is designed to provide the best user experience with instant results and maximum privacy.
+          </p>
         </div>
 
         {/* Additional Information */}
