@@ -134,7 +134,7 @@ export default async function CategoryPage({ params }: Props) {
         {/* Hero Section */}
         <div className="mb-12 max-w-4xl">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Online {category} Tools For Free
+            Online {category} For Free
           </h1>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
             {content.introduction} Our {category.toLowerCase()} tools are the best on the web and they're all available for free. Whether you're looking for a tool to help you with editing, formatting, converting, or manipulating content, we've got you covered.
@@ -144,7 +144,7 @@ export default async function CategoryPage({ params }: Props) {
         {/* Tools Collection Section */}
         <div className="mb-16">
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-6">
-            {category} Tools Collection
+            {category} Collection
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tools.map((tool) => (
