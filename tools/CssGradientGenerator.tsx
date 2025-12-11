@@ -222,31 +222,23 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   <div>
                     <Label>Shape</Label>
                     <Select
-                      options={[
-                        { value: 'circle', label: 'Circle' },
-                        { value: 'ellipse', label: 'Ellipse' }
-                      ]}
-                      value={{ value: radialShape, label: radialShape.charAt(0).toUpperCase() + radialShape.slice(1) }}
-                      onChange={(option) => setRadialShape(option?.value as 'circle' | 'ellipse')}
-                    />
+                      value={radialShape}
+                      onChange={(e) => setRadialShape(e.target.value as 'circle' | 'ellipse')}
+                    >
+                      <option value="circle">Circle</option>
+                      <option value="ellipse">Ellipse</option>
+                    </Select>
                   </div>
                   <div>
                     <Label>Position</Label>
                     <Select
-                      options={[
-                        'center',
-                        'top left',
-                        'top right',
-                        'bottom left',
-                        'bottom right',
-                        'top',
-                        'bottom',
-                        'left',
-                        'right',
-                      ].map(p => ({ value: p, label: p.charAt(0).toUpperCase() + p.slice(1) }))}
-                      value={{ value: position, label: position.charAt(0).toUpperCase() + position.slice(1) }}
-                      onChange={(option) => setPosition(option?.value as string)}
-                    />
+                      value={position}
+                      onChange={(e) => setPosition(e.target.value)}
+                    >
+                      {['center', 'top left', 'top right', 'bottom left', 'bottom right', 'top', 'bottom', 'left', 'right'].map(pos => (
+                        <option key={pos} value={pos}>{pos}</option>
+                      ))}
+                    </Select>
                   </div>
                 </div>
               )}

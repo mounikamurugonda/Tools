@@ -5,7 +5,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import TextArea from '@/components/ui/TextArea';
-import Select from '@/components/ui/Select';
+import Select from 'react-select';
 import Slider from '@/components/ui/Slider';
 import Card from '@/components/ui/Card';
 import Label from '@/components/ui/Label';

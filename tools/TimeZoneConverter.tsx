@@ -6,7 +6,7 @@ import ToolContainer from '@/components/ToolContainer';
 import { timezones } from '@/lib/timezones';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import Select from '@/components/ui/Select';
+import Select from 'react-select';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { ArrowLeftRight } from 'lucide-react';
@@ -177,7 +177,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Select
                 value={flattenedTimezones.find(z => z.value === fromTimeZone)}
                 onChange={(opt) => setFromTimeZone(opt?.value || 'UTC')}
-                options={getSelectOptions(timezones)}
+                options={getSelectOptions(timezones) as any}
                 isSearchable
               />
               <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg text-center border border-gray-100 dark:border-gray-800">
@@ -205,7 +205,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Select
                 value={flattenedTimezones.find(z => z.value === toTimeZone)}
                 onChange={(opt) => setToTimeZone(opt?.value || 'UTC')}
-                options={getSelectOptions(timezones)}
+                options={getSelectOptions(timezones) as any}
                 isSearchable
               />
               <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center border border-blue-100 dark:border-blue-800">

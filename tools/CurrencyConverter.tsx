@@ -5,7 +5,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import Select from '@/components/ui/Select';
+import Select from 'react-select';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { ArrowLeftRight, RefreshCw } from 'lucide-react';

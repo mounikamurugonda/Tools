@@ -7,7 +7,7 @@ import CopyButton from '@/components/CopyButton';
 import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
 import Button from '@/components/ui/Button';
-import Select from '@/components/ui/Select';
+import Select from 'react-select';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import { ArrowLeftRight, Trash2 } from 'lucide-react';

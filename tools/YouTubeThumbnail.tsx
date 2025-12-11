@@ -84,18 +84,6 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
               <Card
                 key={i}
                 className="p-0 overflow-hidden"
-                action={
-                  <div className="flex gap-2">
-                    <Button
-                      size="sm"
-                      variant="primary"
-                      onClick={() => window.open(thumb, '_blank')}
-                    >
-                      <ExternalLink size={14} className="mr-1" /> Open
-                    </Button>
-                    <CopyButton textToCopy={thumb} className="h-8" />
-                  </div>
-                }
                 title={['Max Resolution (HD)', 'Standard Quality', 'High Quality', 'Medium Quality'][i]}
               >
                 <div className="aspect-video bg-gray-100 dark:bg-gray-800 relative group">
@@ -126,19 +114,22 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
               </Card>
             ))}
           </div>
-        )}
+        )
+        }
 
-        {thumbnails.length === 0 && !error && (
-          <div className="text-center py-12 text-gray-400 dark:text-gray-500">
-            <div className="bg-gray-100 dark:bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-              <ImageIcon className="w-10 h-10 opacity-50" />
+        {
+          thumbnails.length === 0 && !error && (
+            <div className="text-center py-12 text-gray-400 dark:text-gray-500">
+              <div className="bg-gray-100 dark:bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                <ImageIcon className="w-10 h-10 opacity-50" />
+              </div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No Thumbnails Yet</h3>
+              <p className="max-w-sm mx-auto mt-2">Enter a YouTube video URL above to fetch and download high-quality thumbnails.</p>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No Thumbnails Yet</h3>
-            <p className="max-w-sm mx-auto mt-2">Enter a YouTube video URL above to fetch and download high-quality thumbnails.</p>
-          </div>
-        )}
-      </div>
-    </ToolContainer>
+          )
+        }
+      </div >
+    </ToolContainer >
   );
 };
 

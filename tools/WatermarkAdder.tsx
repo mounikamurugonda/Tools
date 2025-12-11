@@ -207,27 +207,23 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Settings Panel */}
           <Card
             title="Settings"
-            icon={<Settings className="w-5 h-5" />}
             className={!mainImageSrc || !watermarkImageSrc ? "opacity-50 pointer-events-none" : ""}
           >
             <div className="space-y-6">
               <div>
                 <Label className="mb-2">Position</Label>
                 <Select
-                  value={{ value: settings.position, label: settings.position.replace('-', ' ').toUpperCase().replace(/\b\w/g, l => l.toUpperCase()) }}
-                  onChange={(option) => {
-                    if (option) {
-                      setSettings(prev => ({ ...prev, position: option.value as WatermarkSettings['position'] }))
-                    }
-                  }}
-                  options={[
-                    { value: 'top-left', label: 'Top Left' },
-                    { value: 'top-right', label: 'Top Right' },
-                    { value: 'bottom-left', label: 'Bottom Left' },
-                    { value: 'bottom-right', label: 'Bottom Right' },
-                    { value: 'center', label: 'Center' },
-                  ]}
-                />
+                  value={settings.position}
+                  onChange={(e) =>
+                    setSettings(prev => ({ ...prev, position: e.target.value as WatermarkSettings['position'] }))
+                  }
+                >
+                  <option value="top-left">Top Left</option>
+                  <option value="top-right">Top Right</option>
+                  <option value="bottom-left">Bottom Left</option>
+                  <option value="bottom-right">Bottom Right</option>
+                  <option value="center">Center</option>
+                </Select>
               </div>
 
               <Slider

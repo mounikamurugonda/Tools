@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Input from '@/components/ui/Input';
-import Select from '@/components/ui/Select';
+import Select from 'react-select';
 import Label from '@/components/ui/Label';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';

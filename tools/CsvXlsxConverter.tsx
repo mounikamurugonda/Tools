@@ -23,7 +23,7 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import Select from '@/components/ui/Select';
+import Select from 'react-select';
 import TextArea from '@/components/ui/TextArea';
 import FileUpload from '@/components/ui/FileUpload';
 
@@ -630,8 +630,8 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                           key={format.value}
                           onClick={() => setOutputFormat(format.value)}
                           className={`p-4 rounded-xl transition-all duration-300 group relative ${outputFormat === format.value
-                              ? `bg-gradient-to-br ${format.color} text-white shadow-lg scale-105`
-                              : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600'
+                            ? `bg-gradient-to-br ${format.color} text-white shadow-lg scale-105`
+                            : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600'
                             }`}
                         >
                           <div
