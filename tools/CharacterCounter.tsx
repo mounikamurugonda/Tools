@@ -4,6 +4,9 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
 
 const CharacterCounter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -11,10 +14,18 @@ const CharacterCounter: React.FC<ToolProps> = ({ details, toolId }) => {
   const stats = useMemo(() => {
     const charactersWithSpaces = input.length;
     const charactersWithoutSpaces = input.replace(/\s/g, '').length;
+    const words = input.trim() === '' ? 0 : input.trim().split(/\s+/).length;
+    const lines = input.split('\n').length;
     // Calculate byte length (UTF-8)
     const byteLength = new TextEncoder().encode(input).length;
 
-    return { charactersWithSpaces, charactersWithoutSpaces, byteLength };
+    return {
+      charactersWithSpaces,
+      charactersWithoutSpaces,
+      words,
+      lines,
+      byteLength
+    };
   }, [input]);
 
   return (
@@ -22,68 +33,61 @@ const CharacterCounter: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Input */}
         <div className="space-y-4">
-          <div className="relative">
-            <label
-              htmlFor="char-input"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Text Input
-            </label>
-            <textarea
-              id="char-input"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Enter text here..."
-              className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 resize-none"
-              aria-label="Text input for character counter"
-            />
-            {input && (
-              <CopyButton
-                textToCopy={input}
-                className="absolute top-8 right-2"
+          <div className="space-y-2">
+            <Label htmlFor="char-input">Text Input</Label>
+            <div className="relative">
+              <TextArea
+                id="char-input"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Enter text here..."
+                className="w-full h-[500px] resize-none"
               />
-            )}
+              {input && (
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={input} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Right side - Statistics */}
         <div className="space-y-4">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Character Statistics
-          </label>
-          <div className="grid grid-cols-1 gap-4 text-center">
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-              <div
-                className="text-3xl font-bold text-blue-400"
-                aria-live="polite"
-              >
+          <Label>Statistics</Label>
+          <div className="space-y-4">
+            <Card className="text-center p-6">
+              <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-1">
                 {stats.charactersWithSpaces.toLocaleString()}
               </div>
-              <div className="text-gray-500 dark:text-gray-400">
-                Characters (with spaces)
-              </div>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-              <div
-                className="text-3xl font-bold text-blue-400"
-                aria-live="polite"
-              >
-                {stats.charactersWithoutSpaces.toLocaleString()}
-              </div>
-              <div className="text-gray-500 dark:text-gray-400">
-                Characters (no spaces)
-              </div>
-            </div>
-            <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-              <div
-                className="text-3xl font-bold text-blue-400"
-                aria-live="polite"
-              >
-                {stats.byteLength.toLocaleString()}
-              </div>
-              <div className="text-gray-500 dark:text-gray-400">
-                Bytes (UTF-8)
-              </div>
+              <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">Characters</div>
+            </Card>
+
+            <div className="grid grid-cols-2 gap-4">
+              <Card className="text-center p-4">
+                <div className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-1">
+                  {stats.words.toLocaleString()}
+                </div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Words</div>
+              </Card>
+              <Card className="text-center p-4">
+                <div className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-1">
+                  {stats.lines.toLocaleString()}
+                </div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Lines</div>
+              </Card>
+              <Card className="text-center p-4">
+                <div className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-1">
+                  {stats.charactersWithoutSpaces.toLocaleString()}
+                </div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">No Spaces</div>
+              </Card>
+              <Card className="text-center p-4">
+                <div className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-1">
+                  {stats.byteLength.toLocaleString()}
+                </div>
+                <div className="text-xs text-gray-500 uppercase tracking-wide">Bytes</div>
+              </Card>
             </div>
           </div>
         </div>

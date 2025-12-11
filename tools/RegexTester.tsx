@@ -4,6 +4,11 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Card from '@/components/ui/Card';
+import Input from '@/components/ui/Input';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import { AlertCircle } from 'lucide-react';
 
 const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
   const [regexStr, setRegexStr] = useState('d(b+)d');
@@ -31,7 +36,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
           parts.push(testStr.substring(lastIndex, m.index));
         }
         parts.push(
-          `<mark class="bg-blue-500/30 dark:bg-blue-500/50 rounded px-1">${m[0]}</mark>`,
+          `<mark class="bg-blue-500/30 dark:bg-blue-500/50 rounded px-1 text-blue-900 dark:text-blue-100">${m[0]}</mark>`,
         );
         lastIndex = m.index + m[0].length;
       });
@@ -50,87 +55,97 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Regex Tester" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <div className="flex flex-col sm:flex-row gap-2">
-          <span className="flex items-center text-lg font-mono text-gray-500 dark:text-gray-400">
-            /
-          </span>
-          <input
-            type="text"
-            value={regexStr}
-            onChange={(e) => setRegexStr(e.target.value)}
-            placeholder="Regular Expression"
-            className="flex-grow bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
-          />
-          <span className="flex items-center text-lg font-mono text-gray-500 dark:text-gray-400">
-            /
-          </span>
-          <input
-            type="text"
-            value={flags}
-            onChange={(e) => setFlags(e.target.value)}
-            placeholder="flags"
-            className="w-24 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
-          />
-        </div>
-        {error && (
-          <div className="p-2 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 rounded text-red-700 dark:text-red-300 text-sm">
-            {error}
+      <div className="space-y-6">
+        <Card title="Pattern">
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <div className="flex-1 flex items-center gap-2 w-full">
+              <span className="text-xl font-mono text-gray-400 select-none">/</span>
+              <Input
+                value={regexStr}
+                onChange={(e) => setRegexStr(e.target.value)}
+                placeholder="Regular Expression"
+                className="font-mono"
+              />
+              <span className="text-xl font-mono text-gray-400 select-none">/</span>
+            </div>
+            <div className="w-full sm:w-24">
+              <Input
+                value={flags}
+                onChange={(e) => setFlags(e.target.value)}
+                placeholder="flags"
+                className="font-mono text-center"
+              />
+            </div>
           </div>
-        )}
-
-        <div className="relative">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            Test String
-          </label>
-          <textarea
-            value={testStr}
-            onChange={(e) => setTestStr(e.target.value)}
-            placeholder="Text to test against..."
-            className="w-full h-32 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
-          />
-          {testStr && (
-            <CopyButton
-              textToCopy={testStr}
-              className="absolute top-8 right-2"
-            />
+          {error && (
+            <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-lg text-sm flex items-center gap-2">
+              <AlertCircle className="w-4 h-4" />
+              {error}
+            </div>
           )}
+        </Card>
+
+        <div className="space-y-2">
+          <Label>Test String</Label>
+          <div className="relative">
+            <TextArea
+              value={testStr}
+              onChange={(e) => setTestStr(e.target.value)}
+              placeholder="Text to test against..."
+              className="h-32 font-mono"
+            />
+            {testStr && (
+              <div className="absolute top-2 right-2">
+                <CopyButton textToCopy={testStr} />
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Result</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <Card title="Result (Highlighted)" className="h-full flex flex-col">
             <div
-              className="w-full h-48 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200 font-mono overflow-auto whitespace-pre-wrap"
+              className="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 text-gray-800 dark:text-gray-200 font-mono overflow-auto whitespace-pre-wrap h-64"
               dangerouslySetInnerHTML={{ __html: highlightedText }}
             />
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-2">
-              Matches ({matches.length})
-            </h3>
-            <div className="w-full h-48 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-2 text-gray-800 dark:text-gray-200 font-mono overflow-auto">
+          </Card>
+
+          <Card
+            title={
+              <div className="flex justify-between items-center">
+                <span>Matches</span>
+                <span className="text-xs font-normal text-gray-500 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">
+                  {matches.length} found
+                </span>
+              </div>
+            }
+            className="h-full flex flex-col"
+          >
+            <div className="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 text-gray-800 dark:text-gray-200 font-mono overflow-auto h-64 space-y-2">
               {matches.length > 0 ? (
                 matches.map((match, i) => (
                   <div
                     key={i}
-                    className="mb-2 p-1 border-b border-gray-200 dark:border-gray-800"
+                    className="p-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 rounded text-sm"
                   >
-                    <p>
-                      <strong>Full Match {i}:</strong> {match[0]}
-                    </p>
+                    <div className="flex gap-2 mb-1">
+                      <span className="text-blue-500 font-bold">#{i + 1}</span>
+                      <span className="break-all">{match[0]}</span>
+                    </div>
                     {match.length > 1 && (
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <div className="text-xs text-gray-500 dark:text-gray-400 pl-6 border-l-2 border-gray-100 dark:border-gray-700 ml-1">
                         Groups: {JSON.stringify(Array.from(match).slice(1))}
-                      </p>
+                      </div>
                     )}
                   </div>
                 ))
               ) : (
-                <p className="text-gray-500">No matches found.</p>
+                <div className="h-full flex items-center justify-center text-gray-400 text-sm italic">
+                  No matches found
+                </div>
               )}
             </div>
-          </div>
+          </Card>
         </div>
       </div>
     </ToolContainer>

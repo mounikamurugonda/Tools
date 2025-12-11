@@ -3,6 +3,10 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import CopyButton from '@/components/CopyButton';
+import Card from '@/components/ui/Card';
 
 const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [text, setText] = useState('Hello');
@@ -39,20 +43,36 @@ const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="space-y-6">
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="font-bold">Text Input</label>
-            <textarea
-              value={text}
-              onChange={(e) => textToBinary(e.target.value)}
-              className="w-full h-48 p-3 bg-gray-100 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600"
-            />
+            <Label>Text Input</Label>
+            <div className="relative">
+              <TextArea
+                value={text}
+                onChange={(e) => textToBinary(e.target.value)}
+                className="h-96 resize-none"
+                placeholder="Type text to convert to binary..."
+              />
+              {text && (
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={text} />
+                </div>
+              )}
+            </div>
           </div>
           <div className="space-y-2">
-            <label className="font-bold">Binary Output</label>
-            <textarea
-              value={binary}
-              onChange={(e) => binaryToText(e.target.value)}
-              className="w-full h-48 p-3 bg-gray-100 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600 font-mono"
-            />
+            <Label>Binary Output</Label>
+            <div className="relative">
+              <TextArea
+                value={binary}
+                onChange={(e) => binaryToText(e.target.value)}
+                className="h-96 font-mono bg-gray-50 dark:bg-gray-900 resize-none"
+                placeholder="Type binary (space separated bytes) to convert to text..."
+              />
+              {binary && (
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={binary} />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

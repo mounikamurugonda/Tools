@@ -7,10 +7,14 @@ import CopyButton from '@/components/CopyButton';
 import Button from '@/components/ui/Button';
 import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
+import FileUpload from '@/components/ui/FileUpload';
+import { FileText, Upload } from 'lucide-react';
 
 const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
   const [status, setStatus] = useState<{
     type: 'idle' | 'success' | 'error';
     message: string;
@@ -50,6 +54,26 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   };
 
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result;
+      if (typeof text === 'string') {
+        setInput(text);
+        setInputMode('text');
+        // Auto-format for convenience
+        try {
+          const parsed = JSON.parse(text);
+          setOutput(JSON.stringify(parsed, null, 2));
+          setStatus({ type: 'success', message: 'Valid JSON' });
+        } catch (e) {
+          // Just set input if parse fails
+        }
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <ToolContainer
       title="JSON Formatter & Validator"
@@ -57,7 +81,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-6">
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4 justify-between bg-card p-4 rounded-lg shadow-sm">
           <div className="flex gap-3">
             <Button onClick={handleFormat}>Format / Beautify</Button>
             <Button
@@ -78,20 +102,50 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
           <div className="space-y-2">
-            <Label htmlFor="json-input">JSON Input</Label>
+            <div className="flex justify-between items-center">
+              <Label htmlFor="json-input">JSON Input</Label>
+              <div className="flex gap-1">
+                <Button
+                  variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('text')}
+                  title="Paste Text"
+                >
+                  <FileText className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('file')}
+                  title="Upload File"
+                >
+                  <Upload className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
             <div className="relative">
-              <TextArea
-                id="json-input"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Paste your JSON here..."
-                className="h-96 max-h-96 font-mono"
-              />
-              {input && (
-                <CopyButton
-                  textToCopy={input}
-                  className="absolute top-4 right-4"
+              {inputMode === 'file' ? (
+                <FileUpload
+                  onFileSelect={handleFileUpload}
+                  className="h-96"
+                  accept=".json,.txt"
                 />
+              ) : (
+                <>
+                  <TextArea
+                    id="json-input"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Paste your JSON here..."
+                    className="h-96 max-h-96 font-mono resize-none"
+                  />
+                  {input && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <CopyButton textToCopy={input} />
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -105,13 +159,12 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
                 readOnly
                 value={output}
                 placeholder="Formatted JSON will appear here..."
-                className="h-96 max-h-96 bg-gray-50 dark:bg-gray-900 font-mono"
+                className="h-96 max-h-96 bg-gray-50 dark:bg-gray-900 font-mono resize-none"
               />
               {output && (
-                <CopyButton
-                  textToCopy={output}
-                  className="absolute top-4 right-4"
-                />
+                <div className="absolute top-4 right-4 z-10">
+                  <CopyButton textToCopy={output} />
+                </div>
               )}
             </div>
           </div>

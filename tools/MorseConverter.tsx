@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import Button from '@/components/ui/Button';
 
 const MORSE_MAP: Record<string, string> = {
   A: '.-',
@@ -79,35 +82,46 @@ const MorseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="space-y-4">
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <label className="font-semibold">Text</label>
-            <textarea
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              className="w-full h-40 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3"
-            />
-            <button
-              onClick={toMorse}
-              className="w-full py-2 bg-blue-600 text-white rounded"
-            >
-              Convert to Morse ↓
-            </button>
+      <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-2 flex flex-col h-full">
+            <Label>Text Input</Label>
+            <div className="relative flex-1">
+              <TextArea
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className="h-64 resize-none"
+                placeholder="Enter text here..."
+              />
+              {text && (
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={text} />
+                </div>
+              )}
+            </div>
+            <Button onClick={toMorse} className="w-full mt-2" variant="primary">
+              Convert to Morse &darr;
+            </Button>
           </div>
-          <div className="space-y-2">
-            <label className="font-semibold">Morse Code</label>
-            <textarea
-              value={morse}
-              onChange={(e) => setMorse(e.target.value)}
-              className="w-full h-40 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 font-mono"
-            />
-            <button
-              onClick={toText}
-              className="w-full py-2 bg-green-600 text-white rounded"
-            >
-              Convert to Text ↑
-            </button>
+
+          <div className="space-y-2 flex flex-col h-full">
+            <Label>Morse Code Output</Label>
+            <div className="relative flex-1">
+              <TextArea
+                value={morse}
+                onChange={(e) => setMorse(e.target.value)}
+                className="h-64 resize-none font-mono bg-gray-50 dark:bg-gray-900"
+                placeholder="Enter morse code here..."
+              />
+              {morse && (
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={morse} />
+                </div>
+              )}
+            </div>
+            <Button onClick={toText} className="w-full mt-2" variant="secondary">
+              Convert to Text &uarr;
+            </Button>
           </div>
         </div>
       </div>

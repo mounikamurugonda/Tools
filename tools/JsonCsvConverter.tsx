@@ -1,25 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import ConverterLayout from '@/components/ConverterLayout';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import Button from '@/components/ui/Button';
+import Select from '@/components/ui/Select';
+import Card from '@/components/ui/Card';
+import Input from '@/components/ui/Input';
+import { ArrowLeftRight, Trash2 } from 'lucide-react';
 
 type ConversionMode = 'json-to-csv' | 'csv-to-json';
-
-interface JsonCsvOptions {
-    separator: string;
-    customSeparator: string;
-    // JSON -> CSV options
-    includeHeaders: boolean;
-    replaceLineBreaks: boolean;
-    lineBreakReplacement: string;
-    // CSV -> JSON options
-    outputFormat: 'objects' | 'arrays';
-    parseNumbers: boolean;
-    parseBooleans: boolean;
-}
 
 const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     const [mode, setMode] = useState<ConversionMode>('json-to-csv');
@@ -35,17 +28,23 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     const [includeHeaders, setIncludeHeaders] = useState(true);
     const [replaceLineBreaks, setReplaceLineBreaks] = useState(true);
     const [lineBreakReplacement, setLineBreakReplacement] = useState(' ');
-    const [outputFormat, setOutputFormat] = useState<'objects' | 'arrays'>('objects');
+    const [outputFormat, setOutputFormat] = useState<'objects' | 'arrays'>(
+        'objects',
+    );
     const [parseNumbers, setParseNumbers] = useState(true);
     const [parseBooleans, setParseBooleans] = useState(true);
 
-    const getEffectiveSeparator = () => (separator === 'custom' ? customSeparator : separator);
+    const [showOptions, setShowOptions] = useState(false);
+
+    const getEffectiveSeparator = () =>
+        separator === 'custom' ? customSeparator : separator;
 
     // --- Logic Conversion ---
 
     const jsonToCsv = (jsonStr: string) => {
         const json = JSON.parse(jsonStr);
-        if (!Array.isArray(json)) throw new Error('Input must be an array of objects.');
+        if (!Array.isArray(json))
+            throw new Error('Input must be an array of objects.');
         if (json.length === 0) return '';
 
         const sep = getEffectiveSeparator();
@@ -67,7 +66,11 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                     strVal = strVal.replace(/(\r\n|\n|\r)/gm, lineBreakReplacement);
                 }
 
-                if (strVal.includes(sep) || strVal.includes('"') || strVal.includes('\n')) {
+                if (
+                    strVal.includes(sep) ||
+                    strVal.includes('"') ||
+                    strVal.includes('\n')
+                ) {
                     return `"${strVal.replace(/"/g, '""')}"`;
                 }
                 return strVal;
@@ -86,7 +89,11 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
         const parseValue = (val: string): string | number | boolean => {
             const trimmedVal = val.trim();
-            if (parseNumbers && trimmedVal !== '' && !isNaN(Number(trimmedVal))) {
+            if (
+                parseNumbers &&
+                trimmedVal !== '' &&
+                !isNaN(Number(trimmedVal))
+            ) {
                 return Number(trimmedVal);
             }
             if (parseBooleans) {
@@ -102,7 +109,10 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
         // Objects format
         if (lines.length < 2) {
-            if (lines.length === 1 && lines[0]) throw new Error("CSV needed at least header + 1 row for Object format.");
+            if (lines.length === 1 && lines[0])
+                throw new Error(
+                    'CSV needed at least header + 1 row for Object format.',
+                );
             return [];
         }
 
@@ -119,7 +129,6 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         }
         return jsonArray;
     };
-
 
     const handleConvert = () => {
         setError('');
@@ -157,7 +166,9 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         } else {
             // Reset defaults
             if (newMode === 'json-to-csv') {
-                setInput('[\n  {\n    "name": "Alice, Smith",\n    "age": 30\n  }\n]');
+                setInput(
+                    '[\n  {\n    "name": "Alice, Smith",\n    "age": 30\n  }\n]',
+                );
             } else {
                 setInput('name,age\nAlice,30\nBob,25');
             }
@@ -165,94 +176,140 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         }
     };
 
-
     return (
-        <ConverterLayout
+        <ToolContainer
             title="JSON <> CSV Converter"
             details={details}
             toolId={toolId}
-            options={
-                <div className="flex items-center gap-4">
-                    {/* Simplified Mode Switcher in Header */}
-                    <button
-                        onClick={swapMode}
-                        className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-blue-600 transition-colors"
-                        title="Switch Mode"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 10h14l-4-4" /><path d="M17 14H3l4 4" /></svg>
-                        {mode === 'json-to-csv' ? 'JSON to CSV' : 'CSV to JSON'}
-                    </button>
+        >
+            <div className="space-y-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                    <Button onClick={swapMode} variant="outline" className="w-full sm:w-auto">
+                        <ArrowLeftRight className="w-4 h-4 mr-2" />
+                        {mode === 'json-to-csv' ? 'Switch to CSV to JSON' : 'Switch to JSON to CSV'}
+                    </Button>
 
-                    <div className="h-4 w-px bg-gray-300 dark:bg-gray-700"></div>
-
-                    {/* Quick Options - Truncated for header, full options could be in a modal or non-intrusive panel */}
-                    <div className="flex items-center gap-2">
-                        <span className="text-xs text-gray-500 uppercase">Sep:</span>
-                        <select
-                            value={separator}
-                            onChange={(e) => setSeparator(e.target.value)}
-                            className="bg-transparent text-sm border-none focus:ring-0 p-0 text-gray-700 dark:text-gray-300 cursor-pointer"
-                        >
-                            <option value=",">Comma</option>
-                            <option value=";">Semi</option>
-                            <option value="\t">Tab</option>
-                        </select>
+                    <div className="flex items-center gap-2 w-full sm:w-auto">
+                        <Button onClick={handleConvert} variant="primary" className="flex-1 sm:flex-none">
+                            Convert
+                        </Button>
+                        <Button onClick={() => setInput('')} variant="ghost" >
+                            <Trash2 className="w-4 h-4" />
+                        </Button>
                     </div>
                 </div>
-            }
-            inputComponent={
-                <textarea
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className="w-full h-full p-4 bg-transparent border-none outline-none resize-none font-mono text-sm leading-relaxed"
-                    placeholder="Paste data here..."
-                />
-            }
-            actions={
-                <div className="flex lg:flex-col gap-4 items-center">
-                    <button
-                        onClick={handleConvert}
-                        className="p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all flex flex-col items-center gap-2 group"
-                        title="Convert"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:scale-110 transition-transform"><path d="M5 12h14" /><path d="M12 5l7 7-7 7" /></svg>
-                        <span className="text-xs font-medium hidden lg:block">Convert</span>
-                    </button>
 
-                    <button
-                        onClick={() => setInput('')}
-                        className="p-3 bg-white dark:bg-gray-800 text-gray-500 hover:text-red-500 border border-gray-200 dark:border-gray-700 rounded-xl hover:shadow-md transition-all"
-                        title="Clear Input"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18" /><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" /><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" /></svg>
-                    </button>
+                <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                        <Label>{mode === 'json-to-csv' ? 'JSON Input' : 'CSV Input'}</Label>
+                        <div className="relative">
+                            <TextArea
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                                className="h-96 resize-none font-mono text-sm"
+                                placeholder="Enter data here..."
+                            />
+                            {input && (
+                                <div className="absolute top-2 right-2">
+                                    <CopyButton textToCopy={input} />
+                                </div>
+                            )}
+                        </div>
+                        {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+                    </div>
 
-                    <button
-                        onClick={() => navigator.clipboard.writeText(output)}
-                        disabled={!output}
-                        className={`p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl hover:shadow-md transition-all ${!output ? 'opacity-50 cursor-not-allowed text-gray-300' : 'text-gray-500 hover:text-green-500'}`}
-                        title="Copy Output"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></svg>
-                    </button>
+                    <div className="space-y-2">
+                        <Label>{mode === 'json-to-csv' ? 'CSV Output' : 'JSON Output'}</Label>
+                        <div className="relative">
+                            <TextArea
+                                value={output}
+                                readOnly
+                                className="h-96 resize-none font-mono text-sm bg-gray-50 dark:bg-gray-900"
+                                placeholder="Result..."
+                            />
+                            {output && (
+                                <div className="absolute top-2 right-2">
+                                    <CopyButton textToCopy={output} />
+                                </div>
+                            )}
+                        </div>
+                    </div>
                 </div>
-            }
-            outputComponent={
-                <div className="relative w-full h-full">
-                    <textarea
-                        readOnly
-                        value={output}
-                        className="w-full h-full p-4 bg-transparent border-none outline-none resize-none font-mono text-sm leading-relaxed text-blue-600 dark:text-blue-400"
-                        placeholder="Result..."
-                    />
-                    {error && (
-                        <div className="absolute bottom-4 left-4 right-4 p-3 bg-red-50 dark:bg-red-900/90 text-red-600 dark:text-red-100 text-sm rounded-lg border border-red-100 dark:border-red-800 shadow-lg backdrop-blur-sm">
-                            {error}
+
+                <Card
+                    title={
+                        <button
+                            onClick={() => setShowOptions(!showOptions)}
+                            className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors w-full text-left"
+                        >
+                            <span>{showOptions ? 'Hide' : 'Show'} Options</span>
+                        </button>
+                    }
+                >
+                    {showOptions && (
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+                            <div className="space-y-2">
+                                <Label>Separator</Label>
+                                <Select
+                                    value={{
+                                        value: separator, label: [
+                                            { value: ",", label: "Comma (,)" },
+                                            { value: ";", label: "Semicolon (;)" },
+                                            { value: "\\t", label: "Tab" },
+                                            { value: "custom", label: "Custom" }
+                                        ].find(o => o.value === separator)?.label || "Custom"
+                                    }}
+                                    onChange={(option) => setSeparator(option?.value as string)}
+                                    options={[
+                                        { value: ",", label: "Comma (,)" },
+                                        { value: ";", label: "Semicolon (;)" },
+                                        { value: "\\t", label: "Tab" },
+                                        { value: "custom", label: "Custom" }
+                                    ]}
+                                />
+                                {separator === 'custom' && (
+                                    <Input
+                                        value={customSeparator}
+                                        onChange={(e) => setCustomSeparator(e.target.value)}
+                                        placeholder="Custom Separator"
+                                        className="mt-2"
+                                    />
+                                )}
+                            </div>
+
+                            {mode === 'json-to-csv' && (
+                                <div className="space-y-4">
+                                    <div className="flex items-center gap-2 pt-8">
+                                        <input
+                                            type="checkbox"
+                                            id="includeHeaders"
+                                            checked={includeHeaders}
+                                            onChange={(e) => setIncludeHeaders(e.target.checked)}
+                                            className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                                        />
+                                        <Label htmlFor="includeHeaders" className="mb-0 cursor-pointer">Include Headers</Label>
+                                    </div>
+                                </div>
+                            )}
+
+                            {mode === 'csv-to-json' && (
+                                <div className="space-y-2">
+                                    <Label>Output Format</Label>
+                                    <Select
+                                        value={{ value: outputFormat, label: outputFormat === 'objects' ? 'List of Objects' : 'List of Arrays' }}
+                                        onChange={(option) => setOutputFormat(option?.value as any)}
+                                        options={[
+                                            { value: 'objects', label: 'List of Objects' },
+                                            { value: 'arrays', label: 'List of Arrays' }
+                                        ]}
+                                    />
+                                </div>
+                            )}
                         </div>
                     )}
-                </div>
-            }
-        />
+                </Card>
+            </div>
+        </ToolContainer>
     );
 };
 

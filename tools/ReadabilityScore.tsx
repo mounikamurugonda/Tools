@@ -3,6 +3,10 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Card from '@/components/ui/Card';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import { BookOpen } from 'lucide-react';
 
 const countSyllables = (word: string): number => {
   word = word.toLowerCase();
@@ -113,49 +117,68 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="grid md:grid-cols-2 gap-6">
-        <div className="space-y-4">
-          <textarea
+      <div className="grid lg:grid-cols-2 gap-6">
+        <div className="space-y-2">
+          <Label>Text Input</Label>
+          <TextArea
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder="Paste your text here to calculate its readability score..."
-            className="w-full h-96 bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-[500px]"
           />
         </div>
+
         <div className="space-y-6">
-          <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
-            <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-2">
-              Flesch Reading Ease
-            </h3>
-            <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">
-              {stats.fleschReadingEase.toFixed(1)}
-            </p>
-            <div className="mt-4">
-              <div
-                className={`text-xl font-bold px-4 py-1 rounded-full inline-block text-white ${scoreInfo.color}`}
-              >
-                {scoreInfo.text}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
+            <Card className="text-center p-6 border-blue-100 dark:border-blue-900 bg-blue-50/30 dark:bg-blue-900/10">
+              <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                Flesch Reading Ease
+              </h3>
+              <div className="text-4xl font-black text-gray-900 dark:text-gray-100 mb-4">
+                {stats.fleschReadingEase.toFixed(1)}
               </div>
-              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                {scoreInfo.details}
+              <div className="relative">
+                <div
+                  className={`inline-block px-4 py-1.5 rounded-full text-white text-sm font-bold shadow-sm ${scoreInfo.color}`}
+                >
+                  {scoreInfo.text}
+                </div>
+                <p className="mt-3 text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {scoreInfo.details}
+                </p>
+              </div>
+            </Card>
+
+            <Card className="text-center p-6 flex flex-col justify-center">
+              <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2 uppercase tracking-wide">
+                US Grade Level
+              </h3>
+              <div className="text-4xl font-black text-gray-900 dark:text-gray-100 mb-2">
+                {stats.fleschKincaidGrade.toFixed(1)}
+              </div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Corresponds to a U.S. school grade level.
               </p>
+            </Card>
+          </div>
+
+          <Card title="Detailed Statistics">
+            <div className="grid grid-cols-3 gap-4 text-center">
+              <StatBox label="Words" value={stats.wordCount} />
+              <StatBox label="Sentences" value={stats.sentenceCount} />
+              <StatBox label="Syllables" value={stats.syllableCount} />
             </div>
-          </div>
-          <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700 text-center">
-            <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400 mb-2">
-              Flesch-Kincaid Grade Level
-            </h3>
-            <p className="text-2xl font-bold text-blue-500 dark:text-blue-400">
-              {stats.fleschKincaidGrade.toFixed(1)}
+          </Card>
+
+          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg text-sm text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-2 mb-2 font-semibold text-gray-900 dark:text-gray-200">
+              <BookOpen className="w-4 h-4" />
+              About these scores
+            </div>
+            <p>
+              The <strong>Flesch Reading Ease</strong> score measures how easy it is to read text. Higher scores indicate easier reading.
+              The <strong>Flesch-Kincaid Grade Level</strong> translates the score to a U.S. school grade level. For example, a score of 8.0 means an 8th grader can understand the text.
             </p>
-            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-              Corresponds to a U.S. school grade level.
-            </p>
-          </div>
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <StatCard label="Words" value={stats.wordCount} />
-            <StatCard label="Sentences" value={stats.sentenceCount} />
-            <StatCard label="Syllables" value={stats.syllableCount} />
           </div>
         </div>
       </div>
@@ -163,15 +186,15 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
   );
 };
 
-const StatCard: React.FC<{ label: string; value: number }> = ({
+const StatBox: React.FC<{ label: string; value: number }> = ({
   label,
   value,
 }) => (
-  <div className="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg">
-    <div className="text-2xl font-bold text-blue-400">
+  <div className="bg-white dark:bg-gray-900 p-3 rounded border border-gray-100 dark:border-gray-800 shadow-sm">
+    <div className="text-xl font-bold text-gray-800 dark:text-gray-200">
       {value.toLocaleString()}
     </div>
-    <div className="text-gray-500 dark:text-gray-400 text-sm">{label}</div>
+    <div className="text-gray-500 text-xs font-medium uppercase tracking-wide mt-1">{label}</div>
   </div>
 );
 

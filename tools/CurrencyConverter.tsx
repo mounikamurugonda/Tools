@@ -3,6 +3,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Select from '@/components/ui/Select';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import { ArrowLeftRight, RefreshCw } from 'lucide-react';
 
 const API_URL = 'https://open.er-api.com/v6/latest/USD';
 
@@ -17,6 +23,7 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [amount2, setAmount2] = useState('');
   const [currency1, setCurrency1] = useState('USD');
   const [currency2, setCurrency2] = useState('EUR');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(API_URL)
@@ -37,6 +44,9 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       })
       .catch((err) => {
         setError(err.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -69,8 +79,8 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     setAmount1(e.target.value);
   };
 
-  const handleCurrency1Change = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrency1(e.target.value);
+  const handleCurrency1Change = (val: string) => {
+    setCurrency1(val);
   };
 
   const handleAmount2Change = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,13 +96,14 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   };
 
-  const handleCurrency2Change = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCurrency2(e.target.value);
+  const handleCurrency2Change = (val: string) => {
+    setCurrency2(val);
   };
 
   const handleSwap = () => {
     setCurrency1(currency2);
     setCurrency2(currency1);
+    setAmount1(amount2);
   };
 
   if (error) {
@@ -109,26 +120,27 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     );
   }
 
-  if (!rates) {
+  if (isLoading || !rates) {
     return (
       <ToolContainer
         title="Currency Converter"
         details={details}
         toolId={toolId}
       >
-        <div className="text-center text-gray-800 dark:text-gray-200">
+        <div className="flex flex-col items-center justify-center p-12 text-gray-500">
+          <RefreshCw className="w-8 h-8 animate-spin mb-4" />
           Loading exchange rates...
         </div>
       </ToolContainer>
     );
   }
 
-  const currencyOptions = Object.keys(rates);
+  const currencyOptions = Object.keys(rates).map(r => ({ value: r, label: r }));
 
   return (
     <ToolContainer title="Currency Converter" details={details} toolId={toolId}>
-      <div className="space-y-4 max-w-2xl mx-auto">
-        <div className="grid sm:grid-cols-2 gap-4 items-start">
+      <Card className="max-w-2xl mx-auto space-y-8 p-8">
+        <div className="grid md:grid-cols-[1fr,auto,1fr] gap-4 items-center">
           <CurrencyInput
             label="From"
             amount={amount1}
@@ -137,6 +149,18 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             onCurrencyChange={handleCurrency1Change}
             options={currencyOptions}
           />
+
+          <div className="flex justify-center pt-6">
+            <Button
+              onClick={handleSwap}
+              variant="ghost"
+              className="rounded-full p-2 h-auto"
+              title="Swap currencies"
+            >
+              <ArrowLeftRight className="w-6 h-6 text-blue-500" />
+            </Button>
+          </div>
+
           <CurrencyInput
             label="To"
             amount={amount2}
@@ -146,33 +170,11 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             options={currencyOptions}
           />
         </div>
-        <div className="text-center">
-          <button
-            onClick={handleSwap}
-            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
-            title="Swap currencies"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-              />
-            </svg>
-          </button>
-        </div>
+
         <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          Rates are updated periodically. Provided for informational purposes
-          only.
+          Rates are updated periodically via Open Exchange Rates API. Provided for informational purposes only.
         </p>
-      </div>
+      </Card>
     </ToolContainer>
   );
 };
@@ -182,8 +184,8 @@ interface CurrencyInputProps {
   amount: string;
   onAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   currency: string;
-  onCurrencyChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  options: string[];
+  onCurrencyChange: (val: string) => void;
+  options: { value: string; label: string }[];
 }
 
 const CurrencyInput: React.FC<CurrencyInputProps> = ({
@@ -195,28 +197,22 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
   options,
 }) => {
   return (
-    <div className="bg-gray-100 dark:bg-gray-700/50 p-4 rounded-lg">
-      <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
-        {label}
-      </label>
-      <div className="flex gap-2">
-        <input
+    <div className="space-y-2">
+      <Label>{label}</Label>
+      <div className="flex flex-col gap-2">
+        <Input
           type="number"
           value={amount}
           onChange={onAmountChange}
-          className="w-full bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md p-2 text-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
+          className="text-lg font-mono"
+          placeholder="0.00"
         />
-        <select
-          value={currency}
-          onChange={onCurrencyChange}
-          className="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
-        >
-          {options.map((opt) => (
-            <option key={opt} value={opt}>
-              {opt}
-            </option>
-          ))}
-        </select>
+        <Select
+          value={options.find(o => o.value === currency)}
+          onChange={(opt) => opt && onCurrencyChange(opt.value)}
+          options={options}
+          className="w-full"
+        />
       </div>
     </div>
   );

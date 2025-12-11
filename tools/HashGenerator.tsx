@@ -4,6 +4,14 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import TextArea from '@/components/ui/TextArea';
+import Select from '@/components/ui/Select';
+import Button from '@/components/ui/Button';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
+import FileUpload from '@/components/ui/FileUpload';
+import { FileText, Upload } from 'lucide-react';
 
 type HashAlgorithm = 'SHA-1' | 'SHA-256' | 'SHA-512';
 
@@ -12,6 +20,7 @@ const HashGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [algorithm, setAlgorithm] = useState<HashAlgorithm>('SHA-256');
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
+  const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
 
   const generateHash = async () => {
     if (!input) {
@@ -37,79 +46,107 @@ const HashGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   };
 
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result;
+      if (typeof text === 'string') {
+        setInput(text);
+        setInputMode('text');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <ToolContainer title="Hash Generator" details={details} toolId={toolId}>
-      <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <select
-            value={algorithm}
-            onChange={(e) => setAlgorithm(e.target.value as HashAlgorithm)}
-            className="bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
-          >
-            <option value="SHA-1">SHA-1</option>
-            <option value="SHA-256">SHA-256</option>
-            <option value="SHA-512">SHA-512</option>
-          </select>
-          <button
-            onClick={generateHash}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
-          >
+      <Card className="max-w-4xl mx-auto p-6 space-y-8">
+        <div className="flex flex-col sm:flex-row gap-4 items-end">
+          <div className="w-full sm:w-1/3">
+            <Label className="mb-2">Algorithm</Label>
+            <Select
+              value={algorithm}
+              onChange={(e) => setAlgorithm(e.target.value as HashAlgorithm)}
+            >
+              <option value="SHA-1">SHA-1</option>
+              <option value="SHA-256">SHA-256</option>
+              <option value="SHA-512">SHA-512</option>
+            </Select>
+          </div>
+          <Button onClick={generateHash} className="w-full sm:w-auto">
             Generate Hash
-          </button>
+          </Button>
         </div>
-        <div className="grid md:grid-cols-2 gap-6">
+
+        <div className="grid md:grid-cols-2 gap-8">
           {/* Left side - Input */}
           <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <Label>Input Text</Label>
+              <div className="flex gap-1">
+                <Button
+                  variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('text')}
+                  title="Paste Text"
+                >
+                  <FileText className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('file')}
+                  title="Upload File"
+                >
+                  <Upload className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
             <div className="relative">
-              <label
-                htmlFor="hash-input"
-                className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-              >
-                Input
-              </label>
-              <textarea
-                id="hash-input"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Enter text here..."
-                className="w-full h-96 max-h-96 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200 resize-none"
-              />
-              {input && (
-                <CopyButton
-                  textToCopy={input}
-                  className="absolute top-8 right-2"
+              {inputMode === 'file' ? (
+                <FileUpload
+                  onFileSelect={handleFileUpload}
+                  className="h-96"
                 />
+              ) : (
+                <>
+                  <TextArea
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Enter text here..."
+                    className="h-96 resize-none"
+                  />
+                  {input && (
+                    <div className="absolute top-2 right-2 z-10">
+                      <CopyButton textToCopy={input} />
+                    </div>
+                  )}
+                </>
               )}
             </div>
-            {error && <p className="text-red-400">{error}</p>}
+            {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
 
           {/* Right side - Output */}
           <div className="space-y-4">
-            <label
-              htmlFor="hash-output"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
-            >
-              Hash Output
-            </label>
+            <Label>Hash Output</Label>
             <div className="relative">
-              <textarea
-                id="hash-output"
+              <TextArea
                 readOnly
                 value={output}
                 placeholder="Hash output will appear here..."
-                className="w-full h-96 max-h-96 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 text-gray-800 dark:text-gray-200 font-mono resize-none"
+                className="h-96 resize-none font-mono bg-secondary/20"
               />
               {output && (
-                <CopyButton
-                  textToCopy={output}
-                  className="absolute top-2 right-2"
-                />
+                <div className="absolute top-2 right-2 z-10">
+                  <CopyButton textToCopy={output} />
+                </div>
               )}
             </div>
           </div>
         </div>
-      </div>
+      </Card>
     </ToolContainer>
   );
 };

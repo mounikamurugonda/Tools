@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
 
 const AspectRatio: React.FC<ToolProps> = ({ details, toolId }) => {
   const [width, setWidth] = useState(1920);
@@ -12,7 +15,11 @@ const AspectRatio: React.FC<ToolProps> = ({ details, toolId }) => {
   useEffect(() => {
     const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
     const common = gcd(width, height);
-    setRatio(`${width / common}:${height / common}`);
+    if (width && height) {
+      setRatio(`${width / common}:${height / common}`);
+    } else {
+      setRatio('0:0');
+    }
   }, [width, height]);
 
   return (
@@ -22,46 +29,49 @@ const AspectRatio: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-8 max-w-lg mx-auto text-center">
-        <div className="flex items-center justify-center gap-4 text-4xl font-bold text-blue-600 dark:text-blue-400">
-          <input
-            type="number"
-            value={width}
-            onChange={(e) => setWidth(Number(e.target.value))}
-            className="w-32 text-center bg-transparent border-b-2 border-gray-300 focus:border-blue-500 outline-none"
-          />
-          <span>:</span>
-          <input
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(Number(e.target.value))}
-            className="w-32 text-center bg-transparent border-b-2 border-gray-300 focus:border-blue-500 outline-none"
-          />
-        </div>
+        <Card className="p-8">
+          <div className="flex items-center justify-center gap-4">
+            <Input
+              type="number"
+              value={width}
+              onChange={(e) => setWidth(Number(e.target.value))}
+              className="w-32 text-center text-2xl font-bold"
+            />
+            <span className="text-2xl font-bold text-gray-400">:</span>
+            <Input
+              type="number"
+              value={height}
+              onChange={(e) => setHeight(Number(e.target.value))}
+              className="w-32 text-center text-2xl font-bold"
+            />
+          </div>
+        </Card>
 
-        <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl">
-          <p className="text-gray-500 uppercase tracking-wide text-sm font-semibold">
+        <Card className="p-6 bg-secondary/50">
+          <p className="text-muted-foreground uppercase tracking-wide text-sm font-semibold">
             Aspect Ratio
           </p>
-          <p className="text-5xl font-bold mt-2">{ratio}</p>
-        </div>
+          <p className="text-5xl font-bold mt-2 text-primary">{ratio}</p>
+        </Card>
 
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-center gap-2 flex-wrap">
           {[
-            { w: 1920, h: 1080, l: 'HD' },
-            { w: 1080, h: 1080, l: 'Square' },
-            { w: 1080, h: 1350, l: 'Instagram' },
-            { w: 1080, h: 1920, l: 'Story' },
+            { w: 1920, h: 1080, l: 'HD (16:9)' },
+            { w: 1080, h: 1080, l: 'Square (1:1)' },
+            { w: 1080, h: 1350, l: 'Instagram (4:5)' },
+            { w: 1080, h: 1920, l: 'Story (9:16)' },
           ].map((p, i) => (
-            <button
+            <Button
               key={i}
+              variant="secondary"
               onClick={() => {
                 setWidth(p.w);
                 setHeight(p.h);
               }}
-              className="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-blue-100 text-sm"
+              className="text-sm"
             >
               {p.l}
-            </button>
+            </Button>
           ))}
         </div>
       </div>

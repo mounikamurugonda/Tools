@@ -4,13 +4,18 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Button from '@/components/ui/Button';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
+import { Trash2, ArrowRight } from 'lucide-react';
 
 const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState(
     'Apple\nBanana\nApple\nCherry\nBanana\nDate',
   );
   const [output, setOutput] = useState('');
-  const [removedCount, setRemovedCount] = useState(0);
+  const [removedCount, setRemovedCount] = useState<number | null>(null);
 
   const process = () => {
     const lines = input
@@ -28,44 +33,60 @@ const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className="font-semibold">Input List</label>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="w-full h-64 brand-input"
-            placeholder="Paste list here..."
-          />
+      <div className="space-y-6">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label>Input List</Label>
+            <div className="relative">
+              <TextArea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="h-[400px]"
+                placeholder="Paste list here..."
+              />
+              {input && (
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={input} />
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-2 relative">
+            <div className="flex justify-between items-center">
+              <Label>Unique List (Result)</Label>
+              {removedCount !== null && (
+                <span className="text-sm font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/30 px-2 py-0.5 rounded">
+                  Removed {removedCount} duplicates
+                </span>
+              )}
+            </div>
+            <div className="relative">
+              <TextArea
+                readOnly
+                value={output}
+                className="h-[400px] bg-gray-50 dark:bg-gray-900"
+                placeholder="Result will appear here..."
+              />
+              {output && (
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={output} />
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-        <div className="space-y-2 relative">
-          <label className="font-semibold">Unique List</label>
-          <textarea
-            readOnly
-            value={output}
-            className="w-full h-64 brand-input bg-gray-50 dark:bg-gray-900"
-            placeholder="Result..."
-          />
-          {output && (
-            <CopyButton
-              textToCopy={output}
-              className="absolute top-8 right-2"
-            />
-          )}
+
+        <div className="flex justify-center">
+          <Button
+            onClick={process}
+            variant="primary"
+            size="lg"
+            className="w-full md:w-auto min-w-[200px]"
+          >
+            <Trash2 className="w-4 h-4 mr-2" /> Remove Duplicates
+          </Button>
         </div>
-      </div>
-      <div className="mt-4 flex items-center justify-between">
-        <button
-          onClick={process}
-          className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded font-medium"
-        >
-          Remove Duplicates
-        </button>
-        {output && (
-          <span className="text-gray-600 dark:text-gray-400">
-            Removed {removedCount} duplicates
-          </span>
-        )}
       </div>
     </ToolContainer>
   );

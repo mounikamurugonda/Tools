@@ -4,6 +4,13 @@ import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
+import Input from '@/components/ui/Input';
+import Button from '@/components/ui/Button';
+import TextArea from '@/components/ui/TextArea';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
+import FileUpload from '@/components/ui/FileUpload';
+import { FileText, Upload } from 'lucide-react';
 
 const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
   const [jsonInput, setJsonInput] = useState(
@@ -13,6 +20,7 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
   const [interfaceName, setInterfaceName] = useState('RootObject');
   const [error, setError] = useState('');
   const [isConverting, setIsConverting] = useState(false);
+  const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
 
   // Helper functions moved inside but could be outside if pure.
   // Keeping them pure and synchronous for simplicity, but we will wrap execution.
@@ -83,66 +91,104 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
     }, 10);
   };
 
+  const handleFileUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result;
+      if (typeof text === 'string') {
+        setJsonInput(text);
+        setInputMode('text');
+      }
+    };
+    reader.readAsText(file);
+  };
+
   return (
     <ToolContainer title="JSON to TypeScript" details={details} toolId={toolId}>
-      <div className="space-y-4">
-        <div className="flex gap-4 items-end">
-          <div className="flex-grow">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Root Interface Name
-            </label>
-            <input
-              type="text"
-              value={interfaceName}
-              onChange={(e) => setInterfaceName(e.target.value)}
-              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2"
-            />
+      <div className="space-y-6">
+        <Card className="p-4 bg-secondary/10">
+          <div className="flex gap-4 items-end">
+            <div className="flex-grow">
+              <Label className="mb-2">
+                Root Interface Name
+              </Label>
+              <Input
+                type="text"
+                value={interfaceName}
+                onChange={(e) => setInterfaceName(e.target.value)}
+              />
+            </div>
+            <Button
+              onClick={handleConvert}
+              disabled={isConverting}
+              className="h-11"
+            >
+              {isConverting ? 'Processing...' : 'Convert'}
+            </Button>
           </div>
-          <button
-            onClick={handleConvert}
-            disabled={isConverting}
-            className={`px-6 py-2 rounded font-medium h-10 text-white transition-colors ${isConverting
-                ? 'bg-blue-400 cursor-not-allowed'
-                : 'bg-blue-600 hover:bg-blue-700'
-              }`}
-          >
-            {isConverting ? 'Processing...' : 'Convert'}
-          </button>
-        </div>
+        </Card>
 
         <div className="grid md:grid-cols-2 gap-4 h-[50vh]">
-          <div className="relative flex flex-col">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              JSON Input
-            </label>
-            <textarea
-              value={jsonInput}
-              onChange={(e) => setJsonInput(e.target.value)}
-              className="flex-grow w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 font-mono text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Paste JSON here..."
-            />
+          <div className="relative flex flex-col h-full gap-2">
+            <div className="flex justify-between items-center">
+              <Label>JSON Input</Label>
+              <div className="flex gap-1">
+                <Button
+                  variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('text')}
+                  title="Paste Text"
+                >
+                  <FileText className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('file')}
+                  title="Upload File"
+                >
+                  <Upload className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
+            {inputMode === 'file' ? (
+              <div className="h-full">
+                <FileUpload
+                  onFileSelect={handleFileUpload}
+                  className="h-full"
+                  accept=".json,.txt"
+                />
+              </div>
+            ) : (
+              <TextArea
+                value={jsonInput}
+                onChange={(e) => setJsonInput(e.target.value)}
+                className="flex-grow w-full resize-none font-mono text-sm"
+                placeholder="Paste JSON here..."
+              />
+            )}
           </div>
-          <div className="relative flex flex-col">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <div className="relative flex flex-col h-full gap-2">
+            <Label>
               TypeScript Output
-            </label>
+            </Label>
             <div className="relative flex-grow">
-              <textarea
+              <TextArea
                 readOnly
                 value={tsOutput}
-                className="w-full h-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 font-mono text-sm resize-none text-blue-600 dark:text-blue-400"
+                className="w-full h-full bg-secondary/20 resize-none font-mono text-sm text-blue-600 dark:text-blue-400"
                 placeholder="TypeScript interfaces will appear here..."
               />
               {tsOutput && (
-                <CopyButton
-                  textToCopy={tsOutput}
-                  className="absolute top-2 right-2"
-                />
+                <div className="absolute top-2 right-2 z-10">
+                  <CopyButton textToCopy={tsOutput} />
+                </div>
               )}
             </div>
           </div>
         </div>
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {error && <p className="text-red-500 text-center font-medium bg-red-100 dark:bg-red-900/30 p-2 rounded">{error}</p>}
       </div>
     </ToolContainer>
   );

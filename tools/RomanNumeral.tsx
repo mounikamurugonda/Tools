@@ -3,6 +3,10 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
+import { ArrowLeftRight } from 'lucide-react';
 
 const toRoman = (num: number): string => {
   if (isNaN(num)) return '';
@@ -77,45 +81,37 @@ const RomanNumeral: React.FC<ToolProps> = ({ details, toolId }) => {
       details={details}
       toolId={toolId}
     >
-      <div className="grid md:grid-cols-2 gap-8 items-center max-w-2xl mx-auto">
-        <div className="space-y-2">
-          <label className="text-xl font-bold block text-center">
-            Decimal Number
-          </label>
-          <input
-            type="number"
-            value={number}
-            onChange={(e) => handleNumChange(e.target.value)}
-            className="w-full text-center text-4xl p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border border-gray-300 dark:border-gray-700"
-          />
-        </div>
-        <div className="flex justify-center text-gray-400">
-          <svg
-            className="w-8 h-8 md:rotate-0 rotate-90"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+      <Card className="max-w-3xl mx-auto py-12 px-8">
+        <div className="grid md:grid-cols-[1fr,auto,1fr] gap-8 items-center">
+          <div className="space-y-4">
+            <Label htmlFor="decimal-input" className="text-center block text-lg">Decimal Number</Label>
+            <Input
+              id="decimal-input"
+              type="number"
+              value={number}
+              onChange={(e) => handleNumChange(e.target.value)}
+              className="text-center text-3xl h-16"
+              placeholder="123"
             />
-          </svg>
+          </div>
+
+          <div className="flex justify-center text-gray-400">
+            <ArrowLeftRight className="w-8 h-8 rotate-90 md:rotate-0 text-blue-500" />
+          </div>
+
+          <div className="space-y-4">
+            <Label htmlFor="roman-input" className="text-center block text-lg">Roman Numeral</Label>
+            <Input
+              id="roman-input"
+              type="text"
+              value={roman}
+              onChange={(e) => handleRomanChange(e.target.value)}
+              className="text-center text-3xl h-16 uppercase font-serif"
+              placeholder="IV"
+            />
+          </div>
         </div>
-        <div className="space-y-2">
-          <label className="text-xl font-bold block text-center">
-            Roman Numeral
-          </label>
-          <input
-            type="text"
-            value={roman}
-            onChange={(e) => handleRomanChange(e.target.value)}
-            className="w-full text-center text-4xl p-4 bg-gray-100 dark:bg-gray-800 rounded-xl border border-gray-300 dark:border-gray-700 uppercase"
-          />
-        </div>
-      </div>
+      </Card>
     </ToolContainer>
   );
 };

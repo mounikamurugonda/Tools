@@ -3,6 +3,10 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Button from '@/components/ui/Button';
+import Card from '@/components/ui/Card';
 
 type UnitSystem = 'metric' | 'imperial';
 
@@ -38,16 +42,16 @@ const BmiCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
     let color = '';
     if (bmi < 18.5) {
       category = 'Underweight';
-      color = 'text-blue-400';
+      color = 'text-blue-500';
     } else if (bmi < 25) {
       category = 'Normal weight';
-      color = 'text-green-400';
+      color = 'text-green-500';
     } else if (bmi < 30) {
       category = 'Overweight';
-      color = 'text-yellow-400';
+      color = 'text-yellow-500';
     } else {
       category = 'Obese';
-      color = 'text-red-400';
+      color = 'text-red-500';
     }
 
     return {
@@ -59,61 +63,78 @@ const BmiCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="BMI Calculator" details={details} toolId={toolId}>
-      <div className="max-w-md mx-auto space-y-6">
-        <div className="p-1 bg-gray-200 dark:bg-gray-700 rounded-lg flex">
-          <button
+      <Card className="max-w-md mx-auto p-6 space-y-6">
+        <div className="flex gap-2 p-1 bg-secondary rounded-lg">
+          <Button
             onClick={() => setUnitSystem('metric')}
-            className={`w-1/2 py-2 rounded-md ${unitSystem === 'metric' ? 'bg-blue-600 text-white' : ''}`}
+            variant={unitSystem === 'metric' ? 'primary' : 'ghost'}
+            className="w-1/2"
           >
             Metric
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setUnitSystem('imperial')}
-            className={`w-1/2 py-2 rounded-md ${unitSystem === 'imperial' ? 'bg-blue-600 text-white' : ''}`}
+            variant={unitSystem === 'imperial' ? 'primary' : 'ghost'}
+            className="w-1/2"
           >
             Imperial
-          </button>
+          </Button>
         </div>
 
         {unitSystem === 'metric' ? (
           <div className="grid sm:grid-cols-2 gap-4">
-            <NumberInput
-              label="Height (cm)"
-              value={height}
-              onChange={setHeight}
-            />
-            <NumberInput
-              label="Weight (kg)"
-              value={weight}
-              onChange={setWeight}
-            />
+            <div className="space-y-2">
+              <Label>Height (cm)</Label>
+              <Input
+                type="number"
+                value={height}
+                onChange={(e) => setHeight(e.target.value)}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Weight (kg)</Label>
+              <Input
+                type="number"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
+              />
+            </div>
           </div>
         ) : (
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <NumberInput
-                label="Height (ft)"
-                value={heightFt}
-                onChange={setHeightFt}
-              />
-              <NumberInput
-                label="Height (in)"
-                value={heightIn}
-                onChange={setHeightIn}
+              <div className="space-y-2">
+                <Label>Height (ft)</Label>
+                <Input
+                  type="number"
+                  value={heightFt}
+                  onChange={(e) => setHeightFt(e.target.value)}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label>Height (in)</Label>
+                <Input
+                  type="number"
+                  value={heightIn}
+                  onChange={(e) => setHeightIn(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Weight (lbs)</Label>
+              <Input
+                type="number"
+                value={weight}
+                onChange={(e) => setWeight(e.target.value)}
               />
             </div>
-            <NumberInput
-              label="Weight (lbs)"
-              value={weight}
-              onChange={setWeight}
-            />
           </div>
         )}
 
         {result && (
-          <div className="text-center bg-gray-50 dark:bg-gray-900 p-6 rounded-lg">
-            <p className="text-gray-500 dark:text-gray-400">Your BMI is</p>
-            <p className={`text-2xl font-bold my-2 ${result.color}`}>
+          <div className="text-center bg-secondary/30 p-6 rounded-lg border border-border">
+            <p className="text-muted-foreground">Your BMI is</p>
+            <p className={`text-4xl font-bold my-2 ${result.color}`}>
               {result.bmi}
             </p>
             <p className={`text-xl font-semibold ${result.color}`}>
@@ -121,27 +142,9 @@ const BmiCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
             </p>
           </div>
         )}
-      </div>
+      </Card>
     </ToolContainer>
   );
 };
-
-const NumberInput: React.FC<{
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-}> = ({ label, value, onChange }) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-      {label}
-    </label>
-    <input
-      type="number"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
-  </div>
-);
 
 export default BmiCalculator;

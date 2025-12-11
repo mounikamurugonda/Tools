@@ -4,6 +4,12 @@ import React, { useState, useMemo, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { timezones } from '@/lib/timezones';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Select from '@/components/ui/Select';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import { ArrowLeftRight } from 'lucide-react';
 
 const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   // Get user's current timezone as default
@@ -114,155 +120,116 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     setToTimeZone(fromTimeZone);
   };
 
+  const getSelectOptions = (tzs: { group: string; zones: { value: string; label: string }[] }[]) => {
+    const options: { label: string; options: { value: string; label: string }[] }[] = [];
+    tzs.forEach(group => {
+      options.push({
+        label: group.group,
+        options: group.zones
+      });
+    });
+    return options;
+  };
+
+  const flattenedTimezones = useMemo(() => {
+    return timezones.flatMap(group => group.zones.map(z => ({
+      value: z.value,
+      label: z.label,
+      group: group.group
+    })));
+  }, []);
+
+
   return (
     <ToolContainer
       title="Time Zone Converter"
       details={details}
       toolId={toolId}
     >
-      <div className="max-w-2xl mx-auto space-y-6">
-        <div className="grid md:grid-cols-2 gap-6 items-end">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Date
-            </label>
-            <input
-              type="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              style={{ colorScheme: 'dark' }}
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Time
-            </label>
-            <input
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              style={{ colorScheme: 'dark' }}
-            />
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-4 items-start">
-          <div className="space-y-4">
-            <TimeZoneSelector
-              label="From"
-              selected={fromTimeZone}
-              onSelect={setFromTimeZone}
-              timezones={timezones}
-            />
-          </div>
-          <div className="space-y-4">
-            <TimeZoneSelector
-              label="To"
-              selected={toTimeZone}
-              onSelect={setToTimeZone}
-              timezones={timezones}
-            />
-          </div>
-        </div>
-
-        <div className="flex justify-center">
-          <button
-            onClick={handleSwap}
-            className="p-2 bg-gray-200 dark:bg-gray-700 rounded-full hover:bg-gray-300 dark:hover:bg-gray-600"
-            title="Swap timezones"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+      <div className="max-w-4xl mx-auto space-y-6">
+        <Card className="p-6">
+          <div className="grid md:grid-cols-2 gap-6 items-end">
+            <div>
+              <Label htmlFor="date-input">Date</Label>
+              <Input
+                id="date-input"
+                type="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
               />
-            </svg>
-          </button>
-        </div>
+            </div>
+            <div>
+              <Label htmlFor="time-input">Time</Label>
+              <Input
+                id="time-input"
+                type="time"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+              />
+            </div>
+          </div>
+        </Card>
 
-        {timeDifference && (
-          <div className="text-center text-gray-600 dark:text-gray-400">
-            {timeDifference}
-          </div>
-        )}
+        <Card className="p-6">
+          <div className="grid md:grid-cols-[1fr,auto,1fr] gap-6 items-center">
+            <div className="space-y-4">
+              <Label>From Time Zone</Label>
+              <Select
+                value={flattenedTimezones.find(z => z.value === fromTimeZone)}
+                onChange={(opt) => setFromTimeZone(opt?.value || 'UTC')}
+                options={getSelectOptions(timezones)}
+                isSearchable
+              />
+              <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg text-center border border-gray-100 dark:border-gray-800">
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">
+                  {time}
+                </p>
+                <p className="text-sm text-gray-500">
+                  {new Date(`${date}T${time}`).toLocaleDateString(undefined, {
+                    weekday: 'long',
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </p>
+              </div>
+            </div>
 
-        <div className="grid md:grid-cols-2 gap-4 text-center">
-          <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400">
-              {fromTimeZone.replace(/_/g, ' ')}
-            </h3>
-            <p className="text-2xl font-bold text-blue-500 dark:text-blue-400 my-2">
-              {time}
-            </p>
-            <p className="text-lg text-gray-800 dark:text-gray-200">
-              {new Date(`${date}T${time}`).toLocaleDateString(undefined, {
-                weekday: 'long',
-              })}
-            </p>
-            <p className="text-md text-gray-500 dark:text-gray-400">
-              {new Date(`${date}T${time}`).toLocaleDateString(undefined, {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })}
-            </p>
+            <div className="flex justify-center pt-6">
+              <Button onClick={handleSwap} variant="ghost" className="rounded-full p-2 h-auto">
+                <ArrowLeftRight className="w-6 h-6 text-gray-400 hover:text-blue-500 transition-colors" />
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              <Label>To Time Zone</Label>
+              <Select
+                value={flattenedTimezones.find(z => z.value === toTimeZone)}
+                onChange={(opt) => setToTimeZone(opt?.value || 'UTC')}
+                options={getSelectOptions(timezones)}
+                isSearchable
+              />
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-center border border-blue-100 dark:border-blue-800">
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">
+                  {result.time}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  {result.day}, {result.date}
+                </p>
+              </div>
+            </div>
           </div>
-          <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-400">
-              {toTimeZone.replace(/_/g, ' ')}
-            </h3>
-            <p className="text-2xl font-bold text-blue-500 dark:text-blue-400 my-2">
-              {result.time}
-            </p>
-            <p className="text-lg text-gray-800 dark:text-gray-200">
-              {result.day}
-            </p>
-            <p className="text-md text-gray-500 dark:text-gray-400">
-              {result.date}
-            </p>
-          </div>
-        </div>
+
+          {timeDifference && (
+            <div className="mt-6 text-center">
+              <span className="inline-block px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-full text-sm font-medium text-gray-600 dark:text-gray-300">
+                {timeDifference}
+              </span>
+            </div>
+          )}
+        </Card>
       </div>
     </ToolContainer>
   );
 };
-
-const TimeZoneSelector: React.FC<{
-  label: string;
-  selected: string;
-  onSelect: (tz: string) => void;
-  timezones: { group: string; zones: { value: string; label: string }[] }[];
-}> = ({ label, selected, onSelect, timezones }) => (
-  <div className="w-full">
-    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-      {label}
-    </label>
-    <select
-      value={selected}
-      onChange={(e) => onSelect(e.target.value)}
-      className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    >
-      {timezones.map((group) => (
-        <optgroup key={group.group} label={group.group}>
-          {group.zones.map((tz) => (
-            <option key={tz.value} value={tz.value}>
-              {tz.label}
-            </option>
-          ))}
-        </optgroup>
-      ))}
-    </select>
-  </div>
-);
 
 export default TimeZoneConverter;

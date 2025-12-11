@@ -3,6 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
+import Button from '@/components/ui/Button';
+import TextArea from '@/components/ui/TextArea';
+import Select from '@/components/ui/Select';
+import Slider from '@/components/ui/Slider';
+import Card from '@/components/ui/Card';
+import Label from '@/components/ui/Label';
+import { Volume2, Square, Play } from 'lucide-react';
 
 const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
   const [text, setText] = useState(
@@ -38,6 +45,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
     utterance.pitch = pitch;
 
     utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
 
     window.speechSynthesis.speak(utterance);
     setIsSpeaking(true);
@@ -45,68 +53,72 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Text to Speech" details={details} toolId={toolId}>
-      <div className="space-y-6 max-w-2xl mx-auto">
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className="w-full h-40 brand-input"
-          placeholder="Type text to speak..."
-        />
-
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Voice</label>
-            <select
-              value={selectedVoice}
-              onChange={(e) => setSelectedVoice(e.target.value)}
-              className="brand-input"
-            >
-              {voices.map((v) => (
-                <option key={v.name} value={v.name}>
-                  {v.name} ({v.lang})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Speed: {rate}x
-              </label>
-              <input
-                type="range"
-                min="0.5"
-                max="2"
-                step="0.1"
-                value={rate}
-                onChange={(e) => setRate(Number(e.target.value))}
-                className="w-full"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">
-                Pitch: {pitch}
-              </label>
-              <input
-                type="range"
-                min="0.5"
-                max="2"
-                step="0.1"
-                value={pitch}
-                onChange={(e) => setPitch(Number(e.target.value))}
-                className="w-full"
-              />
-            </div>
-          </div>
+      <div className="grid md:grid-cols-3 gap-6">
+        <div className="md:col-span-2 space-y-4">
+          <Card title="Text Input" className="h-[430px] flex flex-col">
+            <TextArea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              className="flex-1 w-full border-none focus:ring-0 rounded-none resize-none p-0"
+              placeholder="Type text to speak..."
+            />
+          </Card>
         </div>
 
-        <button
-          onClick={speak}
-          className={`w-full py-3 rounded-lg text-white font-bold text-lg transition-colors ${isSpeaking ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}`}
-        >
-          {isSpeaking ? 'Stop Speaking' : 'Speak Text'}
-        </button>
+        <div className="space-y-6">
+          <Card title="Voice Settings">
+            <div className="space-y-6">
+              <div>
+                <Label className="mb-2">Select Voice</Label>
+                <Select
+                  value={selectedVoice ? { value: selectedVoice, label: selectedVoice } : null}
+                  onChange={(option) => {
+                    if (option) setSelectedVoice(option.value as string);
+                  }}
+                  options={voices.map(v => ({ value: v.name, label: `${v.name} (${v.lang})` }))}
+                  placeholder="Select a voice..."
+                />
+              </div>
+
+              <Slider
+                label="Speed"
+                min={0.5}
+                max={2}
+                step={0.1}
+                value={rate}
+                onChange={(e) => setRate(Number(e.target.value))}
+                valueDisplay={`${rate}x`}
+              />
+
+              <Slider
+                label="Pitch"
+                min={0.5}
+                max={2}
+                step={0.1}
+                value={pitch}
+                onChange={(e) => setPitch(Number(e.target.value))}
+                valueDisplay={`${pitch}`}
+              />
+            </div>
+          </Card>
+
+          <Button
+            onClick={speak}
+            variant={isSpeaking ? 'danger' : 'primary'}
+            size="lg"
+            className="w-full"
+          >
+            {isSpeaking ? (
+              <>
+                <Square className="w-5 h-5 mr-2 fill-current" /> Stop Speaking
+              </>
+            ) : (
+              <>
+                <Volume2 className="w-5 h-5 mr-2" /> Speak Text
+              </>
+            )}
+          </Button>
+        </div>
       </div>
     </ToolContainer>
   );

@@ -7,6 +7,8 @@ import CopyButton from '@/components/CopyButton';
 import Button from '@/components/ui/Button';
 import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
+import { ArrowLeftRight, Trash2 } from 'lucide-react';
 
 const Base64Converter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
@@ -40,10 +42,24 @@ const Base64Converter: React.FC<ToolProps> = ({ details, toolId }) => {
       toolId={toolId}
     >
       <div className="space-y-6">
-        <div className="flex flex-wrap gap-3">
-          <Button onClick={handleEncode}>Encode (to Base64)</Button>
-          <Button onClick={handleDecode} variant="secondary">Decode (from Base64)</Button>
-        </div>
+        <Card title="Controls" className="p-4">
+          <div className="flex flex-wrap gap-3">
+            <Button onClick={handleEncode} variant="primary">Encode (to Base64)</Button>
+            <Button onClick={handleDecode} variant="secondary">Decode (from Base64)</Button>
+            <Button
+              onClick={() => {
+                setInput('');
+                setOutput('');
+                setError('');
+              }}
+              variant="ghost"
+              className="ml-auto"
+            >
+              <Trash2 className="w-4 h-4 mr-2" /> Clear All
+            </Button>
+          </div>
+        </Card>
+
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
           <div className="space-y-2">
@@ -54,13 +70,12 @@ const Base64Converter: React.FC<ToolProps> = ({ details, toolId }) => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Enter text or Base64 string here..."
-                className="h-96 max-h-96 font-mono"
+                className="h-96 max-h-96 font-mono resize-none"
               />
               {input && (
-                <CopyButton
-                  textToCopy={input}
-                  className="absolute top-4 right-4"
-                />
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={input} />
+                </div>
               )}
             </div>
             {error && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{error}</p>}
@@ -75,13 +90,12 @@ const Base64Converter: React.FC<ToolProps> = ({ details, toolId }) => {
                 readOnly
                 value={output}
                 placeholder="Result will appear here..."
-                className="h-96 max-h-96 bg-gray-50 dark:bg-gray-900 font-mono"
+                className="h-96 max-h-96 bg-gray-50 dark:bg-gray-900 font-mono resize-none"
               />
               {output && (
-                <CopyButton
-                  textToCopy={output}
-                  className="absolute top-4 right-4"
-                />
+                <div className="absolute top-2 right-2">
+                  <CopyButton textToCopy={output} />
+                </div>
               )}
             </div>
           </div>

@@ -3,10 +3,11 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Label from '@/components/ui/Label';
+import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
 
 const CONVERSION_FACTORS = {
   length: {
@@ -34,7 +35,7 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [fromUnit, setFromUnit] = useState<string>('meters');
   const [toUnit, setToUnit] = useState<string>('feet');
 
-  const units = Object.keys(CONVERSION_FACTORS[category]);
+  const units = useMemo(() => Object.keys(CONVERSION_FACTORS[category]), [category]);
 
   const result = useMemo(() => {
     const value = parseFloat(inputValue);
@@ -61,8 +62,8 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Unit Converter" details={details} toolId={toolId}>
-      <div className="space-y-8 max-w-2xl mx-auto">
-        <div className="p-1 bg-gray-100 dark:bg-gray-800 rounded-xl flex">
+      <Card className="max-w-2xl mx-auto p-6 space-y-8">
+        <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex">
           <button
             onClick={() => handleCategoryChange('length')}
             className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'length'
@@ -86,43 +87,39 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="grid sm:grid-cols-2 gap-6 items-start">
           <div className="space-y-2">
             <Label>From</Label>
-            <Input
-              type="number"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="text-lg font-medium"
-            />
-            <Select
-              value={fromUnit}
-              onChange={(e) => setFromUnit(e.target.value)}
-            >
-              {units.map((unit) => (
-                <option key={unit} value={unit}>
-                  {unit}
-                </option>
-              ))}
-            </Select>
+            <div className="space-y-4">
+              <Input
+                type="number"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                className="text-lg font-medium"
+                placeholder="Enter value"
+              />
+              <Select
+                value={{ value: fromUnit, label: fromUnit }}
+                onChange={(option) => option && setFromUnit(option.value)}
+                options={units.map(u => ({ value: u, label: u }))}
+              />
+            </div>
           </div>
+
           <div className="space-y-2">
             <Label>To</Label>
-            <div className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center min-h-[46px]">
-              <span className="text-lg font-bold text-blue-600 dark:text-blue-400 break-all">
-                {result}
-              </span>
+            <div className="space-y-4">
+              <div className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center min-h-[46px]">
+                <span className="text-lg font-bold text-blue-600 dark:text-blue-400 break-all">
+                  {result}
+                </span>
+              </div>
+              <Select
+                value={{ value: toUnit, label: toUnit }}
+                onChange={(option) => option && setToUnit(option.value)}
+                options={units.map(u => ({ value: u, label: u }))}
+              />
             </div>
-            <Select
-              value={toUnit}
-              onChange={(e) => setToUnit(e.target.value)}
-            >
-              {units.map((unit) => (
-                <option key={unit} value={unit}>
-                  {unit}
-                </option>
-              ))}
-            </Select>
           </div>
         </div>
-      </div>
+      </Card>
     </ToolContainer>
   );
 };
