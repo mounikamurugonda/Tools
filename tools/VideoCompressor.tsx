@@ -6,9 +6,8 @@ import ToolContainer from '@/components/ToolContainer';
 import FileUpload from '@/components/FileUpload';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile } from '@ffmpeg/util';
 import { Video, Download, FileVideo, AlertCircle, Minimize2 } from 'lucide-react';
+import type { FFmpeg } from '@ffmpeg/ffmpeg';
 
 const VideoCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -31,13 +30,17 @@ const VideoCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
       setIsLoading(true);
       setError('');
 
+      // Dynamically load FFmpeg only when needed
+      const { FFmpeg } = await import('@ffmpeg/ffmpeg');
+      const { fetchFile } = await import('@ffmpeg/util');
+
       // Initialize FFmpeg only when needed
       if (!ffmpegRef.current) {
         ffmpegRef.current = new FFmpeg();
       }
 
       const ffmpeg = ffmpegRef.current;
-      ffmpeg.on('progress', ({ progress }) => {
+      ffmpeg.on('progress', ({ progress }: { progress: number }) => {
         setProgress(progress);
       });
 

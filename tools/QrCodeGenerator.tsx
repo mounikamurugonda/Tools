@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import QRCode from 'qrcode';
 import Button from '@/components/ui/Button';
 import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
@@ -16,14 +15,18 @@ const QrCodeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   useEffect(() => {
     if (canvasRef.current) {
       if (text) {
-        QRCode.toCanvas(
-          canvasRef.current,
-          text,
-          { width: 256, margin: 2 },
-          (error: Error | null | undefined) => {
-            if (error) console.error(error);
-          },
-        );
+        import('qrcode').then((QRCode) => {
+          if (canvasRef.current) {
+            QRCode.toCanvas(
+              canvasRef.current,
+              text,
+              { width: 256, margin: 2 },
+              (error: Error | null | undefined) => {
+                if (error) console.error(error);
+              },
+            );
+          }
+        });
       } else {
         const ctx = canvasRef.current.getContext('2d');
         ctx?.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);

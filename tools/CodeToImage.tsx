@@ -10,7 +10,6 @@ import Slider from '@/components/ui/Slider';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
 import FileUpload from '@/components/ui/FileUpload';
-import { toPng, toJpeg, toSvg } from 'html-to-image';
 import Prism from 'prismjs';
 import {
   Download,
@@ -118,14 +117,16 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
       };
 
       let dataUrl = '';
+      const htmlToImage = await import('html-to-image');
+
       if (format === 'png') {
-        dataUrl = await toPng(exportRef.current, options);
+        dataUrl = await htmlToImage.toPng(exportRef.current, options);
       } else if (format === 'jpeg') {
-        dataUrl = await toJpeg(exportRef.current, options);
+        dataUrl = await htmlToImage.toJpeg(exportRef.current, options);
       } else if (format === 'svg') {
-        dataUrl = await toSvg(exportRef.current, options);
+        dataUrl = await htmlToImage.toSvg(exportRef.current, options);
       } else if (format === 'copy') {
-        const blob = await toPng(exportRef.current, {
+        const blob = await htmlToImage.toPng(exportRef.current, {
           ...options,
           type: 'image/png',
         });

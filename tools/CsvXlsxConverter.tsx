@@ -3,7 +3,7 @@
 import type React from 'react';
 import { useState, useCallback, useEffect } from 'react';
 import { Readable } from 'stream';
-import ExcelJS from 'exceljs';
+import type ExcelJS from 'exceljs';
 import {
   UploadCloud,
   File,
@@ -338,6 +338,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
       switch (outputFormat) {
         case 'xlsx':
+          const ExcelJS = await import('exceljs');
           const newWorkbook = new ExcelJS.Workbook();
           const stream = new Readable();
           stream.push(sourceCsv);
@@ -433,6 +434,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       reader.onload = async (event) => {
         try {
           const data = event.target?.result;
+          const ExcelJS = await import('exceljs');
           const wb = new ExcelJS.Workbook();
           await wb.xlsx.load(data as ArrayBuffer);
           setWorkbook(wb);

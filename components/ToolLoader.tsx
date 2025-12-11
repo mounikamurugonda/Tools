@@ -36,7 +36,6 @@ const ToolLoader: React.FC<ToolLoaderProps> = ({ toolId, details, children }) =>
     () => import(`@/tools/${componentName}`),
     {
       loading: () => <Loader />,
-      ssr: false,
     },
   ) as React.ComponentType<ToolProps>;
 

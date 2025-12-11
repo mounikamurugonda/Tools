@@ -51,7 +51,7 @@ const SqlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="SQL Formatter" details={details} toolId={toolId}>
-      <Card className="max-w-4xl mx-auto p-6 space-y-4">
+      <Card className=" mx-auto p-6 space-y-4">
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
