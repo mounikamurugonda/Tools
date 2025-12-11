@@ -35,7 +35,7 @@ export const TOOL_CONFIGS: ToolMetadata[] = [
   { id: 'markdown-table-generator', name: 'Markdown Table Generator', description: 'Create Markdown tables easily.', category: ToolCategory.TEXT },
   { id: 'hashtag-extractor', name: 'Hashtag Extractor', description: 'Extract hashtags from text.', category: ToolCategory.TEXT },
   { id: 'duplicate-remover', name: 'Duplicate Remover', description: 'Remove duplicate lines from text.', category: ToolCategory.TEXT },
-
+  { id: 'comma-separator', name: 'Comma Separator', description: 'Convert lists to comma-separated text with advanced formatting.', category: ToolCategory.TEXT },
   // Image Tools
   { id: 'base64-to-image', name: 'Base64 to Image', description: 'Convert Base64 strings to images.', category: ToolCategory.IMAGE },
   { id: 'image-to-base64', name: 'Image to Base64', description: 'Convert images to Base64 strings.', category: ToolCategory.IMAGE },
@@ -146,6 +146,7 @@ export const TOOL_CONFIGS: ToolMetadata[] = [
  * This allows lazy-loading without importing all components upfront
  */
 export const TOOL_COMPONENT_MAP: Record<string, string> = {
+  'comma-separator': 'CommaSeparator',
   'case-converter': 'CaseConverter',
   'word-counter': 'WordCounter',
   'lorem-ipsum-generator': 'LoremIpsumGenerator',

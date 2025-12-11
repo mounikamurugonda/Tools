@@ -619,3 +619,11 @@ export const PenIcon: React.FC<{ className?: string }> = ({
 export const LightbulbIcon: React.FC<{ className?: string }> = ({
   className,
 }) => <Lightbulb {...iconProps} {...(className && { className })} />;
+
+export const AsciiIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <FileText {...iconProps} {...(className && { className })} />
+);
+
+export const SeparatorIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <List {...iconProps} {...(className && { className })} />
+);

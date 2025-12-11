@@ -15,7 +15,6 @@
     "@ffmpeg/util": "^0.12.2",
     "diff": "^5.2.0",
     "exceljs": "^4.4.0",
-    "figlet": "^1.9.4",
     "html-to-image": "^1.11.13",
     "jwt-decode": "^4.0.0",
     "lint": "^0.8.19",

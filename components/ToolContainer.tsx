@@ -49,13 +49,13 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
     <div className="animate-fade-in space-y-4">
       {/* Header */}
       <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-800 gap-4">
-        <div className="flex items-center gap-4 flex-1">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
-            {title}
-          </h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
+          {title}
+        </h1>
+        <div className="flex items-center gap-2">
           {headerContent}
+          {toolId && <ShareButton toolId={toolId} title={title} />}
         </div>
-        {toolId && <ShareButton toolId={toolId} title={title} />}
       </div>
 
       {/* Main Tool Area */}

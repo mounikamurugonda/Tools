@@ -240,66 +240,10 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="flex flex-col-reverse lg:flex-row gap-8 h-full items-start">
         {/* Controls Sidebar */}
         <div className="w-full lg:w-80 flex-shrink-0 space-y-6">
-          {/* Export Actions - Prominent at top on mobile, or keep in flow */}
-          <Card className="grid grid-cols-2 gap-3 !p-4">
-            <Button
-              onClick={() => handleExport('png')}
-              disabled={isExporting}
-              variant="primary"
-              size="sm"
-              className="w-full"
-            >
-              <Download size={16} className="mr-2" /> PNG
-            </Button>
-            <Button
-              onClick={() => handleExport('svg')}
-              disabled={isExporting}
-              variant="secondary"
-              size="sm"
-              className="w-full"
-            >
-              <Download size={16} className="mr-2" /> SVG
-            </Button>
-            <Button
-              onClick={() => handleExport('copy')}
-              disabled={isExporting}
-              variant="secondary"
-              size="sm"
-              className="col-span-2 w-full text-green-600 border border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20"
-            >
-              <Copy size={16} className="mr-2" /> Copy to Clipboard
-            </Button>
-            {/* Input Mode Toggle */}
-            <div className="col-span-2 flex gap-2 mt-2 pt-2 border-t border-gray-100 dark:border-gray-800">
-              <Button
-                variant={inputMode === 'text' ? 'secondary' : 'ghost'}
-                size="sm"
-                onClick={() => setInputMode('text')}
-                className="w-full text-xs"
-              >
-                <FileText size={14} className="mr-2" /> Paste
-              </Button>
-              <Button
-                variant={inputMode === 'file' ? 'secondary' : 'ghost'}
-                size="sm"
-                onClick={() => setInputMode('file')}
-                className="w-full text-xs"
-              >
-                <Upload size={14} className="mr-2" /> Upload
-              </Button>
-            </div>
-            {inputMode === 'file' && (
-              <div className="col-span-2">
-                <FileUpload
-                  onFileSelect={handleFileUpload}
-                  className="h-20"
-                />
-              </div>
-            )}
-          </Card>
+          {/* Export Actions moved to bottom of preview area */}
 
           {/* Styling Section */}
-          <Card title="Styling" className="space-y-4">
+          <Card className="space-y-4">
             <div className="space-y-3">
               <Label>Theme</Label>
               <div className="grid grid-cols-2 gap-2">
@@ -515,6 +459,77 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                     Generating image...
                   </span>
                 </div>
+              </div>
+            )}
+          </Card>
+
+          {/* Export Actions & Input - Moved here */}
+          <Card className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 items-end">
+            <div className="flex flex-col gap-2 col-span-2 md:col-span-1">
+              <Label className="text-xs">Download</Label>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => handleExport('png')}
+                  disabled={isExporting}
+                  variant="primary"
+                  size="sm"
+                  className="w-full"
+                >
+                  <Download size={16} className="mr-2" /> PNG
+                </Button>
+                <Button
+                  onClick={() => handleExport('svg')}
+                  disabled={isExporting}
+                  variant="secondary"
+                  size="sm"
+                  className="w-full"
+                >
+                  <Download size={16} className="mr-2" /> SVG
+                </Button>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2 col-span-2 md:col-span-1">
+              <Label className="text-xs">Clipboard</Label>
+              <Button
+                onClick={() => handleExport('copy')}
+                disabled={isExporting}
+                variant="secondary"
+                size="sm"
+                className="w-full text-green-600 border border-green-200 hover:bg-green-50 dark:hover:bg-green-900/20"
+              >
+                <Copy size={16} className="mr-2" /> Copy Image
+              </Button>
+            </div>
+
+            <div className="flex flex-col gap-2 col-span-2 md:col-span-2">
+              <Label className="text-xs">Input Source</Label>
+              <div className="flex gap-2">
+                <Button
+                  variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('text')}
+                  className="flex-1 text-xs"
+                >
+                  <FileText size={14} className="mr-2" /> Paste Code
+                </Button>
+                <Button
+                  variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                  size="sm"
+                  onClick={() => setInputMode('file')}
+                  className="flex-1 text-xs"
+                >
+                  <Upload size={14} className="mr-2" /> Upload File
+                </Button>
+              </div>
+            </div>
+
+            {inputMode === 'file' && (
+              <div className="col-span-2 md:col-span-4 mt-2">
+                <FileUpload
+                  onFileSelect={handleFileUpload}
+                  className="h-24"
+                />
               </div>
             )}
           </Card>

@@ -2,6 +2,7 @@ import React from "react";
 import { Tool, ToolCategory } from "./types";
 import dynamic from "next/dynamic";
 
+const CommaSeparator = dynamic(() => import("@/tools/CommaSeparator"));
 const CaseConverter = dynamic(() => import("@/tools/CaseConverter"));
 const WordCounter = dynamic(() => import("@/tools/WordCounter"));
 const LoremIpsumGenerator = dynamic(
@@ -98,7 +99,6 @@ const PercentageCalculator = dynamic(
 const MarkdownTable = dynamic(() => import("@/tools/MarkdownTable"));
 const ListRandomizer = dynamic(() => import("@/tools/ListRandomizer"));
 const TextCleaner = dynamic(() => import("@/tools/TextCleaner"));
-// Removed: AsciiArt tool
 const SvgToDataUri = dynamic(() => import("@/tools/SvgToDataUri"));
 const JsonYamlConverter = dynamic(() => import("@/tools/JsonYamlConverter"));
 
@@ -231,6 +231,8 @@ import {
   BorderIcon,
   PatternIcon,
   SignatureIcon,
+  SeparatorIcon,
+  AsciiIcon,
 } from "@/components/icons";
 
 const PRIVACY_STATEMENT =
@@ -929,8 +931,30 @@ export const TOOLS: Tool[] = [
       "pst to est converter",
       "utc time converter",
       "global clock",
+      "remove duplicates",
+      "text cleaner",
     ],
 
+  },
+  {
+    id: "comma-separator",
+    name: "Comma Separator",
+    description: "Convert lists to comma-separated text with advanced formatting.",
+    seoTitle: "Comma Separator | Convert Column to Comma Separated List",
+    seoDescription:
+      "Free online tool to convert lists to comma-separated values (CSV) and vice versa. Support for custom delimiters, wrapping, sorting, and duplicate removal.",
+    icon: <SeparatorIcon />,
+    component: CommaSeparator,
+    category: ToolCategory.TEXT,
+    keywords: [
+      "comma separator",
+      "column to comma",
+      "list to csv",
+      "delimiter converter",
+      "text joiner",
+      "split text",
+      "delim.co alternative",
+    ],
   },
   {
     id: "case-converter",
@@ -1804,6 +1828,7 @@ export const TOOLS: Tool[] = [
       "internet memes",
     ],
   },
+
   {
     id: "unit-converter",
     name: "Unit Converter",
