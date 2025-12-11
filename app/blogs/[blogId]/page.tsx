@@ -13,8 +13,9 @@ export async function generateStaticParams() {
   }));
 }
 
-const BlogPage = ({ params }: { params: { blogId: string } }) => {
-  const blog = blogs.find((blog) => blog.id === params.blogId);
+const BlogPage = async ({ params }: { params: Promise<{ blogId: string }> }) => {
+  const { blogId } = await params;
+  const blog = blogs.find((blog) => blog.id === blogId);
 
   if (!blog) {
     notFound();

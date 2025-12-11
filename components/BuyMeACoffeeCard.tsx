@@ -13,15 +13,15 @@ const BuyMeACoffeeCard: React.FC<BuyMeACoffeeCardProps> = ({
 }) => {
   return (
     <div
-      className={`bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl p-6 ${className}`}
+      className={`bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl p-4 sm:p-6 ${className}`}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6">
         {/* Left side - Icon and text */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-3 sm:gap-4 flex-1">
           {/* Coffee Cup Icon */}
           <div className="flex-shrink-0">
             <svg
-              className="w-12 h-12 text-yellow-600 dark:text-yellow-400"
+              className="w-10 h-10 sm:w-12 sm:h-12 text-yellow-600 dark:text-yellow-400"
               fill="currentColor"
               viewBox="0 0 884 1279"
               xmlns="http://www.w3.org/2000/svg"
@@ -83,27 +83,27 @@ const BuyMeACoffeeCard: React.FC<BuyMeACoffeeCardProps> = ({
           </div>
 
           {/* Text content */}
-          <div className="flex-1">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white mb-1">
               Enjoying UtilToolkits?
             </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               Support our development and help us create more amazing tools!
             </p>
           </div>
         </div>
 
         {/* Right side - Buy Me a Coffee button */}
-        <div className="flex-shrink-0">
+        <div className="w-full lg:w-auto flex-shrink-0">
           <a
             href="https://buymeacoffee.com/frontenddeveloper"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-400 text-black font-semibold rounded-full shadow-lg hover:shadow-xl transform  transition-all duration-300"
+            className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 w-full lg:w-auto"
           >
             {/* Coffee Cup Icon */}
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
               fill="currentColor"
               viewBox="0 0 884 1279"
               xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +162,7 @@ const BuyMeACoffeeCard: React.FC<BuyMeACoffeeCardProps> = ({
                 fill="#0d0c22"
               />
             </svg>
-            <span className="font-bold">Buy me a coffee</span>
+            <span className="font-bold text-sm sm:text-base whitespace-nowrap">Buy me a coffee</span>
           </a>
         </div>
       </div>

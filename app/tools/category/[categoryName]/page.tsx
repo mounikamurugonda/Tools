@@ -22,7 +22,7 @@ import { notFound } from 'next/navigation';
 import React from 'react';
 
 type Props = {
-  params: { categoryName: string };
+  params: Promise<{ categoryName: string }>;
 };
 
 const getCategoryFromParam = (param: string): ToolCategory | undefined => {
@@ -30,7 +30,8 @@ const getCategoryFromParam = (param: string): ToolCategory | undefined => {
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const category = getCategoryFromParam(params.categoryName);
+  const { categoryName } = await params;
+  const category = getCategoryFromParam(categoryName);
 
   if (!category) {
     return {
@@ -66,11 +67,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${category} Tools - Free Online Utilities | UtilToolkits`,
       description: enhancedDescription,
       type: 'website',
-      url: `https://utiltoolkits.com/tools/category/${params.categoryName}`,
+      url: `https://utiltoolkits.com/tools/category/${categoryName}`,
       siteName: 'UtilToolkits',
       images: [
         {
-          url: `https://utiltoolkits.com/og-${params.categoryName}.png`,
+          url: `https://utiltoolkits.com/og-${categoryName}.png`,
           width: 1200,
           height: 630,
           alt: `${category} Tools - Free Online Utilities`,
@@ -82,11 +83,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'summary_large_image',
       title: `${category} Tools - Free Online Utilities`,
       description: enhancedDescription,
-      images: [`https://utiltoolkits.com/og-${params.categoryName}.png`],
+      images: [`https://utiltoolkits.com/og-${categoryName}.png`],
       creator: '@utiltoolkits',
     },
     alternates: {
-      canonical: `/tools/category/${params.categoryName}`,
+      canonical: `/tools/category/${categoryName}`,
     },
     other: {
       'theme-color': '#3b82f6',
@@ -101,8 +102,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function CategoryPage({ params }: Props) {
-  const category = getCategoryFromParam(params.categoryName);
+export default async function CategoryPage({ params }: Props) {
+  const { categoryName } = await params;
+  const category = getCategoryFromParam(categoryName);
 
   if (!category) {
     notFound();
@@ -116,7 +118,7 @@ export default function CategoryPage({ params }: Props) {
     { name: 'Tools', url: 'https://utiltoolkits.com/tools' },
     {
       name: `${category} Tools`,
-      url: `https://utiltoolkits.com/tools/category/${params.categoryName}`,
+      url: `https://utiltoolkits.com/tools/category/${categoryName}`,
     },
   ];
 

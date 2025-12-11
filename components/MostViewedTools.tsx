@@ -16,18 +16,18 @@ const MostViewedTools: React.FC = () => {
 
   return (
     <div className="mb-12">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-3 sm:gap-0">
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
           Most Popular Tools
         </h2>
         <Link
           href="/tools"
-          className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center"
+          className="text-sm sm:text-base text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center transition-all hover:gap-2 group"
         >
-          View All Tools <ChevronRightIcon className="w-5 h-5 ml-1" />
+          View All Tools <ChevronRightIcon className="w-4 h-4 sm:w-5 sm:h-5 ml-1 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
         {popularTools.map((tool) => (
           <Link key={tool.id} href={`/tools/${tool.id}`}>
             <ToolCard tool={tool} />

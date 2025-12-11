@@ -11,8 +11,8 @@ export async function generateStaticParams() {
   }));
 }
 
-const CategoryPage = ({ params }: { params: { categoryName: string } }) => {
-  const { categoryName } = params;
+const CategoryPage = async ({ params }: { params: Promise<{ categoryName: string }> }) => {
+  const { categoryName } = await params;
   const filteredBlogs = blogs.filter(
     (blog) => blog.category.toLowerCase() === categoryName.toLowerCase(),
   );
