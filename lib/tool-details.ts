@@ -3122,9 +3122,13 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     howToUse: ["Enter height and weight", "See result"],
     features: ["Calculate your Body Mass Index.", "Shows your BMI category.", "Supports metric and imperial units."],
     privacy: PRIVACY_STATEMENT,
-    explanation: "",
-    usageExamples: [],
-    underlyingConcept: "",
+    explanation: "Body Mass Index (BMI) is a widely used screening method for weight categories: underweight, healthy weight, overweight, and obesity. While it's not a direct measure of body fat, it correlates with various metabolic and disease outcomes. This calculation is based on your height and weight.",
+    usageExamples: [
+      "Screening for potential weight-related health issues.",
+      "Tracking weight loss or gain progress over time.",
+      "Comparing your weight status against general population standards."
+    ],
+    underlyingConcept: "BMI is calculated by dividing a person's weight in kilograms by the square of their height in meters (kg/m²). For the imperial system, the formula is (weight in pounds / (height in inches x height in inches)) x 703.",
     faqs: [
       {
         "question": "How can I calculate my Body Mass Index (BMI) online?",
@@ -3145,9 +3149,13 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     howToUse: ["Select currencies", "Enter amount", "See result"],
     features: ["Convert between different currencies.", "Real-time exchange rates.", "Supports over 150 currencies."],
     privacy: PRIVACY_STATEMENT,
-    explanation: "",
-    usageExamples: [],
-    underlyingConcept: "",
+    explanation: "This tool provides real-time currency conversion rates, allowing you to quickly compare the value of different world currencies. It pulls the latest market data to ensure you get the most accurate conversion possible for travel, business, or shopping.",
+    usageExamples: [
+      "Calculating the cost of goods while shopping internationally online.",
+      "Budgeting for a vacation in a foreign country.",
+      "Converting business expenses or freelance income from another currency."
+    ],
+    underlyingConcept: "Exchange rates fluctuate constantly based on the foreign exchange (Forex) market, which is influenced by economic indicators like inflation, interest rates, and geopolitical stability. This tool queries a reliable financial data API to fetch these dynamic rates.",
     faqs: [
       {
         "question": "How can I convert currencies online with real-time rates?",
@@ -3168,9 +3176,13 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     howToUse: ["Search for city", "See time"],
     features: ["Check the time in different cities around the world.", "Add multiple cities to your dashboard.", "Shows the current date and time."],
     privacy: PRIVACY_STATEMENT,
-    explanation: "",
-    usageExamples: [],
-    underlyingConcept: "",
+    explanation: "The World Clock helps you stay connected with the world by displaying the current time in cities across different time zones. It automatically handles the complex rules of Daylight Saving Time (DST) for each location, so you never have to guess the time difference.",
+    usageExamples: [
+      "Scheduling a meeting with colleagues or clients in different time zones.",
+      "Knowing the right time to call friends or family living abroad.",
+      "Tracking market opening times for global stock exchanges."
+    ],
+    underlyingConcept: "The world is divided into 24 standard time zones, each roughly 15 degrees of longitude wide. However, local political decisions often alter these zones. This usage of the `Intl.DateTimeFormat` API ensures strict adherence to the IANA Time Zone Database, the gold standard for global timekeeping.",
     faqs: [
       {
         "question": "How can I check the current time in different cities globally?",
@@ -3191,9 +3203,14 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     howToUse: ["Start", "Stop", "Reset"],
     features: ["A simple timer and stopwatch.", "Set a countdown timer.", "Record laps with the stopwatch."],
     privacy: PRIVACY_STATEMENT,
-    explanation: "",
-    usageExamples: [],
-    underlyingConcept: "",
+    explanation: "This dual-purpose tool offers a countdown timer for time management and a stopwatch for measuring elapsed time. Whether you need to time a workout interval, limit a brainstorming session, or track how long a task takes, this tool captures time with precision.",
+    usageExamples: [
+      "Using the Pomodoro technique (25-minute work blocks) for productivity.",
+      "Timing rest intervals during a gym workout.",
+      "Measuring the speed of code execution or other time-sensitive tasks.",
+      "Boiling an egg or baking with a precise countdown."
+    ],
+    underlyingConcept: "The tool utilizes the browser's `performance.now()` API for high-precision timestamping, ensuring accuracy down to the millisecond. This prevents the 'drift' that can occur with simple `setInterval` based timers over long periods.",
     faqs: [
       {
         "question": "How can I use the online stopwatch and timer functions?",
@@ -3214,9 +3231,13 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     howToUse: ["Paste text", "See results"],
     features: ["Analyze the keyword density of a text.", "Shows one, two, and three-word keyword densities.", "Exclude certain words from the analysis."],
     privacy: PRIVACY_STATEMENT,
-    explanation: "",
-    usageExamples: [],
-    underlyingConcept: "",
+    explanation: "Keyword Density is the percentage of times a keyword or phrase appears on a web page compared to the total number of words. This tool helps copywriters and SEO specialists analyze their content to ensure it's optimized for search engines without being 'spammy' (keyword stuffing).",
+    usageExamples: [
+      "Checking a blog post to ensure the main topic keyword is used enough.",
+      "Analyzing a competitor's page to see which keywords they are targeting.",
+      "Avoiding keyword stuffing penalties by keeping density within a natural range (typically 1-2%)."
+    ],
+    underlyingConcept: "The analyzer tokenizes the input text (breaks it into words), filters out common stop words (like 'the', 'and', 'is'), and then counts the frequency of each unique word or phrase (n-grams). The density is calculated as (Keyword Count / Total Word Count) * 100.",
     faqs: [
       {
         "question": "How can I analyze the keyword density of my text online?",
