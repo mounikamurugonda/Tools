@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
@@ -17,15 +18,17 @@ const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
   const [output, setOutput] = useState('');
   const [removedCount, setRemovedCount] = useState<number | null>(null);
 
-  const process = () => {
-    const lines = input
+  const debouncedInput = useDebounce(input, 500);
+
+  useEffect(() => {
+    const lines = debouncedInput
       .split('\n')
       .map((l) => l.trim())
       .filter((l) => l !== '');
     const unique = Array.from(new Set(lines));
     setOutput(unique.join('\n'));
     setRemovedCount(lines.length - unique.length);
-  };
+  }, [debouncedInput]);
 
   return (
     <ToolContainer
@@ -77,16 +80,7 @@ const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
         </div>
 
-        <div className="flex justify-center">
-          <Button
-            onClick={process}
-            variant="primary"
-            size="lg"
-            className="w-full md:w-auto min-w-[200px]"
-          >
-            <Trash2 className="w-4 h-4 mr-2" /> Remove Duplicates
-          </Button>
-        </div>
+
       </div>
     </ToolContainer>
   );

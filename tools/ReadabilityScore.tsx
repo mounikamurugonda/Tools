@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Card from '@/components/ui/Card';
@@ -22,9 +23,11 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
     'The quick brown fox jumps over the lazy dog. This sentence is easy to read. Complex sentences, however, are more difficult to understand.',
   );
 
+  const debouncedText = useDebounce(text, 500);
+
   const stats = useMemo(() => {
-    const sentences = text.match(/[^.!?]+[.!?]+/g) || [];
-    const words = text
+    const sentences = debouncedText.match(/[^.!?]+[.!?]+/g) || [];
+    const words = debouncedText
       .trim()
       .split(/\s+/)
       .filter((w) => w.length > 0);
@@ -62,7 +65,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId }) => {
       fleschReadingEase: Math.max(0, Math.min(100, fleschReadingEase)),
       fleschKincaidGrade: Math.max(0, fleschKincaidGrade),
     };
-  }, [text]);
+  }, [debouncedText]);
 
   const getScoreDescription = (score: number) => {
     if (score >= 90)

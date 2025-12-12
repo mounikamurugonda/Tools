@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
@@ -51,19 +52,26 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
     setCols(newCols);
   }
 
-  const generateMarkdown = () => {
-    if (!data.length || !data[0]) return '';
-    const header = '| ' + data[0].map((cell) => cell || 'Header').join(' | ') + ' |';
-    const separator = '| ' + data[0].map(() => '---').join(' | ') + ' |';
+  const debouncedData = useDebounce(data, 500);
+
+  const markdownOutput = useMemo(() => {
+    if (!debouncedData.length || !debouncedData[0]) return '';
+    const header =
+      '| ' + debouncedData[0].map((cell) => cell || 'Header').join(' | ') + ' |';
+    const separator =
+      '| ' + debouncedData[0].map(() => '---').join(' | ') + ' |';
 
     // Skip first row as header
-    if (data.length === 1) return `${header}\n${separator}`;
+    if (debouncedData.length === 1) return `${header}\n${separator}`;
 
-    const body = data.slice(1)
-      .map((row) => '| ' + row.map((cell) => cell || 'Cell').join(' | ') + ' |')
+    const body = debouncedData
+      .slice(1)
+      .map(
+        (row) => '| ' + row.map((cell) => cell || 'Cell').join(' | ') + ' |',
+      )
       .join('\n');
     return `${header}\n${separator}\n${body}`;
-  };
+  }, [debouncedData]);
 
   return (
     <ToolContainer
@@ -135,11 +143,11 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="relative">
             <TextArea
               readOnly
-              value={generateMarkdown()}
+              value={markdownOutput}
               className="h-48 border-none focus:ring-0 rounded-none font-mono text-sm bg-gray-50 dark:bg-gray-900"
             />
             <div className="absolute top-2 right-2">
-              <CopyButton textToCopy={generateMarkdown()} />
+              <CopyButton textToCopy={markdownOutput} />
             </div>
           </div>
         </Card>

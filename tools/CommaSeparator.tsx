@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
@@ -59,17 +60,29 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
         newLineAfter: false,
     });
 
+    const debouncedInput = useDebounce(input, 500);
+    const debouncedInputDelimiter = useDebounce(inputDelimiter, 500);
+    const debouncedInputCustomDelimiter = useDebounce(inputCustomDelimiter, 500);
+    const debouncedOutputDelimiter = useDebounce(outputDelimiter, 500);
+    const debouncedOutputCustomDelimiter = useDebounce(outputCustomDelimiter, 500);
+    const debouncedWrapper = useDebounce(wrapper, 500);
+    const debouncedCustomWrapperLeft = useDebounce(customWrapperLeft, 500);
+    const debouncedCustomWrapperRight = useDebounce(customWrapperRight, 500);
+    const debouncedPrefix = useDebounce(prefix, 500);
+    const debouncedSuffix = useDebounce(suffix, 500);
+    const debouncedOptions = useDebounce(options, 500);
+
     const processText = () => {
-        let text = input;
+        let text = debouncedInput;
         if (!text) {
             setOutput('');
             return;
         }
 
         // 1. Determine Input Splitter
-        let splitter = inputDelimiter;
+        let splitter = debouncedInputDelimiter;
 
-        if (inputDelimiter === 'auto') {
+        if (debouncedInputDelimiter === 'auto') {
             const candidates = [
                 { val: '\n', count: (text.match(/\n/g) || []).length },
                 { val: ',', count: (text.match(/,/g) || []).length },
@@ -82,29 +95,29 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
             // Find the delimiter with the highest occurrence count
             const winner = candidates.reduce((prev, current) => (prev.count > current.count) ? prev : current);
             splitter = winner.count > 0 ? winner.val : '\n';
-        } else if (inputDelimiter === 'custom') {
-            splitter = inputCustomDelimiter;
+        } else if (debouncedInputDelimiter === 'custom') {
+            splitter = debouncedInputCustomDelimiter;
         }
 
         let items = text.split(splitter);
 
         // 2. Process Items
-        if (options.trimWhitespace) {
+        if (debouncedOptions.trimWhitespace) {
             items = items.map(i => i.trim());
         }
 
-        if (options.removeEmpty) {
+        if (debouncedOptions.removeEmpty) {
             items = items.filter(i => i.length > 0);
         }
 
-        if (options.removeDuplicates) {
+        if (debouncedOptions.removeDuplicates) {
             items = Array.from(new Set(items));
         }
 
-        if (options.sort === 'asc') {
+        if (debouncedOptions.sort === 'asc') {
             const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
             items.sort(collator.compare);
-        } else if (options.sort === 'desc') {
+        } else if (debouncedOptions.sort === 'desc') {
             const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' });
             items.sort((a, b) => collator.compare(b, a));
         }
@@ -114,24 +127,24 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
             let wrapped = item;
 
             // Wrapper
-            if (wrapper !== 'none') {
-                if (wrapper === 'custom') {
-                    wrapped = `${customWrapperLeft}${item}${customWrapperRight}`;
-                } else if (['()', '[]', '{}'].includes(wrapper)) {
-                    wrapped = `${wrapper[0]}${item}${wrapper[1]}`;
+            if (debouncedWrapper !== 'none') {
+                if (debouncedWrapper === 'custom') {
+                    wrapped = `${debouncedCustomWrapperLeft}${item}${debouncedCustomWrapperRight}`;
+                } else if (['()', '[]', '{}'].includes(debouncedWrapper)) {
+                    wrapped = `${debouncedWrapper[0]}${item}${debouncedWrapper[1]}`;
                 } else {
-                    wrapped = `${wrapper}${item}${wrapper}`;
+                    wrapped = `${debouncedWrapper}${item}${debouncedWrapper}`;
                 }
             }
 
-            return `${prefix}${wrapped}${suffix}`;
+            return `${debouncedPrefix}${wrapped}${debouncedSuffix}`;
         });
 
         // 4. Join
-        let joiner = outputDelimiter;
-        if (outputDelimiter === 'custom') joiner = outputCustomDelimiter;
+        let joiner = debouncedOutputDelimiter;
+        if (debouncedOutputDelimiter === 'custom') joiner = debouncedOutputCustomDelimiter;
 
-        if (options.newLineAfter && joiner !== '\n') {
+        if (debouncedOptions.newLineAfter && joiner !== '\n') {
             joiner = `${joiner}\n`;
         }
 
@@ -140,7 +153,19 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     useEffect(() => {
         processText();
-    }, [input, inputDelimiter, inputCustomDelimiter, outputDelimiter, outputCustomDelimiter, wrapper, customWrapperLeft, customWrapperRight, prefix, suffix, options]);
+    }, [
+        debouncedInput,
+        debouncedInputDelimiter,
+        debouncedInputCustomDelimiter,
+        debouncedOutputDelimiter,
+        debouncedOutputCustomDelimiter,
+        debouncedWrapper,
+        debouncedCustomWrapperLeft,
+        debouncedCustomWrapperRight,
+        debouncedPrefix,
+        debouncedSuffix,
+        debouncedOptions
+    ]);
 
     const clearAll = () => {
         setInput('');
@@ -343,14 +368,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
                             )}
                         </div>
 
-                        <Button
-                            onClick={processText}
-                            className="rounded-full h-12 px-6 flex items-center justify-center gap-2 shadow-md hover:shadow-lg transition-all bg-blue-600 hover:bg-blue-700 text-white font-medium"
-                            title="Convert"
-                        >
-                            <span className="hidden lg:inline">Convert</span>
-                            <ArrowRight className="w-5 h-5 transform rotate-90 lg:rotate-0" />
-                        </Button>
+
                     </div>
 
                     {/* Output Result */}

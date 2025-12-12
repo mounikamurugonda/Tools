@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
@@ -10,12 +11,13 @@ import Card from '@/components/ui/Card';
 
 const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
+  const debouncedInput = useDebounce(input, 500);
 
   const stats = useMemo(() => {
-    const trimmedInput = input.trim();
-    const characters = input.length;
+    const trimmedInput = debouncedInput.trim();
+    const characters = debouncedInput.length;
     const words = trimmedInput === '' ? 0 : trimmedInput.split(/\s+/).length;
-    const lines = input.split('\n').length;
+    const lines = debouncedInput.split('\n').length;
     const sentences =
       trimmedInput === ''
         ? 0
@@ -28,7 +30,7 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
       return { characters, words, lines, sentences: 1 };
 
     return { characters, words, lines, sentences };
-  }, [input]);
+  }, [debouncedInput]);
 
   return (
     <ToolContainer

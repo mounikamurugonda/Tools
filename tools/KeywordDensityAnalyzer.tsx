@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import { useDebounce } from '@/hooks/useDebounce';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
@@ -142,12 +143,14 @@ const KeywordDensityAnalyzer: React.FC<ToolProps> = ({ details, toolId }) => {
   );
   const [ignoreStopWords, setIgnoreStopWords] = useState(true);
 
+  const debouncedText = useDebounce(text, 500);
+
   const analysis = useMemo(() => {
-    const cleanedText = text.toLowerCase().replace(/[^\w\s']/g, '');
+    const cleanedText = debouncedText.toLowerCase().replace(/[^\w\s']/g, '');
     const words = cleanedText.split(/\s+/).filter(Boolean);
 
     const filteredWords = ignoreStopWords
-      ? words.filter((word) => !STOP_WORDS.has(word))
+      ? words.filter((word: string) => !STOP_WORDS.has(word))
       : words;
     const totalWords = filteredWords.length;
 
@@ -176,7 +179,7 @@ const KeywordDensityAnalyzer: React.FC<ToolProps> = ({ details, toolId }) => {
       two_words: getNgramFrequency(2),
       three_words: getNgramFrequency(3),
     };
-  }, [text, ignoreStopWords]);
+  }, [debouncedText, ignoreStopWords]);
 
   return (
     <ToolContainer
