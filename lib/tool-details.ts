@@ -5,1206 +5,1790 @@ const PRIVACY_STATEMENT =
 
 export const TOOL_DETAILS: Record<string, ToolDetails> = {
   'json-to-typescript': {
-    introduction: "Convert JSON to Typescript",
-    howToUse: ["Paste JSON", "Copy TS"],
-    features: ["Instantly generate TypeScript interfaces from JSON objects.", "Supports nested JSON objects and arrays.", "Copy generated TypeScript with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "This tool simplifies front-end and back-end development by automating the creation of TypeScript interfaces and types from raw JSON data. Instead of manually defining each property and its type, you can paste your JSON, and the tool will infer the structure and generate the corresponding TypeScript code, saving significant development time and reducing errors.",
-    usageExamples: [
-      "Generating type definitions for API responses in a web application.",
-      "Creating interfaces for configuration files that use JSON format.",
-      "Quickly prototyping data models for new features or projects.",
-      "Learning how JSON structures map to TypeScript types."
+    introduction: "Instantly convert your JSON objects into accurate TypeScript interfaces. This tool saves you time by automatically generating type definitions, helping you catch errors early and speed up your development workflow. No more manual typing—just paste and go.",
+    howToUse: [
+      "Paste your JSON object into the input area on the left.",
+      "Your TypeScript interfaces will generate automatically on the right.",
+      "Copy the code to your clipboard and drop it straight into your project.",
     ],
-    underlyingConcept: "The tool works by parsing the input JSON string into a JavaScript object. It then recursively traverses this object, inferring the data type of each key-value pair (e.g., string, number, boolean, array, object). For arrays, it analyzes the first element to determine the array's item type. Finally, it constructs the TypeScript `interface` or `type` definitions based on these inferred types.",
+    features: [
+      "Instant Interface Generation: Turn raw JSON into strict TypeScript types in milliseconds.",
+      "Nested Object Support: Handles complex, deep-nested structures with ease.",
+      "Smart Type Detection: accurately infers string, number, boolean, array, and null types.",
+      "Privacy-Focused: Your data never leaves your browser; all processing is local.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Manually writing TypeScript interfaces for complex API responses is tedious and error-prone. This tool automates the process by parsing your JSON and inferring the structure. It walks through objects and arrays to build a complete type definition, handling primitive types and nested relationships automatically. It's a must-have for developers working with external APIs or large configuration files.",
+    usageExamples: [
+      "Generating types for a third-party API response to ensure type safety.",
+      "Converting a large config file into a typed structure.",
+      "Quickly scaffolding data models for a new React component.",
+      "Learning how different JSON structures map to TypeScript definitions.",
+    ],
+    underlyingConcept:
+      "The tool traverses the JSON syntax tree. For every object key, it determines the value's type. If the value is an object, it creates a nested interface. If it's an array, it checks the contents to define the array type (e.g., `string[]` or `User[]`). This recursive process ensures accurate and comprehensive type coverage.",
     faqs: [
       {
-        "question": "What is JSON to TypeScript conversion?",
-        "answer": "It is the process of converting a JSON object into a TypeScript interface, which provides type safety and autocompletion in your code."
+        question: "Does it work with messy JSON?",
+        answer:
+          "It expects valid JSON to work correctly. If your JSON has syntax errors, you might want to run it through our JSON Formatter first!",
       },
       {
-        "question": "Why should I use a JSON to TypeScript converter?",
-        "answer": "It saves you time and effort by automatically generating TypeScript interfaces from your JSON data, reducing the chances of manual errors."
+        question: "Can I use the generated code directly?",
+        answer:
+          "Yes! The output is standard TypeScript. You can copy-paste it directly into your `.ts` or `.tsx` files.",
       },
       {
-        "question": "Is this tool free to use?",
-        "answer": "Yes, this is a completely free online tool to convert your JSON data to TypeScript interfaces."
-      }
+        question: "Is my JSON data safe?",
+        answer:
+          "Absolutely. We don't send your data to any server. The conversion happens right here in your browser's memory.",
+      },
     ],
   },
   'code-to-image': {
-    introduction: "Create screenshots of code.",
-    howToUse: ["Paste Code", "Select Theme", "Snapshot"],
-    features: ["Create beautiful images of your code snippets.", "Supports multiple themes and languages.", "Customize background color and padding."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Code to Image tool transforms plain code snippets into visually appealing images. This is particularly useful for presentations, social media sharing, or documentation where you want to showcase code with attractive styling, syntax highlighting, and customizable backgrounds without it being editable.",
-    usageExamples: [
-      "Creating stunning code screenshots for a technical blog post or article.",
-      "Generating images of code examples for a presentation slide deck.",
-      "Sharing beautifully formatted code snippets on social media platforms like Twitter or LinkedIn.",
-      "Embedding static code visuals in documentation where interactivity is not required."
+    introduction: "Transform your code into stunning, shareable images. Whether you're sharing a snippet on Twitter, adding visuals to a presentation, or documenting your work, this tool makes your code look beautiful. Choose from sleek themes, customize the background, and create a snapshot that stands out.",
+    howToUse: [
+      "Paste your code into the editor.",
+      "Select a syntax highlighting theme that matches your style.",
+      "Adjust the background color and padding to frame your code perfectly.",
+      "Click 'Take Snapshot' to download your high-quality image.",
     ],
-    underlyingConcept: "This tool leverages client-side rendering to interpret the code input. It applies syntax highlighting using a library (like Prism.js or Highlight.js) and then uses HTML5 Canvas or SVG to render the styled text onto an image. The user's styling choices (theme, background, padding) are applied during this rendering process, and the final image is generated for download without server interaction.",
+    features: [
+      "Beautiful Themes: Choose from popular color schemes like Dracula, Monokai, and more.",
+      "Customizable Styling: Adjust background colors, padding, and window controls.",
+      "Syntax Highlighting: precise coloring for JavaScript, Python, HTML, and other languages.",
+      "High-Resolution Export: Download crisp images perfect for social media or print.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "This tool eliminates the hassle of taking screenshots of your code editor. It renders your code text with syntax highlighting and wraps it in a customizable container that mimics a clean Mac-style window. The result is a polished, professional image that communicates your code clearly and attractively.",
+    usageExamples: [
+      "Sharing a clever solution or tip on Twitter/X or LinkedIn.",
+      "Creating professional visuals for technical blog posts.",
+      "Adding readable code samples to slide decks and presentations.",
+      "Documenting code patterns for internal team wikis.",
+    ],
+    underlyingConcept:
+      "We use client-side rendering to draw your code. The text is tokenized for syntax highlighting (identifying keywords, strings, comments) and then painted onto an HTML canvas or DOM structure with specific CSS styles. Finally, we capture that visual element and convert it into a PNG image that you can download.",
     faqs: [
       {
-        "question": "How can I create an image from my code?",
-        "answer": "You can use this tool to paste your code, select a theme, and then take a snapshot to create a beautiful image of your code."
+        question: "Can I change the programming language?",
+        answer:
+          "Yes, the tool auto-detects many languages, but you can also manually select the specific language for accurate highlighting.",
       },
       {
-        "question": "Can I customize the appearance of the code image?",
-        "answer": "Yes, you can choose from multiple themes, and customize the background color and padding to match your style."
+        question: "Is the image high quality?",
+        answer:
+          "Yes, we generate high-resolution images that look sharp even on Retina displays.",
       },
       {
-        "question": "Is my code secure?",
-        "answer": "Yes, all the processing is done in your browser. Your code is not sent to any server."
-      }
+        question: "Does it save my code?",
+        answer:
+          "No. Your code is processed entirely in your browser window and is discarded as soon as you close the tab.",
+      },
     ],
   },
   'sql-formatter': {
-    introduction: "Format SQL queries.",
-    howToUse: ["Paste SQL", "Click Format"],
-    features: ["Format and beautify your SQL queries.", "Supports various SQL dialects.", "Copy formatted SQL with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The SQL Formatter tool takes unformatted or poorly formatted SQL queries and restructures them into a clean, readable, and consistent style. This process involves proper indentation, line breaks, and consistent capitalization of keywords, making complex SQL statements much easier to understand, debug, and maintain.",
-    usageExamples: [
-      "Beautifying a long, single-line SQL query received from a colleague.",
-      "Standardizing the format of SQL scripts across a development team.",
-      "Debugging complex stored procedures or database migrations by making the code legible.",
-      "Preparing SQL code for presentations or documentation to ensure clarity."
+    introduction: "Turn messy SQL queries into clean, readable code. Our SQL Formatter instantly beautifies your SQL statements, handling indentation, capitalization, and spacing automatically. Whether you're debugging a complex query or tidying up a script for review, this tool makes your SQL easy to read and understand.",
+    howToUse: [
+      "Paste your raw SQL query into the text area.",
+      "Click the 'Format' button to apply standard formatting rules.",
+      "The result will appear with proper indentation and keyword capitalization.",
+      "Copy the clean code to your clipboard.",
     ],
-    underlyingConcept: "SQL formatting is typically achieved by parsing the SQL query into an Abstract Syntax Tree (AST) or tokenizing it into individual keywords, operators, and identifiers. The formatter then traverses this structure, applying a predefined set of rules (e.g., indent `SELECT` clauses, new line after `FROM`, uppercase keywords) to reconstruct the query in a standardized, human-readable format.",
+    features: [
+      "Instant Beautification: Formatting that adheres to industry best practices.",
+      "Multi-Dialect Support: Works with Standard SQL, MySQL, PostgreSQL, and more.",
+      "Error Highlighting: Helps you spot syntax mistakes quickly.",
+      "One-Click Copy: deeply integrated workflow for developer convenience.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Writing complex SQL queries often leads to long, unreadable strings of text. This tool parses your SQL structure, identifying keywords (like SELECT, FROM, WHERE), tables, and conditions. It then reconstructs the query with consistent indentation and line breaks, making the logic visually apparent and easier to debug.",
+    usageExamples: [
+      "Cleaning up a query generated by an ORM or a tool.",
+      "Formatting legacy code to understand how it works.",
+      "Preparing SQL scripts for code review or documentation.",
+      "Debugging a long query by breaking it down visually.",
+    ],
+    underlyingConcept:
+      "The formatter tokenizes the SQL string, separating commands from identifiers and values. It builds an Abstract Syntax Tree (AST) to understand the query's hierarchy. Then, it traverses this tree to print the query again, inserting newlines and spaces according to a set of style rules (e.g., 'start a new line for every major clause').",
     faqs: [
       {
-        "question": "What is an SQL formatter?",
-        "answer": "An SQL formatter is a tool that automatically formats your SQL queries to make them more readable and consistent with standard SQL formatting rules."
+        question: "Does it change my query logic?",
+        answer:
+          "No. It changes whitespace and capitalization only. The logic and execution of your query remain exactly the same.",
       },
       {
-        "question": "Does this tool support different SQL dialects?",
-        "answer": "Yes, this tool supports various SQL dialects, so you can format your queries correctly for your specific database."
+        question: "What SQL dialects are supported?",
+        answer:
+          "It generally supports standard SQL syntax which covers most major databases (MySQL, PostgreSQL, SQL Server, etc.).",
       },
       {
-        "question": "Is it easy to use?",
-        "answer": "Yes, you just need to paste your SQL query and click the format button to get the beautifully formatted query."
-      }
+        question: "Can I format multiple queries at once?",
+        answer:
+          "Yes, just paste your script with multiple statements (separated by semicolons) and it will format the entire block.",
+      },
     ],
   },
   'cron-generator': {
-    introduction: "Build Cron expressions visually.",
-    howToUse: ["Select intervals", "Copy string"],
-    features: ["Visually build and explain cron job schedules.", "Supports all cron expression fields.", "Generates human-readable descriptions of cron jobs."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Cron Expression Generator simplifies the creation and understanding of cron job schedules. Cron expressions are strings used by Unix-like operating systems to schedule tasks, but their syntax can be complex. This tool provides a user-friendly interface to visually construct these expressions and translates them into human-readable descriptions, preventing errors and ensuring tasks run as intended.",
-    usageExamples: [
-      "Scheduling a daily backup script to run at 2:00 AM.",
-      "Setting up a weekly report generation every Monday at 9:00 AM.",
-      "Configuring a server to clear temporary files on the first day of every month.",
-      "Understanding an existing cron expression to debug a scheduled task issue."
+    introduction: "Master the art of scheduling without the headache. The Cron Expression Generator lets you visually build complex cron schedules by simply clicking. Whether you need a job to run every 5 minutes or only on specific days, this tool generates the correct syntax and explains it in plain English.",
+    howToUse: [
+      "Select your time intervals (minutes, hours, days, etc.) using the visual selectors.",
+      "Choose specific values or ranges/steps.",
+      "See the cron expression update instantly at the top.",
+      "Read the human-readable description to verify your schedule.",
+      "Copy the string to your clipboard.",
     ],
-    underlyingConcept: "A cron expression consists of five or six fields representing minute, hour, day of month, month, day of week, and an optional year. Each field can contain numbers, ranges, lists, and wildcards (`*`) to specify execution times. The tool's visual interface maps user selections to these fields, and its explanation logic parses the resulting string back into natural language by analyzing each field's value.",
+    features: [
+      "Visual Builder: Click to select times; no need to memorize syntax.",
+      "Human-Readable text: Instantly translates `*/5 * * * *` into 'Every 5 minutes'.",
+      "Full Cron Support: Handles standard cron syntax for Unix/Linux systems.",
+      "Next Run Preview: Shows you exactly when the next scheduled events will occur.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Cron syntax is powerful but notoriously cryptic. A single mistake can cause a job not to run or to run constantly. This tool isolates each part of the schedule (minute, hour, day, month, weekday) into an easy-to-use interface, ensuring valid syntax while teaching you how the expression is constructed.",
+    usageExamples: [
+      "Scheduling a daily database backup at 3 AM.",
+      "Running a cleanup script every Monday morning.",
+      "Setting up a recurring report email for the first of every month.",
+      "Debugging a legacy cron job to understand when it runs.",
+    ],
+    underlyingConcept:
+      "A cron string consists of 5 fields: minute, hour, day of month, month, and day of week. The tool maps your UI selections to these fields. For instance, selecting 'Every 15 minutes' generates `*/15` in the minute field. The textual explanation parses this string back into natural language.",
     faqs: [
       {
-        "question": "What is a cron expression?",
-        "answer": "A cron expression is a string of characters that defines a schedule for a cron job, which is a time-based job scheduler in Unix-like computer operating systems."
+        question: "What is a cron job?",
+        answer:
+          "It's a time-based scheduler in Unix-like operating systems. You use it to automate scripts or commands to run at specific times.",
       },
       {
-        "question": "How can I generate a cron expression?",
-        "answer": "You can use this tool to visually build a cron expression by selecting the desired intervals for minutes, hours, days, months, and days of the week."
+        question: "Does this work for AWS and Kubernetes?",
+        answer:
+          "Yes! Most cloud schedulers and Kubernetes CronJobs use the same standard cron syntax generated by this tool.",
       },
       {
-        "question": "Does this tool explain the cron expression?",
-        "answer": "Yes, it generates a human-readable description of the cron job schedule, so you can easily understand what the expression means."
-      }
+        question: "What does the asterisk (*) mean?",
+        answer:
+          "An asterisk means 'every'. So `*` in the hour field means 'every hour'.",
+      },
     ],
   },
   'slug-generator': {
-    introduction: "Create URL slugs.",
-    howToUse: ["Type title", "Copy slug"],
-    features: ["Convert text into SEO-friendly URL slugs.", "Removes special characters and spaces.", "Supports multiple languages."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Slug Generator is a utility that transforms ordinary text, such as a blog post title or product name, into a clean, URL-friendly string known as a \"slug.\" This process typically involves converting text to lowercase, replacing spaces with hyphens, and removing special characters, resulting in a format optimized for search engines and readability in web addresses.",
-    usageExamples: [
-      "Creating SEO-friendly URLs for blog posts or articles from their titles.",
-      "Generating unique identifiers for product pages on an e-commerce website.",
-      "Normalizing user-generated content titles into web-safe formats.",
-      "Preparing human-readable file names from complex string inputs."
+    introduction: "Create perfectly optimized URL slugs for better SEO. This tool converts any text—like a blog title or product name—into a clean, URL-friendly slug. It removes special characters, handles accents, and replaces spaces with hyphens, ensuring your links are readable by both humans and search engines.",
+    howToUse: [
+      "Type or paste your text (like a blog post title) into the input box.",
+      "The optimized slug appears instantly below.",
+      "Click to copy the slug and use it in your URL structure.",
     ],
-    underlyingConcept: "A slug is a web-friendly version of a title that appears in a URL. The generation process involves several steps: transliteration (converting non-ASCII characters to their closest ASCII equivalents), lowercasing the entire string, replacing all whitespace with a separator (usually a hyphen), and removing any characters that are not alphanumeric or the chosen separator. This ensures the resulting string is valid for use in URLs and is easily understood by both humans and search engine crawlers.",
+    features: [
+      "SEO Optimized: create clean, keyword-rich URLs that search engines love.",
+      "Smart Character Handling: Automatically transliterates accents (e.g., 'café' becomes 'cafe').",
+      "Customizable: Options to trim whitespace or keep specific characters.",
+      "Instant Result: See the slug update in real-time as you type.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "A 'slug' is the part of a URL that identifies a specific page. Search engines prefer slugs that are lowercase, hyphen-separated, and free of weird characters. This tool automates that cleaning process using industry-standard rules, checking your text against a regex to strip out symbols and normalize the string.",
+    usageExamples: [
+      "Converting 'How to Bake a Cake!' into 'how-to-bake-a-cake' for a blog post.",
+      "Generating product URLs like 'awesome-blue-tshirt' from product names.",
+      "Standardizing filenames before uploading to a server.",
+      "Creating readable anchor links for documentation headers.",
+    ],
+    underlyingConcept:
+      "Slugification involves string normalization. We lowercase the string, replace whitespace with a defined separator (usually `-`), and remove any character that isn't a letter, number, or separator. We also normalize unicode characters to their ASCII equivalents to ensure broad compatibility.",
     faqs: [
       {
-        "question": "What is a URL slug?",
-        "answer": "A URL slug is the part of a URL that identifies a particular page on a website in an easy-to-read form. It's usually a kebab-cased version of the page title."
+        question: "Why does SEO care about slugs?",
+        answer:
+          "Clear, readable URLs help search engines understand what your page is about. `my-awesome-post` is much better than `post?id=123`.",
       },
       {
-        "question": "Why are SEO-friendly slugs important?",
-        "answer": "SEO-friendly slugs are important because they can improve your website's search engine rankings by including relevant keywords and being easy for users to understand."
+        question: "Can I use underscores instead of hyphens?",
+        answer:
+          "Technically yes, but Google recommends hyphens (`-`) for separating words in URLs.",
       },
       {
-        "question": "How does this slug generator work?",
-        "answer": "This tool converts your text into a URL-friendly slug by removing special characters, converting spaces to hyphens, and making the text lowercase."
-      }
+        question: "Does it work with non-English characters?",
+        answer:
+          "Yes, it attempts to convert accented characters to their closest English equivalent (ASCII) for maximum compatibility.",
+      },
     ],
   },
   'meta-tag-generator': {
-    introduction: "Create HTML meta tags.",
-    howToUse: ["Enter details", "Copy HTML"],
-    features: ["Generate SEO meta tags for your website.", "Includes title, description, and keywords.", "Generates tags for social media platforms."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Meta Tag Generator helps website owners and SEO professionals create essential HTML meta tags that provide search engines and social media platforms with crucial information about a webpage's content. These tags, while not visible on the page itself, are vital for improving search engine rankings, controlling how content appears when shared, and enhancing overall online visibility.",
-    usageExamples: [
-      "Crafting compelling title tags and meta descriptions to improve click-through rates from search results.",
-      "Generating Open Graph tags for Facebook and Twitter Cards to control how links are previewed on social media.",
-      "Setting `robots` meta tags to instruct search engine crawlers on how to index (or not index) a page.",
-      "Quickly creating a set of standard meta tags for new web pages."
+    introduction: "Boost your SEO and social sharing in seconds. The Meta Tag Generator helps you create the essential HTML tags that search engines and social media platforms look for. Simply fill in the details, and we'll generate the code to ensure your site looks great on Google, Facebook, Twitter, and more.",
+    howToUse: [
+      "Enter your website's title and description.",
+      "Add keywords and author information.",
+      "Preview how your site will look on search engines and social media.",
+      "Copy the generated HTML code and paste it into your site's `<head>` section.",
     ],
-    underlyingConcept: "Meta tags are snippets of text that live in the `<head>` section of an HTML document. They serve as metadata – data about data – providing structured information that browsers, search engines, and social media platforms can understand. Different types of meta tags (e.g., `<title>`, `<meta name=\"description\">`, `<meta property=\"og:title\">`) adhere to specific standards (like HTML5 and Open Graph Protocol) to convey different aspects of a page's identity and content.",
+    features: [
+      "SEO Essentials: Generates title, description, and keyword tags.",
+      "Social Media Ready: Creates Open Graph (Facebook) and Twitter Card tags automatically.",
+      "Visual Preview: See exactly how your link will appear when shared.",
+      "One-Click Copy: Grab all the code you need instantly.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Meta tags are snippets of text that describe a page's content. They don't appear on the page itself, but in the page's code. Search engines use them to understand your content, and social media platforms use them to generate preview cards (with images and titles) when your link is shared.",
+    usageExamples: [
+      "Preparing a new blog post for publication.",
+      "Optimizing a landing page to improve click-through rates from Google.",
+      "Ensuring your homepage looks professional when shared on LinkedIn or Slack.",
+    ],
+    underlyingConcept:
+      "This tool generates standard HTML `<meta>` tags. For SEO, it focuses on `description` and `keywords`. For social media, it uses the Open Graph protocol (`og:title`, `og:image`) and Twitter Cards (`twitter:card`), which are the industry standards for controlling how content is displayed on external platforms.",
     faqs: [
       {
-        "question": "What are meta tags?",
-        "answer": "Meta tags are snippets of text that describe a page's content; they don't appear on the page itself, but only in the page's code. They are important for SEO."
+        question: "Why are these tags important?",
+        answer:
+          "Without them, search engines and social sites interpret your page blindly, often picking random text or images to display. These tags give you control over your brand's appearance.",
       },
       {
-        "question": "Which meta tags are important for SEO?",
-        "answer": "The most important meta tags for SEO are the title tag, meta description, and meta keywords. This tool helps you generate all of them."
+        question: "Do I need all of these tags?",
+        answer:
+          "For the best results, yes. At a minimum, you should have a Title, Description, and Open Graph image.",
       },
       {
-        "question": "Does this tool generate social media meta tags?",
-        "answer": "Yes, it generates Open Graph meta tags for social media platforms like Facebook and Twitter."
-      }
+        question: "Where do I put the code?",
+        answer:
+          "Paste the generated code between the `<head>` and `</head>` tags of your HTML file.",
+      },
     ],
   },
   'contrast-checker': {
-    introduction: "Check color contrast.",
-    howToUse: ["Select colors", "See rating"],
-    features: ["Check color contrast accessibility (WCAG).", "Supports AA and AAA levels.", "Provides a color picker to select colors."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Contrast Checker tool evaluates the legibility of text against its background color, ensuring accessibility for users with visual impairments. It provides instant feedback on whether your color combinations meet the Web Content Accessibility Guidelines (WCAG) standards, specifically AA and AAA levels, which are crucial for inclusive web design.",
-    usageExamples: [
-      "Verifying color schemes for website text and backgrounds to ensure WCAG compliance.",
-      "Designing accessible buttons or interactive elements where text needs to stand out.",
-      "Auditing existing designs to identify and fix poor contrast issues.",
-      "Selecting accessible color palettes for branding and user interfaces."
+    introduction: "Design accessible websites with confidence. The Contrast Checker instantly evaluates the color contrast between your text and background, ensuring your content is readable for everyone. It checks against WCAG guidelines (AA and AAA) so you can meet accessibility standards and provide a better user experience.",
+    howToUse: [
+      "Select your text color and background color using the color pickers.",
+      "Instantly see the contrast ratio score.",
+      "Check the 'Pass/Fail' indicators for WCAG AA and AAA standards.",
+      "Adjust the colors until you achieve a passing score.",
     ],
-    underlyingConcept: "Color contrast is a measure of the difference in luminance (light intensity) or color between two adjacent colors. WCAG defines specific mathematical formulas and thresholds for minimum contrast ratios to ensure content is readable by a wide range of users, including those with color blindness or low vision. This tool applies these formulas to the input colors to calculate and report the contrast ratio.",
+    features: [
+      "WCAG Compliance: Automatically checks against Web Content Accessibility Guidelines.",
+      "Real-Time Scoring: See the contrast ratio update as you pick colors.",
+      "Visual Preview: See exactly how your text looks on the chosen background.",
+      "Smart Suggestions: Helps you find compliant color combinations.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Accessibility isn't just a buzzword; it's a necessity. This tool calculates the luminance difference between two colors. A low contrast ratio makes text hard to read for people with low vision or color blindness. Meeting WCAG standards ensures your site is inclusive and usable by the widest possible audience.",
+    usageExamples: [
+      "Checking your brand colors to ensure they are accessible on the web.",
+      "Designing buttons and calls-to-action that stand out and are readable.",
+      "Auditing a website for accessibility compliance.",
+      "Selecting a color palette for a new design system.",
+    ],
+    underlyingConcept:
+      "We use the relative luminance formula defined by the W3C. The contrast ratio can range from 1:1 (no difference) to 21:1 (black text on white). WCAG Level AA requires a ratio of at least 4.5:1 for normal text, while Level AAA requires 7:1.",
     faqs: [
       {
-        "question": "What is color contrast?",
-        "answer": "Color contrast is the difference in light between the foreground and background colors. It is important for accessibility, as it affects how people with visual impairments can read the text on your website."
+        question: "What is a good contrast ratio?",
+        answer:
+          "For normal text, aim for at least 4.5:1 (Level AA). For large text (18pt+), 3:1 is acceptable. Ideally, try for 7:1 (Level AAA) for maximum accessibility.",
       },
       {
-        "question": "What are WCAG AA and AAA levels?",
-        "answer": "WCAG (Web Content Accessibility Guidelines) defines two levels of contrast compliance: AA (minimum) and AAA (enhanced). This tool helps you check your color combinations against both levels."
+        question: "Why does accessibility matter?",
+        answer:
+          "It ensures people with visual impairments can read your content. Plus, accessible sites often rank better in SEO and are easier for everyone to use, even in bright sunlight.",
       },
       {
-        "question": "How do I use this tool?",
-        "answer": "Simply select the foreground and background colors using the color pickers, and the tool will show you the contrast ratio and whether it passes the WCAG AA and AAA levels."
-      }
+        question: "Does this affect my design?",
+        answer:
+          "It improves it! High contrast usually leads to cleaner, more legible designs.",
+      },
     ],
   },
   'chmod-calculator': {
-    introduction: "Calculate Linux permissions.",
-    howToUse: ["Check boxes", "Copy code"],
-    features: ["Visual calculator for Unix file permissions.", "Supports read, write, and execute permissions.", "Generates octal and symbolic notations."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Chmod Calculator provides a user-friendly interface to easily determine and understand Unix-like file permissions. Instead of memorizing octal codes or symbolic representations, you can visually select read, write, and execute permissions for the owner, group, and others. The tool then instantly generates both the octal and symbolic notations, simplifying file permission management.",
-    usageExamples: [
-      "Setting appropriate permissions for shell scripts (`755` for execute, read, write for owner, read/execute for group/others).",
-      "Restricting access to sensitive configuration files (`600` for read/write only for owner).",
-      "Understanding the permissions of a shared directory or file on a Linux server.",
-      "Quickly generating the `chmod` command needed to apply specific permissions."
+    introduction: "Master Linux file permissions without the math. The Chmod Calculator lets you visually set read, write, and execute permissions for users, groups, and others. It instantly generates the correct numeric (octal) code (e.g., 755) and the symbolic notation (rwxr-xr-x), so you can secure your files correctly.",
+    howToUse: [
+      "Check the boxes for Read (r), Write (w), and Execute (x) for Owner, Group, and Public.",
+      "Watch the numeric value (e.g., 777) update instantly.",
+      "See the command string update in real-time.",
+      "Copy the full `chmod` command to use in your terminal.",
     ],
-    underlyingConcept: "Unix-like file permissions control who can read, write, or execute a file or directory. These permissions are assigned to three entities: the file owner, the group the file belongs to, and others (everyone else). Each permission (read, write, execute) has a numerical value (4, 2, 1 respectively). The octal representation is a sum of these values for each entity, while the symbolic representation uses letters (r, w, x) and hyphens.",
+    features: [
+      "Visual Interface: No need to memorize octal math; just point and click.",
+      "Dual Output: Generates both octal (755) and symbolic (rwxr-xr-x) formats.",
+      "Terminal Ready: provides the full command line to copy-paste.",
+      "Explanation Grid: Helps you understand what each permission bit means.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Linux permissions can be confusing. `chmod` (change mode) uses a 3-digit number to define permissions. The first digit is for the Owner, the second for the Group, and the third for Everyone else. Each digit is the sum of permissions: Read (4) + Write (2) + Execute (1). This tool does that addition for you.",
+    usageExamples: [
+      "Setting a web server file to be readable but not writable by the public (644).",
+      "Making a script executable so you can run it (755).",
+      "Locking down a config file so only the owner can read it (600).",
+      "Learning how Linux file security works.",
+    ],
+    underlyingConcept:
+      "Unix file systems treat permissions as bits. Read is the 4-bit, Write is the 2-bit, and Execute is the 1-bit. By adding these values (e.g., 4+2+1 = 7), the system knows exactly what access is allowed. This calculator is essentially a visual binary-to-octal converter specific to file modes.",
     faqs: [
       {
-        "question": "What is chmod?",
-        "answer": "chmod is a command in Unix and Unix-like operating systems that is used to change the access permissions of file system objects (files and directories)."
+        question: "What is the most common permission?",
+        answer:
+          "`755` is common for directories and scripts (owner can do everything; others can only read/execute). `644` is standard for files (owner can write; others can only read).",
       },
       {
-        "question": "What are octal and symbolic notations?",
-        "answer": "Octal notation uses numbers to represent permissions (e.g., 755), while symbolic notation uses letters (e.g., rwxr-xr-x). This tool generates both."
+        question: "What does 777 mean?",
+        answer:
+          "It means everyone can read, write, and execute the file. This is generally insecure and should be avoided on public servers.",
       },
       {
-        "question": "How do I use this calculator?",
-        "answer": "Simply check the boxes for the read, write, and execute permissions for the owner, group, and others, and the tool will generate the corresponding chmod command."
-      }
+        question: "How do I use the command?",
+        answer:
+          "Open your terminal and paste the generated line, followed by your filename. E.g., `chmod 755 myscript.sh`.",
+      },
     ],
   },
   'utm-builder': {
-    introduction: "Create tracking links.",
-    howToUse: ["Enter URL", "Add params", "Copy"],
-    features: ["Build tracking URLs for marketing campaigns.", "Supports all UTM parameters.", "Generates short URLs with Bitly."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The UTM Builder helps marketers and analysts create custom URLs with UTM (Urchin Tracking Module) parameters. These parameters are small pieces of code added to a URL that enable web analytics tools, like Google Analytics, to track the source, medium, campaign, and content of traffic to your website. This provides valuable insights into the effectiveness of your marketing efforts.",
-    usageExamples: [
-      "Tracking the performance of a specific email marketing campaign.",
-      "Analyzing which social media platforms drive the most conversions.",
-      "Differentiating traffic from various ad creatives within the same campaign.",
-      "Measuring the success of affiliate links or sponsored content."
+    introduction: "Track your marketing campaigns like a pro. The UTM Builder makes it easy to add tracking parameters to your URLs, so you know exactly where your traffic is coming from. Whether it's a newsletter, a Facebook ad, or a tweet, generate clean, tagged links that play perfectly with Google Analytics.",
+    howToUse: [
+      "Paste your landing page URL.",
+      "Enter the source (e.g., 'google'), medium (e.g., 'cpc'), and campaign name.",
+      "The tool validates your input and builds the URL automatically.",
+      "Click 'Copy' to grab the long URL, or use a shortener if you prefer.",
     ],
-    underlyingConcept: "UTM parameters (utm_source, utm_medium, utm_campaign, utm_term, utm_content) are standardized tags appended to a URL as query string parameters. When a user clicks a URL with these tags, the analytics software on the destination website records the values, allowing you to segment and analyze your traffic data to understand visitor behavior and campaign ROI.",
+    features: [
+      "Google Analytics Ready: Parameters comply with GA4 standards.",
+      "Real-Time Validation: Alerts you if you miss required fields.",
+      "Clean UI: no confusing jargon, just simple fields.",
+      "One-Click Copy: generated URLs are ready to paste into your ads or emails.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "UTM (Urchin Tracking Module) codes are text snippets added to the end of a URL. They tell analytics tools specifically how a visitor arrived at your site. By standardizing these tags, you can separate traffic from an email 'Summer Sale' campaign versus a Facebook 'Summer Sale' ad, giving you precise ROI data.",
+    usageExamples: [
+      "Tagging links in a monthly email newsletter to see which articles get clicked.",
+      "Differentiating between paid search traffic and organic social traffic.",
+      "Tracking the performance of banner ads on different partner websites.",
+      "A/B testing different call-to-action buttons.",
+    ],
+    underlyingConcept:
+      "The tool constructs a query string. It appends a `?` to your URL, followed by key-value pairs separated by `&`. It handles the URL encoding (replacing spaces with `%20`) so your link doesn't break when clicked.",
     faqs: [
       {
-        "question": "What are UTM parameters?",
-        "answer": "UTM parameters are tags that you add to a URL. When someone clicks on the URL, the tags are sent back to your Google Analytics for tracking."
+        question: "Do these affect my SEO?",
+        answer:
+          "No, search engines generally ignore UTM parameters when indexing content. However, it's good practice to use a 'canonical' tag on your page to be safe.",
       },
       {
-        "question": "Which UTM parameters are supported?",
-        "answer": "This tool supports all standard UTM parameters: utm_source, utm_medium, utm_campaign, utm_term, and utm_content."
+        question: "Are these case-sensitive?",
+        answer:
+          "Yes! 'Email' and 'email' will show up as two different sources in Google Analytics. We recommend using all lowercase to keep your data clean.",
       },
       {
-        "question": "Can I shorten the generated URL?",
-        "answer": "Yes, this tool can generate short URLs using the Bitly service."
-      }
+        question: "What are the most important parameters?",
+        answer:
+          "Source (where it's from), Medium (how it got there), and Campaign (why it's there) are the big three you should always use.",
+      },
     ],
   },
   'aspect-ratio-calculator': {
-    introduction: "Calculate aspect ratios.",
-    howToUse: ["Enter dims", "See ratio"],
-    features: ["Calculate dimensions and aspect ratios for images and video.", "Supports common aspect ratios.", "Calculates new dimensions based on a given aspect ratio."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Aspect Ratio Calculator is a tool designed to help users accurately calculate and maintain the proportional relationship between an image's or video's width and height. This is crucial for ensuring that media content appears correctly scaled across different screens and platforms, preventing distortion and maintaining visual integrity.",
-    usageExamples: [
-      "Determining new dimensions for an image while preserving its original aspect ratio for web design.",
-      "Calculating the correct video resolution for platforms like YouTube or social media stories.",
-      "Cropping images or videos to a specific aspect ratio without distorting the content.",
-      "Understanding the aspect ratio of a given screen or display."
+    introduction: "Resize images and videos without distortion. The Aspect Ratio Calculator helps you find the perfect dimensions for your content. Enter your starting width and height, and we'll calculate the missing value to maintain the aspect ratio—or tell you exactly what that ratio is (like 16:9 or 4:3).",
+    howToUse: [
+      "Enter your original width and height.",
+      "Enter one new dimension (e.g., the new width).",
+      "The tool instantly calculates the corresponding height.",
+      "Alternatively, see the exact aspect ratio of your original dimensions.",
     ],
-    underlyingConcept: "An aspect ratio is a ratio of an image's width to its height. It is commonly expressed as two numbers separated by a colon, such as 16:9 or 4:3. The calculator works by taking two known values (e.g., original width and height, or one new dimension and the aspect ratio) and applying simple proportional mathematics to solve for the unknown dimension, thereby maintaining the desired ratio.",
+    features: [
+      "Two-Way Calculation: Find missing dimensions or calculate the ratio itself.",
+      "Common Presets: Quickly reference standard ratios like 16:9, 4:3, and 1:1.",
+      "Pixel Perfect: Ensures your resized media won't look stretched or squashed.",
+      "Simple Interface: Clear fields for width, height, and results.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Aspect ratio is simply the proportional relationship between width and height. Maintaining this ratio is critical when resizing content; otherwise, images look warped. This tool solves the cross-multiplication equation for you, ensuring that if you scale the width by 50%, the height scales by exactly 50% too.",
+    usageExamples: [
+      "Resizing a photo to fit a specific column width on a blog.",
+      "Calculating the correct height for a video embed.",
+      "Checking if an image meets the aspect ratio requirements for an Instagram post (4:5 or 1:1).",
+      "Designers creating responsive layouts that maintain proportion.",
+    ],
+    underlyingConcept:
+      "The math relies on the formula: `(Original Height / Original Width) * New Width = New Height`. By locking this relationship, we ensure the geometry of the image remains consistent regardless of the scale.",
     faqs: [
       {
-        "question": "What is aspect ratio?",
-        "answer": "The aspect ratio of an image is the ratio of its width to its height. It is commonly expressed as two numbers separated by a colon, as in 16:9."
+        question: "What is 16:9?",
+        answer:
+          "It's the standard aspect ratio for HD television and most online video players (YouTube, Netflix).",
       },
       {
-        "question": "How can I calculate the aspect ratio?",
-        "answer": "You can use this tool to calculate the aspect ratio by entering the width and height of the image or video."
+        question: "What is 4:3?",
+        answer:
+          "It's the standard ratio for older TVs and many computer monitors. It's boxier than 16:9.",
       },
       {
-        "question": "Can I calculate new dimensions with a given aspect ratio?",
-        "answer": "Yes, you can enter a known aspect ratio and one dimension (width or height) to calculate the other dimension."
-      }
+        question: "Why do my calculations have decimals?",
+        answer:
+          "Sometimes perfectly scaling a dimension results in a fraction of a pixel. In web design, it's usually safe to round to the nearest whole number.",
+      },
     ],
   },
   'css-triangle-generator': {
-    introduction: "Create CSS triangles.",
-    howToUse: ["Set direction/color", "Copy CSS"],
-    features: ["Generate CSS code for geometric triangles.", "Customize triangle size and color.", "Supports all four directions."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The CSS Triangle Generator simplifies the creation of geometric triangle shapes using pure CSS. By manipulating borders of an HTML element, developers can create various triangle orientations and sizes without the need for image assets. This tool provides a visual interface to define the triangle's direction, size, and color, and then outputs the exact CSS code for easy integration into web projects.",
-    usageExamples: [
-      "Creating dropdown menu arrows or tooltips with directional pointers.",
-      "Designing speech bubbles or chat message indicators in user interfaces.",
-      "Building decorative elements or abstract shapes in web layouts.",
-      "Adding subtle design accents to buttons or navigation items."
+    introduction: "Create pure CSS triangles in seconds. No images, no complex code—just simple, geometric shapes generated instantly. Customize the direction, size, and color, then copy the snippet directly into your stylesheet.",
+    howToUse: [
+      "Select the direction (Up, Down, Left, Right).",
+      "Adjust the size and color using the visual controls.",
+      "Preview the triangle instantly.",
+      "Copy the generated CSS code.",
     ],
-    underlyingConcept: "CSS triangles are a clever trick exploiting the way borders render in block-level elements. When an element has zero width and height, its borders meet at a point. By making three of the four borders transparent and giving the remaining border a color, a triangle pointing in the direction of the colored border is formed. Adjusting the width of the transparent borders and the colored border allows for control over the triangle's size and shape.",
+    features: [
+      "Pure CSS: Lightweight and fast, no images required.",
+      "Fully Customizable: Adjust size, color, and direction.",
+      "Instant Preview: See your changes in real-time.",
+      "Cross-Browser: Works on all modern browsers.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "CSS triangles are a classic web design trick. By manipulating the border properties of a zero-width, zero-height element, we can create perfect triangles. This tool automates the math, giving you the exact code you need without the trial and error.",
+    usageExamples: [
+      "Building tooltips or speech bubbles.",
+      "Creating directional arrows for menus or sliders.",
+      "Adding decorative geometric elements to your design.",
+    ],
+    underlyingConcept:
+      "It works by setting the `width` and `height` of an element to `0` and using transparent borders. If you set the bottom border to a solid color and the left/right borders to transparent, you get an upward-pointing triangle. The size of the borders determines the size of the triangle.",
     faqs: [
       {
-        "question": "How are CSS triangles created?",
-        "answer": "CSS triangles are created using the border property of an element. By setting the width and height to zero and making one border colored and the others transparent, you can create a triangle."
+        question: "Why use CSS instead of an image?",
+        answer:
+          "It's much faster to load, scales infinitely without blurring, and is easier to change color on the fly.",
       },
       {
-        "question": "Can I customize the triangle?",
-        "answer": "Yes, you can customize the size, color, and direction of the triangle using this tool."
+        question: "Is this compatible with all browsers?",
+        answer:
+          "Yes, this technique relies on basic CSS properties supported by all browsers, even very old ones.",
       },
       {
-        "question": "Is the generated CSS code cross-browser compatible?",
-        "answer": "Yes, the generated CSS code for triangles is compatible with all modern browsers."
-      }
+        question: "Can I make non-equilateral triangles?",
+        answer:
+          "Yes! By adjusting the border widths independently, you can create skewed or elongated triangles.",
+      },
     ],
   },
   'xml-formatter': {
-    introduction: "Format XML.",
-    howToUse: ["Paste XML", "Copy formatted"],
-    features: ["Beautify and format XML strings.", "Supports indentation levels.", "Validates XML syntax."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The XML Formatter is a specialized tool designed to take unformatted or irregularly structured XML code and transform it into a clean, well-indented, and human-readable format. This process significantly improves the clarity of complex XML documents, making them easier for developers, data analysts, and content managers to read, debug, and work with.",
-    usageExamples: [
-      "Beautifying minified XML responses from APIs for easier debugging.",
-      "Standardizing the indentation and structure of XML configuration files.",
-      "Improving the readability of XML data extracts for analysis or reporting.",
-      "Preparing XML code snippets for documentation or presentations."
+    introduction: "Tame your XML files. Transform messy, minified, or unreadable XML into a clean, perfectly indented structure. Whether you're debugging an API response or organizing configuration files, this tool makes XML human-readable again.",
+    howToUse: [
+      "Paste your raw XML code.",
+      "Select your indentation preference (spaces or tabs).",
+      "Click 'Format' to beautify the code.",
+      "Copy the result.",
     ],
-    underlyingConcept: "XML (Extensible Markup Language) uses a tree-like structure of elements and attributes to organize data. When XML is not properly formatted (e.g., all on one line), its hierarchical nature becomes difficult to discern. An XML formatter parses the document, identifies its elements, attributes, and text nodes, and then reconstructs the document by applying consistent indentation and line breaks, revealing its logical structure.",
+    features: [
+      "Instant Beautification: Fixes indentation and spacing automatically.",
+      "Syntax Validation: Checks for errors in your XML structure.",
+      "File Support: Upload files directly for formatting.",
+      "Customizable: Choose between tabs or spaces for indentation.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "XML is powerful but can be hard to read when it's compressed or poorly formatted. This tool parses your XML, adds proper line breaks and indentation, and highlights syntax, making it easy to spot errors and understand the data structure.",
+    usageExamples: [
+      "Debugging SOAP or REST API responses.",
+      "Configuring sitemaps or RSS feeds.",
+      "Cleaning up data exports from legacy systems.",
+    ],
+    underlyingConcept:
+      "The tool parses the XML string into a DOM tree, then traverses it to reconstruct the string with consistent indentation (pretty-printing). It also checks for validity, ensuring open tags match close tags.",
     faqs: [
       {
-        "question": "What is XML?",
-        "answer": "XML (eXtensible Markup Language) is a markup language that defines a set of rules for encoding documents in a format that is both human-readable and machine-readable."
+        question: "Will this fix broken XML?",
+        answer:
+          "It can fix formatting, but if tags are missing or mismatched, it will likely show you a syntax error to help you fix it yourself.",
       },
       {
-        "question": "Why should I format my XML?",
-        "answer": "Formatting your XML makes it easier to read and understand, which is especially helpful when you are working with large and complex XML files."
+        question: "Is my data sent to a server?",
+        answer:
+          "No, all processing happens locally in your browser. Your data stays private.",
       },
       {
-        "question": "Does this tool validate my XML?",
-        "answer": "Yes, this tool also validates your XML syntax and will show you an error if it is not well-formed."
-      }
+        question: "Can I use this for HTML?",
+        answer:
+          "It might work for strict XHTML, but we recommend using an HTML-specific formatter for best results.",
+      },
     ],
   },
   'morse-converter': {
-    introduction: "Text to Morse conversion.",
-    howToUse: ["Type text", "See dots/dashes"],
-    features: ["Translate text to Morse code and vice versa.", "Supports letters, numbers, and punctuation.", "Listen to the Morse code sound."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Morse Code Converter provides a seamless way to translate text into Morse code and decode Morse code back into readable text. This tool serves both as a practical utility for communication and an educational resource for learning the historic telegraphic code. It supports standard characters, numbers, and common punctuation, offering both visual representation and an optional audio output of the Morse signals.",
-    usageExamples: [
-      "Learning and practicing Morse code by seeing instant translations.",
-      "Sending coded messages to friends for fun or puzzles.",
-      "Transcribing historical telegraphs or signals.",
-      "Exploring an alternative method of communication."
+    introduction: "Communicate like it's 1844. Convert text into Morse code dots and dashes, or decode Morse back into readable text. A fun and educational tool for learning the language of the telegraph.",
+    howToUse: [
+      "Type your message in the text box.",
+      "Instantly see the Morse code translation.",
+      "Click 'Play' to hear the audio signals.",
+      "Paste Morse code to translate it back to text.",
     ],
-    underlyingConcept: "Morse code assigns a series of dots (short signals) and dashes (long signals) to each letter of the Latin alphabet, numbers, and some punctuation marks. The converter operates by mapping input characters to their corresponding Morse sequences (for encoding) or by recognizing patterns of dots and dashes and mapping them back to characters (for decoding). The timing between dots, dashes, and the spaces between them is crucial for accurate interpretation.",
+    features: [
+      "Bi-directional: Text-to-Morse and Morse-to-Text.",
+      "Audio Playback: Listen to the dots and dashes.",
+      "International Standard: Uses standard ITU Morse code.",
+      "Visual Output: clear display of the coded message.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Morse code revolutionized long-distance communication. It assigns a unique sequence of short signals (dots) and long signals (dashes) to each letter and number. This tool acts as a digital telegraph key, translating your words into this historic code instantly.",
+    usageExamples: [
+      "Learning Morse code for amateur radio licenses.",
+      "Sending secret messages in games or escape rooms.",
+      "Understanding historical documents or signals.",
+    ],
+    underlyingConcept:
+      "The tool uses a lookup table (dictionary) to map each character (A-Z, 0-9) to its Morse equivalent (e.g., 'A' is '.-'). It handles spacing between letters and words to ensure the message is readable.",
     faqs: [
       {
-        "question": "What is Morse code?",
-        "answer": "Morse code is a method of transmitting text information as a series of on-off tones, lights, or clicks that can be directly understood by a skilled listener or observer without special equipment."
+        question: "What is the SOS signal?",
+        answer:
+          "It is '... --- ...' (three dots, three dashes, three dots), the universal distress signal.",
       },
       {
-        "question": "Can I translate from Morse code to text?",
-        "answer": "Yes, this tool can translate both from text to Morse code and from Morse code to text."
+        question: "Can I learn Morse code with this?",
+        answer:
+          "Absolutely! Type letters one by one and listen to the sound to memorize the patterns.",
       },
       {
-        "question": "Can I listen to the Morse code?",
-        "answer": "Yes, you can listen to the sound of the Morse code for the text you have entered."
-      }
+        question: "Is it accurate?",
+        answer:
+          "Yes, it follows the International Morse Code standard used worldwide.",
+      },
     ],
   },
   'binary-converter': {
-    introduction: "Convert text to 0s and 1s.",
-    howToUse: ["Type text", "Get binary"],
-    features: ["Translate text to binary code and back.", "Supports UTF-8 characters.", "Copy binary code with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Binary Converter facilitates the translation of human-readable text into its binary representation and vice-versa. Binary code, composed solely of 0s and 1s, is the fundamental language of computers. This tool allows users to see how text is encoded at a machine level, which can be useful for educational purposes, low-level debugging, or simply understanding data representation.",
-    usageExamples: [
-      "Exploring how characters are represented in digital systems.",
-      "Debugging data corruption issues by examining the underlying binary.",
-      "Creating a unique, machine-level representation of short messages.",
-      "Understanding the basics of computer data storage and transmission."
+    introduction: "See the world as a computer does. Translate any text into binary code (0s and 1s) and back again. A perfect tool for understanding digital data representation or encoding secret messages.",
+    howToUse: [
+      "Type your text.",
+      "Watch it transform into a stream of 0s and 1s.",
+      "Switch modes to convert binary code back into text.",
+      "Copy the result for use elsewhere.",
     ],
-    underlyingConcept: "At its core, the tool performs character encoding. Each character in the input text is typically converted into its numerical Unicode (or ASCII) value, and then this numerical value is translated into its binary equivalent. For decoding, the process is reversed: binary strings are grouped, converted back to their numerical values, and then mapped to their corresponding characters based on the chosen encoding standard (e.g., UTF-8).",
+    features: [
+      "Real-time Conversion: Updates as you type.",
+      "Bi-directional: Text-to-Binary and Binary-to-Text.",
+      "8-bit Byte Format: Displays standard binary octets.",
+      "Educational: Great for computer science students.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Deep down, every computer file, image, and message is just a string of zeros and ones. This tool reveals that hidden layer, converting each character of your text into its 8-bit binary ASCII/UTF-8 code.",
+    usageExamples: [
+      "Visualizing how data is stored.",
+      "Sending 'geeky' secret messages.",
+      "Debugging low-level data streams.",
+      "Learning about character encoding.",
+    ],
+    underlyingConcept:
+      "It converts each character to its ASCII/Unicode decimal value (e.g., 'A' = 65), then converts that decimal number to base-2 binary (65 = 01000001).",
     faqs: [
       {
-        "question": "What is binary code?",
-        "answer": "Binary code is a system of representing text or computer processor instructions by the use of two-symbol system: '0' and '1'."
+        question: "Why 8 bits?",
+        answer:
+          "Standard text encoding (ASCII/Extended ASCII) uses 8 bits (1 byte) to represent a single character, allowing for 256 possible characters.",
       },
       {
-        "question": "How does this tool convert text to binary?",
-        "answer": "This tool converts each character of the text into its corresponding 8-bit binary representation based on the UTF-8 encoding."
+        question: "Can I convert numbers?",
+        answer:
+          "Yes, numbers are characters too! '1' has a binary code (00110001) which is different from the number 1 (00000001).",
       },
       {
-        "question": "Can I convert binary back to text?",
-        "answer": "Yes, you can paste the binary code into the input field and the tool will convert it back to text."
-      }
+        question: "What encoding is used?",
+        answer:
+          "This tool generally uses UTF-8, which is the standard for the web.",
+      },
     ],
   },
   'password-strength': {
-    introduction: "Check password strength.",
-    howToUse: ["Type password", "See score"],
-    features: ["Test the strength of your passwords.", "Provides feedback on password complexity.", "Estimates time to crack the password."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Password Strength Checker analyzes a given password and provides an immediate assessment of its security. It evaluates factors like length, character diversity (uppercase, lowercase, numbers, symbols), and common patterns or dictionary words to help users create robust passwords that are resistant to guessing and brute-force attacks. The tool often offers suggestions for improvement and may estimate the time it would take to crack the password.",
-    usageExamples: [
-      "Testing the strength of a new password before using it for an online account.",
-      "Educating users on best practices for creating secure and memorable passwords.",
-      "Auditing a set of existing passwords for potential vulnerabilities.",
-      "As a component in user registration forms to enforce strong password policies."
+    introduction: "Is your password hack-proof? Test the strength of your passwords against modern cracking techniques. Get instant feedback on complexity and estimated crack time—all locally in your browser, so your secrets stay safe.",
+    howToUse: [
+      "Type a password into the field.",
+      "See the strength meter and score update instantly.",
+      "Review suggestions to improve security (e.g., 'Add a symbol').",
     ],
-    underlyingConcept: "Password strength algorithms typically work by assigning points or a score based on various criteria. Points are added for length, inclusion of different character types, and randomness, while points are deducted for common patterns, repeated characters, or dictionary words. Advanced algorithms might use entropy calculations (measuring randomness) and compare the password against databases of compromised or common passwords to provide a more accurate strength assessment.",
+    features: [
+      "Visual Strength Meter: Red to Green indicators.",
+      "Crack Time Estimate: See how long a brute-force attack would take.",
+      "Local Privacy: Passwords are NEVER sent to a server.",
+      "Detailed Feedback: Tips on what's missing.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Creating a strong password is your first line of defense. This tool evaluates entropy (randomness), length, and character variety to determine how difficult it would be for a computer to guess your password. It helps you build habits that keep your accounts secure.",
+    usageExamples: [
+      "Checking if your new password is secure enough.",
+      "Learning what makes a bad password (like '123456').",
+      "Auditing your current passwords.",
+    ],
+    underlyingConcept:
+      "It calculates 'entropy' bits. Every extra character and character type (uppercase, number, symbol) exponentially increases the number of possible combinations, making it mathematically harder to guess.",
     faqs: [
       {
-        "question": "What makes a password strong?",
-        "answer": "A strong password is long, complex (containing a mix of uppercase and lowercase letters, numbers, and symbols), and unpredictable."
+        question: "Is it safe to type my real password?",
+        answer:
+          "Yes. This tool runs entirely in your browser using JavaScript. No data ever leaves your device.",
       },
       {
-        "question": "How does this tool measure password strength?",
-        "answer": "This tool measures password strength based on several factors, including length, character variety, and common patterns. It then provides a score and an estimated time to crack the password."
+        question: "What is a good password score?",
+        answer:
+          "Aim for at least 'Strong' or a crack time of centuries. Length is usually more important than complexity.",
       },
       {
-        "question": "Is my password safe with this tool?",
-        "answer": "Yes, your password is not sent to any server. All calculations are done in your browser, so your password remains private."
-      }
+        question: "Does it save my password?",
+        answer:
+          "Absolutely not. We don't store, log, or transmit anything you type here.",
+      },
     ],
   },
   'string-escaper': {
-    introduction: "Escape special characters.",
-    howToUse: ["Paste text", "Select format"],
-    features: ["Escape strings for JSON, HTML, URL, and Java.", "Supports multiple escaping formats.", "Copy escaped string with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The String Escaper tool converts special characters within a string into their appropriate \"escaped\" representations for various programming and markup contexts like JSON, HTML, URLs, and Java. This is crucial for preventing syntax errors, data corruption, and security vulnerabilities (such as cross-site scripting in HTML or SQL injection) when embedding raw string data into a different format or language.",
-    usageExamples: [
-      "Sanitizing user-generated input before inserting it into an HTML page to prevent XSS attacks.",
-      "Preparing a string that contains special characters (like quotes or backslashes) to be a valid JSON value.",
-      "Encoding parts of a URL to ensure all characters are properly transmitted and interpreted by web servers.",
-      "Handling literal strings in Java code that might otherwise conflict with syntax (e.g., file paths with backslashes)."
+    introduction: "Safe strings, happy code. Escape special characters instantly for JSON, HTML, Java, and more. Prevent syntax errors and security vulnerabilities by ensuring your strings are properly formatted for their destination.",
+    howToUse: [
+      "Paste your raw string.",
+      "Select the target format (JSON, HTML, etc.).",
+      "Click the button to process the text.",
+      "Copy the safe string.",
     ],
-    underlyingConcept: "Escaping is a mechanism used to represent characters that have a special meaning in a particular context as literal data. For example, a double quote `\"` has a special meaning in JSON (denoting the start/end of a string). To include a literal double quote within a JSON string, it must be \"escaped\" as `\\\"`. The specific escaping rules and characters vary between different contexts (e.g., HTML uses `&lt;` for `<`, URLs use `%20` for space). The tool applies these context-specific rules to transform the input string.",
+    features: [
+      "Multi-Language Support: Escape for JSON, HTML, URL, Java, and Python.",
+      "Instant Processing: Real-time conversion.",
+      "Secure: Runs entirely in your browser.",
+      "Unescape Mode: Revert escaped strings back to raw text.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "When you put text into code, special characters like quotes (`\"`) or brackets (`<`) can break things or cause security issues (like XSS). Escaping replaces these characters with safe alternatives (like `\\\"` or `&lt;`) so the computer treats them as text, not code.",
+    usageExamples: [
+      "Preparing JSON data for an API.",
+      "Preventing XSS in HTML templates.",
+      "Pasting code snippets into documentation.",
+      "Handling file paths in Java.",
+    ],
+    underlyingConcept:
+      "It replaces specific characters with their 'escape sequences'. For example, in JSON, a newline becomes `\\n`. In HTML, `<` becomes `&lt;`. The tool applies the standard replacement rules for the selected language.",
     faqs: [
       {
-        "question": "What is string escaping?",
-        "answer": "String escaping is the process of converting special characters in a string to a representation that will not be misinterpreted by a computer program or data format."
+        question: "When should I use URL encoding?",
+        answer:
+          "Use it when sending data in a URL (like query parameters) to ensure spaces and special symbols don't break the link.",
       },
       {
-        "question": "Why do I need to escape strings?",
-        "answer": "You need to escape strings to prevent errors and security vulnerabilities when you are embedding them in another context, such as a JSON object, an HTML document, or a URL."
+        question: "Does this affect the data itself?",
+        answer:
+          "It changes the representation, but the underlying data meaning remains the same once decoded by the receiving system.",
       },
       {
-        "question": "Which escaping formats does this tool support?",
-        "answer": "This tool supports escaping for JSON, HTML, URL, and Java."
-      }
+        question: "Can I escape SQL here?",
+        answer:
+          "This tool focuses on web and code formats. For SQL, it's safer to use 'prepared statements' in your code rather than manual escaping.",
+      },
     ],
   },
   'percentage-calculator': {
-    introduction: "Calculate percentages.",
-    howToUse: ["Enter numbers", "Get result"],
-    features: ["Quickly calculate percentages for common math problems.", "Supports various percentage calculations.", "Easy to use interface."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Percentage Calculator is a versatile online tool designed to simplify a variety of percentage-related computations. Whether you need to find a percentage of a number, determine what percentage one number is of another, or calculate percentage increases and decreases, this tool provides instant and accurate results, eliminating manual calculations.",
-    usageExamples: [
-      "Calculating discounts on sale items while shopping.",
-      "Determining tips at a restaurant or service charge percentages.",
-      "Finding the percentage change in sales figures month-over-month.",
-      "Calculating interest on loans or investments."
+    introduction: "Solve percentage problems in a snap. Whether you're calculating a discount, a tip, or a weird growth metric, this tool handles the math for you. Just enter the numbers and get the answer instantly.",
+    howToUse: [
+      "Choose the calculation type (e.g., 'What is X% of Y?').",
+      "Enter your numbers.",
+      "See the result immediately.",
     ],
-    underlyingConcept: "Percentages are a way of expressing a number as a fraction of 100. The core concept revolves around the formula `Part = (Percentage / 100) * Whole`. This tool applies this fundamental relationship and its algebraic rearrangements to solve for the unknown variable, allowing for quick computation across different percentage problems.",
+    features: [
+      "All Common Formulas: X% of Y, X is what % of Y, and % change.",
+      "Instant Results: No need to click 'calculate'.",
+      "Mobile Friendly: Perfect for quick math on the go.",
+      "Clean Interface: No confusing scientific keypad.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Percentages are everywhere, but the formulas can be tricky to remember. This tool bundles the three most common percentage use cases into one simple interface, so you don't have to break out the scratch paper.",
+    usageExamples: [
+      "Calculating sale prices when shopping.",
+      "Figuring out a tip at dinner.",
+      "Determining year-over-year growth for a report.",
+      "Checking test scores.",
+    ],
+    underlyingConcept:
+      "It applies standard algebraic formulas. For 'X% of Y', it's `(X/100) * Y`. For '% change', it's `((New - Old) / Old) * 100`.",
     faqs: [
       {
-        "question": "How do I calculate a percentage?",
-        "answer": "To calculate a percentage, you can use the formula: (part / whole) * 100. This tool makes it easy by providing fields for different percentage calculations."
+        question: "How do I calculate a tip?",
+        answer:
+          "Use the 'What is X% of Y' mode. For a 20% tip on a $50 bill, enter 20% of 50.",
       },
       {
-        "question": "What kind of percentage calculations can I do?",
-        "answer": "You can calculate what is X% of Y, X is what percent of Y, and the percentage increase or decrease from one number to another."
+        question: "Can I use decimals?",
+        answer: "Yes, the tool supports precise decimal calculations.",
       },
       {
-        "question": "Is this calculator free to use?",
-        "answer": "Yes, this is a completely free online tool for all your percentage calculation needs."
-      }
+        question: "What if the result is negative?",
+        answer:
+          "For percentage change, a negative result simply means a decrease (e.g., -5% means a 5% drop).",
+      },
     ],
   },
   'markdown-table-generator': {
-    introduction: "Generate MD tables.",
-    howToUse: ["Set rows/cols", "Fill data", "Copy"],
-    features: ["Create Markdown tables easily with a visual editor.", "Add and remove rows and columns.", "Copy Markdown table with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Markdown Table Generator provides an intuitive visual interface to create tables for Markdown documents. Markdown's syntax for tables can be cumbersome to write manually, especially for complex structures. This tool simplifies the process by allowing users to define rows and columns, input data, and then automatically generates the correctly formatted Markdown table code, saving time and reducing syntax errors.",
-    usageExamples: [
-      "Quickly creating data tables for GitHub README files or project documentation.",
-      "Preparing tabular data for blog posts written in Markdown.",
-      "Converting spreadsheet-like information into a version-controllable text format.",
-      "Learning and experimenting with Markdown table syntax."
+    introduction: "Create Markdown tables without the headache. Visualizing data in Markdown is great, but typing out all those pipes and dashes is a pain. This tool lets you build tables like a spreadsheet and export the code instantly.",
+    howToUse: [
+      "Set your row and column count.",
+      "Type your data into the grid.",
+      "Adjust alignment (left, center, right) if needed.",
+      "Copy the generated Markdown code.",
     ],
-    underlyingConcept: "Markdown tables rely on pipe (`|`) characters to delineate columns and hyphens (`-`) to separate the header row from the data rows. Alignment (left, right, center) is indicated by colons within the header separator line. The generator dynamically constructs this character-based structure based on the user's visual input, ensuring proper alignment and syntax required for rendering by Markdown parsers.",
+    features: [
+      "Visual Grid: Edit tables just like in Excel.",
+      "Alignment Control: Easily align text in columns.",
+      "Live Preview: See the Markdown update as you type.",
+      "Import/Export: Easy copy-paste workflow.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Markdown tables rely on precise formatting with `|` and `-` characters. One missing space can break the whole table. This generator handles the syntax for you, ensuring perfect alignment and compatibility with GitHub, Reddit, and other Markdown viewers.",
+    usageExamples: [
+      "Creating data tables for GitHub READMEs.",
+      "Formatting specs for technical documentation.",
+      "Organizing links and resources in a neat grid.",
+    ],
+    underlyingConcept:
+      "It generates the standard Github Flavored Markdown (GFM) table syntax, handling the pipe separators `|` and alignment colons `:---:` automatically.",
     faqs: [
       {
-        "question": "What is Markdown?",
-        "answer": "Markdown is a lightweight markup language with plain-text-formatting syntax. It is designed so that it can be converted to HTML and many other formats."
+        question: "Does it support sorting?",
+        answer:
+          "This tool layouts the data. Sorting is usually handled by the viewer, but you can manually reorder rows here.",
       },
       {
-        "question": "How do I create a table in Markdown?",
-        "answer": "You can create a table in Markdown by using pipes (|) to separate columns and hyphens (-) to create the header. This tool provides a visual editor to make it even easier."
+        question: "Can I paste from Excel?",
+        answer:
+          "Currently, you may need to type data in, but we are working on paste support!",
       },
       {
-        "question": "Can I add or remove rows and columns?",
-        "answer": "Yes, you can easily add and remove rows and columns in the visual editor, and the Markdown code will be updated automatically."
-      }
+        question: "Why does my table look broken in the preview?",
+        answer:
+          "Make sure you stick to the generated code. Some Markdown viewers behave differently, but our code follows the standard spec.",
+      },
     ],
   },
   'list-randomizer': {
-    introduction: "Randomize lists.",
-    howToUse: ["Paste list", "Shuffle"],
-    features: ["Shuffle and randomize a list of items.", "Supports multi-line lists.", "Copy randomized list with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The List Randomizer is a straightforward utility designed to shuffle and reorder any given list of items. Whether you need to randomize names, ideas, or selections for a lottery, this tool provides a quick and unbiased way to generate a new, random sequence from your input, making decisions fair or simply adding an element of chance.",
-    usageExamples: [
-      "Randomly selecting a winner from a list of participants for a giveaway.",
-      "Shuffling a playlist or a sequence of tasks for variety.",
-      "Generating random team assignments for sports or group projects.",
-      "Aiding in decision-making when an unbiased order is required."
+    introduction: "Fairness at your fingertips. Shuffle names, numbers, or complex lists instantly. Perfect for picking winners, creating lottery pools, or just mixing things up without bias.",
+    howToUse: [
+      "Paste your list of items (one per line).",
+      "Click 'Randomize'.",
+      "See your new shuffled list instantly.",
+      "Copy the result.",
     ],
-    underlyingConcept: "At its core, the List Randomizer employs a shuffling algorithm to rearrange the elements of the input list. A common and effective algorithm for this purpose is the Fisher-Yates shuffle (or Knuth shuffle), which ensures that every possible permutation of the list is equally likely. This method guarantees a truly random reordering of the items, providing fairness and unpredictability.",
+    features: [
+      "True Randomness: Uses the Fisher-Yates shuffle algorithm.",
+      "Formatting Preserved: Keeps your list structure intact.",
+      "Fast: Handles thousands of items in milliseconds.",
+      "Private: Logic runs locally.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Computers are notoriously bad at being random, but this tool uses a robust algorithm to ensure every item has an exact equal chance of landing in any position. It's the digital equivalent of thoroughly shuffling a deck of cards.",
+    usageExamples: [
+      "Randomly selecting a winner from a list of participants.",
+      "Shuffling a playlist or a sequence of tasks.",
+      "Assigning random order for presentations.",
+    ],
+    underlyingConcept:
+      "It uses the Fisher-Yates (or Knuth) shuffle. This algorithm iterates through the list, swapping the current element with a random element from the unvisited portion of the list, guaranteeing an unbiased permutation.",
     faqs: [
       {
-        "question": "How does the list randomizer work?",
-        "answer": "This tool uses a shuffling algorithm to randomize the order of the items in your list. Each time you click the shuffle button, you will get a new random order."
+        question: "Can I use this for a raffle?",
+        answer:
+          "Yes! It's mathematically fair. Just paste the names and the top result is your winner.",
       },
       {
-        "question": "Can I randomize a list with multiple lines?",
-        "answer": "Yes, you can paste a list with multiple lines, and each line will be treated as a separate item to be randomized."
+        question: "Does it work with numbers?",
+        answer:
+          "Yes, it treats every line as an item, whether it's a word, number, or sentence.",
       },
       {
-        "question": "Is the randomization truly random?",
-        "answer": "The randomization is based on the Fisher-Yates shuffle algorithm, which is a widely used and effective method for generating a random permutation of a finite sequence."
-      }
+        question: "Is there a limit on list size?",
+        answer:
+          "It works comfortably with lists of several thousand items directly in your browser.",
+      },
     ],
   },
   'text-cleaner': {
-    introduction: "Clean up text.",
-    howToUse: ["Paste text", "Click clean"],
-    features: ["Remove extra spaces, line breaks, and format text.", "Supports multiple cleaning options.", "Copy cleaned text with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Text Cleaner is a utility designed to quickly tidy up raw text by removing unwanted characters, excessive whitespace, and inconsistent formatting. It's particularly useful for processing text copied from various sources (websites, documents, PDFs) which often come with extraneous line breaks, multiple spaces, or non-standard characters, making the text clean and consistent for further use.",
-    usageExamples: [
-      "Cleaning text copied from web pages before pasting into a document or email.",
-      "Removing extra line breaks from raw data dumps or logs.",
-      "Standardizing whitespace and formatting in user-generated content for a consistent look.",
-      "Preparing text for analysis where uniform formatting is crucial."
+    introduction: "Scrub your text clean. Remove annoying extra spaces, weird line breaks, and messy formatting from copied text. Turn that messy PDF copy-paste into a clean paragraph in one click.",
+    howToUse: [
+      "Paste the messy text.",
+      "Select your cleaning options (Remove multiple spaces, Fix line breaks, etc.).",
+      "Click 'Clean'.",
+      "Copy the polished text.",
     ],
-    underlyingConcept: "Text cleaning typically involves applying regular expressions or string manipulation functions to identify and replace specific patterns. For instance, multiple spaces can be replaced with a single space, various line break characters (`\\n`, `\\r\\n`) can be standardized or removed, and non-printable characters can be stripped. The tool systematically processes the input string based on a set of defined cleaning rules to produce a refined output.",
+    features: [
+      "Smart Cleaning: Detects and fixes common copy-paste errors.",
+      "Customizable: Choose exactly what to remove (e.g., emojis, tabs).",
+      "Instant Feedback: See the difference immediately.",
+      "Character Count: Tracks length changes.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Copying text from PDFs or old websites often brings along 'garbage' characters—non-breaking spaces, weird line endings, or tab indentations. This tool uses pattern matching to strip out the junk and normalize the text into standard, readable plain text.",
+    usageExamples: [
+      "Cleaning text copied from web pages.",
+      "Removing extra line breaks from raw data dumps.",
+      "Standardizing whitespace for emails.",
+    ],
+    underlyingConcept:
+      "The tool uses Regular Expressions (Regex) to target specific patterns (like `\\s+` for multiple spaces) and replace them with the desired output (like a single space).",
     faqs: [
       {
-        "question": "What does the text cleaner do?",
-        "answer": "The text cleaner removes unnecessary characters from your text, such as extra spaces, line breaks, and tabs, to make it clean and easy to read."
+        question: "Will it delete my text?",
+        answer: "No, it only removes the invisible formatting characters unless you specifically ask it to remove other things.",
       },
       {
-        "question": "What cleaning options are available?",
-        "answer": "You can choose to remove extra spaces, remove all line breaks, or convert multiple spaces to a single space."
+        question: "Can I undo?",
+        answer: "While there isn't a dedicated undo button, the original text stays in your clipboard if you haven't copied the new one yet.",
       },
       {
-        "question": "Is this tool safe to use with sensitive text?",
-        "answer": "Yes, all the text cleaning is done in your browser. Your text is not sent to any server, so it remains private."
-      }
+        question: "Does it work on code?",
+        answer: "It can, but use caution as it might remove indentation that is important for some programming languages.",
+      },
     ],
   },
   'svg-to-data-uri': {
-    introduction: "Convert SVG to URI.",
-    howToUse: ["Paste SVG", "Copy URI"],
-    features: ["Convert SVG code into a Data URI for use in CSS.", "URL-encodes the SVG for optimal compatibility.", "Copy the Data URI with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The SVG to Data URI converter transforms raw SVG (Scalable Vector Graphics) code into a compact, URL-encoded string that can be directly embedded into HTML or CSS. This eliminates the need for external image files, reducing HTTP requests and potentially speeding up web page load times, especially for small icons and graphics.",
-    usageExamples: [
-      "Inlining small SVG icons directly into CSS backgrounds to optimize website performance.",
-      "Embedding SVG graphics within HTML without linking to an external file.",
-      "Using dynamically generated SVG for interactive elements without server-side processing.",
-      "Simplifying asset management by having graphics directly within the stylesheet or markup."
+    introduction: "Optimize your web assets. Convert SVG files into Data URIs instantly. Embed icons directly into your CSS or HTML to reduce HTTP requests and speed up page loads.",
+    howToUse: [
+      "Paste your SVG code.",
+      "Automatically get the optimized Data URI.",
+      "Copy it for use in `background-image` or `src` attributes.",
     ],
-    underlyingConcept: "A Data URI is a scheme that allows content to be embedded directly within web documents, rather than linking to it externally. For SVG, the process involves URL-encoding the XML-based SVG code (converting special characters like `<`, `>`, and `#` into their percent-encoded equivalents) and then prepending it with the `data:image/svg+xml,` MIME type. This results in a single, self-contained string that represents the entire SVG image.",
+    features: [
+      "Instant Conversion: Paste and go.",
+      "Optimization: URL-encodes special characters for safety.",
+      "Preview: See the SVG rendered immediately.",
+      "CSS Ready: Generates the full `url()` snippet if needed.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Every external image on a website requires a separate network request. Data URIs let you embed small images (like icons) directly into your code as a text string, saving those requests and making your site snappier.",
+    usageExamples: [
+      "Embedding icons in CSS.",
+      "Single-file HTML demos.",
+      "Reducing server requests for small assets.",
+    ],
+    underlyingConcept:
+      "A Data URI is a base64 or URL-encoded string that represents a file. The browser reads this string and reconstructs the image on the fly, without needing to fetch a separate file from the server.",
     faqs: [
       {
-        "question": "What is a Data URI?",
-        "answer": "A Data URI is a scheme that provides a way to include data in-line in web pages as if they were external resources. It is commonly used to embed images in CSS or HTML."
+        question: "Is this better than an image file?",
+        answer:
+          "For small icons (under 2-3KB), yes! It saves a request. For large headers, stick to a file to keep your CSS light.",
       },
       {
-        "question": "Why should I convert SVG to a Data URI?",
-        "answer": "Converting SVG to a Data URI can improve performance by reducing the number of HTTP requests your website needs to make. It is especially useful for small icons and images."
+        question: "Why does it look like gibberish?",
+        answer:
+          "That 'gibberish' is the encoded data. Your browser knows how to turn those `%3Csvg...` codes back into a picture.",
       },
       {
-        "question": "How do I use the generated Data URI?",
-        "answer": "You can use the generated Data URI as the value for the `url()` function in your CSS, for example, as a `background-image`."
-      }
+        question: "Does it work in all browsers?",
+        answer: "Yes, Data URIs are supported by all modern web browsers.",
+      },
     ],
   },
 
   'json-yaml-converter': {
-    introduction: "Convert between JSON and YAML.",
-    howToUse: ["Select conversion direction", "Paste code", "Copy result"],
-    features: ["Convert JSON to YAML and vice versa.", "Real-time validation.", "Simple and clean interface."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "This tool provides a seamless way to convert data between JSON (JavaScript Object Notation) and YAML (YAML Ain't Markup Language) formats. Whether you are migrating configuration files or debugging data structures, this bidirectional converter ensures accurate and quick transformation of your data.",
-    usageExamples: [
-      "Converting Kubernetes configuration from JSON to YAML.",
-      "Transforming API responses (JSON) into a more readable YAML format.",
-      "Migrating data between systems using different serialization standards."
+    introduction: "The bridge between configs and data. Convert JSON to YAML or YAML to JSON with a single click. Essential for DevOps, full-stack developers, and anyone regularly wrestling with configuration files.",
+    howToUse: [
+      "Select your input format (or auto-detect).",
+      "Paste your code.",
+      "See the converted result instantly.",
+      "Copy or download.",
     ],
-    underlyingConcept: "The tool parses the input string into a JavaScript object structure and then re-serializes it into the target format. It handles the nuances of both specifications, such as JSON's strict bracketing and YAML's indentation-based hierarchy.",
+    features: [
+      "Bidirectional: JSON <-> YAML.",
+      "Error Highlighting: Spots syntax errors before converting.",
+      "Preserves Structure: Keeps nesting and arrays intact.",
+      "Fast: Handles large files locally.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "JSON is the language of APIs; YAML is the language of configuration (Kubernetes, Docker, etc.). This tool translates between the two formats, handling the strict brackets of JSON and the whitespace-sensitive indentation of YAML.",
+    usageExamples: [
+      "Converting Kubernetes manifests.",
+      "Transforming API responses into readable YAML.",
+      "Migrating config files between formats.",
+    ],
+    underlyingConcept:
+      "The tool parses the input string into a JavaScript object structure and then re-serializes it into the target format. It handles the nuances of both specifications, such as JSON's strict bracketing and YAML's indentation-based hierarchy.",
     faqs: [
       {
-        "question": "What is the difference between JSON and YAML?",
-        "answer": "JSON is widely used for data interchange in web applications, while YAML is preferred for configuration files due to its readability. JSON uses brackets and braces, whereas YAML uses indentation."
+        question: "Why use YAML instead of JSON?",
+        answer:
+          "YAML is generally easier for humans to read and write because it uses indentation rather than brackets. It also supports comments, which JSON doesn't.",
       },
       {
-        "question": "Can I convert complex nested structures?",
-        "answer": "Yes, the tool supports deep nesting of objects and arrays in both formats."
+        question: "Can I convert huge files?",
+        answer:
+          "Yes, since it runs in your browser, the limit is your computer's memory, not our server.",
       },
       {
-        "question": "Is the conversion reversible?",
-        "answer": "Generally yes, provided the data types are supported in both formats. Some specific YAML features (like references) might be lost when converting to standard JSON."
-      }
+        question: "Does it support YAML comments?",
+        answer:
+          "It can read them, but converting to JSON will strip them out because JSON doesn't support comments.",
+      },
     ],
   },
   'json-csv-converter': {
-    introduction: "Convert between JSON and CSV.",
-    howToUse: ["Select conversion direction", "Paste data", "Start conversion"],
-    features: ["Convert JSON arrays to CSV and vice versa.", "Customizable delimiters.", "Support for nested objects (flattening)."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "This tool simplifies the process of transforming data between structured JSON and tabular CSV formats. It's essential for data migration, analysis, and interoperability between web APIs (JSON) and spreadsheet software (CSV).",
-    usageExamples: [
-      "Converting a database export from JSON to CSV for analysis in Excel.",
-      "Preparing CSV data for upload to a REST API.",
-      "Flattening nested JSON data into a table format."
+    introduction: "Turn data into spreadsheets (and back). Convert JSON arrays into CSV for Excel, or turn CSV exports into JSON for your API. The quickest way to move data between your database and your business team.",
+    howToUse: [
+      "Paste your JSON or CSV data.",
+      "Watch it transform instantly.",
+      "Download the result as a file or copy to clipboard.",
     ],
-    underlyingConcept: "When converting JSON to CSV, the tool iterates through the array of objects, extracting keys as headers and mapping values to rows. For CSV to JSON, it parses the delimiter-separated lines, using the first row as keys to construct an array of objects.",
+    features: [
+      "Smart Flattening: Handles nested objects gracefully.",
+      "Custom Delimiters: Support for semicolons or tabs.",
+      "Table Preview: See your data in a grid before downloading.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Business teams love Excel (CSV); developers love JSON. This tool acts as the translator, converting structured object data into flat rows and columns, or parsing flat tables back into structured arrays.",
+    usageExamples: [
+      "Converting database exports for Excel analysis.",
+      "Preparing CSV data for a JSON API.",
+      "Flattening complex data structures.",
+    ],
+    underlyingConcept:
+      "When converting JSON to CSV, the tool iterates through the array of objects, collecting all unique keys to create headers, then mapping values to rows. Flattening involves combining parent and child keys (e.g., `user.address.city`) to fit nested data into a single column.",
     faqs: [
       {
-        "question": "How does it handle nested JSON objects?",
-        "answer": "The behavior depends on the specific settings, but typically nested objects are either stringified or flattened to fit the 2D CSV structure."
+        question: "How does it handle commas in text?",
+        answer:
+          "It automatically wraps fields containing commas in quotes, adhering to the standard CSV format.",
       },
       {
-        "question": "Can I use custom delimiters?",
-        "answer": "Yes, you can specify custom separators like semicolons or tabs instead of commas."
+        question: "Can I convert a single object?",
+        answer:
+          "Technically yes, but CSV is designed for lists. A single object will just result in one header row and one data row.",
       },
       {
-        "question": "Is it suitable for large files?",
-        "answer": "Yes, but performance depends on your browser's capabilities as processing happens locally."
-      }
+        question: "Is there a row limit?",
+        answer:
+          "Performance depends on your browser, but it can typically handle tens of thousands of rows without issue.",
+      },
     ],
   },
   'youtube-thumbnail': {
-    introduction: "Grab video thumbnails.",
-    howToUse: ["Paste URL", "Get Images"],
-    features: ["Download thumbnails from any YouTube video in max resolution.", "Supports all thumbnail sizes.", "Download thumbnails with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The YouTube Thumbnail Downloader is a utility that allows users to quickly extract and download high-resolution thumbnail images from any YouTube video. By simply providing the video's URL, the tool accesses YouTube's API to retrieve all available thumbnail sizes, offering a convenient way to get promotional images for content creators, designers, or anyone needing a snapshot from a video.",
-    usageExamples: [
-      "Downloading a specific frame as a thumbnail for a blog post featuring a YouTube video.",
-      "Content creators saving their own thumbnails for backup or repurposing.",
-      "Designers needing high-quality images for mockups or presentations related to YouTube content.",
-      "Creating custom share images for social media posts linking to YouTube videos."
+    introduction: "Grab it in high definition. Download the highest quality thumbnail from any YouTube video. Perfect for content creators needing to recover their old assets or designers creating mockups.",
+    howToUse: [
+      "Paste the YouTube video URL.",
+      "See all available resolutions (Max, High, Medium).",
+      "Click to download or copy the image link.",
     ],
-    underlyingConcept: "YouTube automatically generates several thumbnail images for each uploaded video in various resolutions (e.g., default, medium, high, standard, maxres). These thumbnails are publicly accessible via predictable URL patterns based on the video ID. This tool extracts the video ID from the provided YouTube URL and then constructs the direct URLs to these high-resolution thumbnails, allowing the user to view and download them.",
+    features: [
+      "Max Resolution: Get the 1280x720 (MaxResDefault) image.",
+      "All Formats: Access standard and high-quality versions too.",
+      "One-Click Download: Save directly to your device.",
+      "No API Key Needed: Works instantly.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "YouTube automatically generates several thumbnails for every video. This tool digs out the direct links to these hidden images, including the high-quality versions that aren't always easy to find manually.",
+    usageExamples: [
+      "Recovering lost thumbnails for your own videos.",
+      "Creating design mockups.",
+      "Analyzing competitor thumbnail strategies.",
+    ],
+    underlyingConcept:
+      "YouTube thumbnails are stored at predictable URL patterns. If you know the Video ID (e.g., `dQw4w9WgXcQ`), you can construct the URL for the thumbnail (e.g., `img.youtube.com/vi/ID/maxresdefault.jpg`). This tool automates that extraction.",
     faqs: [
       {
-        "question": "How do I download a YouTube thumbnail?",
-        "answer": "Simply paste the YouTube video URL into the input field, and this tool will generate all available thumbnail sizes for you to download."
+        question: "Is it legal?",
+        answer:
+          "Thumbnails are public metadata. However, you should respect copyright and only use them for fair use purposes or if you own the video.",
       },
       {
-        "question": "What is the maximum resolution available?",
-        "answer": "This tool can download the maximum resolution thumbnail available for the video, which is usually 1280x720 pixels."
+        question: "Why is the max resolution missing?",
+        answer:
+          "Not all videos have a 'MaxRes' thumbnail. If the video is old or low quality, YouTube might not have generated one.",
       },
       {
-        "question": "Is it legal to download YouTube thumbnails?",
-        "answer": "YouTube thumbnails are generally copyrighted by the video owner. You should only download thumbnails for personal use or with permission from the copyright holder."
-      }
+        question: "Can I download from a playlist?",
+        answer:
+          "Currently, this tool works one video at a time. Paste the specific video URL, not the playlist URL.",
+      },
     ],
   },
   'fancy-font-generator': {
-    introduction: "Create fancy text.",
-    howToUse: ["Type text", "Copy style"],
-    features: ["Generate stylish text for social media bios.", "Supports various font styles.", "Copy generated text with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Fancy Font Generator transforms ordinary text into a wide array of decorative and stylish character combinations. Unlike traditional fonts that require installation, this tool uses Unicode characters that resemble different typestyles, allowing users to create visually unique text that can be copied and pasted into social media bios, posts, or messages to add flair and stand out.",
-    usageExamples: [
-      "Creating eye-catching social media bios with unique and artistic text.",
-      "Designing special headings or titles for personal blogs or creative projects.",
-      "Adding decorative text to chat messages or online forums.",
-      "Making announcements or promotional content more visually appealing."
+    introduction: "Stand out in the feed. Convert normal text into 𝓬𝓸𝓸𝓵, 𝗯𝗼𝗹𝗱, or 𝓈𝓉𝓎𝓁𝒾𝓈𝒽 fonts for your Instagram bio, Twitter profile, or Discord status. No apps to install—just copy and paste.",
+    howToUse: [
+      "Type your text.",
+      "Scroll through dozens of generated styles.",
+      "Click any style to copy it to your clipboard.",
     ],
-    underlyingConcept: "The tool works by leveraging the extensive character set of Unicode. Beyond standard alphanumeric characters, Unicode includes thousands of symbols, diacritics, and stylistic variations that, when combined, can mimic different font styles. Each \"fancy font\" is essentially a mapping of standard characters to these alternative Unicode characters, which are then rendered by any system that supports Unicode.",
+    features: [
+      "Dozens of Styles: Cursive, Gothic, Bold, Bubbles, and more.",
+      "Universal: Works on Instagram, TikTok, Twitter, Discord, etc.",
+      "Instant: Generates as you type.",
+      "No Install: Nothing to download, works in your browser.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "These aren't actually different 'fonts'—they are special Unicode characters that look like styled text. That's why you can paste them into apps that normally only support one standard font. It's a clever hack using the world's universal character set.",
+    usageExamples: [
+      "Creating eye-catching Instagram bios.",
+      "Making your tweets stand out.",
+      "Styling your Discord username.",
+      "Sending unique text messages.",
+    ],
+    underlyingConcept:
+      "The tool uses a dictionary map to swap each standard letter (a-z) with its 'mathematical alphanumeric symbol' equivalent in Unicode (e.g., 𝑎, 𝐚, 𝖆, 𝕒).",
     faqs: [
       {
-        "question": "How can I generate fancy fonts for my social media bio?",
-        "answer": "You can use this tool to type your text and it will generate a variety of stylish fonts that you can copy and paste into your social media bio."
+        question: "Will screen readers read this?",
+        answer:
+          "Use with caution! Screen readers may read these characters as 'mathematical bold script a', which can be annoying for visually impaired users. Use sparingly.",
       },
       {
-        "question": "Are these actual fonts?",
-        "answer": "No, these are not actual fonts. They are Unicode characters that look like different font styles. This is why you can copy and paste them anywhere."
+        question: "Why do some boxes appear?",
+        answer:
+          "If you see a square box, it means your device doesn't have a font installed for that specific Unicode character. This is common on older devices.",
       },
       {
-        "question": "Will the fancy fonts work on all social media platforms?",
-        "answer": "Most modern social media platforms support Unicode characters, so the fancy fonts should work on platforms like Instagram, Twitter, and Facebook."
-      }
+        question: "Is it Facebook compatible?",
+        answer:
+          "Mostly, yes! Major platforms support Unicode, but some might filter out certain ranges.",
+      },
     ],
   },
   'hashtag-extractor': {
-    introduction: "Find all hashtags.",
-    howToUse: ["Paste text", "Copy tags"],
-    features: ["Extract hashtags from a block of text.", "Supports multi-line text.", "Copy extracted hashtags with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Hashtag Extractor is a specialized tool that scans a given block of text and automatically identifies and lists all embedded hashtags. This utility is invaluable for social media managers, content strategists, and data analysts who need to quickly pinpoint trending topics, analyze campaign performance, or organize user-generated content by relevant tags.",
-    usageExamples: [
-      "Analyzing the trending hashtags in a collection of social media posts.",
-      "Extracting relevant hashtags from customer feedback or comments for sentiment analysis.",
-      "Curating a list of popular tags for a marketing campaign.",
-      "Cleaning text data by separating hashtags from the main content."
+    introduction: "Find the trends. Extract every hashtag from a block of text instantly. Perfect for social media managers, marketers, and analysts who need to curate tags or analyze campaign performance.",
+    howToUse: [
+      "Paste your text (tweet, caption, or post).",
+      "Automatically get a list of all extracted hashtags.",
+      "Copy them as a list or a comma-separated string.",
     ],
-    underlyingConcept: "Hashtags are words or phrases prefixed with a hash symbol (`#`) and are used on social media platforms to categorize content and make it discoverable. The tool operates by applying pattern matching, typically using regular expressions, to identify sequences of characters that start with `#` and are followed by alphanumeric characters (and sometimes underscores), until a whitespace or punctuation mark is encountered.",
+    features: [
+      "Smart Extraction: Finds tags even in messy text.",
+      "Multi-Format: Get results as a list or a single string.",
+      "Deduplication: Removes duplicate tags automatically.",
+      "Case Options: Preserve casing or lowercase everything.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Hashtags are the currency of social media discovery. This tool parses your text using pattern matching to isolate every word starting with `#`, giving you a clean, usable list of tags without the noise.",
+    usageExamples: [
+      "Analyzing trending hashtags from comments.",
+      "Curating a list of tags for a marketing campaign.",
+      "Extracting tags for sentiment analysis.",
+    ],
+    underlyingConcept:
+      "It uses a Regular Expression (Regex) to scan the string for the `#` character followed by alphanumeric characters. It iterates through the entire text block to find every match.",
     faqs: [
       {
-        "question": "What is a hashtag extractor?",
-        "answer": "A hashtag extractor is a tool that automatically finds and extracts all the hashtags from a block of text."
+        question: "Does it find tags in the middle of words?",
+        answer:
+          "No, standard hashtags must be preceded by a space or the start of a line. This tool follows standard platform rules.",
       },
       {
-        "question": "How do I use this tool?",
-        "answer": "Simply paste your text into the input field, and the tool will extract all the hashtags and display them in a list for you to copy."
+        question: "Can I copy just the words without the #?",
+        answer:
+          "Currently, it extracts the full tag including the #, as that is the standard format.",
       },
       {
-        "question": "Does it support multiple hashtags in a single line?",
-        "answer": "Yes, this tool can extract multiple hashtags from a single line of text, as well as from multi-line text."
-      }
+        question: "Is there a limit?",
+        answer:
+          "It can handle very large blocks of text, limited only by your browser's performance.",
+      },
     ],
   },
   'image-filters': {
-    introduction: "Apply effects to images.",
-    howToUse: ["Upload image", "Adjust sliders", "Download"],
-    features: ["Apply CSS filters like grayscale, sepia, and blur to images.", "Adjust brightness, contrast, and saturation.", "Download the filtered image."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Image Filters tool allows users to apply various visual effects to images directly within their browser. Utilizing CSS filter properties, it enables real-time adjustments such as grayscale conversion, sepia toning, blurring, brightness control, and more, all without needing complex image editing software. This makes it ideal for quick edits, design prototyping, and experimenting with visual styles.",
-    usageExamples: [
-      "Quickly adjusting the brightness or contrast of a photo for web use.",
-      "Applying a vintage sepia tone to an image for a nostalgic effect.",
-      "Blurring sensitive areas of an image before sharing.",
-      "Experimenting with different filter combinations for creative design."
+    introduction: "Instant vintage vibes. Apply classic filters like Grayscale, Sepia, and Blur to your images directly in the browser. No heavy software, just quick and easy CSS effects.",
+    howToUse: [
+      "Upload your image.",
+      "Adjust the sliders (Blur, Brightness, Contrast, etc.).",
+      "See the changes in real-time.",
+      "Download the filtered image.",
     ],
-    underlyingConcept: "CSS filters are a powerful feature that can be applied to elements on a webpage, including images, to achieve various visual effects. These filters operate directly on the pixels of the rendered element. For instance, `grayscale()` converts an image to shades of gray, `sepia()` gives it a brownish tint, and `blur()` applies a Gaussian blur effect. The tool provides sliders or input fields that directly manipulate the values of these CSS properties, which are then applied to the image in real-time using JavaScript.",
+    features: [
+      "Real-time Preview: See effects instantly.",
+      "Privacy First: Processing happens locally.",
+      "CSS-Based: Uses modern web standards.",
+      "High Quality: Downloads the full-resolution image.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "You don't need Photoshop for basic adjustments. This tool uses CSS Filters—the same technology that powers web styling—to manipulate your image's pixels on the fly.",
+    usageExamples: [
+      "Quickly fixing brightness on a photo.",
+      "Adding a sepia tone for a retro look.",
+      "Blurring faces or sensitive info before sharing.",
+    ],
+    underlyingConcept:
+      "CSS Filters (`filter: blur(5px)`) are applied to the image element. When you download, we draw the image onto an HTML5 Canvas and apply those same filter mathematics to the pixel data before saving.",
     faqs: [
       {
-        "question": "How can I apply filters to my photos?",
-        "answer": "You can use this tool to upload your photo and apply various CSS filters like grayscale, sepia, and blur. You can also adjust the brightness, contrast, and saturation."
+        question: "Does it reduce image quality?",
+        answer:
+          "No, it processes the original image data. However, heavily saving and re-saving JPEGs can eventually lead to quality loss.",
       },
       {
-        "question": "Are these the same filters as on Instagram?",
-        "answer": "These are not the exact same filters as on Instagram, but they are similar CSS-based filters that can give your photos a professional look."
+        question: "Can I combine filters?",
+        answer:
+          "Yes! You can add blur, grayscale, and brightness all at the same time.",
       },
       {
-        "question": "Can I download the edited photo?",
-        "answer": "Yes, after you have applied the filters and adjusted the settings, you can download the filtered image to your device."
-      }
+        question: "Is my photo uploaded?",
+        answer:
+          "No. Your photo stays in your browser's memory. It never goes to our servers.",
+      },
     ],
   },
   'svg-blob-generator': {
-    introduction: "Generate random blobs.",
-    howToUse: ["Adjust settings", "Copy SVG"],
-    features: ["Create organic blob shapes for backgrounds.", "Customize complexity and contrast.", "Copy the SVG code with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The SVG Blob Generator is a creative tool that allows users to easily design unique, organic, and irregularly shaped SVG (Scalable Vector Graphics) blobs. These versatile shapes are popular in modern web design for adding a playful, fluid, and dynamic touch to backgrounds, sections, or UI elements, without the performance overhead of raster images.",
-    usageExamples: [
-      "Designing abstract background elements for website hero sections or banners.",
-      "Creating unique shapes for UI components like buttons, cards, or containers.",
-      "Adding organic design elements to digital art or illustrations.",
-      "Experimenting with fluid geometric forms for branding or visual identity."
+    introduction: "Make it organic. Generate unique, colorful, and liquid-like SVG blobs for your web designs. Perfect for background shapes, masking images, or adding a modern touch to your UI.",
+    howToUse: [
+      "Click to generate a new random blob.",
+      "Adjust complexity and uniqueness.",
+      "Change the color.",
+      "Copy the SVG code.",
     ],
-    underlyingConcept: "SVG blobs are typically generated using mathematical curves, often Bézier curves, which allow for smooth, continuous shapes. The tool manipulates parameters such as the number of control points, their distances from the center, and the smoothness of the curves to create a wide variety of \"blobby\" forms. These parameters are often randomized to produce unique shapes with each generation, and the output is pure SVG code, which is resolution-independent and highly scalable.",
+    features: [
+      "Infinite Variations: Every blob is unique.",
+      "Lightweight: Pure SVG code, no heavy images.",
+      "Customizable: Control complexity and contrast.",
+      "Ready-to-Use: Copy code directly for HTML/CSS.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Blobs are great because they break up the rigid grid of web design. This tool uses math (noise algorithms) to create smooth, closed curves that look natural and organic, not robotic.",
+    usageExamples: [
+      "Background shapes for hero sections.",
+      "Masking profile pictures.",
+      "Abstract art elements.",
+    ],
+    underlyingConcept:
+      "It generates a polygon with random points and then smooths the lines between them using Catmull-Rom splines or similar curve algorithms to create that soft, 'blobby' look.",
     faqs: [
       {
-        "question": "What is an SVG blob?",
-        "answer": "An SVG blob is an organic, irregular shape created with SVG (Scalable Vector Graphics). They are often used as background elements in web design to add a modern and creative touch."
+        question: "Can I animate these?",
+        answer:
+          "Yes! Since they are standard SVGs, you can animate their path with CSS or JavaScript libraries like GSAP.",
       },
       {
-        "question": "How can I customize the blob shape?",
-        "answer": "You can customize the complexity and contrast of the blob shape using the sliders in this tool. You can also generate a new random blob with a single click."
+        question: "Is it really random?",
+        answer:
+          "Yes, the shape generation algorithm uses random values for the angles and distances of the points.",
       },
       {
-        "question": "How do I use the generated SVG code?",
-        "answer": "You can copy the SVG code and paste it directly into your HTML file, or save it as an .svg file and use it as an image."
-      }
+        question: "Why use SVG?",
+        answer:
+          "SVG blobs are infinitely scalable. They look sharp on mobile and 4K screens while being tiny in file size.",
+      },
     ],
   },
   'svg-wave-generator': {
-    introduction: "Create page dividers.",
-    howToUse: ["Set layers", "Copy SVG"],
-    features: ["Generate smooth wave dividers for your website.", "Customize wave height, layers, and color.", "Copy the SVG code with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The SVG Wave Generator is a creative design tool that enables users to effortlessly produce smooth, customizable wave shapes in SVG (Scalable Vector Graphics) format. These waves are commonly employed as elegant visual dividers or background elements on websites, adding a modern, dynamic, and aesthetically pleasing touch to layouts without relying on raster images that can pixelate or increase load times.",
-    usageExamples: [
-      "Creating stylish section dividers between different content blocks on a webpage.",
-      "Designing unique background patterns for hero sections or footers.",
-      "Adding fluid, organic shapes to presentations or digital art.",
-      "Enhancing the visual appeal of web applications with custom wave designs."
+    introduction: "Smooth transitions. Create beautiful, flowing SVG waves to divide sections of your website. Say goodbye to boring straight lines and hello to dynamic, modern layouts.",
+    howToUse: [
+      "Adjust the wave shape, height, and complexity.",
+      "Choose your color.",
+      "Copy the SVG code to paste into your website.",
     ],
-    underlyingConcept: "Similar to SVG blobs, SVG waves are constructed using mathematical curves, typically Bézier curves, which define the path of the wave. The generator allows manipulation of parameters such as amplitude (wave height), frequency (number of waves), layers, and color. By adjusting these parameters, the tool dynamically generates the SVG path data that renders the desired wave pattern, providing a lightweight, responsive, and resolution-independent graphic.",
+    features: [
+      "Fully Customizable: Control layers, height, and speed.",
+      "Responsive: SVG scales perfectly to any screen.",
+      "Lightweight: Minimal code, maximum impact.",
+      "Visual Editor: See changes instantly.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Section dividers are a subtle way to guide the user's eye. Using SVGs for this means your dividers look crisp on mobile phones and 4K monitors alike, with a file size smaller than a text message.",
+    usageExamples: [
+      "Separating the header from the content.",
+      "Creating a footer wave.",
+      "Adding visual interest to pricing tables.",
+    ],
+    underlyingConcept:
+      "The wave is a sine wave function (or combination of them) rendered as an SVG path. By layering multiple semi-transparent waves, you get that deep, ocean-like effect.",
     faqs: [
       {
-        "question": "What are SVG waves?",
-        "answer": "SVG waves are smooth, wave-like shapes created with SVG (Scalable Vector Graphics) that are often used as page dividers or background elements in web design."
+        question: "How do I put this in my site?",
+        answer:
+          "Copy the code and paste it into your HTML, usually right before or after a `<section>`. You might need to set `width: 100%` in your CSS.",
       },
       {
-        "question": "How can I customize the waves?",
-        "answer": "You can customize the height, layers, and color of the waves using the controls in this tool. You can also randomize the waves to get a unique shape."
+        question: "Does it slow down my site?",
+        answer: "No, compared to a PNG image, this SVG code is incredibly small and fast.",
       },
       {
-        "question": "Can I use the generated SVG code on my website?",
-        "answer": "Yes, you can copy the SVG code and paste it directly into your HTML or use it in your CSS to create beautiful wave dividers on your website."
-      }
+        question: "Can I flip it?",
+        answer:
+          "Yes! You can flip the SVG upside down using CSS `transform: rotate(180deg)` or by copying the code into a vector editor.",
+      },
     ],
   },
   'keycode-info': {
-    introduction: "Find key codes.",
-    howToUse: ["Press key", "See codes"],
-    features: ["Get JavaScript event codes for any key press.", "Displays key, code, and which properties.", "Useful for keyboard event handling in JavaScript."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Keycode Event Info tool is an interactive utility for web developers and programmers to quickly identify JavaScript event properties (like `key`, `code`, and `which`) associated with any keyboard key press. This real-time feedback is invaluable for accurately implementing keyboard shortcuts, game controls, or any interactive feature that relies on specific key inputs in web applications.",
-    usageExamples: [
-      "Developing custom keyboard shortcuts for a web-based text editor or application.",
-      "Implementing game controls in a browser-based game using specific key inputs.",
-      "Debugging unexpected behavior in JavaScript keydown/keyup event listeners.",
-      "Learning about the different key identifiers available in JavaScript event objects."
+    introduction: "Debug your keyboard. Press any key to see its JavaScript event codes (`key`, `code`, `which`). Essential for developers building games, accessibility features, or custom shortcuts.",
+    howToUse: [
+      "Press any key on your keyboard.",
+      "Instantly see the event data.",
+      "Copy the code you need.",
     ],
-    underlyingConcept: "When a key is pressed on a keyboard, the browser generates a keyboard event object. This object contains several properties that describe the event, including `key` (the string value of the key, accounting for modifiers like Shift), `code` (the physical key pressed, regardless of modifiers), and the deprecated `which` (the ASCII value or virtual key code). The tool listens for these DOM keyboard events and displays these properties in real-time, providing immediate insight into the event data.",
+    features: [
+      "Instant Feedback: No delay.",
+      "Comprehensive Data: Shows Key, Code, Which, and Location.",
+      "Modifier Support: Detects Shift, Ctrl, Alt.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "JavaScript handles keyboard input through events. Knowing the exact `code` (physical key) vs `key` (character value) is crucial. For example, 'Z' on a US keyboard is different from 'Z' on a German keyboard—this tool shows you exactly what the browser sees.",
+    usageExamples: [
+      "Mapping game controls.",
+      "Creating custom shortcuts (Ctrl+S).",
+      "Debugging keyboard event listeners.",
+    ],
+    underlyingConcept:
+      "It adds a global `keydown` event listener to the window and simply prints out the event object's properties: `e.key`, `e.code`, `e.which`, etc.",
     faqs: [
       {
-        "question": "What are key codes?",
-        "answer": "Key codes are numerical values that represent the keys on a keyboard. They are used in JavaScript to detect which key has been pressed."
+        question: "What is the difference between key and code?",
+        answer:
+          "`key` is the character generated (e.g., 'a' or 'A'). `code` is the physical button pressed (e.g., 'KeyA'). `code` doesn't change with keyboard layout.",
       },
       {
-        "question": "What is the difference between key, code, and which?",
-        "answer": "`key` returns the value of the key pressed, `code` returns the physical key code, and `which` is a deprecated property that returns the key code."
+        question: "Why is 'which' deprecated?",
+        answer:
+          "It was inconsistent across browsers. `key` and `code` are the modern standards.",
       },
       {
-        "question": "Why would I need this tool?",
-        "answer": "This tool is useful for developers who are working with keyboard events in JavaScript and need to know the key codes for different keys."
-      }
+        question: "Does it detect held keys?",
+        answer:
+          "Yes, it will show the 'repeat' property as true if you hold a key down.",
+      },
     ],
   },
   'screen-info': {
-    introduction: "Check your resolution.",
-    howToUse: ["Open tool", "See stats"],
-    features: ["View your current screen and viewport dimensions.", "Includes color depth and pixel ratio.", "Useful for responsive design testing."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Screen Resolution Info tool provides detailed information about your current display environment, including screen resolution, viewport dimensions, color depth, and pixel ratio. This is particularly valuable for web developers, designers, and testers who need to ensure their content renders optimally across a wide array of devices and screen configurations, aiding in responsive design and accessibility efforts.",
-    usageExamples: [
-      "Verifying the actual viewport size when developing responsive web applications.",
-      "Testing how designs scale on different screen resolutions.",
-      "Debugging layout issues that appear only on specific display configurations.",
-      "Understanding pixel density (DPI/PPI) for optimizing image assets."
+    introduction: "Know your viewport. Get detailed specs about your current screen resolution, window size, and pixel density. A must-have for testing responsive designs.",
+    howToUse: [
+      "Open the page.",
+      "Instantly see your screen width, height, and color depth.",
+      "Resize your browser to see the 'Viewport' values update live.",
     ],
-    underlyingConcept: "Web browsers provide access to various screen and window properties through the JavaScript `window.screen` and `window.innerWidth`/`innerHeight` objects. `window.screen` gives information about the physical screen (total resolution, color depth), while `window.innerWidth`/`innerHeight` provides the dimensions of the browser's viewport (the visible area of the webpage). The tool queries these browser APIs in real-time to display the relevant statistics to the user.",
+    features: [
+      "Live Updates: Resizing updates the numbers instantly.",
+      "Pixel Ratio: See if you're on a Retina/HiDPI display.",
+      "Color Depth: Check color support.",
+      "Copy Specs: One-click copy for bug reports.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Designers often guess what 'mobile' or 'desktop' size means. This tool gives you the hard numbers for your specific device, helping you identify exactly which CSS media query is active.",
+    usageExamples: [
+      "Checking your current viewport size for CSS breakpoints.",
+      "Verifying if a screen is HiDPI/Retina.",
+      "Debugging layout issues on specific devices.",
+    ],
+    underlyingConcept:
+      "It reads `window.innerWidth`/`Height` for the viewport and `window.screen.width`/`Height` for the physical display. It also checks `window.devicePixelRatio`.",
     faqs: [
       {
-        "question": "What is screen resolution?",
-        "answer": "Screen resolution is the number of distinct pixels in each dimension that can be displayed on a screen. It is usually quoted as width × height."
+        question: "Why are viewport and screen size different?",
+        answer:
+          "Screen size is your physical monitor. Viewport is just the area of the web page (excluding browser bars). Responsive design cares about viewport.",
       },
       {
-        "question": "What is the difference between screen resolution and viewport size?",
-        "answer": "Screen resolution is the total number of pixels on your screen, while viewport size is the visible area of the web page in your browser window."
+        question: "What is pixel ratio?",
+        answer:
+          "Modern screens pack more pixels into the same space for sharpness. A ratio of 2 means there are 2 physical pixels for every 1 CSS pixel.",
       },
       {
-        "question": "Why is this information useful?",
-        "answer": "This information is useful for web developers who are testing the responsive design of their websites on different screen sizes."
-      }
+        question: "Does it track me?",
+        answer:
+          "No, this information is just read from your browser to show you. it is not recorded.",
+      },
     ],
   },
   'text-to-speech': {
-    introduction: "Read text aloud.",
-    howToUse: ["Type text", "Click speak"],
-    features: ["Convert text to spoken audio in your browser.", "Supports multiple voices and languages.", "Adjust pitch and speed of the voice."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Text to Speech (TTS) tool converts written text into synthesized spoken audio directly within your web browser. This accessibility feature is invaluable for users with visual impairments, learning disabilities, or anyone who prefers to listen to content. It offers customizable voices, languages, and speech parameters, making digital content more engaging and accessible.",
-    usageExamples: [
-      "Listening to articles, e-books, or long documents while multitasking.",
-      "Assisting individuals with reading difficulties or visual impairments to consume digital content.",
-      "Practicing pronunciation in different languages.",
-      "Creating audio versions of short texts for presentations or educational materials."
+    introduction: "Let your browser speak. Convert any text into spoken audio using your device's built-in voices. Great for accessibility testing, proofreading, or just giving your eyes a break.",
+    howToUse: [
+      "Type or paste your text.",
+      "Select a voice (language/accent).",
+      "Adjust speed and pitch.",
+      "Click 'Speak'.",
     ],
-    underlyingConcept: "The tool utilizes the Web Speech API (specifically, `SpeechSynthesis` and `SpeechSynthesisUtterance`) available in modern web browsers. This API allows JavaScript to access the device's built-in text-to-speech capabilities. When text is input, an `SpeechSynthesisUtterance` object is created with the text and desired parameters (voice, pitch, rate), which is then spoken by the `SpeechSynthesis` interface. All processing happens client-side, ensuring privacy.",
+    features: [
+      "Native Voices: Uses your OS's high-quality voices.",
+      "Multi-Language: Supports all installed languages.",
+      "Speed Control: Listen fast or slow.",
+      "Privacy: No audio data is sent to the cloud.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "This tool uses the Web Speech API to access the text-to-speech engine built into your computer or phone. It's the same technology that powers screen readers, giving you a way to 'hear' your content.",
+    usageExamples: [
+      "Proofreading your own writing (ears catch mistakes eyes miss).",
+      "Accessibility testing for screen readers.",
+      "Listening to an article while cooking.",
+    ],
+    underlyingConcept:
+      "It uses `window.speechSynthesis`. The browser asks the OS for available voices, and then sends the text to the OS's synthesis engine to play back audio.",
     faqs: [
       {
-        "question": "How does text-to-speech work?",
-        "answer": "Text-to-speech (TTS) is a type of assistive technology that reads digital text aloud. It's sometimes called 'read aloud' technology."
+        question: "Why do the voices sound like my computer?",
+        answer:
+          "Because they ARE your computer! This tool uses your system's built-in voices, which is why it works offline and is free.",
       },
       {
-        "question": "Can I choose a different voice or language?",
-        "answer": "Yes, this tool supports multiple voices and languages. You can select your preferred voice and language from the dropdown menus."
+        question: "Can I save the audio?",
+        answer:
+          "Not directly. The browser generates the audio in real-time. You'd need a system audio recorder to capture it.",
       },
       {
-        "question": "Can I adjust the speed and pitch of the voice?",
-        "answer": "Yes, you can adjust the pitch and speed of the voice using the sliders to make it sound just the way you want it."
-      }
+        question: "Why are some languages missing?",
+        answer:
+          "It depends on what language packs you have installed on your operating system.",
+      },
     ],
   },
   'roman-numeral-converter': {
-    introduction: "Convert numbers.",
-    howToUse: ["Enter number", "See result"],
-    features: ["Convert numbers to Roman numerals and back.", "Supports both integer to Roman and Roman to integer conversion.", "Easy to use interface."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Roman Numeral Converter is a utility for translating modern Arabic numerals into their ancient Roman counterparts and vice-versa. This tool simplifies working with a numeral system that, despite its historical significance, can be challenging to manipulate manually, especially for larger numbers. It's useful for educational purposes, historical contexts, or specific design applications.",
-    usageExamples: [
-      "Converting years (e.g., 2023) into Roman numerals for architectural inscriptions or copyright dates.",
-      "Reading and understanding Roman numerals found in historical documents or movie credits.",
-      "Using Roman numerals for aesthetic numbering in outlines or lists.",
-      "Educational purposes to learn the Roman numeral system."
+    introduction: "From Rome with love. Convert numbers to Roman numerals (like MMXXIV) and back again. Perfect for copyright dates, tattoos, or deciphering super bowl logos.",
+    howToUse: [
+      "Type a number (e.g., 2024) or a Roman numeral (e.g., MCMXC).",
+      "The tool detects the format and converts it instantly.",
+      "Copy the result.",
     ],
-    underlyingConcept: "The Roman numeral system uses seven basic symbols (I, V, X, L, C, D, M) which represent specific values. Numbers are formed by combining these symbols, often following a principle of addition (symbols placed right of a larger value add to it) and subtraction (symbols placed left of a larger value subtract from it, e.g., IV = 4). The converter implements an algorithm that iteratively subtracts or adds values based on these rules to perform the conversion.",
+    features: [
+      "Bidirectional: Detects input type automatically.",
+      "Validation: Checks for invalid Roman numerals.",
+      "Historical: Supports standard Roman rules.",
+      "Instant: See results as you type.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Roman numerals use letters to represent values (I=1, V=5, X=10, etc.). The tricky part is the subtractive notation (IV is 4, not IIII). This tool handles all those rules for you.",
+    usageExamples: [
+      "Finding the Roman numeral for the current year.",
+      "Translating old movie release dates.",
+      "Designing tattoos or inscriptions.",
+    ],
+    underlyingConcept:
+      "It uses a lookup table of values (M=1000, CM=900, D=500...) and iterates through the number, appending the largest identifying symbol and subtracting its value until zero is reached.",
     faqs: [
       {
-        "question": "What are Roman numerals?",
-        "answer": "Roman numerals are a numeral system that originated in ancient Rome and remained the usual way of writing numbers throughout Europe well into the Late Middle Ages."
+        question: "What is the largest Roman numeral?",
+        answer:
+          "Standard Roman numerals typically go up to 3,999 (MMMCMXCIX). Larger numbers require special overline syntax which is rarely used.",
       },
       {
-        "question": "How do I convert a number to a Roman numeral?",
-        "answer": "You can use this tool to enter a number and it will be automatically converted to its Roman numeral representation."
+        question: "Why is 4 written as IV?",
+        answer:
+          "This is 'subtractive notation'. Instead of four I's (IIII), you put the I before the V (5) to mean 'one less than five'.",
       },
       {
-        "question": "Can I convert a Roman numeral to a number?",
-        "answer": "Yes, you can also enter a Roman numeral and the tool will convert it back to a number."
-      }
+        question: "Does it validate inputs?",
+        answer:
+          "Yes, if you type an invalid sequence (like 'IIII'), it will let you know.",
+      },
     ],
   },
   'age-calculator': {
-    introduction: "Find your exact age.",
-    howToUse: ["Enter birthdate", "See age"],
-    features: ["Calculate your exact age in years, months, and days.", "Shows the total number of days you have lived.", "Easy to use interface."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Age Calculator is a simple yet precise tool that determines a person's exact age in years, months, and days based on their birth date and the current date. Beyond just providing the age, it offers a detailed breakdown of the duration, useful for various personal, administrative, or ceremonial purposes.",
-    usageExamples: [
-      "Quickly finding out someone's exact age for personal records or curiosity.",
-      "Calculating age for legal or administrative purposes where precise age is required.",
-      "Determining the time remaining until a significant future event, like a birthday.",
-      "Educational purposes to understand date arithmetic."
+    introduction: "Count the seconds. Calculate your exact age in years, months, weeks, days—even seconds. See exactly how long you've been on this planet.",
+    howToUse: [
+      "Enter your birth date.",
+      "Instantly see your age in various formats.",
+      "See your next birthday countdown.",
     ],
-    underlyingConcept: "The Age Calculator performs date arithmetic. It takes two date inputs (birth date and current date) and calculates the difference by sequentially subtracting years, then months, then days. Special attention is paid to handling month and day rollovers (e.g., crossing month boundaries or leap years) to ensure the exact number of days, months, and years between the two dates is accurately computed.",
+    features: [
+      "Precision: Calculates down to the day.",
+      "Fun Stats: See your age in weeks or hours.",
+      "Next Birthday: Countdown timer to your special day.",
+      "Privacy: Your birth date is never stored.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "It's simple math, but handling leap years and varying month lengths can be tricky. This tool uses precise date libraries to give you the exact duration between your birth date and right now.",
+    usageExamples: [
+      "Checking your exact age.",
+      "Calculating age difference between two people.",
+      "Finding out how many days you've been alive.",
+    ],
+    underlyingConcept:
+      "It subtracts the birth timestamp from the current timestamp and then converts that millisecond difference into human-readable units (years, months, days).",
     faqs: [
       {
-        "question": "How can I calculate my age?",
-        "answer": "You can use this tool to calculate your exact age in years, months, and days by entering your date of birth."
+        question: "Does it account for leap years?",
+        answer:
+          "Yes, the calculation is astronomically correct and accounts for leap years.",
       },
       {
-        "question": "Does it show my age in days?",
-        "answer": "Yes, this tool also shows the total number of days you have lived since your date of birth."
+        question: "Is my data saved?",
+        answer:
+          "No, the date you enter stays in your browser. We don't send it anywhere.",
       },
       {
-        "question": "Is my date of birth stored anywhere?",
-        "answer": "No, your date of birth is not stored anywhere. All calculations are done in your browser, so your data remains private."
-      }
+        question: "Can I calculate future ages?",
+        answer:
+          "Yes, you can enter a future date to see how old you will be then.",
+      },
     ],
   },
   'random-number-generator': {
-    introduction: "Get random numbers.",
-    howToUse: ["Set range", "Generate"],
-    features: ["Generate random numbers within a specific range.", "Set minimum and maximum values.", "Generate multiple random numbers at once."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Random Number Generator is a utility that produces a sequence of numbers or a single number with no discernible pattern, within a user-defined range. This tool is valuable for simulations, games, statistical sampling, or any scenario where unpredictability and a lack of bias are desired. Users can specify minimum, maximum, and whether to generate integers or floating-point numbers.",
-    usageExamples: [
-      "Drawing lottery numbers or making random selections for games.",
-      "Simulating dice rolls or coin flips for a game or experimental setup.",
-      "Generating unique IDs or temporary passwords for testing purposes.",
-      "Creating random data sets for statistical analysis or machine learning model training."
+    introduction: "Roll the dice. Generate true random numbers within any range. Essential for giveaways, games, or deciding who pays for lunch.",
+    howToUse: [
+      "Set your minimum and maximum values.",
+      "Choose how many numbers you want.",
+      "Click 'Generate'.",
     ],
-    underlyingConcept: "While true randomness is difficult to achieve in deterministic computer systems, this tool typically employs a pseudorandom number generator (PRNG). A PRNG starts with an initial value (seed) and uses a deterministic algorithm to produce a sequence of numbers that appear random. Modern browsers often use cryptographically secure PRNGs (CSPRNGs) which are suitable for most general-purpose random number generation tasks, providing a high degree of statistical randomness and unpredictability.",
+    features: [
+      "Custom Range: Pick any min/max.",
+      "Diverse Options: Allow duplicates or unique numbers.",
+      "Sorting: Sort results automatically.",
+      "Fast: Generate thousands of numbers instantly.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Computers aren't naturally random, so this tool uses a 'Pseudo-Random Number Generator' (PRNG) algorithm to produce results that are statistically random and fair.",
+    usageExamples: [
+      "Choosing a contest winner.",
+      "Generating test data.",
+      "Simulating dice or coin flips.",
+    ],
+    underlyingConcept:
+      "It relies on `Math.random()`, which in modern browsers is a high-quality PRNG sufficient for most non-cryptographic needs.",
     faqs: [
       {
-        "question": "How can I generate a random number?",
-        "answer": "You can use this tool to generate a random number within a specific range by setting the minimum and maximum values."
+        question: "Are these numbers truly random?",
+        answer:
+          "They are 'pseudo-random', which is standard for computers. They are unpredictable enough for games and apps, but don't use them for high-stakes cryptography.",
       },
       {
-        "question": "Can I generate more than one random number at a time?",
-        "answer": "Yes, you can specify the number of random numbers you want to generate, and the tool will generate them for you."
+        question: "Can I generate decimals?",
+        answer:
+          "Currently, this tool focuses on integers (whole numbers), as that's what most people need for lists and lotteries.",
       },
       {
-        "question": "Is the generated number truly random?",
-        "answer": "The numbers are pseudo-random, which means they are generated by an algorithm that produces a sequence of numbers that appears to be random. For most purposes, they are random enough."
-      }
+        question: "Is there a limit?",
+        answer:
+          "You can generate thousands of numbers, but your browser might slow down if you try to generate millions at once.",
+      },
     ],
   },
   'duplicate-remover': {
-    introduction: "Clean lists.",
-    howToUse: ["Paste list", "Remove dupes"],
-    features: ["Remove duplicate entries from a list of text.", "Supports case-sensitive and case-insensitive matching.", "Copy the cleaned list with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Duplicate Line Remover is an essential utility for data cleaning and text processing. It efficiently scans a given block of text or a list of items and eliminates redundant entries, leaving only unique lines. This helps in refining data sets, ensuring accuracy, and improving the efficiency of various text-based tasks by removing unnecessary repetition.",
-    usageExamples: [
-      "Cleaning mailing lists or contact databases to remove duplicate entries.",
-      "Consolidating log files or server output to focus on unique events.",
-      "Refining keyword lists for SEO campaigns to avoid targeting the same phrases multiple times.",
-      "Preparing unique items for a randomized selection process."
+    introduction: "Clean your lists. Instantly remove duplicate lines or keywords from your text. Perfect for cleaning email lists, data sets, or inventory records.",
+    howToUse: [
+      "Paste your list.",
+      "Choose 'Line based' or 'Word based'.",
+      "Click 'Remove Duplicates'.",
+      "Copy the clean list.",
     ],
-    underlyingConcept: "The tool typically processes the input text line by line. Each line is compared against a collection of lines already encountered. If a line is found to be identical to one already in the collection (based on either case-sensitive or case-insensitive comparison, depending on user settings), it is discarded. Otherwise, it is added to the collection of unique lines and retained in the output. This comparison is usually performed using hash tables or set data structures for optimal performance.",
+    features: [
+      "Smart Detection: Finds exact matches instantly.",
+      "Case Sensitivity: Choose to ignore or respect capitalization.",
+      "Formatting: Remove empty lines automatically.",
+      "Statistics: See how many duplicates were found.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Data often gets messy. Whether you have a list of emails with the same person twice, or a keyword list with repetitions, this tool uses a Set data structure to filter out any item that has been seen before.",
+    usageExamples: [
+      "Cleaning mailing lists before sending.",
+      "Removing duplicate tags for SEO.",
+      "Condensing survey responses.",
+    ],
+    underlyingConcept:
+      "It splits your text into an array (by newlines or spaces), converts that array into a JavaScript `Set` (which inherently only stores unique values), and then joins it back together.",
     faqs: [
       {
-        "question": "How do I remove duplicate lines from my text?",
-        "answer": "Simply paste your text into the input field, and this tool will automatically remove all the duplicate lines, leaving you with a clean list of unique lines."
+        question: "Does it sort the list?",
+        answer:
+          "It typically keeps the original order of the *first* occurrence found, but you can usually sort the result afterwards if needed.",
       },
       {
-        "question": "Does it matter if the duplicates have different capitalization?",
-        "answer": "You can choose whether you want the comparison to be case-sensitive or case-insensitive. If you choose case-insensitive, 'Apple' and 'apple' will be treated as duplicates."
+        question: "Is it case sensitive?",
+        answer:
+          "You can choose! 'Apple' and 'apple' can be treated as the same word or different words.",
       },
       {
-        "question": "Will this tool preserve the original order of the list?",
-        "answer": "Yes, this tool will preserve the original order of the unique items in your list."
-      }
+        question: "How much text can it handle?",
+        answer:
+          "It can handle tens of thousands of lines easily in the browser.",
+      },
     ],
   },
   'html-entity': {
-    introduction: "Escape HTML.",
-    howToUse: ["Paste text", "Encode/Decode"],
-    features: ["Encode/Decode text to HTML entities.", "Supports all HTML special characters.", "Copy the result with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The HTML Entity Encoder/Decoder converts special characters in text into their corresponding HTML entity references (e.g., `&lt;` for `<`) and vice-versa. This is essential for correctly displaying reserved HTML characters in web content without them being interpreted as markup, preventing layout issues, and mitigating certain types of security vulnerabilities like Cross-Site Scripting (XSS).",
-    usageExamples: [
-      "Displaying code snippets or mathematical symbols accurately within an HTML document.",
-      "Sanitizing user-generated content before rendering it on a webpage to prevent malicious script injection (XSS).",
-      "Converting special characters in database entries to a web-safe format for consistent display.",
-      "Decoding HTML entities back into their original characters for readability or further text processing."
+    introduction: "Safe for the web. Escape characters like `<` and `&` so they display correctly in HTML. Prevent broken layouts and code injection.",
+    howToUse: [
+      "Paste your text.",
+      "Click 'Encode' to turn special chars into entities.",
+      "Click 'Decode' to reverse it.",
     ],
-    underlyingConcept: "HTML entities are special codes used in HTML to represent characters that are reserved (like `<`, `>`, `&`, `\"`) or not easily typable on a standard keyboard (like `©`, `™`). Encoding involves replacing these actual characters with their entity references. Decoding reverses this process. The tool implements a lookup table or character mapping to perform these conversions according to the HTML standard, ensuring characters are rendered as intended by browsers.",
+    features: [
+      "All Entities: Supports named, decimal, and hex entities.",
+      "Safe: Prevents XSS issues in your code.",
+      "Instant: Converts large blocks of text immediately.",
+      "Bidirectional: Encode or Decode.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "HTML uses characters like `<` and `>` for tags. If you want to display those characters as text, you must 'escape' them. This tool swaps the raw character for its safe HTML entity code.",
+    usageExamples: [
+      "Displaying code snippets on a website.",
+      "Sanitizing user input.",
+      "Fixing broken character encoding.",
+    ],
+    underlyingConcept:
+      "It replaces reserved characters with their entity equivalents. For example, `<` becomes `&lt;` and `&` becomes `&amp;`.",
     faqs: [
       {
-        "question": "What are HTML entities?",
-        "answer": "HTML entities are used to display reserved characters in HTML. For example, if you want to display the less than sign (<), you need to use the entity &lt;."
+        question: "Why do I see &amp; everywhere?",
+        answer:
+          "That is the HTML entity for an ampersand (&). If you see it, it means the text has been encoded.",
       },
       {
-        "question": "Why do I need to encode HTML entities?",
-        "answer": "You need to encode HTML entities to prevent the browser from misinterpreting your text as HTML code. This is especially important when you are displaying code snippets or user-generated content."
+        question: "Does it support emoji?",
+        answer:
+          "Yes, emoji can be encoded as numerical entities (e.g., `&#128512;` for 😀). by this tool.",
       },
       {
-        "question": "Can I decode HTML entities as well?",
-        "answer": "Yes, this tool can both encode and decode HTML entities, so you can easily convert between the two formats."
-      }
+        question: "Is this the same as URL encoding?",
+        answer:
+          "No, URL encoding uses `%20` style syntax. HTML encoding uses `&name;` style syntax. We have a separate tool for URL encoding.",
+      },
     ],
   },
   'css-cursors': {
-    introduction: "View CSS cursors.",
-    howToUse: ["Hover boxes", "Copy CSS"],
-    features: ["Visual reference for all CSS cursor types.", "Hover to see the cursor in action.", "Copy the CSS code with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The CSS Cursor Viewer is a practical reference tool that visually showcases all available CSS cursor properties. By hovering over each example, users can instantly see how different cursor styles appear, making it easy to select the perfect cursor for interactive web elements. This eliminates the need for guesswork or repeated testing, streamlining the design and development process for user interfaces.",
-    usageExamples: [
-      "Choosing an appropriate cursor for draggable elements (`grab`, `grabbing`).",
-      "Indicating interactive elements that are clickable (`pointer`) versus static text (`text`).",
-      "Designing custom resize handles (`nw-resize`, `se-resize`).",
-      "Providing visual cues for loading states (`wait`, `progress`)."
+    introduction: "Point the way. Explore all the available CSS cursor values strings. See how they look and copy the code to improve your UI's affordance.",
+    howToUse: [
+      "Hover over the boxes to see the cursor change.",
+      "Click to copy the CSS (e.g., `cursor: pointer;`).",
     ],
-    underlyingConcept: "The `cursor` CSS property defines the mouse cursor to display when the pointer is over an element. Browsers provide a set of predefined keyword values (e.g., `auto`, `default`, `none`, `pointer`, `help`, `wait`, `text`, `move`, `not-allowed`, `zoom-in`, `alias`, `copy`, `grab`, `grabbing`, and various resizing cursors). The tool simply renders elements with these different `cursor` property values and allows users to interactively preview them.",
+    features: [
+      "Visual Reference: See the actual cursor behavior.",
+      "Complete List: Includes standard and exotic cursors.",
+      "One-Click Copy: Grab the CSS instantly.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "The cursor is the user's hand in the digital world. Changing it from a pointer to a 'not-allowed' sign or a 'grab' hand communicates interaction instantly without words. This gallery shows you every option the browser supports.",
+    usageExamples: [
+      "Finding the right cursor for a drag-and-drop interface.",
+      "Indicating that an action is currently loading/busy.",
+      "Showing that an element is clickable.",
+    ],
+    underlyingConcept:
+      "It renders a grid of divs, each with `style='cursor: value'`. It's a living dictionary of the CSS Cursor Level 3/4 spec.",
     faqs: [
       {
-        "question": "What is the CSS cursor property?",
-        "answer": "The CSS cursor property specifies the mouse cursor to be displayed when pointing over an element."
+        question: "Do all browsers support these?",
+        answer:
+          "Most are supported everywhere. Some newer ones like `zoom-in` might behave slightly differently on old browsers, but they generally degrade gracefully.",
       },
       {
-        "question": "How can I see the different cursor types?",
-        "answer": "You can hover over the boxes in this tool to see a live preview of each cursor type. You can then copy the CSS code for the cursor you want to use."
+        question: "Can I use custom images?",
+        answer:
+          "Yes, CSS allows `cursor: url('image.png'), auto;`, but this tool focuses on the built-in keywords.",
       },
       {
-        "question": "Are all these cursors supported by all browsers?",
-        "answer": "Most of these cursors are supported by all modern browsers. However, some of the less common cursors may have limited support."
-      }
+        question: "Why does the cursor not change?",
+        answer:
+          "You must be using a mouse or trackpad. Touchscreens don't have a persistent cursor state!",
+      },
     ],
   },
   'device-resolutions': {
-    introduction: "Check device sizes.",
-    howToUse: ["Search device", "See specs"],
-    features: ["Reference guide for common device screen sizes.", "Includes viewport size, resolution, and pixel density.", "Search for specific devices."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Device Resolution List serves as a comprehensive reference guide for web developers and designers, cataloging common screen sizes and resolutions across various devices (desktops, laptops, tablets, and mobile phones). This resource is crucial for designing and testing responsive web layouts, ensuring optimal user experience regardless of the device used to access the content.",
-    usageExamples: [
-      "Designing responsive layouts that adapt seamlessly to different screen dimensions.",
-      "Testing website breakpoints and media queries against real-world device sizes.",
-      "Ensuring content is readable and interactive on various mobile and tablet displays.",
-      "Making informed decisions about image and video asset optimization based on common device pixel densities."
+    introduction: "Size matters. Browse a comprehensive list of screen resolutions for popular devices—phones, tablets, and laptops. A reference guide for responsive design.",
+    howToUse: [
+      "Search for a device (e.g. 'iPhone 14').",
+      "See its viewport width, height, and pixel ratio.",
+      "Use these numbers for your CSS breakpoints.",
     ],
-    underlyingConcept: "Modern web design heavily relies on responsive principles, where layouts fluidly adjust to the user's screen size. This tool provides a curated dataset of these common dimensions. While browsers offer APIs to detect screen/viewport sizes, having a static reference helps in planning and ensuring cross-device compatibility, especially considering the vast and ever-growing ecosystem of digital devices.",
+    features: [
+      "Searchable: Find any device quickly.",
+      "Up-to-Date: Includes latest phones and tablets.",
+      "Detailed: Shows physical vs logic resolution.",
+      "Copy-Paste: Quickly grab dimensions.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "You can't buy every phone to test your site. This database gathers the viewport specs of hundreds of devices so you can simulate them in Chrome DevTools or set your media queries correctly.",
+    usageExamples: [
+      "Setting the right max-width for your mobile layout.",
+      "Checking commonly used tablet sizes.",
+      "Configuring emulator settings.",
+    ],
+    underlyingConcept:
+      "It is a static structured JSON database of known device specifications, curated from technical spec sheets.",
     faqs: [
       {
-        "question": "Why is it important to know the screen resolutions of different devices?",
-        "answer": "It is important for web developers and designers to know the screen resolutions of different devices to ensure that their websites are responsive and look good on all screen sizes."
+        question: "Why are the numbers smaller than the box says?",
+        answer:
+          "That's 'Logical Resolution' vs 'Physical Resolution'. A 4K phone might have 3000 pixels physically, but it acts like it's only 400px wide so text is readable.",
       },
       {
-        "question": "What is the difference between viewport size and resolution?",
-        "answer": "Resolution is the total number of pixels on the screen, while viewport size is the visible area of the web page in the browser window. The viewport size can be smaller than the resolution if the user has zoomed in or if there are browser toolbars."
+        question: "Is this list updated?",
+        answer:
+          "We try to add major new devices as they are released.",
       },
       {
-        "question": "Can I search for a specific device?",
-        "answer": "Yes, you can use the search bar to find the screen size information for a specific device."
-      }
+        question: "Can I detect the user's device?",
+        answer:
+          "You can use `window.navigator.userAgent`, but checking screen size (`window.innerWidth`) is usually a better way to adapt your layout.",
+      },
     ],
   },
   'lorem-image-generator': {
-    introduction: "Get dummy images.",
-    howToUse: ["Set size", "Copy URL"],
-    features: ["Generate placeholder image URLs.", "Customize image size and grayscale.", "Get a random image or a specific one by ID."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Lorem Picsum Generator provides a simple and efficient way to generate placeholder image URLs. These URLs can be used in web development and design mockups to quickly populate layouts with visually appealing, royalty-free images of various sizes and styles. It eliminates the need to source or create temporary image assets, streamlining the prototyping and development process.",
-    usageExamples: [
-      "Rapidly populating image galleries or hero sections in web development mockups.",
-      "Testing responsive image loading with different dimensions.",
-      "Creating placeholders for design wireframes or presentations.",
-      "Generating quick, visually diverse images for development sandbox environments."
+    introduction: "Placeholder perfection. Generate random placeholder images of any size. Great for mockups, prototypes, and testing layouts before the real assets are ready.",
+    howToUse: [
+      "Enter width and height.",
+      "Choose a category (optional).",
+      "Click 'Generate'.",
+      "Copy the image URL.",
     ],
-    underlyingConcept: "Lorem Picsum operates as an image placeholder service. When a request is made to its API (typically through a URL containing desired width, height, and optional parameters), the service dynamically serves a random or specific image from its collection. The tool generates these specialized URLs, allowing developers to integrate diverse placeholders without local storage or complex setup, relying on the external service to deliver the image content.",
+    features: [
+      "Custom Size: Any dimension you need.",
+      "Categories: Nature, City, Tech, etc.",
+      "Fast: Images load instantly from reliable CDNs.",
+      "No Copyright: Safe for mockups.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Stop using empty grey boxes. This tool fetches distinct, high-quality images from services like Unsplash or similar placeholder APIs, sized exactly to your specifications, making your prototypes look polished immediately.",
+    usageExamples: [
+      "Filling empty cards in a UI design.",
+      "Testing image loading behavior.",
+      "Creating a temporary gallery.",
+    ],
+    underlyingConcept:
+      "It generates a specialized URL (e.g., `https://picsum.photos/400/300`) that tells the image provider to return a random image of those dimensions.",
     faqs: [
       {
-        "question": "What is a placeholder image?",
-        "answer": "A placeholder image is a temporary image that is used in a design to represent a final image that is not yet available. It is often used in web design and development to test the layout and design of a page."
+        question: "Are these images free to use?",
+        answer:
+          "Yes, they come from royalty-free sources like Unsplash/Picsum, but you should always check the final license if you use them in a real product.",
       },
       {
-        "question": "How can I customize the placeholder image?",
-        "answer": "You can customize the size of the image, and you can also choose to have a grayscale image. You can also get a specific image by providing an ID."
+        question: "Why does the image change on refresh?",
+        answer:
+          "It's a 'random' generator! If you want a static image, you'd need to save it or use a service that supports specific IDs.",
       },
       {
-        "question": "How do I use the generated URL?",
-        "answer": "You can copy the generated URL and use it as the `src` attribute of an `<img>` tag in your HTML."
-      }
+        question: "Can I choose the subject?",
+        answer:
+          "Yes, typing 'cat' or 'city' usually helps the provider find relevant photos.",
+      },
     ],
   },
   'css-borders': {
-    introduction: "Preview borders.",
-    howToUse: ["Click style", "Copy code"],
-    features: ["Visualizer for all CSS border styles.", "Click to see the border style in action.", "Copy the CSS code with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The CSS Border Preview tool offers an interactive visual guide to all standard CSS border styles. Developers and designers can quickly explore how different border styles (like solid, dotted, dashed, groove, ridge, inset, outset) render, select a style, and instantly get the corresponding CSS code. This streamlines the process of adding custom and visually distinct borders to web elements.",
-    usageExamples: [
-      "Experimenting with various border styles to find the perfect visual treatment for UI elements.",
-      "Designing visually distinct containers or sections on a webpage.",
-      "Creating emphasis around specific content blocks.",
-      "Quickly obtaining CSS code for standard border properties without manual lookup."
+    introduction: "Frame your work. Generate CSS border code for solid, dashed, dotted, and double borders. Adjust radius and color to create the perfect box.",
+    howToUse: [
+      "Adjust width, style, and color.",
+      "Set the border radius (rounded corners).",
+      "Copy the generated CSS.",
     ],
-    underlyingConcept: "The `border-style` CSS property defines the style of an element's four borders. It accepts a range of keywords, each with a specific rendering behavior defined by the CSS specification. For example, `solid` creates a single, straight line, `dotted` creates a series of dots, and `groove` creates a carved-in appearance. The tool dynamically applies these `border-style` properties to a sample element and displays them, allowing for direct visual comparison and code generation.",
+    features: [
+      "Live Preview: See the box change instantly.",
+      "Independent Corners: Round just one corner or all.",
+      "Modern Styles: Create pill shapes or circles easily.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "Borders define structure. While basic, `border` and `border-radius` are the building blocks of buttons, cards, and inputs. This tool lets you visually tweak parameters until they 'feel' right, then gives you the code.",
+    usageExamples: [
+      "Designing a call-to-action button with rounded corners.",
+      "Creating a circular profile picture frame.",
+      "Adding a dashed outline for a 'drop zone'.",
+    ],
+    underlyingConcept:
+      "It generates a standard CSS string: `border: [width] [style] [color]; border-radius: [value];`.",
     faqs: [
       {
-        "question": "What is the CSS border property?",
-        "answer": "The CSS border property is a shorthand property for setting the individual border properties (border-width, border-style, and border-color) in one place in a style sheet."
+        question: "How do I make a circle?",
+        answer:
+          "Set the width and height to be equal (a square), then set `border-radius` to 50%.",
       },
       {
-        "question": "How can I see the different border styles?",
-        "answer": "You can click on the different border styles in this tool to see a live preview of how they look. You can then copy the CSS code for the border style you want to use."
+        question: "Can I have different borders on each side?",
+        answer:
+          "Yes, CSS supports `border-top`, `border-left`, etc., though this tool generates a uniform border for simplicity.",
       },
       {
-        "question": "Are all these border styles supported by all browsers?",
-        "answer": "Yes, all the border styles in this tool are part of the CSS standard and are supported by all modern browsers."
-      }
+        question: "What is 'double' style?",
+        answer:
+          "It draws two parallel lines. You need a width of at least 3px to see it clearly.",
+      },
     ],
   },
   'css-patterns': {
-    introduction: "Create patterns.",
-    howToUse: ["Select style", "Customize", "Copy"],
-    features: ["Generate pure CSS background patterns.", "Customize colors and pattern size.", "Copy the CSS code with a single click."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The CSS Background Patterns tool enables web developers and designers to create intricate and visually appealing background patterns using only CSS, completely avoiding image files. This approach results in lightweight, resolution-independent, and easily customizable patterns that can enhance the aesthetic of any webpage without negatively impacting load times or scalability.",
-    usageExamples: [
-      "Designing subtle textured backgrounds for website sections or entire pages.",
-      "Creating repeating geometric patterns for banners or hero images.",
-      "Implementing unique visual motifs for UI components or cards.",
-      "Experimenting with different pattern densities and color combinations for branding."
+    introduction: "Background magic. Create lightweight, scalable background patterns using only CSS gradients. No images required.",
+    howToUse: [
+      "Browse the pattern gallery.",
+      "Adjust colors and opacity.",
+      "Copy the CSS code.",
     ],
-    underlyingConcept: "Pure CSS patterns are typically generated using a combination of CSS `background-image` properties with multiple linear or radial gradients, `background-size`, and `background-position`. By strategically layering and repeating these gradients, complex visual effects can be achieved. For example, a simple grid pattern might involve two linear gradients crossing each other. The tool provides a visual interface to manipulate these CSS properties and then outputs the generated CSS snippet.",
+    features: [
+      "Pure CSS: No heavy image files.",
+      "Infinite Scaling: Looks sharp on any screen.",
+      "Customizable: Change colors to match your brand.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "You don't always need a JPEG. By cleverly overlapping distinct CSS gradients (linear and radial), you can create polka dots, checks, stripes, and zig-zags that render instantly and take up zero bandwidth.",
+    usageExamples: [
+      "Adding texture to a plain background section.",
+      "Creating a subtle geometric overlay.",
+      "Designing a 'warning' stripe pattern.",
+    ],
+    underlyingConcept:
+      "It uses `repeating-linear-gradient` and `radial-gradient` properties. By setting sizes and positions carefully, these gradients repeat to form cohesive patterns.",
     faqs: [
       {
-        "question": "What are CSS background patterns?",
-        "answer": "CSS background patterns are repeating patterns created with CSS that can be used as the background for an element on a web page. They are a lightweight alternative to using images for backgrounds."
+        question: "Are these heavy to load?",
+        answer:
+          "Zero. It's just a few lines of code. It's the lightest way to add texture to a site.",
       },
       {
-        "question": "How can I customize the patterns?",
-        "answer": "You can customize the colors and the size of the pattern using the controls in this tool. You can also choose from a variety of different pattern styles."
+        question: "Do they work in all browsers?",
+        answer:
+          "Yes, CSS gradients are standard in all modern browsers.",
       },
       {
-        "question": "Is the generated CSS code cross-browser compatible?",
-        "answer": "Yes, the generated CSS code for the background patterns is compatible with all modern browsers."
-      }
+        question: "Can I adjust the size?",
+        answer:
+          "Yes, usually by changing the `background-size` property in the generated code.",
+      },
     ],
   },
   'signature-pad': {
-    introduction: "Draw signature.",
-    howToUse: ["Draw", "Download"],
-    features: ["Draw and save digital signatures.", "Customize pen color and thickness.", "Download the signature as a PNG image."],
-    privacy: PRIVACY_STATEMENT,
-    explanation: "The Signature Pad is an interactive tool that enables users to create and save digital representations of their handwritten signatures directly in the browser. It provides a canvas where users can draw with a mouse or touchscreen, offering customizable pen styles. This is useful for digitizing signatures for online documents, forms, or personal use without the need for scanning or external hardware.",
-    usageExamples: [
-      "Signing digital documents or online forms that require a handwritten signature.",
-      "Creating a personal digital signature for emails or artistic projects.",
-      "Quickly digitizing a signature for use in presentations or design mockups.",
-      "Collecting consent or approval for online agreements in a visually authentic manner."
+    introduction: "Sign on the dotted line. Draw your signature digitally and download it as a transparent PNG. Perfect for signing documents or creating a distinct logo.",
+    howToUse: [
+      "Draw with your mouse or finger (on touch screens).",
+      "Clear and retry if needed.",
+      "Download your signature image.",
     ],
-    underlyingConcept: "The Signature Pad utilizes HTML5 Canvas technology to provide a drawing surface. When a user interacts with the canvas (e.g., mouse down, move, up events), the tool captures these coordinates and renders lines between them, creating the appearance of a handwritten stroke. The final signature can then be exported as an image (typically PNG or SVG) by converting the canvas content into a data URL. All drawing and processing occur client-side for user privacy.",
+    features: [
+      "Smooth Drawing: Uses spline interpolation for natural lines.",
+      "Transparent Background: Ready to paste into PDFs.",
+      "Touch Support: Works great on tablets and phones.",
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      "We use the HTML5 Canvas API to track your pointer movement, connecting the dots with smooth curves to mimic the pressure and flow of a real pen ink.",
+    usageExamples: [
+      "Digitally signing a PDF contract.",
+      "Creating a handwritten logo.",
+      "Authorizing a web form.",
+    ],
+    underlyingConcept:
+      "It captures a series of X/Y coordinates as you move the mouse/finger. It then draws lines between these points on an HTML5 `<canvas>`. To make it look like a pen, it varies the line width based on speed (simulated pressure).",
     faqs: [
       {
-        "question": "What is an online signature pad?",
-        "answer": "An online signature pad is a tool that allows you to draw your signature digitally using a mouse, stylus, or touchscreen. You can then save the signature as an image to use in digital documents."
+        question: "Is it legally binding?",
+        answer:
+          "In many places, a digital image of a signature is valid, but for high-stakes contracts, you might need a certified e-signature platform.",
       },
       {
-        "question": "How can I create a digital signature for free?",
-        "answer": "You can use our free Signature Pad tool to draw your signature and download it as a high-quality PNG image. No sign-up is required."
+        question: "Is my signature stored?",
+        answer:
+          "No! It is drawn in your browser and downloaded directly to your computer. We never see it.",
       },
       {
-        "question": "Is my signature stored on your servers?",
-        "answer": "No. Your privacy is our priority. All drawing and processing happen in your browser, and your signature is never uploaded or stored on our servers."
-      }
+        question: "Can I change the ink color?",
+        answer:
+          "Yes, most tools allow you to switch between black, blue, or red ink.",
+      },
     ],
   },
   'readability-score-calculator': {
