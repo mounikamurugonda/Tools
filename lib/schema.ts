@@ -26,7 +26,7 @@ export const getWebsiteSchema = () => ({
     name: 'UtilToolkits',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://utiltoolkits.com/logo.png',
+      url: 'https://utiltoolkits.com/icon.png',
     },
   },
   inLanguage: 'en-US',
@@ -41,7 +41,7 @@ export const getOrganizationSchema = () => ({
   description:
     'A comprehensive collection of free, browser-based developer tools and utilities for developers, designers, and productivity enthusiasts.',
   url: 'https://utiltoolkits.com',
-  logo: 'https://utiltoolkits.com/logo.png',
+  logo: 'https://utiltoolkits.com/icon.png',
   foundingDate: '2024',
   sameAs: [
     'https://github.com/utiltoolkits',
@@ -202,7 +202,7 @@ export const getToolSchema = (tool: any) => ({
     name: 'UtilToolkits',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://utiltoolkits.com/logo.png',
+      url: 'https://utiltoolkits.com/icon.png',
     },
   },
   offers: {
