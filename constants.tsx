@@ -1659,7 +1659,7 @@ export const TOOLS: Tool[] = [
     description: "Convert between different currencies.",
     seoTitle: "Currency Converter | Real-Time Exchange Rates",
     seoDescription:
-      "Convert between 150+ global currencies with live exchange rates. Fast, accurate, and free online Currency Converter.",
+      "Convert between 190+ global currencies with live exchange rates. Fast, accurate, and free online Currency Converter.",
     icon: <CurrencyIcon />,
     category: ToolCategory.MATH,
     keywords: [

@@ -7,7 +7,7 @@ export const getWebsiteSchema = () => ({
   '@type': 'WebSite',
   name: 'UtilToolkits',
   description:
-    'Your comprehensive free online developer toolbox with 50+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.',
+    'Your comprehensive free online developer toolbox with 90+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.',
   url: 'https://utiltoolkits.com',
   potentialAction: {
     '@type': 'SearchAction',
@@ -68,7 +68,7 @@ export const getHomepageSchema = () => ({
   '@type': 'WebPage',
   name: 'UtilToolkits - Your Free Online Developer Toolbox',
   description:
-    'Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.',
+    'Your comprehensive free online developer toolbox with 90+ browser-based utilities. All tools run locally for maximum speed and privacy.',
   url: 'https://utiltoolkits.com',
   mainEntity: {
     '@type': 'ItemList',

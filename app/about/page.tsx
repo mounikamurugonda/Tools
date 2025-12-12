@@ -77,7 +77,7 @@ export default function AboutPage() {
               enthusiasts need. We believe that powerful utilities
               shouldn&apos;t require complex installations, expensive software,
               or compromise your privacy. That&apos;s why we&apos;ve built a
-              comprehensive collection of <strong>50+ free online tools</strong>{' '}
+              comprehensive collection of <strong>90+ free online tools</strong>{' '}
               that work directly in your browser, processing everything locally
               for maximum speed and security.
             </p>

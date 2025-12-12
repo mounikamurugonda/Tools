@@ -665,5 +665,317 @@ export const blogs: Blog[] = [
 
       <p>From <a href="/tools/json-formatter">formatting JSON</a> to <a href="/tools/password-generator">generating passwords</a>, we have you covered. Explore the full library today.</p>
     `
+  },
+  // 23. JWT Debugger
+  {
+    id: "jwt-debugging-guide",
+    title: "Decoding JWTs: A Safe Way to Debug Authentication Tokens",
+    description: "JSON Web Tokens are the backbone of modern auth. Learn how to decode them, understand their structure, and debug login issues without compromising security.",
+    date: "2025-12-21",
+    author: "UtilToolkits Team",
+    category: "Coding Tools",
+    relatedTools: ["jwt-debugger", "base64-converter", "json-formatter"],
+    content: `
+      <h2>The Black Box of Authentication</h2>
+      <p>If you build modern web apps, you likely use JSON Web Tokens (JWTs) for handling sessions. When a user logs in, they get a token. If it works, great. If it fails, you're stuck staring at a long string of random characters: <code>eyJhbGciOiJIUzI1NiIsInR5c...</code>.</p>
+
+      <h2>Anatomy of a Token</h2>
+      <p>A JWT isn't encrypted (usually); it's just encoded. It consists of three parts separated by dots:</p>
+      <ol>
+        <li><strong>Header:</strong> Describes the algorithm (e.g., HS256).</li>
+        <li><strong>Payload:</strong> The data (User ID, roles, expiration time).</li>
+        <li><strong>Signature:</strong> The security seal that proves the token hasn't been tampered with.</li>
+      </ol>
+
+      <h2>Why Debugging is Hard</h2>
+      <p>You can't read Base64Url-encoded strings with the naked eye. Developers often waste time logging tokens on the server to see what's inside. This is slow and risky.</p>
+
+      <h2>The Solution: Client-Side Inspection</h2>
+      <p>Our <a href="/tools/jwt-debugger">JWT Debugger</a> lets you paste a token and instantly see the decoded JSON payload. You can check:</p>
+      <ul>
+        <li><strong>Expiration (exp):</strong> Has the token expired? This is the #1 cause of random "logout" bugs.</li>
+        <li><strong>Roles (scope):</strong> Does the user actually have 'admin' privileges?</li>
+        <li><strong>Subject (sub):</strong> Is this the right user ID?</li>
+      </ul>
+
+      <p>Most importantly, our tool runs <strong>entirely in your browser</strong>. Your sensitive tokens are never sent to a backend server, eliminating the risk of interception.</p>
+
+      <p>Stop guessing why login failed. Inspect your tokens safely with the <a href="/tools/jwt-debugger">JWT Debugger</a>.</p>
+    `
+  },
+  // 24. Cron Generator
+  {
+    id: "cron-jobs-explained",
+    title: "Mastering Cron Jobs: How to Schedule Tasks Without the Headache",
+    description: "Does `0 0 * * *` mean midnight or noon? Stop guessing. Learn the syntax of Cron expressions and generate perfect schedules visually.",
+    date: "2025-12-22",
+    author: "UtilToolkits Team",
+    category: "Coding Tools",
+    relatedTools: ["cron-generator", "unix-timestamp-converter", "date-calculator"],
+    content: `
+      <h2>The Cryptic Language of Automation</h2>
+      <p>Every developer eventually has to set up a scheduled task. Whether it's a database backup, a weekly email, or a cache cleanup, Cron is the standard tool. But the syntax is notorious.</p>
+      
+      <p><code>5 4 * * sun</code> &mdash; quick, when does this run? (Answer: At 04:05 on Sunday). One wrong character can mean your backup runs every minute instead of every day, crashing your server.</p>
+
+      <h2>Visualizing the Schedule</h2>
+      <p>You shouldn't have to memorize the position of minutes, hours, and days. Our <a href="/tools/cron-generator">Cron Expression Generator</a> provides a visual interface.</p>
+      <ul>
+        <li><strong>Click to Build:</strong> Just select "Every Day" at "04:00 AM".</li>
+        <li><strong>Human Readability:</strong> It translates complex strings back into plain English (e.g., "At minute 0 past hour 12 on day-of-month 1").</li>
+        <li><strong>Next Runs:</strong> see the exact dates of the next 5 executions to verify your logic.</li>
+      </ul>
+
+      <h3>Common Pitfalls</h3>
+      <ul>
+        <li><strong>Time Zones:</strong> Cron usually runs on server time (often UTC). Always double-check your offset using our <a href="/tools/timezone-converter">Timezone Converter</a>.</li>
+        <li><strong>Day of Week:</strong> In some systems, 0 is Sunday; in others, 7 is Sunday. Our tool handles these nuances for standard crontab formats.</li>
+      </ul>
+
+      <p>Automate with confidence. Build your schedules with the <a href="/tools/cron-generator">Cron Expression Generator</a>.</p>
+    `
+  },
+  // 25. SQL Formatter
+  {
+    id: "sql-formatting-best-practices",
+    title: "SQL Maintenance: Why Formatting Matters for Database Performance",
+    description: " messy SQL queries aren't just ugly; they hide bugs. Discover how auto-formatting your SQL can improve readability and help you catch errors faster.",
+    date: "2025-12-23",
+    author: "UtilToolkits Team",
+    category: "Coding Tools",
+    relatedTools: ["sql-formatter", "json-formatter", "string-escaper"],
+    content: `
+      <h2>The Single-Line Nightmare</h2>
+      <p>We've all inherited functionality where the SQL query is a 500-character string buried in a variable. Debugging a missing <code>WHERE</code> clause or a bad <code>JOIN</code> in a blob of text is painful.</p>
+
+      <h2>Readability equals maintainability</h2>
+      <p>Database engines don't care about whitespace, but humans do. A well-formatted query reveals its logic instantly.</p>
+      
+      <pre><code>SELECT * FROM users WHERE active = 1 AND role = 'admin'</code></pre>
+      <p>VS</p>
+      <pre><code>SELECT *
+FROM users
+WHERE active = 1
+  AND role = 'admin'</code></pre>
+
+      <p>In the second example, it's trivial to comment out one condition for testing. In the first, it's a surgery.</p>
+
+      <h2>Automating the Polish</h2>
+      <p>Our <a href="/tools/sql-formatter">SQL Formatter</a> handles standard SQL dialects (Standard, PostgreSQL, MySQL). It:</p>
+      <ul>
+        <li><strong>Indents Keywords:</strong> Aligns <code>SELECT</code>, <code>FROM</code>, <code>WHERE</code> for scanning.</li>
+        <li><strong>Capitalizes Reserved Words:</strong> Distinguishes logic from column names.</li>
+        <li><strong>Fixes Parentheses:</strong> meaningful indentation for nested sub-queries.</li>
+      </ul>
+
+      <p><strong>Pro Tip:</strong> Before running a destructive command like <code>DELETE</code> or <code>UPDATE</code>, always format it first to ensure your <code>WHERE</code> clause is exactly what you think it is.</p>
+
+      <p>Write cleaner queries. Use the <a href="/tools/sql-formatter">SQL Formatter</a>.</p>
+    `
+  },
+  // 26. Regex Tester
+  {
+    id: "regex-beginners-guide",
+    title: "Regular Expressions Demystified: A Beginner's Guide",
+    description: "Regex looks like magic, but it's a superpower for text processing. Learn the basics of pattern matching and how to test your expressions safely.",
+    date: "2025-12-23",
+    author: "UtilToolkits Team",
+    category: "Coding Tools",
+    relatedTools: ["regex-tester", "text-cleaner", "diff-checker"],
+    content: `
+      <h2>The Power of Patterns</h2>
+      <p>Regular Expressions (Regex) allow you to search for patterns rather than specific strings. Instead of finding "John", you can find "any word that starts with J and is 4 letters long".</p>
+      
+      <p>This is essential for:</p>
+      <ul>
+        <li><strong>Validation:</strong> "Is this a valid email address?"</li>
+        <li><strong>Extraction:</strong> "Find all phone numbers in this document."</li>
+        <li><strong>Replacement:</strong> "Reformat these dates from MM/DD/YYYY to YYYY-MM-DD."</li>
+      </ul>
+
+      <h2>The Learning Curve</h2>
+      <p>Regex syntax is dense. <code>^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$</code> is a lot to take in. One typo can cause the regex to match nothing—or everything.</p>
+
+      <h2>Testing is non-negotiable</h2>
+      <p>Never deploy a regex without testing it against both valid AND invalid cases. Our <a href="/tools/regex-tester">Regex Tester</a> provides a real-time sandbox.</p>
+      <ul>
+        <li><strong>Highlight Matches:</strong> See exactly what part of the text your pattern is catching.</li>
+        <li><strong>Cheat Sheet:</strong> Forgot what <code>\d</code> or <code>+</code> does? We have a quick reference built-in.</li>
+        <li><strong>Flags:</strong> Toggle case-insensitivity (<code>i</code>) or global search (<code>g</code>) easily.</li>
+      </ul>
+
+      <p>Stop fearing the backslash. Master pattern matching with the <a href="/tools/regex-tester">Regex Tester</a>.</p>
+    `
+  },
+  // 27. Diff Checker
+  {
+    id: "code-diff-checking-guide",
+    title: "Spotting the Difference: Essential Tactics for Code Reviews",
+    description: "Detailed code reviews prevent bugs. Learn how to compare files effectively and catch subtle changes using visual diff tools.",
+    date: "2025-12-24",
+    author: "UtilToolkits Team",
+    category: "Coding Tools",
+    relatedTools: ["diff-checker", "json-formatter", "text-cleaner"],
+    content: `
+      <h2>The Needle in the Haystack</h2>
+      <p>You deployed a config change and the site went down. The file looks almost identical to the backup. What changed? Often, it's a single character—a hidden tab, a missing comma, or a changed version number.</p>
+
+      <h2>Visual Diffing</h2>
+      <p>Comparing text by eye is unreliable. Git works great for codebases, but what about snippets, config files, or database dumps? You need a side-by-side comparison.</p>
+
+      <p>Our <a href="/tools/diff-checker">Diff Checker</a> highlights additions in green and deletions in red. It aligns the text so you can focus only on the changes.</p>
+
+      <h3>Use Cases</h3>
+      <ul>
+        <li><strong>Config Drifts:</strong> Compare your local <code>.env</code> with the production one.</li>
+        <li><strong>Code Audits:</strong> Review a suspicious snippet sent by a colleague.</li>
+        <li><strong>Content Editing:</strong> See what your editor changed in the latest draft.</li>
+      </ul>
+
+      <p><strong>Privacy Note:</strong> Pasting sensitive code into online tools is scary. That's why our Diff Checker runs locally in your browser. Your code never leaves your machine.</p>
+
+      <p>Find the bug before it ships. Compare your files with the <a href="/tools/diff-checker">Diff Checker</a>.</p>
+    `
+  },
+  // 28. Image Resizing Guide
+  {
+    id: "image-resizing-web-guide",
+    title: "Preparing Assets for the Web: Pixel Perfect Resizing",
+    description: "Don't upload 10MB photos to your website. Learn the importance of correct aspect ratios and dimensions for professional online presence.",
+    date: "2025-12-25",
+    author: "UtilToolkits Team",
+    category: "Image Tools",
+    relatedTools: ["image-resizer", "aspect-ratio-calculator", "image-compressor"],
+    content: `
+      <h2>One Size Does Not Fit All</h2>
+      <p>A banner image for LinkedIn needs to be 1584x396. An Instagram post is 1080x1080. If you try to use the same photo for both, heads get chopped off and logos get blurry.</p>
+
+      <h2>Understand Aspect Ratios</h2>
+      <p>The aspect ratio is the relationship between width and height (e.g., 16:9, 4:3). Our <a href="/tools/aspect-ratio-calculator">Aspect Ratio Calculator</a> helps you verify that your image will fit without weird stretching.</p>
+
+      <h2>Resizing Without Distortion</h2>
+      <p>When you resize an image, you must preserve its proportions. Our <a href="/tools/image-resizer">Image Resizer</a> locks the aspect ratio by default. If you type in a new width, it calculates the correct height automatically.</p>
+
+      <h3>Why Resize?</h3>
+      <ul>
+        <li><strong>Speed:</strong> Smaller dimensions mean smaller file sizes.</li>
+        <li><strong>Clarity:</strong> Browsers do a bad job of scaling images down. Doing it beforehand ensures sharpness.</li>
+        <li><strong>Consistency:</strong> Ensure all your product photos are exactly the same size for a grid layout.</li>
+      </ul>
+
+      <p>Fit your images to the frame. Resize with precision using the <a href="/tools/image-resizer">Image Resizer</a>.</p>
+    `
+  },
+  // 29. Loan Calculator
+  {
+    id: "understanding-loan-amortization",
+    title: "Demystifying Mortgages: How Amortization Works",
+    description: "Planning to buy a house? Learn how interest rates affect your monthly payment and how much you really pay over 30 years.",
+    date: "2025-12-25",
+    author: "UtilToolkits Team",
+    category: "Math Tools",
+    relatedTools: ["loan-calculator", "percentage-calculator", "date-calculator"],
+    content: `
+      <h2>The Sticker Shock of Interest</h2>
+      <p>You borrow $300,000 for a house. Over 30 years, you might pay back $600,000. Why? That's the power of compound interest working against you.</p>
+
+      <h2>What is Amortization?</h2>
+      <p>Amortization is the schedule of your payments. In the beginning, nearly almost all of your monthly check goes to interest, not the principal loan. It takes years before you start effectively chipping away at the debt itself.</p>
+
+      <h2>Planning Your Budget</h2>
+      <p>Our <a href="/tools/loan-calculator">Loan Calculator</a> shows you the breakdown:</p>
+      <ul>
+        <li><strong>Monthly Payment:</strong> Your fixed commitment.</li>
+        <li><strong>Total Interest:</strong> The true cost of the loan.</li>
+        <li><strong>Payoff Date:</strong> When you will finally be debt-free.</li>
+      </ul>
+
+      <p><strong>Scenario:</strong> Changing your term from 30 years to 15 years increases your monthly payment but can save you tens of thousands in interest. Use the calculator to model these scenarios.</p>
+
+      <p>Know what you owe. Plan your future with the <a href="/tools/loan-calculator">Loan Calculator</a>.</p>
+    `
+  },
+  // 30. PDF Tools
+  {
+    id: "pdf-management-guide",
+    title: "Mastering Documents: Merge, Split, and Compress PDFs",
+    description: "PDF is the internet's paper. Learn how to combine reports, extract pages, and shrink files for email attachments securely in your browser.",
+    date: "2025-12-26",
+    author: "UtilToolkits Team",
+    category: "File Tools",
+    relatedTools: ["pdf-merger", "pdf-splitter", "pdf-compressor"],
+    content: `
+      <h2>The Uneditable Standard</h2>
+      <p>PDFs are great because they look the same on every device. But editing them is a pain. If you have 3 separate invoices you need to email to your accountant, you don't want to send 3 attachments.</p>
+
+      <h2>The Toolkit</h2>
+      <p>We offer a suite of tools to handle PDF manipulation:</p>
+      <ul>
+        <li><strong>Merge:</strong> Combine multiple files into one master document.</li>
+        <li><strong>Split:</strong> Extract just page 5 from a 100-page report.</li>
+        <li><strong>Compress:</strong> Shrink a 20MB scanned contract down to 2MB so it fits in an email.</li>
+      </ul>
+
+      <h3>Privacy is Paramount</h3>
+      <p>Most online PDF tools ask you to upload your sensitive contracts to their server. We don't. Our PDF tools run locally. Your financial data stays on your device.</p>
+
+      <p>Take control of your paperwork. Manage your PDFs with our <a href="/tools/pdf-merger">PDF Tools</a>.</p>
+    `
+  },
+  // 31. Timezone Converter
+  {
+    id: "timezone-management-remote-work",
+    title: "Working Across Borders: Mastering Time Zones",
+    description: "Remote work connects the world, but time zones divide it. Learn how to plan international meetings without the 'what time is that for you?' confusion.",
+    date: "2025-12-26",
+    author: "UtilToolkits Team",
+    category: "Productivity Tools",
+    relatedTools: ["timezone-converter", "world-clock", "date-calculator"],
+    content: `
+      <h2>The Global Meeting Problem</h2>
+      <p>"Let's meet at 9 AM." EST? PST? GMT? CET? If you have a team distributed across London, New York, and Tokyo, finding a slot that isn't midnight for someone is an art form.</p>
+
+      <h2>Daylight Savings Chaos</h2>
+      <p>To make matters worse, countries switch to Daylight Savings Time on different dates. The gap between London and New York changes by an hour for a few weeks every year. Mental math fails here.</p>
+
+      <h2> Visualizing the Overlap</h2>
+      <p>Our <a href="/tools/timezone-converter">Timezone Converter</a> lets you add multiple cities and drag a slider to see the time everywhere simultaneously. You can easily spot that magical 1-hour window where everyone is awake.</p>
+
+      <h3>Pro Tips</h3>
+      <ul>
+        <li><strong>Use UTC:</strong> For servers and logs, stick to UTC.</li>
+        <li><strong>Be Explicit:</strong> Always include the timezone abbreviation (e.g., 14:00 EST).</li>
+      </ul>
+
+      <p>Never miss a meeting again. Synchronize your team with the <a href="/tools/timezone-converter">Timezone Converter</a>.</p>
+    `
+  },
+  // 32. Case Converter
+  {
+    id: "text-case-formatting-guide",
+    title: "The Editor's Secret: Formatting Text Instantly",
+    description: "From SCREAMING CAPS to proper Title Case. Discover how to fix capitalization errors in your documents and code instantly.",
+    date: "2025-12-27",
+    author: "UtilToolkits Team",
+    category: "Text Tools",
+    relatedTools: ["case-converter", "text-cleaner", "word-counter"],
+    content: `
+      <h2>The Caps Lock Accident</h2>
+      <p>We've all done it. You accepted a dirty dataset or accidentally typed a paragraph with Caps Lock on. Retyping it is not an option.</p>
+
+      <h2>Standardizing Style</h2>
+      <p>Different contexts need different casing:</p>
+      <ul>
+        <li><strong>Title Case:</strong> "The Quick Brown Fox" (Headlines).</li>
+        <li><strong>Sentence Case:</strong> "The quick brown fox" (Body text).</li>
+        <li><strong>UPPERCASE:</strong> Legal warnings or emphasis.</li>
+        <li><strong>camelCase:</strong> Variables in JavaScript (<code>myVariableName</code>).</li>
+      </ul>
+
+      <h2>Instant Transformation</h2>
+      <p>Our <a href="/tools/case-converter">Case Converter</a> is a clipboard utility that fixes this in one click. Paste your text, choose the format, and copy it back.</p>
+
+      <p>Polish your writing. Fix your capitalization with the <a href="/tools/case-converter">Case Converter</a>.</p>
+    `
   }
 ];

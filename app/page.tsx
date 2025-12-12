@@ -12,7 +12,7 @@ import { Suspense } from 'react';
 export const metadata: Metadata = {
   title: 'UtilToolkits | Your Free Online Developer Toolbox',
   description:
-    'Your comprehensive free online developer toolbox with 50+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, text converters, and more. All tools run locally for maximum speed and privacy.',
+    'Your comprehensive free online developer toolbox with 90+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, text converters, and more. All tools run locally for maximum speed and privacy.',
   keywords:
     'developer tools, online tools, free utilities, JSON formatter, base64 encoder, password generator, image tools, text tools, converter tools, browser tools, productivity tools, web development tools, frontend tools, coding utilities',
   authors: [{ name: 'UtilToolkits Team' }],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'UtilToolkits | Your Free Online Developer Toolbox',
     description:
-      'Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.',
+      'Your comprehensive free online developer toolbox with 90+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     type: 'website',
     url: 'https://utiltoolkits.com',
     siteName: 'UtilToolkits',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'UtilToolkits | Your Free Online Developer Toolbox',
     description:
-      'Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.',
+      'Your comprehensive free online developer toolbox with 90+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     images: ['https://utiltoolkits.com/og-image.png'],
     creator: '@utiltoolkits',
   },

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: '%s | UtilToolkits',
   },
   description:
-    'Your comprehensive free online developer toolbox with 50+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.',
+    'Your comprehensive free online developer toolbox with 90+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.',
   keywords: [
     'developer tools',
     'online tools',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'UtilToolkits | Free Online Developer Tools & Utilities',
     description:
-      'Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.',
+      'Your comprehensive free online developer toolbox with 90+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     url: 'https://utiltoolkits.com',
     siteName: 'UtilToolkits',
     images: [
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'UtilToolkits | Free Online Developer Tools & Utilities',
     description:
-      'Your comprehensive free online developer toolbox with 50+ browser-based utilities. All tools run locally for maximum speed and privacy.',
+      'Your comprehensive free online developer toolbox with 90+ browser-based utilities. All tools run locally for maximum speed and privacy.',
     images: ['/og-image.png'],
     creator: '@utiltoolkits',
   },
