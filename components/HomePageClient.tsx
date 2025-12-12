@@ -14,6 +14,7 @@ import {
   CATEGORY_URL_MAP,
 } from "@/constants";
 import { blogs } from "@/lib/blogs";
+import FaqSection from "./FaqSection";
 
 const HomePageClient: React.FC = () => {
   const toolCount = TOOLS.length;
@@ -208,6 +209,9 @@ const HomePageClient: React.FC = () => {
             })}
           </div>
         </section>
+
+        {/* FAQ Section */}
+        <FaqSection />
       </div>
     </main>
   );
