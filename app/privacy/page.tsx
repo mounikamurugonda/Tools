@@ -67,48 +67,48 @@ export default function PrivacyPolicyPage() {
       </div>
 
       <p>
-        Your privacy is important to us. It is UtilToolkits&apos; policy to
-        respect your privacy regarding any information we may collect from you
-        across our website.
+        Your privacy is important to me. It is UtilToolkits&apos; policy to
+        respect your privacy regarding any information collected
+        across this website.
       </p>
 
       <section>
-        <h2 className="brand-heading-3">1. Information We Collect</h2>
+        <h2 className="brand-heading-3">1. Information Collection</h2>
         <p>
-          Our website is designed to be a client-side utility toolbox. This
-          means that all the data you input into our tools (e.g., text for
+          This website is designed to be a client-side utility toolbox. This
+          means that all the data you input into the tools (e.g., text for
           conversion, images for encoding) is processed directly in your
           browser.{' '}
           <strong>
-            We do not send, store, or log any of this data on our servers.
+            I do not send, store, or log any of this data on any server.
           </strong>
         </p>
         <p>
-          The only data we collect is through standard web logs and analytics,
+          The only data collected is through standard web logs and analytics,
           which may include your IP address, browser type, operating system, and
           pages visited. This information is used for statistical purposes to
-          improve our service and is not linked to any personal information.
+          improve the service and is not linked to any personal information.
         </p>
       </section>
 
       <section>
         <h2 className="brand-heading-3">2. Cookies</h2>
         <p>
-          We use cookies to improve your experience on our site. Cookies are
+          UtilToolkits uses cookies to improve your experience on the site. Cookies are
           small data files that are stored on your computer.
         </p>
         <ul>
           <li>
-            <strong>Functionality Cookies:</strong> We may use cookies to
+            <strong>Functionality Cookies:</strong> Cookies may be used to
             remember your preferences, such as your preferred theme (light/dark
             mode).
           </li>
           <li>
-            <strong>Third-Party Cookies:</strong> We may use third-party
-            services like Google AdSense, which use cookies to serve
-            personalized ads based on your prior visits to our website or other
+            <strong>Third-Party Cookies:</strong> Third-party
+            services like Google AdSense may be used, which use cookies to serve
+            personalized ads based on your prior visits to this website or other
             websites. Google&apos;s use of advertising cookies enables it and
-            its partners to serve ads to your users based on their visit to your
+            its partners to serve ads to users based on their visit to these
             sites and/or other sites on the Internet.
           </li>
         </ul>
@@ -130,12 +130,12 @@ export default function PrivacyPolicyPage() {
         <h2 className="brand-heading-3">3. Third-Party Services</h2>
         <p>
           This website may contain links to external sites that are not operated
-          by us. Please be aware that we have no control over the content and
+          by UtilToolkits. Please be aware that I have no control over the content and
           practices of these sites, and cannot accept responsibility or
           liability for their respective privacy policies.
         </p>
         <p>
-          As mentioned, we use Google AdSense to display advertisements. AdSense
+          As mentioned, Google AdSense is used to display advertisements. AdSense
           is a third-party vendor that uses cookies to serve ads. For more
           information on how Google collects and uses data, please see{' '}
           <a
@@ -152,25 +152,25 @@ export default function PrivacyPolicyPage() {
       <section>
         <h2 className="brand-heading-3">4. Your Consent</h2>
         <p>
-          By using our website, you hereby consent to our Privacy Policy and
+          By using this website, you hereby consent to this Privacy Policy and
           agree to its terms.
         </p>
       </section>
 
       <section>
-        <h2 className="brand-heading-3">5. Changes to Our Privacy Policy</h2>
+        <h2 className="brand-heading-3">5. Changes to This Privacy Policy</h2>
         <p>
-          We may update our Privacy Policy from time to time. We will notify you
+          I may update this Privacy Policy from time to time. I will notify you
           of any changes by posting the new Privacy Policy on this page. You are
           advised to review this Privacy Policy periodically for any changes.
         </p>
       </section>
 
       <section>
-        <h2 className="brand-heading-3">6. Contact Us</h2>
+        <h2 className="brand-heading-3">6. Contact Me</h2>
         <p>
-          If you have any questions about this Privacy Policy, please contact us
-          via the information provided on our{' '}
+          If you have any questions about this Privacy Policy, please contact me
+          via the information provided on the{' '}
           <Link href="/contact">Contact page</Link>.
         </p>
       </section>

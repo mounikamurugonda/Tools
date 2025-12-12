@@ -45,6 +45,9 @@ const HomePageClient: React.FC = () => {
             The ultimate collection of{" "}
             <strong className="text-gray-900 dark:text-white">{toolCount}+ free online developer tools</strong>.
           </p>
+          <p className="text-sm sm:text-base md:text-lg text-gray-500 dark:text-gray-400 mt-4 max-w-2xl mx-auto animate-slide-in-left delay-200 px-4 leading-relaxed">
+            I built UtilToolkits to solve a consistent frustration: finding reliable, fast, and private developer tools without the bloat. What started as a personal project is now a comprehensive suite running entirely in your browser. No servers, no tracking—just practical utilities that work instantly.
+          </p>
 
           <div className="mt-8 sm:mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200 relative z-50">
 

@@ -7,7 +7,7 @@ export const blogs: Blog[] = [
     title: "Mastering JSON: The Ultimate Guide to Formatting and Validating JSON Data",
     description: "Learn why JSON formatting is essential for developers. Discover how to debug, validate, and beautify your JSON data instantly with our free online tools.",
     date: "2025-12-11",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["json-formatter", "json-to-typescript", "json-to-csv"],
     content: `
@@ -53,7 +53,7 @@ export const blogs: Blog[] = [
     title: "How to Create Stunning CSS Gradients for Modern Web Design",
     description: "Gradients are back in style. Learn how to create smooth, modern CSS gradients that enhance your UI without slowing down your site.",
     date: "2025-12-11",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "CSS Tools",
     relatedTools: ["css-gradient-generator", "css-color-code-converter", "glassmorphism-generator"],
     content: `
@@ -94,7 +94,7 @@ export const blogs: Blog[] = [
     title: "Cybersecurity 101: Why You Need a Strong Password Generator",
     description: "Weak passwords are the #1 security vulnerability. Learn why random password generation is crucial and how to manage your digital security effectively.",
     date: "2025-12-11",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Productivity Tools",
     relatedTools: ["password-generator", "password-strength", "uuid-generator"],
     content: `
@@ -134,7 +134,7 @@ export const blogs: Blog[] = [
     title: "Image Optimization: The Secret to Faster Websites and Better SEO",
     description: "Slow websites kill conversions. Discover how image compression can drastically improve your page load speed and search engine rankings.",
     date: "2025-12-12",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Image Tools",
     relatedTools: ["image-compressor", "image-converter", "image-resizer"],
     content: `
@@ -177,7 +177,7 @@ export const blogs: Blog[] = [
     title: "Writing for the Web: Why Word Count and Character Limits Matter",
     description: "From meta descriptions to tweet limits, length matters. Learn how to optimize your content length for SEO and social media engagement.",
     date: "2025-12-12",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Text Tools",
     relatedTools: ["word-counter", "slug-generator", "meta-tag-generator"],
     content: `
@@ -213,7 +213,7 @@ export const blogs: Blog[] = [
     title: "Mastering Meta Tags: The Hidden Code That Boosts Your SEO",
     description: "Meta tags are the first thing search engines see. Learn how to optimize titles, descriptions, and Open Graph tags to skyrocket your click-through rates.",
     date: "2025-12-13",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "SEO Tools",
     relatedTools: ["meta-tag-generator", "slug-generator", "word-counter"],
     content: `
@@ -256,7 +256,7 @@ export const blogs: Blog[] = [
     title: "Understanding UUIDs: Why Integers Are No Longer Enough",
     description: "Database scaling requires unique identification. Discover why UUIDs are the standard for modern distributed systems and how to generate them securey.",
     date: "2025-12-13",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["uuid-generator", "hash-generator", "random-number-generator"],
     content: `
@@ -291,7 +291,7 @@ export const blogs: Blog[] = [
     title: "URL Encoding Explained: How to Fix Broken Links and API Errors",
     description: "Why do URLs look like %20? Learn the mechanics of Percent-Encoding and how to debug complex URL parameters with our encoding tools.",
     date: "2025-12-14",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Web Tools",
     relatedTools: ["url-encoder", "slug-generator", "text-cleaner"],
     content: `
@@ -321,7 +321,7 @@ export const blogs: Blog[] = [
     title: "The Ultimate Conversion Guide: Bytes, Pixels, and Degrees",
     description: "From CSS units to file sizes, developers deal with conversions daily. Simplify your math with our comprehensive Unit Converter.",
     date: "2025-12-14",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Math Tools",
     relatedTools: ["unit-converter", "currency-converter", "temperature-converter"],
     content: `
@@ -349,7 +349,7 @@ export const blogs: Blog[] = [
     title: "Demystifying UNIX Timestamps: A Developer's Guide to Time",
     description: "What does 1702252800 mean? Learn how computer time works and how to instantly convert timestamps for logging and debugging.",
     date: "2025-12-15",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["unix-timestamp-converter", "date-calculator", "world-clock"],
     content: `
@@ -380,7 +380,7 @@ export const blogs: Blog[] = [
     title: "Text to Speech Technology: Creating Accessible Content in 2025",
     description: "Accessibility is mandatory, not optional. Innovative text-to-speech tools help you reach a wider audience and create engaging multimedia content.",
     date: "2025-12-15",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Fun Tools",
     relatedTools: ["text-to-speech", "word-counter", "text-cleaner"],
     content: `
@@ -407,7 +407,7 @@ export const blogs: Blog[] = [
     title: "Markdown Tables: The Easy Way to Format Data for GitHub and Docs",
     description: "Stop struggling with pipes and dashes. Learn how to generate perfect Markdown tables for your README.md and technical documentation in seconds.",
     date: "2025-12-16",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Text Tools",
     relatedTools: ["markdown-table-generator", "markdown-previewer", "json-formatter"],
     content: `
@@ -434,7 +434,7 @@ export const blogs: Blog[] = [
     title: "The Comeback of QR Codes: Bridging Physical and Digital Marketing",
     description: "QR codes are everywhere again. Discover creative ways to use them for marketing, WiFi sharing, and contactless interactions.",
     date: "2025-12-16",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Productivity Tools",
     relatedTools: ["qr-code-generator", "utm-builder", "url-encoder"],
     content: `
@@ -460,7 +460,7 @@ export const blogs: Blog[] = [
     title: "Understanding Base64: How to Embed Images and Data Inline",
     description: "What is that long string of characters in your CSS? Learn how Base64 encoding works and when to use it for performance optimization.",
     date: "2025-12-17",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["base64-converter", "image-to-base64", "svg-to-data-uri"],
     content: `
@@ -486,7 +486,7 @@ export const blogs: Blog[] = [
     title: "Color Theory 101: How to Generate Beautiful Palettes for Your UI",
     description: "Great design starts with color. Learn the rules of color harmony and how to generate accessible, vibrant palettes for your next project.",
     date: "2025-12-17",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Color Tools",
     relatedTools: ["color-palette-generator", "contrast-checker", "color-theme-wheel"],
     content: `
@@ -508,7 +508,7 @@ export const blogs: Blog[] = [
     title: "Converting Images to Base64: A Guide for Frontend Developers",
     description: "Learn when and why to convert images to Base64 strings. Embed graphics directly in your HTML/CSS for faster load times.",
     date: "2025-12-18",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Image Tools",
     relatedTools: ["image-to-base64", "base64-converter", "image-compressor"],
     content: `
@@ -533,7 +533,7 @@ export const blogs: Blog[] = [
     title: "Clean Up Your Text: Removing Spaces, Breaks, and HTML Tags",
     description: "Messy text ruins formatting. Discover how to automate text cleanup for databases, emails, and content migration with our Text Cleaner.",
     date: "2025-12-18",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Text Tools",
     relatedTools: ["text-cleaner", "word-counter", "text-case-converter"],
     content: `
@@ -557,7 +557,7 @@ export const blogs: Blog[] = [
     title: "The Art of Randomness: How to Shuffle Lists Fairly",
     description: "Need to pick a winner? Or shuffle a team roster? Learn why true randomness matters and how to randomize lists instantly.",
     date: "2025-12-19",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Fun Tools",
     relatedTools: ["list-randomizer", "random-number-generator", "uuid-generator"],
     content: `
@@ -580,7 +580,7 @@ export const blogs: Blog[] = [
     title: "String Escaping 101: Preventing Syntax Errors and XSS",
     description: "Quotes breaking your JSON? Special characters crashing your code? Learn how to escape strings for Java, JavaScript, HTML, and JSON.",
     date: "2025-12-19",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["string-escaper", "json-formatter", "html-entity"],
     content: `
@@ -606,7 +606,7 @@ export const blogs: Blog[] = [
     title: "HTML Entities Decoded: displaying Special Characters on the Web",
     description: "How do you display a copyright symbol or mathematical operator in HTML? A guide to character entities and how to encode/decode them.",
     date: "2025-12-20",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["html-entity", "string-escaper", "text-cleaner"],
     content: `
@@ -627,7 +627,7 @@ export const blogs: Blog[] = [
     title: "Data Hygiene: How to Remove Duplicate Entries in Seconds",
     description: "Cleaning email lists or database dumps? Learn the fastest way to dedup your data and ensure every entry is unique.",
     date: "2025-12-20",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Text Tools",
     relatedTools: ["duplicate-remover", "list-randomizer", "text-cleaner"],
     content: `
@@ -646,7 +646,7 @@ export const blogs: Blog[] = [
     title: "Welcome to UtilToolkits: Your All-in-One Developer Toolbox",
     description: "Why bookmark 50 different sites? UtilToolkits combines 90+ free developer tools in one fast, private, and secure platform.",
     date: "2025-12-21",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "General",
     relatedTools: ["json-formatter", "image-compressor", "password-generator"],
     content: `
@@ -672,7 +672,7 @@ export const blogs: Blog[] = [
     title: "Decoding JWTs: A Safe Way to Debug Authentication Tokens",
     description: "JSON Web Tokens are the backbone of modern auth. Learn how to decode them, understand their structure, and debug login issues without compromising security.",
     date: "2025-12-21",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["jwt-debugger", "base64-converter", "json-formatter"],
     content: `
@@ -709,7 +709,7 @@ export const blogs: Blog[] = [
     title: "Mastering Cron Jobs: How to Schedule Tasks Without the Headache",
     description: "Does `0 0 * * *` mean midnight or noon? Stop guessing. Learn the syntax of Cron expressions and generate perfect schedules visually.",
     date: "2025-12-22",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["cron-generator", "unix-timestamp-converter", "date-calculator"],
     content: `
@@ -741,7 +741,7 @@ export const blogs: Blog[] = [
     title: "SQL Maintenance: Why Formatting Matters for Database Performance",
     description: " messy SQL queries aren't just ugly; they hide bugs. Discover how auto-formatting your SQL can improve readability and help you catch errors faster.",
     date: "2025-12-23",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["sql-formatter", "json-formatter", "string-escaper"],
     content: `
@@ -779,7 +779,7 @@ WHERE active = 1
     title: "Regular Expressions Demystified: A Beginner's Guide",
     description: "Regex looks like magic, but it's a superpower for text processing. Learn the basics of pattern matching and how to test your expressions safely.",
     date: "2025-12-23",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["regex-tester", "text-cleaner", "diff-checker"],
     content: `
@@ -813,7 +813,7 @@ WHERE active = 1
     title: "Spotting the Difference: Essential Tactics for Code Reviews",
     description: "Detailed code reviews prevent bugs. Learn how to compare files effectively and catch subtle changes using visual diff tools.",
     date: "2025-12-24",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Coding Tools",
     relatedTools: ["diff-checker", "json-formatter", "text-cleaner"],
     content: `
@@ -843,7 +843,7 @@ WHERE active = 1
     title: "Preparing Assets for the Web: Pixel Perfect Resizing",
     description: "Don't upload 10MB photos to your website. Learn the importance of correct aspect ratios and dimensions for professional online presence.",
     date: "2025-12-25",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Image Tools",
     relatedTools: ["image-resizer", "aspect-ratio-calculator", "image-compressor"],
     content: `
@@ -872,7 +872,7 @@ WHERE active = 1
     title: "Demystifying Mortgages: How Amortization Works",
     description: "Planning to buy a house? Learn how interest rates affect your monthly payment and how much you really pay over 30 years.",
     date: "2025-12-25",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Math Tools",
     relatedTools: ["loan-calculator", "percentage-calculator", "date-calculator"],
     content: `
@@ -901,7 +901,7 @@ WHERE active = 1
     title: "Mastering Documents: Merge, Split, and Compress PDFs",
     description: "PDF is the internet's paper. Learn how to combine reports, extract pages, and shrink files for email attachments securely in your browser.",
     date: "2025-12-26",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "File Tools",
     relatedTools: ["pdf-merger", "pdf-splitter", "pdf-compressor"],
     content: `
@@ -928,7 +928,7 @@ WHERE active = 1
     title: "Working Across Borders: Mastering Time Zones",
     description: "Remote work connects the world, but time zones divide it. Learn how to plan international meetings without the 'what time is that for you?' confusion.",
     date: "2025-12-26",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Productivity Tools",
     relatedTools: ["timezone-converter", "world-clock", "date-calculator"],
     content: `
@@ -956,7 +956,7 @@ WHERE active = 1
     title: "The Editor's Secret: Formatting Text Instantly",
     description: "From SCREAMING CAPS to proper Title Case. Discover how to fix capitalization errors in your documents and code instantly.",
     date: "2025-12-27",
-    author: "UtilToolkits Team",
+    author: "UtilToolkits",
     category: "Text Tools",
     relatedTools: ["case-converter", "text-cleaner", "word-counter"],
     content: `

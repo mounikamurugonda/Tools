@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     'productivity tools',
     'web development tools',
   ],
-  authors: [{ name: 'UtilToolkits Team' }],
+  authors: [{ name: 'UtilToolkits' }],
   creator: 'UtilToolkits',
   publisher: 'UtilToolkits',
   robots: {

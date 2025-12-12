@@ -5,10 +5,10 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Contact UtilToolkits - Get in Touch | UtilToolkits',
   description:
-    'Get in touch with the UtilToolkits team. Send us your questions, feedback, or suggestions for new developer tools. We would love to hear from you and help improve your experience.',
+    'Get in touch with UtilToolkits. Send your questions, feedback, or suggestions for new developer tools. I would love to hear from you and help improve your experience.',
   keywords:
     'contact utilToolkits, developer tools feedback, tool suggestions, support, help, questions, feedback form, developer tools contact',
-  authors: [{ name: 'UtilToolkits Team' }],
+  authors: [{ name: 'UtilToolkits' }],
   creator: 'UtilToolkits',
   publisher: 'UtilToolkits',
   robots: {
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact UtilToolkits - Get in Touch',
     description:
-      'Get in touch with the UtilToolkits team. Send us your questions, feedback, or suggestions for new developer tools.',
+      'Get in touch with UtilToolkits. Send your questions, feedback, or suggestions for new developer tools.',
     type: 'website',
     url: 'https://utiltoolkits.com/contact',
     siteName: 'UtilToolkits',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Contact UtilToolkits - Get in Touch',
     description:
-      'Get in touch with the UtilToolkits team. Send us your questions, feedback, or suggestions for new developer tools.',
+      'Get in touch with UtilToolkits. Send your questions, feedback, or suggestions for new developer tools.',
     images: ['https://utiltoolkits.com/og-contact.png'],
     creator: '@utiltoolkits',
   },
@@ -60,11 +60,11 @@ export default function ContactPage() {
   return (
     <div className="brand-container-narrow brand-section">
       <div className="text-center">
-        <h1 className="brand-heading-2">Contact Us</h1>
+        <h1 className="brand-heading-2">Contact Me</h1>
         <p className="mt-4 max-w-2xl mx-auto brand-subheading">
-          We&apos;d love to hear from you! Whether you have a question, a
-          suggestion for a new tool, or feedback on how we can improve, please
-          fill out the form below to send us a message.
+          I&apos;d love to hear from you! Whether you have a question, a
+          suggestion for a new tool, or feedback on how to improve, please
+          fill out the form below to send a message.
         </p>
       </div>
 

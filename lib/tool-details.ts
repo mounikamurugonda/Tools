@@ -1,7 +1,7 @@
 import { ToolDetails } from '@/types';
 
 const PRIVACY_STATEMENT =
-  "All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.";
+  "All calculations and data processing for this tool are performed locally in your browser. UtilToolkits does not send any of your data to an external server, ensuring your information remains private and secure.";
 
 export const TOOL_DETAILS: Record<string, ToolDetails> = {
   'json-to-typescript': {
@@ -32,7 +32,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "Does it work with messy JSON?",
         answer:
-          "It expects valid JSON to work correctly. If your JSON has syntax errors, you might want to run it through our JSON Formatter first!",
+          "It expects valid JSON to work correctly. If your JSON has syntax errors, you might want to run it through the JSON Formatter first!",
       },
       {
         question: "Can I use the generated code directly?",
@@ -42,7 +42,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "Is my JSON data safe?",
         answer:
-          "Absolutely. We don't send your data to any server. The conversion happens right here in your browser's memory.",
+          "Absolutely. UtilToolkits doesn't send your data to any server. The conversion happens right here in your browser's memory.",
       },
     ],
   },
@@ -70,7 +70,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       "Documenting code patterns for internal team wikis.",
     ],
     underlyingConcept:
-      "We use client-side rendering to draw your code. The text is tokenized for syntax highlighting (identifying keywords, strings, comments) and then painted onto an HTML canvas or DOM structure with specific CSS styles. Finally, we capture that visual element and convert it into a PNG image that you can download.",
+      "This tool uses client-side rendering to draw your code. The text is tokenized for syntax highlighting (identifying keywords, strings, comments) and then painted onto an HTML canvas or DOM structure with specific CSS styles. Finally, it captures that visual element and convert it into a PNG image that you can download.",
     faqs: [
       {
         question: "Can I change the programming language?",
@@ -80,7 +80,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "Is the image high quality?",
         answer:
-          "Yes, we generate high-resolution images that look sharp even on Retina displays.",
+          "Yes, it generates high-resolution images that look sharp even on Retina displays.",
       },
       {
         question: "Does it save my code?",
@@ -90,7 +90,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'sql-formatter': {
-    introduction: "Turn messy SQL queries into clean, readable code. Our SQL Formatter instantly beautifies your SQL statements, handling indentation, capitalization, and spacing automatically. Whether you're debugging a complex query or tidying up a script for review, this tool makes your SQL easy to read and understand.",
+    introduction: "Turn messy SQL queries into clean, readable code. The SQL Formatter instantly beautifies your SQL statements, handling indentation, capitalization, and spacing automatically. Whether you're debugging a complex query or tidying up a script for review, this tool makes your SQL easy to read and understand.",
     howToUse: [
       "Paste your raw SQL query into the text area.",
       "Click the 'Format' button to apply standard formatting rules.",
@@ -284,7 +284,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       "Selecting a color palette for a new design system.",
     ],
     underlyingConcept:
-      "We use the relative luminance formula defined by the W3C. The contrast ratio can range from 1:1 (no difference) to 21:1 (black text on white). WCAG Level AA requires a ratio of at least 4.5:1 for normal text, while Level AAA requires 7:1.",
+      "This tool uses the relative luminance formula defined by the W3C. The contrast ratio can range from 1:1 (no difference) to 21:1 (black text on white). WCAG Level AA requires a ratio of at least 4.5:1 for normal text, while Level AAA requires 7:1.",
     faqs: [
       {
         question: "What is a good contrast ratio?",
@@ -638,7 +638,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "Does it save my password?",
         answer:
-          "Absolutely not. We don't store, log, or transmit anything you type here.",
+          "Absolutely not. UtilToolkits doesn't store, log, or transmit anything you type here.",
       },
     ],
   },
@@ -1416,7 +1416,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "Is my data saved?",
         answer:
-          "No, the date you enter stays in your browser. We don't send it anywhere.",
+          "No, the date you enter stays in your browser. UtilToolkits doesn't send it anywhere.",
       },
       {
         question: "Can I calculate future ages?",
@@ -1765,7 +1765,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
     privacy: PRIVACY_STATEMENT,
     explanation:
-      "We use the HTML5 Canvas API to track your pointer movement, connecting the dots with smooth curves to mimic the pressure and flow of a real pen ink.",
+      "This tool uses the HTML5 Canvas API to track your pointer movement, connecting the dots with smooth curves to mimic the pressure and flow of a real pen ink.",
     usageExamples: [
       "Digitally signing a PDF contract.",
       "Creating a handwritten logo.",
@@ -2278,7 +2278,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
     privacy: PRIVACY_STATEMENT,
     explanation:
-      "Base64 is an encoding scheme that converts binary data into a text-based format, making it safe to transmit over protocols that only support plain text (like email or JSON). It works by translating binary data into a 64-character set. Our tool handles this process perfectly, including the necessary padding, so you get a reliable result every time.",
+      "Base64 is an encoding scheme that converts binary data into a text-based format, making it safe to transmit over protocols that only support plain text (like email or JSON). It works by translating binary data into a 64-character set. This tool handles this process perfectly, including the necessary padding, so you get a reliable result every time.",
     usageExamples: [
       "Embedding a small icon directly into a CSS file to reduce HTTP requests.",
       "Encoding a JSON object for safe transmission in an API call.",
@@ -2304,7 +2304,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "Why did my decoding fail?",
         answer:
-          "This usually happens if the text is not a valid Base64 string, has incorrect padding, or contains invalid characters. Our tool will highlight these errors for you.",
+          "This usually happens if the text is not a valid Base64 string, has incorrect padding, or contains invalid characters. This tool will highlight these errors for you.",
       },
     ],
     underlyingConcept:
@@ -2314,7 +2314,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     introduction:
       "Ensure your URLs are always safe and valid. Our URL Encoder/Decoder makes it easy to convert strings with special characters (like spaces, `&`, or `?`) into a format that can be safely transmitted over the web. It's an essential tool for developers building APIs, marketers creating campaign links, or anyone who needs to handle complex URLs.",
     explanation:
-      "URL encoding, also known as percent-encoding, replaces unsafe characters with a `%` followed by their two-digit hex code. This prevents browsers and servers from misinterpreting your URLs. Our tool uses the standard `encodeURIComponent` function for maximum safety and compatibility.",
+      "URL encoding, also known as percent-encoding, replaces unsafe characters with a `%` followed by their two-digit hex code. This prevents browsers and servers from misinterpreting your URLs. This tool uses the standard `encodeURIComponent` function for maximum safety and compatibility.",
     usageExamples: [
       "Building a search query with user-generated input.",
       "Creating a link with special characters in the parameters.",
@@ -2342,7 +2342,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "How are spaces handled?",
         answer:
-          "Spaces are typically converted to `%20` or `+`, depending on the context. Our tool uses `%20` for broad compatibility.",
+          "Spaces are typically converted to `%20` or `+`, depending on the context. This tool uses `%20` for broad compatibility.",
       },
       {
         question: "Is it safe for full URLs?",
@@ -2355,7 +2355,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
   'json-formatter': {
     tip: "Paste a messy, single-line JSON response from an API and click 'Format' to make it beautiful and readable in a second!",
     introduction:
-      "Tired of trying to read ugly, minified JSON? Our JSON Formatter instantly transforms messy data into a clean, perfectly indented, and human-readable format. It also validates your JSON, pointing out any syntax errors so you can fix them fast. It's an essential tool for any developer working with APIs or configuration files.",
+      "Tired of trying to read ugly, minified JSON? The JSON Formatter instantly transforms messy data into a clean, perfectly indented, and human-readable format. It also validates your JSON, pointing out any syntax errors so you can fix them fast. It's an essential tool for any developer working with APIs or configuration files.",
     explanation:
       "The tool first tries to parse your text using `JSON.parse()`. If it's valid JSON, it's then re-formatted with `JSON.stringify()` using indentation to make it 'pretty'. If it's not valid, it catches the error and tells you where to look.",
     usageExamples: [
@@ -2875,7 +2875,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
   },
   'css-gradient-generator': {
     introduction:
-      "Unleash your creativity with our intuitive CSS Gradient Generator. Effortlessly design stunning, professional-grade gradients for any project. Our visual editor provides a seamless experience, allowing you to choose from a vibrant spectrum of colors, fine-tune angles, and instantly switch between linear and radial styles. Whether you're crafting eye-catching backgrounds, creating dynamic buttons, or building breathtaking hero sections, our tool is the perfect companion for modern web design.",
+      "Unleash your creativity with our intuitive CSS Gradient Generator. Effortlessly design stunning, professional-grade gradients for any project. Our visual editor provides a seamless experience, allowing you to choose from a vibrant spectrum of colors, fine-tune angles, and instantly switch between linear and radial styles. Whether you're crafting eye-catching backgrounds, creating dynamic buttons, or building breathtaking hero sections, this tool is the perfect companion for modern web design.",
     explanation:
       "Our CSS Gradient Generator simplifies the gradient creation process by providing a powerful and interactive interface. As you select and adjust colors, angles, and positions, the tool dynamically generates the corresponding CSS code in real-time. This immediate feedback loop allows you to experiment and iterate quickly, ensuring you achieve the perfect look for your design. The generator handles all the complex syntax, so you can focus on the creative aspect of your work.",
     usageExamples: [
@@ -2886,7 +2886,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       "Experimenting with different color combinations and gradient types for design inspiration.",
     ],
     underlyingConcept:
-      "CSS gradients are a powerful feature of modern web design, allowing for smooth and dynamic color transitions without the need for image files. Linear gradients progress along a straight line, which can be oriented at any angle. Radial gradients, on the other hand, emanate from a single point, creating circular or elliptical color spreads. Our tool leverages these native CSS capabilities to provide a flexible and powerful way to create a wide range of visual effects.",
+      "CSS gradients are a powerful feature of modern web design, allowing for smooth and dynamic color transitions without the need for image files. Linear gradients progress along a straight line, which can be oriented at any angle. Radial gradients, on the other hand, emanate from a single point, creating circular or elliptical color spreads. This tool leverages these native CSS capabilities to provide a flexible and powerful way to create a wide range of visual effects.",
     howToUse: [
       "Choose between Linear or Radial gradient type.",
       "For linear gradients, adjust the angle using the slider.",
@@ -2920,7 +2920,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "Can I animate these gradients?",
         answer:
-          "While you can't directly animate the `background-gradient` property, a common technique is to create a larger gradient and animate its `background-position`. Our tool is a great starting point for creating the gradient you'll use in such an animation.",
+          "While you can't directly animate the `background-gradient` property, a common technique is to create a larger gradient and animate its `background-position`. This tool is a great starting point for creating the gradient you'll use in such an animation.",
       },
     ],
     privacy: PRIVACY_STATEMENT,
@@ -3184,7 +3184,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       {
         question: "What are CSS color keywords?",
         answer:
-          "They are a set of 140+ standard color names (like 'tomato', 'skyblue', 'gold') that are built into CSS. Our tool can convert these names to their corresponding codes.",
+          "They are a set of 140+ standard color names (like 'tomato', 'skyblue', 'gold') that are built into CSS. This tool can convert these names to their corresponding codes.",
       },
       {
         question: "Is my data private?",
@@ -3213,7 +3213,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "Will compressing a video lower its quality?",
-        "answer": "Compression always involves a trade-off between file size and quality. Our tool is designed to minimize visible quality loss, and you can control the level of compression to find the right balance."
+        "answer": "Compression always involves a trade-off between file size and quality. This tool is designed to minimize visible quality loss, and you can control the level of compression to find the right balance."
       },
       {
         "question": "Is my video uploaded to a server?",
@@ -3237,7 +3237,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     faqs: [
       {
         "question": "How do I convert a video to an MP3 file?",
-        "answer": "Simply upload your video file, and our tool will automatically extract the audio track and convert it into a high-quality MP3 file that you can download."
+        "answer": "Simply upload your video file, and this tool will automatically extract the audio track and convert it into a high-quality MP3 file that you can download."
       },
       {
         "question": "What video formats are supported?",
@@ -3260,7 +3260,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     faqs: [
       {
         "question": "How do I make a GIF from a video?",
-        "answer": "Upload your video clip, select the start and end times for the GIF, and our tool will generate a high-quality animated GIF for you to download."
+        "answer": "Upload your video clip, select the start and end times for the GIF, and this tool will generate a high-quality animated GIF for you to download."
       },
       {
         "question": "Can I control the quality and size of the GIF?",
@@ -3292,7 +3292,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "Will trimming a video affect its quality?",
-        "answer": "No, trimming a video with our tool does not re-encode it, so the quality of the trimmed portion remains the same as the original video."
+        "answer": "No, trimming a video with this tool does not re-encode it, so the quality of the trimmed portion remains the same as the original video."
       },
       {
         "question": "Are my video files secure?",
@@ -3320,7 +3320,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "Will converting the video reduce its quality?",
-        "answer": "The quality of the converted video depends on the format you choose. Our tool aims to provide the best possible quality for the selected format."
+        "answer": "The quality of the converted video depends on the format you choose. This tool aims to provide the best possible quality for the selected format."
       },
       {
         "question": "Is this video converter free to use?",
@@ -3344,7 +3344,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     faqs: [
       {
         "question": "How can I get a thumbnail from a video?",
-        "answer": "Upload your video, pause it at the frame you want to capture, and click the 'Extract' button. Our tool will generate a high-quality PNG thumbnail for you to download."
+        "answer": "Upload your video, pause it at the frame you want to capture, and click the 'Extract' button. This tool will generate a high-quality PNG thumbnail for you to download."
       },
       {
         "question": "Can I choose the size of the thumbnail?",
@@ -3372,7 +3372,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     faqs: [
       {
         "question": "How can I remove the audio from a video?",
-        "answer": "Upload your video, and our tool will process it to remove the audio track completely. You can then download the silent video."
+        "answer": "Upload your video, and this tool will process it to remove the audio track completely. You can then download the silent video."
       },
       {
         "question": "Does muting a video change its quality or format?",
@@ -3432,7 +3432,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "Will resizing my image affect its quality?",
-        "answer": "When you reduce the size of an image, there is typically minimal to no loss in visible quality. However, significantly enlarging a small image can lead to pixelation. Our tool helps you balance size and quality."
+        "answer": "When you reduce the size of an image, there is typically minimal to no loss in visible quality. However, significantly enlarging a small image can lead to pixelation. This tool helps you balance size and quality."
       },
       {
         "question": "Is my image secure when I use this resizer?",
@@ -3460,7 +3460,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "What image formats are supported for conversion?",
-        "answer": "Our tool supports a wide range of popular image formats for both input and output, including JPG, PNG, WEBP, GIF, and many others. This ensures flexibility for all your conversion needs."
+        "answer": "This tool supports a wide range of popular image formats for both input and output, including JPG, PNG, WEBP, GIF, and many others. This ensures flexibility for all your conversion needs."
       },
       {
         "question": "Will converting my image reduce its quality?",
@@ -3488,7 +3488,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "Will compressing my image affect its visual quality?",
-        "answer": "Our tool is designed to provide smart compression, minimizing file size while preserving as much visual quality as possible. You can control the compression level to find the perfect balance between file size and image clarity."
+        "answer": "This tool is designed to provide smart compression, minimizing file size while preserving as much visual quality as possible. You can control the compression level to find the perfect balance between file size and image clarity."
       },
       {
         "question": "Is my image protected during compression?",
@@ -3553,7 +3553,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "What makes a password generated by this tool secure?",
-        "answer": "Our tool creates passwords that are random and complex, combining various character types and lengths, which makes them extremely difficult to guess or crack by brute-force methods. The more random and longer the password, the stronger it is."
+        "answer": "This tool creates passwords that are random and complex, combining various character types and lengths, which makes them extremely difficult to guess or crack by brute-force methods. The more random and longer the password, the stronger it is."
       },
       {
         "question": "Is it safe to generate passwords using an online tool?",
@@ -3665,11 +3665,11 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "Can I use my own images or only pre-loaded templates?",
-        "answer": "Currently, our tool focuses on providing a wide selection of popular meme templates. Support for uploading your own images to create memes may be a feature added in the future."
+        "answer": "Currently, this tool focuses on providing a wide selection of popular meme templates. Support for uploading your own images to create memes may be a feature added in the future."
       },
       {
         "question": "Is the generated meme saved with a watermark?",
-        "answer": "No, memes generated using our tool are completely free of watermarks. You can download and share your creations without any branding, ensuring full creative freedom."
+        "answer": "No, memes generated using this tool are completely free of watermarks. You can download and share your creations without any branding, ensuring full creative freedom."
       }
     ],
   },
@@ -3747,7 +3747,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "How many currencies does this converter support?",
-        "answer": "Our tool supports over 150 global currencies, including major world currencies and many local ones, ensuring you can perform nearly any currency conversion you need."
+        "answer": "This tool supports over 150 global currencies, including major world currencies and many local ones, ensuring you can perform nearly any currency conversion you need."
       },
       {
         "question": "Is the exchange rate data reliable?",
@@ -3833,7 +3833,7 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
       {
         "question": "Can I exclude specific words from the keyword density analysis?",
-        "answer": "Yes, our tool provides an option to exclude common words (like \"and,\" \"the,\" \"is\") or any other specific words you deem irrelevant from the analysis. This helps you focus on the most impactful keywords in your content."
+        "answer": "Yes, this tool provides an option to exclude common words (like \"and,\" \"the,\" \"is\") or any other specific words you deem irrelevant from the analysis. This helps you focus on the most impactful keywords in your content."
       }
     ],
   },
