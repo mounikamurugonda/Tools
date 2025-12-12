@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { PlusIcon, MinusIcon } from "./icons"; // Assuming you have these icons or similar, otherwise I'll use simple text or SVGs.
 // Actually, let's use standard heroicons or just SVG elements to be safe and avoiding missing imports if icons/index.ts doesn't have them.
 // Checking icons/index.ts would be good but I'll write inline SVGs for now to be self-contained and consistent with style.
 
@@ -83,7 +82,7 @@ const FaqItem = ({ faq }: { faq: FAQ }) => {
 
 const FaqSection = () => {
     return (
-        <section className="mb-16 sm:mb-20 lg:mb-24">
+        <section id="faq" className="mb-16 sm:mb-20 lg:mb-24 scroll-mt-24">
             <div className="text-center mb-10 sm:mb-12 animate-fade-in">
                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 px-4">
                     Frequently Asked Questions

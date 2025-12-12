@@ -15,6 +15,7 @@ import {
 } from "@/constants";
 import { blogs } from "@/lib/blogs";
 import FaqSection from "./FaqSection";
+import ExploreToolsSection from "./ExploreToolsSection";
 
 const HomePageClient: React.FC = () => {
   const toolCount = TOOLS.length;
@@ -51,9 +52,25 @@ const HomePageClient: React.FC = () => {
           </p>
 
           <div className="mt-8 sm:mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200 relative z-50">
-
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/tools"
+                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-base font-semibold rounded-lg transition-transform hover:scale-105 shadow-lg shadow-blue-500/20"
+              >
+                Browse All Tools
+              </Link>
+              <Link
+                href="/request-tool"
+                className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-base font-semibold rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-transform hover:scale-105 shadow-sm"
+              >
+                Request a Tool
+              </Link>
+            </div>
           </div>
         </div>
+
+        {/* Explore Tools Section */}
+        <ExploreToolsSection />
 
         {/* Most Viewed Tools Section */}
         <div className="animate-fade-in delay-300 mb-16 sm:mb-20 lg:mb-24">

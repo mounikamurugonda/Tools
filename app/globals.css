@@ -2,8 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-35px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 60s linear infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
 @layer base {
-  html, body {
+
+  html,
+  body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -56,83 +90,114 @@
 }
 
 /* Staggered Animation Delays */
-.delay-75 { animation-delay: 75ms; }
-.delay-100 { animation-delay: 100ms; }
-.delay-150 { animation-delay: 150ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
-.delay-700 { animation-delay: 700ms; }
+.delay-75 {
+  animation-delay: 75ms;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-150 {
+  animation-delay: 150ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.delay-700 {
+  animation-delay: 700ms;
+}
 
 /* Range input styling */
 input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    cursor: pointer;
-    width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-    background: #e5e7eb;
-    height: 0.25rem;
-    border-radius: 0.25rem;
-    transition: background-color 0.2s;
+  background: #e5e7eb;
+  height: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
 }
+
 .dark input[type="range"]::-webkit-slider-runnable-track {
-    background: #4b5563;
+  background: #4b5563;
 }
 
 input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    margin-top: -6px;
-    background-color: #3b82f6;
-    height: 1rem;
-    width: 1rem;
-    border-radius: 9999px;
-    border: 2px solid #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    transition: transform 0.1s, background-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -6px;
+  background-color: #3b82f6;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 9999px;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s, background-color 0.2s;
 }
+
 input[type="range"]:hover::-webkit-slider-thumb {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
+
 .dark input[type="range"]::-webkit-slider-thumb {
-    border-color: #1f2937;
+  border-color: #1f2937;
 }
 
 input[type="range"]::-moz-range-track {
-    background: #e5e7eb;
-    height: 0.25rem;
-    border-radius: 0.25rem;
-    border: none;
+  background: #e5e7eb;
+  height: 0.25rem;
+  border-radius: 0.25rem;
+  border: none;
 }
+
 .dark input[type="range"]::-moz-range-track {
-    background: #4b5563;
+  background: #4b5563;
 }
 
 input[type="range"]::-moz-range-thumb {
-    background-color: #3b82f6;
-    height: 1rem;
-    width: 1rem;
-    border-radius: 9999px;
-    border: 2px solid #fff;
-    transition: transform 0.1s;
+  background-color: #3b82f6;
+  height: 1rem;
+  width: 1rem;
+  border-radius: 9999px;
+  border: 2px solid #fff;
+  transition: transform 0.1s;
 }
+
 input[type="range"]:hover::-moz-range-thumb {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
+
 .dark input[type="range"]::-moz-range-thumb {
-    border-color: #1f2937;
+  border-color: #1f2937;
 }
 
 @layer components {
+
   /* Brand Containers */
   .brand-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+
   .brand-container-narrow {
     @apply max-w-3xl mx-auto px-4 sm:px-6 lg:px-8;
   }
@@ -146,12 +211,15 @@ input[type="range"]:hover::-moz-range-thumb {
   .brand-heading-1 {
     @apply text-4xl sm:text-5xl font-extrabold tracking-tight text-light-text dark:text-dark-text leading-tight;
   }
+
   .brand-heading-2 {
     @apply text-3xl font-bold tracking-tight text-light-text dark:text-dark-text;
   }
+
   .brand-heading-3 {
     @apply text-xl font-bold text-light-text dark:text-dark-text;
   }
+
   .brand-heading-4 {
     @apply text-lg font-semibold text-light-text dark:text-dark-text;
   }
@@ -163,6 +231,7 @@ input[type="range"]:hover::-moz-range-thumb {
   .brand-text-body {
     @apply text-base text-gray-600 dark:text-gray-400 leading-7;
   }
+
   .brand-text-muted {
     @apply text-sm text-gray-500 dark:text-gray-500;
   }
@@ -188,9 +257,11 @@ input[type="range"]:hover::-moz-range-thumb {
   .brand-button-primary {
     @apply inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-accent rounded-lg shadow-sm hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent transition-all duration-200 active:scale-95;
   }
+
   .brand-button-secondary {
     @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-light-text dark:text-dark-text bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-all duration-200 active:scale-95;
   }
+
   .brand-button-tertiary {
     @apply text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-accent dark:hover:text-accent-hover transition-colors duration-200;
   }
@@ -199,6 +270,7 @@ input[type="range"]:hover::-moz-range-thumb {
   .brand-input {
     @apply block w-full rounded-lg border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm focus:border-accent focus:ring-accent sm:text-sm px-3 py-2 transition-all duration-200 placeholder:text-gray-400 dark:placeholder:text-gray-500;
   }
+
   .brand-input-xl {
     @apply block w-full rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900/50 shadow-lg shadow-gray-200/50 dark:shadow-none focus:border-accent focus:ring-accent text-lg px-5 py-4 transition-all duration-200 placeholder:text-gray-400 dark:placeholder:text-gray-500 backdrop-blur-sm;
   }
@@ -217,10 +289,11 @@ input[type="range"]:hover::-moz-range-thumb {
   }
 
   .brand-border-b {
-      @apply border-b border-gray-200 dark:border-gray-800;
+    @apply border-b border-gray-200 dark:border-gray-800;
   }
+
   .brand-border-t {
-      @apply border-t border-gray-200 dark:border-gray-800;
+    @apply border-t border-gray-200 dark:border-gray-800;
   }
 
   .brand-kicker {
@@ -230,7 +303,7 @@ input[type="range"]:hover::-moz-range-thumb {
   .brand-title {
     @apply text-3xl font-bold text-light-text dark:text-dark-text tracking-tight;
   }
-  
+
   .glass-panel {
     @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl;
   }

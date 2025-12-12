@@ -138,6 +138,7 @@ const Header: React.FC = () => {
               </div>
 
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>Blog</NavLink>
+              <NavLink href="/#faq" onClick={closeAllMenus} pathname={pathname}>FAQ</NavLink>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
@@ -214,6 +215,13 @@ const Header: React.FC = () => {
                   }`}
               >
                 Home
+              </Link>
+              <Link
+                href="/#faq"
+                onClick={closeAllMenus}
+                className="block px-4 py-3 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-all active:scale-95"
+              >
+                FAQ
               </Link>
 
               {/* Categories Section */}

@@ -7,6 +7,7 @@ import Script from 'next/script';
 import ConditionalFooter from '@/components/ConditionalFooter';
 import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
 import React from 'react';
+import SmoothScrolling from '@/components/SmoothScrolling';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
@@ -149,14 +150,16 @@ export default function RootLayout({
       </head>
       <body className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text" suppressHydrationWarning>
         <ThemeProvider>
-          <div className="min-h-screen w-full flex flex-col transition-colors duration-300">
-            <Header />
-            <main className="flex-grow flex flex-col">
-              {children}
-            </main>
-            <BuyMeACoffeeSection />
-            <ConditionalFooter />
-          </div>
+          <SmoothScrolling>
+            <div className="min-h-screen w-full flex flex-col transition-colors duration-300">
+              <Header />
+              <main className="flex-grow flex flex-col">
+                {children}
+              </main>
+              <BuyMeACoffeeSection />
+              <ConditionalFooter />
+            </div>
+          </SmoothScrolling>
         </ThemeProvider>
       </body>
     </html>
