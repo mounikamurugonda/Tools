@@ -14,18 +14,20 @@ const SmoothScrolling = ({ children }: { children: ReactNode }) => {
             touchMultiplier: 2,
         });
 
+        let rafId: number;
+
         function raf(time: number) {
             lenis.raf(time);
-            requestAnimationFrame(raf);
+            rafId = requestAnimationFrame(raf);
         }
 
-        requestAnimationFrame(raf);
+        rafId = requestAnimationFrame(raf);
 
         // Apply lenis class to html for handling scrollbars etc if needed
-        // Usually lenis handles this or allows us to style 'html.lenis'
         document.documentElement.classList.add("lenis");
 
         return () => {
+            cancelAnimationFrame(rafId);
             lenis.destroy();
             document.documentElement.classList.remove("lenis");
         };
