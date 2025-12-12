@@ -137,7 +137,7 @@ export default async function CategoryPage({ params }: Props) {
             Online {category} For Free
           </h1>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-            {content.introduction} Our {category.toLowerCase()} tools are the best on the web and they're all available for free. Whether you're looking for a tool to help you with editing, formatting, converting, or manipulating content, we've got you covered.
+            {content.introduction} Our {category.toLowerCase()} tools are the best on the web and they&apos;re all available for free. Whether you&apos;re looking for a tool to help you with editing, formatting, converting, or manipulating content, we&apos;ve got you covered.
           </p>
         </div>
 

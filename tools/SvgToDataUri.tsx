@@ -84,7 +84,7 @@ const SvgToDataUri: React.FC<ToolProps> = ({ details, toolId }) => {
             <Card className="h-full flex items-center justify-center text-center text-gray-400 dark:text-gray-500 min-h-[300px]">
               <div>
                 <RefreshCw className="w-16 h-16 mb-4 opacity-50 mx-auto" />
-                <p>Click "Convert" to see the result</p>
+                <p>Click &quot;Convert&quot; to see the result</p>
               </div>
             </Card>
           )}

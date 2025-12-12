@@ -63,14 +63,14 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h1 className="brand-heading-2 !mb-4">About UtilToolkits</h1>
             <p className="brand-subheading">
-              A developer's hobby project aimed at building the most practical collection of browser-based tools.
+              A developer&apos;s hobby project aimed at building the most practical collection of browser-based tools.
             </p>
           </div>
 
           <section>
-            <h2 className="brand-heading-3">The "Why" Behind This Project</h2>
+            <h2 className="brand-heading-3">The &quot;Why&quot; Behind This Project</h2>
             <p>
-              Hi, I'm a developer just like you. I built UtilToolkits because I was tired of searching for simple tools—like a JSON formatter or an image compressor—only to land on sites buried in ads, requiring logins, or uploading my private data to a server just to process a few bytes.
+              Hi, I&apos;m a developer just like you. I built UtilToolkits because I was tired of searching for simple tools—like a JSON formatter or an image compressor—only to land on sites buried in ads, requiring logins, or uploading my private data to a server just to process a few bytes.
             </p>
             <p>
               I realized that 99% of these tasks can be done instantly, right in the browser, without ever touching a server. So, I started this as a hobby project to collect all those utilities in one clean, fast, and private place.
@@ -80,7 +80,7 @@ export default function AboutPage() {
           <section>
             <h2 className="brand-heading-3">Practical & Developer Focused</h2>
             <p>
-              This isn't a startup chasing metrics. It's a toolbox. My goal is simple:
+              This isn&apos;t a startup chasing metrics. It&apos;s a toolbox. My goal is simple:
             </p>
             <ul>
               <li><strong>Real-time Speed:</strong> Everything runs locally. No API latency.</li>
@@ -92,17 +92,17 @@ export default function AboutPage() {
           <section>
             <h2 className="brand-heading-3">The Roadmap: Powered by You</h2>
             <p>
-              The goal isn't just 10 or 20 tools. I plan to add <strong>hundreds of tools</strong> to cover every possible developer need. But I can't guess them all.
+              The goal isn&apos;t just 10 or 20 tools. I plan to add <strong>hundreds of tools</strong> to cover every possible developer need. But I can&apos;t guess them all.
             </p>
             <p>
-              <strong>This project thrives on user requests.</strong> If you need a specific converter, generator, or calculator that doesn't exist here yet, let me know. I build what you ask for. This allows the toolkit to grow naturally based on real-world problems developers are facing right now.
+              <strong>This project thrives on user requests.</strong> If you need a specific converter, generator, or calculator that doesn&apos;t exist here yet, let me know. I build what you ask for. This allows the toolkit to grow naturally based on real-world problems developers are facing right now.
             </p>
           </section>
 
           <section>
             <h2 className="brand-heading-3">Join Me</h2>
             <p>
-              Whether you're debugging a JWT, optimizing assets, or just crunching numbers, I hope these tools save you a few minutes of frustration today.
+              Whether you&apos;re debugging a JWT, optimizing assets, or just crunching numbers, I hope these tools save you a few minutes of frustration today.
             </p>
             <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
               <p className="text-blue-800 dark:text-blue-200 font-medium">
