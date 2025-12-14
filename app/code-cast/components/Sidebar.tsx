@@ -80,9 +80,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   return (
     <div
       className={`
-        h-full bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 flex-shrink-0 z-20 
-        transition-all duration-300 ease-in-out
-        ${isOpen ? 'w-80 opacity-100' : 'w-0 opacity-0'}
+        h-full bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 z-20 
+        transition-all duration-300 ease-in-out absolute lg:relative top-0 left-0 bottom-0
+        ${isOpen ? 'w-80 opacity-100 shadow-2xl lg:shadow-none' : 'w-0 opacity-0'}
       `}
     >
       <div className="w-80 h-full flex flex-col overflow-hidden">

@@ -140,7 +140,26 @@ const Header: React.FC = () => {
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>Blog</NavLink>
               <NavLink href="/#faq" onClick={closeAllMenus} pathname={pathname}>FAQ</NavLink>
 
-              <NavLink href="/code-cast" onClick={closeAllMenus} pathname={pathname}>CodeCast</NavLink>
+              <Link
+                href="/code-cast"
+                onClick={closeAllMenus}
+                className={`
+                  relative px-3 py-2 text-sm font-bold transition-all group flex items-center gap-2
+                  ${pathname.startsWith('/code-cast')
+                    ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                  }
+                `}
+              >
+                CodeCast
+                <span className="px-1.5 py-0.5 text-[10px] uppercase font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-sm leading-none tracking-wider">
+                  Beta
+                </span>
+                <span
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform origin-left transition-transform duration-300 ease-out ${pathname.startsWith('/code-cast') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
+                />
+              </Link>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>

@@ -21,17 +21,15 @@ export const useTypingEngine = ({
   soundType,
   onComplete
 }: UseTypingEngineProps) => {
-  const [displayedText, setDisplayedText] = useState('');
   const [cursorIndex, setCursorIndex] = useState(0);
   const timeoutRef = useRef<number | null>(null);
-  
+
   // Track previous text to handle tab switches synchronously
   const [prevFullText, setPrevFullText] = useState(fullText);
 
-  // Derived state reset: if fullText changes, reset immediately before render
+  // Derived state reset: if fullText changes, reset immediately
   if (fullText !== prevFullText) {
     setPrevFullText(fullText);
-    setDisplayedText('');
     setCursorIndex(0);
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -39,70 +37,68 @@ export const useTypingEngine = ({
     }
   }
 
-  const typeNextChar = useCallback(() => {
-    if (!isPlaying) return;
+  // Derive displayed text from cursor index
+  const displayedText = fullText.slice(0, cursorIndex);
 
-    setCursorIndex((prev) => {
-      const nextIndex = prev + 1;
-      
-      // Check length against CURRENT fullText (in closure, or via ref if needed, 
-      // but since we reset on fullText change, 'prev' logic holds up)
-      if (nextIndex > fullText.length) {
-        if (onComplete) onComplete();
-        return prev;
-      }
-
-      setDisplayedText(fullText.slice(0, nextIndex));
-
-      // Sound effect
-      if (soundEnabled) {
-        const char = fullText[nextIndex - 1];
-        if (char !== ' ' || Math.random() > 0.6) {
-             playKeySound(soundType);
-        }
-      }
-
-      // Calculate delay
-      let delay = 0;
-      if (speed === 'instant') {
-        delay = 0;
-      } else {
-        const { min, max } = SPEEDS[speed];
-        delay = Math.floor(Math.random() * (max - min + 1)) + min;
-
-        const char = fullText[nextIndex - 1];
-        if (char === '\n') delay += 300;
-        if (['.', ';', '}', ')'].includes(char)) delay += 150;
-      }
-
-      timeoutRef.current = window.setTimeout(typeNextChar, delay);
-      return nextIndex;
-    });
-  }, [fullText, isPlaying, speed, soundEnabled, soundType, onComplete]);
-
-  // Start/Stop effect
+  // Keep onComplete in a ref to avoid dependency cycles
+  const onCompleteRef = useRef(onComplete);
   useEffect(() => {
-    // If we are playing, and haven't finished, start the loop.
-    // We also trigger this when fullText changes (via the dependency) to restart the loop for new text.
-    if (isPlaying && cursorIndex < fullText.length) {
-      // Clear any existing timeout before starting a new one to prevent dupes
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = window.setTimeout(typeNextChar, 50);
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    // If paused or finished, stop.
+    if (!isPlaying || cursorIndex >= fullText.length) {
+      if (cursorIndex >= fullText.length && isPlaying) {
+        // Finished just now
+        onCompleteRef.current?.();
+      }
+      return;
     }
+
+    const typeNext = () => {
+      setCursorIndex((prev) => prev + 1);
+    };
+
+    // Calculate delay and sound for the character we are about to type
+    // We are at `cursorIndex`, so we are about to "type" fullText[cursorIndex]
+    const nextChar = fullText[cursorIndex];
+
+    // Sound Effect
+    if (soundEnabled) {
+      // Logic checks if we play sound for this char. 
+      // Original logic: if (char !== ' ' || Math.random() > 0.6)
+      if (nextChar !== ' ' || Math.random() > 0.6) {
+        playKeySound(soundType);
+      }
+    }
+
+    // Delay Calculation
+    let delay = 0;
+    if (speed === 'instant') {
+      delay = 0;
+    } else {
+      const { min, max } = SPEEDS[speed];
+      delay = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      if (nextChar === '\n') delay += 300;
+      if (['.', ';', '}', ')'].includes(nextChar)) delay += 150;
+    }
+
+    // Schedule next character
+    timeoutRef.current = window.setTimeout(typeNext, delay);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [isPlaying, fullText, typeNextChar]); // Added fullText dependency
+  }, [cursorIndex, isPlaying, fullText, speed, soundEnabled, soundType]);
 
   const reset = () => {
-    setDisplayedText('');
     setCursorIndex(0);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };
 
   const jumpToEnd = () => {
-    setDisplayedText(fullText);
     setCursorIndex(fullText.length);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
   };

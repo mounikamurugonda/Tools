@@ -22,7 +22,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
           <style>
             /* Reset & Defaults */
             * { box-sizing: border-box; }
-            body { margin: 0; padding: 0; font-family: sans-serif; overflow-x: hidden; }
+            body { margin: 0; padding: 4px; font-family: sans-serif; overflow-x: hidden; }
           </style>
           <style id="preview-css"></style>
         </head>
@@ -80,7 +80,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
   // The Parent (Canvas) determines the overall aspect ratio.
   const getFrameStyles = () => {
     const base = 'bg-white shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
-    
+
     if (device === 'browser') {
       return `w-full h-full border border-gray-700 rounded-lg bg-white shadow-lg relative flex flex-col`;
     }
@@ -92,7 +92,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
   return (
     <div className={`w-full h-full flex items-center justify-center transition-all duration-500`} style={{ transform: `scale(${scale})` }}>
       <div className={getFrameStyles()}>
-        
+
         {/* Browser Chrome Header (Only for Browser mode) */}
         {device === 'browser' && (
           <div className="h-8 bg-gray-100 border-b border-gray-200 flex items-center px-3 gap-2 rounded-t-lg shrink-0">

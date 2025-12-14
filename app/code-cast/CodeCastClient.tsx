@@ -15,8 +15,8 @@ const App: React.FC = () => {
   // --- State ---
   const [config, setConfig] = useState<AppConfig>({
     theme: 'dark',
-    background: 'cosmic',
-    deviceFrame: 'minimal',
+    background: 'candy',
+    deviceFrame: 'browser',
     typingSpeed: 'normal',
     fontSize: 14,
     showCursor: true,
@@ -61,7 +61,25 @@ const App: React.FC = () => {
     setIsPlaying(true);
   }, [activeTab, sourceCode]);
 
-  // Handle Resize Drag
+  // Responsive: Handle screen size
+  useEffect(() => {
+    const checkSize = () => {
+      if (window.innerWidth < 1024) {
+        setIsSidebarOpen(false);
+      } else {
+        setIsSidebarOpen(true);
+      }
+    };
+
+    // Initial check
+    checkSize();
+
+    // Optional: Add resize listener if we want auto-collapse on resize
+    // window.addEventListener('resize', checkSize);
+    // return () => window.removeEventListener('resize', checkSize);
+  }, []);
+
+  // Handle Resize Drag (Window Split)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDraggingRef.current || !splitContainerRef.current) return;
@@ -120,16 +138,38 @@ const App: React.FC = () => {
       const stream = await navigator.mediaDevices.getDisplayMedia({
         video: {
           displaySurface: 'browser',
-          frameRate: 60
         },
-        audio: false
-      });
+        audio: false,
+        preferCurrentTab: true // Encourages sharing the current tab
+      } as any);
 
+      // --- Region Capture (Targeted Recording) ---
+      const [track] = stream.getVideoTracks();
+
+      // Check if browser supports CropTarget (Chrome/Edge 104+)
+      if ((window as any).CropTarget && (track as any).cropTo) {
+        try {
+          const element = document.getElementById('canvas-stage');
+          if (element) {
+            const cropTarget = await (window as any).CropTarget.fromElement(element);
+            await (track as any).cropTo(cropTarget);
+          }
+        } catch (cropErr) {
+          console.warn("Region capture failed, falling back to full tab/screen:", cropErr);
+        }
+      }
+
+      // Priority: WebM (VP9) -> WebM (Default) -> MP4 (Fallback)
+      // MP4 in browser MediaRecorder can sometimes produce artifacts (grey/green screen) if the encoding profile isn't perfect.
+      // WebM is the safest, most reliable native format.
       const mimeType = MediaRecorder.isTypeSupported('video/webm; codecs=vp9')
         ? 'video/webm; codecs=vp9'
-        : 'video/webm';
+        : MediaRecorder.isTypeSupported('video/webm')
+          ? 'video/webm'
+          : 'video/mp4';
 
-      const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 8000000 });
+      // Reduced bitrate to 2.5Mbps prevents encoding artifacts/corruption on lower-end hardware
+      const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 2500000 });
       mediaRecorderRef.current = recorder;
       chunksRef.current = [];
 
@@ -138,18 +178,30 @@ const App: React.FC = () => {
       };
 
       recorder.onstop = () => {
-        const blob = new Blob(chunksRef.current, { type: 'video/webm' });
+        const type = mimeType.split(';')[0];
+        const ext = type.split('/')[1] || 'webm';
+        const blob = new Blob(chunksRef.current, { type });
+
+        if (blob.size === 0) {
+          console.error("Recording failed: Resulting blob is empty.");
+          setIsRecording(false);
+          stream.getTracks().forEach(track => track.stop());
+          return;
+        }
+
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `codecast-${Date.now()}.webm`;
+        a.download = `codecast-${Date.now()}.${ext}`;
+        document.body.appendChild(a);
         a.click();
+        document.body.removeChild(a);
         URL.revokeObjectURL(url);
         setIsRecording(false);
         stream.getTracks().forEach(track => track.stop());
       };
 
-      recorder.start();
+      recorder.start(1000);
       setIsRecording(true);
     } catch (err) {
       console.error("Error starting recording:", err);
@@ -213,6 +265,14 @@ const App: React.FC = () => {
         onProjectTitleChange={setProjectTitle}
       />
 
+      {/* Mobile Backdrop */}
+      {isSidebarOpen && (
+        <div
+          className="lg:hidden absolute inset-0 bg-black/50 z-10 backdrop-blur-sm transition-opacity"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Main Wrapper */}
       <div className="flex-1 flex flex-col h-full min-w-0 relative bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-300 transition-colors duration-300">
 
@@ -226,17 +286,39 @@ const App: React.FC = () => {
               <PanelLeft size={20} />
             </button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg transform rotate-3">
-                <Type size={20} className="text-white" />
-              </div>
               <div className="flex flex-col">
-                <span className="font-bold text-lg tracking-tight hidden sm:block text-gray-900 dark:text-white leading-none">CodeCast</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-extrabold text-xl tracking-tight hidden sm:block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 leading-none">
+                    CodeCast
+                  </span>
+                  <span className="px-1.5 py-0.5 text-[9px] uppercase font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-sm leading-none tracking-wider">
+                    Beta
+                  </span>
+                </div>
                 <span className="text-[10px] text-gray-500 dark:text-gray-400 font-medium hidden sm:block">A product by UtilToolkits</span>
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Playback Controls */}
+            <div className="flex items-center gap-1 mr-2 bg-gray-100 dark:bg-gray-900 rounded-lg p-1 border border-gray-200 dark:border-gray-800">
+              <button
+                onClick={() => setIsPlaying(!isPlaying)}
+                className="p-1.5 rounded-md hover:bg-white dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all hover:shadow-sm"
+                title={isPlaying ? "Pause Typing" : "Resume Typing"}
+              >
+                {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+              </button>
+              <button
+                onClick={() => { reset(); setIsPlaying(true); }}
+                className="p-1.5 rounded-md hover:bg-white dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all hover:shadow-sm"
+                title="Reset Typing"
+              >
+                <RotateCcw size={14} />
+              </button>
+            </div>
+
             {!isRecording ? (
               <button
                 onClick={startRecording}
@@ -360,7 +442,7 @@ const App: React.FC = () => {
 // --- Subcomponents ---
 
 const EditorContainer = ({
-  isLightEditor, activeTab, setActiveTab, isPlaying, setIsPlaying, reset, typedContent, config, sourceCode
+  isLightEditor, activeTab, setActiveTab, isPlaying, typedContent, config, sourceCode
 }: any) => (
   <div className={`w-full h-full flex flex-col ${isLightEditor ? 'bg-white border-gray-200' : 'bg-[#1e1e1e]/95 border-white/10'} backdrop-blur-xl`}>
     {/* Editor Header */}
@@ -387,14 +469,7 @@ const EditorContainer = ({
           </button>
         ))}
       </div>
-      <div className="w-14 flex justify-end gap-1">
-        <button onClick={() => setIsPlaying(!isPlaying)} className="text-gray-500 hover:text-gray-300 transition-colors p-1 hover:bg-white/5 rounded">
-          {isPlaying ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" />}
-        </button>
-        <button onClick={() => { reset(); setIsPlaying(true); }} className="text-gray-500 hover:text-gray-300 transition-colors p-1 hover:bg-white/5 rounded">
-          <RotateCcw size={12} />
-        </button>
-      </div>
+      <div className="w-14"></div> {/* Spacer to balance the header since buttons are gone */}
     </div>
 
     {/* Editor Body */}
