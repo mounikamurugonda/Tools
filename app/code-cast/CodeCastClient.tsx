@@ -199,7 +199,7 @@ const App: React.FC = () => {
   const isSideBySide = config.deviceFrame === 'browser';
 
   return (
-    <div className="flex h-screen w-full bg-gray-950 overflow-hidden">
+    <div className="flex h-[calc(100vh-5rem)] w-full bg-gray-950 overflow-hidden">
 
       {/* Sidebar */}
       <Sidebar
@@ -229,7 +229,10 @@ const App: React.FC = () => {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg transform rotate-3">
                 <Type size={20} className="text-white" />
               </div>
-              <span className="font-bold text-lg tracking-tight hidden sm:block text-white">CodeCast</span>
+              <div className="flex flex-col">
+                <span className="font-bold text-lg tracking-tight hidden sm:block text-white leading-none">CodeCast</span>
+                <span className="text-[10px] text-gray-400 font-medium hidden sm:block">A product by UtilToolkits</span>
+              </div>
             </div>
           </div>
 

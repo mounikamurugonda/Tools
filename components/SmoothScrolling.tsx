@@ -3,8 +3,17 @@
 import { ReactNode, useEffect } from "react";
 import Lenis from "lenis";
 
+import { usePathname } from "next/navigation";
+
 const SmoothScrolling = ({ children }: { children: ReactNode }) => {
+    const pathname = usePathname();
+
     useEffect(() => {
+        // Disable smooth scrolling for CodeCast route to allow native internal scrolling
+        if (pathname?.startsWith('/code-cast')) {
+            return;
+        }
+
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -31,7 +40,7 @@ const SmoothScrolling = ({ children }: { children: ReactNode }) => {
             lenis.destroy();
             document.documentElement.classList.remove("lenis");
         };
-    }, []);
+    }, [pathname]);
 
     return <>{children}</>;
 };
