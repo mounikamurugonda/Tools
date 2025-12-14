@@ -199,7 +199,7 @@ const App: React.FC = () => {
   const isSideBySide = config.deviceFrame === 'browser';
 
   return (
-    <div className="flex h-[calc(100vh-5rem)] w-full bg-gray-950 overflow-hidden">
+    <div className="flex h-[calc(100vh-5rem)] w-full bg-white dark:bg-gray-950 overflow-hidden transition-colors duration-300">
 
       {/* Sidebar */}
       <Sidebar
@@ -214,14 +214,14 @@ const App: React.FC = () => {
       />
 
       {/* Main Wrapper */}
-      <div className="flex-1 flex flex-col h-full min-w-0 relative bg-gray-950 text-gray-300">
+      <div className="flex-1 flex flex-col h-full min-w-0 relative bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-300 transition-colors duration-300">
 
         {/* Header */}
-        <header className="h-16 flex items-center justify-between px-6 shrink-0 z-30 bg-gray-950 border-b border-gray-800">
+        <header className="h-16 flex items-center justify-between px-6 shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className="p-2 rounded-md transition-colors text-gray-400 hover:bg-white/10 hover:text-white"
+              className="p-2 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white"
             >
               <PanelLeft size={20} />
             </button>
@@ -230,8 +230,8 @@ const App: React.FC = () => {
                 <Type size={20} className="text-white" />
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-lg tracking-tight hidden sm:block text-white leading-none">CodeCast</span>
-                <span className="text-[10px] text-gray-400 font-medium hidden sm:block">A product by UtilToolkits</span>
+                <span className="font-bold text-lg tracking-tight hidden sm:block text-gray-900 dark:text-white leading-none">CodeCast</span>
+                <span className="text-[10px] text-gray-500 dark:text-gray-400 font-medium hidden sm:block">A product by UtilToolkits</span>
               </div>
             </div>
           </div>
@@ -258,7 +258,7 @@ const App: React.FC = () => {
         </header>
 
         {/* --- Main Stage --- */}
-        <main className="flex-1 overflow-hidden w-full flex items-center justify-center p-4 md:p-8 bg-gray-950 relative">
+        <main className="flex-1 overflow-hidden w-full flex items-center justify-center p-4 md:p-8 bg-gray-50 dark:bg-gray-950 relative transition-colors duration-300">
 
           {/* --- Canvas Frame --- */}
           {/* The background applies to THIS frame, maintaining consistency with aspect ratio */}
