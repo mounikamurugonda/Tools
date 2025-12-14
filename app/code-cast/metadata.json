@@ -1,0 +1,5 @@
+{
+  "name": "CodeCast - Visual Coding Demo Tool",
+  "description": "A product-grade visual tool to create satisfying typing animations of code with live previews and recording capabilities.",
+  "requestFramePermissions": []
+}

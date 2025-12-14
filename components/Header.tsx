@@ -139,6 +139,8 @@ const Header: React.FC = () => {
 
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>Blog</NavLink>
               <NavLink href="/#faq" onClick={closeAllMenus} pathname={pathname}>FAQ</NavLink>
+
+              <NavLink href="/code-cast" onClick={closeAllMenus} pathname={pathname}>CodeCast</NavLink>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
