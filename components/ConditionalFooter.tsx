@@ -6,7 +6,7 @@ import Footer from './Footer';
 const ConditionalFooter = () => {
   const pathname = usePathname();
 
-  if (pathname?.startsWith('/tools') || pathname?.startsWith('/code-cast')) {
+  if (pathname?.startsWith('/tools') || pathname?.startsWith('/product/code-cast')) {
     return null;
   }
 

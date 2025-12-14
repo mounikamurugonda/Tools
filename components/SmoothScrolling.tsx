@@ -10,7 +10,7 @@ const SmoothScrolling = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         // Disable smooth scrolling for CodeCast route to allow native internal scrolling
-        if (pathname?.startsWith('/code-cast')) {
+        if (pathname?.startsWith('/product/code-cast')) {
             return;
         }
 
