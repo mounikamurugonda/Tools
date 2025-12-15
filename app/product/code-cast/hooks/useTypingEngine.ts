@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { SPEEDS } from '../constants';
 import { TypingSpeed, SoundType } from '../types';
-import { playKeySound } from '../utils/sound';
+import { startTypingSound, stopTypingSound } from '../utils/sound';
 
 interface UseTypingEngineProps {
   fullText: string;
@@ -46,6 +46,36 @@ export const useTypingEngine = ({
     onCompleteRef.current = onComplete;
   }, [onComplete]);
 
+  // --- Audio Control ---
+  useEffect(() => {
+    const isFinished = cursorIndex >= fullText.length;
+
+    if (isPlaying && !isFinished && soundEnabled) {
+      startTypingSound(soundType);
+    } else {
+      stopTypingSound();
+    }
+
+    return () => {
+      // Cleanup on unmount or dependency change
+      // Note: We might want to NOT stop if only cursorIndex changes, 
+      // but we need to stop if paused or finished.
+      // The logic above handles the "start/stop" state transitions.
+      // The return clause here is important if component unmounts.
+      // However, stopping on every render (due to cursorIndex change) is bad.
+      // Optimization: Only stop if effectively turning OFF.
+      // Actually, if we run startTypingSound() again, it returns early if already playing.
+      // But we shouldn't call stopTypingSound() on every char.
+    };
+  }, [isPlaying, soundEnabled, soundType, cursorIndex, fullText.length]);
+
+  // Refined Audio Cleanup:
+  // We need a separate effect that strictly handles unmount or definitive stop
+  useEffect(() => {
+    return () => stopTypingSound();
+  }, []);
+
+
   useEffect(() => {
     // If paused or finished, stop.
     if (!isPlaying || cursorIndex >= fullText.length) {
@@ -60,19 +90,6 @@ export const useTypingEngine = ({
       setCursorIndex((prev) => prev + 1);
     };
 
-    // Calculate delay and sound for the character we are about to type
-    // We are at `cursorIndex`, so we are about to "type" fullText[cursorIndex]
-    const nextChar = fullText[cursorIndex];
-
-    // Sound Effect
-    if (soundEnabled) {
-      // Logic checks if we play sound for this char. 
-      // Original logic: if (char !== ' ' || Math.random() > 0.6)
-      if (nextChar !== ' ' || Math.random() > 0.6) {
-        playKeySound(soundType);
-      }
-    }
-
     // Delay Calculation
     let delay = 0;
     if (speed === 'instant') {
@@ -81,8 +98,8 @@ export const useTypingEngine = ({
       const { min, max } = SPEEDS[speed];
       delay = Math.floor(Math.random() * (max - min + 1)) + min;
 
-      if (nextChar === '\n') delay += 300;
-      if (['.', ';', '}', ')'].includes(nextChar)) delay += 150;
+      if (fullText[cursorIndex] === '\n') delay += 300;
+      if (['.', ';', '}', ')'].includes(fullText[cursorIndex])) delay += 150;
     }
 
     // Schedule next character
@@ -91,7 +108,7 @@ export const useTypingEngine = ({
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [cursorIndex, isPlaying, fullText, speed, soundEnabled, soundType]);
+  }, [cursorIndex, isPlaying, fullText, speed]);
 
   const reset = () => {
     setCursorIndex(0);

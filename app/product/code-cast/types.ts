@@ -1,15 +1,15 @@
 
 export type Theme = 'dark' | 'light' | 'dracula' | 'github' | 'monokai' | 'twilight' | 'nord' | 'solarized-dark' | 'solarized-light' | 'synthwave';
 
-export type DeviceFrame = 
-  | 'minimal' 
-  | 'browser' 
-  | 'linkedin-post' 
-  | 'instagram-square' 
+export type DeviceFrame =
+  | 'minimal'
+  | 'browser'
+  | 'linkedin-post'
+  | 'instagram-square'
   | 'tiktok-shorts';
 
 export type TypingSpeed = 'slow' | 'normal' | 'fast' | 'instant';
-export type SoundType = 'thock' | 'clicky' | 'typewriter' | 'membrane' | 'bubble';
+export type SoundType = 'deep' | 'crisp';
 
 export interface AppConfig {
   theme: Theme;

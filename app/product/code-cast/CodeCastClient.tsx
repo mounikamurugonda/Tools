@@ -11,18 +11,23 @@ import Sidebar from './components/Sidebar';
 import { useTypingEngine } from './hooks/useTypingEngine';
 import { AppConfig, CodeSnippet } from './types';
 import { DEFAULT_CODE, BACKGROUND_PRESETS, EDITOR_THEMES } from './constants';
+import { preloadSounds } from './utils/sound';
 
 const App: React.FC = () => {
+  // --- Preload Sounds ---
+  useEffect(() => {
+    preloadSounds();
+  }, []);
   // --- State ---
   const [config, setConfig] = useState<AppConfig>({
     theme: 'dark',
-    background: 'candy',
+    background: 'codecast-gradient',
     deviceFrame: 'browser',
     typingSpeed: 'normal',
     fontSize: 14,
     showCursor: true,
     soundEnabled: true,
-    soundType: 'thock',
+    soundType: 'deep',
     lineNumbers: true,
   });
 

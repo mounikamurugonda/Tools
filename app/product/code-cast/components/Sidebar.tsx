@@ -266,11 +266,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                   className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-sm rounded-md border border-gray-200 dark:border-gray-700 px-3 py-2 outline-none focus:border-blue-500 appearance-none"
                   disabled={!config.soundEnabled}
                 >
-                  {(['thock', 'clicky', 'typewriter', 'membrane', 'bubble'] as SoundType[]).map((type) => (
-                    <option key={type} value={type} className="capitalize">
-                      {type.charAt(0).toUpperCase() + type.slice(1)}
-                    </option>
-                  ))}
+                  <option value="deep">Signature Deep</option>
+                  <option value="crisp">Signature Crisp</option>
                 </select>
                 <Volume2 size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
               </div>

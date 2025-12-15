@@ -1,8 +1,11 @@
 
 import { SoundType, Theme, DeviceFrame } from './types';
 
-// Short mechanical keyboard click sound (Base64 encoded WAV)
-export const KEYPRESS_SOUND_URL = 'data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAD//w=='; 
+// Sound Assets
+export const SOUND_PRESETS = {
+  deep: '/keyboard-typing.mp3', // Signature Deep
+  crisp: '/keyboard-typing-1.mp3', // Signature Crisp
+};
 
 export interface BackgroundPreset {
   id: string;
@@ -12,77 +15,58 @@ export interface BackgroundPreset {
 }
 
 export const BACKGROUND_PRESETS: BackgroundPreset[] = [
-  { 
-    id: 'cosmic', 
-    label: 'Cosmic', 
-    value: 'bg-gray-950 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/40 via-gray-950 to-gray-950', 
-    isDark: true 
+  // --- CodeCast Specific ---
+  {
+    id: 'codecast-gradient',
+    label: 'CodeCast Signature',
+    value: 'bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#312e81]', // Slate-900 -> Indigo-900
+    isDark: true
   },
-  { 
-    id: 'midnight', 
-    label: 'Midnight', 
-    value: 'bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black', 
-    isDark: true 
+  {
+    id: 'codecast-solid',
+    label: 'CodeCast Deep',
+    value: 'bg-[#1e1b4b]', // Indigo-950
+    isDark: true
   },
-  { 
-    id: 'candy', 
-    label: 'Candy', 
-    value: 'bg-gradient-to-br from-pink-400 via-purple-400 to-indigo-500', 
-    isDark: true 
+  {
+    id: 'logo-gradient',
+    label: 'Logo Vivid',
+    value: 'bg-gradient-to-br from-blue-600 to-purple-600',
+    isDark: true
   },
-  { 
-    id: 'unicorn', 
-    label: 'Unicorn', 
-    value: 'bg-gradient-to-tr from-violet-200 to-pink-200', 
-    isDark: false 
+
+  // --- UtilToolkits Brand ---
+  {
+    id: 'util-gradient',
+    label: 'UtilToolkits Gradient',
+    value: 'bg-gradient-to-br from-[#0f172a] to-[#3b82f6]', // Slate-900 -> Blue-500
+    isDark: true
   },
-  { 
-    id: 'ocean', 
-    label: 'Ocean', 
-    value: 'bg-gradient-to-br from-cyan-500 to-blue-600', 
-    isDark: true 
+  {
+    id: 'util-solid-blue',
+    label: 'UtilToolkits Blue',
+    value: 'bg-[#3b82f6]', // Blue-500
+    isDark: true
   },
-  { 
-    id: 'forest', 
-    label: 'Forest', 
-    value: 'bg-gradient-to-br from-emerald-500 to-teal-700', 
-    isDark: true 
+  {
+    id: 'util-solid-dark',
+    label: 'UtilToolkits Dark',
+    value: 'bg-[#0f172a]', // Slate-900
+    isDark: true
   },
-  { 
-    id: 'sunset', 
-    label: 'Sunset', 
-    value: 'bg-gradient-to-br from-orange-400 to-rose-400', 
-    isDark: true 
+
+  // --- Minimal / Studio ---
+  {
+    id: 'studio-dark',
+    label: 'Studio Matte',
+    value: 'bg-[#121212]',
+    isDark: true
   },
-  { 
-    id: 'peach', 
-    label: 'Peach', 
-    value: 'bg-gradient-to-br from-orange-100 to-rose-100', 
-    isDark: false 
-  },
-  { 
-    id: 'sky', 
-    label: 'Sky', 
-    value: 'bg-gradient-to-b from-sky-300 to-indigo-400', 
-    isDark: true 
-  },
-  { 
-    id: 'solid-black', 
-    label: 'Black', 
-    value: 'bg-black', 
-    isDark: true 
-  },
-  { 
-    id: 'solid-gray', 
-    label: 'Dark Gray', 
-    value: 'bg-[#121212]', 
-    isDark: true 
-  },
-  { 
-    id: 'solid-white', 
-    label: 'White', 
-    value: 'bg-gray-100', 
-    isDark: false 
+  {
+    id: 'studio-light',
+    label: 'Studio Clean',
+    value: 'bg-[#f8fafc]',
+    isDark: false
   },
 ];
 

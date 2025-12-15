@@ -1,8 +1,15 @@
 
 import { SoundType } from '../types';
+import { SOUND_PRESETS } from '../constants';
 
 let audioCtx: AudioContext | null = null;
-let noiseBuffer: AudioBuffer | null = null;
+const buffers: Record<string, AudioBuffer> = {};
+let currentSource: AudioBufferSourceNode | null = null;
+let gainNode: GainNode | null = null;
+
+// State flags to handle async race conditions
+let isStarting = false;
+let abortStart = false;
 
 const initAudio = () => {
   if (!audioCtx) {
@@ -10,156 +17,105 @@ const initAudio = () => {
   }
 };
 
-const getNoiseBuffer = (ctx: AudioContext) => {
-  if (noiseBuffer) return noiseBuffer;
-  const bufferSize = ctx.sampleRate * 0.1; // 0.1s buffer
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) {
-    data[i] = Math.random() * 2 - 1;
-  }
-  noiseBuffer = buffer;
-  return buffer;
-};
-
-// 1. THOCK (Deep, Marbly, Creamy)
-const playThock = (ctx: AudioContext, t: number) => {
-  const noise = ctx.createBufferSource();
-  noise.buffer = getNoiseBuffer(ctx);
-  const noiseFilter = ctx.createBiquadFilter();
-  noiseFilter.type = 'lowpass';
-  noiseFilter.frequency.setValueAtTime(600, t);
-  noiseFilter.Q.value = 0.5;
-  const noiseGain = ctx.createGain();
-  noiseGain.gain.setValueAtTime(0.4, t);
-  noiseGain.gain.exponentialRampToValueAtTime(0.01, t + 0.05);
-  
-  noise.connect(noiseFilter).connect(noiseGain).connect(ctx.destination);
-  noise.start(t);
-
-  const osc = ctx.createOscillator();
-  osc.frequency.setValueAtTime(300, t);
-  osc.frequency.exponentialRampToValueAtTime(50, t + 0.08);
-  const oscGain = ctx.createGain();
-  oscGain.gain.setValueAtTime(0.3, t);
-  oscGain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
-  
-  osc.connect(oscGain).connect(ctx.destination);
-  osc.start(t);
-  osc.stop(t + 0.1);
-};
-
-// 2. CLICKY (High-pitch, Cherry MX Blue)
-const playClicky = (ctx: AudioContext, t: number) => {
-  const noise = ctx.createBufferSource();
-  noise.buffer = getNoiseBuffer(ctx);
-  const noiseFilter = ctx.createBiquadFilter();
-  noiseFilter.type = 'highpass';
-  noiseFilter.frequency.setValueAtTime(2000, t); // High frequency click
-  const noiseGain = ctx.createGain();
-  noiseGain.gain.setValueAtTime(0.3, t);
-  noiseGain.gain.exponentialRampToValueAtTime(0.01, t + 0.02); // Very short
-
-  noise.connect(noiseFilter).connect(noiseGain).connect(ctx.destination);
-  noise.start(t);
-
-  // High pitch tick
-  const osc = ctx.createOscillator();
-  osc.type = 'triangle';
-  osc.frequency.setValueAtTime(1200, t);
-  osc.frequency.exponentialRampToValueAtTime(800, t + 0.03);
-  const oscGain = ctx.createGain();
-  oscGain.gain.setValueAtTime(0.2, t);
-  oscGain.gain.exponentialRampToValueAtTime(0.01, t + 0.03);
-
-  osc.connect(oscGain).connect(ctx.destination);
-  osc.start(t);
-  osc.stop(t + 0.05);
-};
-
-// 3. MEMBRANE (Soft, Quiet, Laptop)
-const playMembrane = (ctx: AudioContext, t: number) => {
-  const noise = ctx.createBufferSource();
-  noise.buffer = getNoiseBuffer(ctx);
-  const noiseFilter = ctx.createBiquadFilter();
-  noiseFilter.type = 'lowpass';
-  noiseFilter.frequency.setValueAtTime(400, t);
-  const noiseGain = ctx.createGain();
-  noiseGain.gain.setValueAtTime(0.2, t); // Quieter
-  noiseGain.gain.exponentialRampToValueAtTime(0.01, t + 0.04);
-  
-  noise.connect(noiseFilter).connect(noiseGain).connect(ctx.destination);
-  noise.start(t);
-};
-
-// 4. TYPEWRITER (Metallic, Loud, Vintage)
-const playTypewriter = (ctx: AudioContext, t: number) => {
-  // Heavy latch sound
-  const noise = ctx.createBufferSource();
-  noise.buffer = getNoiseBuffer(ctx);
-  const noiseFilter = ctx.createBiquadFilter();
-  noiseFilter.type = 'bandpass';
-  noiseFilter.frequency.setValueAtTime(800, t);
-  noiseFilter.Q.value = 1;
-  const noiseGain = ctx.createGain();
-  noiseGain.gain.setValueAtTime(0.6, t);
-  noiseGain.gain.exponentialRampToValueAtTime(0.01, t + 0.06);
-  noise.connect(noiseFilter).connect(noiseGain).connect(ctx.destination);
-  noise.start(t);
-
-  // Metallic ring
-  const osc = ctx.createOscillator();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(2200, t); // High ring
-  const oscGain = ctx.createGain();
-  oscGain.gain.setValueAtTime(0.1, t);
-  oscGain.gain.exponentialRampToValueAtTime(0.01, t + 0.15); // Longer decay
-  
-  osc.connect(oscGain).connect(ctx.destination);
-  osc.start(t);
-  osc.stop(t + 0.2);
-};
-
-// 5. BUBBLE (Fun, Pop, Synthetic)
-const playBubble = (ctx: AudioContext, t: number) => {
-  const osc = ctx.createOscillator();
-  osc.type = 'sine';
-  // Pitch sweep up for bubble effect
-  osc.frequency.setValueAtTime(400, t);
-  osc.frequency.linearRampToValueAtTime(800, t + 0.05);
-  
-  const oscGain = ctx.createGain();
-  oscGain.gain.setValueAtTime(0.3, t);
-  oscGain.gain.linearRampToValueAtTime(0.01, t + 0.05);
-
-  osc.connect(oscGain).connect(ctx.destination);
-  osc.start(t);
-  osc.stop(t + 0.06);
-};
-
-export const playKeySound = (type: SoundType = 'thock') => {
+const loadSound = async (type: SoundType) => {
   if (!audioCtx) initAudio();
   if (!audioCtx) return;
-  if (audioCtx.state === 'suspended') audioCtx.resume();
 
-  const t = audioCtx.currentTime;
+  if (buffers[type]) return buffers[type];
 
-  switch (type) {
-    case 'clicky':
-      playClicky(audioCtx, t);
-      break;
-    case 'typewriter':
-      playTypewriter(audioCtx, t);
-      break;
-    case 'membrane':
-      playMembrane(audioCtx, t);
-      break;
-    case 'bubble':
-      playBubble(audioCtx, t);
-      break;
-    case 'thock':
-    default:
-      playThock(audioCtx, t);
-      break;
+  try {
+    const url = SOUND_PRESETS[type];
+    const response = await fetch(url);
+    const arrayBuffer = await response.arrayBuffer();
+    const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+    buffers[type] = audioBuffer;
+    return audioBuffer;
+  } catch (error) {
+    console.error(`Failed to load sound: ${type}`, error);
+    return null;
+  }
+};
+
+export const preloadSounds = () => {
+  Object.keys(SOUND_PRESETS).forEach(key => loadSound(key as SoundType));
+};
+
+export const startTypingSound = async (type: SoundType = 'deep') => {
+  // Reset abort flag for this new attempt
+  abortStart = false;
+
+  // Prevent multiple concurrent start attempts or starting if already playing
+  if (currentSource || isStarting) return;
+
+  isStarting = true;
+
+  try {
+    if (!audioCtx) initAudio();
+    if (!audioCtx) return;
+
+    // Resume if suspended (async)
+    if (audioCtx.state === 'suspended') {
+      await audioCtx.resume();
+    }
+
+    // Check if we were told to stop while waiting for resume
+    if (abortStart) return;
+
+    let buffer = buffers[type];
+    if (!buffer) {
+      buffer = await loadSound(type) as AudioBuffer;
+    }
+
+    // Check again after load
+    if (abortStart || !buffer) return;
+
+    // Safety check: is something else playing now?
+    if (currentSource) return;
+
+    const source = audioCtx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true; // Loop the track
+
+    const gain = audioCtx.createGain();
+    gain.gain.value = 0.5;
+
+    source.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    source.start(0);
+    currentSource = source;
+    gainNode = gain;
+  } catch (err) {
+    console.error("Error starting sound:", err);
+  } finally {
+    isStarting = false;
+  }
+};
+
+export const stopTypingSound = () => {
+  // Signal any pending start operations to abort
+  abortStart = true;
+
+  if (currentSource) {
+    try {
+      // Optional: fade out
+      if (gainNode && audioCtx && audioCtx.state === 'running') {
+        // Cancel any scheduled values to force immediate control
+        gainNode.gain.cancelScheduledValues(audioCtx.currentTime);
+        gainNode.gain.setTargetAtTime(0, audioCtx.currentTime, 0.1);
+
+        const oldSource = currentSource;
+        setTimeout(() => {
+          try { oldSource.stop(); } catch (e) { }
+        }, 150);
+      } else {
+        // If context isn't running or trouble, stop immediately
+        currentSource.stop();
+      }
+    } catch (e) {
+      // ignore if already stopped
+    }
+    currentSource = null;
+    gainNode = null;
   }
 };
