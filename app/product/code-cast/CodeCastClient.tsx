@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  Play, Pause, RotateCcw, Type, PanelLeft, Check, GripHorizontal
+  Play, Pause, RotateCcw, Type, PanelLeft, Check, GripHorizontal,
+  Mic, MicOff, Volume2, VolumeX
 } from 'lucide-react';
 import CodeEditor from './components/CodeEditor';
 import PreviewFrame from './components/PreviewFrame';
@@ -37,6 +38,7 @@ const App: React.FC = () => {
 
   // Recorder State
   const [isRecording, setIsRecording] = useState(false);
+  const [isMicEnabled, setIsMicEnabled] = useState(false);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
 
@@ -44,13 +46,37 @@ const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [typedContent, setTypedContent] = useState('');
 
+  const handleTypingComplete = () => {
+    const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
+    const currentIndex = tabs.indexOf(activeTab);
+
+    let nextTab: 'html' | 'css' | 'js' | null = null;
+
+    // Find next tab that has content
+    for (let i = currentIndex + 1; i < tabs.length; i++) {
+      const t = tabs[i];
+      if (sourceCode[t] && sourceCode[t].trim().length > 0) {
+        nextTab = t;
+        break;
+      }
+    }
+
+    if (nextTab) {
+      setTimeout(() => {
+        setActiveTab(nextTab!);
+      }, 1500);
+    } else {
+      setIsPlaying(false);
+    }
+  };
+
   const { displayedText, reset, jumpToEnd } = useTypingEngine({
     fullText: sourceCode[activeTab],
     speed: config.typingSpeed,
     isPlaying: isPlaying,
     soundEnabled: config.soundEnabled,
     soundType: config.soundType,
-    onComplete: () => setIsPlaying(false)
+    onComplete: handleTypingComplete
   });
 
   useEffect(() => {
@@ -135,16 +161,40 @@ const App: React.FC = () => {
       // Auto-close sidebar for cleaner recording
       setIsSidebarOpen(false);
 
-      const stream = await navigator.mediaDevices.getDisplayMedia({
+      const displayStream = await navigator.mediaDevices.getDisplayMedia({
         video: {
           displaySurface: 'browser',
         },
-        audio: false,
-        preferCurrentTab: true // Encourages sharing the current tab
+        audio: true, // Attempt to capture system audio too
+        preferCurrentTab: true
       } as any);
 
+      // --- Mic Capture ---
+      let micStream: MediaStream | null = null;
+      if (isMicEnabled) {
+        try {
+          micStream = await navigator.mediaDevices.getUserMedia({
+            audio: {
+              echoCancellation: true,
+              noiseSuppression: true,
+            }
+          });
+        } catch (micErr) {
+          console.warn("Details: Mic permission denied or failed", micErr);
+          // Continue without mic
+        }
+      }
+
+      // Combine tracks
+      const tracks = [
+        ...displayStream.getVideoTracks(),
+        ...displayStream.getAudioTracks(),
+        ...(micStream ? micStream.getAudioTracks() : [])
+      ];
+      const combinedStream = new MediaStream(tracks);
+
       // --- Region Capture (Targeted Recording) ---
-      const [track] = stream.getVideoTracks();
+      const [track] = displayStream.getVideoTracks();
 
       // Check if browser supports CropTarget (Chrome/Edge 104+)
       if ((window as any).CropTarget && (track as any).cropTo) {
@@ -160,16 +210,13 @@ const App: React.FC = () => {
       }
 
       // Priority: WebM (VP9) -> WebM (Default) -> MP4 (Fallback)
-      // MP4 in browser MediaRecorder can sometimes produce artifacts (grey/green screen) if the encoding profile isn't perfect.
-      // WebM is the safest, most reliable native format.
       const mimeType = MediaRecorder.isTypeSupported('video/webm; codecs=vp9')
         ? 'video/webm; codecs=vp9'
         : MediaRecorder.isTypeSupported('video/webm')
           ? 'video/webm'
           : 'video/mp4';
 
-      // Reduced bitrate to 2.5Mbps prevents encoding artifacts/corruption on lower-end hardware
-      const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 2500000 });
+      const recorder = new MediaRecorder(combinedStream, { mimeType, videoBitsPerSecond: 2500000 });
       mediaRecorderRef.current = recorder;
       chunksRef.current = [];
 
@@ -182,10 +229,15 @@ const App: React.FC = () => {
         const ext = type.split('/')[1] || 'webm';
         const blob = new Blob(chunksRef.current, { type });
 
+        // Stop all tracks (including mic)
+        combinedStream.getTracks().forEach(track => track.stop());
+        if (micStream) micStream.getTracks().forEach(track => track.stop());
+        // Also ensure original display stream tracks are stopped if different
+        displayStream.getTracks().forEach(track => track.stop());
+
         if (blob.size === 0) {
           console.error("Recording failed: Resulting blob is empty.");
           setIsRecording(false);
-          stream.getTracks().forEach(track => track.stop());
           return;
         }
 
@@ -198,14 +250,12 @@ const App: React.FC = () => {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
         setIsRecording(false);
-        stream.getTracks().forEach(track => track.stop());
       };
 
       recorder.start(1000);
       setIsRecording(true);
     } catch (err) {
       console.error("Error starting recording:", err);
-      // If cancelled, ensure sidebar state is consistent if needed
     }
   };
 
@@ -311,11 +361,35 @@ const App: React.FC = () => {
                 {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
               </button>
               <button
-                onClick={() => { reset(); setIsPlaying(true); }}
+                onClick={() => { setActiveTab('html'); reset(); setIsPlaying(true); }}
                 className="p-1.5 rounded-md hover:bg-white dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all hover:shadow-sm"
                 title="Reset Typing"
               >
                 <RotateCcw size={14} />
+              </button>
+            </div>
+
+            <div className="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-1"></div>
+
+            {/* Audio Controls */}
+            <div className="flex items-center gap-1 bg-gray-100 dark:bg-gray-900 rounded-lg p-1 border border-gray-200 dark:border-gray-800">
+              <button
+                onClick={() => setIsMicEnabled(!isMicEnabled)}
+                className={`p-1.5 rounded-md transition-all ${isMicEnabled
+                  ? 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-white dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'}`}
+                title={isMicEnabled ? "Mic On" : "Mic Off"}
+              >
+                {isMicEnabled ? <Mic size={14} /> : <MicOff size={14} />}
+              </button>
+              <button
+                onClick={() => setConfig(prev => ({ ...prev, soundEnabled: !prev.soundEnabled }))}
+                className={`p-1.5 rounded-md transition-all ${config.soundEnabled
+                  ? 'text-blue-600 dark:text-blue-400'
+                  : 'text-gray-400 dark:text-gray-500 hover:bg-white dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'}`}
+                title={config.soundEnabled ? "Keyboard Sounds On" : "Keyboard Sounds Off"}
+              >
+                {config.soundEnabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
               </button>
             </div>
 
@@ -350,12 +424,13 @@ const App: React.FC = () => {
             style={getCanvasStyle()}
           >
             {/* 1. Title Area (Inside Canvas) */}
-            <div className="w-full flex justify-center py-6 shrink-0 px-8 z-10">
+            <div className="w-full flex justify-center py-4 shrink-0 px-8 z-10">
               <input
                 value={projectTitle}
                 onChange={(e) => setProjectTitle(e.target.value)}
                 className={`text-2xl md:text-3xl font-bold text-center bg-transparent border-none outline-none w-full text-ellipsis placeholder-current opacity-90 ${activeBg.isDark ? 'text-white' : 'text-gray-900'}`}
                 placeholder="Project Title"
+                spellCheck={true}
               />
             </div>
 
@@ -431,6 +506,13 @@ const App: React.FC = () => {
               )}
 
             </div>
+
+            {/* Watermark */}
+            <div className="absolute bottom-0 right-7 z-50 pointer-events-none select-none opacity-40">
+              <span className={`text-[10px] font-medium   tracking-widest ${activeBg.isDark ? 'text-white' : 'text-black'}`}>
+                Code Cast by Utiltoolkits.com
+              </span>
+            </div>
           </div>
 
         </main>
@@ -482,9 +564,8 @@ const EditorContainer = ({
 
 const CompletionBadge = ({ visible }: { visible: boolean }) => (
   visible ? (
-    <div className="absolute bottom-4 right-4 flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-medium animate-in fade-in slide-in-from-bottom-2 z-10 backdrop-blur-md">
-      <Check size={12} />
-      <span>Complete</span>
+    <div className="absolute bottom-4 right-4 flex items-center justify-center w-8 h-8 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 animate-in fade-in zoom-in duration-300 z-10 backdrop-blur-md">
+      <Check size={16} strokeWidth={3} />
     </div>
   ) : null
 );

@@ -64,44 +64,44 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
 
     // 3. HTML Tags
     code = code.replace(/(&lt;\/?)(\w+)(.*?)(&gt;)/g, (match, start, tagName, attrs, end) => {
-       const highlightedAttrs = attrs.replace(/\b([a-zA-Z-:]+)(=)/g, 
-          '<span class="text-[#d19a66]">$1</span>$2');
-       return save(`${start}<span class="text-[#e06c75]">${tagName}</span>${highlightedAttrs}${end}`);
+      const highlightedAttrs = attrs.replace(/\b([a-zA-Z-:]+)(=)/g,
+        '<span class="text-[#d19a66]">$1</span>$2');
+      return save(`${start}<span class="text-[#e06c75]">${tagName}</span>${highlightedAttrs}${end}`);
     });
 
     // 4. Keywords
-    code = code.replace(/\b(const|let|var|function|return|import|export|from|class|if|else|for|while|await|async|try|catch|document|window|console)\b/g, 
+    code = code.replace(/\b(const|let|var|function|return|import|export|from|class|if|else|for|while|await|async|try|catch|document|window|console)\b/g,
       (match) => save(`<span class="text-[#c678dd] font-bold">${match}</span>`));
 
     // 5. CSS Properties
     code = code.replace(/\b([a-z-]+)(:)/g, (match, prop, colon) => {
-       return save(`<span class="text-[#56b6c2]">${prop}</span>${colon}`);
+      return save(`<span class="text-[#56b6c2]">${prop}</span>${colon}`);
     });
 
     // 6. Functions
     code = code.replace(/\b(\w+)(?=\()/g, (match) => {
-       return save(`<span class="text-[#61afef]">${match}</span>`);
+      return save(`<span class="text-[#61afef]">${match}</span>`);
     });
 
     // 7. Numbers
     code = code.replace(/\b(\d+)\b/g, (match) => {
-       return save(`<span class="text-[#d19a66]">${match}</span>`);
+      return save(`<span class="text-[#d19a66]">${match}</span>`);
     });
 
     // 8. Hex Colors
     code = code.replace(/(#[0-9a-fA-F]{3,8})\b/g, (match) => {
-       return save(`<span class="text-[#d19a66]">${match}</span>`);
+      return save(`<span class="text-[#d19a66]">${match}</span>`);
     });
 
     // Restore placeholders
     let lastCode;
     for (let i = 0; i < 5; i++) {
-        if (!code.includes('%%%PLACEHOLDER_')) break;
-        lastCode = code;
-        code = code.replace(/%%%PLACEHOLDER_(\d+)%%%/g, (match, index) => {
-            return placeholders[parseInt(index, 10)] || match;
-        });
-        if (code === lastCode) break;
+      if (!code.includes('%%%PLACEHOLDER_')) break;
+      lastCode = code;
+      code = code.replace(/%%%PLACEHOLDER_(\d+)%%%/g, (match, index) => {
+        return placeholders[parseInt(index, 10)] || match;
+      });
+      if (code === lastCode) break;
     }
 
     return code;
@@ -131,38 +131,50 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
 
   // Cursor Element HTML
   // Uses em units for height/width to scale with font size
-  const cursorHtml = config.showCursor 
-    ? `<span class="inline-block w-[1ch] bg-[#528bff] align-middle cursor-blink ml-[1px] shadow-[0_0_8px_rgba(82,139,255,0.6)]" style="height: 1.2em"></span>` 
+  const cursorHtml = config.showCursor
+    ? `<span class="inline-block w-[1ch] bg-[#528bff] align-middle cursor-blink ml-[1px] shadow-[0_0_8px_rgba(82,139,255,0.6)]" style="height: 1.2em"></span>`
     : '';
 
   const commonClasses = `absolute inset-0 m-0 pt-4 pr-4 pb-4 leading-none`;
 
+  // Helper to inject line numbers into HTML for wrapping support
+  const injectLineNumbers = (html: string, width: number) => {
+    // Style for the line number span
+    // - absolute left:0 puts it in the padding area (gutter)
+    // - text-right aligns numbers to the code
+    const style = `position:absolute;left:0;width:${width}px;padding-right:12px;text-align:right;color:#6b7280;user-select:none;opacity:0.6;`;
+
+    let line = 2;
+    // Replace newlines with newline + line number
+    // We start with line 2 because line 1 is prepended
+    const content = html.replace(/\n/g, () => {
+      const num = line++;
+      return `\n<span class="line-number" style="${style}">${num}</span>`;
+    });
+
+    // Add first line number
+    return `<span class="line-number" style="${style}">1</span>${content}`;
+  };
+
+  const highlightedCode = highlightCode(code);
+  const finalHtml = config.lineNumbers
+    ? injectLineNumbers(highlightedCode, gutterWidth) + cursorHtml
+    : highlightedCode + cursorHtml;
+
   return (
     <div className={`relative w-full h-full font-mono overflow-hidden ${getThemeStyles()}`}>
-      {/* Line Numbers */}
-      {config.lineNumbers && (
-         <div 
-           className="absolute left-0 top-0 bottom-0 bg-inherit border-r border-gray-500/10 text-right pr-3 pt-4 text-gray-500 select-none z-10 opacity-40"
-           style={{ width: `${gutterWidth}px`, fontSize: `${fontSize}px` }}
-         >
-           {code.split('\n').map((_, i) => (
-             <div key={i} style={{ height: `${lineHeight}px`, lineHeight: `${lineHeight}px` }}>{i + 1}</div>
-           ))}
-         </div>
-      )}
-
       <div className="relative w-full h-full">
         {/* Highlight Layer with Cursor */}
         <pre
           ref={preRef}
-          className={`${commonClasses} pointer-events-none whitespace-pre overflow-hidden`}
+          className={`${commonClasses} pointer-events-none whitespace-pre-wrap break-all overflow-hidden`}
           aria-hidden="true"
-          style={{ 
-             fontSize: `${fontSize}px`, 
-             lineHeight: `${lineHeight}px`, 
-             paddingLeft: `${paddingLeft}px` 
+          style={{
+            fontSize: `${fontSize}px`,
+            lineHeight: `${lineHeight}px`,
+            paddingLeft: `${paddingLeft}px`
           }}
-          dangerouslySetInnerHTML={{ __html: highlightCode(code) + cursorHtml }}
+          dangerouslySetInnerHTML={{ __html: finalHtml }}
         ></pre>
 
         {/* Input Layer */}
@@ -173,11 +185,11 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
           onScroll={handleScroll}
           spellCheck="false"
           readOnly={readOnly}
-          className={`${commonClasses} bg-transparent text-transparent caret-white resize-none border-none outline-none whitespace-pre overflow-auto z-0 ${readOnly ? 'caret-transparent' : ''}`}
-          style={{ 
-             fontSize: `${fontSize}px`, 
-             lineHeight: `${lineHeight}px`, 
-             paddingLeft: `${paddingLeft}px` 
+          className={`${commonClasses} bg-transparent text-transparent caret-white resize-none border-none outline-none whitespace-pre-wrap break-all overflow-auto z-0 ${readOnly ? 'caret-transparent' : ''}`}
+          style={{
+            fontSize: `${fontSize}px`,
+            lineHeight: `${lineHeight}px`,
+            paddingLeft: `${paddingLeft}px`
           }}
         />
       </div>
