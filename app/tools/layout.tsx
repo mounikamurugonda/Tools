@@ -9,9 +9,9 @@ export default function ToolsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-[calc(100vh-64px)]">
+    <div className="min-h-[calc(100vh-5rem)]">
       <Sidebar />
-      <main className="flex-1 w-0 min-w-0">
+      <main className="flex-1 w-full lg:pl-64">
         {children}
         <BuyMeACoffeeSection forceShow={true} />
         <Footer />

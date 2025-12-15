@@ -151,7 +151,7 @@ export default function RootLayout({
       <body className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text" suppressHydrationWarning>
         <ThemeProvider>
           <SmoothScrolling>
-            <div className="min-h-screen w-full flex flex-col transition-colors duration-300">
+            <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
               <Header />
               <main className="flex-grow flex flex-col">
                 {children}
