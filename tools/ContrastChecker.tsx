@@ -8,8 +8,8 @@ import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
 
 const ContrastChecker: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [foreground, setForeground] = useState('#000000');
-  const [background, setBackground] = useState('#FFFFFF');
+  const [foreground, setForeground] = useState('#FFFFFF');
+  const [background, setBackground] = useState('#000000');
 
   const getLuminance = (hex: string) => {
     const rgb = parseInt(hex.slice(1), 16);

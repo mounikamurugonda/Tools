@@ -1,5 +1,4 @@
-import React from 'react';
-import { TOOL_CONFIGS, getToolDetails } from '@/lib/tool-config';
+import { TOOLS, getToolDetails } from '@/constants';
 import ToolLoader from '@/components/ToolLoader';
 import {
   getToolSchema,
@@ -10,10 +9,9 @@ import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
-import BreadcrumbWrapper from '@/components/BreadcrumbWrapper';
 import { TIPS } from '@/lib/tips';
 import TipCard from '@/components/TipCard';
-import ShareButton from '@/components/ShareButton';
+import type { ToolData } from '@/types';
 
 type Props = {
   params: Promise<{ toolId: string }>;
@@ -24,7 +22,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const { toolId } = await params;
-  const tool = TOOL_CONFIGS.find((t) => t.id === toolId);
+  const tool = TOOLS.find((t) => t.id === toolId);
 
   if (!tool) {
     return {
@@ -102,14 +100,14 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return TOOL_CONFIGS.map((tool) => ({
+  return TOOLS.map((tool) => ({
     toolId: tool.id,
   }));
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ toolId: string }> }) {
   const { toolId } = await params;
-  const tool = TOOL_CONFIGS.find((t) => t.id === toolId);
+  const tool = TOOLS.find((t) => t.id === toolId);
 
   if (!tool) {
     notFound();
@@ -117,6 +115,18 @@ export default async function ToolPage({ params }: { params: Promise<{ toolId: s
 
   const toolDetails = getToolDetails(tool.id);
   const randomTip = TIPS[Math.floor(Math.random() * TIPS.length)];
+
+  const toolData: ToolData = {
+    id: tool.id,
+    name: tool.name,
+    description: tool.description,
+    category: tool.category,
+    seoTitle: tool.seoTitle,
+    seoDescription: tool.seoDescription,
+    featured: tool.featured,
+    keywords: tool.keywords,
+    tags: tool.tags,
+  };
 
   return (
     <AnalyticsWrapper pageType="tool" toolName={tool.name}>
@@ -126,7 +136,7 @@ export default async function ToolPage({ params }: { params: Promise<{ toolId: s
       <Schema schema={getToolSchema(tool)} />
 
       <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
-        <ToolLoader toolId={tool.id} details={toolDetails} />
+        <ToolLoader toolId={tool.id} details={toolDetails} tool={toolData} />
         <TipCard tip={randomTip} />
       </div>
     </AnalyticsWrapper>

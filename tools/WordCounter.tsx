@@ -9,7 +9,7 @@ import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
 import Card from '@/components/ui/Card';
 
-const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
+const WordCounter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   const [input, setInput] = useState('');
   const debouncedInput = useDebounce(input, 500);
 
@@ -34,7 +34,7 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer
-      title="Word & Character Counter"
+      title={tool?.name || 'Word Counter'}
       details={details}
       toolId={toolId}
     >

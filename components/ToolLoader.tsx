@@ -2,14 +2,15 @@
 
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import type { ToolProps } from '@/types';
-import { TOOL_COMPONENT_MAP } from '@/lib/tool-config';
+import type { ToolProps, ToolData } from '@/types';
+import { TOOL_COMPONENT_MAP } from '@/constants';
 import { ToolSkeleton } from '@/components/SkeletonLoader';
 import BreadcrumbWrapper from './BreadcrumbWrapper';
 
 interface ToolLoaderProps {
   toolId: string;
   details: ToolProps['details'];
+  tool?: ToolData;
   children?: React.ReactNode;
 }
 
@@ -18,7 +19,7 @@ interface ToolLoaderProps {
  * This component avoids bundling all 80+ tools into the initial page load
  * Each tool is loaded only when the user navigates to it
  */
-const ToolLoader: React.FC<ToolLoaderProps> = ({ toolId, details, children }) => {
+const ToolLoader: React.FC<ToolLoaderProps> = ({ toolId, details, tool, children }) => {
   // Get the component name from the mapping
   const componentName = TOOL_COMPONENT_MAP[toolId];
 
@@ -43,7 +44,7 @@ const ToolLoader: React.FC<ToolLoaderProps> = ({ toolId, details, children }) =>
     <Suspense fallback={<ToolSkeleton />}>
       {/* {children} */}
       <BreadcrumbWrapper />
-      <DynamicToolComponent details={details} toolId={toolId} />
+      <DynamicToolComponent details={details} toolId={toolId} tool={tool} />
     </Suspense>
   );
 };

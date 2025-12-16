@@ -36,7 +36,7 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="hidden lg:flex flex-col w-64 h-[calc(100vh-5rem)] overflow-y-auto border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 fixed left-0 top-20 z-40">
+    <aside data-lenis-prevent className="hidden lg:flex flex-col w-64 bottom-0 overflow-y-auto overscroll-y-contain border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 fixed left-0 top-20 z-40">
       <div className="py-6 px-3">
         <h2 className="px-3 mb-4 text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">
           Tool Categories

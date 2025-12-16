@@ -11,7 +11,7 @@ import Card from '@/components/ui/Card';
 import FileUpload from '@/components/ui/FileUpload';
 import { FileText, Upload } from 'lucide-react';
 
-const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
+const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
@@ -76,7 +76,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer
-      title="JSON Formatter & Validator"
+      title={tool?.name || 'JSON Formatter'}
       details={details}
       toolId={toolId}
     >

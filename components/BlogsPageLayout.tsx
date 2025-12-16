@@ -4,6 +4,7 @@ import React from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { blogs } from '@/lib/blogs';
+import { getCategorySlug } from '@/lib/slugUtils';
 
 const allCategories = Array.from(new Set(blogs.map((blog) => blog.category)));
 
@@ -17,14 +18,14 @@ const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
       {isSidebarVisible && (
         <aside className="w-full md:w-1/4">
           <div className="sticky top-24">
-            <h3 className="brand-heading-3 mb-4">Categories</h3>
+            <h3 className="brand-heading-3 mb-4">Blog Categories</h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/blogs"
                   className={`block w-full text-left ${pathname === '/blogs'
-                      ? 'brand-button-primary'
-                      : 'brand-button-secondary'
+                    ? 'brand-button-primary'
+                    : 'brand-button-secondary'
                     }`}
                 >
                   All
@@ -33,13 +34,13 @@ const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
               {allCategories.map((category) => (
                 <li key={category}>
                   <Link
-                    href={`/blogs/category/${category}`}
-                    className={`block w-full text-left ${pathname === `/blogs/category/${category}`
-                        ? 'brand-button-primary'
-                        : 'brand-button-secondary'
+                    href={`/blogs/category/${getCategorySlug(category)}`}
+                    className={`block w-full text-left ${pathname === `/blogs/category/${getCategorySlug(category)}`
+                      ? 'brand-button-primary'
+                      : 'brand-button-secondary'
                       }`}
                   >
-                    {category}
+                    {category.replace(' Tools', '')}
                   </Link>
                 </li>
               ))}

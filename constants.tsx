@@ -1,5 +1,6 @@
 ﻿import React from "react";
 import { Tool, ToolCategory } from "./types";
+import { TOOL_DETAILS } from "@/lib/tool-details";
 import {
   CaseIcon,
   CounterIcon,
@@ -229,6 +230,9 @@ export const TOOLS: Tool[] = [
     id: "contrast-checker",
     name: "Contrast Checker",
     description: "Check color contrast accessibility (WCAG).",
+    seoTitle: "Center Color Contrast Checker | WCAG Accessibility Tester",
+    seoDescription:
+      "Check the contrast ratio between text and background colors. Ensure your design meets WCAG accessibility standards with our free online Contrast Checker.",
     icon: <ContrastIcon />,
     category: ToolCategory.COLOR,
   },
@@ -254,6 +258,9 @@ export const TOOLS: Tool[] = [
     id: "utm-builder",
     name: "UTM Builder",
     description: "Build tracking URLs for marketing campaigns.",
+    seoTitle: "UTM Builder | Campaign URL Builder for Google Analytics",
+    seoDescription:
+      "Easily build campaign URLs with UTM parameters. Track the effectiveness of your marketing campaigns in Google Analytics. Free and easy to use.",
     icon: <UtmIcon />,
     category: ToolCategory.PRODUCTIVITY,
   },
@@ -279,6 +286,9 @@ export const TOOLS: Tool[] = [
     id: "css-triangle-generator",
     name: "CSS Triangle Generator",
     description: "Generate CSS code for geometric triangles.",
+    seoTitle: "CSS Triangle Generator | Create Pure CSS Triangles",
+    seoDescription:
+      "Generate pure CSS triangles in any direction and color. Adjust size and copy the code instantly. No images required.",
     icon: <TriangleIcon />,
     category: ToolCategory.CSS,
   },
@@ -304,6 +314,9 @@ export const TOOLS: Tool[] = [
     id: "morse-converter",
     name: "Morse Code Converter",
     description: "Translate text to Morse code and vice versa.",
+    seoTitle: "Morse Code Converter | Text to Morse & Morse to Text",
+    seoDescription:
+      "Convert text to Morse code and decode Morse code back to text. Listen to the audio and learn the alphabet. Free online tool.",
     icon: <MorseIcon />,
     category: ToolCategory.FUN,
   },
@@ -311,6 +324,9 @@ export const TOOLS: Tool[] = [
     id: "binary-converter",
     name: "Binary Converter",
     description: "Translate text to binary code and back.",
+    seoTitle: "Binary Converter | Text to Binary & Binary to Text",
+    seoDescription:
+      "Convert text to binary code (0s and 1s) and decode binary back to text. Understand computer data representation with this free tool.",
     icon: <BinaryIcon />,
     category: ToolCategory.CODING,
   },
@@ -318,6 +334,9 @@ export const TOOLS: Tool[] = [
     id: "password-strength",
     name: "Password Strength Checker",
     description: "Test the strength of your passwords.",
+    seoTitle: "Password Strength Checker | Test Password Security",
+    seoDescription:
+      "Check how strong your password is against cracking attacks. Get instant feedback and tips to improve security. 100% processing in browser.",
     icon: <ShieldCheckIcon />,
     category: ToolCategory.MISC,
   },
@@ -343,6 +362,9 @@ export const TOOLS: Tool[] = [
     id: "percentage-calculator",
     name: "Percentage Calculator",
     description: "Quickly calculate percentages for common math problems.",
+    seoTitle: "Percentage Calculator | Online Percent Change & Amount",
+    seoDescription:
+      "Calculate percentages, percent change, and fractions of numbers instantly. Simple, free online percentage calculator for daily math.",
     icon: <PercentIcon />,
     category: ToolCategory.MATH,
   },
@@ -368,6 +390,9 @@ export const TOOLS: Tool[] = [
     id: "list-randomizer",
     name: "List Randomizer",
     description: "Shuffle and randomize a list of items.",
+    seoTitle: "List Randomizer | Shuffle Lists & Pick Winners",
+    seoDescription:
+      "Randomize and shuffle any list of items instantly. Perfect for raffles, lottery picks, or mixing content. Fair and unbiased shuffling.",
     icon: <ListIcon />,
     category: ToolCategory.FUN,
   },
@@ -583,6 +608,9 @@ export const TOOLS: Tool[] = [
     id: "roman-numeral-converter",
     name: "Roman Numeral Converter",
     description: "Convert numbers to Roman numerals and back.",
+    seoTitle: "Roman Numeral Converter | Numbers to Roman Numerals",
+    seoDescription:
+      "Convert standard numbers to Roman numerals (I, V, X, L, C, D, M) and vice versa. Learn the rules and convert dates instantly.",
     icon: <RomanIcon />,
     category: ToolCategory.MATH,
   },
@@ -590,6 +618,9 @@ export const TOOLS: Tool[] = [
     id: "age-calculator",
     name: "Age Calculator",
     description: "Calculate your exact age in years, months, and days.",
+    seoTitle: "Age Calculator | Calculate Exact Age from Date of Birth",
+    seoDescription:
+      "Find out exactly how old you are in years, months, days, hours, and minutes. Calculate the time until your next birthday.",
     icon: <BabyIcon />,
     category: ToolCategory.MATH,
   },
@@ -597,6 +628,9 @@ export const TOOLS: Tool[] = [
     id: "random-number-generator",
     name: "Random Number Generator",
     description: "Generate random numbers within a specific range.",
+    seoTitle: "Random Number Generator | RNG Online",
+    seoDescription:
+      "Generate true random numbers within a custom range. Set minimum and maximum values and generate multiple numbers instantly.",
     icon: <DiceIcon />,
     category: ToolCategory.MATH,
   },
@@ -640,6 +674,9 @@ export const TOOLS: Tool[] = [
     id: "css-cursors",
     name: "CSS Cursor Viewer",
     description: "Visual reference for all CSS cursor types.",
+    seoTitle: "CSS Cursor Viewer | Visual Guide to CSS Cursors",
+    seoDescription:
+      "Interactive guide to all CSS cursor properties. Hover over items to see pointer, help, wait, grab, and other cursor styles in action.",
     icon: <CursorIcon />,
     category: ToolCategory.CSS,
   },
@@ -647,6 +684,9 @@ export const TOOLS: Tool[] = [
     id: "device-resolutions",
     name: "Device Resolution List",
     description: "Reference guide for common device screen sizes.",
+    seoTitle: "Device Screen Resolutions | Viewport Size Reference",
+    seoDescription:
+      "List of common screen resolutions and viewport sizes for mobile, tablet, and desktop devices. Essential reference for responsive web design.",
     icon: <DevicesIcon />,
     category: ToolCategory.PRODUCTIVITY,
   },
@@ -672,6 +712,9 @@ export const TOOLS: Tool[] = [
     id: "css-borders",
     name: "CSS Border Preview",
     description: "Visualizer for all CSS border styles.",
+    seoTitle: "CSS Border Preview | Visual Border Style Generator",
+    seoDescription:
+      "Visualize and generate all CSS border styles. Test solid, dashed, dotted, double, groove, ridge, inset, and outset borders instantly.",
     icon: <BorderIcon />,
     category: ToolCategory.CSS,
   },
@@ -679,6 +722,9 @@ export const TOOLS: Tool[] = [
     id: "css-patterns",
     name: "CSS Background Patterns",
     description: "Generate pure CSS background patterns.",
+    seoTitle: "CSS Pattern Generator | Pure CSS Backgrounds",
+    seoDescription:
+      "Create lightweight, scalable background patterns with pure CSS. No images required. Copy the code for stripes, checks, dots, and more.",
     icon: <PatternIcon />,
     category: ToolCategory.CSS,
   },
@@ -686,20 +732,22 @@ export const TOOLS: Tool[] = [
     id: "signature-pad",
     name: "Signature Pad",
     description: "Draw and save digital signatures.",
+    seoTitle: "Online Signature Pad | Draw & Download Signatures",
+    seoDescription:
+      "Draw your signature online and download it as a transparent PNG. Perfect for signing documents digitally. Works on mobile and desktop.",
     icon: <SignatureIcon />,
     category: ToolCategory.MISC,
   },
   // ... rest of the existing tools (ensure Readability Score, Loan Calculator, etc. are preserved)
   {
     id: "readability-score-calculator",
-    name: "Readability Score Calculator",
+    name: "Flesch-Kincaid /Readability Score Calculator",
     description:
       "Analyze text complexity and calculate Flesch-Kincaid and other readability scores to improve content clarity and accessibility.",
     seoTitle:
-      "Free Readability Score Calculator | Instantly Check Your Content's Grade Level",
-    seoDescription:
-      "Is your writing easy to understand? Our free Readability Score Calculator gives you instant feedback with Flesch-Kincaid scores. Write clearer, more effective content for everyone. 100% private.",
-    icon: <ReadabilityIcon />,
+      "[Free] Flesch-Kincaid Calculator - Readability Score Calculator",
+    seoDescription: "Check your text readability instantly using Flesch Reading Ease and Flesch-Kincaid Grade Level. Free online readability score calculator. No signup required.",
+    icon: < ReadabilityIcon />,
     category: ToolCategory.TEXT,
 
     keywords: [
@@ -1814,3 +1862,125 @@ export const CATEGORY_CONTENT: Record<ToolCategory, { introduction: string }> =
   [ToolCategory.VIDEO]: { introduction: "Edit and convert video files." },
   [ToolCategory.MISC]: { introduction: "Various useful tools." },
 };
+
+export const TOOL_COMPONENT_MAP: Record<string, string> = {
+  'comma-separator': 'CommaSeparator',
+  'case-converter': 'CaseConverter',
+  'word-counter': 'WordCounter',
+  'lorem-ipsum-generator': 'LoremIpsumGenerator',
+  'base64-converter': 'Base64Converter',
+  'url-encoder': 'UrlEncoder',
+  'json-formatter': 'JsonFormatter',
+  'uuid-generator': 'UuidGenerator',
+  'password-generator': 'PasswordGenerator',
+  'image-to-base64': 'ImageToBase64',
+  'text-reverser': 'TextReverser',
+  'base64-to-image': 'Base64ToImage',
+  'box-shadow-generator': 'BoxShadowGenerator',
+  'css-gradient-generator': 'CssGradientGenerator',
+  'border-radius-generator': 'BorderRadiusGenerator',
+  'text-shadow-generator': 'TextShadowGenerator',
+  'glassmorphism-generator': 'GlassmorphismGenerator',
+  'hash-generator': 'HashGenerator',
+  'jwt-debugger': 'JwtDebugger',
+  'qr-code-generator': 'QrCodeGenerator',
+  'markdown-previewer': 'MarkdownPreviewer',
+  'date-calculator': 'DateCalculator',
+  'diff-checker': 'DiffChecker',
+  'pomodoro-timer': 'PomodoroTimer',
+  'meme-generator': 'MemeGenerator',
+  'regex-tester': 'RegexTester',
+  'color-palette-generator': 'ColorPaletteGenerator',
+  'color-theme-wheel': 'ColorThemeWheel',
+  'unit-converter': 'UnitConverter',
+  'bmi-calculator': 'BmiCalculator',
+  'todo-list': 'TodoList',
+  'currency-converter': 'CurrencyConverter',
+  'world-clock': 'WorldClock',
+  'timers-and-stopwatch': 'TimersAndStopwatch',
+  'json-csv-converter': 'JsonCsvConverter',
+  'csv-xlsx-converter': 'CsvXlsxConverter',
+  'character-counter': 'CharacterCounter',
+  'keyword-density-analyzer': 'KeywordDensityAnalyzer',
+  'readability-score-calculator': 'ReadabilityScore',
+  'loan-calculator': 'LoanCalculator',
+  'timezone-converter': 'TimeZoneConverter',
+  'css-color-code-converter': 'CssColorCodeConverter',
+  'video-compressor': 'VideoCompressor',
+  'video-to-audio-converter': 'VideoToAudioConverter',
+  'gif-maker': 'GifMaker',
+  'trim-video': 'TrimVideo',
+  'format-converter': 'FormatConverter',
+  'video-thumbnail-extractor': 'VideoThumbnailExtractor',
+  'video-mute': 'VideoMute',
+  'watermark-adder': 'WatermarkAdder',
+  'image-resizer': 'ImageResizer',
+  'image-converter': 'ImageConverter',
+  'image-compressor': 'ImageCompressor',
+  'json-to-typescript': 'JsonToTypescript',
+  'code-to-image': 'CodeToImage',
+  'sql-formatter': 'SqlFormatter',
+  'cron-generator': 'CronParser',
+  'slug-generator': 'SlugGenerator',
+  'meta-tag-generator': 'MetaTagGenerator',
+  'contrast-checker': 'ContrastChecker',
+  'chmod-calculator': 'ChmodCalculator',
+  'utm-builder': 'UtmBuilder',
+  'aspect-ratio-calculator': 'AspectRatio',
+  'css-triangle-generator': 'CssTriangle',
+  'xml-formatter': 'XmlFormatter',
+  'morse-converter': 'MorseConverter',
+  'binary-converter': 'BinaryConverter',
+  'password-strength': 'PasswordStrength',
+  'string-escaper': 'StringEscaper',
+  'percentage-calculator': 'PercentageCalculator',
+  'markdown-table-generator': 'MarkdownTable',
+  'list-randomizer': 'ListRandomizer',
+  'text-cleaner': 'TextCleaner',
+  'svg-to-data-uri': 'SvgToDataUri',
+  'json-yaml-converter': 'JsonYamlConverter',
+  'youtube-thumbnail': 'YouTubeThumbnail',
+  'fancy-font-generator': 'FancyFontGenerator',
+  'hashtag-extractor': 'HashtagExtractor',
+  'image-filters': 'ImageFilters',
+  'svg-blob-generator': 'SvgBlobGenerator',
+  'svg-wave-generator': 'SvgWaveGenerator',
+  'keycode-info': 'KeycodeInfo',
+  'screen-info': 'ScreenInfo',
+  'text-to-speech': 'TextToSpeech',
+  'roman-numeral-converter': 'RomanNumeral',
+  'age-calculator': 'AgeCalculator',
+  'random-number-generator': 'RandomNumber',
+  'duplicate-remover': 'DuplicateRemover',
+  'html-entity': 'HtmlEntity',
+  'css-cursors': 'CssCursors',
+  'device-resolutions': 'DeviceResolutions',
+  'lorem-image-generator': 'LoremImage',
+  'css-borders': 'CssBorders',
+  'css-patterns': 'CssPatterns',
+  'signature-pad': 'SignaturePad',
+};
+
+export function getToolDetails(toolId: string) {
+  const PRIVACY_STATEMENT_DESC =
+    'All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.';
+
+  const details = TOOL_DETAILS[toolId];
+
+  if (details) {
+    return details;
+  }
+
+  // Fallback if details are not found
+  return {
+    introduction: '',
+    howToUse: [],
+    features: [],
+    privacy: PRIVACY_STATEMENT_DESC,
+    explanation: '',
+    usageExamples: [],
+    underlyingConcept: '',
+    faqs: [],
+    tip: '',
+  };
+}

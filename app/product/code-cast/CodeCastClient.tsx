@@ -468,7 +468,7 @@ const App: React.FC = () => {
                 /* --- PORTRAIT/STACKED LAYOUT --- */
                 <div
                   ref={splitContainerRef}
-                  className="w-full h-full flex flex-col"
+                  className="w-full h-full flex flex-col gap-4"
                 >
                   {/* Top: Preview */}
                   <div

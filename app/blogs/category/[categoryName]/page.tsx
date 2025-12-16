@@ -3,18 +3,19 @@ import Link from 'next/link';
 import { blogs } from '@/lib/blogs';
 import { Blog } from '@/types';
 import { notFound } from 'next/navigation';
+import { getCategorySlug } from '@/lib/slugUtils';
 
 export async function generateStaticParams() {
   const categories = Array.from(new Set(blogs.map((blog) => blog.category)));
   return categories.map((category) => ({
-    categoryName: category,
+    categoryName: getCategorySlug(category),
   }));
 }
 
 const CategoryPage = async ({ params }: { params: Promise<{ categoryName: string }> }) => {
   const { categoryName } = await params;
   const filteredBlogs = blogs.filter(
-    (blog) => blog.category.toLowerCase() === categoryName.toLowerCase(),
+    (blog) => getCategorySlug(blog.category) === categoryName,
   );
 
   if (filteredBlogs.length === 0) {
@@ -24,7 +25,7 @@ const CategoryPage = async ({ params }: { params: Promise<{ categoryName: string
   return (
     <div>
       <h1 className="brand-heading-1 mb-4">
-        Blogs in {decodeURIComponent(categoryName)}
+        Blogs in {filteredBlogs[0]?.category || decodeURIComponent(categoryName)}
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredBlogs.map((blog: Blog) => (

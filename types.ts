@@ -40,9 +40,22 @@ export interface Tool {
   tags?: string[];
 }
 
+export interface ToolData {
+  id: string;
+  name: string;
+  description: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  category: ToolCategory;
+  featured?: boolean;
+  keywords?: string[];
+  tags?: string[];
+}
+
 export interface ToolProps {
   details: ToolDetails;
   toolId?: string;
+  tool?: ToolData;
 }
 
 export interface Blog {

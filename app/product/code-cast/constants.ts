@@ -16,18 +16,8 @@ export interface BackgroundPreset {
 
 export const BACKGROUND_PRESETS: BackgroundPreset[] = [
   // --- CodeCast Specific ---
-  {
-    id: 'codecast-gradient',
-    label: 'CodeCast Signature',
-    value: 'bg-gradient-to-br from-[#0f172a] via-[#1e1b4b] to-[#312e81]', // Slate-900 -> Indigo-900
-    isDark: true
-  },
-  {
-    id: 'codecast-solid',
-    label: 'CodeCast Deep',
-    value: 'bg-[#1e1b4b]', // Indigo-950
-    isDark: true
-  },
+
+
   {
     id: 'logo-gradient',
     label: 'Logo Vivid',
@@ -35,38 +25,18 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     isDark: true
   },
 
-  // --- UtilToolkits Brand ---
-  {
-    id: 'util-gradient',
-    label: 'UtilToolkits Gradient',
-    value: 'bg-gradient-to-br from-[#0f172a] to-[#3b82f6]', // Slate-900 -> Blue-500
-    isDark: true
-  },
+
   {
     id: 'util-solid-blue',
     label: 'UtilToolkits Blue',
-    value: 'bg-[#3b82f6]', // Blue-500
+    value: 'bg-[#2563eb]', // Blue-500
     isDark: true
   },
   {
-    id: 'util-solid-dark',
-    label: 'UtilToolkits Dark',
-    value: 'bg-[#0f172a]', // Slate-900
+    id: 'util-solid-black',
+    label: 'UtilToolkits Black',
+    value: 'bg-[#000000]', // Blue-500
     isDark: true
-  },
-
-  // --- Minimal / Studio ---
-  {
-    id: 'studio-dark',
-    label: 'Studio Matte',
-    value: 'bg-[#121212]',
-    isDark: true
-  },
-  {
-    id: 'studio-light',
-    label: 'Studio Clean',
-    value: 'bg-[#f8fafc]',
-    isDark: false
   },
 ];
 
