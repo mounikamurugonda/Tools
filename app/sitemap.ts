@@ -1,5 +1,7 @@
 import { MetadataRoute } from 'next';
-import { TOOLS } from '@/constants';
+import { TOOLS, CATEGORY_URL_MAP } from '@/constants';
+import { blogs } from '@/lib/blogs';
+import { getCategorySlug } from '@/lib/slugUtils';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://utiltoolkits.com';
@@ -19,9 +21,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/tips`,
+      url: `${baseUrl}/blogs`,
       lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
   ];
@@ -46,31 +48,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  // Category routes
-  const categoryRoutes = [
-    'text',
-    'image',
-    'video',
-    'converter',
-    'generator',
-    'calculator',
-    'analyzer',
-  ].map((category) => ({
-    url: `${baseUrl}/tools/category/${category}`,
+  // Tool Category routes
+  const toolCategoryRoutes = Object.values(CATEGORY_URL_MAP).map((categorySlug) => ({
+    url: `${baseUrl}/tools/category/${categorySlug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
 
-  // Tips category routes
-  const tipsCategoryRoutes = [
-    'productivity',
-    'coding',
-    'design',
-    'workflow',
-    'tools',
-  ].map((category) => ({
-    url: `${baseUrl}/tips/category/${category}`,
+  // Blog Post routes
+  const blogRoutes = blogs.map((blog) => ({
+    url: `${baseUrl}/blogs/${blog.id}`,
+    lastModified: new Date(blog.date),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  // Blog Category routes
+  const blogCategories = Array.from(new Set(blogs.map((blog) => blog.category)));
+  const blogCategoryRoutes = blogCategories.map((category) => ({
+    url: `${baseUrl}/blogs/category/${getCategorySlug(category)}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.6,
@@ -93,8 +90,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     ...highPriorityRoutes,
     ...toolRoutes,
-    ...categoryRoutes,
-    ...tipsCategoryRoutes,
+    ...toolCategoryRoutes,
+    ...blogRoutes,
+    ...blogCategoryRoutes,
     ...staticRoutes,
   ];
 }
