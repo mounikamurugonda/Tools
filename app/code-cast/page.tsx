@@ -32,13 +32,13 @@ export default function CodeCastPage() {
             </span>
             Live Broadcasting Available
           </div>
-          
+
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 dark:from-white dark:via-gray-200 dark:to-white animate-fade-in-up">
             Share your code <br /> as a broadcast.
           </h1>
-          
+
           <div className="max-w-2xl mx-auto mb-10 text-lg md:text-xl text-gray-600 dark:text-gray-400 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            Transform your local coding session into a live URL. Low latency, 
+            Transform your local coding session into a live URL. Low latency,
             high fidelity, and completely browser-based.
             <span className="block mt-2 text-sm text-accent-DEFAULT font-semibold">Free for now (Watermarked)</span>
           </div>
@@ -57,8 +57,7 @@ export default function CodeCastPage() {
           </div>
 
           <div className="relative mx-auto max-w-5xl rounded-xl border border-gray-200 dark:border-gray-800 shadow-2xl overflow-hidden animate-scale-in" style={{ animationDelay: '0.3s' }}>
-            <div className="absolute inset-0 bg-gradient-to-t from-light-background dark:from-dark-background via-transparent to-transparent z-10 bottom-0 h-20 opacity-50"></div>
-             <Image
+            <Image
               src="/code-cast-hero.png"
               alt="Code Cast Interface"
               width={1200}
@@ -98,7 +97,7 @@ export default function CodeCastPage() {
 
             {/* Feature 2 */}
             <div className="col-span-1 md:col-span-2 p-8 rounded-3xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group">
-               <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                 <Code2 size={120} />
               </div>
               <div className="relative z-10 max-w-md">
@@ -115,7 +114,7 @@ export default function CodeCastPage() {
 
             {/* Feature 3 */}
             <div className="col-span-1 md:col-span-2 p-8 rounded-3xl bg-white dark:bg-slate-900 border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow flex flex-col md:flex-row items-center gap-8">
-               <div className="flex-1">
+              <div className="flex-1">
                 <div className="w-12 h-12 rounded-2xl bg-pink-100 dark:bg-pink-900/30 flex items-center justify-center mb-6 text-pink-600 dark:text-pink-400">
                   <Lock size={24} />
                 </div>
@@ -123,24 +122,24 @@ export default function CodeCastPage() {
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                   Sessions are encrypted end-to-end. You control who watches with access tokens and transient URLs that expire when you stop broadcasting.
                 </p>
-               </div>
-               <div className="flex-1 w-full p-6 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800">
-                 <div className="flex items-center gap-3 mb-4">
-                    <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                 </div>
-                 <div className="space-y-2">
-                   <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-800 rounded"></div>
-                   <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-800 rounded"></div>
-                   <div className="h-2 w-5/6 bg-slate-200 dark:bg-slate-800 rounded"></div>
-                   <div className="flex gap-2 mt-4">
-                      <span className="text-xs px-2 py-1 rounded bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 flex items-center gap-1">
-                        <Lock size={10} /> Encrypted
-                      </span>
-                   </div>
-                 </div>
-               </div>
+              </div>
+              <div className="flex-1 w-full p-6 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <div className="space-y-2">
+                  <div className="h-2 w-3/4 bg-slate-200 dark:bg-slate-800 rounded"></div>
+                  <div className="h-2 w-1/2 bg-slate-200 dark:bg-slate-800 rounded"></div>
+                  <div className="h-2 w-5/6 bg-slate-200 dark:bg-slate-800 rounded"></div>
+                  <div className="flex gap-2 mt-4">
+                    <span className="text-xs px-2 py-1 rounded bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 flex items-center gap-1">
+                      <Lock size={10} /> Encrypted
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Feature 4 */}
@@ -161,34 +160,34 @@ export default function CodeCastPage() {
       <section className="py-32 relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 rounded-3xl p-12 md:p-20 text-white shadow-2xl relative overflow-hidden">
-             {/* Decorative circles */}
-             <div className="absolute top-0 left-0 w-64 h-64 bg-accent-DEFAULT/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-             <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
-             
-             <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to broadcast?</h2>
-             <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-               Join thousands of developers sharing their work in real-time.
-               <br />
-               <span className="text-accent-light font-semibold mt-2 inline-block">Free tier includes watermark.</span>
-             </p>
-             
-             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-               <Button size="lg" className="bg-white text-slate-900 hover:bg-gray-100 border-none h-14 px-8 text-lg font-semibold">
-                 Get Started for Free
-               </Button>
-               <Button variant="outline" size="lg" className="border-gray-500 text-white hover:bg-white/10 h-14 px-8 text-lg">
-                 Contact Sales
-               </Button>
-             </div>
-             
-             <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-               <div className="flex items-center gap-2">
-                 <CheckCircle size={16} className="text-green-400" /> No credit card required
-               </div>
-               <div className="flex items-center gap-2">
-                 <CheckCircle size={16} className="text-green-400" /> Instant access
-               </div>
-             </div>
+            {/* Decorative circles */}
+            <div className="absolute top-0 left-0 w-64 h-64 bg-accent-DEFAULT/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
+            <div className="absolute bottom-0 right-0 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2"></div>
+
+            <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to broadcast?</h2>
+            <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+              Join thousands of developers sharing their work in real-time.
+              <br />
+              <span className="text-accent-light font-semibold mt-2 inline-block">Free tier includes watermark.</span>
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-white text-slate-900 hover:bg-gray-100 border-none h-14 px-8 text-lg font-semibold">
+                Get Started for Free
+              </Button>
+              <Button variant="outline" size="lg" className="border-gray-500 text-white hover:bg-white/10 h-14 px-8 text-lg">
+                Contact Sales
+              </Button>
+            </div>
+
+            <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+              <div className="flex items-center gap-2">
+                <CheckCircle size={16} className="text-green-400" /> No credit card required
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle size={16} className="text-green-400" /> Instant access
+              </div>
+            </div>
           </div>
         </div>
       </section>

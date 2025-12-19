@@ -41,16 +41,8 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
 ];
 
 export const EDITOR_THEMES: { id: Theme; label: string; type: 'dark' | 'light' }[] = [
-  { id: 'dark', label: 'Default Dark', type: 'dark' },
-  { id: 'light', label: 'Default Light', type: 'light' },
-  { id: 'github', label: 'GitHub Light', type: 'light' },
-  { id: 'dracula', label: 'Dracula', type: 'dark' },
-  { id: 'monokai', label: 'Monokai', type: 'dark' },
-  { id: 'twilight', label: 'Twilight', type: 'dark' },
-  { id: 'nord', label: 'Nord', type: 'dark' },
-  { id: 'solarized-dark', label: 'Solarized Dark', type: 'dark' },
-  { id: 'solarized-light', label: 'Solarized Light', type: 'light' },
-  { id: 'synthwave', label: 'Synthwave', type: 'dark' },
+  { id: 'dark', label: 'Dark', type: 'dark' },
+  { id: 'light', label: 'Light', type: 'light' },
 ];
 
 export const FONT_SIZES = [12, 13, 14, 15, 16, 18, 20, 24];

@@ -1,11 +1,9 @@
-import type { Metadata } from "next";
-import CodeCastManager from "./CodeCastManager";
+'use client';
 
-export const metadata: Metadata = {
-    title: "Code Cast | Real-time Code Broadcasting",
-    description: "Broadcast your code in real-time. Share your editor view with anyone, anywhere. Free for now (Watermarked).",
-};
+import CodeCastLanding from './CodeCastLanding';
+import { useRouter } from 'next/navigation';
 
 export default function CodeCastPage() {
-    return <CodeCastManager />;
+    const router = useRouter();
+    return <CodeCastLanding onStart={() => router.push('/product/code-cast/animate')} />;
 }
