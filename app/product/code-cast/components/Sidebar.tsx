@@ -19,7 +19,7 @@ const Sidebar: React.FC = () => {
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
 
-  const [showProjectInfo, setShowProjectInfo] = useState(true);
+  const [showProjectInfo, setShowProjectInfo] = useState(false);
 
   const isOpen = isSidebarOpen;
   const onClose = () => setSidebarOpen(false);
@@ -122,6 +122,23 @@ const Sidebar: React.FC = () => {
                   ))}
                 </select>
               </div>
+            </div>
+
+            {/* Canvas Padding Slider */}
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Padding</span>
+                <span className="text-xs font-mono text-gray-900 dark:text-white">{config.canvasPadding}px</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="128"
+                step="4"
+                value={config.canvasPadding}
+                onChange={(e) => setConfig((p: AppConfig) => ({ ...p, canvasPadding: Number(e.target.value) }))}
+                className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+              />
             </div>
 
 

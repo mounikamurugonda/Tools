@@ -61,16 +61,16 @@ export const RecordingDownloadModal: React.FC<RecordingDownloadModalProps> = ({
                     {/* Content */}
                     <div className="mb-6">
                         <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-                            Your recording has been processed and is ready to download as an MP4 file.
+                            Your recording has been processed and is ready to download.
                         </p>
                         <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
                             <div className="flex items-center justify-between text-sm">
                                 <span className="text-gray-600 dark:text-gray-400">Format:</span>
-                                <span className="font-semibold text-gray-900 dark:text-white">MP4 (H.264)</span>
+                                <span className="font-semibold text-gray-900 dark:text-white">WebM</span>
                             </div>
                             <div className="flex items-center justify-between text-sm mt-2">
                                 <span className="text-gray-600 dark:text-gray-400">Quality:</span>
-                                <span className="font-semibold text-gray-900 dark:text-white">High</span>
+                                <span className="font-semibold text-gray-900 dark:text-white">High (VP9/VP8)</span>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@ export const RecordingDownloadModal: React.FC<RecordingDownloadModalProps> = ({
                             className="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition-colors flex items-center justify-center gap-2 text-sm"
                         >
                             <Download size={16} />
-                            Download MP4
+                            Download
                         </button>
                     </div>
                 </div>

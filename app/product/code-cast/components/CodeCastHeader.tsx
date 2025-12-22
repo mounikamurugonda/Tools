@@ -12,6 +12,13 @@ import { useRecording } from '../context/RecordingContext';
 import { toPng, toJpeg, toSvg } from 'html-to-image';
 
 export const CodeCastHeader = () => {
+    // Navigation items configuration
+    const NAV_ITEMS = [
+        { id: 'animate', label: 'Play code' },
+        { id: 'type', label: 'Type code' },
+        { id: 'image', label: 'Code to image' },
+    ] as const;
+
     const pathname = usePathname();
     const mode = pathname?.split('/').pop() as 'animate' | 'type' | 'image' | undefined;
 
@@ -21,10 +28,10 @@ export const CodeCastHeader = () => {
     const imageStore = useImageStore();
 
     const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-    const { config, setConfig, isPlaying, setIsPlaying, isRecording, code, setActiveTab, activeTab } = currentStore as any;
+    const { config, setConfig, isPlaying, setIsPlaying, code, setActiveTab, activeTab } = currentStore as any;
 
     const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
-    const { startRecording, stopRecording } = useRecording();
+    const { isRecording, startRecording, stopRecording } = useRecording();
 
     // Device dropdown state
     const [isDeviceDropdownOpen, setIsDeviceDropdownOpen] = useState(false);
@@ -80,7 +87,11 @@ export const CodeCastHeader = () => {
         if (!element) return;
 
         try {
-            const options = { quality: 0.95, pixelRatio: 2 };
+            const options = {
+                quality: 0.95,
+                pixelRatio: 2,
+                skipFonts: true
+            };
             let dataUrl = '';
 
             switch (format) {
@@ -118,23 +129,21 @@ export const CodeCastHeader = () => {
                     <span className="font-bold text-sm text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                         CodeCast
                     </span>
-                    <span className="px-1.5 py-0.5 text-[9px] uppercase font-bold text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-full">
-                        Beta
-                    </span>
+
                 </div>
 
                 {/* Mode Switcher - compact on mobile */}
                 <div className="flex items-center gap-1 p-0.5 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-                    {(['animate', 'type', 'image'] as const).map((m) => (
+                    {NAV_ITEMS.map((item) => (
                         <Link
-                            key={m}
-                            href={`/product/code-cast/${m}`}
-                            className={`px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase transition-all ${mode === m
+                            key={item.id}
+                            href={`/product/code-cast/${item.id}`}
+                            className={`px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase transition-all ${mode === item.id
                                 ? 'bg-blue-600 text-white'
                                 : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                                 }`}
                         >
-                            {m}
+                            {item.label}
                         </Link>
                     ))}
                 </div>

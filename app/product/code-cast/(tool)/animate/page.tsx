@@ -108,12 +108,13 @@ export default function AnimatePage() {
             {/* Canvas Area - Responsive Layout */}
             <div
                 id="canvas-stage"
-                className={`flex-1 flex ${layout.flexDirection} ${layout.gap} ${layout.padding} ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
+                className={`flex-1 flex ${layout.flexDirection} ${layout.gap} ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
                 style={{
                     aspectRatio: layout.canvasAspectRatio,
                     maxWidth: layout.maxWidth || 'none',
                     maxHeight: layout.maxHeight || 'none',
                     margin: layout.canvasAspectRatio ? 'auto' : undefined,
+                    padding: `${config.canvasPadding}px`,
                 }}
             >
                 {/* Recording Timer */}

@@ -6,8 +6,6 @@ import { TypeTabEditor } from '../../components/TypeTabEditor';
 import PreviewFrame from '../../components/PreviewFrame';
 import { getCanvasLayout } from '../../utils/layout';
 import { ProjectInfoOverlay } from '../../components/ProjectInfoOverlay';
-import { Film, Image as ImageIcon, Download } from 'lucide-react';
-import { toPng, toJpeg, toSvg } from 'html-to-image';
 
 export default function ImagePage() {
     const {
@@ -17,34 +15,6 @@ export default function ImagePage() {
         projectTitle
     } = useImageStore();
 
-    const [isExporting, setIsExporting] = useState(false);
-
-    const handleDownload = async (format: 'png' | 'jpg' | 'svg') => {
-        const element = document.getElementById('canvas-stage');
-        if (!element) return;
-
-        setIsExporting(true);
-        try {
-            const options = { quality: 0.95, pixelRatio: 2 };
-            let dataUrl = '';
-
-            switch (format) {
-                case 'png': dataUrl = await toPng(element, options); break;
-                case 'jpg': dataUrl = await toJpeg(element, options); break;
-                case 'svg': dataUrl = await toSvg(element, options); break;
-            }
-
-            const link = document.createElement('a');
-            link.download = `codecast-export-${Date.now()}.${format === 'jpg' ? 'jpeg' : format}`;
-            link.href = dataUrl;
-            link.click();
-        } catch (err) {
-            console.error('Export failed', err);
-        } finally {
-            setIsExporting(false);
-        }
-    };
-
     // Get responsive layout configuration based on device frame
     const layout = getCanvasLayout(config.deviceFrame);
 
@@ -53,12 +23,13 @@ export default function ImagePage() {
             {/* Canvas Area - Responsive Layout */}
             <div
                 id="canvas-stage"
-                className={`flex-1 flex ${layout.flexDirection} ${layout.gap} ${layout.padding} ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
+                className={`flex-1 flex ${layout.flexDirection} ${layout.gap} ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
                 style={{
                     aspectRatio: layout.canvasAspectRatio,
                     maxWidth: layout.maxWidth || 'none',
                     maxHeight: layout.maxHeight || 'none',
                     margin: layout.canvasAspectRatio ? 'auto' : undefined,
+                    padding: `${config.canvasPadding}px`,
                 }}
             >
                 {/* Project Info Overlay */}

@@ -1,0 +1,41 @@
+<svg width="400" height="400" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blueGradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#2563EB" /> <!-- blue-600 -->
+      <stop offset="100%" stop-color="#4F46E5" /> <!-- indigo-600 -->
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#3B82F6" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Rounded Background Rect with Gradient and Shadow -->
+  <rect x="4" y="4" width="32" height="32" rx="12" fill="url(#blueGradient)" filter="url(#shadow)" />
+  
+  <!-- Inner ring (emulating ring-white/20) -->
+  <rect x="4" y="4" width="32" height="32" rx="12" stroke="white" stroke-opacity="0.2" stroke-width="1" fill="none" />
+
+  <!-- Icon Group Centered in 40x40 box. Original viewBox was 24x24 centered in 32x32.
+       So we translate to center it. 
+       Center of 40x40 is 20,20. Center of 24x24 is 12,12. Offset = 8.
+  -->
+  <g transform="translate(8, 8)"> 
+    <!-- Colors set to white -->
+    <!-- Background Matrix of Dots (Inactive) -->
+    <path 
+      d="M9 3h0 M15 3h0 M9 9h0 M15 9h0 M9 15h0 M15 15h0 M3 21h0 M21 21h0" 
+      stroke="white" 
+      stroke-width="4" 
+      stroke-linecap="round"
+      opacity="0.4"
+    />
+    <!-- Active Dots forming 'U' -->
+    <path 
+      d="M3 3h0 M21 3h0 M3 9h0 M21 9h0 M3 15h0 M21 15h0 M9 21h0 M15 21h0" 
+      stroke="white" 
+      stroke-width="4" 
+      stroke-linecap="round"
+      opacity="1"
+    />
+  </g>
+</svg>

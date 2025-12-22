@@ -106,7 +106,7 @@ export default function CodeCastPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Interactive Viewer</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Viewers can highlight, select, and copy code. It's not just a video stream; it's a live DOM representation of your editor.
+                  Viewers can highlight, select, and copy code. It&apos;s not just a video stream; it&apos;s a live DOM representation of your editor.
                   Perfect for pair programming or educational walkthroughs.
                 </p>
               </div>
