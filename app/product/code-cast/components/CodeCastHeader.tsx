@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import {
-    PanelLeft, Play, Pause, RotateCcw, Mic, MicOff, Monitor, Smartphone, ChevronDown, Download
+    PanelLeft, Play, Pause, RotateCcw, Mic, MicOff, Monitor, Smartphone, ChevronDown, Download, Terminal
 } from 'lucide-react';
 import { useAnimateStore, useTypeStore, useImageStore, useSharedUIStore } from '../store/useCodeCastStore';
 import { FRAME_OPTIONS } from '../constants';
@@ -126,10 +126,12 @@ export const CodeCastHeader = () => {
 
                 {/* Brand - hide on very small screens */}
                 <div className="hidden sm:flex items-center gap-2">
-                    <span className="font-bold text-sm text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+                    <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-md shadow-blue-600/20">
+                        <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
+                    </div>
+                    <span className="font-bold text-sm tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
                         CodeCast
                     </span>
-
                 </div>
 
                 {/* Mode Switcher - compact on mobile */}

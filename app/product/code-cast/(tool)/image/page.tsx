@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useImageStore } from '../../store/useCodeCastStore';
 import { TypeTabEditor } from '../../components/TypeTabEditor';
 import PreviewFrame from '../../components/PreviewFrame';
-import { getCanvasLayout } from '../../utils/layout';
+import { getCanvasLayout } from '../../utils/layoutHelpers';
 import { ProjectInfoOverlay } from '../../components/ProjectInfoOverlay';
 
 export default function ImagePage() {

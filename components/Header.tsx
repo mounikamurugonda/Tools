@@ -8,9 +8,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import SearchBar from './SearchBar';
 import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
-
 import { TOOLS } from '@/constants';
 import { ToolCategory } from '@/types';
+import { Terminal } from 'lucide-react';
 
 interface NavLinkProps {
   href: string;
@@ -143,20 +143,31 @@ const Header: React.FC = () => {
               <Link
                 href="/product/code-cast"
                 onClick={closeAllMenus}
-                className={`
-                  relative px-3 py-2 text-sm font-bold transition-all group flex items-center gap-2
-                  ${pathname.startsWith('/product/code-cast')
-                    ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400'
-                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
-                  }
-                `}
+                className={`group relative flex items-center gap-2 px-3 py-2 transition-all rounded-lg ${pathname.startsWith('/product/code-cast')
+                    ? 'bg-blue-50 dark:bg-blue-900/20'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
               >
-                CodeCast
+                {/* Active Indicator Border */}
+                {pathname.startsWith('/product/code-cast') && (
+                  <div className="absolute inset-0 rounded-lg border-2 border-blue-500/20 dark:border-blue-400/20 pointer-events-none" />
+                )}
 
-                <span
-                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 transform origin-left transition-transform duration-300 ease-out ${pathname.startsWith('/product/code-cast') ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                    }`}
-                />
+                {/* Logo Container */}
+                <div className="relative flex items-center gap-2">
+                  <div className={`flex items-center justify-center w-7 h-7 rounded-lg text-white shadow-md transition-transform duration-300 ${pathname.startsWith('/product/code-cast')
+                      ? 'bg-gradient-to-br from-blue-600 to-purple-600 scale-105 shadow-blue-600/30'
+                      : 'bg-gradient-to-br from-gray-700 to-gray-900 group-hover:from-blue-600 group-hover:to-purple-600 shadow-gray-600/20 group-hover:shadow-blue-600/20'
+                    }`}>
+                    <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
+                  </div>
+                  <span className={`font-bold text-sm tracking-tight transition-colors ${pathname.startsWith('/product/code-cast')
+                      ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-400 dark:to-purple-400'
+                      : 'text-gray-700 dark:text-gray-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600'
+                    }`}>
+                    CodeCast
+                  </span>
+                </div>
               </Link>
             </nav>
 

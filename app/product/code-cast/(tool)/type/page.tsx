@@ -5,7 +5,7 @@ import { useTypeStore } from '../../store/useCodeCastStore';
 import { TypeTabEditor } from '../../components/TypeTabEditor';
 import PreviewFrame from '../../components/PreviewFrame';
 import { useRecording } from '../../context/RecordingContext';
-import { getCanvasLayout } from '../../utils/layout';
+import { getCanvasLayout } from '../../utils/layoutHelpers';
 import { ProjectInfoOverlay } from '../../components/ProjectInfoOverlay';
 import { RecordingTimer } from '../../components/RecordingTimer';
 import { RecordingDownloadModal } from '../../components/RecordingDownloadModal';
