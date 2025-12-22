@@ -227,7 +227,7 @@ export const CodeCastHeader = () => {
                                                 <button
                                                     key={frame.id}
                                                     onClick={() => {
-                                                        setConfig(prev => ({ ...prev, deviceFrame: frame.id }));
+                                                        setConfig((prev: any) => ({ ...prev, deviceFrame: frame.id }));
                                                         setIsDeviceDropdownOpen(false);
                                                     }}
                                                     className={`w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors ${config.deviceFrame === frame.id
