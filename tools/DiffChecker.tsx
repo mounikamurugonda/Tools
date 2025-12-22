@@ -1,174 +1,237 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import * as Diff from 'diff';
-import CopyButton from '@/components/CopyButton';
-import TextArea from '@/components/ui/TextArea';
+import { DiffEditor, useMonaco } from '@monaco-editor/react';
+import { useTheme } from '@/components/ThemeProvider';
+import { Upload, ArrowRightLeft, Trash2, Copy, Columns, Rows, WrapText, Space, Type } from 'lucide-react';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
-import FileUpload from '@/components/ui/FileUpload';
-import Label from '@/components/ui/Label';
-import { FileText, Upload } from 'lucide-react';
+
+// Detection map for file extensions
+const EXTENSION_TO_LANGUAGE: { [key: string]: string } = {
+  js: 'javascript',
+  jsx: 'javascript',
+  ts: 'typescript',
+  tsx: 'typescript',
+  json: 'json',
+  html: 'html',
+  css: 'css',
+  scss: 'scss',
+  less: 'less',
+  md: 'markdown',
+  xml: 'xml',
+  sql: 'sql',
+  py: 'python',
+  java: 'java',
+  c: 'c',
+  cpp: 'cpp',
+  cs: 'csharp',
+  go: 'go',
+  rs: 'rust',
+  yaml: 'yaml',
+  yml: 'yaml',
+  ini: 'ini',
+  lua: 'lua',
+  rb: 'ruby',
+  php: 'php',
+  sh: 'shell',
+};
 
 const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
+  const { theme } = useTheme();
+  const monaco = useMonaco();
+  const diffEditorRef = useRef<any>(null);
+
   const [originalText, setOriginalText] = useState(
-    'Hello World\nThis is the original text.\nIt has three lines.',
+    '// Original Version\nfunction calculateTotal(price, tax) {\n  return price + (price * tax);\n}\n\nconsole.log(calculateTotal(100, 0.2));'
   );
-  const [changedText, setChangedText] = useState(
-    'Hello There\nThis is the new text.\nIt also has three lines.',
+  const [modifiedText, setModifiedText] = useState(
+    '// Modified Version\nfunction calculateTotal(price, taxRate) {\n  const total = price * (1 + taxRate);\n  return total.toFixed(2);\n}\n\nconsole.log(calculateTotal(100, 0.2));'
   );
 
-  const [inputModeOriginal, setInputModeOriginal] = useState<'text' | 'file'>('text');
-  const [inputModeChanged, setInputModeChanged] = useState<'text' | 'file'>('text');
+  const [language, setLanguage] = useState('javascript');
+  const [renderSideBySide, setRenderSideBySide] = useState(true);
+  const [ignoreTrimWhitespace, setIgnoreTrimWhitespace] = useState(false);
+  const [wordWrap, setWordWrap] = useState<'on' | 'off'>('on');
 
-  const diffResult = useMemo(() => {
-    return Diff.diffLines(originalText, changedText);
-  }, [originalText, changedText]);
+  // Sync theme with Monaco
+  useEffect(() => {
+    if (monaco) {
+      monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'light');
+    }
+  }, [theme, monaco]);
 
-  const handleFileUpload = (file: File, setText: (t: string) => void, setMode: (m: 'text' | 'file') => void) => {
+  const handleEditorDidMount = (editor: any) => {
+    diffEditorRef.current = editor;
+
+    const originalModel = editor.getOriginalEditor().getModel();
+    const modifiedModel = editor.getModifiedEditor().getModel();
+
+    originalModel.onDidChangeContent(() => {
+      setOriginalText(originalModel.getValue());
+    });
+    modifiedModel.onDidChangeContent(() => {
+      setModifiedText(modifiedModel.getValue());
+    });
+  };
+
+  const detectLanguageFromFileName = (fileName: string) => {
+    const extension = fileName.split('.').pop()?.toLowerCase();
+    if (extension && EXTENSION_TO_LANGUAGE[extension]) {
+      setLanguage(EXTENSION_TO_LANGUAGE[extension]);
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isOriginal: boolean) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    detectLanguageFromFileName(file.name);
+
     const reader = new FileReader();
-    reader.onload = (e) => {
-      const text = e.target?.result;
-      if (typeof text === 'string') {
-        setText(text);
-        setMode('text');
+    reader.onload = (event) => {
+      const text = event.target?.result as string;
+      if (isOriginal) {
+        setOriginalText(text);
+      } else {
+        setModifiedText(text);
       }
     };
     reader.readAsText(file);
+    e.target.value = '';
+  };
+
+  const swapContent = () => {
+    const temp = originalText;
+    setOriginalText(modifiedText);
+    setModifiedText(temp);
+  };
+
+  const clearAll = () => {
+    if (confirm('Are you sure you want to clear both editors?')) {
+      setOriginalText('');
+      setModifiedText('');
+    }
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
   };
 
   return (
     <ToolContainer title="Diff Checker" details={details} toolId={toolId}>
-      <div className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6 h-[50vh]">
-          {/* Original Text Column */}
-          <div className="flex flex-col h-full gap-2">
-            <div className="flex justify-between items-center">
-              <Label>Original Text</Label>
-              <div className="flex gap-1">
-                <Button
-                  variant={inputModeOriginal === 'text' ? 'secondary' : 'ghost'}
-                  size="sm"
-                  onClick={() => setInputModeOriginal('text')}
-                  title="Paste Text"
-                >
-                  <FileText className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant={inputModeOriginal === 'file' ? 'secondary' : 'ghost'}
-                  size="sm"
-                  onClick={() => setInputModeOriginal('file')}
-                  title="Upload File"
-                >
-                  <Upload className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-            {inputModeOriginal === 'file' ? (
-              <div className="h-full">
-                <FileUpload
-                  onFileSelect={(file) => handleFileUpload(file, setOriginalText, setInputModeOriginal)}
-                  className="h-full flex flex-col justify-center"
-                  accept=".txt,.js,.ts,.tsx,.json,.md,.html,.css,.csv,.xml"
-                />
-              </div>
-            ) : (
-              <div className="relative h-full">
-                <TextArea
-                  value={originalText}
-                  onChange={(e) => setOriginalText(e.target.value)}
-                  placeholder="Original text"
-                  className="h-full resize-none font-mono text-sm"
-                />
-                {originalText && (
-                  <div className="absolute top-2 right-2 z-10">
-                    <CopyButton textToCopy={originalText} />
-                  </div>
-                )}
-              </div>
-            )}
+      <div className="flex flex-col h-[85vh]">
+
+        {/* Compact Toolbar */}
+        <div className="flex justify-between items-center pb-2 px-1">
+          <div className="flex items-center gap-1 bg-muted/30 p-1 rounded-md">
+            <Button
+              variant={renderSideBySide ? "secondary" : "ghost"}
+              size="sm"
+              onClick={() => setRenderSideBySide(true)}
+              title="Split View"
+              className="h-7 px-2 text-xs gap-1.5"
+            >
+              <Columns className="w-3.5 h-3.5" /> Split
+            </Button>
+            <Button
+              variant={!renderSideBySide ? "secondary" : "ghost"}
+              size="sm"
+              onClick={() => setRenderSideBySide(false)}
+              title="Inline View"
+              className="h-7 px-2 text-xs gap-1.5"
+            >
+              <Rows className="w-3.5 h-3.5" /> Inline
+            </Button>
+
+            <div className="w-px h-4 bg-border mx-1" />
+
+            <Button
+              variant={wordWrap === 'on' ? "secondary" : "ghost"}
+              size="sm"
+              onClick={() => setWordWrap(prev => prev === 'on' ? 'off' : 'on')}
+              title="Toggle Word Wrap"
+              className="h-7 px-2 text-xs gap-1.5"
+            >
+              <WrapText className="w-3.5 h-3.5" /> Wrap
+            </Button>
+            <Button
+              variant={ignoreTrimWhitespace ? "secondary" : "ghost"}
+              size="sm"
+              onClick={() => setIgnoreTrimWhitespace(prev => !prev)}
+              title="Ignore White Space"
+              className="h-7 px-2 text-xs gap-1.5"
+            >
+              <Type className="w-3.5 h-3.5" /> Trim Space
+            </Button>
           </div>
 
-          {/* Changed Text Column */}
-          <div className="flex flex-col h-full gap-2">
-            <div className="flex justify-between items-center">
-              <Label>Changed Text</Label>
-              <div className="flex gap-1">
-                <Button
-                  variant={inputModeChanged === 'text' ? 'secondary' : 'ghost'}
-                  size="sm"
-                  onClick={() => setInputModeChanged('text')}
-                  title="Paste Text"
-                >
-                  <FileText className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant={inputModeChanged === 'file' ? 'secondary' : 'ghost'}
-                  size="sm"
-                  onClick={() => setInputModeChanged('file')}
-                  title="Upload File"
-                >
-                  <Upload className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
-            {inputModeChanged === 'file' ? (
-              <div className="h-full">
-                <FileUpload
-                  onFileSelect={(file) => handleFileUpload(file, setChangedText, setInputModeChanged)}
-                  className="h-full flex flex-col justify-center"
-                  accept=".txt,.js,.ts,.tsx,.json,.md,.html,.css,.csv,.xml"
-                />
-              </div>
-            ) : (
-              <div className="relative h-full">
-                <TextArea
-                  value={changedText}
-                  onChange={(e) => setChangedText(e.target.value)}
-                  placeholder="Changed text"
-                  className="h-full resize-none font-mono text-sm"
-                />
-                {changedText && (
-                  <div className="absolute top-2 right-2 z-10">
-                    <CopyButton textToCopy={changedText} />
-                  </div>
-                )}
-              </div>
-            )}
+          <div className="flex items-center gap-1 bg-muted/30 p-1 rounded-md">
+            <Button onClick={swapContent} variant="ghost" size="sm" className="h-7 px-2 text-xs gap-1.5" title="Swap Sides">
+              <ArrowRightLeft className="w-3.5 h-3.5" /> Swap
+            </Button>
+            <Button onClick={clearAll} variant="ghost" size="sm" className="h-7 px-2 text-xs gap-1.5 hover:text-destructive hover:bg-destructive/10" title="Clear All">
+              <Trash2 className="w-3.5 h-3.5" /> Clear
+            </Button>
           </div>
         </div>
 
-        <Card className="p-4">
-          <Label className="mb-2 block">Differences</Label>
-          <pre className="w-full h-[40vh] bg-secondary/30 border border-border rounded-lg p-4 text-sm font-mono overflow-auto whitespace-pre-wrap break-all">
-            {diffResult.map((part, index) => {
-              const color = part.added
-                ? 'bg-green-500/20 text-green-700 dark:text-green-300'
-                : part.removed
-                  ? 'bg-red-500/20 text-red-700 dark:text-red-300'
-                  : 'text-foreground';
-              const prefix = part.added ? '+ ' : part.removed ? '- ' : '  ';
-              return (
-                <span key={index} className={`block ${color}`}>
-                  {part.value
-                    .split('\n')
-                    .filter(
-                      (line: string, i: number) =>
-                        i < part.value.split('\n').length - 1 || line !== '',
-                    )
-                    .map((line: string, lineIndex: number) => (
-                      <span key={lineIndex} className="block">
-                        <span className="select-none inline-block w-6 opacity-50">{prefix}</span>
-                        <span>{line}</span>
-                      </span>
-                    ))}
-                </span>
-              );
-            })}
-          </pre>
-        </Card>
+        {/* Editor Area */}
+        <div className="flex-grow border rounded-lg overflow-hidden relative bg-background shadow-sm flex flex-col">
+          {/* File Upload Headers */}
+          <div className="grid grid-cols-2 bg-muted/50 border-b divide-x">
+            <div className="flex justify-between items-center p-2">
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-2">Original</span>
+              <div className="flex gap-1">
+                <label className="cursor-pointer inline-flex items-center justify-center rounded transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-background hover:text-foreground hover:shadow-sm h-6 px-2 text-xs font-medium text-muted-foreground">
+                  <Upload className="w-3 h-3 mr-1.5" /> Load
+                  <input type="file" className="hidden" onChange={(e) => handleFileUpload(e, true)} />
+                </label>
+                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => copyToClipboard(originalText)}>
+                  <Copy className="w-3 h-3" />
+                </Button>
+              </div>
+            </div>
+            <div className="flex justify-between items-center p-2">
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-2">Modified</span>
+              <div className="flex gap-1">
+                <label className="cursor-pointer inline-flex items-center justify-center rounded transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-background hover:text-foreground hover:shadow-sm h-6 px-2 text-xs font-medium text-muted-foreground">
+                  <Upload className="w-3 h-3 mr-1.5" /> Load
+                  <input type="file" className="hidden" onChange={(e) => handleFileUpload(e, false)} />
+                </label>
+                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => copyToClipboard(modifiedText)}>
+                  <Copy className="w-3 h-3" />
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div className="flex-grow">
+            <DiffEditor
+              height="100%"
+              language={language}
+              original={originalText}
+              modified={modifiedText}
+              onMount={handleEditorDidMount}
+              theme={theme === 'dark' ? 'vs-dark' : 'light'}
+              options={{
+                renderSideBySide: renderSideBySide,
+                originalEditable: true,
+                readOnly: false,
+                wordWrap: wordWrap,
+                ignoreTrimWhitespace: ignoreTrimWhitespace,
+                minimap: { enabled: false },
+                scrollBeyondLastLine: false,
+                automaticLayout: true,
+                fontFamily: '"Geist Mono", monospace',
+                fontSize: 14,
+                diffWordWrap: 'on',
+                padding: { top: 16 }
+              }}
+            />
+          </div>
+        </div>
       </div>
     </ToolContainer>
   );
