@@ -48,7 +48,7 @@ export default function TypePage() {
                 }}
             >
                 {/* Recording Timer */}
-                {isRecording && <RecordingTimer recordingTime={recordingTime} />}
+                {/* {isRecording && <RecordingTimer recordingTime={recordingTime} />} */}
 
                 {/* Project Info Overlay */}
                 <ProjectInfoOverlay projectTitle={projectTitle} />

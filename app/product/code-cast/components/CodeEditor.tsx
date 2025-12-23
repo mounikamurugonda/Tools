@@ -72,6 +72,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
           glyphMargin: false, // Remove glyph margin for more space
           folding: false, // Disable folding to save space
           scrollBeyondLastLine: false,
+          wordWrap: config.wordWrap ? 'on' : 'off',
           automaticLayout: true,
           fontFamily: '"Fira Code", "JetBrains Mono", "Menlo", "Consolas", monospace',
           fontLigatures: true,

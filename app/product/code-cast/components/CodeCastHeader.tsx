@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import {
-    PanelLeft, Play, Pause, RotateCcw, Mic, MicOff, Monitor, Smartphone, ChevronDown, Download, Terminal
+    PanelLeft, Play, Pause, RotateCcw, Mic, MicOff, Monitor, Smartphone, ChevronDown, Download, Terminal, WrapText
 } from 'lucide-react';
 import { useAnimateStore, useTypeStore, useImageStore, useSharedUIStore } from '../store/useCodeCastStore';
 import { FRAME_OPTIONS } from '../constants';
@@ -159,18 +159,32 @@ export const CodeCastHeader = () => {
                         <button
                             onClick={handlePlayClick}
                             className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-                            title={isPlaying ? 'Pause' : 'Play'}
+                            title={isPlaying ? 'Pause Code Execution' : 'Run/Resume Code Execution'}
                         >
                             {isPlaying ? <Pause size={16} /> : <Play size={16} />}
                         </button>
                         <button
                             onClick={handleReset}
                             className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-                            title="Reset"
+                            title="Reset Code & Animation"
                         >
                             <RotateCcw size={16} />
                         </button>
                     </div>
+                )}
+
+                {/* Text Wrap Toggle */}
+                {(mode === 'type' || mode === 'animate') && (
+                    <button
+                        onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
+                        className={`p-1.5 rounded-md transition-colors ${config.wordWrap
+                            ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                            }`}
+                        title={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}
+                    >
+                        <WrapText size={16} />
+                    </button>
                 )}
 
                 {/* Image Mode Export */}

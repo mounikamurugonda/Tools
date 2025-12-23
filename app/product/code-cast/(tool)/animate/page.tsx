@@ -15,6 +15,7 @@ import { Play, Pause, RotateCcw, Volume2, VolumeX, Mic, MicOff } from 'lucide-re
 export default function AnimatePage() {
     const {
         code,
+        updateCode,
         config, setConfig,
         activeTab, setActiveTab,
         isPlaying, setIsPlaying,
@@ -73,11 +74,11 @@ export default function AnimatePage() {
             setIsPlaying(false);
             return;
         }
-        // If current tab is empty, scan for start
-        if (!code[activeTab] || code[activeTab].trim() === '') {
-            const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
-            const firstNonEmpty = tabs.find(t => code[t] && code[t].trim().length > 0);
-            if (firstNonEmpty) setActiveTab(firstNonEmpty);
+        // Always start from the first non-empty tab (HTML -> CSS -> JS)
+        const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
+        const firstNonEmpty = tabs.find(t => code[t] && code[t].trim().length > 0);
+        if (firstNonEmpty) {
+            setActiveTab(firstNonEmpty);
         }
         setIsPlaying(true);
     };
@@ -118,7 +119,7 @@ export default function AnimatePage() {
                 }}
             >
                 {/* Recording Timer */}
-                {isRecording && <RecordingTimer recordingTime={recordingTime} />}
+                {/* {isRecording && <RecordingTimer recordingTime={recordingTime} />} */}
 
                 {/* Project Info Overlay */}
                 <ProjectInfoOverlay projectTitle={projectTitle} />
@@ -131,8 +132,12 @@ export default function AnimatePage() {
                     <TypeTabEditor
                         code={showPlaceholder ? code : { ...code, [activeTab]: typedContent }}
                         config={config}
-                        onChange={() => { }}
-                        readOnly={true}
+                        onChange={(newCode) => {
+                            // Update the store with the new code for the active tab
+                            const changedTab = activeTab;
+                            updateCode(changedTab, newCode[changedTab]);
+                        }}
+                        readOnly={false}
                         activeTab={activeTab}
                         onTabChange={setActiveTab}
                     />

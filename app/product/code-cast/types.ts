@@ -22,6 +22,7 @@ export interface AppConfig {
   soundType: SoundType;
   lineNumbers: boolean;
   canvasPadding: number;
+  wordWrap: boolean;
 }
 
 export interface CodeSnippet {

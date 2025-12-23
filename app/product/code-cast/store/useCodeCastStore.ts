@@ -47,6 +47,7 @@ const DEFAULT_CONFIG: AppConfig = {
     soundType: 'deep',
     lineNumbers: true,
     canvasPadding: 32,
+    wordWrap: true,
 };
 
 // Factory function to create route-specific stores
