@@ -74,7 +74,7 @@ const TrimVideo: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer title="Trim Video" details={details} toolId={toolId}>
+    <ToolContainer title="Trim MP4 Video" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
         <div className="space-y-6">

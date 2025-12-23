@@ -122,7 +122,7 @@ export const TOOLS: Tool[] = [
     id: "json-to-typescript",
     name: "JSON to TypeScript",
     description: "Instantly generate TypeScript interfaces from JSON objects.",
-    seoTitle: "JSON to TypeScript Converter | Generate Interfaces Instantly",
+    seoTitle: "JSON to TypeScript Converter 📜 | Generate Interfaces Instantly",
     seoDescription:
       "Convert JSON objects into TypeScript interfaces instantly. Our free online tool handles nested objects and arrays, saving you time. 100% private and secure.",
     icon: <JsonIcon />,
@@ -140,7 +140,7 @@ export const TOOLS: Tool[] = [
     id: "code-to-image",
     name: "Code to Image",
     description: "Create beautiful images of your code snippets for sharing.",
-    seoTitle: "Code to Image Converter | Create Beautiful Code Snippets",
+    seoTitle: "Code to Image Converter 📸 | Create Beautiful Code Snippets",
     seoDescription:
       "Turn your code into beautiful, shareable images. Customize themes, fonts, and backgrounds with our free online Code to Image tool. Perfect for social media.",
     icon: <CameraToolIcon />,
@@ -158,7 +158,7 @@ export const TOOLS: Tool[] = [
     id: "sql-formatter",
     name: "SQL Formatter",
     description: "Format and beautify your SQL queries.",
-    seoTitle: "Online SQL Formatter | Beatify & Format SQL Queries",
+    seoTitle: "Online SQL Formatter 💾 | Beatify & Format SQL Queries",
     seoDescription:
       "Format and beautify your SQL queries instantly online. Support for MySQL, PostgreSQL, SQL Server, and more. Clean up messy code with our free SQL Formatter.",
     icon: <SqlIcon />,
@@ -176,7 +176,7 @@ export const TOOLS: Tool[] = [
     id: "cron-generator",
     name: "Cron Expression Generator",
     description: "Visually build and explain cron job schedules.",
-    seoTitle: "Cron Expression Generator | Visual Cron Job Editor",
+    seoTitle: "Cron Expression Generator ⏳ | Visual Cron Job Editor",
     seoDescription:
       "Create and learn cron expressions with our easy-to-use visual generator. Schedule jobs for Linux/Unix systems without syntax errors. Free and instant.",
     icon: <CronIcon />,
@@ -194,7 +194,7 @@ export const TOOLS: Tool[] = [
     id: "slug-generator",
     name: "Slug Generator",
     description: "Convert text into SEO-friendly URL slugs.",
-    seoTitle: "URL Slug Generator | SEO Friendly URL Converter",
+    seoTitle: "URL Slug Generator 🐌 | SEO Friendly URL Converter",
     seoDescription:
       "Instantly create clean, SEO-friendly URL slugs from any text. Remove special characters and optimize your links for better search ranking. Free and private.",
     icon: <Link2Icon />,
@@ -212,7 +212,7 @@ export const TOOLS: Tool[] = [
     id: "meta-tag-generator",
     name: "Meta Tag Generator",
     description: "Generate SEO meta tags for your website.",
-    seoTitle: "Meta Tag Generator | Free SEO Meta Tags Builder",
+    seoTitle: "Meta Tag Generator 🏷️ | Free SEO Meta Tags Builder",
     seoDescription:
       "Generate perfect SEO meta tags for your website in seconds. Create title, description, keywords, and Open Graph tags to boost your search rankings.",
     icon: <TagIcon />,
@@ -230,7 +230,7 @@ export const TOOLS: Tool[] = [
     id: "contrast-checker",
     name: "Contrast Checker",
     description: "Check color contrast accessibility (WCAG).",
-    seoTitle: "Center Color Contrast Checker | WCAG Accessibility Tester",
+    seoTitle: "Center Color Contrast Checker 🌗 | WCAG Accessibility Tester",
     seoDescription:
       "Check the contrast ratio between text and background colors. Ensure your design meets WCAG accessibility standards with our free online Contrast Checker.",
     icon: <ContrastIcon />,
@@ -240,7 +240,7 @@ export const TOOLS: Tool[] = [
     id: "chmod-calculator",
     name: "Chmod Calculator",
     description: "Visual calculator for Unix file permissions.",
-    seoTitle: "Chmod Calculator | Unix File Permissions generator",
+    seoTitle: "Chmod Calculator 🔐 | Unix File Permissions generator",
     seoDescription:
       "Calculate numeric (octal) and symbolic (rwx) file permissions for Unix/Linux systems. Visual Chmod Calculator makes setting permissions safe and easy.",
     icon: <ChmodIcon />,
@@ -258,7 +258,7 @@ export const TOOLS: Tool[] = [
     id: "utm-builder",
     name: "UTM Builder",
     description: "Build tracking URLs for marketing campaigns.",
-    seoTitle: "UTM Builder | Campaign URL Builder for Google Analytics",
+    seoTitle: "UTM Builder 🔗 | Campaign URL Builder for Google Analytics",
     seoDescription:
       "Easily build campaign URLs with UTM parameters. Track the effectiveness of your marketing campaigns in Google Analytics. Free and easy to use.",
     icon: <UtmIcon />,
@@ -268,7 +268,7 @@ export const TOOLS: Tool[] = [
     id: "aspect-ratio-calculator",
     name: "Aspect Ratio Calculator",
     description: "Calculate dimensions and aspect ratios for images and video.",
-    seoTitle: "Aspect Ratio Calculator | Resize Images & Video",
+    seoTitle: "Aspect Ratio Calculator 📐 | Resize Images & Video",
     seoDescription:
       "Calculate aspect ratios and dimensions for images and videos instantly. Essential tool for designers and video editors to find precise width and height.",
     icon: <AspectRatioIcon />,
@@ -286,7 +286,7 @@ export const TOOLS: Tool[] = [
     id: "css-triangle-generator",
     name: "CSS Triangle Generator",
     description: "Generate CSS code for geometric triangles.",
-    seoTitle: "CSS Triangle Generator | Create Pure CSS Triangles",
+    seoTitle: "CSS Triangle Generator 🔺 | Create Pure CSS Triangles",
     seoDescription:
       "Generate pure CSS triangles in any direction and color. Adjust size and copy the code instantly. No images required.",
     icon: <TriangleIcon />,
@@ -296,7 +296,7 @@ export const TOOLS: Tool[] = [
     id: "xml-formatter",
     name: "XML Formatter",
     description: "Beautify and format XML strings.",
-    seoTitle: "Online XML Formatter | Validate & Beautify XML",
+    seoTitle: "Online XML Formatter 📄 | Validate & Beautify XML",
     seoDescription:
       "Format, validate, and beautify your XML data instantly. Our free online XML Formatter makes XML readable and easier to debug. 100% private.",
     icon: <XmlIcon />,
@@ -314,7 +314,7 @@ export const TOOLS: Tool[] = [
     id: "morse-converter",
     name: "Morse Code Converter",
     description: "Translate text to Morse code and vice versa.",
-    seoTitle: "Morse Code Converter | Text to Morse & Morse to Text",
+    seoTitle: "Morse Code Converter 📡 | Text to Morse & Morse to Text",
     seoDescription:
       "Convert text to Morse code and decode Morse code back to text. Listen to the audio and learn the alphabet. Free online tool.",
     icon: <MorseIcon />,
@@ -324,7 +324,7 @@ export const TOOLS: Tool[] = [
     id: "binary-converter",
     name: "Binary Converter",
     description: "Translate text to binary code and back.",
-    seoTitle: "Binary Converter | Text to Binary & Binary to Text",
+    seoTitle: "Binary Converter 0️⃣1️⃣ | Text to Binary & Binary to Text",
     seoDescription:
       "Convert text to binary code (0s and 1s) and decode binary back to text. Understand computer data representation with this free tool.",
     icon: <BinaryIcon />,
@@ -334,7 +334,7 @@ export const TOOLS: Tool[] = [
     id: "password-strength",
     name: "Password Strength Checker",
     description: "Test the strength of your passwords.",
-    seoTitle: "Password Strength Checker | Test Password Security",
+    seoTitle: "Password Strength Checker 💪 | Test Password Security",
     seoDescription:
       "Check how strong your password is against cracking attacks. Get instant feedback and tips to improve security. 100% processing in browser.",
     icon: <ShieldCheckIcon />,
@@ -344,7 +344,7 @@ export const TOOLS: Tool[] = [
     id: "string-escaper",
     name: "String Escaper",
     description: "Escape strings for JSON, HTML, URL, and Java.",
-    seoTitle: "String Escaper | Escape JSON, HTML, and URL Strings",
+    seoTitle: "String Escaper 📝 | Escape JSON, HTML, and URL Strings",
     seoDescription:
       "Quickly escape special characters for JSON, HTML, URLs, Java, and JavaScript. Prevent syntax errors and security issues with our free String Escaper.",
     icon: <StringEscaperIcon />,
@@ -362,7 +362,7 @@ export const TOOLS: Tool[] = [
     id: "percentage-calculator",
     name: "Percentage Calculator",
     description: "Quickly calculate percentages for common math problems.",
-    seoTitle: "Percentage Calculator | Online Percent Change & Amount",
+    seoTitle: "Percentage Calculator % | Online Percent Change & Amount",
     seoDescription:
       "Calculate percentages, percent change, and fractions of numbers instantly. Simple, free online percentage calculator for daily math.",
     icon: <PercentIcon />,
@@ -372,7 +372,7 @@ export const TOOLS: Tool[] = [
     id: "markdown-table-generator",
     name: "Markdown Table Generator",
     description: "Create Markdown tables easily with a visual editor.",
-    seoTitle: "Markdown Table Generator | Visual Markdown Table Editor",
+    seoTitle: "Markdown Table Generator ▦ | Visual Markdown Table Editor",
     seoDescription:
       "Easily create and format Markdown tables with our free visual editor. Convert CSV or Excel data to Markdown instantly. Perfect for READMEs and documentation.",
     icon: <TableIcon />,
@@ -390,7 +390,7 @@ export const TOOLS: Tool[] = [
     id: "list-randomizer",
     name: "List Randomizer",
     description: "Shuffle and randomize a list of items.",
-    seoTitle: "List Randomizer | Shuffle Lists & Pick Winners",
+    seoTitle: "List Randomizer 🎲 | Shuffle Lists & Pick Winners",
     seoDescription:
       "Randomize and shuffle any list of items instantly. Perfect for raffles, lottery picks, or mixing content. Fair and unbiased shuffling.",
     icon: <ListIcon />,
@@ -400,7 +400,7 @@ export const TOOLS: Tool[] = [
     id: "text-cleaner",
     name: "Text Cleaner",
     description: "Remove extra spaces, line breaks, and format text.",
-    seoTitle: "Text Cleaner Tool | Remove Spaces, Breaks & Formatting",
+    seoTitle: "Text Cleaner Tool 🧹 | Remove Spaces, Breaks & Formatting",
     seoDescription:
       "Clean and format your text instantly. Remove extra spaces, line breaks, HTML tags, and more with our free online Text Cleaner. Perfect for writers and developers.",
     icon: <EraserIcon />,
@@ -419,7 +419,7 @@ export const TOOLS: Tool[] = [
     id: "svg-to-data-uri",
     name: "SVG to Data URI",
     description: "Convert SVG code into a Data URI for use in CSS.",
-    seoTitle: "SVG to Data URI Converter | Encode SVG for CSS",
+    seoTitle: "SVG to Data URI Converter 🖼️ | Encode SVG for CSS",
     seoDescription:
       "Convert SVG code into a base64 Data URI instantly. Optimize your web performance by embedding SVGs directly into CSS or HTML.",
     icon: <ImageIcon />,
@@ -437,7 +437,7 @@ export const TOOLS: Tool[] = [
     id: "json-yaml-converter",
     name: "JSON <> YAML Converter",
     description: "Convert between JSON and YAML.",
-    seoTitle: "JSON <> YAML Converter | Bidirectional Conversion",
+    seoTitle: "JSON <> YAML Converter 🔄 | Bidirectional Conversion",
     seoDescription:
       "Convert JSON to YAML and YAML to JSON instantly. Our free online tool ensures accurate conversion for configuration files and data structures.",
     icon: <FileCodeIcon />,
@@ -457,7 +457,7 @@ export const TOOLS: Tool[] = [
     name: "YouTube Thumbnail Downloader",
     description:
       "Download thumbnails from any YouTube video in max resolution.",
-    seoTitle: "YouTube Thumbnail Downloader | Save HD Thumbnails",
+    seoTitle: "YouTube Thumbnail Downloader 🖼️ | Save HD Thumbnails",
     seoDescription:
       "Download high-quality thumbnails from any YouTube video. Get Max Res, HD, SD, and default sizes instantly. fast, free, and easy to use.",
     icon: <YoutubeIcon />,
@@ -475,7 +475,7 @@ export const TOOLS: Tool[] = [
     id: "fancy-font-generator",
     name: "Fancy Font Generator",
     description: "Generate stylish text for social media bios.",
-    seoTitle: "Fancy Font Generator | Stylish Text for Instagram & Bio",
+    seoTitle: "Fancy Font Generator ✒️ | Stylish Text for Instagram & Bio",
     seoDescription:
       "Generate cool, fancy text styles for your Instagram bio, Twitter, and other social media. Copy and paste stylish fonts with our free online generator.",
     icon: <PenIcon />,
@@ -493,7 +493,7 @@ export const TOOLS: Tool[] = [
     id: "hashtag-extractor",
     name: "Hashtag Extractor",
     description: "Extract hashtags from a block of text.",
-    seoTitle: "Hashtag Extractor | Find Hashtags in Text Instantly",
+    seoTitle: "Hashtag Extractor #️⃣ | Find Hashtags in Text Instantly",
     seoDescription:
       "Instantly extract all hashtags from any text block. Perfect for social media managers and marketers to analyze and collect tags from posts.",
     icon: <TagsIcon />,
@@ -511,7 +511,7 @@ export const TOOLS: Tool[] = [
     id: "image-filters",
     name: "Instagram Photo Filters",
     description: "Apply CSS filters like grayscale, sepia, and blur to images.",
-    seoTitle: "Online Image Filters | Apply Instagram-like Effects",
+    seoTitle: "Online Image Filters 🎨 | Apply Instagram-like Effects",
     seoDescription:
       "Enhance your photos with free online filters. Apply Grayscale, Sepia, Blur, Brightness, and more instantly directly in your browser.",
     icon: <FiltersIcon />,
@@ -529,7 +529,7 @@ export const TOOLS: Tool[] = [
     id: "svg-blob-generator",
     name: "SVG Blob Generator",
     description: "Create organic blob shapes for backgrounds.",
-    seoTitle: "SVG Blob Generator | Create Organic Shapes",
+    seoTitle: "SVG Blob Generator 💧 | Create Organic Shapes",
     seoDescription:
       "Generate unique, organic SVG blobs for your web design backgrounds. Customize complexity and contrast to create the perfect shape. Free and open-source.",
     icon: <BlobIcon />,
@@ -547,7 +547,7 @@ export const TOOLS: Tool[] = [
     id: "svg-wave-generator",
     name: "SVG Wave Generator",
     description: "Generate smooth wave dividers for your website.",
-    seoTitle: "SVG Wave Generator | Create Website Section Dividers",
+    seoTitle: "SVG Wave Generator 🌊 | Create Website Section Dividers",
     seoDescription:
       "Create beautiful SVG waves for your website headers and footers. Customize layers, height, and color to generate the perfect wave divider.",
     icon: <WavesIcon />,
@@ -565,7 +565,7 @@ export const TOOLS: Tool[] = [
     id: "keycode-info",
     name: "Keycode Event Info",
     description: "Get JavaScript event codes for any key press.",
-    seoTitle: "Keycode Info | JavaScript Key Events & Codes",
+    seoTitle: "Keycode Info ⌨️ | JavaScript Key Events & Codes",
     seoDescription:
       "Press any key to get its JavaScript KeyCode, code, key, and other event properties. Essential tool for web developers handling keyboard events.",
     icon: <KeyboardIcon />,
@@ -590,7 +590,7 @@ export const TOOLS: Tool[] = [
     id: "text-to-speech",
     name: "Text to Speech",
     description: "Convert text to spoken audio in your browser.",
-    seoTitle: "Text to Speech Converter | Free Online TTS",
+    seoTitle: "Text to Speech Converter 🗣️ | Free Online TTS",
     seoDescription:
       "Convert any text to lifelike speech instantly. Choose from multiple voices and languages with our free, browser-based Text to Speech (TTS) tool.",
     icon: <MicIcon />,
@@ -608,7 +608,7 @@ export const TOOLS: Tool[] = [
     id: "roman-numeral-converter",
     name: "Roman Numeral Converter",
     description: "Convert numbers to Roman numerals and back.",
-    seoTitle: "Roman Numeral Converter | Numbers to Roman Numerals",
+    seoTitle: "Roman Numeral Converter 🏛️ | Numbers to Roman Numerals",
     seoDescription:
       "Convert standard numbers to Roman numerals (I, V, X, L, C, D, M) and vice versa. Learn the rules and convert dates instantly.",
     icon: <RomanIcon />,
@@ -618,7 +618,7 @@ export const TOOLS: Tool[] = [
     id: "age-calculator",
     name: "Age Calculator",
     description: "Calculate your exact age in years, months, and days.",
-    seoTitle: "Age Calculator | Calculate Exact Age from Date of Birth",
+    seoTitle: "Age Calculator 🎂 | Calculate Exact Age from Date of Birth",
     seoDescription:
       "Find out exactly how old you are in years, months, days, hours, and minutes. Calculate the time until your next birthday.",
     icon: <BabyIcon />,
@@ -628,7 +628,7 @@ export const TOOLS: Tool[] = [
     id: "random-number-generator",
     name: "Random Number Generator",
     description: "Generate random numbers within a specific range.",
-    seoTitle: "Random Number Generator | RNG Online",
+    seoTitle: "Random Number Generator 🎲 | RNG Online",
     seoDescription:
       "Generate true random numbers within a custom range. Set minimum and maximum values and generate multiple numbers instantly.",
     icon: <DiceIcon />,
@@ -638,7 +638,7 @@ export const TOOLS: Tool[] = [
     id: "duplicate-remover",
     name: "Duplicate Line Remover",
     description: "Remove duplicate entries from a list of text.",
-    seoTitle: "Duplicate Line Remover | Remove Duplicate Lines Online",
+    seoTitle: "Duplicate Line Remover ✂️ | Remove Duplicate Lines Online",
     seoDescription:
       "Instantly remove duplicate lines from your text list. Clean up data, emails, or inventory lists with our free, secure duplicate remover tool.",
     icon: <DuplicateIcon />,
@@ -656,7 +656,7 @@ export const TOOLS: Tool[] = [
     id: "html-entity",
     name: "HTML Entity Encoder",
     description: "Encode/Decode text to HTML entities.",
-    seoTitle: "HTML Entity Encoder/Decoder | Escape HTML Characters",
+    seoTitle: "HTML Entity Encoder/Decoder 🔡 | Escape HTML Characters",
     seoDescription:
       "Convert text to HTML entities and back. Safely escape special characters like <, >, and & for use in web pages. Free, fast, and secure.",
     icon: <HtmlEntityIcon />,
@@ -674,7 +674,7 @@ export const TOOLS: Tool[] = [
     id: "css-cursors",
     name: "CSS Cursor Viewer",
     description: "Visual reference for all CSS cursor types.",
-    seoTitle: "CSS Cursor Viewer | Visual Guide to CSS Cursors",
+    seoTitle: "CSS Cursor Viewer 🖱️ | Visual Guide to CSS Cursors",
     seoDescription:
       "Interactive guide to all CSS cursor properties. Hover over items to see pointer, help, wait, grab, and other cursor styles in action.",
     icon: <CursorIcon />,
@@ -684,7 +684,7 @@ export const TOOLS: Tool[] = [
     id: "device-resolutions",
     name: "Device Resolution List",
     description: "Reference guide for common device screen sizes.",
-    seoTitle: "Device Screen Resolutions | Viewport Size Reference",
+    seoTitle: "Device Screen Resolutions 📱 | Viewport Size Reference",
     seoDescription:
       "List of common screen resolutions and viewport sizes for mobile, tablet, and desktop devices. Essential reference for responsive web design.",
     icon: <DevicesIcon />,
@@ -694,7 +694,7 @@ export const TOOLS: Tool[] = [
     id: "lorem-image-generator",
     name: "Lorem Picsum Generator",
     description: "Generate placeholder image URLs.",
-    seoTitle: "Lorem Picsum Generator | Random Placeholder Images",
+    seoTitle: "Lorem Picsum Generator 🏞️ | Random Placeholder Images",
     seoDescription:
       "Generate random, high-quality placeholder images for your web designs. Get customizable URLs for specific sizes and effects (grayscale, blur).",
     icon: <PlaceholderIcon />,
@@ -712,7 +712,7 @@ export const TOOLS: Tool[] = [
     id: "css-borders",
     name: "CSS Border Preview",
     description: "Visualizer for all CSS border styles.",
-    seoTitle: "CSS Border Preview | Visual Border Style Generator",
+    seoTitle: "CSS Border Preview 🖼️ | Visual Border Style Generator",
     seoDescription:
       "Visualize and generate all CSS border styles. Test solid, dashed, dotted, double, groove, ridge, inset, and outset borders instantly.",
     icon: <BorderIcon />,
@@ -722,7 +722,7 @@ export const TOOLS: Tool[] = [
     id: "css-patterns",
     name: "CSS Background Patterns",
     description: "Generate pure CSS background patterns.",
-    seoTitle: "CSS Pattern Generator | Pure CSS Backgrounds",
+    seoTitle: "CSS Pattern Generator 🏁 | Pure CSS Backgrounds",
     seoDescription:
       "Create lightweight, scalable background patterns with pure CSS. No images required. Copy the code for stripes, checks, dots, and more.",
     icon: <PatternIcon />,
@@ -732,7 +732,7 @@ export const TOOLS: Tool[] = [
     id: "signature-pad",
     name: "Signature Pad",
     description: "Draw and save digital signatures.",
-    seoTitle: "Online Signature Pad | Draw & Download Signatures",
+    seoTitle: "Online Signature Pad ✍️ | Draw & Download Signatures",
     seoDescription:
       "Draw your signature online and download it as a transparent PNG. Perfect for signing documents digitally. Works on mobile and desktop.",
     icon: <SignatureIcon />,
@@ -745,7 +745,7 @@ export const TOOLS: Tool[] = [
     description:
       "Analyze text complexity and calculate Flesch-Kincaid and other readability scores to improve content clarity and accessibility.",
     seoTitle:
-      "[Free] Flesch-Kincaid Calculator - Readability Score Calculator",
+      "Flesch-Kincaid Calculator 📖 - Readability Score Calculator",
     seoDescription: "Check your text readability instantly using Flesch Reading Ease and Flesch-Kincaid Grade Level. Free online readability score calculator. No signup required.",
     icon: < ReadabilityIcon />,
     category: ToolCategory.TEXT,
@@ -769,7 +769,7 @@ export const TOOLS: Tool[] = [
     name: "Loan Calculator",
     description:
       "Calculate accurate monthly payments, interest costs, and a complete amortization schedule for any type of loan.",
-    seoTitle: "Free Loan Calculator | Estimate Monthly Payments & Amortization",
+    seoTitle: "Free Loan Calculator 💰 | Estimate Monthly Payments & Amortization",
     seoDescription:
       "Take control of your finances. Our free Loan Calculator helps you estimate monthly payments, total interest, and see a full amortization schedule for any loan. Plan for mortgages, car loans, and more. Fast, accurate, and 100% private.",
 
@@ -795,7 +795,7 @@ export const TOOLS: Tool[] = [
     description:
       "Instantly convert any date and time between global time zones with precise, real-time accuracy.",
     seoTitle:
-      "Time Zone Converter | Instantly Convert Time Between Cities Worldwide",
+      "Time Zone Converter 🌍 | Instantly Convert Time Between Cities Worldwide",
     seoDescription:
       "Never get the time wrong again. Our free Time Zone Converter makes it easy to convert time between any cities in the world. Perfect for scheduling meetings, planning travel, and staying in sync with global teams.",
     icon: <TimeZoneConverterIcon />,
@@ -820,7 +820,7 @@ export const TOOLS: Tool[] = [
     id: "comma-separator",
     name: "Comma Separator",
     description: "Convert lists to comma-separated text with advanced formatting.",
-    seoTitle: "Comma Separator | Convert Column to Comma Separated List",
+    seoTitle: "Comma Separator 📝 | Convert Column to Comma Separated List",
     seoDescription:
       "Free online tool to convert lists to comma-separated values (CSV) and vice versa. Support for custom delimiters, wrapping, sorting, and duplicate removal.",
     icon: <SeparatorIcon />,
@@ -840,7 +840,7 @@ export const TOOLS: Tool[] = [
     name: "Case Converter",
     description:
       "Convert text between uppercase, lowercase, title case, and more formats.",
-    seoTitle: "Online Case Converter | Instantly Change Text Case",
+    seoTitle: "Online Case Converter 🔠 | Instantly Change Text Case",
     seoDescription:
       "Quickly convert text to UPPERCASE, lowercase, Title Case, Sentence case, and more with our free online tool. Perfect for headlines, essays, and code. 100% private and easy to use.",
     icon: <CaseIcon />,
@@ -860,7 +860,7 @@ export const TOOLS: Tool[] = [
     name: "Word Counter",
     description:
       "Instantly count words, characters, sentences, and paragraphs with our advanced, real-time Word Counter tool.",
-    seoTitle: "Free Online Word Counter | Real-Time Word & Character Count",
+    seoTitle: "Free Online Word Counter 🔢 | Real-Time Word & Character Count",
     seoDescription:
       "Hit your writing goals with our free online Word Counter. Get instant, accurate counts for words, characters, sentences, and paragraphs, plus an estimated reading time. Perfect for writers, students, and SEOs.",
     icon: <WordCounterIcon />,
@@ -883,7 +883,7 @@ export const TOOLS: Tool[] = [
     name: "Character Counter",
     description:
       "Count characters, letters, and byte size instantly to ensure your text fits limits for social media, SMS, and online platforms.",
-    seoTitle: "Online Character Counter | Letter, Symbol & Byte Counter",
+    seoTitle: "Online Character Counter ✍️ | Letter, Symbol & Byte Counter",
     seoDescription:
       "Never exceed the limit again. Our free Character Counter instantly checks characters, letters, and byte size. Perfect for Twitter/X posts, SMS, and more. 100% private and secure.",
     icon: <CharacterCounterIcon />,
@@ -906,7 +906,7 @@ export const TOOLS: Tool[] = [
     name: "Lorem Ipsum Generator",
     description:
       "Generate customizable placeholder text for web design, UI/UX prototypes, print layouts, and content mockups.",
-    seoTitle: "Lorem Ipsum Generator | Create Custom Placeholder Text",
+    seoTitle: "Lorem Ipsum Generator 📄 | Create Custom Placeholder Text",
     seoDescription:
       "Need placeholder text? Our free Lorem Ipsum Generator creates custom dummy text for your designs. Generate paragraphs, sentences, or words to perfect your layouts. Fast, easy, and professional.",
     icon: <LoremIpsumIcon />,
@@ -929,7 +929,7 @@ export const TOOLS: Tool[] = [
     name: "Text Reverser",
     description:
       "Instantly reverse any string of text, words, letters, or symbols for fun, puzzles, or programming tasks.",
-    seoTitle: "Online Text Reverser | Reverse Words, Letters & Strings",
+    seoTitle: "Online Text Reverser 🔄 | Reverse Words, Letters & Strings",
     seoDescription:
       "Flip your text backwards with our free Text Reverser. Instantly reverse words, letters, and even emojis. Perfect for fun social media posts, puzzles, or coding challenges.",
     icon: <TextReverseIcon />,
@@ -952,7 +952,7 @@ export const TOOLS: Tool[] = [
     name: "Markdown Previewer",
     description:
       "Write Markdown and instantly see the rendered HTML in a live, real-time preview for documentation, blogs, and READMEs.",
-    seoTitle: "Live Markdown Editor | Real-Time Markdown Previewer",
+    seoTitle: "Live Markdown Editor 📝 | Real-Time Markdown Previewer",
     seoDescription:
       "Write and preview Markdown side-by-side with our free live editor. Instantly see how your text will look as HTML. Perfect for READMEs, blogs, and documentation. Fast, secure, and easy to use.",
     icon: <MarkdownIcon />,
@@ -976,7 +976,7 @@ export const TOOLS: Tool[] = [
     name: "Base64 Converter",
     description:
       "Instantly encode and decode text, images, and files to/from Base64 online.",
-    seoTitle: "Online Base64 Converter | Encode & Decode Text, Files & Images",
+    seoTitle: "Online Base64 Converter 📦 | Encode & Decode Text, Files & Images",
     seoDescription:
       "A free, powerful tool to encode and decode Base64. Easily convert text, images, or any file into a Base64 string and back again. Secure, fast, and all in your browser.",
     icon: <Base64Icon />,
@@ -994,7 +994,7 @@ export const TOOLS: Tool[] = [
     id: "url-encoder",
     name: "URL Encoder/Decoder",
     description: "Encode and decode strings for safe URL transmission online.",
-    seoTitle: "Online URL Encoder & Decoder | Percent-Encoding Tool",
+    seoTitle: "Online URL Encoder & Decoder 🔗 | Percent-Encoding Tool",
     seoDescription:
       "Quickly and safely encode or decode strings for use in URLs. Our free tool handles special characters and spaces, preventing broken links. Perfect for developers and marketers.",
     icon: <UrlIcon />,
@@ -1013,7 +1013,7 @@ export const TOOLS: Tool[] = [
     name: "JSON Formatter",
     description:
       "Validate, format, and pretty-print your JSON data instantly online.",
-    seoTitle: "Online JSON Formatter | Validate & Beautify JSON",
+    seoTitle: "Online JSON Formatter 📋 | Validate & Beautify JSON",
     seoDescription:
       "Clean up your messy JSON with our free online formatter. Instantly validate, format, and beautify your JSON data to make it readable. Perfect for developers debugging APIs.",
     icon: <JsonIcon />,
@@ -1032,7 +1032,7 @@ export const TOOLS: Tool[] = [
     id: "regex-tester",
     name: "Regex Tester",
     description: "Test and debug regular expressions against strings online.",
-    seoTitle: "Online Regex Tester | Test & Debug Regular Expressions",
+    seoTitle: "Online Regex Tester 🔍 | Test & Debug Regular Expressions",
     seoDescription:
       "Test your regular expressions in real-time with our free online Regex Tester. Instantly see matches and capture groups highlighted. Perfect for developers and data analysts. 100% private.",
     icon: <RegexIcon />,
@@ -1050,7 +1050,7 @@ export const TOOLS: Tool[] = [
     id: "uuid-generator",
     name: "UUID Generator",
     description: "Generate secure, random UUIDs (v4) online instantly.",
-    seoTitle: "Online UUID Generator | Instantly Create Random UUIDs (v4)",
+    seoTitle: "Online UUID Generator 🆔 | Instantly Create Random UUIDs (v4)",
     seoDescription:
       "Need a unique ID? Our free UUID Generator creates random, secure Version 4 UUIDs in a single click. Perfect for databases, session IDs, and any application needing a unique identifier.",
     icon: <UuidIcon />,
@@ -1070,7 +1070,7 @@ export const TOOLS: Tool[] = [
     description:
       "Create SHA-1, SHA-256, or SHA-512 hashes online from any text.",
     seoTitle:
-      "Online Hash Generator | Generate SHA-1, SHA-256 & SHA-512 Hashes",
+      "Online Hash Generator 🗝️ | Generate SHA-1, SHA-256 & SHA-512 Hashes",
     seoDescription:
       "Instantly generate secure SHA-1, SHA-256, and SHA-512 hashes from any text with our free online tool. Powered by the Web Crypto API for maximum security. 100% private.",
     icon: <HashIcon />,
@@ -1088,7 +1088,7 @@ export const TOOLS: Tool[] = [
     id: "jwt-debugger",
     name: "JWT Decoder",
     description: "Decode JSON Web Tokens to view header and payload online.",
-    seoTitle: "Online JWT Decoder | Decode & Inspect JSON Web Tokens",
+    seoTitle: "Online JWT Decoder 🔐 | Decode & Inspect JSON Web Tokens",
     seoDescription:
       "Instantly decode and inspect JSON Web Tokens (JWTs) with our free online tool. View the header and payload in a readable format. Perfect for debugging authentication tokens. 100% private.",
     icon: <JwtIcon />,
@@ -1107,7 +1107,7 @@ export const TOOLS: Tool[] = [
     name: "Diff Checker",
     description:
       "Instantly compare text or code and highlight every difference in seconds.",
-    seoTitle: "Online Diff Checker | Instantly Compare Text & Code",
+    seoTitle: "Online Diff Checker ⚖️ | Instantly Compare Text & Code",
     seoDescription:
       "Easily compare two blocks of text or code and see the differences highlighted instantly. Our free Diff Checker is perfect for developers, writers, and editors. Fast, secure, and 100% private.",
     icon: <DiffIcon />,
@@ -1126,7 +1126,7 @@ export const TOOLS: Tool[] = [
     name: "JSON <> CSV Converter",
     description:
       "Convert between JSON and CSV formats instantly.",
-    seoTitle: "Online JSON <> CSV Converter | Free & Instant",
+    seoTitle: "Online JSON <> CSV Converter 📊 | Free & Instant",
     seoDescription:
       "Effortlessly convert between JSON and CSV formats with our free online tool. Perfect for developers and data analysts. Fast, secure, and browser-based.",
     icon: <CsvToJsonIcon />,
@@ -1146,7 +1146,7 @@ export const TOOLS: Tool[] = [
     description:
       "The ultimate data conversion tool. Convert CSV or XLSX files to JSON, SQL, HTML, and more, instantly in your browser.",
     seoTitle:
-      "Universal Data Converter | Convert CSV, XLSX, JSON, SQL, and more",
+      "Convert CSV, XLSX, JSON, SQL, and more 🔁 | Universal Data Converter",
     seoDescription:
       "Our free online Data Converter instantly transforms your files. Convert CSV or Excel (XLSX) to JSON, SQL, HTML, Markdown, and more. Secure, browser-based, and incredibly fast.",
     icon: <FileConversionIcon />,
@@ -1169,7 +1169,7 @@ export const TOOLS: Tool[] = [
     id: "image-to-base64",
     name: "Image to Base64",
     description: "Convert an image file into a Base64 data URL string.",
-    seoTitle: "Image to Base64 Converter | Instantly Encode Images Online",
+    seoTitle: "Image to Base64 Converter 🖼️ | Instantly Encode Images Online",
     seoDescription:
       "Convert any image (PNG, JPG, SVG) into a Base64 data URL with our free online tool. Perfect for embedding images directly into HTML and CSS to improve site speed. 100% private.",
     icon: <ImageIcon />,
@@ -1188,7 +1188,7 @@ export const TOOLS: Tool[] = [
     id: "base64-to-image",
     name: "Base64 to Image",
     description: "Convert a Base64 data URL into a viewable image.",
-    seoTitle: "Base64 to Image Converter | Decode & View Base64 Images",
+    seoTitle: "Base64 to Image Converter 🖼️ | Decode & View Base64 Images",
     seoDescription:
       "Have a Base64 string and want to see the image? Our free tool instantly decodes any Base64 data URL back into a viewable and downloadable image. Perfect for developers and designers.",
     icon: <Base64ToImageIcon />,
@@ -1207,7 +1207,7 @@ export const TOOLS: Tool[] = [
     name: "Box Shadow Generator",
     description:
       "Create and customize CSS box-shadow effects with a visual editor.",
-    seoTitle: "CSS Box Shadow Generator | Visual & Interactive Tool",
+    seoTitle: "CSS Box Shadow Generator 🌑 | Visual & Interactive Tool",
     seoDescription:
       "Design the perfect CSS box-shadow with our free visual generator. Control offsets, blur, spread, and color in real-time and get the code instantly. Perfect for modern UI design.",
     icon: <BoxShadowIcon />,
@@ -1226,7 +1226,7 @@ export const TOOLS: Tool[] = [
     name: "CSS Gradient Generator",
     description:
       "Create beautiful CSS gradients with color pickers and angle controls.",
-    seoTitle: "CSS Gradient Generator | Create Beautiful Gradients Online",
+    seoTitle: "CSS Gradient Generator 🌈 | Create Beautiful Gradients Online",
     seoDescription:
       "Design stunning linear and radial CSS gradients with our free visual editor. Add multiple colors, control angles, and get production-ready code instantly. Perfect for modern web design.",
     icon: <GradientIcon />,
@@ -1259,7 +1259,7 @@ export const TOOLS: Tool[] = [
     name: "Border Radius Generator",
     description:
       "Create custom border radius values with individual corner controls.",
-    seoTitle: "CSS Border Radius Generator | Create Custom Shapes",
+    seoTitle: "CSS Border Radius Generator 🔴 | Create Custom Shapes",
     seoDescription:
       "Visually design the perfect rounded corners with our free CSS Border Radius Generator. Control each corner individually to create unique shapes and get the code instantly.",
     icon: <BorderRadiusIcon />,
@@ -1277,7 +1277,7 @@ export const TOOLS: Tool[] = [
     name: "Text Shadow Generator",
     description:
       "Create beautiful text shadows with precise control over position and blur.",
-    seoTitle: "CSS Text Shadow Generator | Visual & Interactive Tool",
+    seoTitle: "CSS Text Shadow Generator 👻 | Visual & Interactive Tool",
     seoDescription:
       "Design the perfect CSS text-shadow with our free visual generator. Control offsets, blur, color, and opacity in real-time and get the code instantly. Add depth and style to your text.",
     icon: <TextShadowIcon />,
@@ -1295,7 +1295,7 @@ export const TOOLS: Tool[] = [
     name: "Glassmorphism & Neumorphism Generator",
     description:
       "Create modern glassmorphism and neumorphism effects with visual controls.",
-    seoTitle: "Glassmorphism & Neumorphism CSS Generator | Modern UI Tool",
+    seoTitle: "Glassmorphism & Neumorphism CSS Generator 🧊 | Modern UI Tool",
     seoDescription:
       "Easily create trendy Glassmorphism (frosted glass) and Neumorphism (soft UI) effects with our free visual CSS generator. Get the code for your modern UI designs instantly.",
     icon: <GlassmorphismIcon />,
@@ -1314,7 +1314,7 @@ export const TOOLS: Tool[] = [
     id: "color-palette-generator",
     name: "Color Palette Generator",
     description: "Generate color palettes from a base color.",
-    seoTitle: "Color Palette Generator | Create Beautiful Color Schemes",
+    seoTitle: "Color Palette Generator 🎨 | Create Beautiful Color Schemes",
     seoDescription:
       "Instantly generate beautiful, harmonious color palettes from any base color. Our free tool creates monochromatic, analogous, complementary, and triadic schemes for your designs.",
     icon: <PaletteIcon />,
@@ -1333,7 +1333,7 @@ export const TOOLS: Tool[] = [
     name: "Color Theme Generator (Color Wheel)",
     description:
       "Generate color themes using an interactive color wheel and scheme presets (analogous, complementary, triad, etc.).",
-    seoTitle: "Interactive Color Wheel | Color Theme Generator",
+    seoTitle: "Interactive Color Wheel 🎡 | Color Theme Generator",
     seoDescription:
       "Design beautiful color themes with our free interactive color wheel. Choose from analogous, complementary, and triadic schemes and export your palette as CSS variables or JSON.",
     icon: <PaletteIcon />,
@@ -1352,7 +1352,7 @@ export const TOOLS: Tool[] = [
     name: "CSS Color Code Converter",
     description:
       "Convert between HEX/HEXA, RGB/RGBA, HSL/HSLA, and CSS color keywords.",
-    seoTitle: "CSS Color Code Converter | HEX, RGB & HSL Converter",
+    seoTitle: "CSS Color Code Converter 🎨 | HEX, RGB & HSL Converter",
     seoDescription:
       "Instantly convert between HEX, RGB, and HSL color codes with our free online tool. Supports alpha channels (transparency) and CSS color names. Perfect for developers and designers.",
     icon: <ColorIcon />,
@@ -1370,7 +1370,7 @@ export const TOOLS: Tool[] = [
     id: "video-compressor",
     name: "Video Compressor",
     description: "Reduce video file size without significant quality loss.",
-    seoTitle: "Online Video Compressor | Reduce Video File Size Free",
+    seoTitle: "Online Video Compressor 🗜️ | Reduce Video File Size Free",
     seoDescription:
       "Compress MP4, MOV, and AVI video files online for free. Reduce file size without losing quality. Perfect for sharing on WhatsApp, Email, or Web.",
     icon: <VideoCompressorIcon />,
@@ -1388,7 +1388,7 @@ export const TOOLS: Tool[] = [
     id: "video-to-audio-converter",
     name: "Video to Audio Converter",
     description: "Extract audio tracks from video files as MP3.",
-    seoTitle: "Video to Audio Converter | Extract MP3 from MP4",
+    seoTitle: "Video to Audio Converter 🎵 | Extract MP3 from MP4",
     seoDescription:
       "Extract audio from any video file instantly. Convert MP4 to MP3, WAV, or AAC with our free online Video to Audio Converter.",
     icon: <VideoToAudioIcon />,
@@ -1406,7 +1406,7 @@ export const TOOLS: Tool[] = [
     id: "gif-maker",
     name: "GIF Maker",
     description: "Convert video clips into animated GIFs.",
-    seoTitle: "Online GIF Maker | Create Animated GIFs from Video",
+    seoTitle: "Online GIF Maker 🎞️ | Create Animated GIFs from Video",
     seoDescription:
       "Create funny animated GIFs from your videos instantly. Convert MP4 to GIF with customizable start/end times and dimensions.",
     icon: <GifMakerIcon />,
@@ -1424,9 +1424,9 @@ export const TOOLS: Tool[] = [
     id: "trim-video",
     name: "Trim Video",
     description: "Cut and trim video files to desired length.",
-    seoTitle: "Online Video Trimmer | Cut & Trim MP4 Videos",
+    seoTitle: "Online Video Trimmer ✂️ | Cut MP4 Video Length | Free MP4 Trimmer",
     seoDescription:
-      "Trim and cut your video files online for free. Remove unwanted parts from the beginning, middle, or end of your videos easily.",
+      "Trim and cut MP4 video files online for free. The ultimate MP4 trimmer and length editor to remove unwanted parts easily. No signup required.",
     icon: <TrimVideoIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1436,13 +1436,17 @@ export const TOOLS: Tool[] = [
       "online video splitter",
       "video clipper",
       "free video trimmer",
+      "trim mp4 video",
+      "mp4 trimmer",
+      "trim mp4 file",
+      "mp4 length editor",
     ],
   },
   {
     id: "format-converter",
     name: "Video Format Converter",
     description: "Convert videos between different formats like MP4, AVI, MOV.",
-    seoTitle: "Video Format Converter | Change Video Format Online",
+    seoTitle: "Video Format Converter 🎞️ | Change Video Format Online",
     seoDescription:
       "Convert video files to any format (MP4, AVI, MKV, MOV, WEBM) for free. Fast, secure, and high-quality online video converter.",
     icon: <FormatConverterIcon />,
@@ -1460,7 +1464,7 @@ export const TOOLS: Tool[] = [
     id: "video-thumbnail-extractor",
     name: "Video Thumbnail Extractor",
     description: "Extract image thumbnails from specific timestamps in a video.",
-    seoTitle: "Video Thumbnail Extractor | Capture Frames from Video",
+    seoTitle: "Video Thumbnail Extractor 📸 | Capture Frames from Video",
     seoDescription:
       "Extract high-quality image frames from any video. Pick a timestamp and save the frame as JPG or PNG for thumbnails.",
     icon: <VideoThumbnailIcon />,
@@ -1478,9 +1482,9 @@ export const TOOLS: Tool[] = [
     id: "video-mute",
     name: "Mute Video",
     description: "Remove audio track from a video file.",
-    seoTitle: "Mute Video Online | Remove Sound from Video",
+    seoTitle: "Mute Video Online 🔇 | Remove Audio from Video | MP4 Muter",
     seoDescription:
-      "Instantly remove the audio track from any video. Mute background noise or create a silent video clips for social media.",
+      "Instantly mute audio video files. Remove sound from your MP4 clips, silence background noise, and create silent videos easily.",
     icon: <VideoMuteIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1490,13 +1494,16 @@ export const TOOLS: Tool[] = [
       "video mute tool",
       "delete sound from video",
       "mp4 muter",
+      "mute audio video",
+      "mute video",
+      "remove sound from mp4",
     ],
   },
   {
     id: "watermark-adder",
     name: "Watermark Adder",
     description: "Add image or text watermarks to your photos.",
-    seoTitle: "Watermark Adder | Add Logo & Text to Photos",
+    seoTitle: "Watermark Adder © | Add Logo & Text to Photos",
     seoDescription:
       "Protect your images with our free online Watermark Adder. Add text or logo watermarks to photos easily to prevent theft.",
     icon: <WatermarkAdderIcon />,
@@ -1514,7 +1521,7 @@ export const TOOLS: Tool[] = [
     id: "image-resizer",
     name: "Image Resizer",
     description: "Resize images by dimensions or percentage.",
-    seoTitle: "Image Resizer | Resize Photos Online Free",
+    seoTitle: "Image Resizer 📏 | Resize Photos Online Free",
     seoDescription:
       "Resize images online to any dimension or percentage. Change width and height of JPG, PNG, and WebP images without losing quality.",
     icon: <ImageResizerIcon />,
@@ -1532,7 +1539,7 @@ export const TOOLS: Tool[] = [
     id: "image-converter",
     name: "Image Converter",
     description: "Convert images between formats like PNG, JPG, WEBP.",
-    seoTitle: "Image Converter | Convert JPG, PNG, WebP Online",
+    seoTitle: "Image Converter 🖼️ | Convert JPG, PNG, WebP Online",
     seoDescription:
       "Convert images to any format (JPG, PNG, WebP) instantly. Free online image converter with bulk processing support.",
     icon: <ImageConverterIcon />,
@@ -1550,7 +1557,7 @@ export const TOOLS: Tool[] = [
     id: "image-compressor",
     name: "Image Compressor",
     description: "Compress images to reduce file size while maintaining quality.",
-    seoTitle: "Image Compressor | Reduce Photo Size Online",
+    seoTitle: "Image Compressor 🗜️ | Reduce Photo Size Online",
     seoDescription:
       "Compress JPG, PNG, and WebP images online. Reduce file size by up to 80% without visible quality loss. Speed up your website.",
     icon: <ImageCompressorIcon />,
@@ -1568,7 +1575,7 @@ export const TOOLS: Tool[] = [
     id: "todo-list",
     name: "To-Do List",
     description: "A simple to-do list that saves your tasks in the browser.",
-    seoTitle: "Simple To-Do List | Online & Persistent",
+    seoTitle: "Simple To-Do List ✅ | Online & Persistent",
     seoDescription:
       "A clean and simple to-do list that saves your tasks in your browser. Organize your day and stay on track with our free and private To-Do List tool.",
     icon: <TodoIcon />,
@@ -1578,7 +1585,7 @@ export const TOOLS: Tool[] = [
     id: "password-generator",
     name: "Password Generator",
     description: "Generate strong, secure passwords.",
-    seoTitle: "Strong Password Generator | Create Secure Passwords",
+    seoTitle: "Strong Password Generator 🔒 | Create Secure Passwords",
     seoDescription:
       "Create random, secure passwords with custom length and characters. Protect your accounts with strong, uncrackable passwords created instantly.",
     icon: <PasswordIcon />,
@@ -1596,7 +1603,7 @@ export const TOOLS: Tool[] = [
     id: "qr-code-generator",
     name: "QR Code Generator",
     description: "Generate QR codes from text or URLs.",
-    seoTitle: "QR Code Generator | Create Free QR Codes",
+    seoTitle: "QR Code Generator 🏁 | Create Free QR Codes",
     seoDescription:
       "Create custom QR codes for URLs, text, Wi-Fi, and more. Download your high-quality QR code in PNG or SVG format instantly.",
     icon: <QrCodeIcon />,
@@ -1614,7 +1621,7 @@ export const TOOLS: Tool[] = [
     id: "date-calculator",
     name: "Date Calculator",
     description: "Calculate the difference between two dates.",
-    seoTitle: "Date Calculator | Days Between Dates",
+    seoTitle: "Date Calculator 📅 | Days Between Dates",
     seoDescription:
       "Calculate the exact duration between two dates in years, months, weeks, and days. Perfect for event planning and scheduling.",
     icon: <DateCalcIcon />,
@@ -1632,7 +1639,7 @@ export const TOOLS: Tool[] = [
     id: "pomodoro-timer",
     name: "Pomodoro Timer",
     description: "A timer to help you focus using the Pomodoro Technique.",
-    seoTitle: "Pomodoro Timer Online | Focus & Productivity Timer",
+    seoTitle: "Pomodoro Timer Online 🍅 | Focus & Productivity Timer",
     seoDescription:
       "Boost your productivity with our free online Pomodoro Timer. Use the 25-minute work / 5-minute break technique to stay focused and get more done.",
     icon: <PomodoroIcon />,
@@ -1650,7 +1657,7 @@ export const TOOLS: Tool[] = [
     id: "meme-generator",
     name: "Meme Generator",
     description: "Create your own memes with popular templates.",
-    seoTitle: "Online Meme Generator | Create Funny Memes",
+    seoTitle: "Online Meme Generator 🐸 | Create Funny Memes",
     seoDescription:
       "Make your own memes with our free online Meme Generator. Upload your images or caption popular templates. fast, funny, and no watermark.",
     icon: <MemeIcon />,
@@ -1669,7 +1676,7 @@ export const TOOLS: Tool[] = [
     id: "unit-converter",
     name: "Unit Converter",
     description: "Convert between different units of measurement.",
-    seoTitle: "Unit Converter | Length, Weight, Temp & More",
+    seoTitle: "Unit Converter ⚖️ | Length, Weight, Temp & More",
     seoDescription:
       "Convert between thousands of units of measurement. Length, weight, temperature, volume, and more with our free online Unit Converter.",
     icon: <UnitConverterIcon />,
@@ -1687,7 +1694,7 @@ export const TOOLS: Tool[] = [
     id: "bmi-calculator",
     name: "BMI Calculator",
     description: "Calculate your Body Mass Index.",
-    seoTitle: "BMI Calculator | Check Your Body Mass Index",
+    seoTitle: "BMI Calculator ⚖️ | Check Your Body Mass Index",
     seoDescription:
       "Calculate your Body Mass Index (BMI) instantly. Enter your height and weight to see if you are in a healthy weight range. Free and private.",
     icon: <BmiIcon />,
@@ -1705,7 +1712,7 @@ export const TOOLS: Tool[] = [
     id: "currency-converter",
     name: "Currency Converter",
     description: "Convert between different currencies.",
-    seoTitle: "Currency Converter | Real-Time Exchange Rates",
+    seoTitle: "Currency Converter 💱 | Real-Time Exchange Rates",
     seoDescription:
       "Convert between 190+ global currencies with live exchange rates. Fast, accurate, and free online Currency Converter.",
     icon: <CurrencyIcon />,
@@ -1723,7 +1730,7 @@ export const TOOLS: Tool[] = [
     id: "world-clock",
     name: "World Clock",
     description: "Check the time in different cities around the world.",
-    seoTitle: "World Clock | Current Time Across the Globe",
+    seoTitle: "World Clock 🕰️ | Current Time Across the Globe",
     seoDescription:
       "Check the current time in major cities around the world. Track multiple time zones instantly with our free World Clock tool.",
     icon: <WorldClockIcon />,
@@ -1741,7 +1748,7 @@ export const TOOLS: Tool[] = [
     id: "timers-and-stopwatch",
     name: "Timers and Stopwatch",
     description: "A simple timer and stopwatch.",
-    seoTitle: "Online Timer & Stopwatch | Countup & Countdown",
+    seoTitle: "Online Timer & Stopwatch ⏱️ | Countup & Countdown",
     seoDescription:
       "A simple, full-screen online timer and stopwatch. Set alarms, countdowns, and track laps easily directly in your browser.",
     icon: <TimersIcon />,
@@ -1759,7 +1766,7 @@ export const TOOLS: Tool[] = [
     id: "keyword-density-analyzer",
     name: "Keyword Density Analyzer",
     description: "Analyze the keyword density of a text.",
-    seoTitle: "Keyword Density Analyzer | SEO Content Checker",
+    seoTitle: "Keyword Density Analyzer 📊 | SEO Content Checker",
     seoDescription:
       "Check the keyword density of your text to avoid stuffing and improve SEO. Analyze word frequency and optimize your content for search engines.",
     icon: <KeywordDensityIcon />,
