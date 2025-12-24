@@ -41,16 +41,18 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
     return language;
   };
 
-  // Auto-scroll logic for animation
+  // Auto-scroll logic for animation - keep current line visible
   useEffect(() => {
-    if (readOnly && editorRef.current) {
+    if (editorRef.current) {
       const model = editorRef.current.getModel();
       if (model) {
         const lineCount = model.getLineCount();
-        editorRef.current.revealLine(lineCount);
+        // Use revealLineInCenter for smoother scrolling that keeps the current line visible
+        // This centers the line in the viewport rather than just revealing it
+        editorRef.current.revealLineInCenter(lineCount, 0); // 0 = smooth scroll
       }
     }
-  }, [code, readOnly]);
+  }, [code]);
 
   return (
     <div className="w-full h-full overflow-hidden">
