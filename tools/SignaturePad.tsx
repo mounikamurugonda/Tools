@@ -100,20 +100,18 @@ const SignaturePad: React.FC<ToolProps> = ({ details, toolId }) => {
               <input
                 type="color"
                 value={color}
-                onChange={(e) => setColor(e.target.value)}
+                onChange={e => setColor(e.target.value)}
                 className="h-8 w-8 cursor-pointer"
               />
             </div>
             <div>
-              <label className="block text-xs font-medium mb-1">
-                Width: {width}
-              </label>
+              <label className="block text-xs font-medium mb-1">Width: {width}</label>
               <input
                 type="range"
                 min="1"
                 max="10"
                 value={width}
-                onChange={(e) => setWidth(Number(e.target.value))}
+                onChange={e => setWidth(Number(e.target.value))}
                 className="w-24"
               />
             </div>

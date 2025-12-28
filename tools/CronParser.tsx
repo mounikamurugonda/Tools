@@ -25,7 +25,7 @@ const CronParser: React.FC<ToolProps> = ({ details, toolId }) => {
             <label className="block text-sm font-medium mb-1">Minute</label>
             <input
               value={minute}
-              onChange={(e) => setMinute(e.target.value)}
+              onChange={e => setMinute(e.target.value)}
               className="w-full brand-input"
               placeholder="*"
             />
@@ -34,7 +34,7 @@ const CronParser: React.FC<ToolProps> = ({ details, toolId }) => {
             <label className="block text-sm font-medium mb-1">Hour</label>
             <input
               value={hour}
-              onChange={(e) => setHour(e.target.value)}
+              onChange={e => setHour(e.target.value)}
               className="w-full brand-input"
               placeholder="*"
             />
@@ -43,7 +43,7 @@ const CronParser: React.FC<ToolProps> = ({ details, toolId }) => {
             <label className="block text-sm font-medium mb-1">Day</label>
             <input
               value={day}
-              onChange={(e) => setDay(e.target.value)}
+              onChange={e => setDay(e.target.value)}
               className="w-full brand-input"
               placeholder="*"
             />
@@ -52,7 +52,7 @@ const CronParser: React.FC<ToolProps> = ({ details, toolId }) => {
             <label className="block text-sm font-medium mb-1">Month</label>
             <input
               value={month}
-              onChange={(e) => setMonth(e.target.value)}
+              onChange={e => setMonth(e.target.value)}
               className="w-full brand-input"
               placeholder="*"
             />
@@ -61,7 +61,7 @@ const CronParser: React.FC<ToolProps> = ({ details, toolId }) => {
             <label className="block text-sm font-medium mb-1">Weekday</label>
             <input
               value={weekday}
-              onChange={(e) => setWeekday(e.target.value)}
+              onChange={e => setWeekday(e.target.value)}
               className="w-full brand-input"
               placeholder="*"
             />
@@ -73,10 +73,7 @@ const CronParser: React.FC<ToolProps> = ({ details, toolId }) => {
           <code className="text-3xl font-mono font-bold text-blue-600 dark:text-blue-400">
             {expression}
           </code>
-          <CopyButton
-            textToCopy={expression}
-            className="absolute top-4 right-4"
-          />
+          <CopyButton textToCopy={expression} className="absolute top-4 right-4" />
         </div>
 
         <div className="text-sm text-gray-600 dark:text-gray-400">

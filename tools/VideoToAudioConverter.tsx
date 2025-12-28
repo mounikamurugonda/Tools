@@ -44,20 +44,10 @@ const VideoToAudioConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       await ffmpeg.load();
 
       await ffmpeg.writeFile(videoFile.name, await fetchFile(videoFile));
-      await ffmpeg.exec([
-        '-i',
-        videoFile.name,
-        '-q:a',
-        '0',
-        '-map',
-        'a',
-        'output.mp3',
-      ]);
+      await ffmpeg.exec(['-i', videoFile.name, '-q:a', '0', '-map', 'a', 'output.mp3']);
 
       const data = await ffmpeg.readFile('output.mp3');
-      const url = URL.createObjectURL(
-        new Blob([(data as any).buffer], { type: 'audio/mp3' }),
-      );
+      const url = URL.createObjectURL(new Blob([(data as any).buffer], { type: 'audio/mp3' }));
       setAudioFile(url);
     } catch (err) {
       console.error('Conversion error:', err);
@@ -68,11 +58,7 @@ const VideoToAudioConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Video to Audio Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Video to Audio Converter" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
         <div className="space-y-6">

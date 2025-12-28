@@ -76,20 +76,18 @@ const RomanNumeral: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Roman Numeral Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Roman Numeral Converter" details={details} toolId={toolId}>
       <Card className="max-w-3xl mx-auto py-12 px-8">
         <div className="grid md:grid-cols-[1fr,auto,1fr] gap-8 items-center">
           <div className="space-y-4">
-            <Label htmlFor="decimal-input" className="text-center block text-lg">Decimal Number</Label>
+            <Label htmlFor="decimal-input" className="text-center block text-lg">
+              Decimal Number
+            </Label>
             <Input
               id="decimal-input"
               type="number"
               value={number}
-              onChange={(e) => handleNumChange(e.target.value)}
+              onChange={e => handleNumChange(e.target.value)}
               className="text-center text-3xl h-16"
               placeholder="123"
             />
@@ -100,12 +98,14 @@ const RomanNumeral: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
 
           <div className="space-y-4">
-            <Label htmlFor="roman-input" className="text-center block text-lg">Roman Numeral</Label>
+            <Label htmlFor="roman-input" className="text-center block text-lg">
+              Roman Numeral
+            </Label>
             <Input
               id="roman-input"
               type="text"
               value={roman}
-              onChange={(e) => handleRomanChange(e.target.value)}
+              onChange={e => handleRomanChange(e.target.value)}
               className="text-center text-3xl h-16 uppercase font-serif"
               placeholder="IV"
             />

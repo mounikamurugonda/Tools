@@ -62,9 +62,8 @@ export default function ContactPage() {
       <div className="text-center">
         <h1 className="brand-heading-2">Contact Me</h1>
         <p className="mt-4 max-w-2xl mx-auto brand-subheading">
-          I&apos;d love to hear from you! Whether you have a question, a
-          suggestion for a new tool, or feedback on how to improve, please
-          fill out the form below to send a message.
+          I&apos;d love to hear from you! Whether you have a question, a suggestion for a new tool,
+          or feedback on how to improve, please fill out the form below to send a message.
         </p>
       </div>
 

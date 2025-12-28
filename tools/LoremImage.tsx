@@ -23,11 +23,7 @@ const LoremImage: React.FC<ToolProps> = ({ details, toolId }) => {
   if (blur > 0) url += `&blur=${blur}`;
 
   return (
-    <ToolContainer
-      title="Placeholder Image Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Placeholder Image Generator" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-3 gap-8">
         <div className="space-y-6">
           <Card title="Settings">
@@ -38,7 +34,7 @@ const LoremImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={1920}
                 step={10}
                 value={width}
-                onChange={(e) => setWidth(Number(e.target.value))}
+                onChange={e => setWidth(Number(e.target.value))}
                 valueDisplay={`${width}px`}
               />
               <Slider
@@ -47,7 +43,7 @@ const LoremImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={1080}
                 step={10}
                 value={height}
-                onChange={(e) => setHeight(Number(e.target.value))}
+                onChange={e => setHeight(Number(e.target.value))}
                 valueDisplay={`${height}px`}
               />
               <Slider
@@ -55,7 +51,7 @@ const LoremImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 min={0}
                 max={10}
                 value={blur}
-                onChange={(e) => setBlur(Number(e.target.value))}
+                onChange={e => setBlur(Number(e.target.value))}
                 valueDisplay={`${blur}`}
               />
 
@@ -63,7 +59,7 @@ const LoremImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 <input
                   type="checkbox"
                   checked={grayscale}
-                  onChange={(e) => setGrayscale(e.target.checked)}
+                  onChange={e => setGrayscale(e.target.checked)}
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
                   id="grayscale-check"
                 />
@@ -72,11 +68,7 @@ const LoremImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 </Label>
               </div>
 
-              <Button
-                onClick={() => setSeed(Date.now())}
-                variant="primary"
-                className="w-full"
-              >
+              <Button onClick={() => setSeed(Date.now())} variant="primary" className="w-full">
                 <RefreshCw className="w-4 h-4 mr-2" /> New Random Image
               </Button>
             </div>

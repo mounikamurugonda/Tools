@@ -12,9 +12,7 @@ import Card from '@/components/ui/Card';
 import { Trash2, ArrowRight } from 'lucide-react';
 
 const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [input, setInput] = useState(
-    'Apple\nBanana\nApple\nCherry\nBanana\nDate',
-  );
+  const [input, setInput] = useState('Apple\nBanana\nApple\nCherry\nBanana\nDate');
   const [output, setOutput] = useState('');
   const [removedCount, setRemovedCount] = useState<number | null>(null);
 
@@ -23,19 +21,15 @@ const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
   useEffect(() => {
     const lines = debouncedInput
       .split('\n')
-      .map((l) => l.trim())
-      .filter((l) => l !== '');
+      .map(l => l.trim())
+      .filter(l => l !== '');
     const unique = Array.from(new Set(lines));
     setOutput(unique.join('\n'));
     setRemovedCount(lines.length - unique.length);
   }, [debouncedInput]);
 
   return (
-    <ToolContainer
-      title="Duplicate Line Remover"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Duplicate Line Remover" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -43,7 +37,7 @@ const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="relative">
               <TextArea
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 className="h-[400px]"
                 placeholder="Paste list here..."
               />
@@ -79,8 +73,6 @@ const DuplicateRemover: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           </div>
         </div>
-
-
       </div>
     </ToolContainer>
   );

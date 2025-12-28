@@ -14,7 +14,7 @@ import { FileText, Upload } from 'lucide-react';
 
 const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
   const [jsonInput, setJsonInput] = useState(
-    '{\n  "id": 1,\n  "name": "UtilToolkits",\n  "features": ["Free", "Fast"],\n  "active": true\n}',
+    '{\n  "id": 1,\n  "name": "UtilToolkits",\n  "features": ["Free", "Fast"],\n  "active": true\n}'
   );
   const [tsOutput, setTsOutput] = useState('');
   const [interfaceName, setInterfaceName] = useState('RootObject');
@@ -42,19 +42,11 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
     Object.entries(obj).forEach(([key, value]) => {
       let type = getType(value);
 
-      if (
-        typeof value === 'object' &&
-        value !== null &&
-        !Array.isArray(value)
-      ) {
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
         const nestedName = key.charAt(0).toUpperCase() + key.slice(1);
         type = nestedName;
         nestedInterfaces.push(generateInterface(value, nestedName));
-      } else if (
-        Array.isArray(value) &&
-        value.length > 0 &&
-        typeof value[0] === 'object'
-      ) {
+      } else if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
         const nestedName = key.charAt(0).toUpperCase() + key.slice(1) + 'Item';
         type = `${nestedName}[]`;
         nestedInterfaces.push(generateInterface(value[0], nestedName));
@@ -93,7 +85,7 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const handleFileUpload = (file: File) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const text = e.target?.result;
       if (typeof text === 'string') {
         setJsonInput(text);
@@ -109,20 +101,14 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
         <Card className="p-4 bg-secondary/10">
           <div className="flex gap-4 items-end">
             <div className="flex-grow">
-              <Label className="mb-2">
-                Root Interface Name
-              </Label>
+              <Label className="mb-2">Root Interface Name</Label>
               <Input
                 type="text"
                 value={interfaceName}
-                onChange={(e) => setInterfaceName(e.target.value)}
+                onChange={e => setInterfaceName(e.target.value)}
               />
             </div>
-            <Button
-              onClick={handleConvert}
-              disabled={isConverting}
-              className="h-11"
-            >
+            <Button onClick={handleConvert} disabled={isConverting} className="h-11">
               {isConverting ? 'Processing...' : 'Convert'}
             </Button>
           </div>
@@ -163,16 +149,14 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
             ) : (
               <TextArea
                 value={jsonInput}
-                onChange={(e) => setJsonInput(e.target.value)}
+                onChange={e => setJsonInput(e.target.value)}
                 className="flex-grow w-full resize-none font-mono text-sm"
                 placeholder="Paste JSON here..."
               />
             )}
           </div>
           <div className="relative flex flex-col h-full gap-2">
-            <Label>
-              TypeScript Output
-            </Label>
+            <Label>TypeScript Output</Label>
             <div className="relative flex-grow">
               <TextArea
                 readOnly
@@ -188,7 +172,11 @@ const JsonToTypescript: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           </div>
         </div>
-        {error && <p className="text-red-500 text-center font-medium bg-red-100 dark:bg-red-900/30 p-2 rounded">{error}</p>}
+        {error && (
+          <p className="text-red-500 text-center font-medium bg-red-100 dark:bg-red-900/30 p-2 rounded">
+            {error}
+          </p>
+        )}
       </div>
     </ToolContainer>
   );

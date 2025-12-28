@@ -15,19 +15,11 @@ type PaletteType = 'monochromatic' | 'analogous' | 'complementary' | 'triadic';
 const hexToRgb = (hex: string): [number, number, number] => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
-    ? [
-      parseInt(result[1], 16),
-      parseInt(result[2], 16),
-      parseInt(result[3], 16),
-    ]
+    ? [parseInt(result[1], 16), parseInt(result[2], 16), parseInt(result[3], 16)]
     : [0, 0, 0];
 };
 
-const rgbToHsl = (
-  r: number,
-  g: number,
-  b: number,
-): [number, number, number] => {
+const rgbToHsl = (r: number, g: number, b: number): [number, number, number] => {
   r /= 255;
   g /= 255;
   b /= 255;
@@ -58,17 +50,12 @@ const rgbToHsl = (
   return [h * 360, s * 100, l * 100];
 };
 
-const hslToRgb = (
-  h: number,
-  s: number,
-  l: number,
-): [number, number, number] => {
+const hslToRgb = (h: number, s: number, l: number): [number, number, number] => {
   s /= 100;
   l /= 100;
   const k = (n: number) => (n + h / 30) % 12;
   const a = s * Math.min(l, 1 - l);
-  const f = (n: number) =>
-    l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
+  const f = (n: number) => l - a * Math.max(-1, Math.min(k(n) - 3, 9 - k(n), 1));
   return [255 * f(0), 255 * f(8), 255 * f(4)];
 };
 
@@ -118,12 +105,8 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         const triadicH2 = (h + 240) % 360;
         newPalette.push(rgbToHex(...hslToRgb(triadicH1, s, l)));
         newPalette.push(rgbToHex(...hslToRgb(triadicH2, s, l)));
-        newPalette.push(
-          rgbToHex(...hslToRgb(h, Math.max(0, s - 20), Math.min(100, l + 10))),
-        );
-        newPalette.push(
-          rgbToHex(...hslToRgb(triadicH1, s, Math.min(100, l + 20))),
-        );
+        newPalette.push(rgbToHex(...hslToRgb(h, Math.max(0, s - 20), Math.min(100, l + 10))));
+        newPalette.push(rgbToHex(...hslToRgb(triadicH1, s, Math.min(100, l + 20))));
         break;
     }
     return newPalette.slice(0, 5);
@@ -134,11 +117,7 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Color Palette Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Color Palette Generator" details={details} toolId={toolId}>
       <div className="space-y-8">
         <Card>
           <div className="grid md:grid-cols-2 gap-6 items-end">
@@ -148,12 +127,12 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <input
                   type="color"
                   value={baseColor}
-                  onChange={(e) => setBaseColor(e.target.value)}
+                  onChange={e => setBaseColor(e.target.value)}
                   className="h-10 w-12 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
                 />
                 <Input
                   value={baseColor}
-                  onChange={(e) => setBaseColor(e.target.value)}
+                  onChange={e => setBaseColor(e.target.value)}
                   className="font-mono flex-grow"
                   placeholder="#000000"
                 />
@@ -163,11 +142,13 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>Palette Type</Label>
               <Select
                 value={paletteType}
-                onChange={(e) => setPaletteType(e.target.value as PaletteType)}
+                onChange={e => setPaletteType(e.target.value as PaletteType)}
                 className="w-full"
               >
                 {PALETTE_OPTIONS.map(o => (
-                  <option key={o.value} value={o.value}>{o.label}</option>
+                  <option key={o.value} value={o.value}>
+                    {o.label}
+                  </option>
                 ))}
               </Select>
             </div>
@@ -183,7 +164,9 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               ></div>
               <div className="mt-3 text-center">
                 <div className="bg-white dark:bg-gray-800 rounded-lg p-2 border border-gray-200 dark:border-gray-700 flex items-center justify-between px-3">
-                  <span className="font-mono text-sm uppercase text-gray-700 dark:text-gray-300">{color}</span>
+                  <span className="font-mono text-sm uppercase text-gray-700 dark:text-gray-300">
+                    {color}
+                  </span>
                   <Button
                     size="sm"
                     variant="ghost"

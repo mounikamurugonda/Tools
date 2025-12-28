@@ -44,20 +44,12 @@ const ImageToBase64: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Image to Base64 Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Image to Base64 Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
         <Card title="Upload Image">
           <div className="space-y-4">
             <Label>Select an image file</Label>
-            <FileUpload
-              accept="image/*"
-              onChange={handleFileChange}
-              maxSize={10}
-            />
+            <FileUpload accept="image/*" onChange={handleFileChange} maxSize={10} />
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
         </Card>

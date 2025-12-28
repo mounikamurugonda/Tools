@@ -6,17 +6,15 @@ import { notFound } from 'next/navigation';
 import { getCategorySlug } from '@/lib/slugUtils';
 
 export async function generateStaticParams() {
-  const categories = Array.from(new Set(blogs.map((blog) => blog.category)));
-  return categories.map((category) => ({
+  const categories = Array.from(new Set(blogs.map(blog => blog.category)));
+  return categories.map(category => ({
     categoryName: getCategorySlug(category),
   }));
 }
 
 const CategoryPage = async ({ params }: { params: Promise<{ categoryName: string }> }) => {
   const { categoryName } = await params;
-  const filteredBlogs = blogs.filter(
-    (blog) => getCategorySlug(blog.category) === categoryName,
-  );
+  const filteredBlogs = blogs.filter(blog => getCategorySlug(blog.category) === categoryName);
 
   if (filteredBlogs.length === 0) {
     notFound();
@@ -29,18 +27,10 @@ const CategoryPage = async ({ params }: { params: Promise<{ categoryName: string
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredBlogs.map((blog: Blog) => (
-          <div
-            key={blog.id}
-            className="brand-card p-6"
-          >
+          <div key={blog.id} className="brand-card p-6">
             <h2 className="brand-heading-3 mb-2">{blog.title}</h2>
-            <p className="brand-text-body mb-4">
-              {blog.description}
-            </p>
-            <Link
-              href={`/blogs/${blog.id}`}
-              className="brand-text-link"
-            >
+            <p className="brand-text-body mb-4">{blog.description}</p>
+            <Link href={`/blogs/${blog.id}`} className="brand-text-link">
               Read more
             </Link>
           </div>

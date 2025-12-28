@@ -44,19 +44,10 @@ const VideoMute: React.FC<ToolProps> = ({ details, toolId }) => {
       await ffmpeg.load();
 
       await ffmpeg.writeFile(videoFile.name, await fetchFile(videoFile));
-      await ffmpeg.exec([
-        '-i',
-        videoFile.name,
-        '-c',
-        'copy',
-        '-an',
-        'output.mp4',
-      ]);
+      await ffmpeg.exec(['-i', videoFile.name, '-c', 'copy', '-an', 'output.mp4']);
 
       const data = await ffmpeg.readFile('output.mp4');
-      const url = URL.createObjectURL(
-        new Blob([(data as any).buffer], { type: 'video/mp4' }),
-      );
+      const url = URL.createObjectURL(new Blob([(data as any).buffer], { type: 'video/mp4' }));
       setMutedVideo(url);
     } catch (err) {
       console.error('Video muting error:', err);

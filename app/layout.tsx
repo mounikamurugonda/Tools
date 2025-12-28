@@ -82,7 +82,6 @@ export const metadata: Metadata = {
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'default',
   },
-
 };
 
 export default function RootLayout({
@@ -144,14 +143,15 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text" suppressHydrationWarning>
+      <body
+        className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text"
+        suppressHydrationWarning
+      >
         <ThemeProvider>
           <SmoothScrolling>
             <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
               <Header />
-              <main className="flex-grow flex flex-col">
-                {children}
-              </main>
+              <main className="flex-grow flex flex-col">{children}</main>
               <BuyMeACoffeeSection />
               <ConditionalFooter />
             </div>

@@ -10,17 +10,15 @@ import Card from '@/components/ui/Card';
 
 const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [text, setText] = useState('Hello');
-  const [binary, setBinary] = useState(
-    '01001000 01100101 01101100 01101100 01101111',
-  );
+  const [binary, setBinary] = useState('01001000 01100101 01101100 01101100 01101111');
 
   const textToBinary = (str: string) => {
     setText(str);
     setBinary(
       str
         .split('')
-        .map((char) => char.charCodeAt(0).toString(2).padStart(8, '0'))
-        .join(' '),
+        .map(char => char.charCodeAt(0).toString(2).padStart(8, '0'))
+        .join(' ')
     );
   };
 
@@ -30,8 +28,8 @@ const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       setText(
         bin
           .split(' ')
-          .map((b) => String.fromCharCode(parseInt(b, 2)))
-          .join(''),
+          .map(b => String.fromCharCode(parseInt(b, 2)))
+          .join('')
       );
     } catch (e) {
       setText('Invalid Binary');
@@ -47,7 +45,7 @@ const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="relative">
               <TextArea
                 value={text}
-                onChange={(e) => textToBinary(e.target.value)}
+                onChange={e => textToBinary(e.target.value)}
                 className="h-96 resize-none"
                 placeholder="Type text to convert to binary..."
               />
@@ -63,7 +61,7 @@ const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="relative">
               <TextArea
                 value={binary}
-                onChange={(e) => binaryToText(e.target.value)}
+                onChange={e => binaryToText(e.target.value)}
                 className="h-96 font-mono bg-gray-50 dark:bg-gray-900 resize-none"
                 placeholder="Type binary (space separated bytes) to convert to text..."
               />

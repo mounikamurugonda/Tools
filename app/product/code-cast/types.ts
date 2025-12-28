@@ -1,5 +1,14 @@
-
-export type Theme = 'dark' | 'light' | 'dracula' | 'github' | 'monokai' | 'twilight' | 'nord' | 'solarized-dark' | 'solarized-light' | 'synthwave';
+export type Theme =
+  | 'dark'
+  | 'light'
+  | 'dracula'
+  | 'github'
+  | 'monokai'
+  | 'twilight'
+  | 'nord'
+  | 'solarized-dark'
+  | 'solarized-light'
+  | 'synthwave';
 
 export type DeviceFrame =
   | 'minimal'

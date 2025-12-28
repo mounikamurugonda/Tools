@@ -20,7 +20,7 @@ const countSyllables = (word: string): number => {
 
 const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   const [text, setText] = useState(
-    'The quick brown fox jumps over the lazy dog. This sentence is easy to read. Complex sentences, however, are more difficult to understand.',
+    'The quick brown fox jumps over the lazy dog. This sentence is easy to read. Complex sentences, however, are more difficult to understand.'
   );
 
   const debouncedText = useDebounce(text, 500);
@@ -30,11 +30,8 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId, tool }) => {
     const words = debouncedText
       .trim()
       .split(/\s+/)
-      .filter((w) => w.length > 0);
-    const syllables = words.reduce(
-      (acc, word) => acc + countSyllables(word),
-      0,
-    );
+      .filter(w => w.length > 0);
+    const syllables = words.reduce((acc, word) => acc + countSyllables(word), 0);
 
     const wordCount = words.length;
     const sentenceCount = sentences.length;
@@ -50,13 +47,9 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId, tool }) => {
     }
 
     const fleschReadingEase =
-      206.835 -
-      1.015 * (wordCount / sentenceCount) -
-      84.6 * (syllables / wordCount);
+      206.835 - 1.015 * (wordCount / sentenceCount) - 84.6 * (syllables / wordCount);
     const fleschKincaidGrade =
-      0.39 * (wordCount / sentenceCount) +
-      11.8 * (syllables / wordCount) -
-      15.59;
+      0.39 * (wordCount / sentenceCount) + 11.8 * (syllables / wordCount) - 15.59;
 
     return {
       wordCount,
@@ -89,8 +82,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId, tool }) => {
     if (score >= 60)
       return {
         text: 'Standard',
-        details:
-          'Plain English. Easily understood by 15- to 16-year-old students.',
+        details: 'Plain English. Easily understood by 15- to 16-year-old students.',
         color: 'bg-yellow-400',
       };
     if (score >= 50)
@@ -125,7 +117,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId, tool }) => {
           <Label>Text Input</Label>
           <TextArea
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={e => setText(e.target.value)}
             placeholder="Paste your text here to calculate its readability score..."
             className="w-full h-[500px]"
           />
@@ -179,8 +171,10 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId, tool }) => {
               About these scores
             </div>
             <p>
-              The <strong>Flesch Reading Ease</strong> score measures how easy it is to read text. Higher scores indicate easier reading.
-              The <strong>Flesch-Kincaid Grade Level</strong> translates the score to a U.S. school grade level. For example, a score of 8.0 means an 8th grader can understand the text.
+              The <strong>Flesch Reading Ease</strong> score measures how easy it is to read text.
+              Higher scores indicate easier reading. The <strong>Flesch-Kincaid Grade Level</strong>{' '}
+              translates the score to a U.S. school grade level. For example, a score of 8.0 means
+              an 8th grader can understand the text.
             </p>
           </div>
         </div>
@@ -189,10 +183,7 @@ const ReadabilityScore: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   );
 };
 
-const StatBox: React.FC<{ label: string; value: number }> = ({
-  label,
-  value,
-}) => (
+const StatBox: React.FC<{ label: string; value: number }> = ({ label, value }) => (
   <div className="bg-white dark:bg-gray-900 p-3 rounded border border-gray-100 dark:border-gray-800 shadow-sm">
     <div className="text-xl font-bold text-gray-800 dark:text-gray-200">
       {value.toLocaleString()}

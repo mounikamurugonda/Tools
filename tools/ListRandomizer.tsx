@@ -13,7 +13,7 @@ const ListRandomizer: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('Apple\nBanana\nCherry\nDate\nElderberry');
 
   const shuffle = () => {
-    const lines = input.split('\n').filter((l) => l.trim());
+    const lines = input.split('\n').filter(l => l.trim());
     for (let i = lines.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [lines[i], lines[j]] = [lines[j], lines[i]];
@@ -29,7 +29,7 @@ const ListRandomizer: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="relative">
             <TextArea
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={e => setInput(e.target.value)}
               className="h-[400px]"
               placeholder="Enter items (one per line)..."
             />
@@ -44,12 +44,7 @@ const ListRandomizer: React.FC<ToolProps> = ({ details, toolId }) => {
           </p>
         </div>
 
-        <Button
-          onClick={shuffle}
-          variant="primary"
-          size="lg"
-          className="w-full"
-        >
+        <Button onClick={shuffle} variant="primary" size="lg" className="w-full">
           <Shuffle className="w-5 h-5 mr-2" /> Randomize List
         </Button>
       </div>

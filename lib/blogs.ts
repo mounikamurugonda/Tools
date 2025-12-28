@@ -3,13 +3,14 @@ import { Blog } from '@/types';
 export const blogs: Blog[] = [
   // 1. JSON Formatter
   {
-    id: "guide-json-formatter-validator",
-    title: "Mastering JSON: The Ultimate Guide to Formatting and Validating JSON Data",
-    description: "Learn why JSON formatting is essential for developers. Discover how to debug, validate, and beautify your JSON data instantly with our free online tools.",
-    date: "2025-12-11",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["json-formatter", "json-to-typescript", "json-to-csv"],
+    id: 'guide-json-formatter-validator',
+    title: 'Mastering JSON: The Ultimate Guide to Formatting and Validating JSON Data',
+    description:
+      'Learn why JSON formatting is essential for developers. Discover how to debug, validate, and beautify your JSON data instantly with our free online tools.',
+    date: '2025-12-11',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['json-formatter', 'json-to-typescript', 'json-to-csv'],
     content: `
       <h2>The Importance of Clean JSON Data</h2>
       <p>JSON (JavaScript Object Notation) has become the de facto standard for data exchange on the web. Whether you are building a REST API, configuring a VS Code environment, or managing cloud infrastructure, you will encounter JSON. However, raw JSON is often minified or poorly formatted, making it a nightmare to read and debug.</p>
@@ -45,17 +46,18 @@ export const blogs: Blog[] = [
       </ol>
 
       <p>Ready to clean up your data? Try the <a href="/tools/json-formatter">JSON Formatter</a> now and streamline your development workflow.</p>
-    `
+    `,
   },
   // 2. CSS Gradient Generator
   {
-    id: "create-stunning-css-gradients",
-    title: "How to Create Stunning CSS Gradients for Modern Web Design",
-    description: "Gradients are back in style. Learn how to create smooth, modern CSS gradients that enhance your UI without slowing down your site.",
-    date: "2025-12-11",
-    author: "UtilToolkits",
-    category: "CSS Tools",
-    relatedTools: ["css-gradient-generator", "css-color-code-converter", "glassmorphism-generator"],
+    id: 'create-stunning-css-gradients',
+    title: 'How to Create Stunning CSS Gradients for Modern Web Design',
+    description:
+      'Gradients are back in style. Learn how to create smooth, modern CSS gradients that enhance your UI without slowing down your site.',
+    date: '2025-12-11',
+    author: 'UtilToolkits',
+    category: 'CSS Tools',
+    relatedTools: ['css-gradient-generator', 'css-color-code-converter', 'glassmorphism-generator'],
     content: `
       <h2>The Resurgence of Gradients</h2>
       <p>Flat design had its era, but gradients have made a massive comeback. From the subtle backgrounds of SaaS landing pages to the vibrant buttons of mobile apps, gradients add depth, dimension, and energy to user interfaces. However, writing complex linear or radial gradients by hand in CSS is error-prone and unintuitive.</p>
@@ -86,17 +88,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>Start experimenting today with the <a href="/tools/css-gradient-generator">CSS Gradient Generator</a> and elevate your web designs instantly.</p>
-    `
+    `,
   },
   // 3. Password Generator
   {
-    id: "importance-of-strong-passwords",
-    title: "Cybersecurity 101: Why You Need a Strong Password Generator",
-    description: "Weak passwords are the #1 security vulnerability. Learn why random password generation is crucial and how to manage your digital security effectively.",
-    date: "2025-12-11",
-    author: "UtilToolkits",
-    category: "Productivity Tools",
-    relatedTools: ["password-generator", "password-strength", "uuid-generator"],
+    id: 'importance-of-strong-passwords',
+    title: 'Cybersecurity 101: Why You Need a Strong Password Generator',
+    description:
+      'Weak passwords are the #1 security vulnerability. Learn why random password generation is crucial and how to manage your digital security effectively.',
+    date: '2025-12-11',
+    author: 'UtilToolkits',
+    category: 'Productivity Tools',
+    relatedTools: ['password-generator', 'password-strength', 'uuid-generator'],
     content: `
       <h2>The Reality of Data Breaches</h2>
       <p>Every year, billions of credentials are exposed in data breaches. The most common cause of compromised accounts isn't sophisticated hacking—it's weak or reused passwords. Using "Password123" or reusing the same password across your email, banking, and social media accounts is a recipe for disaster.</p>
@@ -126,17 +129,18 @@ export const blogs: Blog[] = [
       </ol>
 
       <p>Secure your digital life today. Generate a robust password with the <a href="/tools/password-generator">Password Generator</a>.</p>
-    `
+    `,
   },
   // 4. Image Compressor
   {
-    id: "image-optimization-seo-guide",
-    title: "Image Optimization: The Secret to Faster Websites and Better SEO",
-    description: "Slow websites kill conversions. Discover how image compression can drastically improve your page load speed and search engine rankings.",
-    date: "2025-12-12",
-    author: "UtilToolkits",
-    category: "Image Tools",
-    relatedTools: ["image-compressor", "image-converter", "image-resizer"],
+    id: 'image-optimization-seo-guide',
+    title: 'Image Optimization: The Secret to Faster Websites and Better SEO',
+    description:
+      'Slow websites kill conversions. Discover how image compression can drastically improve your page load speed and search engine rankings.',
+    date: '2025-12-12',
+    author: 'UtilToolkits',
+    category: 'Image Tools',
+    relatedTools: ['image-compressor', 'image-converter', 'image-resizer'],
     content: `
       <h2>Speed Matters</h2>
       <p>In the age of mobile browsing, users have zero patience for slow-loading websites. Research shows that a delay of just one second can reduce conversion rates by 7%. One of the biggest culprits of web bloat is unoptimized images. detailed, high-resolution photos can be megaybtes in size, clogging up bandwidth and slowing down rendering.</p>
@@ -169,17 +173,18 @@ export const blogs: Blog[] = [
       </ol>
 
       <p>Make your site fly. Optimize your assets now with the <a href="/tools/image-compressor">Image Compressor</a>.</p>
-    `
+    `,
   },
   // 5. Word Counter & SEO Writing
   {
-    id: "seo-writing-metrics-guide",
-    title: "Writing for the Web: Why Word Count and Character Limits Matter",
-    description: "From meta descriptions to tweet limits, length matters. Learn how to optimize your content length for SEO and social media engagement.",
-    date: "2025-12-12",
-    author: "UtilToolkits",
-    category: "Text Tools",
-    relatedTools: ["word-counter", "slug-generator", "meta-tag-generator"],
+    id: 'seo-writing-metrics-guide',
+    title: 'Writing for the Web: Why Word Count and Character Limits Matter',
+    description:
+      'From meta descriptions to tweet limits, length matters. Learn how to optimize your content length for SEO and social media engagement.',
+    date: '2025-12-12',
+    author: 'UtilToolkits',
+    category: 'Text Tools',
+    relatedTools: ['word-counter', 'slug-generator', 'meta-tag-generator'],
     content: `
       <h2>The Science of Content Length</h2>
       <p>In the world of digital marketing and SEO, the length of your content plays a pivotal role. While Google says "quality over quantity," studies consistently show that longer, comprehensive content (often 1,500+ words) tends to rank better for competitive keywords. However, for social media, brevity is soul.</p>
@@ -205,17 +210,18 @@ export const blogs: Blog[] = [
       <p>Platform limits are unforgiving. Twitter (X) has a 280-character limit. Instagram captions truncate after 125 characters. Using a character counter while drafting ensures your key message isn't cut off unexpectedly.</p>
 
       <p>Whether you are writing a novel or a tweet, precision matters. Polish your prose with the <a href="/tools/word-counter">Word Counter</a>.</p>
-    `
+    `,
   },
   // 6. Meta Tag Generator
   {
-    id: "mastering-meta-tags-seo",
-    title: "Mastering Meta Tags: The Hidden Code That Boosts Your SEO",
-    description: "Meta tags are the first thing search engines see. Learn how to optimize titles, descriptions, and Open Graph tags to skyrocket your click-through rates.",
-    date: "2025-12-13",
-    author: "UtilToolkits",
-    category: "SEO Tools",
-    relatedTools: ["meta-tag-generator", "slug-generator", "word-counter"],
+    id: 'mastering-meta-tags-seo',
+    title: 'Mastering Meta Tags: The Hidden Code That Boosts Your SEO',
+    description:
+      'Meta tags are the first thing search engines see. Learn how to optimize titles, descriptions, and Open Graph tags to skyrocket your click-through rates.',
+    date: '2025-12-13',
+    author: 'UtilToolkits',
+    category: 'SEO Tools',
+    relatedTools: ['meta-tag-generator', 'slug-generator', 'word-counter'],
     content: `
       <h2>What Are Meta Tags?</h2>
       <p>Meta tags are snippets of text that describe a page's content; the meta tags don't appear on the page itself, but only in the page's source code. They are essentially little content descriptors that help tell search engines what a web page is about.</p>
@@ -248,17 +254,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>Don't let your content go unnoticed. Optimize your tags today with the <a href="/tools/meta-tag-generator">Meta Tag Generator</a>.</p>
-    `
+    `,
   },
   // 7. UUID Generator
   {
-    id: "uuid-guide-for-developers",
-    title: "Understanding UUIDs: Why Integers Are No Longer Enough",
-    description: "Database scaling requires unique identification. Discover why UUIDs are the standard for modern distributed systems and how to generate them securey.",
-    date: "2025-12-13",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["uuid-generator", "hash-generator", "random-number-generator"],
+    id: 'uuid-guide-for-developers',
+    title: 'Understanding UUIDs: Why Integers Are No Longer Enough',
+    description:
+      'Database scaling requires unique identification. Discover why UUIDs are the standard for modern distributed systems and how to generate them securey.',
+    date: '2025-12-13',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['uuid-generator', 'hash-generator', 'random-number-generator'],
     content: `
       <h2>The Problem with Auto-Incrementing IDs</h2>
       <p>For decades, databases used simple integers (1, 2, 3...) as primary keys. This works fine for a single server. But in the era of cloud computing and distributed databases, integer keys cause massive headaches:</p>
@@ -283,17 +290,18 @@ export const blogs: Blog[] = [
       <p>For other security needs, such as hashing sensitive data, check out our <a href="/tools/hash-generator">Hash Generator</a>.</p>
       
       <p>Modernize your database strategy. Start using the <a href="/tools/uuid-generator">UUID Generator</a> today.</p>
-    `
+    `,
   },
   // 8. URL Encoder / Decoder
   {
-    id: "url-encoding-explained",
-    title: "URL Encoding Explained: How to Fix Broken Links and API Errors",
-    description: "Why do URLs look like %20? Learn the mechanics of Percent-Encoding and how to debug complex URL parameters with our encoding tools.",
-    date: "2025-12-14",
-    author: "UtilToolkits",
-    category: "Web Tools",
-    relatedTools: ["url-encoder", "slug-generator", "text-cleaner"],
+    id: 'url-encoding-explained',
+    title: 'URL Encoding Explained: How to Fix Broken Links and API Errors',
+    description:
+      'Why do URLs look like %20? Learn the mechanics of Percent-Encoding and how to debug complex URL parameters with our encoding tools.',
+    date: '2025-12-14',
+    author: 'UtilToolkits',
+    category: 'Web Tools',
+    relatedTools: ['url-encoder', 'slug-generator', 'text-cleaner'],
     content: `
       <h2>The Anatomy of a URL</h2>
       <p>URLs (Uniform Resource Locators) can only use a specific set of characters (ASCII). If you try to put a space, a special symbol (like & or ?), or a non-English character into a URL, it breaks.</p>
@@ -313,17 +321,18 @@ export const blogs: Blog[] = [
       <p>For creating clean, user-friendly URLs for your blog posts, use the <a href="/tools/slug-generator">Slug Generator</a> instead, which replaces spaces with hyphens for better SEO.</p>
 
       <p>Fix your links instantly with the <a href="/tools/url-encoder">URL Encoder / Decoder</a>.</p>
-    `
+    `,
   },
   // 9. Unit Converter
   {
-    id: "daily-unit-conversions-guide",
-    title: "The Ultimate Conversion Guide: Bytes, Pixels, and Degrees",
-    description: "From CSS units to file sizes, developers deal with conversions daily. Simplify your math with our comprehensive Unit Converter.",
-    date: "2025-12-14",
-    author: "UtilToolkits",
-    category: "Math Tools",
-    relatedTools: ["unit-converter", "currency-converter", "temperature-converter"],
+    id: 'daily-unit-conversions-guide',
+    title: 'The Ultimate Conversion Guide: Bytes, Pixels, and Degrees',
+    description:
+      'From CSS units to file sizes, developers deal with conversions daily. Simplify your math with our comprehensive Unit Converter.',
+    date: '2025-12-14',
+    author: 'UtilToolkits',
+    category: 'Math Tools',
+    relatedTools: ['unit-converter', 'currency-converter', 'temperature-converter'],
     content: `
       <h2>Why Can't We All Agree on Units?</h2>
       <p>The world is divided: metric vs. imperial, Celsius vs. Fahrenheit. In the digital world, it's even worse: px vs. rem vs. em, KB vs. KiB. Constantly Googling conversion factors breaks your flow.</p>
@@ -341,17 +350,18 @@ export const blogs: Blog[] = [
       <p>For specialized financial needs, we also offer a specific <a href="/tools/currency-converter">Currency Converter</a> with up-to-date exchange rates.</p>
 
       <p>Stop doing mental math. Use the <a href="/tools/unit-converter">Unit Converter</a> for instant precision.</p>
-    `
+    `,
   },
   // 10. UNIX Timestamp Converter
   {
-    id: "unix-timestamp-debugging",
+    id: 'unix-timestamp-debugging',
     title: "Demystifying UNIX Timestamps: A Developer's Guide to Time",
-    description: "What does 1702252800 mean? Learn how computer time works and how to instantly convert timestamps for logging and debugging.",
-    date: "2025-12-15",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["unix-timestamp-converter", "date-calculator", "world-clock"],
+    description:
+      'What does 1702252800 mean? Learn how computer time works and how to instantly convert timestamps for logging and debugging.',
+    date: '2025-12-15',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['unix-timestamp-converter', 'date-calculator', 'world-clock'],
     content: `
       <h2>The Beginning of Time (According to Computers)</h2>
       <p>For most computers, time began on <strong>January 1, 1970</strong> (UTC). This is the "UNIX Epoch". A UNIX timestamp is simply the number of seconds that have ticked by since that moment.</p>
@@ -372,17 +382,18 @@ export const blogs: Blog[] = [
       <p>Need to calculate a date 30 days from now? Use our <a href="/tools/date-calculator">Date Calculator</a> implies adding time intervals easily.</p>
 
       <p>Decode the matrix of time. Use the <a href="/tools/unix-timestamp-converter">UNIX Timestamp Converter</a>.</p>
-    `
+    `,
   },
   // 11. Text to Speech
   {
-    id: "text-to-speech-guide",
-    title: "Text to Speech Technology: Creating Accessible Content in 2025",
-    description: "Accessibility is mandatory, not optional. Innovative text-to-speech tools help you reach a wider audience and create engaging multimedia content.",
-    date: "2025-12-15",
-    author: "UtilToolkits",
-    category: "Fun Tools",
-    relatedTools: ["text-to-speech", "word-counter", "text-cleaner"],
+    id: 'text-to-speech-guide',
+    title: 'Text to Speech Technology: Creating Accessible Content in 2025',
+    description:
+      'Accessibility is mandatory, not optional. Innovative text-to-speech tools help you reach a wider audience and create engaging multimedia content.',
+    date: '2025-12-15',
+    author: 'UtilToolkits',
+    category: 'Fun Tools',
+    relatedTools: ['text-to-speech', 'word-counter', 'text-cleaner'],
     content: `
       <h2>The Rise of Audio Content</h2>
       <p>Podcasts, audiobooks, and screen readers are booming. Users often prefer listening to articles while commuting or working out. Text-to-Speech (TTS) technology makes this possible instantly.</p>
@@ -399,17 +410,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>Give your content a voice. Try the <a href="/tools/text-to-speech">Text to Speech</a> tool.</p>
-    `
+    `,
   },
   // 12. Markdown Table Generator
   {
-    id: "markdown-tables-made-easy",
-    title: "Markdown Tables: The Easy Way to Format Data for GitHub and Docs",
-    description: "Stop struggling with pipes and dashes. Learn how to generate perfect Markdown tables for your README.md and technical documentation in seconds.",
-    date: "2025-12-16",
-    author: "UtilToolkits",
-    category: "Text Tools",
-    relatedTools: ["markdown-table-generator", "markdown-previewer", "json-formatter"],
+    id: 'markdown-tables-made-easy',
+    title: 'Markdown Tables: The Easy Way to Format Data for GitHub and Docs',
+    description:
+      'Stop struggling with pipes and dashes. Learn how to generate perfect Markdown tables for your README.md and technical documentation in seconds.',
+    date: '2025-12-16',
+    author: 'UtilToolkits',
+    category: 'Text Tools',
+    relatedTools: ['markdown-table-generator', 'markdown-previewer', 'json-formatter'],
     content: `
       <h2>The Pain of Manual Tables</h2>
       <p>Markdown is fantastic for writing documentation... until you need a table. Aligning columns with pipes (<code>|</code>) and dashes (<code>-</code>) by hand is a tedious alignment nightmare. One long cell breaks the entire visual structure.</p>
@@ -426,17 +438,18 @@ export const blogs: Blog[] = [
       <p>Clear tables make technical documentation readable. Compare API parameters, feature lists, or pricing tiers effortlessly. Preview your work with our <a href="/tools/markdown-previewer">Markdown Previewer</a> to ensure it renders exactly as expected.</p>
 
       <p>Format your data faster using the <a href="/tools/markdown-table-generator">Markdown Table Generator</a>.</p>
-    `
+    `,
   },
   // 13. QR Code Generator
   {
-    id: "qr-codes-marketing-guide",
-    title: "The Comeback of QR Codes: Bridging Physical and Digital Marketing",
-    description: "QR codes are everywhere again. Discover creative ways to use them for marketing, WiFi sharing, and contactless interactions.",
-    date: "2025-12-16",
-    author: "UtilToolkits",
-    category: "Productivity Tools",
-    relatedTools: ["qr-code-generator", "utm-builder", "url-encoder"],
+    id: 'qr-codes-marketing-guide',
+    title: 'The Comeback of QR Codes: Bridging Physical and Digital Marketing',
+    description:
+      'QR codes are everywhere again. Discover creative ways to use them for marketing, WiFi sharing, and contactless interactions.',
+    date: '2025-12-16',
+    author: 'UtilToolkits',
+    category: 'Productivity Tools',
+    relatedTools: ['qr-code-generator', 'utm-builder', 'url-encoder'],
     content: `
       <h2>From Dead Tech to Essential Tool</h2>
       <p>A few years ago, QR codes were considered a fad. Then contactless menus and payments brought them back. Now, they are a standard way to bridge the physical world with the digital one.</p>
@@ -452,17 +465,18 @@ export const blogs: Blog[] = [
       <p>Always track your campaigns. Use our <a href="/tools/utm-builder">UTM Builder</a> to create a tracking URL, then feed that into the <a href="/tools/qr-code-generator">QR Code Generator</a>. This lets you see exactly how many people scanned your flyer or poster.</p>
 
       <p>Connect your audience instantly. Create a code with the <a href="/tools/qr-code-generator">QR Code Generator</a>.</p>
-    `
+    `,
   },
   // 14. Base64 Converter
   {
-    id: "base64-encoding-developers",
-    title: "Understanding Base64: How to Embed Images and Data Inline",
-    description: "What is that long string of characters in your CSS? Learn how Base64 encoding works and when to use it for performance optimization.",
-    date: "2025-12-17",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["base64-converter", "image-to-base64", "svg-to-data-uri"],
+    id: 'base64-encoding-developers',
+    title: 'Understanding Base64: How to Embed Images and Data Inline',
+    description:
+      'What is that long string of characters in your CSS? Learn how Base64 encoding works and when to use it for performance optimization.',
+    date: '2025-12-17',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['base64-converter', 'image-to-base64', 'svg-to-data-uri'],
     content: `
       <h2>What is Base64?</h2>
       <p>Base64 is a way to represent binary data (like images or PDF files) as plain ASCII text. This allows you to embed files directly into HTML, CSS, or JSON documents.</p>
@@ -478,17 +492,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>Optimize your critical path. Start encoding with the <a href="/tools/base64-converter">Base64 Converter</a>.</p>
-    `
+    `,
   },
   // 15. Color Palette Generator
   {
-    id: "color-theory-web-design",
-    title: "Color Theory 101: How to Generate Beautiful Palettes for Your UI",
-    description: "Great design starts with color. Learn the rules of color harmony and how to generate accessible, vibrant palettes for your next project.",
-    date: "2025-12-17",
-    author: "UtilToolkits",
-    category: "Color Tools",
-    relatedTools: ["color-palette-generator", "contrast-checker", "color-theme-wheel"],
+    id: 'color-theory-web-design',
+    title: 'Color Theory 101: How to Generate Beautiful Palettes for Your UI',
+    description:
+      'Great design starts with color. Learn the rules of color harmony and how to generate accessible, vibrant palettes for your next project.',
+    date: '2025-12-17',
+    author: 'UtilToolkits',
+    category: 'Color Tools',
+    relatedTools: ['color-palette-generator', 'contrast-checker', 'color-theme-wheel'],
     content: `
       <h2>The 60-30-10 Rule</h2>
       <p>A classic interior design rule applies perfectly to UI: 60% dominant color (neutral), 30% secondary color, and 10% accent color. But picking these colors so they harmonize is difficult.</p>
@@ -500,17 +515,18 @@ export const blogs: Blog[] = [
       <p>A beautiful palette is useless if users can't read the text. Always pair your color choices with our <a href="/tools/contrast-checker">Contrast Checker</a> to ensure you meet WCAG AA standards.</p>
 
       <p>Visualize your project's identity. Generate a palette now with the <a href="/tools/color-palette-generator">Color Palette Generator</a>.</p>
-    `
+    `,
   },
   // 16. Image to Base64
   {
-    id: "image-to-base64-guide",
-    title: "Converting Images to Base64: A Guide for Frontend Developers",
-    description: "Learn when and why to convert images to Base64 strings. Embed graphics directly in your HTML/CSS for faster load times.",
-    date: "2025-12-18",
-    author: "UtilToolkits",
-    category: "Image Tools",
-    relatedTools: ["image-to-base64", "base64-converter", "image-compressor"],
+    id: 'image-to-base64-guide',
+    title: 'Converting Images to Base64: A Guide for Frontend Developers',
+    description:
+      'Learn when and why to convert images to Base64 strings. Embed graphics directly in your HTML/CSS for faster load times.',
+    date: '2025-12-18',
+    author: 'UtilToolkits',
+    category: 'Image Tools',
+    relatedTools: ['image-to-base64', 'base64-converter', 'image-compressor'],
     content: `
       <h2>Embedding Images Made Simple</h2>
       <p>Data URIs allow you to embed image data directly into document markup. This is incredibly useful for small assets like icons, logos, or placeholders.</p>
@@ -525,17 +541,18 @@ export const blogs: Blog[] = [
       <p>Use our <a href="/tools/image-to-base64">Image to Base64</a> tool to instantly convert any PNG, JPG, or GIF into a data string ready for your CSS.</p>
 
       <p>Streamline your assets. Try the <a href="/tools/image-to-base64">Image to Base64</a> converter.</p>
-    `
+    `,
   },
   // 17. Text Cleaner
   {
-    id: "text-cleaning-automation",
-    title: "Clean Up Your Text: Removing Spaces, Breaks, and HTML Tags",
-    description: "Messy text ruins formatting. Discover how to automate text cleanup for databases, emails, and content migration with our Text Cleaner.",
-    date: "2025-12-18",
-    author: "UtilToolkits",
-    category: "Text Tools",
-    relatedTools: ["text-cleaner", "word-counter", "text-case-converter"],
+    id: 'text-cleaning-automation',
+    title: 'Clean Up Your Text: Removing Spaces, Breaks, and HTML Tags',
+    description:
+      'Messy text ruins formatting. Discover how to automate text cleanup for databases, emails, and content migration with our Text Cleaner.',
+    date: '2025-12-18',
+    author: 'UtilToolkits',
+    category: 'Text Tools',
+    relatedTools: ['text-cleaner', 'word-counter', 'text-case-converter'],
     content: `
       <h2>The Chaos of Copy-Paste</h2>
       <p>Copying text from PDFs, emails, or websites often brings unwanted artifacts: double spaces, weird line breaks, or invisible formatting characters. Manually deleting them is a waste of life.</p>
@@ -549,17 +566,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>Perfect for developers preparing seed data or marketers formatting email lists. Scrub your text clean with the <a href="/tools/text-cleaner">Text Cleaner</a>.</p>
-    `
+    `,
   },
   // 18. List Randomizer
   {
-    id: "randomizing-lists-fairness",
-    title: "The Art of Randomness: How to Shuffle Lists Fairly",
-    description: "Need to pick a winner? Or shuffle a team roster? Learn why true randomness matters and how to randomize lists instantly.",
-    date: "2025-12-19",
-    author: "UtilToolkits",
-    category: "Fun Tools",
-    relatedTools: ["list-randomizer", "random-number-generator", "uuid-generator"],
+    id: 'randomizing-lists-fairness',
+    title: 'The Art of Randomness: How to Shuffle Lists Fairly',
+    description:
+      'Need to pick a winner? Or shuffle a team roster? Learn why true randomness matters and how to randomize lists instantly.',
+    date: '2025-12-19',
+    author: 'UtilToolkits',
+    category: 'Fun Tools',
+    relatedTools: ['list-randomizer', 'random-number-generator', 'uuid-generator'],
     content: `
       <h2>Why Randomize?</h2>
       <p>Humans are biased. If asked to "pick a tailored random name," we dramatically overthink it. True randomness eliminates bias. This is critical for:</p>
@@ -572,17 +590,18 @@ export const blogs: Blog[] = [
       <p>Our <a href="/tools/list-randomizer">List Randomizer</a> uses cryptographic randomness to shuffle your items thoroughly. Just paste your list and hit shuffle.</p>
 
       <p>Let fate decide. Shuffle your list with the <a href="/tools/list-randomizer">List Randomizer</a>.</p>
-    `
+    `,
   },
   // 19. String Escaper
   {
-    id: "string-escaping-security",
-    title: "String Escaping 101: Preventing Syntax Errors and XSS",
-    description: "Quotes breaking your JSON? Special characters crashing your code? Learn how to escape strings for Java, JavaScript, HTML, and JSON.",
-    date: "2025-12-19",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["string-escaper", "json-formatter", "html-entity"],
+    id: 'string-escaping-security',
+    title: 'String Escaping 101: Preventing Syntax Errors and XSS',
+    description:
+      'Quotes breaking your JSON? Special characters crashing your code? Learn how to escape strings for Java, JavaScript, HTML, and JSON.',
+    date: '2025-12-19',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['string-escaper', 'json-formatter', 'html-entity'],
     content: `
       <h2>The Danger of Special Characters</h2>
       <p>In programming, characters like <code>"</code>, <code>'</code>, <code>&</code>, and <code><</code> have special meanings. If you insert a string containing these characters into code without "escaping" them, the computer gets confused.</p>
@@ -598,17 +617,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>Code safely. Escape your strings with the <a href="/tools/string-escaper">String Escaper</a>.</p>
-    `
+    `,
   },
   // 20. HTML Entity Encoder
   {
-    id: "html-entities-guide",
-    title: "HTML Entities Decoded: displaying Special Characters on the Web",
-    description: "How do you display a copyright symbol or mathematical operator in HTML? A guide to character entities and how to encode/decode them.",
-    date: "2025-12-20",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["html-entity", "string-escaper", "text-cleaner"],
+    id: 'html-entities-guide',
+    title: 'HTML Entities Decoded: displaying Special Characters on the Web',
+    description:
+      'How do you display a copyright symbol or mathematical operator in HTML? A guide to character entities and how to encode/decode them.',
+    date: '2025-12-20',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['html-entity', 'string-escaper', 'text-cleaner'],
     content: `
       <h2>Reserved Characters</h2>
       <p>HTML uses <code><</code> and <code>></code> for tags. If you want to actually <em>display</em> a less-than sign on your page, you can't just type it. You must use the entity <code>&lt;</code>.</p>
@@ -619,17 +639,18 @@ export const blogs: Blog[] = [
       <p>Our <a href="/tools/html-entity">HTML Entity Encoder</a> converts your text into safety-encoded HTML. It's essential for anyone displaying code snippets or specialized text on the web.</p>
 
       <p>Speak the browser's language. Use the <a href="/tools/html-entity">HTML Entity Encoder</a>.</p>
-    `
+    `,
   },
   // 21. Duplicate Line Remover
   {
-    id: "cleaning-data-duplicates",
-    title: "Data Hygiene: How to Remove Duplicate Entries in Seconds",
-    description: "Cleaning email lists or database dumps? Learn the fastest way to dedup your data and ensure every entry is unique.",
-    date: "2025-12-20",
-    author: "UtilToolkits",
-    category: "Text Tools",
-    relatedTools: ["duplicate-remover", "list-randomizer", "text-cleaner"],
+    id: 'cleaning-data-duplicates',
+    title: 'Data Hygiene: How to Remove Duplicate Entries in Seconds',
+    description:
+      'Cleaning email lists or database dumps? Learn the fastest way to dedup your data and ensure every entry is unique.',
+    date: '2025-12-20',
+    author: 'UtilToolkits',
+    category: 'Text Tools',
+    relatedTools: ['duplicate-remover', 'list-randomizer', 'text-cleaner'],
     content: `
       <h2>The Cost of Duplicates</h2>
       <p>Duplicate data costs money. Sending the same email twice annoys users. Processing duplicate records wastes valid compute cycles. keeping lists unique is a fundamental data hygiene task.</p>
@@ -638,17 +659,18 @@ export const blogs: Blog[] = [
       <p>Our <a href="/tools/duplicate-remover">Duplicate Line Remover</a> takes a list of thousands of items and instantly identifies unique entries. It can also tell you exactly how many duplicates were found.</p>
 
       <p>Clean your lists instantly with the <a href="/tools/duplicate-remover">Duplicate Remover</a>.</p>
-    `
+    `,
   },
   // 22. Intro to UtilToolkits
   {
-    id: "welcome-to-utiltoolkits-2025",
-    title: "Welcome to UtilToolkits: Your All-in-One Developer Toolbox",
-    description: "Why bookmark 50 different sites? UtilToolkits combines 90+ free developer tools in one fast, private, and secure platform.",
-    date: "2025-12-21",
-    author: "UtilToolkits",
-    category: "General",
-    relatedTools: ["json-formatter", "image-compressor", "password-generator"],
+    id: 'welcome-to-utiltoolkits-2025',
+    title: 'Welcome to UtilToolkits: Your All-in-One Developer Toolbox',
+    description:
+      'Why bookmark 50 different sites? UtilToolkits combines 90+ free developer tools in one fast, private, and secure platform.',
+    date: '2025-12-21',
+    author: 'UtilToolkits',
+    category: 'General',
+    relatedTools: ['json-formatter', 'image-compressor', 'password-generator'],
     content: `
       <h2>The Fragmented Web</h2>
       <p>Developers spend too much time searching for tools. One site for JSON formatting, another for image compression, a third for regex testing. It's inefficient and risky (who knows where your data goes?).</p>
@@ -664,17 +686,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>From <a href="/tools/json-formatter">formatting JSON</a> to <a href="/tools/password-generator">generating passwords</a>, we have you covered. Explore the full library today.</p>
-    `
+    `,
   },
   // 23. JWT Debugger
   {
-    id: "jwt-debugging-guide",
-    title: "Decoding JWTs: A Safe Way to Debug Authentication Tokens",
-    description: "JSON Web Tokens are the backbone of modern auth. Learn how to decode them, understand their structure, and debug login issues without compromising security.",
-    date: "2025-12-21",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["jwt-debugger", "base64-converter", "json-formatter"],
+    id: 'jwt-debugging-guide',
+    title: 'Decoding JWTs: A Safe Way to Debug Authentication Tokens',
+    description:
+      'JSON Web Tokens are the backbone of modern auth. Learn how to decode them, understand their structure, and debug login issues without compromising security.',
+    date: '2025-12-21',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['jwt-debugger', 'base64-converter', 'json-formatter'],
     content: `
       <h2>The Black Box of Authentication</h2>
       <p>If you build modern web apps, you likely use JSON Web Tokens (JWTs) for handling sessions. When a user logs in, they get a token. If it works, great. If it fails, you're stuck staring at a long string of random characters: <code>eyJhbGciOiJIUzI1NiIsInR5c...</code>.</p>
@@ -701,17 +724,18 @@ export const blogs: Blog[] = [
       <p>Most importantly, our tool runs <strong>entirely in your browser</strong>. Your sensitive tokens are never sent to a backend server, eliminating the risk of interception.</p>
 
       <p>Stop guessing why login failed. Inspect your tokens safely with the <a href="/tools/jwt-debugger">JWT Debugger</a>.</p>
-    `
+    `,
   },
   // 24. Cron Generator
   {
-    id: "cron-jobs-explained",
-    title: "Mastering Cron Jobs: How to Schedule Tasks Without the Headache",
-    description: "Does `0 0 * * *` mean midnight or noon? Stop guessing. Learn the syntax of Cron expressions and generate perfect schedules visually.",
-    date: "2025-12-22",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["cron-generator", "unix-timestamp-converter", "date-calculator"],
+    id: 'cron-jobs-explained',
+    title: 'Mastering Cron Jobs: How to Schedule Tasks Without the Headache',
+    description:
+      'Does `0 0 * * *` mean midnight or noon? Stop guessing. Learn the syntax of Cron expressions and generate perfect schedules visually.',
+    date: '2025-12-22',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['cron-generator', 'unix-timestamp-converter', 'date-calculator'],
     content: `
       <h2>The Cryptic Language of Automation</h2>
       <p>Every developer eventually has to set up a scheduled task. Whether it's a database backup, a weekly email, or a cache cleanup, Cron is the standard tool. But the syntax is notorious.</p>
@@ -733,17 +757,18 @@ export const blogs: Blog[] = [
       </ul>
 
       <p>Automate with confidence. Build your schedules with the <a href="/tools/cron-generator">Cron Expression Generator</a>.</p>
-    `
+    `,
   },
   // 25. SQL Formatter
   {
-    id: "sql-formatting-best-practices",
-    title: "SQL Maintenance: Why Formatting Matters for Database Performance",
-    description: " messy SQL queries aren't just ugly; they hide bugs. Discover how auto-formatting your SQL can improve readability and help you catch errors faster.",
-    date: "2025-12-23",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["sql-formatter", "json-formatter", "string-escaper"],
+    id: 'sql-formatting-best-practices',
+    title: 'SQL Maintenance: Why Formatting Matters for Database Performance',
+    description:
+      " messy SQL queries aren't just ugly; they hide bugs. Discover how auto-formatting your SQL can improve readability and help you catch errors faster.",
+    date: '2025-12-23',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['sql-formatter', 'json-formatter', 'string-escaper'],
     content: `
       <h2>The Single-Line Nightmare</h2>
       <p>We've all inherited functionality where the SQL query is a 500-character string buried in a variable. Debugging a missing <code>WHERE</code> clause or a bad <code>JOIN</code> in a blob of text is painful.</p>
@@ -771,17 +796,18 @@ WHERE active = 1
       <p><strong>Pro Tip:</strong> Before running a destructive command like <code>DELETE</code> or <code>UPDATE</code>, always format it first to ensure your <code>WHERE</code> clause is exactly what you think it is.</p>
 
       <p>Write cleaner queries. Use the <a href="/tools/sql-formatter">SQL Formatter</a>.</p>
-    `
+    `,
   },
   // 26. Regex Tester
   {
-    id: "regex-beginners-guide",
+    id: 'regex-beginners-guide',
     title: "Regular Expressions Demystified: A Beginner's Guide",
-    description: "Regex looks like magic, but it's a superpower for text processing. Learn the basics of pattern matching and how to test your expressions safely.",
-    date: "2025-12-23",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["regex-tester", "text-cleaner", "diff-checker"],
+    description:
+      "Regex looks like magic, but it's a superpower for text processing. Learn the basics of pattern matching and how to test your expressions safely.",
+    date: '2025-12-23',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['regex-tester', 'text-cleaner', 'diff-checker'],
     content: `
       <h2>The Power of Patterns</h2>
       <p>Regular Expressions (Regex) allow you to search for patterns rather than specific strings. Instead of finding "John", you can find "any word that starts with J and is 4 letters long".</p>
@@ -805,17 +831,18 @@ WHERE active = 1
       </ul>
 
       <p>Stop fearing the backslash. Master pattern matching with the <a href="/tools/regex-tester">Regex Tester</a>.</p>
-    `
+    `,
   },
   // 27. Diff Checker
   {
-    id: "code-diff-checking-guide",
-    title: "Spotting the Difference: Essential Tactics for Code Reviews",
-    description: "Detailed code reviews prevent bugs. Learn how to compare files effectively and catch subtle changes using visual diff tools.",
-    date: "2025-12-24",
-    author: "UtilToolkits",
-    category: "Coding Tools",
-    relatedTools: ["diff-checker", "json-formatter", "text-cleaner"],
+    id: 'code-diff-checking-guide',
+    title: 'Spotting the Difference: Essential Tactics for Code Reviews',
+    description:
+      'Detailed code reviews prevent bugs. Learn how to compare files effectively and catch subtle changes using visual diff tools.',
+    date: '2025-12-24',
+    author: 'UtilToolkits',
+    category: 'Coding Tools',
+    relatedTools: ['diff-checker', 'json-formatter', 'text-cleaner'],
     content: `
       <h2>The Needle in the Haystack</h2>
       <p>You deployed a config change and the site went down. The file looks almost identical to the backup. What changed? Often, it's a single character—a hidden tab, a missing comma, or a changed version number.</p>
@@ -835,17 +862,18 @@ WHERE active = 1
       <p><strong>Privacy Note:</strong> Pasting sensitive code into online tools is scary. That's why our Diff Checker runs locally in your browser. Your code never leaves your machine.</p>
 
       <p>Find the bug before it ships. Compare your files with the <a href="/tools/diff-checker">Diff Checker</a>.</p>
-    `
+    `,
   },
   // 28. Image Resizing Guide
   {
-    id: "image-resizing-web-guide",
-    title: "Preparing Assets for the Web: Pixel Perfect Resizing",
-    description: "Don't upload 10MB photos to your website. Learn the importance of correct aspect ratios and dimensions for professional online presence.",
-    date: "2025-12-25",
-    author: "UtilToolkits",
-    category: "Image Tools",
-    relatedTools: ["image-resizer", "aspect-ratio-calculator", "image-compressor"],
+    id: 'image-resizing-web-guide',
+    title: 'Preparing Assets for the Web: Pixel Perfect Resizing',
+    description:
+      "Don't upload 10MB photos to your website. Learn the importance of correct aspect ratios and dimensions for professional online presence.",
+    date: '2025-12-25',
+    author: 'UtilToolkits',
+    category: 'Image Tools',
+    relatedTools: ['image-resizer', 'aspect-ratio-calculator', 'image-compressor'],
     content: `
       <h2>One Size Does Not Fit All</h2>
       <p>A banner image for LinkedIn needs to be 1584x396. An Instagram post is 1080x1080. If you try to use the same photo for both, heads get chopped off and logos get blurry.</p>
@@ -864,17 +892,18 @@ WHERE active = 1
       </ul>
 
       <p>Fit your images to the frame. Resize with precision using the <a href="/tools/image-resizer">Image Resizer</a>.</p>
-    `
+    `,
   },
   // 29. Loan Calculator
   {
-    id: "understanding-loan-amortization",
-    title: "Demystifying Mortgages: How Amortization Works",
-    description: "Planning to buy a house? Learn how interest rates affect your monthly payment and how much you really pay over 30 years.",
-    date: "2025-12-25",
-    author: "UtilToolkits",
-    category: "Math Tools",
-    relatedTools: ["loan-calculator", "percentage-calculator", "date-calculator"],
+    id: 'understanding-loan-amortization',
+    title: 'Demystifying Mortgages: How Amortization Works',
+    description:
+      'Planning to buy a house? Learn how interest rates affect your monthly payment and how much you really pay over 30 years.',
+    date: '2025-12-25',
+    author: 'UtilToolkits',
+    category: 'Math Tools',
+    relatedTools: ['loan-calculator', 'percentage-calculator', 'date-calculator'],
     content: `
       <h2>The Sticker Shock of Interest</h2>
       <p>You borrow $300,000 for a house. Over 30 years, you might pay back $600,000. Why? That's the power of compound interest working against you.</p>
@@ -893,17 +922,18 @@ WHERE active = 1
       <p><strong>Scenario:</strong> Changing your term from 30 years to 15 years increases your monthly payment but can save you tens of thousands in interest. Use the calculator to model these scenarios.</p>
 
       <p>Know what you owe. Plan your future with the <a href="/tools/loan-calculator">Loan Calculator</a>.</p>
-    `
+    `,
   },
   // 30. PDF Tools
   {
-    id: "pdf-management-guide",
-    title: "Mastering Documents: Merge, Split, and Compress PDFs",
-    description: "PDF is the internet's paper. Learn how to combine reports, extract pages, and shrink files for email attachments securely in your browser.",
-    date: "2025-12-26",
-    author: "UtilToolkits",
-    category: "File Tools",
-    relatedTools: ["pdf-merger", "pdf-splitter", "pdf-compressor"],
+    id: 'pdf-management-guide',
+    title: 'Mastering Documents: Merge, Split, and Compress PDFs',
+    description:
+      "PDF is the internet's paper. Learn how to combine reports, extract pages, and shrink files for email attachments securely in your browser.",
+    date: '2025-12-26',
+    author: 'UtilToolkits',
+    category: 'File Tools',
+    relatedTools: ['pdf-merger', 'pdf-splitter', 'pdf-compressor'],
     content: `
       <h2>The Uneditable Standard</h2>
       <p>PDFs are great because they look the same on every device. But editing them is a pain. If you have 3 separate invoices you need to email to your accountant, you don't want to send 3 attachments.</p>
@@ -920,17 +950,18 @@ WHERE active = 1
       <p>Most online PDF tools ask you to upload your sensitive contracts to their server. We don't. Our PDF tools run locally. Your financial data stays on your device.</p>
 
       <p>Take control of your paperwork. Manage your PDFs with our <a href="/tools/pdf-merger">PDF Tools</a>.</p>
-    `
+    `,
   },
   // 31. Timezone Converter
   {
-    id: "timezone-management-remote-work",
-    title: "Working Across Borders: Mastering Time Zones",
-    description: "Remote work connects the world, but time zones divide it. Learn how to plan international meetings without the 'what time is that for you?' confusion.",
-    date: "2025-12-26",
-    author: "UtilToolkits",
-    category: "Productivity Tools",
-    relatedTools: ["timezone-converter", "world-clock", "date-calculator"],
+    id: 'timezone-management-remote-work',
+    title: 'Working Across Borders: Mastering Time Zones',
+    description:
+      "Remote work connects the world, but time zones divide it. Learn how to plan international meetings without the 'what time is that for you?' confusion.",
+    date: '2025-12-26',
+    author: 'UtilToolkits',
+    category: 'Productivity Tools',
+    relatedTools: ['timezone-converter', 'world-clock', 'date-calculator'],
     content: `
       <h2>The Global Meeting Problem</h2>
       <p>"Let's meet at 9 AM." EST? PST? GMT? CET? If you have a team distributed across London, New York, and Tokyo, finding a slot that isn't midnight for someone is an art form.</p>
@@ -948,17 +979,18 @@ WHERE active = 1
       </ul>
 
       <p>Never miss a meeting again. Synchronize your team with the <a href="/tools/timezone-converter">Timezone Converter</a>.</p>
-    `
+    `,
   },
   // 32. Case Converter
   {
-    id: "text-case-formatting-guide",
+    id: 'text-case-formatting-guide',
     title: "The Editor's Secret: Formatting Text Instantly",
-    description: "From SCREAMING CAPS to proper Title Case. Discover how to fix capitalization errors in your documents and code instantly.",
-    date: "2025-12-27",
-    author: "UtilToolkits",
-    category: "Text Tools",
-    relatedTools: ["case-converter", "text-cleaner", "word-counter"],
+    description:
+      'From SCREAMING CAPS to proper Title Case. Discover how to fix capitalization errors in your documents and code instantly.',
+    date: '2025-12-27',
+    author: 'UtilToolkits',
+    category: 'Text Tools',
+    relatedTools: ['case-converter', 'text-cleaner', 'word-counter'],
     content: `
       <h2>The Caps Lock Accident</h2>
       <p>We've all done it. You accepted a dirty dataset or accidentally typed a paragraph with Caps Lock on. Retyping it is not an option.</p>
@@ -976,6 +1008,6 @@ WHERE active = 1
       <p>Our <a href="/tools/case-converter">Case Converter</a> is a clipboard utility that fixes this in one click. Paste your text, choose the format, and copy it back.</p>
 
       <p>Polish your writing. Fix your capitalization with the <a href="/tools/case-converter">Case Converter</a>.</p>
-    `
-  }
+    `,
+  },
 ];

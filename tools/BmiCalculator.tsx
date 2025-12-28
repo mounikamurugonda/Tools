@@ -85,19 +85,11 @@ const BmiCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label>Height (cm)</Label>
-              <Input
-                type="number"
-                value={height}
-                onChange={(e) => setHeight(e.target.value)}
-              />
+              <Input type="number" value={height} onChange={e => setHeight(e.target.value)} />
             </div>
             <div className="space-y-2">
               <Label>Weight (kg)</Label>
-              <Input
-                type="number"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-              />
+              <Input type="number" value={weight} onChange={e => setWeight(e.target.value)} />
             </div>
           </div>
         ) : (
@@ -105,28 +97,16 @@ const BmiCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label>Height (ft)</Label>
-                <Input
-                  type="number"
-                  value={heightFt}
-                  onChange={(e) => setHeightFt(e.target.value)}
-                />
+                <Input type="number" value={heightFt} onChange={e => setHeightFt(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Height (in)</Label>
-                <Input
-                  type="number"
-                  value={heightIn}
-                  onChange={(e) => setHeightIn(e.target.value)}
-                />
+                <Input type="number" value={heightIn} onChange={e => setHeightIn(e.target.value)} />
               </div>
             </div>
             <div className="space-y-2">
               <Label>Weight (lbs)</Label>
-              <Input
-                type="number"
-                value={weight}
-                onChange={(e) => setWeight(e.target.value)}
-              />
+              <Input type="number" value={weight} onChange={e => setWeight(e.target.value)} />
             </div>
           </div>
         )}
@@ -134,12 +114,8 @@ const BmiCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
         {result && (
           <div className="text-center bg-secondary/30 p-6 rounded-lg border border-border">
             <p className="text-muted-foreground">Your BMI is</p>
-            <p className={`text-4xl font-bold my-2 ${result.color}`}>
-              {result.bmi}
-            </p>
-            <p className={`text-xl font-semibold ${result.color}`}>
-              {result.category}
-            </p>
+            <p className={`text-4xl font-bold my-2 ${result.color}`}>{result.bmi}</p>
+            <p className={`text-xl font-semibold ${result.color}`}>{result.category}</p>
           </div>
         )}
       </Card>

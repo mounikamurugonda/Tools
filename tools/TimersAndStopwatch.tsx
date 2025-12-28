@@ -64,7 +64,7 @@ const CountdownTimer = () => {
   useEffect(() => {
     if (isActive && timeLeft > 0) {
       intervalRef.current = window.setInterval(() => {
-        setTimeLeft((prev) => prev - 1000);
+        setTimeLeft(prev => prev - 1000);
       }, 1000);
     } else if (timeLeft <= 0 && isActive) {
       setIsActive(false);
@@ -83,9 +83,7 @@ const CountdownTimer = () => {
     }
     if (timeLeft <= 0) {
       // If starting from zero, set the time from inputs
-      setTimeLeft(
-        (initialTime.h * 3600 + initialTime.m * 60 + initialTime.s) * 1000,
-      );
+      setTimeLeft((initialTime.h * 3600 + initialTime.m * 60 + initialTime.s) * 1000);
     }
     setIsActive(true);
   };
@@ -111,18 +109,18 @@ const CountdownTimer = () => {
           <>
             <TimeInput
               value={initialTime.h}
-              onChange={(v) => setInitialTime((p) => ({ ...p, h: v }))}
+              onChange={v => setInitialTime(p => ({ ...p, h: v }))}
               max={99}
             />
             :
             <TimeInput
               value={initialTime.m}
-              onChange={(v) => setInitialTime((p) => ({ ...p, m: v }))}
+              onChange={v => setInitialTime(p => ({ ...p, m: v }))}
             />
             :
             <TimeInput
               value={initialTime.s}
-              onChange={(v) => setInitialTime((p) => ({ ...p, s: v }))}
+              onChange={v => setInitialTime(p => ({ ...p, s: v }))}
             />
           </>
         )}
@@ -168,7 +166,7 @@ const TimeInput = ({
     min="0"
     max={max}
     value={value.toString().padStart(2, '0')}
-    onChange={(e) => {
+    onChange={e => {
       let val = parseInt(e.target.value, 10);
       if (isNaN(val)) val = 0;
       if (val > max) val = max;
@@ -210,7 +208,7 @@ const Stopwatch = () => {
   };
 
   const handleLap = () => {
-    setLaps((prev) => [...prev, time]);
+    setLaps(prev => [...prev, time]);
   };
 
   const { hours, minutes, seconds, milliseconds } = formatTime(time);
@@ -221,9 +219,7 @@ const Stopwatch = () => {
         <span>
           {hours}:{minutes}:{seconds}
         </span>
-        <span className="text-3xl text-blue-500 dark:text-blue-400">
-          .{milliseconds}
-        </span>
+        <span className="text-3xl text-blue-500 dark:text-blue-400">.{milliseconds}</span>
       </div>
       <div className="flex space-x-4">
         {!isActive ? (

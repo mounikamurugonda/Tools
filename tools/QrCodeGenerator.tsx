@@ -15,7 +15,7 @@ const QrCodeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   useEffect(() => {
     if (canvasRef.current) {
       if (text) {
-        import('qrcode').then((QRCode) => {
+        import('qrcode').then(QRCode => {
           if (canvasRef.current) {
             QRCode.toCanvas(
               canvasRef.current,
@@ -23,7 +23,7 @@ const QrCodeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               { width: 256, margin: 2 },
               (error: Error | null | undefined) => {
                 if (error) console.error(error);
-              },
+              }
             );
           }
         });
@@ -47,14 +47,14 @@ const QrCodeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="QR Code Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="grid md:grid-cols-2 gap-6">
-          <div className='flex flex-col gap-6'>
+          <div className="flex flex-col gap-6">
             <Card title="Content" className="h-[calc(100%-1rem)]">
               <div className="space-y-4">
                 <Label htmlFor="qr-input">Text or URL</Label>
                 <TextArea
                   id="qr-input"
                   value={text}
-                  onChange={(e) => setText(e.target.value)}
+                  onChange={e => setText(e.target.value)}
                   placeholder="Enter text or URL here used to generate the QR Code..."
                   className="h-64 resize-none"
                 />
@@ -62,7 +62,7 @@ const QrCodeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
             </Card>
           </div>
 
-          <div className='flex flex-col gap-6'>
+          <div className="flex flex-col gap-6">
             <Card title="Preview" className="h-full flex flex-col">
               <div className="flex-1 flex flex-col items-center justify-center min-h-[300px] p-6 bg-gray-50 dark:bg-gray-900/50 rounded-xl border-dashed border-2 border-gray-200 dark:border-gray-800">
                 {text ? (

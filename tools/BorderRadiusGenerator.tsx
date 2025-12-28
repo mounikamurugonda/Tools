@@ -40,11 +40,7 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Border Radius Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Border Radius Generator" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-6">
           <Card title="Settings">
@@ -57,7 +53,7 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                       type="radio"
                       value="px"
                       checked={unit === 'px'}
-                      onChange={(e) => setUnit(e.target.value as 'px' | '%')}
+                      onChange={e => setUnit(e.target.value as 'px' | '%')}
                       className="mr-2 text-blue-600 focus:ring-blue-500"
                     />
                     <span className="text-gray-700 dark:text-gray-300">px</span>
@@ -67,7 +63,7 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                       type="radio"
                       value="%"
                       checked={unit === '%'}
-                      onChange={(e) => setUnit(e.target.value as 'px' | '%')}
+                      onChange={e => setUnit(e.target.value as 'px' | '%')}
                       className="mr-2 text-blue-600 focus:ring-blue-500"
                     />
                     <span className="text-gray-700 dark:text-gray-300">%</span>
@@ -79,17 +75,21 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <input
                   type="checkbox"
                   checked={linkCorners}
-                  onChange={() => setLinkCorners((p) => !p)}
+                  onChange={() => setLinkCorners(p => !p)}
                   className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
-                <span className="text-gray-700 dark:text-gray-300 font-medium">Link all corners</span>
+                <span className="text-gray-700 dark:text-gray-300 font-medium">
+                  Link all corners
+                </span>
               </label>
 
               <div className="space-y-4">
                 <Slider
                   label="Top Left"
                   value={topLeft}
-                  onChange={linkCorners ? handleLinkedChange : (e) => setTopLeft(parseFloat(e.target.value))}
+                  onChange={
+                    linkCorners ? handleLinkedChange : e => setTopLeft(parseFloat(e.target.value))
+                  }
                   min={0}
                   max={unit === 'px' ? 100 : 50}
                   valueDisplay={`${topLeft}${unit}`}
@@ -98,7 +98,7 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Slider
                   label="Top Right"
                   value={topRight}
-                  onChange={(e) => setTopRight(parseFloat(e.target.value))}
+                  onChange={e => setTopRight(parseFloat(e.target.value))}
                   min={0}
                   max={unit === 'px' ? 100 : 50}
                   disabled={linkCorners}
@@ -108,7 +108,7 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Slider
                   label="Bottom Right"
                   value={bottomRight}
-                  onChange={(e) => setBottomRight(parseFloat(e.target.value))}
+                  onChange={e => setBottomRight(parseFloat(e.target.value))}
                   min={0}
                   max={unit === 'px' ? 100 : 50}
                   disabled={linkCorners}
@@ -118,7 +118,7 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Slider
                   label="Bottom Left"
                   value={bottomLeft}
-                  onChange={(e) => setBottomLeft(parseFloat(e.target.value))}
+                  onChange={e => setBottomLeft(parseFloat(e.target.value))}
                   min={0}
                   max={unit === 'px' ? 100 : 50}
                   disabled={linkCorners}
@@ -129,14 +129,20 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
           </Card>
 
           <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/50">
-            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
-              Shape Ideas
-            </h4>
+            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">Shape Ideas</h4>
             <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-              <p>• <strong>Pill shape:</strong> 50% on all corners</p>
-              <p>• <strong>Rounded square:</strong> 10-20px on all corners</p>
-              <p>• <strong>Speech bubble:</strong> 0px on one corner</p>
-              <p>• <strong>Card design:</strong> Different values for each corner</p>
+              <p>
+                • <strong>Pill shape:</strong> 50% on all corners
+              </p>
+              <p>
+                • <strong>Rounded square:</strong> 10-20px on all corners
+              </p>
+              <p>
+                • <strong>Speech bubble:</strong> 0px on one corner
+              </p>
+              <p>
+                • <strong>Card design:</strong> Different values for each corner
+              </p>
             </div>
           </div>
         </div>
@@ -170,10 +176,14 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               { label: 'Bottom Right', value: bottomRight },
               { label: 'Bottom Left', value: bottomLeft },
             ].map((item, i) => (
-              <div key={i} className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg text-center border border-gray-200 dark:border-gray-700">
+              <div
+                key={i}
+                className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg text-center border border-gray-200 dark:border-gray-700"
+              >
                 <div className="font-medium text-gray-900 dark:text-gray-100">{item.label}</div>
                 <div className="text-gray-600 dark:text-gray-400">
-                  {item.value}{unit}
+                  {item.value}
+                  {unit}
                 </div>
               </div>
             ))}

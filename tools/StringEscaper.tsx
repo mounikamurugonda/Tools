@@ -40,7 +40,7 @@ const StringEscaper: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="space-y-6">
         <Card title="Escape Mode" className="p-4">
           <div className="flex flex-wrap gap-2 justify-center">
-            {['json', 'html', 'url', 'java'].map((m) => (
+            {['json', 'html', 'url', 'java'].map(m => (
               <Button
                 key={m}
                 onClick={() => setMode(m)}
@@ -58,7 +58,7 @@ const StringEscaper: React.FC<ToolProps> = ({ details, toolId }) => {
             <Label>Input String</Label>
             <TextArea
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={e => setInput(e.target.value)}
               className="h-80 resize-none"
               placeholder="Input string..."
             />

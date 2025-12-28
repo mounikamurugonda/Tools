@@ -1,4 +1,3 @@
-
 import { SoundType } from '../types';
 import { SOUND_PRESETS } from '../constants';
 
@@ -59,7 +58,7 @@ export const startTypingSound = async (type: SoundType = 'deep') => {
 
     let buffer = buffers[type];
     if (!buffer) {
-      buffer = await loadSound(type) as AudioBuffer;
+      buffer = (await loadSound(type)) as AudioBuffer;
     }
 
     // Check again after load
@@ -82,7 +81,7 @@ export const startTypingSound = async (type: SoundType = 'deep') => {
     currentSource = source;
     gainNode = gain;
   } catch (err) {
-    console.error("Error starting sound:", err);
+    console.error('Error starting sound:', err);
   } finally {
     isStarting = false;
   }
@@ -102,7 +101,9 @@ export const stopTypingSound = () => {
 
         const oldSource = currentSource;
         setTimeout(() => {
-          try { oldSource.stop(); } catch (e) { }
+          try {
+            oldSource.stop();
+          } catch (e) {}
         }, 150);
       } else {
         // If context isn't running or trouble, stop immediately

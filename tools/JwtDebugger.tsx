@@ -37,7 +37,7 @@ const JwtDebugger: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="relative">
             <TextArea
               value={token}
-              onChange={(e) => setToken(e.target.value)}
+              onChange={e => setToken(e.target.value)}
               placeholder="Paste your JSON Web Token here..."
               className="font-mono min-h-[120px]"
             />
@@ -69,9 +69,15 @@ const JsonViewer: React.FC<JsonViewerProps> = ({ title, data }) => (
   <Card title={title} className="h-full">
     <div className="relative h-full min-h-[250px]">
       <div className="w-full h-full bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 font-mono text-sm overflow-auto text-gray-800 dark:text-gray-200">
-        {data ? JSON.stringify(data, null, 2) : <span className="text-gray-400 italic">No data</span>}
+        {data ? (
+          JSON.stringify(data, null, 2)
+        ) : (
+          <span className="text-gray-400 italic">No data</span>
+        )}
       </div>
-      {data && <CopyButton textToCopy={JSON.stringify(data, null, 2)} className="absolute top-2 right-2" />}
+      {data && (
+        <CopyButton textToCopy={JSON.stringify(data, null, 2)} className="absolute top-2 right-2" />
+      )}
     </div>
   </Card>
 );

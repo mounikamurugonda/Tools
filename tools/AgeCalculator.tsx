@@ -42,19 +42,11 @@ const AgeCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <Label className="mb-2">Date of Birth</Label>
-              <Input
-                type="date"
-                value={dob}
-                onChange={(e) => setDob(e.target.value)}
-              />
+              <Input type="date" value={dob} onChange={e => setDob(e.target.value)} />
             </div>
             <div>
               <Label className="mb-2">Calculate Age At</Label>
-              <Input
-                type="date"
-                value={today}
-                onChange={(e) => setToday(e.target.value)}
-              />
+              <Input type="date" value={today} onChange={e => setToday(e.target.value)} />
             </div>
           </div>
         </Card>
@@ -82,9 +74,7 @@ const AgeCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
           </Card>
           <Card className="p-4 text-center">
             <p className="text-muted-foreground text-sm">Total Days</p>
-            <p className="text-2xl font-bold">
-              {age.totalDays.toLocaleString()}
-            </p>
+            <p className="text-2xl font-bold">{age.totalDays.toLocaleString()}</p>
           </Card>
         </div>
       </div>

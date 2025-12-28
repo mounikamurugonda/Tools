@@ -35,7 +35,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
   const handleUpload = (file: File | null) => {
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => setImage(e.target?.result as string);
+      reader.onload = e => setImage(e.target?.result as string);
       reader.readAsDataURL(file);
     }
   };
@@ -65,11 +65,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Instagram Photo Filters"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Instagram Photo Filters" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-3 gap-6">
         <div className="md:col-span-2 space-y-4">
           <Card className="min-h-[400px] flex items-center justify-center p-0 overflow-hidden relative bg-gray-100 dark:bg-gray-900/50 border-dashed border-2 border-gray-200 dark:border-gray-800 group">
@@ -84,7 +80,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
               <div className="absolute inset-0 p-6">
                 <FileUpload
                   accept="image/*"
-                  onFileSelect={(file) => handleUpload(file)}
+                  onFileSelect={file => handleUpload(file)}
                   className="w-full h-full"
                 />
               </div>
@@ -98,7 +94,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
                     const input = document.createElement('input');
                     input.type = 'file';
                     input.accept = 'image/*';
-                    input.onchange = (e) => {
+                    input.onchange = e => {
                       const file = (e.target as HTMLInputElement).files?.[0];
                       handleUpload(file || null);
                     };
@@ -113,11 +109,7 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
 
           {image && (
             <Card className="flex gap-4">
-              <Button
-                onClick={downloadImage}
-                className="flex-1"
-                variant="primary"
-              >
+              <Button onClick={downloadImage} className="flex-1" variant="primary">
                 <Download className="w-4 h-4 mr-2" /> Download Image
               </Button>
               <Button
@@ -149,42 +141,42 @@ const ImageFilters: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Slider
                   label="Grayscale"
                   value={filters.grayscale}
-                  onChange={(e) => setFilters({ ...filters, grayscale: parseInt(e.target.value) })}
+                  onChange={e => setFilters({ ...filters, grayscale: parseInt(e.target.value) })}
                   max={100}
                   valueDisplay={`${filters.grayscale}%`}
                 />
                 <Slider
                   label="Sepia"
                   value={filters.sepia}
-                  onChange={(e) => setFilters({ ...filters, sepia: parseInt(e.target.value) })}
+                  onChange={e => setFilters({ ...filters, sepia: parseInt(e.target.value) })}
                   max={100}
                   valueDisplay={`${filters.sepia}%`}
                 />
                 <Slider
                   label="Brightness"
                   value={filters.brightness}
-                  onChange={(e) => setFilters({ ...filters, brightness: parseInt(e.target.value) })}
+                  onChange={e => setFilters({ ...filters, brightness: parseInt(e.target.value) })}
                   max={200}
                   valueDisplay={`${filters.brightness}%`}
                 />
                 <Slider
                   label="Contrast"
                   value={filters.contrast}
-                  onChange={(e) => setFilters({ ...filters, contrast: parseInt(e.target.value) })}
+                  onChange={e => setFilters({ ...filters, contrast: parseInt(e.target.value) })}
                   max={200}
                   valueDisplay={`${filters.contrast}%`}
                 />
                 <Slider
                   label="Blur"
                   value={filters.blur}
-                  onChange={(e) => setFilters({ ...filters, blur: parseInt(e.target.value) })}
+                  onChange={e => setFilters({ ...filters, blur: parseInt(e.target.value) })}
                   max={20}
                   valueDisplay={`${filters.blur}px`}
                 />
                 <Slider
                   label="Hue Rotate"
                   value={filters.hueRotate}
-                  onChange={(e) => setFilters({ ...filters, hueRotate: parseInt(e.target.value) })}
+                  onChange={e => setFilters({ ...filters, hueRotate: parseInt(e.target.value) })}
                   max={360}
                   valueDisplay={`${filters.hueRotate}°`}
                 />

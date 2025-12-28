@@ -49,14 +49,9 @@ const CssPatterns: React.FC<ToolProps> = ({ details, toolId }) => {
   const finalStyle = {
     backgroundColor: bgColor,
     backgroundImage: getPatternCss(),
-    backgroundSize:
-      activePattern.name === 'Checks'
-        ? `${size}px ${size}px`
-        : `${size}px ${size}px`,
+    backgroundSize: activePattern.name === 'Checks' ? `${size}px ${size}px` : `${size}px ${size}px`,
     backgroundPosition:
-      activePattern.name === 'Checks'
-        ? `0 0, ${size / 2}px ${size / 2}px`
-        : undefined,
+      activePattern.name === 'Checks' ? `0 0, ${size / 2}px ${size / 2}px` : undefined,
   };
 
   const cssCode = `background-color: ${bgColor};
@@ -68,11 +63,7 @@ background-size: ${size}px ${size}px;${activePattern.name === 'Checks' ? `\nback
   };
 
   return (
-    <ToolContainer
-      title="CSS Background Patterns"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="CSS Background Patterns" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-3 gap-8">
         <div className="space-y-6">
           <Card title="Settings">
@@ -100,12 +91,12 @@ background-size: ${size}px ${size}px;${activePattern.name === 'Checks' ? `\nback
                   <input
                     type="color"
                     value={color}
-                    onChange={(e) => setColor(e.target.value)}
+                    onChange={e => setColor(e.target.value)}
                     className="h-10 w-12 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
                   />
                   <Input
                     value={color}
-                    onChange={(e) => setColor(e.target.value)}
+                    onChange={e => setColor(e.target.value)}
                     className="flex-grow font-mono"
                   />
                 </div>
@@ -115,7 +106,7 @@ background-size: ${size}px ${size}px;${activePattern.name === 'Checks' ? `\nback
                   max={1}
                   step={0.01}
                   value={opacity}
-                  onChange={(e) => setOpacity(parseFloat(e.target.value))}
+                  onChange={e => setOpacity(parseFloat(e.target.value))}
                   valueDisplay={`${Math.round(opacity * 100)}%`}
                 />
               </div>
@@ -126,12 +117,12 @@ background-size: ${size}px ${size}px;${activePattern.name === 'Checks' ? `\nback
                   <input
                     type="color"
                     value={bgColor}
-                    onChange={(e) => setBgColor(e.target.value)}
+                    onChange={e => setBgColor(e.target.value)}
                     className="h-10 w-12 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
                   />
                   <Input
                     value={bgColor}
-                    onChange={(e) => setBgColor(e.target.value)}
+                    onChange={e => setBgColor(e.target.value)}
                     className="flex-grow font-mono"
                   />
                 </div>
@@ -142,7 +133,7 @@ background-size: ${size}px ${size}px;${activePattern.name === 'Checks' ? `\nback
                 min={4}
                 max={100}
                 value={size}
-                onChange={(e) => setSize(parseFloat(e.target.value))}
+                onChange={e => setSize(parseFloat(e.target.value))}
                 valueDisplay={`${size}px`}
               />
             </div>
@@ -150,11 +141,11 @@ background-size: ${size}px ${size}px;${activePattern.name === 'Checks' ? `\nback
         </div>
 
         <div className="md:col-span-2 space-y-6">
-          <Card title="Preview" className="h-[300px] bg-gray-50 dark:bg-gray-800/50 flex flex-col p-0 overflow-hidden">
-            <div
-              className="flex-grow w-full h-full"
-              style={finalStyle as any}
-            ></div>
+          <Card
+            title="Preview"
+            className="h-[300px] bg-gray-50 dark:bg-gray-800/50 flex flex-col p-0 overflow-hidden"
+          >
+            <div className="flex-grow w-full h-full" style={finalStyle as any}></div>
           </Card>
 
           <Card className="relative group">

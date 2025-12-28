@@ -20,10 +20,7 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
     const link = document.createElement('a');
     link.href = base64;
 
-    const mimeType = base64.substring(
-      base64.indexOf(':') + 1,
-      base64.indexOf(';'),
-    );
+    const mimeType = base64.substring(base64.indexOf(':') + 1, base64.indexOf(';'));
     const extension = mimeType.split('/')[1] || 'png';
     link.download = `image.${extension}`;
 
@@ -40,9 +37,7 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const validateBase64 = (value: string) => {
     if (value && !value.startsWith('data:image')) {
-      setError(
-        'Invalid Base64 data URL. It should start with "data:image/...".',
-      );
+      setError('Invalid Base64 data URL. It should start with "data:image/...".');
     } else {
       setError('');
     }
@@ -50,7 +45,7 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const handleFileUpload = (file: File) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const content = e.target?.result;
       if (typeof content === 'string') {
         setBase64(content);
@@ -62,18 +57,10 @@ const Base64ToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Base64 to Image Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Base64 to Image Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="flex justify-end">
-          <Button
-            onClick={handleDownload}
-            disabled={!base64 || !!error}
-            variant="primary"
-          >
+          <Button onClick={handleDownload} disabled={!base64 || !!error} variant="primary">
             <Download className="w-4 h-4 mr-2" />
             Download Image
           </Button>

@@ -29,7 +29,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Tool routes with dynamic priorities based on popularity
-  const toolRoutes = TOOLS.map((tool) => {
+  const toolRoutes = TOOLS.map(tool => {
     // Assign higher priority to popular tools
     const popularTools = [
       'json-formatter',
@@ -49,7 +49,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   });
 
   // Tool Category routes
-  const toolCategoryRoutes = Object.values(CATEGORY_URL_MAP).map((categorySlug) => ({
+  const toolCategoryRoutes = Object.values(CATEGORY_URL_MAP).map(categorySlug => ({
     url: `${baseUrl}/tools/category/${categorySlug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
@@ -57,7 +57,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Blog Post routes
-  const blogRoutes = blogs.map((blog) => ({
+  const blogRoutes = blogs.map(blog => ({
     url: `${baseUrl}/blogs/${blog.id}`,
     lastModified: new Date(blog.date),
     changeFrequency: 'monthly' as const,
@@ -65,8 +65,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // Blog Category routes
-  const blogCategories = Array.from(new Set(blogs.map((blog) => blog.category)));
-  const blogCategoryRoutes = blogCategories.map((category) => ({
+  const blogCategories = Array.from(new Set(blogs.map(blog => blog.category)));
+  const blogCategoryRoutes = blogCategories.map(category => ({
     url: `${baseUrl}/blogs/category/${getCategorySlug(category)}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
@@ -80,7 +80,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/privacy', priority: 0.3 },
     { path: '/terms', priority: 0.3 },
     { path: '/credits', priority: 0.3 },
-  ].map((route) => ({
+  ].map(route => ({
     url: `${baseUrl}${route.path}`,
     lastModified: new Date(),
     changeFrequency: 'yearly' as const,

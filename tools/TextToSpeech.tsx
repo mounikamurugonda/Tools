@@ -12,9 +12,7 @@ import Label from '@/components/ui/Label';
 import { Volume2, Square, Play } from 'lucide-react';
 
 const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [text, setText] = useState(
-    'Hello! This is a test of the text to speech system.',
-  );
+  const [text, setText] = useState('Hello! This is a test of the text to speech system.');
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [selectedVoice, setSelectedVoice] = useState<string>('');
   const [rate, setRate] = useState(1);
@@ -39,7 +37,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
     }
 
     const utterance = new SpeechSynthesisUtterance(text);
-    const voice = voices.find((v) => v.name === selectedVoice);
+    const voice = voices.find(v => v.name === selectedVoice);
     if (voice) utterance.voice = voice;
     utterance.rate = rate;
     utterance.pitch = pitch;
@@ -58,7 +56,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
           <Card title="Text Input" className="h-[430px] flex flex-col">
             <TextArea
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={e => setText(e.target.value)}
               className="flex-1 w-full border-none focus:ring-0 rounded-none resize-none p-0"
               placeholder="Type text to speak..."
             />
@@ -72,7 +70,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Label className="mb-2">Select Voice</Label>
                 <Select
                   value={selectedVoice ? { value: selectedVoice, label: selectedVoice } : null}
-                  onChange={(option) => {
+                  onChange={option => {
                     if (option) setSelectedVoice(option.value as string);
                   }}
                   options={voices.map(v => ({ value: v.name, label: `${v.name} (${v.lang})` }))}
@@ -86,7 +84,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={2}
                 step={0.1}
                 value={rate}
-                onChange={(e) => setRate(Number(e.target.value))}
+                onChange={e => setRate(Number(e.target.value))}
                 valueDisplay={`${rate}x`}
               />
 
@@ -96,7 +94,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={2}
                 step={0.1}
                 value={pitch}
-                onChange={(e) => setPitch(Number(e.target.value))}
+                onChange={e => setPitch(Number(e.target.value))}
                 valueDisplay={`${pitch}`}
               />
             </div>

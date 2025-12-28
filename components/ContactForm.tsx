@@ -4,9 +4,7 @@ import React, { useState } from 'react';
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState<
-    'idle' | 'success' | 'error'
-  >('idle');
+  const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [submissionMessage, setSubmissionMessage] = useState('');
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,20 +27,16 @@ export default function ContactForm() {
 
       if (data.success) {
         setSubmissionStatus('success');
-        setSubmissionMessage(
-          'Thank you! Your message has been sent successfully.',
-        );
+        setSubmissionMessage('Thank you! Your message has been sent successfully.');
         (event.target as HTMLFormElement).reset(); // Reset form fields
       } else {
         setSubmissionStatus('error');
-        setSubmissionMessage(
-          data.message || 'Oops! Something went wrong. Please try again.',
-        );
+        setSubmissionMessage(data.message || 'Oops! Something went wrong. Please try again.');
       }
     } catch (error) {
       setSubmissionStatus('error');
       setSubmissionMessage(
-        'An error occurred while sending your message. Please check your connection.',
+        'An error occurred while sending your message. Please check your connection.'
       );
     } finally {
       setIsSubmitting(false);
@@ -51,11 +45,7 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="brand-card p-6 sm:p-8 space-y-6">
-      <input
-        type="hidden"
-        name="subject"
-        value="New Contact Form Submission from UtilToolkits"
-      />
+      <input type="hidden" name="subject" value="New Contact Form Submission from UtilToolkits" />
       <input type="hidden" name="from_name" value="UtilToolkits Contact" />
 
       <div>
@@ -65,13 +55,7 @@ export default function ContactForm() {
         >
           Full Name
         </label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          className="brand-input"
-        />
+        <input type="text" id="name" name="name" required className="brand-input" />
       </div>
 
       <div>
@@ -81,13 +65,7 @@ export default function ContactForm() {
         >
           Email Address
         </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          className="brand-input"
-        />
+        <input type="email" id="email" name="email" required className="brand-input" />
       </div>
 
       <div>
@@ -97,13 +75,7 @@ export default function ContactForm() {
         >
           Message
         </label>
-        <textarea
-          id="message"
-          name="message"
-          rows={5}
-          required
-          className="brand-input"
-        ></textarea>
+        <textarea id="message" name="message" rows={5} required className="brand-input"></textarea>
       </div>
 
       <div>

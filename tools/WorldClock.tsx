@@ -13,16 +13,15 @@ interface TimezoneOption {
   label: string;
 }
 
-const TIMEZONE_OPTIONS: TimezoneOption[] = timezones.flatMap((group) =>
-  group.zones.map((zone) => ({
+const TIMEZONE_OPTIONS: TimezoneOption[] = timezones.flatMap(group =>
+  group.zones.map(zone => ({
     value: zone.value,
     label: `${group.group} / ${zone.label}`,
-  })),
+  }))
 );
 
 const getInitialTimezones = () => {
-  if (typeof window === 'undefined')
-    return ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
+  if (typeof window === 'undefined') return ['America/New_York', 'Europe/London', 'Asia/Tokyo'];
   try {
     const saved = localStorage.getItem('world-clocks');
     if (saved) {
@@ -64,7 +63,7 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   const removeTimezone = (tz: string) => {
-    setSelectedTimezones(selectedTimezones.filter((t) => t !== tz));
+    setSelectedTimezones(selectedTimezones.filter(t => t !== tz));
   };
 
   const customStyles = {
@@ -84,9 +83,7 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
     }),
     option: (provided: any, state: { isFocused: any }) => ({
       ...provided,
-      backgroundColor: state.isFocused
-        ? 'hsl(var(--accent))'
-        : 'hsl(0 0% 100%)',
+      backgroundColor: state.isFocused ? 'hsl(var(--accent))' : 'hsl(0 0% 100%)',
       color: 'hsl(var(--foreground))',
       '&:hover': {
         backgroundColor: 'hsl(var(--accent))',
@@ -120,11 +117,8 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
           />
         </div>
         <div className="space-y-4">
-          {selectedTimezones.map((tz) => (
-            <Card
-              key={tz}
-              className="flex items-center justify-between p-4"
-            >
+          {selectedTimezones.map(tz => (
+            <Card key={tz} className="flex items-center justify-between p-4">
               <div>
                 <p className="text-xl font-bold text-gray-900 dark:text-white">
                   {tz.replace(/_/g, ' ').split('/').pop()}

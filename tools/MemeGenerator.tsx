@@ -19,7 +19,7 @@ const MemeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const handleImageUpload = (file: File | null) => {
     if (file) {
       const reader = new FileReader();
-      reader.onload = (event) => {
+      reader.onload = event => {
         setImage(event.target?.result as string);
       };
       reader.readAsDataURL(file);
@@ -105,12 +105,12 @@ const MemeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <div className="space-y-3">
                 <Input
                   value={topText}
-                  onChange={(e) => setTopText(e.target.value)}
+                  onChange={e => setTopText(e.target.value)}
                   placeholder="Top Text"
                 />
                 <Input
                   value={bottomText}
-                  onChange={(e) => setBottomText(e.target.value)}
+                  onChange={e => setBottomText(e.target.value)}
                   placeholder="Bottom Text"
                 />
               </div>

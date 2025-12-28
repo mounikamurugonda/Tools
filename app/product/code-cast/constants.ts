@@ -1,4 +1,3 @@
-
 import { SoundType, Theme, DeviceFrame } from './types';
 
 // Sound Assets
@@ -17,26 +16,24 @@ interface BackgroundPreset {
 export const BACKGROUND_PRESETS: BackgroundPreset[] = [
   // --- CodeCast Specific ---
 
-
   {
     id: 'logo-gradient',
     label: 'Logo Vivid',
     value: 'bg-gradient-to-br from-blue-600 to-purple-600',
-    isDark: true
+    isDark: true,
   },
-
 
   {
     id: 'util-solid-blue',
     label: 'UtilToolkits Blue',
     value: 'bg-[#2563eb]', // Blue-500
-    isDark: true
+    isDark: true,
   },
   {
     id: 'util-solid-black',
     label: 'UtilToolkits Black',
     value: 'bg-[#000000]', // Blue-500
-    isDark: true
+    isDark: true,
   },
 ];
 
@@ -138,7 +135,7 @@ btn.addEventListener('click', () => {
     btn.textContent = 'Get Started';
     btn.style.background = '#111827';
   }, 2000);
-});`
+});`,
 };
 
 export const SPEEDS = {

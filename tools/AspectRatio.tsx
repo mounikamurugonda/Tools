@@ -23,25 +23,21 @@ const AspectRatio: React.FC<ToolProps> = ({ details, toolId }) => {
   }, [width, height]);
 
   return (
-    <ToolContainer
-      title="Aspect Ratio Calculator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Aspect Ratio Calculator" details={details} toolId={toolId}>
       <div className="space-y-8 max-w-lg mx-auto text-center">
         <Card className="p-8">
           <div className="flex items-center justify-center gap-4">
             <Input
               type="number"
               value={width}
-              onChange={(e) => setWidth(Number(e.target.value))}
+              onChange={e => setWidth(Number(e.target.value))}
               className="w-32 text-center text-2xl font-bold"
             />
             <span className="text-2xl font-bold text-gray-400">:</span>
             <Input
               type="number"
               value={height}
-              onChange={(e) => setHeight(Number(e.target.value))}
+              onChange={e => setHeight(Number(e.target.value))}
               className="w-32 text-center text-2xl font-bold"
             />
           </div>

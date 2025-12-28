@@ -16,7 +16,7 @@ import {
   Maximize2,
   Minimize2,
   Image as ImageIcon,
-  Check
+  Check,
 } from 'lucide-react';
 
 interface ResizeSettings {
@@ -64,7 +64,7 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
         img.onload = () => {
           setOriginalDimensions({ width: img.width, height: img.height });
           // Set initial dimensions based on original
-          setSettings((prev) => ({
+          setSettings(prev => ({
             ...prev,
             width: img.width,
             height: img.height,
@@ -105,16 +105,11 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
       let newHeight: number;
 
       if (settings.mode === 'percentage') {
-        newWidth = Math.round(
-          (originalDimensions.width * settings.percentage) / 100,
-        );
-        newHeight = Math.round(
-          (originalDimensions.height * settings.percentage) / 100,
-        );
+        newWidth = Math.round((originalDimensions.width * settings.percentage) / 100);
+        newHeight = Math.round((originalDimensions.height * settings.percentage) / 100);
       } else {
         if (settings.keepAspectRatio) {
-          const aspectRatio =
-            originalDimensions.width / originalDimensions.height;
+          const aspectRatio = originalDimensions.width / originalDimensions.height;
           if (settings.width / settings.height > aspectRatio) {
             // Height is the limiting factor
             newHeight = settings.height;
@@ -232,7 +227,9 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                       min={1}
                       max={200}
                       value={settings.percentage}
-                      onChange={(e) => setSettings(prev => ({ ...prev, percentage: parseInt(e.target.value) }))}
+                      onChange={e =>
+                        setSettings(prev => ({ ...prev, percentage: parseInt(e.target.value) }))
+                      }
                       valueDisplay={`${settings.percentage}%`}
                     />
                   )}
@@ -245,7 +242,9 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                         min={1}
                         max={4000}
                         value={settings.width}
-                        onChange={(e) => setSettings(prev => ({ ...prev, width: parseInt(e.target.value) }))}
+                        onChange={e =>
+                          setSettings(prev => ({ ...prev, width: parseInt(e.target.value) }))
+                        }
                         valueDisplay={`${settings.width}`}
                       />
                       <Slider
@@ -253,7 +252,9 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                         min={1}
                         max={4000}
                         value={settings.height}
-                        onChange={(e) => setSettings(prev => ({ ...prev, height: parseInt(e.target.value) }))}
+                        onChange={e =>
+                          setSettings(prev => ({ ...prev, height: parseInt(e.target.value) }))
+                        }
                         valueDisplay={`${settings.height}`}
                       />
                     </div>
@@ -263,13 +264,17 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                   <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-900 rounded-lg">
                     <div
                       className={`w-5 h-5 flex items-center justify-center rounded border cursor-pointer ${settings.keepAspectRatio ? 'bg-blue-600 border-blue-600' : 'border-gray-300 dark:border-gray-600'}`}
-                      onClick={() => setSettings(prev => ({ ...prev, keepAspectRatio: !prev.keepAspectRatio }))}
+                      onClick={() =>
+                        setSettings(prev => ({ ...prev, keepAspectRatio: !prev.keepAspectRatio }))
+                      }
                     >
                       {settings.keepAspectRatio && <Check className="w-3.5 h-3.5 text-white" />}
                     </div>
                     <label
                       className="text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer select-none"
-                      onClick={() => setSettings(prev => ({ ...prev, keepAspectRatio: !prev.keepAspectRatio }))}
+                      onClick={() =>
+                        setSettings(prev => ({ ...prev, keepAspectRatio: !prev.keepAspectRatio }))
+                      }
                     >
                       Keep aspect ratio
                     </label>
@@ -282,16 +287,14 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                     max={1}
                     step={0.1}
                     value={settings.quality}
-                    onChange={(e) => setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))}
+                    onChange={e =>
+                      setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))
+                    }
                     valueDisplay={`${Math.round(settings.quality * 100)}%`}
                   />
 
                   <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <Button
-                      onClick={resetAll}
-                      variant="secondary"
-                      className="w-full"
-                    >
+                    <Button onClick={resetAll} variant="secondary" className="w-full">
                       <RotateCcw className="w-4 h-4 mr-2" />
                       Start Over
                     </Button>
@@ -304,18 +307,32 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Card title="Image Info">
                   <div className="space-y-4 text-sm">
                     <div className="space-y-1">
-                      <p className="text-gray-500 dark:text-gray-400 font-medium uppercase text-xs">Original</p>
-                      <p className="font-mono">{originalDimensions.width} × {originalDimensions.height} px</p>
-                      <p className="text-gray-600 dark:text-gray-400">{originalImage ? formatFileSize(originalImage.size) : 'Unknown'}</p>
+                      <p className="text-gray-500 dark:text-gray-400 font-medium uppercase text-xs">
+                        Original
+                      </p>
+                      <p className="font-mono">
+                        {originalDimensions.width} × {originalDimensions.height} px
+                      </p>
+                      <p className="text-gray-600 dark:text-gray-400">
+                        {originalImage ? formatFileSize(originalImage.size) : 'Unknown'}
+                      </p>
                     </div>
 
                     {resizedDimensions && (
                       <div className="pt-2 border-t border-gray-100 dark:border-gray-800 space-y-1">
-                        <p className="text-gray-500 dark:text-gray-400 font-medium uppercase text-xs">Resized</p>
-                        <p className="font-mono">{resizedDimensions.width} × {resizedDimensions.height} px</p>
+                        <p className="text-gray-500 dark:text-gray-400 font-medium uppercase text-xs">
+                          Resized
+                        </p>
+                        <p className="font-mono">
+                          {resizedDimensions.width} × {resizedDimensions.height} px
+                        </p>
                         <p className="text-gray-600 dark:text-gray-400">
                           {originalDimensions
-                            ? Math.round(((resizedDimensions.width * resizedDimensions.height) / (originalDimensions.width * originalDimensions.height)) * 100)
+                            ? Math.round(
+                                ((resizedDimensions.width * resizedDimensions.height) /
+                                  (originalDimensions.width * originalDimensions.height)) *
+                                  100
+                              )
                             : 0}
                           % of original
                         </p>
@@ -340,23 +357,30 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                 {originalImageSrc && (
                   <Card title="Original" className="bg-gray-50 dark:bg-gray-900/50">
                     <div className="flex items-center justify-center p-4 min-h-[200px]">
-                      <img src={originalImageSrc} alt="Original" className="max-w-full max-h-[300px] object-contain rounded shadow-sm" />
+                      <img
+                        src={originalImageSrc}
+                        alt="Original"
+                        className="max-w-full max-h-[300px] object-contain rounded shadow-sm"
+                      />
                     </div>
                   </Card>
                 )}
 
                 {resizedImageSrc && (
-                  <Card title="Resized Output" className="bg-gray-50 dark:bg-gray-900/50 border-blue-200 dark:border-blue-900">
+                  <Card
+                    title="Resized Output"
+                    className="bg-gray-50 dark:bg-gray-900/50 border-blue-200 dark:border-blue-900"
+                  >
                     <div className="flex flex-col gap-4">
                       <div className="flex items-center justify-center p-4 min-h-[200px]">
-                        <img src={resizedImageSrc} alt="Resized" className="max-w-full max-h-[400px] object-contain rounded shadow-lg" />
+                        <img
+                          src={resizedImageSrc}
+                          alt="Resized"
+                          className="max-w-full max-h-[400px] object-contain rounded shadow-lg"
+                        />
                       </div>
                       <div className="flex justify-end border-t border-gray-200 dark:border-gray-700 pt-4">
-                        <Button
-                          onClick={downloadResizedImage}
-                          size="sm"
-                          variant="primary"
-                        >
+                        <Button onClick={downloadResizedImage} size="sm" variant="primary">
                           <Download className="w-4 h-4 mr-2" />
                           Download
                         </Button>

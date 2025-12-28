@@ -3,11 +3,7 @@ import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
 import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
 
-export default function ToolsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ToolsLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-[calc(100vh-5rem)]">
       <Sidebar />

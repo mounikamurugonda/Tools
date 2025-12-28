@@ -21,7 +21,7 @@ import {
   Type,
   CheckCircle2,
   FileText,
-  Upload
+  Upload,
 } from 'lucide-react';
 
 // Background Presets
@@ -106,8 +106,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
     setIsExporting(true);
 
     try {
-      const filter = (node: HTMLElement) =>
-        !node.classList?.contains('exclude-from-export');
+      const filter = (node: HTMLElement) => !node.classList?.contains('exclude-from-export');
 
       const options = {
         quality: 1,
@@ -132,9 +131,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
         });
         const response = await fetch(blob);
         const blobData = await response.blob();
-        await navigator.clipboard.write([
-          new ClipboardItem({ 'image/png': blobData }),
-        ]);
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobData })]);
         setIsExporting(false);
         // Ideally show a toast here, using alert for simplicity as requested
         alert('Image copied to clipboard!');
@@ -155,7 +152,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const handleFileUpload = (file: File) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const text = e.target?.result;
       if (typeof text === 'string') {
         setCode(text);
@@ -230,11 +227,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Code to Image Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Code to Image Converter" details={details} toolId={toolId}>
       {/* Inject dynamic styles for syntax highlighting */}
       <style dangerouslySetInnerHTML={{ __html: getThemeStyles() }} />
 
@@ -248,14 +241,15 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="space-y-3">
               <Label>Theme</Label>
               <div className="grid grid-cols-2 gap-2">
-                {THEMES.map((t) => (
+                {THEMES.map(t => (
                   <button
                     key={t.name}
                     onClick={() => setTheme(t)}
-                    className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${theme.name === t.name
-                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
-                      : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
-                      }`}
+                    className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${
+                      theme.name === t.name
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
+                        : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                    }`}
                   >
                     <div
                       className="w-3 h-3 rounded-full border border-black/10"
@@ -291,13 +285,30 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Window Settings */}
           <Card title="Window" className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              <Slider label="Padding" min={16} max={128} step={8} value={padding} onChange={(e) => setPadding(Number(e.target.value))} valueDisplay={`${padding}px`} />
-              <Slider label="Shadow" min={0} max={60} value={shadowBlur} onChange={(e) => setShadowBlur(Number(e.target.value))} valueDisplay={`${shadowBlur}px`} />
+              <Slider
+                label="Padding"
+                min={16}
+                max={128}
+                step={8}
+                value={padding}
+                onChange={e => setPadding(Number(e.target.value))}
+                valueDisplay={`${padding}px`}
+              />
+              <Slider
+                label="Shadow"
+                min={0}
+                max={60}
+                value={shadowBlur}
+                onChange={e => setShadowBlur(Number(e.target.value))}
+                valueDisplay={`${shadowBlur}px`}
+              />
             </div>
 
             <div className="space-y-3 pt-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Window Controls</span>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Window Controls
+                </span>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
@@ -312,7 +323,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Label>Window Title</Label>
                 <Input
                   value={windowTitle}
-                  onChange={(e) => setWindowTitle(e.target.value)}
+                  onChange={e => setWindowTitle(e.target.value)}
                   placeholder="Snippet.js"
                 />
               </div>
@@ -323,17 +334,18 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           <Card title="Editor" className="space-y-4">
             <div>
               <Label>Language</Label>
-              <Select
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-              >
+              <Select value={language} onChange={e => setLanguage(e.target.value)}>
                 {LANGUAGES.map(l => (
-                  <option key={l.value} value={l.value}>{l.name}</option>
+                  <option key={l.value} value={l.value}>
+                    {l.name}
+                  </option>
                 ))}
               </Select>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Line Numbers</span>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                Line Numbers
+              </span>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -354,8 +366,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
             <div
               className="absolute inset-0 opacity-10 pointer-events-none"
               style={{
-                backgroundImage:
-                  'radial-gradient(#4b5563 1px, transparent 1px)',
+                backgroundImage: 'radial-gradient(#4b5563 1px, transparent 1px)',
                 backgroundSize: '20px 20px',
               }}
             ></div>
@@ -401,7 +412,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                     {/* Textarea for input - overlay transparently */}
                     <textarea
                       value={code}
-                      onChange={(e) => setCode(e.target.value)}
+                      onChange={e => setCode(e.target.value)}
                       className="absolute inset-0 w-full h-full p-4 font-mono text-sm bg-transparent text-transparent caret-white outline-none resize-none overflow-hidden z-10 exclude-from-export"
                       style={{
                         lineHeight: '1.5',
@@ -437,9 +448,8 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                               dangerouslySetInnerHTML={{
                                 __html: Prism.highlight(
                                   line || ' ',
-                                  Prism.languages[language] ||
-                                  Prism.languages.javascript,
-                                  language,
+                                  Prism.languages[language] || Prism.languages.javascript,
+                                  language
                                 ),
                               }}
                             />
@@ -527,10 +537,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
             {inputMode === 'file' && (
               <div className="col-span-2 md:col-span-4 mt-2">
-                <FileUpload
-                  onFileSelect={handleFileUpload}
-                  className="h-24"
-                />
+                <FileUpload onFileSelect={handleFileUpload} className="h-24" />
               </div>
             )}
           </Card>

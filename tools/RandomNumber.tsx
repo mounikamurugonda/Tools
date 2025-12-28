@@ -23,29 +23,17 @@ const RandomNumber: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Random Number Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Random Number Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
         <Card title="Settings">
           <div className="grid grid-cols-3 gap-6">
             <div>
               <Label>Min</Label>
-              <Input
-                type="number"
-                value={min}
-                onChange={(e) => setMin(Number(e.target.value))}
-              />
+              <Input type="number" value={min} onChange={e => setMin(Number(e.target.value))} />
             </div>
             <div>
               <Label>Max</Label>
-              <Input
-                type="number"
-                value={max}
-                onChange={(e) => setMax(Number(e.target.value))}
-              />
+              <Input type="number" value={max} onChange={e => setMax(Number(e.target.value))} />
             </div>
             <div>
               <Label>Count</Label>
@@ -54,23 +42,21 @@ const RandomNumber: React.FC<ToolProps> = ({ details, toolId }) => {
                 min="1"
                 max="100"
                 value={count}
-                onChange={(e) => setCount(Number(e.target.value))}
+                onChange={e => setCount(Number(e.target.value))}
               />
             </div>
           </div>
         </Card>
 
-        <Button
-          onClick={generate}
-          fullWidth
-          size="lg"
-          variant="primary"
-        >
+        <Button onClick={generate} fullWidth size="lg" variant="primary">
           Generate
         </Button>
 
         {results.length > 0 && (
-          <Card title="Results" className="min-h-[100px] flex flex-wrap items-center justify-center gap-4">
+          <Card
+            title="Results"
+            className="min-h-[100px] flex flex-wrap items-center justify-center gap-4"
+          >
             <div className="flex flex-wrap gap-3 justify-center">
               {results.map((n, i) => (
                 <span
@@ -79,7 +65,11 @@ const RandomNumber: React.FC<ToolProps> = ({ details, toolId }) => {
                   style={{ animationDelay: `${i * 0.05}s` }}
                 >
                   {n}
-                  {i < results.length - 1 ? <span className="text-gray-300 dark:text-gray-600 ml-3">,</span> : ''}
+                  {i < results.length - 1 ? (
+                    <span className="text-gray-300 dark:text-gray-600 ml-3">,</span>
+                  ) : (
+                    ''
+                  )}
                 </span>
               ))}
             </div>

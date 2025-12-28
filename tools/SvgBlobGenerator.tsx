@@ -13,11 +13,7 @@ import TextArea from '@/components/ui/TextArea';
 import { Dices, RefreshCw } from 'lucide-react';
 
 // Simple blob generation logic
-const generateBlobPath = (
-  size: number,
-  complexity: number,
-  contrast: number,
-) => {
+const generateBlobPath = (size: number, complexity: number, contrast: number) => {
   // This is a simplified approximation for the sake of the example without external libs.
   // Real "blobs" use spline interpolation.
   // Here we will generate a random path string for demonstration.
@@ -57,7 +53,7 @@ const SvgBlobGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const path = useMemo(
     () => generateBlobPath(400, complexity, contrast),
-    [complexity, contrast, seed],
+    [complexity, contrast, seed]
   );
 
   const svgString = `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +71,7 @@ const SvgBlobGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 min={3}
                 max={20}
                 value={complexity}
-                onChange={(e) => setComplexity(Number(e.target.value))}
+                onChange={e => setComplexity(Number(e.target.value))}
                 valueDisplay={`${complexity}`}
               />
               <Slider
@@ -84,7 +80,7 @@ const SvgBlobGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={1}
                 step={0.1}
                 value={contrast}
-                onChange={(e) => setContrast(Number(e.target.value))}
+                onChange={e => setContrast(Number(e.target.value))}
                 valueDisplay={`${contrast}`}
               />
               <div>
@@ -93,23 +89,19 @@ const SvgBlobGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   <Input
                     type="color"
                     value={color}
-                    onChange={(e) => setColor(e.target.value)}
+                    onChange={e => setColor(e.target.value)}
                     className="w-12 h-10 p-1 cursor-pointer"
                   />
                   <Input
                     type="text"
                     value={color}
-                    onChange={(e) => setColor(e.target.value)}
+                    onChange={e => setColor(e.target.value)}
                     className="flex-1 font-mono"
                   />
                 </div>
               </div>
 
-              <Button
-                onClick={() => setSeed(Date.now())}
-                variant="secondary"
-                className="w-full"
-              >
+              <Button onClick={() => setSeed(Date.now())} variant="secondary" className="w-full">
                 <Dices className="w-4 h-4 mr-2" /> Randomize
               </Button>
             </div>
@@ -119,7 +111,13 @@ const SvgBlobGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="space-y-6">
           <Card title="Preview">
             <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg flex items-center justify-center p-4 h-80 relative overflow-hidden">
-              <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#888 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+              <div
+                className="absolute inset-0 opacity-10 pointer-events-none"
+                style={{
+                  backgroundImage: 'radial-gradient(#888 1px, transparent 1px)',
+                  backgroundSize: '20px 20px',
+                }}
+              ></div>
               <svg
                 viewBox="0 0 400 400"
                 className="w-64 h-64 transition-all duration-300 drop-shadow-xl"

@@ -60,9 +60,7 @@ const GifMaker: React.FC<ToolProps> = ({ details, toolId }) => {
       ]);
 
       const data = await ffmpeg.readFile('output.gif');
-      const url = URL.createObjectURL(
-        new Blob([(data as any).buffer], { type: 'image/gif' }),
-      );
+      const url = URL.createObjectURL(new Blob([(data as any).buffer], { type: 'image/gif' }));
       setGif(url);
     } catch (err) {
       console.error('GIF creation error:', err);
@@ -73,11 +71,7 @@ const GifMaker: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="GIF Maker from Video"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="GIF Maker from Video" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
         <div className="space-y-6">

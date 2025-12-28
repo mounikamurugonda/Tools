@@ -14,70 +14,68 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [loanTerm, setLoanTerm] = useState('30');
   const [termUnit, setTermUnit] = useState<'years' | 'months'>('years');
 
-  const { monthlyPayment, totalInterest, totalPayment, schedule } =
-    useMemo(() => {
-      const P = parseFloat(loanAmount);
-      const annualRate = parseFloat(interestRate);
-      const termInYears =
-        termUnit === 'years' ? parseFloat(loanTerm) : parseFloat(loanTerm) / 12;
+  const { monthlyPayment, totalInterest, totalPayment, schedule } = useMemo(() => {
+    const P = parseFloat(loanAmount);
+    const annualRate = parseFloat(interestRate);
+    const termInYears = termUnit === 'years' ? parseFloat(loanTerm) : parseFloat(loanTerm) / 12;
 
-      if (
-        isNaN(P) ||
-        P <= 0 ||
-        isNaN(annualRate) ||
-        annualRate < 0 ||
-        isNaN(termInYears) ||
-        termInYears <= 0
-      ) {
-        return {
-          monthlyPayment: 0,
-          totalInterest: 0,
-          totalPayment: 0,
-          schedule: [],
-        };
-      }
+    if (
+      isNaN(P) ||
+      P <= 0 ||
+      isNaN(annualRate) ||
+      annualRate < 0 ||
+      isNaN(termInYears) ||
+      termInYears <= 0
+    ) {
+      return {
+        monthlyPayment: 0,
+        totalInterest: 0,
+        totalPayment: 0,
+        schedule: [],
+      };
+    }
 
-      const i = annualRate / 100 / 12;
-      const n = termInYears * 12;
+    const i = annualRate / 100 / 12;
+    const n = termInYears * 12;
 
-      if (i === 0) {
-        // Interest-free loan
-        const M = P / n;
-        return {
-          monthlyPayment: M,
-          totalInterest: 0,
-          totalPayment: P,
-          schedule: [],
-        }; // Schedule generation for 0% is simple, but let's omit for now.
-      }
-
-      const M = (P * (i * Math.pow(1 + i, n))) / (Math.pow(1 + i, n) - 1);
-      const totalPayment = M * n;
-      const totalInterest = totalPayment - P;
-
-      // Generate amortization schedule
-      let balance = P;
-      const scheduleData = [];
-      for (let j = 1; j <= n; j++) {
-        const interestPaid = balance * i;
-        const principalPaid = M - interestPaid;
-        balance -= principalPaid;
-        scheduleData.push({
-          month: j,
-          payment: M,
-          principal: principalPaid,
-          interest: interestPaid,
-          balance: balance > 0 ? balance : 0,
-        });
-      }
-
+    if (i === 0) {
+      // Interest-free loan
+      const M = P / n;
       return {
         monthlyPayment: M,
-        totalInterest,
-        totalPayment,
-        schedule: scheduleData,
-      };
-    }, [loanAmount, interestRate, loanTerm, termUnit]);
+        totalInterest: 0,
+        totalPayment: P,
+        schedule: [],
+      }; // Schedule generation for 0% is simple, but let's omit for now.
+    }
+
+    const M = (P * (i * Math.pow(1 + i, n))) / (Math.pow(1 + i, n) - 1);
+    const totalPayment = M * n;
+    const totalInterest = totalPayment - P;
+
+    // Generate amortization schedule
+    let balance = P;
+    const scheduleData = [];
+    for (let j = 1; j <= n; j++) {
+      const interestPaid = balance * i;
+      const principalPaid = M - interestPaid;
+      balance -= principalPaid;
+      scheduleData.push({
+        month: j,
+        payment: M,
+        principal: principalPaid,
+        interest: interestPaid,
+        balance: balance > 0 ? balance : 0,
+      });
+    }
+
+    return {
+      monthlyPayment: M,
+      totalInterest,
+      totalPayment,
+      schedule: scheduleData,
+    };
+  }, [loanAmount, interestRate, loanTerm, termUnit]);
 
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -97,7 +95,7 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Input
                   type="number"
                   value={loanAmount}
-                  onChange={(e) => setLoanAmount(e.target.value)}
+                  onChange={e => setLoanAmount(e.target.value)}
                   placeholder="e.g. 250000"
                 />
               </div>
@@ -106,7 +104,7 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Input
                   type="number"
                   value={interestRate}
-                  onChange={(e) => setInterestRate(e.target.value)}
+                  onChange={e => setInterestRate(e.target.value)}
                   step="0.01"
                   placeholder="e.g. 5.5"
                 />
@@ -117,13 +115,13 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
                   <Input
                     type="number"
                     value={loanTerm}
-                    onChange={(e) => setLoanTerm(e.target.value)}
+                    onChange={e => setLoanTerm(e.target.value)}
                     className="flex-1"
                   />
                   <div className="w-32">
                     <Select
                       value={termUnit}
-                      onChange={(e) => setTermUnit(e.target.value as 'years' | 'months')}
+                      onChange={e => setTermUnit(e.target.value as 'years' | 'months')}
                     >
                       <option value="years">Years</option>
                       <option value="months">Months</option>
@@ -134,19 +132,28 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           </Card>
 
-          <Card title="Summary" className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800">
+          <Card
+            title="Summary"
+            className="bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+          >
             <div className="space-y-4">
               <div className="flex justify-between items-center pb-2 border-b border-blue-200 dark:border-blue-800">
                 <span className="text-sm text-gray-600 dark:text-gray-300">Monthly Payment</span>
-                <span className="text-xl font-bold text-blue-600 dark:text-blue-400">{formatCurrency(monthlyPayment)}</span>
+                <span className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                  {formatCurrency(monthlyPayment)}
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600 dark:text-gray-300">Total Interest</span>
-                <span className="font-medium text-gray-900 dark:text-white">{formatCurrency(totalInterest)}</span>
+                <span className="font-medium text-gray-900 dark:text-white">
+                  {formatCurrency(totalInterest)}
+                </span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-600 dark:text-gray-300">Total Cost</span>
-                <span className="font-medium text-gray-900 dark:text-white">{formatCurrency(totalPayment)}</span>
+                <span className="font-medium text-gray-900 dark:text-white">
+                  {formatCurrency(totalPayment)}
+                </span>
               </div>
             </div>
           </Card>
@@ -167,9 +174,11 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
                 </thead>
                 <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                   {schedule.length > 0 ? (
-                    schedule.map((row) => (
+                    schedule.map(row => (
                       <tr key={row.month} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                        <td className="px-6 py-3 font-medium text-gray-900 dark:text-white">{row.month}</td>
+                        <td className="px-6 py-3 font-medium text-gray-900 dark:text-white">
+                          {row.month}
+                        </td>
                         <td className="px-6 py-3 text-right text-gray-600 dark:text-gray-300">
                           {formatCurrency(row.payment)}
                         </td>

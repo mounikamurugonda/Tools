@@ -55,11 +55,11 @@ const FileUpload: React.FC<FileUploadProps> = ({
     }
 
     // Check file type
-    const acceptedTypes = accept.split(',').map((type) => type.trim());
+    const acceptedTypes = accept.split(',').map(type => type.trim());
     const fileType = file.type;
     const fileExtension = '.' + file.name.split('.').pop()?.toLowerCase();
 
-    const isValidType = acceptedTypes.some((type) => {
+    const isValidType = acceptedTypes.some(type => {
       if (type.startsWith('.')) {
         return fileExtension === type;
       } else if (type.includes('/*')) {
@@ -103,15 +103,9 @@ const FileUpload: React.FC<FileUploadProps> = ({
 
   return (
     <div className={`space-y-2 ${className}`}>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-        {label}
-      </label>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">{label}</label>
 
-      {description && (
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          {description}
-        </p>
-      )}
+      {description && <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>}
 
       <div
         className={`relative border-2 border-dashed rounded-lg p-6 transition-colors ${
@@ -175,9 +169,7 @@ const FileUpload: React.FC<FileUploadProps> = ({
         )}
       </div>
 
-      {error && (
-        <p className="text-sm text-red-500 dark:text-red-400">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-500 dark:text-red-400">{error}</p>}
     </div>
   );
 };

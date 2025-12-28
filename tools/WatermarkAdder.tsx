@@ -13,12 +13,7 @@ import { Download, RotateCcw, Settings, Upload, Image as ImageIcon } from 'lucid
 
 interface WatermarkSettings {
   opacity: number;
-  position:
-  | 'top-left'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-right'
-  | 'center';
+  position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'center';
   size: number; // percentage of image size
   margin: number; // pixels from edge
 }
@@ -104,7 +99,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
       // Calculate watermark size and position
       const watermarkSize = Math.min(
         (mainImg.width * settings.size) / 100,
-        (mainImg.height * settings.size) / 100,
+        (mainImg.height * settings.size) / 100
       );
 
       const watermarkAspectRatio = watermarkImg.width / watermarkImg.height;
@@ -207,15 +202,18 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Settings Panel */}
           <Card
             title="Settings"
-            className={!mainImageSrc || !watermarkImageSrc ? "opacity-50 pointer-events-none" : ""}
+            className={!mainImageSrc || !watermarkImageSrc ? 'opacity-50 pointer-events-none' : ''}
           >
             <div className="space-y-6">
               <div>
                 <Label className="mb-2">Position</Label>
                 <Select
                   value={settings.position}
-                  onChange={(e) =>
-                    setSettings(prev => ({ ...prev, position: e.target.value as WatermarkSettings['position'] }))
+                  onChange={e =>
+                    setSettings(prev => ({
+                      ...prev,
+                      position: e.target.value as WatermarkSettings['position'],
+                    }))
                   }
                 >
                   <option value="top-left">Top Left</option>
@@ -232,7 +230,9 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={1}
                 step={0.1}
                 value={settings.opacity}
-                onChange={(e) => setSettings(prev => ({ ...prev, opacity: parseFloat(e.target.value) }))}
+                onChange={e =>
+                  setSettings(prev => ({ ...prev, opacity: parseFloat(e.target.value) }))
+                }
                 valueDisplay={`${Math.round(settings.opacity * 100)}%`}
               />
 
@@ -242,7 +242,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={50}
                 step={5}
                 value={settings.size}
-                onChange={(e) => setSettings(prev => ({ ...prev, size: parseInt(e.target.value) }))}
+                onChange={e => setSettings(prev => ({ ...prev, size: parseInt(e.target.value) }))}
                 valueDisplay={`${settings.size}%`}
               />
 
@@ -252,7 +252,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={100}
                 step={5}
                 value={settings.margin}
-                onChange={(e) => setSettings(prev => ({ ...prev, margin: parseInt(e.target.value) }))}
+                onChange={e => setSettings(prev => ({ ...prev, margin: parseInt(e.target.value) }))}
                 valueDisplay={`${settings.margin}px`}
               />
 
@@ -270,7 +270,11 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
             <Card title="Original Image">
               <div className="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-4 flex items-center justify-center min-h-[200px]">
                 {mainImageSrc ? (
-                  <img src={mainImageSrc} alt="Original" className="max-w-full max-h-[300px] object-contain rounded shadow-sm" />
+                  <img
+                    src={mainImageSrc}
+                    alt="Original"
+                    className="max-w-full max-h-[300px] object-contain rounded shadow-sm"
+                  />
                 ) : (
                   <div className="text-gray-400 text-sm">No image uploaded</div>
                 )}
@@ -289,7 +293,11 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                   </div>
                 )}
                 {watermarkedImageSrc ? (
-                  <img src={watermarkedImageSrc} alt="Result" className="max-w-full max-h-[300px] object-contain rounded shadow-lg" />
+                  <img
+                    src={watermarkedImageSrc}
+                    alt="Result"
+                    className="max-w-full max-h-[300px] object-contain rounded shadow-lg"
+                  />
                 ) : (
                   <div className="text-gray-400 text-sm flex flex-col items-center">
                     <ImageIcon className="w-8 h-8 mb-2 opacity-50" />

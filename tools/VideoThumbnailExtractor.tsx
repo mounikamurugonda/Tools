@@ -58,9 +58,7 @@ const VideoThumbnailExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
       ]);
 
       const data = await ffmpeg.readFile('output.jpg');
-      const url = URL.createObjectURL(
-        new Blob([(data as any).buffer], { type: 'image/jpeg' }),
-      );
+      const url = URL.createObjectURL(new Blob([(data as any).buffer], { type: 'image/jpeg' }));
       setThumbnail(url);
     } catch (err) {
       console.error('Thumbnail extraction error:', err);
@@ -71,11 +69,7 @@ const VideoThumbnailExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Video Thumbnail Extractor"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Video Thumbnail Extractor" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
         <div className="space-y-6">
@@ -94,7 +88,7 @@ const VideoThumbnailExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Input
                   type="number"
                   value={timestamp}
-                  onChange={(e) => setTimestamp(Number(e.target.value))}
+                  onChange={e => setTimestamp(Number(e.target.value))}
                   min={0}
                   step={0.1}
                 />

@@ -35,7 +35,7 @@ const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
               <Input
                 value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                onChange={e => setTitle(e.target.value)}
                 maxLength={60}
                 placeholder="Enter page title"
               />
@@ -47,7 +47,7 @@ const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
               <TextArea
                 value={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={e => setDescription(e.target.value)}
                 maxLength={160}
                 placeholder="Enter page description"
                 className="h-24"
@@ -57,7 +57,7 @@ const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>Keywords (comma separated)</Label>
               <Input
                 value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
+                onChange={e => setKeywords(e.target.value)}
                 placeholder="keyword1, keyword2, keyword3"
               />
             </div>
@@ -65,7 +65,7 @@ const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>Author</Label>
               <Input
                 value={author}
-                onChange={(e) => setAuthor(e.target.value)}
+                onChange={e => setAuthor(e.target.value)}
                 placeholder="Author name"
               />
             </div>

@@ -17,9 +17,7 @@ const HtmlEntity: React.FC<ToolProps> = ({ details, toolId }) => {
   const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
 
   const encode = () => {
-    setOutput(
-      input.replace(/[\u00A0-\u9999<>&]/g, (i) => '&#' + i.charCodeAt(0) + ';'),
-    );
+    setOutput(input.replace(/[\u00A0-\u9999<>&]/g, i => '&#' + i.charCodeAt(0) + ';'));
   };
 
   const decode = () => {
@@ -30,7 +28,7 @@ const HtmlEntity: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const handleFileUpload = (file: File) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const text = e.target?.result;
       if (typeof text === 'string') {
         setInput(text);
@@ -41,11 +39,7 @@ const HtmlEntity: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="HTML Entity Encoder/Decoder"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="HTML Entity Encoder/Decoder" details={details} toolId={toolId}>
       <Card className="max-w-4xl mx-auto p-6 space-y-6">
         <div className="space-y-4">
           <div className="flex justify-between items-center">
@@ -71,32 +65,21 @@ const HtmlEntity: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
 
           {inputMode === 'file' ? (
-            <FileUpload
-              onFileSelect={handleFileUpload}
-              className="h-40"
-              accept=".html,.xml,.txt"
-            />
+            <FileUpload onFileSelect={handleFileUpload} className="h-40" accept=".html,.xml,.txt" />
           ) : (
             <TextArea
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={e => setInput(e.target.value)}
               className="h-40"
               placeholder="Input text..."
             />
           )}
 
           <div className="flex gap-4">
-            <Button
-              onClick={encode}
-              className="flex-1"
-            >
+            <Button onClick={encode} className="flex-1">
               Encode
             </Button>
-            <Button
-              onClick={decode}
-              variant="secondary"
-              className="flex-1"
-            >
+            <Button onClick={decode} variant="secondary" className="flex-1">
               Decode
             </Button>
           </div>

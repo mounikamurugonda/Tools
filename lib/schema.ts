@@ -17,10 +17,7 @@ export const getWebsiteSchema = () => ({
     },
     'query-input': 'required name=search_term_string',
   },
-  sameAs: [
-    'https://github.com/utiltoolkits',
-    'https://twitter.com/utiltoolkits',
-  ],
+  sameAs: ['https://github.com/utiltoolkits', 'https://twitter.com/utiltoolkits'],
   publisher: {
     '@type': 'Organization',
     name: 'UtilToolkits',
@@ -43,10 +40,7 @@ export const getOrganizationSchema = () => ({
   url: 'https://utiltoolkits.com',
   logo: 'https://utiltoolkits.com/icon.png',
   foundingDate: '2024',
-  sameAs: [
-    'https://github.com/utiltoolkits',
-    'https://twitter.com/utiltoolkits',
-  ],
+  sameAs: ['https://github.com/utiltoolkits', 'https://twitter.com/utiltoolkits'],
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'customer service',
@@ -240,9 +234,7 @@ export const getToolSchema = (tool: any) => ({
 });
 
 // Breadcrumb schema
-export const getBreadcrumbSchema = (
-  items: Array<{ name: string; url: string }>,
-) => ({
+export const getBreadcrumbSchema = (items: Array<{ name: string; url: string }>) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: items.map((item, index) => ({

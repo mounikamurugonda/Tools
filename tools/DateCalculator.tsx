@@ -70,26 +70,14 @@ const DateCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
         {mode === 'duration' && (
           <div className="space-y-4 animate-fade-in">
             <div className="grid sm:grid-cols-2 gap-4">
-              <DateInput
-                label="Start Date"
-                value={startDate}
-                onChange={setStartDate}
-              />
-              <DateInput
-                label="End Date"
-                value={endDate}
-                onChange={setEndDate}
-              />
+              <DateInput label="Start Date" value={startDate} onChange={setStartDate} />
+              <DateInput label="End Date" value={endDate} onChange={setEndDate} />
             </div>
             {durationResult && (
               <div className="text-center bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold">Result</h3>
-                <p className="text-3xl font-bold text-blue-400">
-                  {durationResult.days} days
-                </p>
-                <p className="text-gray-500 dark:text-gray-400">
-                  ({durationResult.weeks} weeks)
-                </p>
+                <p className="text-3xl font-bold text-blue-400">{durationResult.days} days</p>
+                <p className="text-gray-500 dark:text-gray-400">({durationResult.weeks} weeks)</p>
               </div>
             )}
           </div>
@@ -97,11 +85,7 @@ const DateCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
 
         {mode === 'calculate' && (
           <div className="space-y-4 animate-fade-in">
-            <DateInput
-              label="Start Date"
-              value={calcDate}
-              onChange={setCalcDate}
-            />
+            <DateInput label="Start Date" value={calcDate} onChange={setCalcDate} />
             <div className="grid sm:grid-cols-3 gap-4 items-end">
               <div className="sm:col-span-1">
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -109,7 +93,7 @@ const DateCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
                 </label>
                 <select
                   value={operation}
-                  onChange={(e) => setOperation(e.target.value as any)}
+                  onChange={e => setOperation(e.target.value as any)}
                   className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
                 >
                   <option value="add">Add</option>
@@ -123,7 +107,7 @@ const DateCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <input
                   type="number"
                   value={days}
-                  onChange={(e) => setDays(parseInt(e.target.value, 10))}
+                  onChange={e => setDays(parseInt(e.target.value, 10))}
                   className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
                 />
               </div>
@@ -131,9 +115,7 @@ const DateCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
             {calculateResult && (
               <div className="text-center bg-gray-50 dark:bg-gray-900 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold">Resulting Date</h3>
-                <p className="text-2xl font-bold text-blue-400">
-                  {calculateResult}
-                </p>
+                <p className="text-2xl font-bold text-blue-400">{calculateResult}</p>
               </div>
             )}
           </div>
@@ -155,7 +137,7 @@ const DateInput: React.FC<{
     <input
       type="date"
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={e => onChange(e.target.value)}
       className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
       style={{ colorScheme: 'dark' }}
     />

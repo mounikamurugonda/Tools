@@ -5,7 +5,17 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { DiffEditor, useMonaco } from '@monaco-editor/react';
 import { useTheme } from '@/components/ThemeProvider';
-import { Upload, ArrowRightLeft, Trash2, Copy, Columns, Rows, WrapText, Space, Type } from 'lucide-react';
+import {
+  Upload,
+  ArrowRightLeft,
+  Trash2,
+  Copy,
+  Columns,
+  Rows,
+  WrapText,
+  Space,
+  Type,
+} from 'lucide-react';
 import Button from '@/components/ui/Button';
 
 // Detection map for file extensions
@@ -90,7 +100,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
     detectLanguageFromFileName(file.name);
 
     const reader = new FileReader();
-    reader.onload = (event) => {
+    reader.onload = event => {
       const text = event.target?.result as string;
       if (isOriginal) {
         setOriginalText(text);
@@ -122,12 +132,11 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Diff Checker" details={details} toolId={toolId}>
       <div className="flex flex-col h-[85vh]">
-
         {/* Compact Toolbar */}
         <div className="flex justify-between items-center pb-2 px-1">
           <div className="flex items-center gap-1 bg-muted/30 p-1 rounded-md">
             <Button
-              variant={renderSideBySide ? "secondary" : "ghost"}
+              variant={renderSideBySide ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setRenderSideBySide(true)}
               title="Split View"
@@ -136,7 +145,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
               <Columns className="w-3.5 h-3.5" /> Split
             </Button>
             <Button
-              variant={!renderSideBySide ? "secondary" : "ghost"}
+              variant={!renderSideBySide ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setRenderSideBySide(false)}
               title="Inline View"
@@ -148,16 +157,16 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="w-px h-4 bg-border mx-1" />
 
             <Button
-              variant={wordWrap === 'on' ? "secondary" : "ghost"}
+              variant={wordWrap === 'on' ? 'secondary' : 'ghost'}
               size="sm"
-              onClick={() => setWordWrap(prev => prev === 'on' ? 'off' : 'on')}
+              onClick={() => setWordWrap(prev => (prev === 'on' ? 'off' : 'on'))}
               title="Toggle Word Wrap"
               className="h-7 px-2 text-xs gap-1.5"
             >
               <WrapText className="w-3.5 h-3.5" /> Wrap
             </Button>
             <Button
-              variant={ignoreTrimWhitespace ? "secondary" : "ghost"}
+              variant={ignoreTrimWhitespace ? 'secondary' : 'ghost'}
               size="sm"
               onClick={() => setIgnoreTrimWhitespace(prev => !prev)}
               title="Ignore White Space"
@@ -168,10 +177,22 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
 
           <div className="flex items-center gap-1 bg-muted/30 p-1 rounded-md">
-            <Button onClick={swapContent} variant="ghost" size="sm" className="h-7 px-2 text-xs gap-1.5" title="Swap Sides">
+            <Button
+              onClick={swapContent}
+              variant="ghost"
+              size="sm"
+              className="h-7 px-2 text-xs gap-1.5"
+              title="Swap Sides"
+            >
               <ArrowRightLeft className="w-3.5 h-3.5" /> Swap
             </Button>
-            <Button onClick={clearAll} variant="ghost" size="sm" className="h-7 px-2 text-xs gap-1.5 hover:text-destructive hover:bg-destructive/10" title="Clear All">
+            <Button
+              onClick={clearAll}
+              variant="ghost"
+              size="sm"
+              className="h-7 px-2 text-xs gap-1.5 hover:text-destructive hover:bg-destructive/10"
+              title="Clear All"
+            >
               <Trash2 className="w-3.5 h-3.5" /> Clear
             </Button>
           </div>
@@ -182,25 +203,43 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* File Upload Headers */}
           <div className="grid grid-cols-2 bg-muted/50 border-b divide-x">
             <div className="flex justify-between items-center p-2">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-2">Original</span>
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-2">
+                Original
+              </span>
               <div className="flex gap-1">
                 <label className="cursor-pointer inline-flex items-center justify-center rounded transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-background hover:text-foreground hover:shadow-sm h-6 px-2 text-xs font-medium text-muted-foreground">
                   <Upload className="w-3 h-3 mr-1.5" /> Load
-                  <input type="file" className="hidden" onChange={(e) => handleFileUpload(e, true)} />
+                  <input type="file" className="hidden" onChange={e => handleFileUpload(e, true)} />
                 </label>
-                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => copyToClipboard(originalText)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
+                  onClick={() => copyToClipboard(originalText)}
+                >
                   <Copy className="w-3 h-3" />
                 </Button>
               </div>
             </div>
             <div className="flex justify-between items-center p-2">
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-2">Modified</span>
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-2">
+                Modified
+              </span>
               <div className="flex gap-1">
                 <label className="cursor-pointer inline-flex items-center justify-center rounded transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 hover:bg-background hover:text-foreground hover:shadow-sm h-6 px-2 text-xs font-medium text-muted-foreground">
                   <Upload className="w-3 h-3 mr-1.5" /> Load
-                  <input type="file" className="hidden" onChange={(e) => handleFileUpload(e, false)} />
+                  <input
+                    type="file"
+                    className="hidden"
+                    onChange={e => handleFileUpload(e, false)}
+                  />
                 </label>
-                <Button variant="ghost" size="sm" className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => copyToClipboard(modifiedText)}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-6 px-2 text-xs text-muted-foreground hover:text-foreground"
+                  onClick={() => copyToClipboard(modifiedText)}
+                >
                   <Copy className="w-3 h-3" />
                 </Button>
               </div>
@@ -227,7 +266,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
                 fontFamily: '"Geist Mono", monospace',
                 fontSize: 14,
                 diffWordWrap: 'on',
-                padding: { top: 16 }
+                padding: { top: 16 },
               }}
             />
           </div>

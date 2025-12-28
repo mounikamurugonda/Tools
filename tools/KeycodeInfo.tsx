@@ -44,10 +44,7 @@ const KeycodeInfo: React.FC<ToolProps> = ({ details, toolId }) => {
               <InfoCard label="event.key" value={event.key} />
               <InfoCard label="event.code" value={event.code} />
               <InfoCard label="event.which" value={event.which.toString()} />
-              <InfoCard
-                label="event.location"
-                value={event.location.toString()}
-              />
+              <InfoCard label="event.location" value={event.location.toString()} />
             </div>
 
             <Card className="text-left">
@@ -77,10 +74,11 @@ const InfoCard = ({ label, value }: { label: string; value: string }) => (
 
 const Badge = ({ label, active }: { label: string; active: boolean }) => (
   <span
-    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${active
-      ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
-      : 'bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500'
-      }`}
+    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+      active
+        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300'
+        : 'bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500'
+    }`}
   >
     {label}
   </span>

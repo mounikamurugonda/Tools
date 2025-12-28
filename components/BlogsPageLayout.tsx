@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { blogs } from '@/lib/blogs';
 import { getCategorySlug } from '@/lib/slugUtils';
 
-const allCategories = Array.from(new Set(blogs.map((blog) => blog.category)));
+const allCategories = Array.from(new Set(blogs.map(blog => blog.category)));
 
 const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
@@ -14,7 +14,9 @@ const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
   const isSidebarVisible = pathname === '/blogs' || pathname.startsWith('/blogs/category/');
 
   return (
-    <div className={`flex flex-col md:flex-row gap-12 ${!isSidebarVisible ? 'justify-center' : ''}`}>
+    <div
+      className={`flex flex-col md:flex-row gap-12 ${!isSidebarVisible ? 'justify-center' : ''}`}
+    >
       {isSidebarVisible && (
         <aside className="w-full md:w-1/4">
           <div className="sticky top-24">
@@ -23,22 +25,22 @@ const BlogsPageLayout = ({ children }: { children: React.ReactNode }) => {
               <li>
                 <Link
                   href="/blogs"
-                  className={`block w-full text-left ${pathname === '/blogs'
-                    ? 'brand-button-primary'
-                    : 'brand-button-secondary'
-                    }`}
+                  className={`block w-full text-left ${
+                    pathname === '/blogs' ? 'brand-button-primary' : 'brand-button-secondary'
+                  }`}
                 >
                   All
                 </Link>
               </li>
-              {allCategories.map((category) => (
+              {allCategories.map(category => (
                 <li key={category}>
                   <Link
                     href={`/blogs/category/${getCategorySlug(category)}`}
-                    className={`block w-full text-left ${pathname === `/blogs/category/${getCategorySlug(category)}`
-                      ? 'brand-button-primary'
-                      : 'brand-button-secondary'
-                      }`}
+                    className={`block w-full text-left ${
+                      pathname === `/blogs/category/${getCategorySlug(category)}`
+                        ? 'brand-button-primary'
+                        : 'brand-button-secondary'
+                    }`}
                   >
                     {category.replace(' Tools', '')}
                   </Link>

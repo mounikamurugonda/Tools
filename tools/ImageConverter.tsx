@@ -45,9 +45,9 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
           // Auto-set output format based on input
           if (format === 'png' && !settings.removeTransparency) {
-            setSettings((prev) => ({ ...prev, outputFormat: 'png' }));
+            setSettings(prev => ({ ...prev, outputFormat: 'png' }));
           } else if (format === 'jpeg' || format === 'jpg') {
-            setSettings((prev) => ({ ...prev, outputFormat: 'jpeg' }));
+            setSettings(prev => ({ ...prev, outputFormat: 'jpeg' }));
           }
         };
         reader.readAsDataURL(file);
@@ -57,7 +57,7 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         setConvertedImageSrc('');
       }
     },
-    [settings.removeTransparency],
+    [settings.removeTransparency]
   );
 
   const convertImage = useCallback(async () => {
@@ -132,8 +132,7 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
     const link = document.createElement('a');
     link.href = convertedImageSrc;
-    const extension =
-      settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
+    const extension = settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
     link.download = `converted_${originalImage?.name?.split('.')[0] || 'image'}.${extension}`;
     document.body.appendChild(link);
     link.click();
@@ -185,8 +184,11 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                       <Label className="mb-2">Output Format</Label>
                       <Select
                         value={settings.outputFormat}
-                        onChange={(e) => {
-                          setSettings(prev => ({ ...prev, outputFormat: e.target.value as ConversionSettings['outputFormat'] }))
+                        onChange={e => {
+                          setSettings(prev => ({
+                            ...prev,
+                            outputFormat: e.target.value as ConversionSettings['outputFormat'],
+                          }));
                         }}
                       >
                         <option value="jpeg">JPEG</option>
@@ -203,7 +205,9 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                         max={1}
                         step={0.1}
                         value={settings.quality}
-                        onChange={(e) => setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))}
+                        onChange={e =>
+                          setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))
+                        }
                         valueDisplay={`${Math.round(settings.quality * 100)}%`}
                       />
                     )}
@@ -214,8 +218,8 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                           type="checkbox"
                           id="removeTransparency"
                           checked={settings.removeTransparency}
-                          onChange={(e) =>
-                            setSettings((prev) => ({
+                          onChange={e =>
+                            setSettings(prev => ({
                               ...prev,
                               removeTransparency: e.target.checked,
                             }))
@@ -237,11 +241,15 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div className="text-sm space-y-2 text-gray-600 dark:text-gray-400">
                   <div className="flex justify-between">
                     <span>Original Format:</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-200">{originalFormat.toUpperCase()}</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-200">
+                      {originalFormat.toUpperCase()}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span>File Size:</span>
-                    <span className="font-medium text-gray-900 dark:text-gray-200">{formatFileSize(originalImage.size)}</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-200">
+                      {formatFileSize(originalImage.size)}
+                    </span>
                   </div>
                 </div>
               </Card>
@@ -256,7 +264,11 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                   <div className="text-xs text-center text-gray-500 mb-2">Original</div>
                   <div className="flex-1 flex items-center justify-center">
                     {originalImageSrc ? (
-                      <img src={originalImageSrc} alt="Original" className="max-w-full max-h-[300px] object-contain" />
+                      <img
+                        src={originalImageSrc}
+                        alt="Original"
+                        className="max-w-full max-h-[300px] object-contain"
+                      />
                     ) : (
                       <div className="text-gray-300 dark:text-gray-600">
                         <FileImage className="w-12 h-12" />
@@ -275,7 +287,11 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                   )}
                   <div className="flex-1 flex items-center justify-center">
                     {convertedImageSrc ? (
-                      <img src={convertedImageSrc} alt="Converted" className="max-w-full max-h-[300px] object-contain" />
+                      <img
+                        src={convertedImageSrc}
+                        alt="Converted"
+                        className="max-w-full max-h-[300px] object-contain"
+                      />
                     ) : (
                       <div className="text-gray-300 dark:text-gray-600">
                         <ArrowRight className="w-12 h-12 opacity-20" />

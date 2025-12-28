@@ -8,7 +8,7 @@ import { ChevronRightIcon } from './icons';
 
 const MostViewedTools: React.FC = () => {
   // Show popular tools that are not featured
-  const popularTools = TOOLS.filter((tool) => !tool.featured).slice(0, 6);
+  const popularTools = TOOLS.filter(tool => !tool.featured).slice(0, 6);
 
   if (popularTools.length === 0) {
     return null;
@@ -24,11 +24,12 @@ const MostViewedTools: React.FC = () => {
           href="/tools"
           className="text-sm sm:text-base text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium flex items-center transition-all hover:gap-2 group"
         >
-          View All Tools <ChevronRightIcon className="w-4 h-4 sm:w-5 sm:h-5 ml-1 transition-transform group-hover:translate-x-1" />
+          View All Tools{' '}
+          <ChevronRightIcon className="w-4 h-4 sm:w-5 sm:h-5 ml-1 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {popularTools.map((tool) => (
+        {popularTools.map(tool => (
           <Link key={tool.id} href={`/tools/${tool.id}`}>
             <ToolCard tool={tool} />
           </Link>

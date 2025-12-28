@@ -20,23 +20,18 @@ const PasswordStrength: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const score = getStrength(password);
   const width = (score / 5) * 100;
-  const color =
-    score < 3 ? 'bg-red-500' : score < 4 ? 'bg-yellow-500' : 'bg-green-500';
+  const color = score < 3 ? 'bg-red-500' : score < 4 ? 'bg-yellow-500' : 'bg-green-500';
   const label = score < 3 ? 'Weak' : score < 4 ? 'Medium' : 'Strong';
 
   return (
-    <ToolContainer
-      title="Password Strength Checker"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Password Strength Checker" details={details} toolId={toolId}>
       <div className="max-w-md mx-auto space-y-6">
         <div>
           <label className="block font-medium mb-2">Check Password</label>
           <input
             type="text"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             className="w-full p-4 text-lg bg-gray-100 dark:bg-gray-700 rounded border border-gray-300 dark:border-gray-600"
             placeholder="Type a password..."
           />
@@ -61,14 +56,8 @@ const PasswordStrength: React.FC<ToolProps> = ({ details, toolId }) => {
               <li className={/[A-Z]/.test(password) ? 'text-green-500' : ''}>
                 • Contains uppercase letter
               </li>
-              <li className={/[0-9]/.test(password) ? 'text-green-500' : ''}>
-                • Contains number
-              </li>
-              <li
-                className={
-                  /[^A-Za-z0-9]/.test(password) ? 'text-green-500' : ''
-                }
-              >
+              <li className={/[0-9]/.test(password) ? 'text-green-500' : ''}>• Contains number</li>
+              <li className={/[^A-Za-z0-9]/.test(password) ? 'text-green-500' : ''}>
                 • Contains symbol
               </li>
             </ul>

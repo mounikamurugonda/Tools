@@ -2,12 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-import {
-  trackPageView,
-  trackCategoryView,
-  trackTipView,
-  trackToolUsage,
-} from '@/lib/analytics';
+import { trackPageView, trackCategoryView, trackTipView, trackToolUsage } from '@/lib/analytics';
 
 interface AnalyticsWrapperProps {
   children: React.ReactNode;

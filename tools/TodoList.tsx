@@ -47,18 +47,14 @@ const TodoList: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   const toggleTask = (id: number) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task,
-      ),
-    );
+    setTasks(tasks.map(task => (task.id === id ? { ...task, completed: !task.completed } : task)));
   };
 
   const deleteTask = (id: number) => {
-    setTasks(tasks.filter((task) => task.id !== id));
+    setTasks(tasks.filter(task => task.id !== id));
   };
 
-  const filteredTasks = tasks.filter((task) => {
+  const filteredTasks = tasks.filter(task => {
     if (filter === 'active') return !task.completed;
     if (filter === 'completed') return task.completed;
     return true;
@@ -71,7 +67,7 @@ const TodoList: React.FC<ToolProps> = ({ details, toolId }) => {
           <input
             type="text"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value)}
             placeholder="Add a new task..."
             className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
           />
@@ -90,7 +86,7 @@ const TodoList: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <div className="space-y-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg min-h-[200px]">
-          {filteredTasks.map((task) => (
+          {filteredTasks.map(task => (
             <div
               key={task.id}
               className="flex items-center bg-white dark:bg-gray-700 p-3 rounded-md shadow-sm"

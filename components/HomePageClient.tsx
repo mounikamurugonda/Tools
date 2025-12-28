@@ -1,35 +1,26 @@
-"use client";
+'use client';
 
-import React, { useMemo } from "react";
-import { TOOLS } from "../constants";
-import ToolCard from "./ToolCard";
-import type { Tool, ToolCategory, ToolDetails } from "../types";
-import MostViewedTools from "./MostViewedTools";
-import { ChevronRightIcon } from "./icons";
-import Link from "next/link";
+import React, { useMemo } from 'react';
+import { TOOLS } from '../constants';
+import ToolCard from './ToolCard';
+import type { Tool, ToolCategory, ToolDetails } from '../types';
+import MostViewedTools from './MostViewedTools';
+import { ChevronRightIcon } from './icons';
+import Link from 'next/link';
 import {
   CATEGORY_ORDER,
   CATEGORY_ICONS,
   CATEGORY_DESCRIPTIONS,
   CATEGORY_URL_MAP,
-} from "@/constants";
-import { blogs } from "@/lib/blogs";
-import FaqSection from "./FaqSection";
-import ExploreToolsSection from "./ExploreToolsSection";
+} from '@/constants';
+import { blogs } from '@/lib/blogs';
+import FaqSection from './FaqSection';
+import ExploreToolsSection from './ExploreToolsSection';
 
 const HomePageClient: React.FC = () => {
   const toolCount = TOOLS.length;
 
-
-
-
-
-
-
-  const featuredTools = useMemo(
-    () => TOOLS.filter((tool) => tool.featured),
-    []
-  );
+  const featuredTools = useMemo(() => TOOLS.filter(tool => tool.featured), []);
   const visibleCategories = useMemo(() => CATEGORY_ORDER.slice(0, 6), []);
 
   return (
@@ -44,11 +35,17 @@ const HomePageClient: React.FC = () => {
             Welcome to <span className="brand-gradient-text">UtilToolkits</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mt-4 sm:mt-6 max-w-3xl mx-auto animate-slide-in-left delay-100 px-4">
-            The ultimate collection of{" "}
-            <strong className="text-gray-900 dark:text-white">{toolCount}+ free online developer tools</strong>.
+            The ultimate collection of{' '}
+            <strong className="text-gray-900 dark:text-white">
+              {toolCount}+ free online developer tools
+            </strong>
+            .
           </p>
           <p className="text-sm sm:text-base md:text-lg text-gray-500 dark:text-gray-400 mt-4 max-w-2xl mx-auto animate-slide-in-left delay-200 px-4 leading-relaxed">
-            I built UtilToolkits to solve a consistent frustration: finding reliable, fast, and private developer tools without the bloat. What started as a personal project is now a comprehensive suite running entirely in your browser. No servers, no tracking—just practical utilities that work instantly.
+            I built UtilToolkits to solve a consistent frustration: finding reliable, fast, and
+            private developer tools without the bloat. What started as a personal project is now a
+            comprehensive suite running entirely in your browser. No servers, no tracking—just
+            practical utilities that work instantly.
           </p>
 
           <div className="mt-8 sm:mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200 relative z-50">
@@ -84,27 +81,26 @@ const HomePageClient: React.FC = () => {
               Why Developers Love UtilToolkits
             </h2>
             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
-              Join thousands of developers who trust UtilToolkits for their
-              daily workflow.
+              Join thousands of developers who trust UtilToolkits for their daily workflow.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {[
               {
-                title: "100% Private",
-                desc: "All processing happens in your browser. Your data never leaves your device.",
+                title: '100% Private',
+                desc: 'All processing happens in your browser. Your data never leaves your device.',
               },
               {
-                title: "Lightning Fast",
-                desc: "No server delays. Instant results with client-side processing.",
+                title: 'Lightning Fast',
+                desc: 'No server delays. Instant results with client-side processing.',
               },
               {
-                title: "Always Free",
-                desc: "No hidden costs, no premium tiers. All tools are completely free.",
+                title: 'Always Free',
+                desc: 'No hidden costs, no premium tiers. All tools are completely free.',
               },
               {
-                title: "No Registration",
-                desc: "Start using tools immediately. No accounts or sign-ups required.",
+                title: 'No Registration',
+                desc: 'Start using tools immediately. No accounts or sign-ups required.',
               },
             ].map((feature, idx) => (
               <div
@@ -156,7 +152,9 @@ const HomePageClient: React.FC = () => {
                       </p>
                       <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                         <span>{blog.date}</span>
-                        <span className="text-blue-600 dark:text-blue-400 group-hover:underline">Read more →</span>
+                        <span className="text-blue-600 dark:text-blue-400 group-hover:underline">
+                          Read more →
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -197,7 +195,7 @@ const HomePageClient: React.FC = () => {
               const CategoryIcon = CATEGORY_ICONS[category];
               const description = CATEGORY_DESCRIPTIONS[category];
               const tool: Tool = {
-                id: CATEGORY_URL_MAP[category] ?? "default-id", // ensure id exists
+                id: CATEGORY_URL_MAP[category] ?? 'default-id', // ensure id exists
                 name: category as ToolCategory,
                 description,
                 icon: <CategoryIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />,

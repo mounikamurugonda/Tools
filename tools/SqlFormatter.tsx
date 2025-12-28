@@ -12,9 +12,7 @@ import FileUpload from '@/components/ui/FileUpload';
 import { FileText, Upload } from 'lucide-react';
 
 const SqlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [input, setInput] = useState(
-    'SELECT * FROM users WHERE id = 1 ORDER BY created_at DESC',
-  );
+  const [input, setInput] = useState('SELECT * FROM users WHERE id = 1 ORDER BY created_at DESC');
   const [output, setOutput] = useState('');
   const [inputMode, setInputMode] = useState<'text' | 'file'>('text');
 
@@ -26,20 +24,20 @@ const SqlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
       .replace(/\s*(\))\s*/g, ' ) ')
       .replace(
         /(SELECT|FROM|WHERE|GROUP BY|ORDER BY|INSERT INTO|UPDATE|DELETE|HAVING|LIMIT|JOIN|LEFT JOIN|RIGHT JOIN|INNER JOIN|OUTER JOIN|UNION|VALUES|SET)/gi,
-        '\n$1',
+        '\n$1'
       )
       .trim();
 
     // Simple indentation
     const lines = formatted.split('\n');
-    formatted = lines.map((line) => line.trim()).join('\n');
+    formatted = lines.map(line => line.trim()).join('\n');
 
     setOutput(formatted);
   };
 
   const handleFileUpload = (file: File) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const text = e.target?.result;
       if (typeof text === 'string') {
         setInput(text);
@@ -77,15 +75,11 @@ const SqlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
 
             {inputMode === 'file' ? (
-              <FileUpload
-                onFileSelect={handleFileUpload}
-                className="h-64"
-                accept=".sql,.txt"
-              />
+              <FileUpload onFileSelect={handleFileUpload} className="h-64" accept=".sql,.txt" />
             ) : (
               <TextArea
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 className="w-full h-64 font-mono text-sm resize-none"
                 placeholder="Enter SQL here..."
               />
@@ -109,10 +103,7 @@ const SqlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           </div>
         </div>
-        <Button
-          onClick={formatSql}
-          className="w-full"
-        >
+        <Button onClick={formatSql} className="w-full">
           Format SQL
         </Button>
       </Card>

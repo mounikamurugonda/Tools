@@ -66,19 +66,21 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex">
           <button
             onClick={() => handleCategoryChange('length')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'length'
-              ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
-              }`}
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+              category === 'length'
+                ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+            }`}
           >
             Length
           </button>
           <button
             onClick={() => handleCategoryChange('weight')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'weight'
-              ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
-              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
-              }`}
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
+              category === 'weight'
+                ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
+                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+            }`}
           >
             Weight
           </button>
@@ -91,13 +93,13 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Input
                 type="number"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={e => setInputValue(e.target.value)}
                 className="text-lg font-medium"
                 placeholder="Enter value"
               />
               <Select
                 value={{ value: fromUnit, label: fromUnit }}
-                onChange={(option) => option && setFromUnit(option.value)}
+                onChange={option => option && setFromUnit(option.value)}
                 options={units.map(u => ({ value: u, label: u }))}
               />
             </div>
@@ -113,7 +115,7 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
               <Select
                 value={{ value: toUnit, label: toUnit }}
-                onChange={(option) => option && setToUnit(option.value)}
+                onChange={option => option && setToUnit(option.value)}
                 options={units.map(u => ({ value: u, label: u }))}
               />
             </div>

@@ -38,7 +38,7 @@ const MarkdownPreviewer: React.FC<ToolProps> = ({ details, toolId }) => {
             <TextArea
               id="markdown-input"
               value={markdown}
-              onChange={(e) => setMarkdown(e.target.value)}
+              onChange={e => setMarkdown(e.target.value)}
               placeholder="Enter Markdown here..."
               className="w-full h-full font-mono resize-none"
               aria-label="Markdown Input"

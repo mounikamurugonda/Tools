@@ -51,11 +51,7 @@ const LoremIpsumGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Lorem Ipsum Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Lorem Ipsum Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
         <Card title="Controls">
           <div className="flex items-end gap-4">
@@ -76,7 +72,9 @@ const LoremIpsumGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
         <Card className="p-0 overflow-hidden" title="Generated Text">
           <div className="relative">
-            <div className={`transition-opacity duration-200 ${isGenerating ? 'opacity-50' : 'opacity-100'}`}>
+            <div
+              className={`transition-opacity duration-200 ${isGenerating ? 'opacity-50' : 'opacity-100'}`}
+            >
               <TextArea
                 readOnly
                 value={generatedText}

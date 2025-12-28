@@ -34,11 +34,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Box Shadow Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Box Shadow Generator" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         <div className="space-y-6">
           <Card title="Settings">
@@ -46,7 +42,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Slider
                 label="Horizontal Offset"
                 value={hOffset}
-                onChange={(e) => setHOffset(parseFloat(e.target.value))}
+                onChange={e => setHOffset(parseFloat(e.target.value))}
                 min={-50}
                 max={50}
                 valueDisplay={`${hOffset}px`}
@@ -54,7 +50,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Slider
                 label="Vertical Offset"
                 value={vOffset}
-                onChange={(e) => setVOffset(parseFloat(e.target.value))}
+                onChange={e => setVOffset(parseFloat(e.target.value))}
                 min={-50}
                 max={50}
                 valueDisplay={`${vOffset}px`}
@@ -62,7 +58,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Slider
                 label="Blur Radius"
                 value={blur}
-                onChange={(e) => setBlur(parseFloat(e.target.value))}
+                onChange={e => setBlur(parseFloat(e.target.value))}
                 min={0}
                 max={100}
                 valueDisplay={`${blur}px`}
@@ -70,7 +66,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Slider
                 label="Spread Radius"
                 value={spread}
-                onChange={(e) => setSpread(parseFloat(e.target.value))}
+                onChange={e => setSpread(parseFloat(e.target.value))}
                 min={-50}
                 max={50}
                 valueDisplay={`${spread}px`}
@@ -78,7 +74,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Slider
                 label="Opacity"
                 value={opacity}
-                onChange={(e) => setOpacity(parseFloat(e.target.value))}
+                onChange={e => setOpacity(parseFloat(e.target.value))}
                 min={0}
                 max={1}
                 step={0.01}
@@ -92,12 +88,12 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                     <input
                       type="color"
                       value={color}
-                      onChange={(e) => setColor(e.target.value)}
+                      onChange={e => setColor(e.target.value)}
                       className="h-10 w-12 rounded border border-gray-300 dark:border-gray-600 cursor-pointer"
                     />
                     <Input
                       value={color}
-                      onChange={(e) => setColor(e.target.value)}
+                      onChange={e => setColor(e.target.value)}
                       className="flex-grow font-mono"
                     />
                   </div>
@@ -108,7 +104,7 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <input
                   type="checkbox"
                   checked={inset}
-                  onChange={() => setInset((p) => !p)}
+                  onChange={() => setInset(p => !p)}
                   className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                 />
                 <span className="text-gray-700 dark:text-gray-300 font-medium">Inset</span>

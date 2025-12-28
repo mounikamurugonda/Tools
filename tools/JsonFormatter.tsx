@@ -56,7 +56,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
 
   const handleFileUpload = (file: File) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const text = e.target?.result;
       if (typeof text === 'string') {
         setInput(text);
@@ -75,11 +75,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   };
 
   return (
-    <ToolContainer
-      title={tool?.name || 'JSON Formatter'}
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title={tool?.name || 'JSON Formatter'} details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="flex flex-wrap items-center gap-4 justify-between bg-card p-4 rounded-lg shadow-sm">
           <div className="flex gap-3">
@@ -95,9 +91,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
               Clear
             </Button>
           </div>
-          <p className={`text-sm font-medium ${getStatusColor()}`}>
-            {status.message || 'Ready'}
-          </p>
+          <p className={`text-sm font-medium ${getStatusColor()}`}>{status.message || 'Ready'}</p>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
@@ -126,17 +120,13 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
 
             <div className="relative">
               {inputMode === 'file' ? (
-                <FileUpload
-                  onFileSelect={handleFileUpload}
-                  className="h-96"
-                  accept=".json,.txt"
-                />
+                <FileUpload onFileSelect={handleFileUpload} className="h-96" accept=".json,.txt" />
               ) : (
                 <>
                   <TextArea
                     id="json-input"
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={e => setInput(e.target.value)}
                     placeholder="Paste your JSON here..."
                     className="h-96 max-h-96 font-mono resize-none"
                   />

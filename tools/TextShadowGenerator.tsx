@@ -39,37 +39,77 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Text Shadow Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Text Shadow Generator" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
           <Card title="Settings">
             <div className="space-y-6">
-              <Slider label="Horizontal Offset" value={hOffset} onChange={(e) => setHOffset(parseFloat(e.target.value))} min={-20} max={20} valueDisplay={`${hOffset}px`} />
-              <Slider label="Vertical Offset" value={vOffset} onChange={(e) => setVOffset(parseFloat(e.target.value))} min={-20} max={20} valueDisplay={`${vOffset}px`} />
-              <Slider label="Blur Radius" value={blur} onChange={(e) => setBlur(parseFloat(e.target.value))} min={0} max={20} valueDisplay={`${blur}px`} />
-              <Slider label="Shadow Opacity" value={opacity} onChange={(e) => setOpacity(parseFloat(e.target.value))} min={0} max={1} step={0.01} valueDisplay={`${Math.round(opacity * 100)}%`} />
+              <Slider
+                label="Horizontal Offset"
+                value={hOffset}
+                onChange={e => setHOffset(parseFloat(e.target.value))}
+                min={-20}
+                max={20}
+                valueDisplay={`${hOffset}px`}
+              />
+              <Slider
+                label="Vertical Offset"
+                value={vOffset}
+                onChange={e => setVOffset(parseFloat(e.target.value))}
+                min={-20}
+                max={20}
+                valueDisplay={`${vOffset}px`}
+              />
+              <Slider
+                label="Blur Radius"
+                value={blur}
+                onChange={e => setBlur(parseFloat(e.target.value))}
+                min={0}
+                max={20}
+                valueDisplay={`${blur}px`}
+              />
+              <Slider
+                label="Shadow Opacity"
+                value={opacity}
+                onChange={e => setOpacity(parseFloat(e.target.value))}
+                min={0}
+                max={1}
+                step={0.01}
+                valueDisplay={`${Math.round(opacity * 100)}%`}
+              />
 
               <div className="grid grid-cols-1 gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
                 <div className="grid grid-cols-[1fr,auto] gap-4 items-center">
                   <Label className="mb-0">Shadow Color</Label>
                   <div className="flex gap-2">
-                    <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="h-9 w-9 rounded cursor-pointer border-0" />
+                    <input
+                      type="color"
+                      value={color}
+                      onChange={e => setColor(e.target.value)}
+                      className="h-9 w-9 rounded cursor-pointer border-0"
+                    />
                   </div>
                 </div>
                 <div className="grid grid-cols-[1fr,auto] gap-4 items-center">
                   <Label className="mb-0">Text Color</Label>
                   <div className="flex gap-2">
-                    <input type="color" value={textColor} onChange={(e) => setTextColor(e.target.value)} className="h-9 w-9 rounded cursor-pointer border-0" />
+                    <input
+                      type="color"
+                      value={textColor}
+                      onChange={e => setTextColor(e.target.value)}
+                      className="h-9 w-9 rounded cursor-pointer border-0"
+                    />
                   </div>
                 </div>
                 <div className="grid grid-cols-[1fr,auto] gap-4 items-center">
                   <Label className="mb-0">Background Color</Label>
                   <div className="flex gap-2">
-                    <input type="color" value={backgroundColor} onChange={(e) => setBackgroundColor(e.target.value)} className="h-9 w-9 rounded cursor-pointer border-0" />
+                    <input
+                      type="color"
+                      value={backgroundColor}
+                      onChange={e => setBackgroundColor(e.target.value)}
+                      className="h-9 w-9 rounded cursor-pointer border-0"
+                    />
                   </div>
                 </div>
               </div>
@@ -81,16 +121,27 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               Text Shadow Tips
             </h4>
             <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-              <p>• <strong>Subtle depth:</strong> Small offsets (1-2px) with low blur</p>
-              <p>• <strong>Dramatic effect:</strong> Larger offsets with high blur</p>
-              <p>• <strong>Glow effect:</strong> Zero offset, high blur</p>
-              <p>• <strong>Multiple shadows:</strong> Use comma-separated values (advanced)</p>
+              <p>
+                • <strong>Subtle depth:</strong> Small offsets (1-2px) with low blur
+              </p>
+              <p>
+                • <strong>Dramatic effect:</strong> Larger offsets with high blur
+              </p>
+              <p>
+                • <strong>Glow effect:</strong> Zero offset, high blur
+              </p>
+              <p>
+                • <strong>Multiple shadows:</strong> Use comma-separated values (advanced)
+              </p>
             </div>
           </div>
         </div>
 
         <div className="space-y-6">
-          <Card className="h-[250px] flex items-center justify-center p-0 overflow-hidden relative transition-colors duration-300" style={{ backgroundColor }}>
+          <Card
+            className="h-[250px] flex items-center justify-center p-0 overflow-hidden relative transition-colors duration-300"
+            style={{ backgroundColor }}
+          >
             <div className="absolute top-4 left-4 text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/50 dark:bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
               Preview
             </div>
@@ -112,7 +163,12 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <code>{`text-shadow: ${textShadowValue};`}</code>
               </pre>
               <div className="absolute top-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button size="sm" variant="secondary" onClick={() => copyToClipboard(`text-shadow: ${textShadowValue};`)} className="shadow-sm">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => copyToClipboard(`text-shadow: ${textShadowValue};`)}
+                  className="shadow-sm"
+                >
                   <Copy className="w-3 h-3" />
                 </Button>
               </div>
@@ -124,7 +180,12 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <code>{fullExample}</code>
               </pre>
               <div className="absolute top-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button size="sm" variant="secondary" onClick={() => copyToClipboard(fullExample)} className="shadow-sm">
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => copyToClipboard(fullExample)}
+                  className="shadow-sm"
+                >
                   <Copy className="w-3 h-3" />
                 </Button>
               </div>

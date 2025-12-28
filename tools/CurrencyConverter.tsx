@@ -27,22 +27,22 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   useEffect(() => {
     fetch(API_URL)
-      .then((response) => {
+      .then(response => {
         if (!response.ok) {
           throw new Error(
-            'Failed to fetch exchange rates. The service may be temporarily unavailable.',
+            'Failed to fetch exchange rates. The service may be temporarily unavailable.'
           );
         }
         return response.json();
       })
-      .then((data) => {
+      .then(data => {
         if (data.result === 'success') {
           setRates(data.rates);
         } else {
           throw new Error('Invalid response from the exchange rate API.');
         }
       })
-      .catch((err) => {
+      .catch(err => {
         setError(err.message);
       })
       .finally(() => {
@@ -60,7 +60,7 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       const result = (amount / fromRate) * toRate;
       return result;
     },
-    [],
+    []
   );
 
   useEffect(() => {
@@ -108,11 +108,7 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   if (error) {
     return (
-      <ToolContainer
-        title="Currency Converter"
-        details={details}
-        toolId={toolId}
-      >
+      <ToolContainer title="Currency Converter" details={details} toolId={toolId}>
         <div className="text-center p-4 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-700 rounded text-red-700 dark:text-red-300">
           {error}
         </div>
@@ -122,11 +118,7 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   if (isLoading || !rates) {
     return (
-      <ToolContainer
-        title="Currency Converter"
-        details={details}
-        toolId={toolId}
-      >
+      <ToolContainer title="Currency Converter" details={details} toolId={toolId}>
         <div className="flex flex-col items-center justify-center p-12 text-gray-500">
           <RefreshCw className="w-8 h-8 animate-spin mb-4" />
           Loading exchange rates...
@@ -172,7 +164,8 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          Rates are updated periodically via Open Exchange Rates API. Provided for informational purposes only.
+          Rates are updated periodically via Open Exchange Rates API. Provided for informational
+          purposes only.
         </p>
       </Card>
     </ToolContainer>
@@ -209,7 +202,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
         />
         <Select
           value={options.find(o => o.value === currency)}
-          onChange={(opt) => opt && onCurrencyChange(opt.value)}
+          onChange={opt => opt && onCurrencyChange(opt.value)}
           options={options}
           className="w-full"
         />

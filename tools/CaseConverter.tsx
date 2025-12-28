@@ -14,16 +14,14 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [output, setOutput] = useState('');
 
   const toSentenceCase = (str: string) => {
-    return str
-      .toLowerCase()
-      .replace(/(^\s*\w|[.!?]\s*\w)/g, (c) => c.toUpperCase());
+    return str.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
   };
 
   const toTitleCase = (str: string) => {
     return str
       .toLowerCase()
       .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   };
 
@@ -37,9 +35,7 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const toInverseCase = (str: string) => {
     return str
       .split('')
-      .map((c) =>
-        c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase(),
-      )
+      .map(c => (c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()))
       .join('');
   };
 
@@ -91,7 +87,7 @@ const CaseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 <TextArea
                   id="case-input"
                   value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  onChange={e => setInput(e.target.value)}
                   placeholder="Enter text here..."
                   className="h-96 max-h-96 border-none focus:ring-0 rounded-none bg-white dark:bg-gray-900"
                 />

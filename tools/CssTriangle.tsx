@@ -55,11 +55,7 @@ border-color: ${getBorderStyles().borderColor};`;
   };
 
   return (
-    <ToolContainer
-      title="CSS Triangle Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="CSS Triangle Generator" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
           <Card title="Settings">
@@ -71,7 +67,7 @@ border-color: ${getBorderStyles().borderColor};`;
                     { val: 'top', icon: ChevronUp },
                     { val: 'right', icon: ChevronRight },
                     { val: 'bottom', icon: ChevronDown },
-                    { val: 'left', icon: ChevronLeft }
+                    { val: 'left', icon: ChevronLeft },
                   ].map(({ val, icon: Icon }) => (
                     <Button
                       key={val}
@@ -91,7 +87,7 @@ border-color: ${getBorderStyles().borderColor};`;
                 min={0}
                 max={300}
                 value={width}
-                onChange={(e) => setWidth(parseFloat(e.target.value))}
+                onChange={e => setWidth(parseFloat(e.target.value))}
                 valueDisplay={`${width}px`}
               />
 
@@ -100,7 +96,7 @@ border-color: ${getBorderStyles().borderColor};`;
                 min={0}
                 max={300}
                 value={height}
-                onChange={(e) => setHeight(parseFloat(e.target.value))}
+                onChange={e => setHeight(parseFloat(e.target.value))}
                 valueDisplay={`${height}px`}
               />
 
@@ -110,12 +106,12 @@ border-color: ${getBorderStyles().borderColor};`;
                   <input
                     type="color"
                     value={color}
-                    onChange={(e) => setColor(e.target.value)}
+                    onChange={e => setColor(e.target.value)}
                     className="h-10 w-12 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
                   />
                   <Input
                     value={color}
-                    onChange={(e) => setColor(e.target.value)}
+                    onChange={e => setColor(e.target.value)}
                     className="flex-grow font-mono"
                   />
                 </div>

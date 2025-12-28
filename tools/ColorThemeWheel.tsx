@@ -27,7 +27,7 @@ function hslToRgb(h: number, s: number, l: number) {
   else if (2 <= hp && hp < 3) [r1, g1, b1] = [0, c, x];
   else if (3 <= hp && hp < 4) [r1, g1, b1] = [0, x, c];
   else if (4 <= hp && hp < 5) [r1, g1, b1] = [x, 0, c];
-  else[r1, g1, b1] = [c, 0, x];
+  else [r1, g1, b1] = [c, 0, x];
   const m = l - c / 2;
   return {
     r: Math.round((r1 + m) * 255),
@@ -175,10 +175,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
     document.addEventListener('touchcancel', end);
   };
 
-  const palette = useMemo(
-    () => makePalette(h, s, l, scheme),
-    [h, s, l, scheme],
-  );
+  const palette = useMemo(() => makePalette(h, s, l, scheme), [h, s, l, scheme]);
 
   const swatches = useMemo(
     () =>
@@ -191,7 +188,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
           l: Math.round(ll * 100),
         };
       }),
-    [palette],
+    [palette]
   );
 
   const baseHex = useMemo(() => hslToHex(h, s, l), [h, s, l]);
@@ -199,7 +196,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
   const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-    } catch { }
+    } catch {}
   };
 
   const cssVars = useMemo(() => {
@@ -210,19 +207,15 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
   const jsonExport = useMemo(
     () =>
       JSON.stringify(
-        swatches.map((sw) => sw.hex),
+        swatches.map(sw => sw.hex),
         null,
-        2,
+        2
       ),
-    [swatches],
+    [swatches]
   );
 
   return (
-    <ToolContainer
-      title="Color Theme Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Color Theme Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
         {/* Controls */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -255,7 +248,8 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div
                   className="absolute inset-0 rounded-full"
                   style={{
-                    background: 'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 65%)',
+                    background:
+                      'radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 65%)',
                     mixBlendMode: 'overlay',
                   }}
                 />
@@ -272,7 +266,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                 max={1}
                 step={0.01}
                 value={l}
-                onChange={(e) => setL(parseFloat(e.target.value))}
+                onChange={e => setL(parseFloat(e.target.value))}
                 valueDisplay={`${Math.round(l * 100)}%`}
               />
 
@@ -284,7 +278,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                     min={0}
                     max={360}
                     value={h}
-                    onChange={(e) => setH(clamp(parseInt(e.target.value || '0'), 0, 360))}
+                    onChange={e => setH(clamp(parseInt(e.target.value || '0'), 0, 360))}
                   />
                 </div>
                 <div>
@@ -294,19 +288,18 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                     min={0}
                     max={100}
                     value={Math.round(s * 100)}
-                    onChange={(e) => setS(clamp(parseInt(e.target.value || '0') / 100, 0, 1))}
+                    onChange={e => setS(clamp(parseInt(e.target.value || '0') / 100, 0, 1))}
                   />
                 </div>
               </div>
 
               <div>
                 <Label>Scheme</Label>
-                <Select
-                  value={scheme}
-                  onChange={(e) => setScheme(e.target.value as Scheme)}
-                >
+                <Select value={scheme} onChange={e => setScheme(e.target.value as Scheme)}>
                   {SCHEME_OPTIONS.map(o => (
-                    <option key={o.value} value={o.value}>{o.label}</option>
+                    <option key={o.value} value={o.value}>
+                      {o.label}
+                    </option>
                   ))}
                 </Select>
               </div>
@@ -343,7 +336,9 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <Label>CSS Variables</Label>
-                <Button size="sm" variant="secondary" onClick={() => copy(cssVars)}>Copy CSS</Button>
+                <Button size="sm" variant="secondary" onClick={() => copy(cssVars)}>
+                  Copy CSS
+                </Button>
               </div>
               <textarea
                 className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"
@@ -354,7 +349,9 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="space-y-2">
               <div className="flex justify-between items-center">
                 <Label>JSON Export</Label>
-                <Button size="sm" variant="secondary" onClick={() => copy(jsonExport)}>Copy JSON</Button>
+                <Button size="sm" variant="secondary" onClick={() => copy(jsonExport)}>
+                  Copy JSON
+                </Button>
               </div>
               <textarea
                 className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"

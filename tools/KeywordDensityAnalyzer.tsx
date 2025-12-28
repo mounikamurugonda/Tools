@@ -139,7 +139,7 @@ const STOP_WORDS = new Set([
 
 const KeywordDensityAnalyzer: React.FC<ToolProps> = ({ details, toolId }) => {
   const [text, setText] = useState(
-    'The quick brown fox jumps over the lazy dog. The dog was not amused.',
+    'The quick brown fox jumps over the lazy dog. The dog was not amused.'
   );
   const [ignoreStopWords, setIgnoreStopWords] = useState(true);
 
@@ -182,29 +182,23 @@ const KeywordDensityAnalyzer: React.FC<ToolProps> = ({ details, toolId }) => {
   }, [debouncedText, ignoreStopWords]);
 
   return (
-    <ToolContainer
-      title="Keyword Density Analyzer"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Keyword Density Analyzer" details={details} toolId={toolId}>
       <div className="space-y-4">
         <div className="relative">
           <textarea
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={e => setText(e.target.value)}
             placeholder="Enter text here to analyze keyword density..."
             className="w-full h-48 bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          {text && (
-            <CopyButton textToCopy={text} className="absolute top-2 right-2" />
-          )}
+          {text && <CopyButton textToCopy={text} className="absolute top-2 right-2" />}
         </div>
         <div className="flex items-center space-x-4">
           <label className="flex items-center space-x-2 p-2 bg-gray-100 dark:bg-gray-700 rounded cursor-pointer">
             <input
               type="checkbox"
               checked={ignoreStopWords}
-              onChange={() => setIgnoreStopWords((prev) => !prev)}
+              onChange={() => setIgnoreStopWords(prev => !prev)}
               className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
             />
             <span>Ignore Common Stop Words</span>
@@ -213,10 +207,7 @@ const KeywordDensityAnalyzer: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="grid md:grid-cols-3 gap-6">
           <KeywordTable title="One-Word Keywords" data={analysis.one_word} />
           <KeywordTable title="Two-Word Keywords" data={analysis.two_words} />
-          <KeywordTable
-            title="Three-Word Keywords"
-            data={analysis.three_words}
-          />
+          <KeywordTable title="Three-Word Keywords" data={analysis.three_words} />
         </div>
       </div>
     </ToolContainer>
@@ -230,9 +221,7 @@ interface KeywordTableProps {
 
 const KeywordTable: React.FC<KeywordTableProps> = ({ title, data }) => (
   <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
-    <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">
-      {title}
-    </h3>
+    <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">{title}</h3>
     <div className="overflow-auto h-80">
       <table className="w-full text-sm text-left">
         <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-100 dark:bg-gray-700 sticky top-0">
@@ -251,10 +240,7 @@ const KeywordTable: React.FC<KeywordTableProps> = ({ title, data }) => (
         <tbody>
           {data.length > 0 ? (
             data.map(({ keyword, count, density }) => (
-              <tr
-                key={keyword}
-                className="border-b border-gray-200 dark:border-gray-700"
-              >
+              <tr key={keyword} className="border-b border-gray-200 dark:border-gray-700">
                 <td className="px-4 py-2 font-medium">{keyword}</td>
                 <td className="px-4 py-2 text-right">{count}</td>
                 <td className="px-4 py-2 text-right">{density.toFixed(2)}%</td>

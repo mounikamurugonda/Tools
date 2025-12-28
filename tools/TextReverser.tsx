@@ -24,7 +24,7 @@ const TextReverser: React.FC<ToolProps> = ({ details, toolId }) => {
               <TextArea
                 id="input-text"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 placeholder="Enter text to reverse..."
                 className="h-96 max-h-96"
               />

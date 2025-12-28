@@ -46,7 +46,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
       const data = await ffmpeg.readFile(outputFileName);
       const url = URL.createObjectURL(
-        new Blob([(data as any).buffer], { type: `video/${outputFormat}` }),
+        new Blob([(data as any).buffer], { type: `video/${outputFormat}` })
       );
       setConvertedVideo(url);
     } catch (err) {
@@ -58,11 +58,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Video Format Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Video Format Converter" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
         <div className="space-y-6">
@@ -80,7 +76,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             </label>
             <select
               value={outputFormat}
-              onChange={(e) => setOutputFormat(e.target.value)}
+              onChange={e => setOutputFormat(e.target.value)}
               className="w-full bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
             >
               <option value="mp4">MP4</option>
@@ -95,9 +91,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             disabled={!videoFile || isLoading}
             className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
           >
-            {isLoading
-              ? `Converting... ${(progress * 100).toFixed(0)}%`
-              : 'Convert Format'}
+            {isLoading ? `Converting... ${(progress * 100).toFixed(0)}%` : 'Convert Format'}
           </button>
 
           {error && (
@@ -109,9 +103,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
         {/* Right side - Preview */}
         <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">
-            Preview:
-          </h3>
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Preview:</h3>
           <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 min-h-[300px] flex items-center justify-center">
             {videoFile && !convertedVideo ? (
               <div className="text-center">
@@ -120,9 +112,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                   controls
                   className="max-w-full max-h-64 rounded-lg border border-gray-200 dark:border-gray-700"
                 />
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                  Original Video
-                </p>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Original Video</p>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                   Converting to: {outputFormat.toUpperCase()}
                 </p>

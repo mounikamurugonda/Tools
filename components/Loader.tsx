@@ -9,7 +9,7 @@ const Loader: React.FC = () => {
         <div className="absolute inset-4 border-4 border-purple-100 dark:border-purple-900 rounded-full"></div>
         <div className="absolute inset-4 border-4 border-purple-500 dark:border-purple-400 rounded-full border-b-transparent animate-spin-slow reverse"></div>
       </div>
-      
+
       <div className="text-center space-y-3">
         <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 animate-pulse">
           Loading UtilToolkits...

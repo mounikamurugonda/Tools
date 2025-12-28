@@ -19,9 +19,7 @@ function pad2(n: number) {
   return n.toString(16).padStart(2, '0');
 }
 
-function hexToRgba(
-  hex: string,
-): { r: number; g: number; b: number; a: number } | null {
+function hexToRgba(hex: string): { r: number; g: number; b: number; a: number } | null {
   const s = hex.trim().replace(/^#/, '');
   if (![3, 4, 6, 8].includes(s.length)) return null;
   let r = 0,
@@ -43,21 +41,19 @@ function hexToRgba(
     b = parseInt(s.slice(4, 6), 16);
     a = parseInt(s.slice(6, 8) || 'ff', 16);
   }
-  if ([r, g, b, a].some((n) => Number.isNaN(n))) return null;
+  if ([r, g, b, a].some(n => Number.isNaN(n))) return null;
   return { r, g, b, a };
 }
 
 function rgbaToHex(
   { r, g, b, a }: { r: number; g: number; b: number; a?: number },
-  withAlpha = false,
+  withAlpha = false
 ): string {
   const _a = typeof a === 'number' ? a : 255;
   return '#' + pad2(r) + pad2(g) + pad2(b) + (withAlpha ? pad2(_a) : '');
 }
 
-function parseRgb(
-  str: string,
-): { r: number; g: number; b: number; a: number } | null {
+function parseRgb(str: string): { r: number; g: number; b: number; a: number } | null {
   const s = str.trim().replace(/\s+/g, '');
   // rgb(255,0,0) or rgba(255,0,0,0.5)
   const m = s.match(/^rgba?\(([^)]+)\)$/i);
@@ -72,7 +68,7 @@ function parseRgb(
     const av = parts[3];
     a = av.endsWith('%') ? parseFloat(av) / 100 : parseFloat(av);
   }
-  if ([r, g, b].some((v) => Number.isNaN(v))) return null;
+  if ([r, g, b].some(v => Number.isNaN(v))) return null;
   return {
     r: clamp(Math.round(r), 0, 255),
     g: clamp(Math.round(g), 0, 255),
@@ -81,9 +77,7 @@ function parseRgb(
   };
 }
 
-function parseHsl(
-  str: string,
-): { h: number; s: number; l: number; a: number } | null {
+function parseHsl(str: string): { h: number; s: number; l: number; a: number } | null {
   const s = str.trim().replace(/\s+/g, '');
   const m = s.match(/^hsla?\(([^)]+)\)$/i);
   if (!m) return null;
@@ -96,7 +90,7 @@ function parseHsl(
   if (!sVal.endsWith('%') || !lVal.endsWith('%')) return null;
   const sPct = parseFloat(sVal) / 100;
   const lPct = parseFloat(lVal) / 100;
-  if ([h, sPct, lPct, a].some((v) => Number.isNaN(v))) return null;
+  if ([h, sPct, lPct, a].some(v => Number.isNaN(v))) return null;
   // Normalize h
   h = ((h % 360) + 360) % 360;
   return { h, s: clamp(sPct, 0, 1), l: clamp(lPct, 0, 1), a: clamp(a, 0, 1) };
@@ -115,7 +109,7 @@ function hslToRgb(h: number, s: number, l: number) {
   else if (120 <= h && h < 180) [r1, g1, b1] = [0, c, x];
   else if (180 <= h && h < 240) [r1, g1, b1] = [0, x, c];
   else if (240 <= h && h < 300) [r1, g1, b1] = [x, 0, c];
-  else[r1, g1, b1] = [c, 0, x];
+  else [r1, g1, b1] = [c, 0, x];
   return {
     r: Math.round((r1 + m) * 255),
     g: Math.round((g1 + m) * 255),
@@ -151,33 +145,13 @@ function rgbToHsl(r: number, g: number, b: number) {
   return { h: ((h % 360) + 360) % 360, s, l };
 }
 
-function formatRgb({
-  r,
-  g,
-  b,
-  a,
-}: {
-  r: number;
-  g: number;
-  b: number;
-  a: number;
-}) {
+function formatRgb({ r, g, b, a }: { r: number; g: number; b: number; a: number }) {
   return a < 1
     ? `rgba(${r}, ${g}, ${b}, ${a.toFixed(3).replace(/0+$/, '').replace(/\.$/, '')})`
     : `rgb(${r}, ${g}, ${b})`;
 }
 
-function formatHsl({
-  h,
-  s,
-  l,
-  a,
-}: {
-  h: number;
-  s: number;
-  l: number;
-  a: number;
-}) {
+function formatHsl({ h, s, l, a }: { h: number; s: number; l: number; a: number }) {
   const sPct = Math.round(s * 100);
   const lPct = Math.round(l * 100);
   return a < 1
@@ -186,7 +160,7 @@ function formatHsl({
 }
 
 function resolveCssColorKeyword(
-  keyword: string,
+  keyword: string
 ): { r: number; g: number; b: number; a: number } | null {
   if (typeof document === 'undefined') return null;
   const el = document.createElement('div');
@@ -218,7 +192,7 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const derived = useMemo(() => {
     const hex = rgbaToHex(
       { r: rgba.r, g: rgba.g, b: rgba.b, a: Math.round(rgba.a * 255) },
-      rgba.a < 1,
+      rgba.a < 1
     );
     const rgb = formatRgb({ r: rgba.r, g: rgba.g, b: rgba.b, a: rgba.a });
     const { h, s, l } = rgbToHsl(rgba.r, rgba.g, rgba.b);
@@ -281,15 +255,11 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-    } catch { }
+    } catch {}
   };
 
   return (
-    <ToolContainer
-      title="CSS Color Code Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="CSS Color Code Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Card className="flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-800/50">
@@ -308,7 +278,7 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div className="flex gap-2">
                   <Input
                     value={hexInput}
-                    onChange={(e) => handleHexChange(e.target.value)}
+                    onChange={e => handleHexChange(e.target.value)}
                     placeholder="#3b82f6"
                     className="font-mono text-sm uppercase"
                   />
@@ -323,7 +293,7 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div className="flex gap-2">
                   <Input
                     value={rgbInput}
-                    onChange={(e) => handleRgbChange(e.target.value)}
+                    onChange={e => handleRgbChange(e.target.value)}
                     placeholder="rgb(59, 130, 246)"
                     className="font-mono text-sm"
                   />
@@ -338,7 +308,7 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div className="flex gap-2">
                   <Input
                     value={hslInput}
-                    onChange={(e) => handleHslChange(e.target.value)}
+                    onChange={e => handleHslChange(e.target.value)}
                     placeholder="hsl(217, 91%, 60%)"
                     className="font-mono text-sm"
                   />
@@ -355,7 +325,7 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                   max={1}
                   step={0.01}
                   value={rgba.a}
-                  onChange={(e) => setRgba(prev => ({ ...prev, a: parseFloat(e.target.value) }))}
+                  onChange={e => setRgba(prev => ({ ...prev, a: parseFloat(e.target.value) }))}
                   valueDisplay={rgba.a.toFixed(2)}
                 />
               </div>
@@ -369,10 +339,12 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>CSS Color Keyword</Label>
               <Input
                 value={keywordInput}
-                onChange={(e) => setKeywordInput(e.target.value)}
+                onChange={e => setKeywordInput(e.target.value)}
                 placeholder="e.g., rebeccapurple, tomato, slateblue"
               />
-              <p className="text-xs text-gray-500 mt-1">Enter a valid CSS color name to resolve its values.</p>
+              <p className="text-xs text-gray-500 mt-1">
+                Enter a valid CSS color name to resolve its values.
+              </p>
             </div>
             <Button onClick={handleKeywordResolve} className="w-full md:w-auto">
               <RefreshCw className="w-4 h-4 mr-2" />
@@ -387,15 +359,27 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         </Card>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {['HEX', 'RGB', 'HSL'].map((type) => (
-            <div key={type} className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 flex justify-between items-center shadow-sm">
+          {['HEX', 'RGB', 'HSL'].map(type => (
+            <div
+              key={type}
+              className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-700 flex justify-between items-center shadow-sm"
+            >
               <div>
-                <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">{type}</div>
+                <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">
+                  {type}
+                </div>
                 <code className="text-sm font-mono font-medium text-gray-900 dark:text-gray-100">
                   {type === 'HEX' ? derived.hex : type === 'RGB' ? derived.rgb : derived.hsl}
                 </code>
               </div>
-              <Button size="sm" variant="ghost" className="!p-2 text-gray-400 hover:text-blue-600" onClick={() => copy(type === 'HEX' ? derived.hex : type === 'RGB' ? derived.rgb : derived.hsl)}>
+              <Button
+                size="sm"
+                variant="ghost"
+                className="!p-2 text-gray-400 hover:text-blue-600"
+                onClick={() =>
+                  copy(type === 'HEX' ? derived.hex : type === 'RGB' ? derived.rgb : derived.hsl)
+                }
+              >
                 <Copy className="w-4 h-4" />
               </Button>
             </div>

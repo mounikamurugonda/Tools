@@ -16,8 +16,7 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
   const [error, setError] = useState('');
 
   const extractId = (url: string) => {
-    const regExp =
-      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     const match = url.match(regExp);
     return match && match[7].length === 11 ? match[7] : false;
   };
@@ -39,11 +38,7 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="YouTube Thumbnail Downloader"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="YouTube Thumbnail Downloader" details={details} toolId={toolId}>
       <div className="space-y-8">
         <Card>
           <div className="flex flex-col sm:flex-row gap-4 items-end">
@@ -56,18 +51,14 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Input
                   id="youtube-url"
                   value={url}
-                  onChange={(e) => setUrl(e.target.value)}
+                  onChange={e => setUrl(e.target.value)}
                   placeholder="https://www.youtube.com/watch?v=..."
                   className="pl-10"
-                  onKeyDown={(e) => e.key === 'Enter' && handleFetch()}
+                  onKeyDown={e => e.key === 'Enter' && handleFetch()}
                 />
               </div>
             </div>
-            <Button
-              onClick={handleFetch}
-              variant="primary"
-              className="w-full sm:w-auto"
-            >
+            <Button onClick={handleFetch} variant="primary" className="w-full sm:w-auto">
               <Search className="w-4 h-4 mr-2" /> Fetch Thumbnails
             </Button>
           </div>
@@ -84,7 +75,9 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
               <Card
                 key={i}
                 className="p-0 overflow-hidden"
-                title={['Max Resolution (HD)', 'Standard Quality', 'High Quality', 'Medium Quality'][i]}
+                title={
+                  ['Max Resolution (HD)', 'Standard Quality', 'High Quality', 'Medium Quality'][i]
+                }
               >
                 <div className="aspect-video bg-gray-100 dark:bg-gray-800 relative group">
                   <img
@@ -92,8 +85,9 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
                     alt="Thumbnail"
                     className="w-full h-full object-cover"
                     loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://placehold.co/640x480?text=Thumbnail+Not+Found';
+                    onError={e => {
+                      (e.target as HTMLImageElement).src =
+                        'https://placehold.co/640x480?text=Thumbnail+Not+Found';
                     }}
                   />
                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-4">
@@ -103,7 +97,7 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
                         const link = document.createElement('a');
                         link.href = thumb;
                         link.download = `thumbnail-${i}.jpg`;
-                        link.target = "_blank";
+                        link.target = '_blank';
                         link.click();
                       }}
                     >
@@ -114,22 +108,23 @@ const YouTubeThumbnail: React.FC<ToolProps> = ({ details, toolId }) => {
               </Card>
             ))}
           </div>
-        )
-        }
+        )}
 
-        {
-          thumbnails.length === 0 && !error && (
-            <div className="text-center py-12 text-gray-400 dark:text-gray-500">
-              <div className="bg-gray-100 dark:bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
-                <ImageIcon className="w-10 h-10 opacity-50" />
-              </div>
-              <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">No Thumbnails Yet</h3>
-              <p className="max-w-sm mx-auto mt-2">Enter a YouTube video URL above to fetch and download high-quality thumbnails.</p>
+        {thumbnails.length === 0 && !error && (
+          <div className="text-center py-12 text-gray-400 dark:text-gray-500">
+            <div className="bg-gray-100 dark:bg-gray-800 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+              <ImageIcon className="w-10 h-10 opacity-50" />
             </div>
-          )
-        }
-      </div >
-    </ToolContainer >
+            <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100">
+              No Thumbnails Yet
+            </h3>
+            <p className="max-w-sm mx-auto mt-2">
+              Enter a YouTube video URL above to fetch and download high-quality thumbnails.
+            </p>
+          </div>
+        )}
+      </div>
+    </ToolContainer>
   );
 };
 

@@ -6,9 +6,7 @@ import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
 
 const HashtagExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [text, setText] = useState(
-    'Loving the new #coding tools! #developer #react #nextjs',
-  );
+  const [text, setText] = useState('Loving the new #coding tools! #developer #react #nextjs');
 
   const hashtags = useMemo(() => {
     const matches = text.match(/#[a-zA-Z0-9_]+/g);
@@ -20,24 +18,20 @@ const HashtagExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="space-y-6">
         <textarea
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={e => setText(e.target.value)}
           className="w-full h-40 brand-input"
           placeholder="Paste text with hashtags..."
         />
 
         <div className="bg-gray-50 dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-700">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold text-lg">
-              Extracted Hashtags ({hashtags.length})
-            </h3>
-            {hashtags.length > 0 && (
-              <CopyButton textToCopy={hashtags.join(' ')} />
-            )}
+            <h3 className="font-semibold text-lg">Extracted Hashtags ({hashtags.length})</h3>
+            {hashtags.length > 0 && <CopyButton textToCopy={hashtags.join(' ')} />}
           </div>
 
           {hashtags.length > 0 ? (
             <div className="flex flex-wrap gap-2">
-              {hashtags.map((tag) => (
+              {hashtags.map(tag => (
                 <span
                   key={tag}
                   className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded-full text-sm"

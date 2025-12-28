@@ -64,7 +64,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
         language={getLanguage()}
         value={code}
         theme={getMonacoTheme()}
-        onChange={(value) => onChange && onChange(value || '')}
+        onChange={value => onChange && onChange(value || '')}
         onMount={handleEditorDidMount}
         options={{
           readOnly: readOnly,
@@ -92,5 +92,3 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
 };
 
 export default CodeEditor;
-
-

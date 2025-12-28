@@ -97,19 +97,13 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     { id: 2, color: '#8b5cf6', position: 100 },
   ]);
   const [angle, setAngle] = useState(45);
-  const [gradientType, setGradientType] = useState<'linear' | 'radial'>(
-    'linear',
-  );
-  const [radialShape, setRadialShape] = useState<'circle' | 'ellipse'>(
-    'circle',
-  );
+  const [gradientType, setGradientType] = useState<'linear' | 'radial'>('linear');
+  const [radialShape, setRadialShape] = useState<'circle' | 'ellipse'>('circle');
   const [position, setPosition] = useState('center');
 
   const gradientValue = useMemo(() => {
     const sortedColors = [...colors].sort((a, b) => a.position - b.position);
-    const colorStops = sortedColors
-      .map((c) => `${c.color} ${c.position}%`)
-      .join(', ');
+    const colorStops = sortedColors.map(c => `${c.color} ${c.position}%`).join(', ');
     if (gradientType === 'linear') {
       return `linear-gradient(${angle}deg, ${colorStops})`;
     } else {
@@ -117,10 +111,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   }, [colors, angle, gradientType, radialShape, position]);
 
-  const sortedColors = useMemo(
-    () => [...colors].sort((a, b) => a.position - b.position),
-    [colors],
-  );
+  const sortedColors = useMemo(() => [...colors].sort((a, b) => a.position - b.position), [colors]);
 
   const addColor = (index: number) => {
     const prevColor = sortedColors[index];
@@ -128,11 +119,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
     const newPosition = (prevColor.position + nextColor.position) / 2;
 
-    const newColorValue = interpolateColor(
-      prevColor.color,
-      nextColor.color,
-      0.5,
-    );
+    const newColorValue = interpolateColor(prevColor.color, nextColor.color, 0.5);
 
     const newColor: ColorStop = {
       id: Date.now(),
@@ -144,13 +131,13 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const removeColor = (id: number) => {
     if (colors.length > 2) {
-      setColors(colors.filter((c) => c.id !== id));
+      setColors(colors.filter(c => c.id !== id));
     }
   };
 
   const updateColor = (id: number, newColor?: string, newPosition?: number) => {
     setColors(
-      colors.map((c) => {
+      colors.map(c => {
         if (c.id === id) {
           return {
             ...c,
@@ -159,7 +146,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
           };
         }
         return c;
-      }),
+      })
     );
   };
 
@@ -168,9 +155,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   const getPresetStyle = (p: (typeof PRESETS)[0]) => {
-    const colorStops = p.colors
-      .map((c) => `${c.color} ${c.position}%`)
-      .join(', ');
+    const colorStops = p.colors.map(c => `${c.color} ${c.position}%`).join(', ');
     if (gradientType === 'linear') {
       return { background: `linear-gradient(45deg, ${colorStops})` };
     }
@@ -182,11 +167,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="CSS Gradient Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="CSS Gradient Generator" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-8">
         <div className="space-y-6">
           <Card title="Settings">
@@ -210,7 +191,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Slider
                   label="Angle"
                   value={angle}
-                  onChange={(e) => setAngle(parseFloat(e.target.value))}
+                  onChange={e => setAngle(parseFloat(e.target.value))}
                   min={0}
                   max={360}
                   valueDisplay={`${angle}°`}
@@ -223,7 +204,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                     <Label>Shape</Label>
                     <Select
                       value={radialShape}
-                      onChange={(e) => setRadialShape(e.target.value as 'circle' | 'ellipse')}
+                      onChange={e => setRadialShape(e.target.value as 'circle' | 'ellipse')}
                     >
                       <option value="circle">Circle</option>
                       <option value="ellipse">Ellipse</option>
@@ -231,12 +212,21 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   </div>
                   <div>
                     <Label>Position</Label>
-                    <Select
-                      value={position}
-                      onChange={(e) => setPosition(e.target.value)}
-                    >
-                      {['center', 'top left', 'top right', 'bottom left', 'bottom right', 'top', 'bottom', 'left', 'right'].map(pos => (
-                        <option key={pos} value={pos}>{pos}</option>
+                    <Select value={position} onChange={e => setPosition(e.target.value)}>
+                      {[
+                        'center',
+                        'top left',
+                        'top right',
+                        'bottom left',
+                        'bottom right',
+                        'top',
+                        'bottom',
+                        'left',
+                        'right',
+                      ].map(pos => (
+                        <option key={pos} value={pos}>
+                          {pos}
+                        </option>
                       ))}
                     </Select>
                   </div>
@@ -270,13 +260,15 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   ))}
                 </div>
               </div>
-
             </div>
           </Card>
         </div>
 
         <div className="space-y-6">
-          <Card title="Preview" className="h-[300px] bg-gray-50 dark:bg-gray-800/50 flex flex-col p-4">
+          <Card
+            title="Preview"
+            className="h-[300px] bg-gray-50 dark:bg-gray-800/50 flex flex-col p-4"
+          >
             <div
               className="flex-grow w-full rounded-xl shadow-sm border border-gray-200 dark:border-gray-700"
               style={{ background: gradientValue }}
@@ -296,7 +288,7 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
           <Card title="Presets">
             <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
-              {PRESETS.map((p) => (
+              {PRESETS.map(p => (
                 <button
                   key={p.name}
                   onClick={() => applyPreset(p.colors)}
@@ -319,21 +311,28 @@ interface ColorStopRowProps extends ColorStop {
   canRemove: boolean;
 }
 
-const ColorStopRow: React.FC<ColorStopRowProps> = ({ id, color, position, onUpdate, onRemove, canRemove }) => {
+const ColorStopRow: React.FC<ColorStopRowProps> = ({
+  id,
+  color,
+  position,
+  onUpdate,
+  onRemove,
+  canRemove,
+}) => {
   return (
     <div className="flex items-center gap-3 p-2 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800">
       <div className="flex-shrink-0">
         <input
           type="color"
           value={color}
-          onChange={(e) => onUpdate(id, e.target.value)}
+          onChange={e => onUpdate(id, e.target.value)}
           className="w-8 h-8 rounded cursor-pointer border-0 p-0 overflow-hidden"
         />
       </div>
       <div className="flex-grow mx-2">
         <Slider
           value={position}
-          onChange={(e) => onUpdate(id, undefined, parseFloat(e.target.value))}
+          onChange={e => onUpdate(id, undefined, parseFloat(e.target.value))}
           min={0}
           max={100}
           className="w-full"

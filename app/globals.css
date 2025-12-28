@@ -35,7 +35,6 @@
 }
 
 @layer base {
-
   html,
   body {
     margin: 0;
@@ -142,7 +141,7 @@
 }
 
 /* Range input styling */
-input[type="range"] {
+input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
@@ -150,18 +149,18 @@ input[type="range"] {
   width: 100%;
 }
 
-input[type="range"]::-webkit-slider-runnable-track {
+input[type='range']::-webkit-slider-runnable-track {
   background: #e5e7eb;
   height: 0.25rem;
   border-radius: 0.25rem;
   transition: background-color 0.2s;
 }
 
-.dark input[type="range"]::-webkit-slider-runnable-track {
+.dark input[type='range']::-webkit-slider-runnable-track {
   background: #4b5563;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   margin-top: -6px;
@@ -171,29 +170,31 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 9999px;
   border: 2px solid #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.1s, background-color 0.2s;
+  transition:
+    transform 0.1s,
+    background-color 0.2s;
 }
 
-input[type="range"]:hover::-webkit-slider-thumb {
+input[type='range']:hover::-webkit-slider-thumb {
   transform: scale(1.2);
 }
 
-.dark input[type="range"]::-webkit-slider-thumb {
+.dark input[type='range']::-webkit-slider-thumb {
   border-color: #1f2937;
 }
 
-input[type="range"]::-moz-range-track {
+input[type='range']::-moz-range-track {
   background: #e5e7eb;
   height: 0.25rem;
   border-radius: 0.25rem;
   border: none;
 }
 
-.dark input[type="range"]::-moz-range-track {
+.dark input[type='range']::-moz-range-track {
   background: #4b5563;
 }
 
-input[type="range"]::-moz-range-thumb {
+input[type='range']::-moz-range-thumb {
   background-color: #3b82f6;
   height: 1rem;
   width: 1rem;
@@ -202,16 +203,15 @@ input[type="range"]::-moz-range-thumb {
   transition: transform 0.1s;
 }
 
-input[type="range"]:hover::-moz-range-thumb {
+input[type='range']:hover::-moz-range-thumb {
   transform: scale(1.2);
 }
 
-.dark input[type="range"]::-moz-range-thumb {
+.dark input[type='range']::-moz-range-thumb {
   border-color: #1f2937;
 }
 
 @layer components {
-
   /* Brand Containers */
   .brand-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;

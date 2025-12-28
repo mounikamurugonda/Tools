@@ -10,7 +10,10 @@ const BuyMeACoffeeSection = ({ forceShow = false }: { forceShow?: boolean }) => 
   // Also hide on inner pages (tools and tips) as they will have their own scrollable version
   const hideOnPages = ['/contact', '/about'];
 
-  if (!forceShow && (pathname?.startsWith('/tools') || pathname?.startsWith('/product/code-cast'))) {
+  if (
+    !forceShow &&
+    (pathname?.startsWith('/tools') || pathname?.startsWith('/product/code-cast'))
+  ) {
     return null;
   }
 

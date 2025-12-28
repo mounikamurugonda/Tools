@@ -22,10 +22,10 @@ function ToolsContent() {
     if (!searchQuery.trim()) return TOOLS;
 
     const filtered = TOOLS.filter(
-      (tool) =>
+      tool =>
         tool.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         tool.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        tool.category.toLowerCase().includes(searchQuery.toLowerCase()),
+        tool.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     // Track search when results are filtered
@@ -69,7 +69,7 @@ function ToolsContent() {
         {/* Tools Grid */}
         {filteredTools.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTools.map((tool) => (
+            {filteredTools.map(tool => (
               <Link
                 key={tool.id}
                 href={`/tools/${tool.id}`}
@@ -104,7 +104,7 @@ function ToolsContent() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TOOLS.map((tool) => (
+            {TOOLS.map(tool => (
               <Link
                 key={tool.id}
                 href={`/tools/${tool.id}`}

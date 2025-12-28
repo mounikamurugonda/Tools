@@ -1,10 +1,6 @@
 import HomePageClient from '@/components/HomePageClient';
 import { HomeSkeleton } from '@/components/SkeletonLoader';
-import {
-  getHomepageSchema,
-  getWebsiteSchema,
-  getOrganizationSchema,
-} from '@/lib/schema';
+import { getHomepageSchema, getWebsiteSchema, getOrganizationSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import type { Metadata } from 'next';
 import { Suspense } from 'react';

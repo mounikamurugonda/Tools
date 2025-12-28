@@ -9,9 +9,7 @@
     "hooks/**/*.ts",
     "lib/**/*.ts"
   ],
-  "ignore": [
-    "use client"
-  ],
+  "ignore": ["use client"],
   "ignoreDependencies": [],
   "ignoreWorkspaces": []
 }

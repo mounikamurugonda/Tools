@@ -35,10 +35,18 @@ const TextCleaner: React.FC<ToolProps> = ({ details, toolId }) => {
             <Button onClick={removeLines} variant="outline" className="flex items-center gap-2">
               <AlignJustify className="w-4 h-4" /> Remove Line Breaks
             </Button>
-            <Button onClick={() => setText(text.toUpperCase())} variant="outline" className="flex items-center gap-2">
+            <Button
+              onClick={() => setText(text.toUpperCase())}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
               <Type className="w-4 h-4" /> UPPERCASE
             </Button>
-            <Button onClick={() => setText(text.toLowerCase())} variant="outline" className="flex items-center gap-2">
+            <Button
+              onClick={() => setText(text.toLowerCase())}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
               <Type className="w-4 h-4 lowercase" /> lowercase
             </Button>
           </div>
@@ -49,7 +57,7 @@ const TextCleaner: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="relative">
             <TextArea
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={e => setText(e.target.value)}
               className="h-[500px]"
               placeholder="Paste or type text here..."
             />

@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { SPEEDS } from '../constants';
 import { TypingSpeed, SoundType } from '../types';
@@ -19,7 +18,7 @@ export const useTypingEngine = ({
   isPlaying,
   soundEnabled,
   soundType,
-  onComplete
+  onComplete,
 }: UseTypingEngineProps) => {
   const [cursorIndex, setCursorIndex] = useState(0);
   const timeoutRef = useRef<number | null>(null);
@@ -58,7 +57,7 @@ export const useTypingEngine = ({
 
     return () => {
       // Cleanup on unmount or dependency change
-      // Note: We might want to NOT stop if only cursorIndex changes, 
+      // Note: We might want to NOT stop if only cursorIndex changes,
       // but we need to stop if paused or finished.
       // The logic above handles the "start/stop" state transitions.
       // The return clause here is important if component unmounts.
@@ -75,7 +74,6 @@ export const useTypingEngine = ({
     return () => stopTypingSound();
   }, []);
 
-
   useEffect(() => {
     // If paused or finished, stop.
     if (!isPlaying || cursorIndex >= fullText.length) {
@@ -87,7 +85,7 @@ export const useTypingEngine = ({
     }
 
     const typeNext = () => {
-      setCursorIndex((prev) => prev + 1);
+      setCursorIndex(prev => prev + 1);
     };
 
     // Delay Calculation

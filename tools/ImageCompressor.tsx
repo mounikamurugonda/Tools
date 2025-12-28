@@ -58,7 +58,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
         img.onload = () => {
           setOriginalDimensions({ width: img.width, height: img.height });
           // Set initial max dimensions based on original
-          setSettings((prev) => ({
+          setSettings(prev => ({
             ...prev,
             maxWidth: Math.min(img.width, 1920),
             maxHeight: Math.min(img.height, 1080),
@@ -163,12 +163,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
 
       // Calculate compressed size
       const base64Length = compressedDataUrl.length;
-      const padding = compressedDataUrl
-        .split(',')[0]
-        .split(';')[1]
-        ?.includes('base64')
-        ? 2
-        : 0;
+      const padding = compressedDataUrl.split(',')[0].split(';')[1]?.includes('base64') ? 2 : 0;
       const sizeInBytes = Math.round((base64Length * 3) / 4) - padding;
       setCompressedSize(sizeInBytes);
     } catch (error) {
@@ -183,8 +178,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
 
     const link = document.createElement('a');
     link.href = compressedImageSrc;
-    const extension =
-      settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
+    const extension = settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
     link.download = `compressed_${originalImage?.name?.split('.')[0] || 'image'}.${extension}`;
     document.body.appendChild(link);
     link.click();
@@ -240,23 +234,27 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
               <div>
                 <Label>Output Format</Label>
                 <div className="flex gap-3">
-                  {(['jpeg', 'png', 'webp'] as const).map((format) => (
-                    <label key={format} className="flex items-center p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
+                  {(['jpeg', 'png', 'webp'] as const).map(format => (
+                    <label
+                      key={format}
+                      className="flex items-center p-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-blue-500 transition-colors"
+                    >
                       <input
                         type="radio"
                         name="outputFormat"
                         value={format}
                         checked={settings.outputFormat === format}
-                        onChange={(e) =>
-                          setSettings((prev) => ({
+                        onChange={e =>
+                          setSettings(prev => ({
                             ...prev,
-                            outputFormat: e.target
-                              .value as CompressionSettings['outputFormat'],
+                            outputFormat: e.target.value as CompressionSettings['outputFormat'],
                           }))
                         }
                         className="mr-2 text-blue-600 focus:ring-blue-500"
                       />
-                      <span className="text-gray-900 dark:text-gray-100 font-medium">{format.toUpperCase()}</span>
+                      <span className="text-gray-900 dark:text-gray-100 font-medium">
+                        {format.toUpperCase()}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -270,8 +268,8 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                 max="1"
                 step="0.1"
                 value={settings.quality}
-                onChange={(e) =>
-                  setSettings((prev) => ({
+                onChange={e =>
+                  setSettings(prev => ({
                     ...prev,
                     quality: parseFloat(e.target.value),
                   }))
@@ -287,8 +285,8 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                   max="4000"
                   step="10"
                   value={settings.maxWidth}
-                  onChange={(e) =>
-                    setSettings((prev) => ({
+                  onChange={e =>
+                    setSettings(prev => ({
                       ...prev,
                       maxWidth: parseInt(e.target.value),
                     }))
@@ -301,8 +299,8 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                   max="4000"
                   step="10"
                   value={settings.maxHeight}
-                  onChange={(e) =>
-                    setSettings((prev) => ({
+                  onChange={e =>
+                    setSettings(prev => ({
                       ...prev,
                       maxHeight: parseInt(e.target.value),
                     }))
@@ -316,22 +314,24 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                   <input
                     type="checkbox"
                     checked={settings.maintainAspectRatio}
-                    onChange={(e) =>
-                      setSettings((prev) => ({
+                    onChange={e =>
+                      setSettings(prev => ({
                         ...prev,
                         maintainAspectRatio: e.target.checked,
                       }))
                     }
                     className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Maintain aspect ratio</span>
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    Maintain aspect ratio
+                  </span>
                 </label>
                 <label className="flex items-center space-x-3 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={settings.aggressiveCompression}
-                    onChange={(e) =>
-                      setSettings((prev) => ({
+                    onChange={e =>
+                      setSettings(prev => ({
                         ...prev,
                         aggressiveCompression: e.target.checked,
                       }))
@@ -339,7 +339,8 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                     className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                   <span className="text-gray-700 dark:text-gray-300 font-medium">
-                    Aggressive compression <span className="text-gray-500 font-normal">(may reduce quality)</span>
+                    Aggressive compression{' '}
+                    <span className="text-gray-500 font-normal">(may reduce quality)</span>
                   </span>
                 </label>
               </div>
@@ -354,19 +355,41 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
               <div>
                 <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Original Image</h4>
                 <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                  <p>File Size: <span className="font-mono text-gray-900 dark:text-gray-200">{formatFileSize(originalSize)}</span></p>
+                  <p>
+                    File Size:{' '}
+                    <span className="font-mono text-gray-900 dark:text-gray-200">
+                      {formatFileSize(originalSize)}
+                    </span>
+                  </p>
                   {originalDimensions && (
-                    <p>Dimensions: <span className="font-mono text-gray-900 dark:text-gray-200">{originalDimensions.width} × {originalDimensions.height} px</span></p>
+                    <p>
+                      Dimensions:{' '}
+                      <span className="font-mono text-gray-900 dark:text-gray-200">
+                        {originalDimensions.width} × {originalDimensions.height} px
+                      </span>
+                    </p>
                   )}
                 </div>
               </div>
               {compressedImageSrc && (
                 <div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Compressed Image</h4>
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                    Compressed Image
+                  </h4>
                   <div className="space-y-1 text-sm text-gray-600 dark:text-gray-400">
-                    <p>File Size: <span className="font-mono text-gray-900 dark:text-gray-200">{formatFileSize(compressedSize)}</span></p>
+                    <p>
+                      File Size:{' '}
+                      <span className="font-mono text-gray-900 dark:text-gray-200">
+                        {formatFileSize(compressedSize)}
+                      </span>
+                    </p>
                     {compressedDimensions && (
-                      <p>Dimensions: <span className="font-mono text-gray-900 dark:text-gray-200">{compressedDimensions.width} × {compressedDimensions.height} px</span></p>
+                      <p>
+                        Dimensions:{' '}
+                        <span className="font-mono text-gray-900 dark:text-gray-200">
+                          {compressedDimensions.width} × {compressedDimensions.height} px
+                        </span>
+                      </p>
                     )}
                     <p className="text-green-600 dark:text-green-400 font-medium">
                       Size Reduction: {getCompressionRatio()}%
@@ -405,10 +428,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                   />
                 </div>
                 <div className="flex gap-3 mt-4">
-                  <Button
-                    onClick={downloadCompressedImage}
-                    className="flex items-center gap-2"
-                  >
+                  <Button onClick={downloadCompressedImage} className="flex items-center gap-2">
                     <Download className="w-4 h-4" />
                     Download
                   </Button>

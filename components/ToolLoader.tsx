@@ -33,12 +33,9 @@ const ToolLoader: React.FC<ToolLoaderProps> = ({ toolId, details, tool, children
 
   // Dynamically import the tool component with ssr: false
   // This ensures the component is only loaded in the browser
-  const DynamicToolComponent = dynamic(
-    () => import(`@/tools/${componentName}`),
-    {
-      loading: () => <ToolSkeleton />,
-    },
-  ) as React.ComponentType<ToolProps>;
+  const DynamicToolComponent = dynamic(() => import(`@/tools/${componentName}`), {
+    loading: () => <ToolSkeleton />,
+  }) as React.ComponentType<ToolProps>;
 
   return (
     <Suspense fallback={<ToolSkeleton />}>

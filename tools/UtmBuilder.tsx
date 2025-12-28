@@ -36,68 +36,56 @@ const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="UTM Builder" details={details} toolId={toolId}>
       <div className="space-y-4">
         <div>
-          <label className="block text-sm font-medium mb-1">
-            Website URL *
-          </label>
+          <label className="block text-sm font-medium mb-1">Website URL *</label>
           <input
             value={url}
-            onChange={(e) => setUrl(e.target.value)}
+            onChange={e => setUrl(e.target.value)}
             className="brand-input"
             placeholder="https://example.com"
           />
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Campaign Source *
-            </label>
+            <label className="block text-sm font-medium mb-1">Campaign Source *</label>
             <input
               value={source}
-              onChange={(e) => setSource(e.target.value)}
+              onChange={e => setSource(e.target.value)}
               className="brand-input"
               placeholder="google, newsletter"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Campaign Medium *
-            </label>
+            <label className="block text-sm font-medium mb-1">Campaign Medium *</label>
             <input
               value={medium}
-              onChange={(e) => setMedium(e.target.value)}
+              onChange={e => setMedium(e.target.value)}
               className="brand-input"
               placeholder="cpc, banner, email"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Campaign Name
-            </label>
+            <label className="block text-sm font-medium mb-1">Campaign Name</label>
             <input
               value={campaign}
-              onChange={(e) => setCampaign(e.target.value)}
+              onChange={e => setCampaign(e.target.value)}
               className="brand-input"
               placeholder="spring_sale"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">
-              Campaign Term
-            </label>
+            <label className="block text-sm font-medium mb-1">Campaign Term</label>
             <input
               value={term}
-              onChange={(e) => setTerm(e.target.value)}
+              onChange={e => setTerm(e.target.value)}
               className="brand-input"
               placeholder="running+shoes"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">
-              Campaign Content
-            </label>
+            <label className="block text-sm font-medium mb-1">Campaign Content</label>
             <input
               value={content}
-              onChange={(e) => setContent(e.target.value)}
+              onChange={e => setContent(e.target.value)}
               className="brand-input"
               placeholder="logolink, textlink"
             />
@@ -105,19 +93,14 @@ const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <div className="relative mt-6">
-          <label className="block text-sm font-medium mb-1">
-            Generated URL
-          </label>
+          <label className="block text-sm font-medium mb-1">Generated URL</label>
           <textarea
             readOnly
             value={result}
             className="w-full h-24 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 font-mono text-sm break-all"
           />
           {result && result !== 'Invalid URL' && (
-            <CopyButton
-              textToCopy={result}
-              className="absolute top-8 right-2"
-            />
+            <CopyButton textToCopy={result} className="absolute top-8 right-2" />
           )}
         </div>
       </div>

@@ -29,14 +29,14 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
 
       let lastIndex = 0;
       const parts: string[] = [];
-      localMatches.forEach((match) => {
+      localMatches.forEach(match => {
         const m = match as RegExpMatchArray;
         if (m.index === undefined) return;
         if (m.index > lastIndex) {
           parts.push(testStr.substring(lastIndex, m.index));
         }
         parts.push(
-          `<mark class="bg-blue-500/30 dark:bg-blue-500/50 rounded px-1 text-blue-900 dark:text-blue-100">${m[0]}</mark>`,
+          `<mark class="bg-blue-500/30 dark:bg-blue-500/50 rounded px-1 text-blue-900 dark:text-blue-100">${m[0]}</mark>`
         );
         lastIndex = m.index + m[0].length;
       });
@@ -62,7 +62,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
               <span className="text-xl font-mono text-gray-400 select-none">/</span>
               <Input
                 value={regexStr}
-                onChange={(e) => setRegexStr(e.target.value)}
+                onChange={e => setRegexStr(e.target.value)}
                 placeholder="Regular Expression"
                 className="font-mono"
               />
@@ -71,7 +71,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="w-full sm:w-24">
               <Input
                 value={flags}
-                onChange={(e) => setFlags(e.target.value)}
+                onChange={e => setFlags(e.target.value)}
                 placeholder="flags"
                 className="font-mono text-center"
               />
@@ -90,7 +90,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="relative">
             <TextArea
               value={testStr}
-              onChange={(e) => setTestStr(e.target.value)}
+              onChange={e => setTestStr(e.target.value)}
               placeholder="Text to test against..."
               className="h-32 font-mono"
             />

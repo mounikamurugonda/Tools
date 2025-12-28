@@ -26,7 +26,7 @@ const SlugGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
           <Label>String to Slugify</Label>
           <Input
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={e => setInput(e.target.value)}
             placeholder="Hello World! This is a Title."
             autoFocus
           />

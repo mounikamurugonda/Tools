@@ -36,16 +36,16 @@ const Base64Converter: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="Base64 Encoder/Decoder"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Base64 Encoder/Decoder" details={details} toolId={toolId}>
       <div className="space-y-6">
         <Card title="Controls" className="p-4">
           <div className="flex flex-wrap gap-3">
-            <Button onClick={handleEncode} variant="primary">Encode (to Base64)</Button>
-            <Button onClick={handleDecode} variant="secondary">Decode (from Base64)</Button>
+            <Button onClick={handleEncode} variant="primary">
+              Encode (to Base64)
+            </Button>
+            <Button onClick={handleDecode} variant="secondary">
+              Decode (from Base64)
+            </Button>
             <Button
               onClick={() => {
                 setInput('');
@@ -68,7 +68,7 @@ const Base64Converter: React.FC<ToolProps> = ({ details, toolId }) => {
               <TextArea
                 id="base64-input"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 placeholder="Enter text or Base64 string here..."
                 className="h-96 max-h-96 font-mono resize-none"
               />

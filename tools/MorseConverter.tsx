@@ -50,7 +50,7 @@ const MORSE_MAP: Record<string, string> = {
 
 const REVERSE_MAP = Object.entries(MORSE_MAP).reduce(
   (acc, [char, code]) => ({ ...acc, [code]: char }),
-  {} as Record<string, string>,
+  {} as Record<string, string>
 );
 
 const MorseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
@@ -62,8 +62,8 @@ const MorseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       text
         .toUpperCase()
         .split('')
-        .map((c) => MORSE_MAP[c] || c)
-        .join(' '),
+        .map(c => MORSE_MAP[c] || c)
+        .join(' ')
     );
   };
 
@@ -71,17 +71,13 @@ const MorseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     setText(
       morse
         .split(' ')
-        .map((c) => REVERSE_MAP[c] || c)
-        .join(''),
+        .map(c => REVERSE_MAP[c] || c)
+        .join('')
     );
   };
 
   return (
-    <ToolContainer
-      title="Morse Code Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Morse Code Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2 flex flex-col h-full">
@@ -89,7 +85,7 @@ const MorseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="relative flex-1">
               <TextArea
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={e => setText(e.target.value)}
                 className="h-64 resize-none"
                 placeholder="Enter text here..."
               />
@@ -109,7 +105,7 @@ const MorseConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="relative flex-1">
               <TextArea
                 value={morse}
-                onChange={(e) => setMorse(e.target.value)}
+                onChange={e => setMorse(e.target.value)}
                 className="h-64 resize-none font-mono bg-gray-50 dark:bg-gray-900"
                 placeholder="Enter morse code here..."
               />

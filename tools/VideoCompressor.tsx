@@ -47,20 +47,10 @@ const VideoCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
       await ffmpeg.load();
 
       await ffmpeg.writeFile(videoFile.name, await fetchFile(videoFile));
-      await ffmpeg.exec([
-        '-i',
-        videoFile.name,
-        '-vcodec',
-        'libx264',
-        '-crf',
-        '28',
-        'output.mp4',
-      ]);
+      await ffmpeg.exec(['-i', videoFile.name, '-vcodec', 'libx264', '-crf', '28', 'output.mp4']);
 
       const data = await ffmpeg.readFile('output.mp4');
-      const url = URL.createObjectURL(
-        new Blob([(data as any).buffer], { type: 'video/mp4' }),
-      );
+      const url = URL.createObjectURL(new Blob([(data as any).buffer], { type: 'video/mp4' }));
       setCompressedVideo(url);
     } catch (err) {
       console.error('Compression error:', err);

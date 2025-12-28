@@ -25,9 +25,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const currentTool = toolId
-    ? TOOLS.find((tool) => tool.id === toolId)
-    : undefined;
+  const currentTool = toolId ? TOOLS.find(tool => tool.id === toolId) : undefined;
   const currentToolCategory = currentTool ? currentTool.category : undefined;
 
   const scroll = (scrollOffset: number) => {
@@ -40,9 +38,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
   };
 
   const recommendedTools = currentToolCategory
-    ? TOOLS.filter(
-      (tool) => tool.category === currentToolCategory && tool.id !== toolId,
-    )
+    ? TOOLS.filter(tool => tool.category === currentToolCategory && tool.id !== toolId)
     : [];
 
   return (
@@ -66,10 +62,8 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
       {/* Tags */}
       {currentTool?.tags && currentTool.tags.length > 0 && (
         <div className="flex flex-wrap items-center gap-2 animate-fade-in delay-200">
-          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">
-            Tags:
-          </span>
-          {currentTool.tags.map((tag) => (
+          <span className="text-sm font-semibold text-gray-500 dark:text-gray-400">Tags:</span>
+          {currentTool.tags.map(tag => (
             <Link
               key={tag}
               href={`/tags/${tag.toLowerCase()}`}
@@ -133,7 +127,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
             ref={scrollContainerRef}
             className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide snap-x"
           >
-            {recommendedTools.map((tool) => (
+            {recommendedTools.map(tool => (
               <div key={tool.id} className="flex-none w-72 snap-start">
                 <Link href={`/tools/${tool.id}`} className="block h-full">
                   <ToolCard tool={tool as unknown as Tool} isCompact />
@@ -147,9 +141,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
       {/* Description & Credits */}
       <div className="animate-fade-in delay-500">
         <ToolDescription details={details} />
-        <ToolCredits
-          items={[...(toolId ? TOOL_CREDITS[toolId] || [] : []), ...SITE_CREDITS]}
-        />
+        <ToolCredits items={[...(toolId ? TOOL_CREDITS[toolId] || [] : []), ...SITE_CREDITS]} />
       </div>
     </div>
   );

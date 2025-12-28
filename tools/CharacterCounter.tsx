@@ -24,7 +24,7 @@ const CharacterCounter: React.FC<ToolProps> = ({ details, toolId }) => {
       charactersWithoutSpaces,
       words,
       lines,
-      byteLength
+      byteLength,
     };
   }, [input]);
 
@@ -39,7 +39,7 @@ const CharacterCounter: React.FC<ToolProps> = ({ details, toolId }) => {
               <TextArea
                 id="char-input"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 placeholder="Enter text here..."
                 className="w-full h-[500px] resize-none"
               />
@@ -60,7 +60,9 @@ const CharacterCounter: React.FC<ToolProps> = ({ details, toolId }) => {
               <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-1">
                 {stats.charactersWithSpaces.toLocaleString()}
               </div>
-              <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">Characters</div>
+              <div className="text-sm text-gray-500 uppercase tracking-wide font-medium">
+                Characters
+              </div>
             </Card>
 
             <div className="grid grid-cols-2 gap-4">

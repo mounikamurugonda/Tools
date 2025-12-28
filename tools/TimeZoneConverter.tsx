@@ -26,9 +26,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const now = new Date();
   const [date, setDate] = useState(now.toISOString().split('T')[0]);
-  const [time, setTime] = useState(
-    now.toTimeString().split(' ')[0].substring(0, 5),
-  );
+  const [time, setTime] = useState(now.toTimeString().split(' ')[0].substring(0, 5));
 
   useEffect(() => {
     // Timezones are now imported from a local file
@@ -42,14 +40,14 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         timeZoneName: 'longOffset',
       })
         .formatToParts(now)
-        .find((p) => p.type === 'timeZoneName')
+        .find(p => p.type === 'timeZoneName')
         ?.value.replace('GMT', '');
       const toOffset = new Intl.DateTimeFormat('en-US', {
         timeZone: toTimeZone,
         timeZoneName: 'longOffset',
       })
         .formatToParts(now)
-        .find((p) => p.type === 'timeZoneName')
+        .find(p => p.type === 'timeZoneName')
         ?.value.replace('GMT', '');
 
       if (!fromOffset || !toOffset) return '';
@@ -120,32 +118,31 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     setToTimeZone(fromTimeZone);
   };
 
-  const getSelectOptions = (tzs: { group: string; zones: { value: string; label: string }[] }[]) => {
+  const getSelectOptions = (
+    tzs: { group: string; zones: { value: string; label: string }[] }[]
+  ) => {
     const options: { label: string; options: { value: string; label: string }[] }[] = [];
     tzs.forEach(group => {
       options.push({
         label: group.group,
-        options: group.zones
+        options: group.zones,
       });
     });
     return options;
   };
 
   const flattenedTimezones = useMemo(() => {
-    return timezones.flatMap(group => group.zones.map(z => ({
-      value: z.value,
-      label: z.label,
-      group: group.group
-    })));
+    return timezones.flatMap(group =>
+      group.zones.map(z => ({
+        value: z.value,
+        label: z.label,
+        group: group.group,
+      }))
+    );
   }, []);
 
-
   return (
-    <ToolContainer
-      title="Time Zone Converter"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Time Zone Converter" details={details} toolId={toolId}>
       <div className="max-w-4xl mx-auto space-y-6">
         <Card className="p-6">
           <div className="grid md:grid-cols-2 gap-6 items-end">
@@ -155,7 +152,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 id="date-input"
                 type="date"
                 value={date}
-                onChange={(e) => setDate(e.target.value)}
+                onChange={e => setDate(e.target.value)}
               />
             </div>
             <div>
@@ -164,7 +161,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 id="time-input"
                 type="time"
                 value={time}
-                onChange={(e) => setTime(e.target.value)}
+                onChange={e => setTime(e.target.value)}
               />
             </div>
           </div>
@@ -176,19 +173,17 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>From Time Zone</Label>
               <Select
                 value={flattenedTimezones.find(z => z.value === fromTimeZone)}
-                onChange={(opt) => setFromTimeZone(opt?.value || 'UTC')}
+                onChange={opt => setFromTimeZone(opt?.value || 'UTC')}
                 options={getSelectOptions(timezones) as any}
                 isSearchable
               />
               <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg text-center border border-gray-100 dark:border-gray-800">
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                  {time}
-                </p>
+                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-1">{time}</p>
                 <p className="text-sm text-gray-500">
                   {new Date(`${date}T${time}`).toLocaleDateString(undefined, {
                     weekday: 'long',
                     month: 'short',
-                    day: 'numeric'
+                    day: 'numeric',
                   })}
                 </p>
               </div>
@@ -204,7 +199,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>To Time Zone</Label>
               <Select
                 value={flattenedTimezones.find(z => z.value === toTimeZone)}
-                onChange={(opt) => setToTimeZone(opt?.value || 'UTC')}
+                onChange={opt => setToTimeZone(opt?.value || 'UTC')}
                 options={getSelectOptions(timezones) as any}
                 isSearchable
               />

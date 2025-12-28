@@ -19,9 +19,7 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
     const words = trimmedInput === '' ? 0 : trimmedInput.split(/\s+/).length;
     const lines = debouncedInput.split('\n').length;
     const sentences =
-      trimmedInput === ''
-        ? 0
-        : (trimmedInput.match(/[.!?]+(?!\s*$)/g) || []).length + 1;
+      trimmedInput === '' ? 0 : (trimmedInput.match(/[.!?]+(?!\s*$)/g) || []).length + 1;
 
     // For single-word inputs without punctuation, sentences are 1.
     // If there's no input, sentences are 0.
@@ -33,11 +31,7 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   }, [debouncedInput]);
 
   return (
-    <ToolContainer
-      title={tool?.name || 'Word Counter'}
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title={tool?.name || 'Word Counter'} details={details} toolId={toolId}>
       <div className="grid md:grid-cols-3 gap-6 h-[70vh]">
         {/* Left side - Input */}
         <div className="md:col-span-2 space-y-2 h-full flex flex-col">
@@ -46,7 +40,7 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
             <TextArea
               id="word-input"
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={e => setInput(e.target.value)}
               placeholder="Enter text here..."
               className="w-full h-full resize-none"
             />
@@ -66,7 +60,9 @@ const WordCounter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
               <div className="text-5xl font-black text-blue-600 dark:text-blue-400 mb-1">
                 {stats.words.toLocaleString()}
               </div>
-              <div className="text-xs uppercase tracking-wide font-bold text-blue-400/80 dark:text-blue-300/80">Words</div>
+              <div className="text-xs uppercase tracking-wide font-bold text-blue-400/80 dark:text-blue-300/80">
+                Words
+              </div>
             </Card>
 
             <div className="grid grid-cols-2 gap-4">

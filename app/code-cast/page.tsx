@@ -1,16 +1,7 @@
 import Image from 'next/image';
 import Button from '@/components/ui/Button';
 import { Metadata } from 'next';
-import {
-  Monitor,
-  Wifi,
-  Users,
-  Code2,
-  Lock,
-  Zap,
-  CheckCircle,
-  Share2,
-} from 'lucide-react';
+import { Monitor, Wifi, Users, Code2, Lock, Zap, CheckCircle, Share2 } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -37,26 +28,44 @@ export default function CodeCastPage() {
             Share your code <br /> as a broadcast.
           </h1>
 
-          <div className="max-w-2xl mx-auto mb-10 text-lg md:text-xl text-gray-600 dark:text-gray-400 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-            Transform your local coding session into a live URL. Low latency,
-            high fidelity, and completely browser-based.
-            <span className="block mt-2 text-sm text-accent-DEFAULT font-semibold">Free for now (Watermarked)</span>
+          <div
+            className="max-w-2xl mx-auto mb-10 text-lg md:text-xl text-gray-600 dark:text-gray-400 animate-fade-in-up"
+            style={{ animationDelay: '0.1s' }}
+          >
+            Transform your local coding session into a live URL. Low latency, high fidelity, and
+            completely browser-based.
+            <span className="block mt-2 text-sm text-accent-DEFAULT font-semibold">
+              Free for now (Watermarked)
+            </span>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+          <div
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 animate-fade-in-up"
+            style={{ animationDelay: '0.2s' }}
+          >
             <Link href="#">
-              <Button size="lg" className="rounded-full px-8 h-12 text-base shadow-lg shadow-accent-DEFAULT/20 hover:shadow-accent-DEFAULT/40 transition-all duration-300">
+              <Button
+                size="lg"
+                className="rounded-full px-8 h-12 text-base shadow-lg shadow-accent-DEFAULT/20 hover:shadow-accent-DEFAULT/40 transition-all duration-300"
+              >
                 Start Broadcasting
               </Button>
             </Link>
             <Link href="#features">
-              <Button variant="outline" size="lg" className="rounded-full px-8 h-12 text-base backdrop-blur-sm bg-white/50 dark:bg-slate-900/50">
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-8 h-12 text-base backdrop-blur-sm bg-white/50 dark:bg-slate-900/50"
+              >
                 Learn more
               </Button>
             </Link>
           </div>
 
-          <div className="relative mx-auto max-w-5xl rounded-xl border border-gray-200 dark:border-gray-800 shadow-2xl overflow-hidden animate-scale-in" style={{ animationDelay: '0.3s' }}>
+          <div
+            className="relative mx-auto max-w-5xl rounded-xl border border-gray-200 dark:border-gray-800 shadow-2xl overflow-hidden animate-scale-in"
+            style={{ animationDelay: '0.3s' }}
+          >
             <Image
               src="/code-cast-hero.png"
               alt="Code Cast Interface"
@@ -79,7 +88,8 @@ export default function CodeCastPage() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-6">Designed for speed</h2>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              Built for developers who need to share context instantly. No software install required for viewers.
+              Built for developers who need to share context instantly. No software install required
+              for viewers.
             </p>
           </div>
 
@@ -91,7 +101,8 @@ export default function CodeCastPage() {
               </div>
               <h3 className="text-xl font-bold mb-3">Real-time Latency</h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                Stream your keystrokes as they happen. Sub-100ms latency ensures your viewers are always in sync.
+                Stream your keystrokes as they happen. Sub-100ms latency ensures your viewers are
+                always in sync.
               </p>
             </div>
 
@@ -106,8 +117,9 @@ export default function CodeCastPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Interactive Viewer</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Viewers can highlight, select, and copy code. It&apos;s not just a video stream; it&apos;s a live DOM representation of your editor.
-                  Perfect for pair programming or educational walkthroughs.
+                  Viewers can highlight, select, and copy code. It&apos;s not just a video stream;
+                  it&apos;s a live DOM representation of your editor. Perfect for pair programming
+                  or educational walkthroughs.
                 </p>
               </div>
             </div>
@@ -120,7 +132,8 @@ export default function CodeCastPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Secure & Private</h3>
                 <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
-                  Sessions are encrypted end-to-end. You control who watches with access tokens and transient URLs that expire when you stop broadcasting.
+                  Sessions are encrypted end-to-end. You control who watches with access tokens and
+                  transient URLs that expire when you stop broadcasting.
                 </p>
               </div>
               <div className="flex-1 w-full p-6 bg-slate-50 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800">
@@ -168,14 +181,23 @@ export default function CodeCastPage() {
             <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
               Join thousands of developers sharing their work in real-time.
               <br />
-              <span className="text-accent-light font-semibold mt-2 inline-block">Free tier includes watermark.</span>
+              <span className="text-accent-light font-semibold mt-2 inline-block">
+                Free tier includes watermark.
+              </span>
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-slate-900 hover:bg-gray-100 border-none h-14 px-8 text-lg font-semibold">
+              <Button
+                size="lg"
+                className="bg-white text-slate-900 hover:bg-gray-100 border-none h-14 px-8 text-lg font-semibold"
+              >
                 Get Started for Free
               </Button>
-              <Button variant="outline" size="lg" className="border-gray-500 text-white hover:bg-white/10 h-14 px-8 text-lg">
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-gray-500 text-white hover:bg-white/10 h-14 px-8 text-lg"
+              >
                 Contact Sales
               </Button>
             </div>

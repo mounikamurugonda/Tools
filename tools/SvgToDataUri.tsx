@@ -12,7 +12,7 @@ import { RefreshCw, Code, Image as ImageIcon } from 'lucide-react';
 
 const SvgToDataUri: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>',
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle></svg>'
   );
   const [encoded, setEncoded] = useState('');
 
@@ -32,7 +32,7 @@ const SvgToDataUri: React.FC<ToolProps> = ({ details, toolId }) => {
               </Label>
               <TextArea
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 className="flex-1 min-h-[200px] font-mono text-xs leading-relaxed"
                 placeholder="Paste SVG code here..."
               />

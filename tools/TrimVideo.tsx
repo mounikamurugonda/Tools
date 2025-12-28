@@ -61,9 +61,7 @@ const TrimVideo: React.FC<ToolProps> = ({ details, toolId }) => {
       ]);
 
       const data = await ffmpeg.readFile('output.mp4');
-      const url = URL.createObjectURL(
-        new Blob([(data as any).buffer], { type: 'video/mp4' }),
-      );
+      const url = URL.createObjectURL(new Blob([(data as any).buffer], { type: 'video/mp4' }));
       setTrimmedVideo(url);
     } catch (err) {
       console.error('Trimming error:', err);
@@ -94,7 +92,7 @@ const TrimVideo: React.FC<ToolProps> = ({ details, toolId }) => {
                   <Input
                     type="number"
                     value={startTime}
-                    onChange={(e) => setStartTime(Number(e.target.value))}
+                    onChange={e => setStartTime(Number(e.target.value))}
                     min={0}
                   />
                 </div>
@@ -103,7 +101,7 @@ const TrimVideo: React.FC<ToolProps> = ({ details, toolId }) => {
                   <Input
                     type="number"
                     value={endTime}
-                    onChange={(e) => setEndTime(Number(e.target.value))}
+                    onChange={e => setEndTime(Number(e.target.value))}
                     min={0}
                   />
                 </div>

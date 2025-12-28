@@ -18,10 +18,7 @@ const ToolCredits: React.FC<ToolCreditsProps> = ({ items }) => {
           Credits:
         </span>
         {items.map((item, idx) => (
-          <span
-            key={`${item.label}-${idx}`}
-            className="inline-flex items-center gap-1"
-          >
+          <span key={`${item.label}-${idx}`} className="inline-flex items-center gap-1">
             {item.href ? (
               <a
                 href={item.href}

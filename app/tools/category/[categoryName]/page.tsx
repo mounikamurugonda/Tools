@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const tools = TOOLS.filter((tool) => tool.category === category);
+  const tools = TOOLS.filter(tool => tool.category === category);
   const content = CATEGORY_CONTENT[category];
   const enhancedDescription = `${content.introduction} Discover our collection of free ${category.toLowerCase()} tools for developers and designers. All tools run locally in your browser for maximum privacy and speed.`;
 
@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  return CATEGORY_ORDER.map((category) => ({
+  return CATEGORY_ORDER.map(category => ({
     categoryName: CATEGORY_URL_MAP[category],
   }));
 }
@@ -110,7 +110,7 @@ export default async function CategoryPage({ params }: Props) {
     notFound();
   }
 
-  const tools = TOOLS.filter((tool) => tool.category === category);
+  const tools = TOOLS.filter(tool => tool.category === category);
   const content = CATEGORY_CONTENT[category];
 
   const breadcrumbItems = [
@@ -137,7 +137,10 @@ export default async function CategoryPage({ params }: Props) {
             Online {category} For Free
           </h1>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-            {content.introduction} Our {category.toLowerCase()} tools are the best on the web and they&apos;re all available for free. Whether you&apos;re looking for a tool to help you with editing, formatting, converting, or manipulating content, we&apos;ve got you covered.
+            {content.introduction} Our {category.toLowerCase()} tools are the best on the web and
+            they&apos;re all available for free. Whether you&apos;re looking for a tool to help you
+            with editing, formatting, converting, or manipulating content, we&apos;ve got you
+            covered.
           </p>
         </div>
 
@@ -147,12 +150,8 @@ export default async function CategoryPage({ params }: Props) {
             {category} Collection
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {tools.map((tool) => (
-              <Link
-                key={tool.id}
-                href={`/tools/${tool.id}`}
-                className="block group"
-              >
+            {tools.map(tool => (
+              <Link key={tool.id} href={`/tools/${tool.id}`} className="block group">
                 <ToolCard tool={tool} />
               </Link>
             ))}
@@ -167,8 +166,7 @@ export default async function CategoryPage({ params }: Props) {
                 No Tools Available Yet
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                We&apos;re working hard to add more {category.toLowerCase()}{' '}
-                tools. Check back soon!
+                We&apos;re working hard to add more {category.toLowerCase()} tools. Check back soon!
               </p>
             </div>
           )}
@@ -180,10 +178,15 @@ export default async function CategoryPage({ params }: Props) {
             Top {category} Tools On The Web
           </h2>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-            In the age of the internet, there are a plethora of {category.toLowerCase()} tools available online. These tools can be used for a variety of purposes, such as editing, formatting, generating, and analyzing content. While some of these tools are designed for general use, others are specifically tailored for specific tasks.
+            In the age of the internet, there are a plethora of {category.toLowerCase()} tools
+            available online. These tools can be used for a variety of purposes, such as editing,
+            formatting, generating, and analyzing content. While some of these tools are designed
+            for general use, others are specifically tailored for specific tasks.
           </p>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed mt-4">
-            No matter what your needs are, there is sure to be a {category.toLowerCase()} tool that can help you in UtilToolkits. Each tool is designed to provide the best user experience with instant results and maximum privacy.
+            No matter what your needs are, there is sure to be a {category.toLowerCase()} tool that
+            can help you in UtilToolkits. Each tool is designed to provide the best user experience
+            with instant results and maximum privacy.
           </p>
         </div>
 
@@ -194,10 +197,9 @@ export default async function CategoryPage({ params }: Props) {
               Ready to Get Started?
             </h3>
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
-              All our {category.toLowerCase()} tools are free to use, work
-              entirely in your browser, and don&apos;t require any downloads or
-              installations. Simply click on any tool above to start using it
-              right away!
+              All our {category.toLowerCase()} tools are free to use, work entirely in your browser,
+              and don&apos;t require any downloads or installations. Simply click on any tool above
+              to start using it right away!
             </p>
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
               <span className="flex items-center">

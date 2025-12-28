@@ -15,13 +15,11 @@ import { Table as TableIcon } from 'lucide-react';
 const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
   const [rows, setRows] = useState(3);
   const [cols, setCols] = useState(3);
-  const [data, setData] = useState<string[][]>(
-    Array.from({ length: 3 }, () => Array(3).fill('')),
-  );
+  const [data, setData] = useState<string[][]>(Array.from({ length: 3 }, () => Array(3).fill('')));
 
   const updateCell = (r: number, c: number, val: string) => {
     const newData = data.map((row, i) =>
-      i === r ? row.map((cell, j) => (j === c ? val : cell)) : row,
+      i === r ? row.map((cell, j) => (j === c ? val : cell)) : row
     );
     setData(newData);
   };
@@ -50,35 +48,27 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
     setData(resizedData);
     setRows(newRows);
     setCols(newCols);
-  }
+  };
 
   const debouncedData = useDebounce(data, 500);
 
   const markdownOutput = useMemo(() => {
     if (!debouncedData.length || !debouncedData[0]) return '';
-    const header =
-      '| ' + debouncedData[0].map((cell) => cell || 'Header').join(' | ') + ' |';
-    const separator =
-      '| ' + debouncedData[0].map(() => '---').join(' | ') + ' |';
+    const header = '| ' + debouncedData[0].map(cell => cell || 'Header').join(' | ') + ' |';
+    const separator = '| ' + debouncedData[0].map(() => '---').join(' | ') + ' |';
 
     // Skip first row as header
     if (debouncedData.length === 1) return `${header}\n${separator}`;
 
     const body = debouncedData
       .slice(1)
-      .map(
-        (row) => '| ' + row.map((cell) => cell || 'Cell').join(' | ') + ' |',
-      )
+      .map(row => '| ' + row.map(cell => cell || 'Cell').join(' | ') + ' |')
       .join('\n');
     return `${header}\n${separator}\n${body}`;
   }, [debouncedData]);
 
   return (
-    <ToolContainer
-      title="Markdown Table Generator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Markdown Table Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
         <Card title="Table Settings">
           <div className="flex gap-4 items-end">
@@ -90,7 +80,7 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
                 min={1}
                 max={50}
                 value={rows}
-                onChange={(e) => handleResize(Number(e.target.value), cols)}
+                onChange={e => handleResize(Number(e.target.value), cols)}
               />
             </div>
             <div className="w-24">
@@ -101,7 +91,7 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
                 min={1}
                 max={10}
                 value={cols}
-                onChange={(e) => handleResize(rows, Number(e.target.value))}
+                onChange={e => handleResize(rows, Number(e.target.value))}
               />
             </div>
           </div>
@@ -113,7 +103,10 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
               <thead>
                 <tr>
                   {Array.from({ length: cols }).map((_, c) => (
-                    <th key={`head-${c}`} className="p-2 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th
+                      key={`head-${c}`}
+                      className="p-2 border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
                       Col {c + 1}
                     </th>
                   ))}
@@ -126,9 +119,9 @@ const MarkdownTable: React.FC<ToolProps> = ({ details, toolId }) => {
                       <td key={c} className="border border-gray-200 dark:border-gray-700 p-0">
                         <input
                           className={`w-full p-3 outline-none bg-transparent text-sm ${r === 0 ? 'font-bold bg-gray-50/50 dark:bg-gray-800/30' : ''}`}
-                          placeholder={r === 0 ? "Header" : `Cell`}
+                          placeholder={r === 0 ? 'Header' : `Cell`}
                           value={data[r]?.[c] || ''}
-                          onChange={(e) => updateCell(r, c, e.target.value)}
+                          onChange={e => updateCell(r, c, e.target.value)}
                         />
                       </td>
                     ))}

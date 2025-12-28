@@ -34,8 +34,7 @@ const SvgWaveGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       if (i === 0) d += ` L${x},${y}`;
       else {
         const prevX = (i - 1) * step;
-        const prevY =
-          Math.sin((i - 1 + seed + offset) * 1.5) * 50 + 150 + offset * 30;
+        const prevY = Math.sin((i - 1 + seed + offset) * 1.5) * 50 + 150 + offset * 30;
         const midX = (prevX + x) / 2;
         const midY = (prevY + y) / 2;
         d += ` Q${prevX},${prevY} ${midX},${midY} T${x},${y}`;
@@ -49,20 +48,13 @@ const SvgWaveGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const svgs = useMemo(() => {
     const paths = [];
     for (let i = 0; i < layers; i++) {
-      paths.push(
-        <path
-          key={i}
-          fill={color}
-          fillOpacity={1 - i * 0.2}
-          d={generateWavePath(i)}
-        />,
-      );
+      paths.push(<path key={i} fill={color} fillOpacity={1 - i * 0.2} d={generateWavePath(i)} />);
     }
     return paths;
   }, [layers, complexity, color, seed]);
 
   const svgString = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-  ${svgs.map((p) => `<path fill="${p.props.fill}" fill-opacity="${p.props.fillOpacity}" d="${p.props.d}" />`).join('\n  ')}
+  ${svgs.map(p => `<path fill="${p.props.fill}" fill-opacity="${p.props.fillOpacity}" d="${p.props.d}" />`).join('\n  ')}
 </svg>`;
 
   return (
@@ -87,7 +79,7 @@ const SvgWaveGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 min={1}
                 max={5}
                 value={layers}
-                onChange={(e) => setLayers(Number(e.target.value))}
+                onChange={e => setLayers(Number(e.target.value))}
                 valueDisplay={`${layers}`}
               />
             </div>
@@ -97,7 +89,7 @@ const SvgWaveGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 min={2}
                 max={20}
                 value={complexity}
-                onChange={(e) => setComplexity(Number(e.target.value))}
+                onChange={e => setComplexity(Number(e.target.value))}
                 valueDisplay={`${complexity}`}
               />
             </div>
@@ -107,13 +99,13 @@ const SvgWaveGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <Input
                   type="color"
                   value={color}
-                  onChange={(e) => setColor(e.target.value)}
+                  onChange={e => setColor(e.target.value)}
                   className="w-10 h-10 p-1 cursor-pointer"
                 />
                 <Input
                   type="text"
                   value={color}
-                  onChange={(e) => setColor(e.target.value)}
+                  onChange={e => setColor(e.target.value)}
                   className="flex-1 font-mono"
                 />
               </div>

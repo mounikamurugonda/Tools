@@ -1,10 +1,6 @@
 import { TOOLS, getToolDetails } from '@/constants';
 import ToolLoader from '@/components/ToolLoader';
-import {
-  getToolSchema,
-  getWebsiteSchema,
-  getOrganizationSchema,
-} from '@/lib/schema';
+import { getToolSchema, getWebsiteSchema, getOrganizationSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { notFound } from 'next/navigation';
@@ -19,10 +15,10 @@ type Props = {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata,
+  parent: ResolvingMetadata
 ): Promise<Metadata> {
   const { toolId } = await params;
-  const tool = TOOLS.find((t) => t.id === toolId);
+  const tool = TOOLS.find(t => t.id === toolId);
 
   if (!tool) {
     return {
@@ -32,8 +28,7 @@ export async function generateMetadata(
     };
   }
 
-  const title =
-    tool.seoTitle || `${tool.name} - Free Online Tool | UtilToolkits`;
+  const title = tool.seoTitle || `${tool.name} - Free Online Tool | UtilToolkits`;
   const description =
     tool.seoDescription ||
     `${tool.description} Free browser-based ${tool.name.toLowerCase()} tool with no registration required. All processing happens locally for maximum privacy and speed.`;
@@ -43,14 +38,14 @@ export async function generateMetadata(
     description,
     keywords: tool.keywords
       ? [
-        ...tool.keywords,
-        'developer tools',
-        'online tools',
-        'free utilities',
-        'browser tools',
-        'privacy tools',
-        'no registration required',
-      ]
+          ...tool.keywords,
+          'developer tools',
+          'online tools',
+          'free utilities',
+          'browser tools',
+          'privacy tools',
+          'no registration required',
+        ]
       : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities, browser tools`,
     authors: [{ name: 'UtilToolkits Team' }],
     creator: 'UtilToolkits',
@@ -100,14 +95,14 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  return TOOLS.map((tool) => ({
+  return TOOLS.map(tool => ({
     toolId: tool.id,
   }));
 }
 
 export default async function ToolPage({ params }: { params: Promise<{ toolId: string }> }) {
   const { toolId } = await params;
-  const tool = TOOLS.find((t) => t.id === toolId);
+  const tool = TOOLS.find(t => t.id === toolId);
 
   if (!tool) {
     notFound();
@@ -142,4 +137,3 @@ export default async function ToolPage({ params }: { params: Promise<{ toolId: s
     </AnalyticsWrapper>
   );
 }
-

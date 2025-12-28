@@ -14,11 +14,7 @@ const PercentageCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [total2, setTotal2] = useState(200);
 
   return (
-    <ToolContainer
-      title="Percentage Calculator"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Percentage Calculator" details={details} toolId={toolId}>
       <div className="space-y-8 max-w-3xl mx-auto">
         <Card title="What is X% of Y?">
           <div className="flex items-center gap-4 flex-wrap">
@@ -26,14 +22,14 @@ const PercentageCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
             <Input
               type="number"
               value={val1}
-              onChange={(e) => setVal1(Number(e.target.value))}
+              onChange={e => setVal1(Number(e.target.value))}
               className="w-24"
             />
             <span className="whitespace-nowrap">% of</span>
             <Input
               type="number"
               value={total1}
-              onChange={(e) => setTotal1(Number(e.target.value))}
+              onChange={e => setTotal1(Number(e.target.value))}
               className="w-32"
             />
             <span>?</span>
@@ -51,14 +47,14 @@ const PercentageCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
             <Input
               type="number"
               value={val2}
-              onChange={(e) => setVal2(Number(e.target.value))}
+              onChange={e => setVal2(Number(e.target.value))}
               className="w-24"
             />
             <span className="whitespace-nowrap">is what % of</span>
             <Input
               type="number"
               value={total2}
-              onChange={(e) => setTotal2(Number(e.target.value))}
+              onChange={e => setTotal2(Number(e.target.value))}
               className="w-32"
             />
             <span>?</span>

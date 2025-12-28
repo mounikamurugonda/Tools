@@ -25,20 +25,14 @@ const DEVICES = [
 const DeviceResolutions: React.FC<ToolProps> = ({ details, toolId }) => {
   const [search, setSearch] = useState('');
 
-  const filtered = DEVICES.filter((d) =>
-    d.name.toLowerCase().includes(search.toLowerCase()),
-  );
+  const filtered = DEVICES.filter(d => d.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
-    <ToolContainer
-      title="Device Resolution List"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="Device Resolution List" details={details} toolId={toolId}>
       <div className="space-y-6">
         <input
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={e => setSearch(e.target.value)}
           placeholder="Search devices..."
           className="brand-input"
         />

@@ -10,7 +10,7 @@ import Card from '@/components/ui/Card';
 
 const XmlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState(
-    '<root><child id="1">Hello</child><child id="2">World</child></root>',
+    '<root><child id="1">Hello</child><child id="2">World</child></root>'
   );
   const [output, setOutput] = useState('');
 
@@ -19,7 +19,7 @@ const XmlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
     let pad = 0;
     const xml = input.replace(/>\s*</g, '><'); // Remove existing whitespace between tags
 
-    xml.split(/(<[^>]+>)/).forEach((node) => {
+    xml.split(/(<[^>]+>)/).forEach(node => {
       if (!node) return;
       let indent = 0;
       if (node.match(/^<\w/) && !node.match(/<.*\/>/)) {
@@ -54,7 +54,7 @@ const XmlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
           <Card title="Input XML" className="h-full">
             <TextArea
               value={input}
-              onChange={(e) => setInput(e.target.value)}
+              onChange={e => setInput(e.target.value)}
               className="h-[calc(100%-2rem)] font-mono text-sm resize-none border-0 focus:ring-0 p-0"
               placeholder="Paste XML here..."
             />
@@ -68,22 +68,12 @@ const XmlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
                 className="flex-1 font-mono text-sm resize-none border-0 focus:ring-0 p-0 text-blue-600 dark:text-blue-400"
                 placeholder="Formatted XML will appear here..."
               />
-              {output && (
-                <CopyButton
-                  textToCopy={output}
-                  className="absolute top-0 right-0"
-                />
-              )}
+              {output && <CopyButton textToCopy={output} className="absolute top-0 right-0" />}
             </div>
           </Card>
         </div>
 
-        <Button
-          onClick={formatXml}
-          fullWidth
-          size="lg"
-          variant="primary"
-        >
+        <Button onClick={formatXml} fullWidth size="lg" variant="primary">
           Format XML
         </Button>
       </div>

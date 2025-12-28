@@ -54,23 +54,35 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const toggleOption = (setter: React.Dispatch<React.SetStateAction<boolean>>) => {
     setter(prev => !prev);
-  }
+  };
 
-  const OptionButton = ({ label, active, onClick }: { label: string, active: boolean, onClick: () => void }) => (
+  const OptionButton = ({
+    label,
+    active,
+    onClick,
+  }: {
+    label: string;
+    active: boolean;
+    onClick: () => void;
+  }) => (
     <button
       onClick={onClick}
-      className={`flex items-center justify-between p-4 rounded-xl border transition-all ${active
+      className={`flex items-center justify-between p-4 rounded-xl border transition-all ${
+        active
           ? 'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800'
           : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600'
-        }`}
+      }`}
     >
-      <span className={`font-medium ${active ? 'text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}`}>
+      <span
+        className={`font-medium ${active ? 'text-blue-700 dark:text-blue-400' : 'text-gray-700 dark:text-gray-300'}`}
+      >
         {label}
       </span>
-      <div className={`w-6 h-6 rounded-full flex items-center justify-center border ${active
-          ? 'bg-blue-600 border-blue-600'
-          : 'border-gray-300 dark:border-gray-600'
-        }`}>
+      <div
+        className={`w-6 h-6 rounded-full flex items-center justify-center border ${
+          active ? 'bg-blue-600 border-blue-600' : 'border-gray-300 dark:border-gray-600'
+        }`}
+      >
         {active && <Check size={14} className="text-white" />}
       </div>
     </button>
@@ -96,7 +108,7 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
             <Slider
               label="Password Length"
               value={length}
-              onChange={(e) => setLength(parseInt(e.target.value))}
+              onChange={e => setLength(parseInt(e.target.value))}
               min={4}
               max={64}
               valueDisplay={length}
@@ -104,10 +116,26 @@ const PasswordGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <OptionButton label="Uppercase (A-Z)" active={useUpper} onClick={() => toggleOption(setUseUpper)} />
-            <OptionButton label="Lowercase (a-z)" active={useLower} onClick={() => toggleOption(setUseLower)} />
-            <OptionButton label="Numbers (0-9)" active={useNumbers} onClick={() => toggleOption(setUseNumbers)} />
-            <OptionButton label="Symbols (!@#...)" active={useSymbols} onClick={() => toggleOption(setUseSymbols)} />
+            <OptionButton
+              label="Uppercase (A-Z)"
+              active={useUpper}
+              onClick={() => toggleOption(setUseUpper)}
+            />
+            <OptionButton
+              label="Lowercase (a-z)"
+              active={useLower}
+              onClick={() => toggleOption(setUseLower)}
+            />
+            <OptionButton
+              label="Numbers (0-9)"
+              active={useNumbers}
+              onClick={() => toggleOption(setUseNumbers)}
+            />
+            <OptionButton
+              label="Symbols (!@#...)"
+              active={useSymbols}
+              onClick={() => toggleOption(setUseSymbols)}
+            />
           </div>
         </Card>
 

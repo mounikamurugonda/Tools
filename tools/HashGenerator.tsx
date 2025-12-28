@@ -34,21 +34,17 @@ const HashGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       const data = encoder.encode(input);
       const hashBuffer = await crypto.subtle.digest(algorithm, data);
       const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray
-        .map((b) => b.toString(16).padStart(2, '0'))
-        .join('');
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
       setOutput(hashHex);
     } catch (e) {
-      setError(
-        'Failed to generate hash. Your browser may not support the Web Crypto API.',
-      );
+      setError('Failed to generate hash. Your browser may not support the Web Crypto API.');
       setOutput('');
     }
   };
 
   const handleFileUpload = (file: File) => {
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       const text = e.target?.result;
       if (typeof text === 'string') {
         setInput(text);
@@ -64,10 +60,7 @@ const HashGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="flex flex-col sm:flex-row gap-4 items-end">
           <div className="w-full sm:w-1/3">
             <Label className="mb-2">Algorithm</Label>
-            <Select
-              value={algorithm}
-              onChange={(e) => setAlgorithm(e.target.value as HashAlgorithm)}
-            >
+            <Select value={algorithm} onChange={e => setAlgorithm(e.target.value as HashAlgorithm)}>
               <option value="SHA-1">SHA-1</option>
               <option value="SHA-256">SHA-256</option>
               <option value="SHA-512">SHA-512</option>
@@ -105,15 +98,12 @@ const HashGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
             <div className="relative">
               {inputMode === 'file' ? (
-                <FileUpload
-                  onFileSelect={handleFileUpload}
-                  className="h-96"
-                />
+                <FileUpload onFileSelect={handleFileUpload} className="h-96" />
               ) : (
                 <>
                   <TextArea
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={e => setInput(e.target.value)}
                     placeholder="Enter text here..."
                     className="h-96 resize-none"
                   />

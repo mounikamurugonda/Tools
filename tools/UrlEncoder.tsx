@@ -36,11 +36,7 @@ const UrlEncoder: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   return (
-    <ToolContainer
-      title="URL Encoder/Decoder"
-      details={details}
-      toolId={toolId}
-    >
+    <ToolContainer title="URL Encoder/Decoder" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div className="flex gap-2 w-full sm:w-auto">
@@ -72,7 +68,7 @@ const UrlEncoder: React.FC<ToolProps> = ({ details, toolId }) => {
               <TextArea
                 id="url-input"
                 value={input}
-                onChange={(e) => setInput(e.target.value)}
+                onChange={e => setInput(e.target.value)}
                 placeholder="Enter URL component here..."
                 className="h-96 max-h-96 font-mono resize-none"
               />
