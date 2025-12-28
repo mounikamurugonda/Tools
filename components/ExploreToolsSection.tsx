@@ -5,12 +5,14 @@ import { TOOLS } from '../constants';
 import Link from 'next/link';
 
 const ExploreToolsSection = () => {
-  // Select a subset of tools or all tools to display
-  // We'll duplicate the list to ensure seamless scrolling
-  const toolsToDisplay = [...TOOLS, ...TOOLS];
+  // Optimize: Select only featured tools or limit to first 25 to improve performance
+  // Rendering 200+ animated items caused layout thrashing & scroll lag
+  const featuredTools = TOOLS.filter(t => t.featured);
+  const displaySet = featuredTools.length > 10 ? featuredTools : TOOLS.slice(0, 25);
+  const toolsToDisplay = [...displaySet, ...displaySet]; // Duplicate for seamless loop
 
   return (
-    <section className=" overflow-hidden relative py-12 sm:py-16">
+    <section className="overflow-hidden relative py-12 sm:py-16">
       <div className="text-center mb-8 sm:mb-12 animate-fade-in relative z-10">
         <p className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 mb-2 uppercase tracking-wide">
           Ecosystem
@@ -24,8 +26,8 @@ const ExploreToolsSection = () => {
       </div>
 
       <div className="relative w-full overflow-visible mask-fade-sides py-12">
-        {/* Marquee Container */}
-        <div className="flex w-[200%] animate-scroll hover:pause-animation items-center">
+        {/* Marquee Container - Added will-change-transform for performance */}
+        <div className="flex w-[200%] animate-scroll pause-animation items-center will-change-transform">
           {toolsToDisplay.map((tool, index) => (
             <div
               key={`${tool.id}-${index}`}
@@ -42,11 +44,18 @@ const ExploreToolsSection = () => {
                   animationDuration: '5s',
                 }}
               >
-                <Link href={`/tools/${tool.id}`} className="block group">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:border-blue-400 dark:group-hover:border-blue-500 shadow-sm">
+                <Link href={`/tools/${tool.id}`} className="block group relative">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:border-blue-400 dark:group-hover:border-blue-500 shadow-sm z-10 relative">
                     <div className="text-gray-600 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors transform scale-100 sm:scale-110">
                       {tool.icon}
                     </div>
+                  </div>
+
+                  {/* Beautiful Tooltip */}
+                  <div className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 w-max max-w-[150px] px-3 py-1.5 bg-gray-900/90 dark:bg-white/90 backdrop-blur-sm text-white dark:text-gray-900 text-[10px] sm:text-xs font-semibold rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 pointer-events-none shadow-xl z-20 text-center">
+                    {tool.name}
+                    {/* Tooltip Arrow */}
+                    <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-gray-900/90 dark:bg-white/90 rotate-45"></div>
                   </div>
                 </Link>
               </div>
