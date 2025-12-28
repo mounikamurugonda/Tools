@@ -45,7 +45,7 @@ const DEFAULT_CONFIG: AppConfig = {
     showCursor: true,
     soundEnabled: true,
     soundType: 'deep',
-    lineNumbers: true,
+    lineNumbers: false,
     canvasPadding: 32,
     wordWrap: true,
 };

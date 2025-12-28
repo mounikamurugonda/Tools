@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import {
-    PanelLeft, Play, Pause, RotateCcw, Mic, MicOff, Monitor, Smartphone, ChevronDown, Download, Terminal, WrapText
+    PanelLeft, Play, Pause, RotateCcw, Mic, MicOff, Monitor, Smartphone, ChevronDown, Download, Terminal, WrapText, ListOrdered
 } from 'lucide-react';
 import { useAnimateStore, useTypeStore, useImageStore, useSharedUIStore } from '../store/useCodeCastStore';
 import { FRAME_OPTIONS } from '../constants';
@@ -182,18 +182,28 @@ export const CodeCastHeader = () => {
                 )}
 
                 {/* Text Wrap Toggle */}
-                {(mode === 'type' || mode === 'animate') && (
-                    <button
-                        onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
-                        className={`p-1.5 rounded-md transition-colors ${config.wordWrap
-                            ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-                            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                            }`}
-                        title={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}
-                    >
-                        <WrapText size={16} />
-                    </button>
-                )}
+                <button
+                    onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
+                    className={`p-1.5 rounded-md transition-colors ${config.wordWrap
+                        ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                        : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                        }`}
+                    title={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}
+                >
+                    <WrapText size={16} />
+                </button>
+
+                {/* Line Numbers Toggle */}
+                <button
+                    onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
+                    className={`p-1.5 rounded-md transition-colors ${config.lineNumbers
+                        ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                        : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                        }`}
+                    title={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}
+                >
+                    <ListOrdered size={16} />
+                </button>
 
                 {/* Image Mode Export */}
                 {mode === 'image' && (
