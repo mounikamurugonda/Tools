@@ -87,8 +87,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: route.priority,
   }));
 
+  // Product routes
+  const productRoutes = [
+    {
+      url: `${baseUrl}/product/code-cast`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/product/code-cast/animate`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/product/code-cast/image`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    },
+  ];
+
   return [
     ...highPriorityRoutes,
+    ...productRoutes,
     ...toolRoutes,
     ...toolCategoryRoutes,
     ...blogRoutes,
