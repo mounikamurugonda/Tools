@@ -57,31 +57,3 @@ export function getCanvasLayout(deviceFrame: DeviceFrame): CanvasLayoutConfig {
             };
     }
 }
-
-/**
- * Gets the canvas style for preview frames based on device selection.
- */
-export function getCanvasStyle(deviceFrame: DeviceFrame) {
-    const base = {
-        width: 'auto' as const,
-        height: '100%' as const,
-        maxHeight: '100%' as const,
-        maxWidth: '100%' as const,
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-        transition: 'all 0.5s ease-in-out',
-    };
-
-    switch (deviceFrame) {
-        case 'tiktok-shorts':
-            return { ...base, aspectRatio: '9 / 16' };
-        case 'instagram-square':
-            return { ...base, aspectRatio: '1 / 1' };
-        case 'linkedin-post':
-            return { ...base, aspectRatio: '4 / 5' };
-        case 'browser':
-            return { ...base, aspectRatio: '16 / 9' };
-        case 'minimal':
-        default:
-            return { ...base, width: '100%', height: '100%' };
-    }
-}

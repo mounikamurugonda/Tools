@@ -36,10 +36,6 @@ const loadSound = async (type: SoundType) => {
   }
 };
 
-export const preloadSounds = () => {
-  Object.keys(SOUND_PRESETS).forEach(key => loadSound(key as SoundType));
-};
-
 export const startTypingSound = async (type: SoundType = 'deep') => {
   // Reset abort flag for this new attempt
   abortStart = false;

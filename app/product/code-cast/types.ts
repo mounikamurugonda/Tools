@@ -30,10 +30,3 @@ export interface CodeSnippet {
   css: string;
   js: string;
 }
-
-export interface EditorState {
-  code: string;
-  cursorIndex: number;
-  isTyping: boolean;
-  isPaused: boolean;
-}

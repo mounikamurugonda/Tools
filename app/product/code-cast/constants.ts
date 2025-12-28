@@ -7,7 +7,7 @@ export const SOUND_PRESETS = {
   crisp: '/keyboard-typing-1.mp3', // Signature Crisp
 };
 
-export interface BackgroundPreset {
+interface BackgroundPreset {
   id: string;
   label: string;
   value: string; // CSS class(es)

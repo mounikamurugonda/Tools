@@ -114,6 +114,3 @@ export const useSharedUIStore = create<SharedUIState>()((set) => ({
     isSidebarOpen: true,
     setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
 }));
-
-// Keep the original export for backward compatibility (defaults to type store)
-export const useCodeCastStore = useTypeStore;

@@ -45,18 +45,6 @@ export const transformViewportUnits = (cssText: string): string => {
 };
 
 /**
- * CSS custom property names used for viewport unit transformation.
- * These should be set on the container element with values representing
- * 1% of the container's dimensions.
- */
-export const VIEWPORT_CSS_PROPERTIES = {
-    vh: '--preview-vh',
-    vw: '--preview-vw',
-    vmin: '--preview-vmin',
-    vmax: '--preview-vmax',
-} as const;
-
-/**
  * Calculates the CSS custom property values for viewport unit transformation.
  * 
  * @param width - Container width in pixels
