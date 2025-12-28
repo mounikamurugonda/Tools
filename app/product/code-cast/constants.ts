@@ -56,7 +56,9 @@ export const FRAME_OPTIONS: { id: DeviceFrame; label: string; group: string }[] 
 ];
 
 export const DEFAULT_CODE = {
-  html: `<div class="card">
+  html: `
+  <div class="body">
+    <div class="card">
   <div class="header">
     <div class="avatar"></div>
     <div class="title">Hello World</div>
@@ -66,8 +68,9 @@ export const DEFAULT_CODE = {
     <p>This is a live typing demo.</p>
   </div>
   <button>Get Started</button>
+</div>
 </div>`,
-  css: `body {
+  css: `.body {
   display: flex;
   align-items: center;
   justify-content: center;

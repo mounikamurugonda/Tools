@@ -87,10 +87,18 @@ export const CodeCastHeader = () => {
         if (!element) return;
 
         try {
+            // Simplified options - no complex iframe cloning needed
+            // since DirectPreview renders content directly in DOM
             const options = {
                 quality: 0.95,
                 pixelRatio: 2,
-                skipFonts: true
+                skipFonts: true,
+                width: element.offsetWidth,
+                height: element.offsetHeight,
+                style: {
+                    margin: '0',
+                    transform: 'none',
+                },
             };
             let dataUrl = '';
 

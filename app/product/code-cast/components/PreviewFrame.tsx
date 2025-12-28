@@ -22,7 +22,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
           <style>
             /* Reset & Defaults */
             * { box-sizing: border-box; }
-            body { margin: 0; padding: 4px; font-family: sans-serif; overflow-x: hidden; }
+            body { margin: 0; padding: 0px; font-family: sans-serif; overflow-x: hidden; transition: all 0.3s ease-in-out; }
           </style>
           <style id="preview-css"></style>
         </head>

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useImageStore } from '../../store/useCodeCastStore';
 import { TypeTabEditor } from '../../components/TypeTabEditor';
-import PreviewFrame from '../../components/PreviewFrame';
+import DirectPreview from '../../components/DirectPreview';
 import { getCanvasLayout } from '../../utils/layoutHelpers';
 import { ProjectInfoOverlay } from '../../components/ProjectInfoOverlay';
 
@@ -12,7 +12,8 @@ export default function ImagePage() {
         code,
         config,
         activeTab, setActiveTab,
-        projectTitle
+        projectTitle,
+        updateCode
     } = useImageStore();
 
     // Get responsive layout configuration based on device frame
@@ -49,8 +50,13 @@ export default function ImagePage() {
                     <TypeTabEditor
                         code={code}
                         config={config}
-                        onChange={() => { }} // TODO: Connect to updateCode if editable
-                        readOnly={true} // Making read-only for now to distinguish "Type" vs "Image" focus.
+                        onChange={(newCode) => {
+                            // Update each tab that changed
+                            if (newCode.html !== code.html) updateCode('html', newCode.html);
+                            if (newCode.css !== code.css) updateCode('css', newCode.css);
+                            if (newCode.js !== code.js) updateCode('js', newCode.js);
+                        }}
+                        readOnly={false}
                         activeTab={activeTab}
                         onTabChange={setActiveTab}
                     />
@@ -61,7 +67,7 @@ export default function ImagePage() {
                     className="flex-1 rounded-xl shadow-2xl overflow-hidden border border-white/10 bg-white"
                     style={{ order: layout.flexDirection === 'flex-col' ? 1 : 2 }}
                 >
-                    <PreviewFrame html={code.html} css={code.css} js={code.js} device={config.deviceFrame} scale={1} />
+                    <DirectPreview html={code.html} css={code.css} js={code.js} device={config.deviceFrame} scale={1} />
                 </div>
             </div>
         </div>

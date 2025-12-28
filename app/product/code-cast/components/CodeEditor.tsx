@@ -42,8 +42,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
   };
 
   // Auto-scroll logic for animation - keep current line visible
+  // Only apply when readOnly (during playback), not when user is editing
   useEffect(() => {
-    if (editorRef.current) {
+    if (readOnly && editorRef.current) {
       const model = editorRef.current.getModel();
       if (model) {
         const lineCount = model.getLineCount();
@@ -52,7 +53,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
         editorRef.current.revealLineInCenter(lineCount, 0); // 0 = smooth scroll
       }
     }
-  }, [code]);
+  }, [code, readOnly]);
 
   return (
     <div className="w-full h-full overflow-hidden">
