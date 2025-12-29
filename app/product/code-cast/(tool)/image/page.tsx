@@ -5,10 +5,10 @@ import { useImageStore } from '../../store/useCodeCastStore';
 import { TypeTabEditor } from '../../components/TypeTabEditor';
 import DirectPreview from '../../components/DirectPreview';
 import { getCanvasLayout } from '../../utils/layoutHelpers';
-import { ProjectInfoOverlay } from '../../components/ProjectInfoOverlay';
+import { ProjectTitleDisplay } from '../../components/ProjectTitleDisplay';
 
 export default function ImagePage() {
-  const { code, config, activeTab, setActiveTab, projectTitle, updateCode } = useImageStore();
+  const { code, config, activeTab, setActiveTab, projectTitle, updateCode, shadowIntensity } = useImageStore();
 
   // Get responsive layout configuration based on device frame
   const layout = getCanvasLayout(config.deviceFrame);
@@ -18,7 +18,7 @@ export default function ImagePage() {
       {/* Canvas Area - Responsive Layout */}
       <div
         id="canvas-stage"
-        className={`flex-1 flex ${layout.flexDirection} ${layout.gap} ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
+        className={`flex-1 flex flex-col ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
         style={{
           aspectRatio: layout.canvasAspectRatio,
           maxWidth: layout.maxWidth || 'none',
@@ -27,47 +27,55 @@ export default function ImagePage() {
           padding: `${config.canvasPadding}px`,
         }}
       >
-        {/* Project Info Overlay */}
-        <ProjectInfoOverlay projectTitle={projectTitle} />
+        <ProjectTitleDisplay />
 
-        {/* Editor - Read Only in Image Mode? Usually users tweak code in Type mode then go to Image.
-                 But original allowed editing in all modes except Animate (during playback).
-                 Let's allow editing here too, similar to Type mode, but focused on visual.
-                 Or ReadOnly to force workflow? User said "move tabs to top bar", implies separate modes.
-                 Let's keep it editable for convenience unless "Image Mode" specifically means "Preview Only".
-                 I'll make it editable.
-             */}
-        <div
-          className="flex-1 rounded-xl shadow-2xl overflow-hidden border border-white/10 bg-black/40 backdrop-blur-md"
-          style={{ order: layout.flexDirection === 'flex-col' ? 2 : 1 }}
-        >
-          <TypeTabEditor
-            code={code}
-            config={config}
-            onChange={newCode => {
-              // Update each tab that changed
-              if (newCode.html !== code.html) updateCode('html', newCode.html);
-              if (newCode.css !== code.css) updateCode('css', newCode.css);
-              if (newCode.js !== code.js) updateCode('js', newCode.js);
+        {/* Content Wrapper */}
+        <div className={`flex-1 flex ${layout.flexDirection} ${layout.gap} w-full min-h-0`}>
+          {/* Editor - Read Only in Image Mode? Usually users tweak code in Type mode then go to Image.
+                   But original allowed editing in all modes except Animate (during playback).
+                   Let's allow editing here too, similar to Type mode, but focused on visual.
+                   Or ReadOnly to force workflow? User said "move tabs to top bar", implies separate modes.
+                   Let's keep it editable for convenience unless "Image Mode" specifically means "Preview Only".
+                   I'll make it editable.
+               */}
+          <div
+            className="flex-1 rounded-xl overflow-hidden bg-black/40 backdrop-blur-md transition-shadow duration-300"
+            style={{
+              order: layout.flexDirection === 'flex-col' ? 2 : 1,
+              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
             }}
-            readOnly={false}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
-        </div>
+          >
+            <TypeTabEditor
+              code={code}
+              config={config}
+              onChange={newCode => {
+                // Update each tab that changed
+                if (newCode.html !== code.html) updateCode('html', newCode.html);
+                if (newCode.css !== code.css) updateCode('css', newCode.css);
+                if (newCode.js !== code.js) updateCode('js', newCode.js);
+              }}
+              readOnly={false}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
+          </div>
 
-        {/* Preview */}
-        <div
-          className="flex-1 rounded-xl shadow-2xl overflow-hidden border border-white/10 bg-white"
-          style={{ order: layout.flexDirection === 'flex-col' ? 1 : 2 }}
-        >
-          <DirectPreview
-            html={code.html}
-            css={code.css}
-            js={code.js}
-            device={config.deviceFrame}
-            scale={1}
-          />
+          {/* Preview */}
+          <div
+            className="flex-1 rounded-xl overflow-hidden bg-white transition-shadow duration-300"
+            style={{
+              order: layout.flexDirection === 'flex-col' ? 1 : 2,
+              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
+            }}
+          >
+            <DirectPreview
+              html={code.html}
+              css={code.css}
+              js={code.js}
+              device={config.deviceFrame}
+              scale={1}
+            />
+          </div>
         </div>
       </div>
     </div>

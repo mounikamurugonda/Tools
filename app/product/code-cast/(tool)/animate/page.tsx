@@ -7,9 +7,9 @@ import PreviewFrame from '../../components/PreviewFrame';
 import { useTypingEngine } from '../../hooks/useTypingEngine';
 import { useRecording } from '../../context/RecordingContext';
 import { getCanvasLayout } from '../../utils/layoutHelpers';
-import { ProjectInfoOverlay } from '../../components/ProjectInfoOverlay';
 import { RecordingTimer } from '../../components/RecordingTimer';
 import { RecordingDownloadModal } from '../../components/RecordingDownloadModal';
+import { ProjectTitleDisplay } from '../../components/ProjectTitleDisplay';
 import { Play, Pause, RotateCcw, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
 
 export default function AnimatePage() {
@@ -24,6 +24,7 @@ export default function AnimatePage() {
     setIsPlaying,
     isRecording: storeIsRecording,
     projectTitle,
+    shadowIntensity,
   } = useAnimateStore();
 
   const [typedContent, setTypedContent] = useState('');
@@ -144,7 +145,7 @@ export default function AnimatePage() {
       {/* Canvas Area - Responsive Layout */}
       <div
         id="canvas-stage"
-        className={`flex-1 flex ${layout.flexDirection} ${layout.gap} ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
+        className={`flex-1 flex flex-col ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
         style={{
           aspectRatio: layout.canvasAspectRatio,
           maxWidth: layout.maxWidth || 'none',
@@ -156,34 +157,42 @@ export default function AnimatePage() {
         {/* Recording Timer */}
         {/* {isRecording && <RecordingTimer recordingTime={recordingTime} />} */}
 
-        {/* Project Info Overlay */}
-        <ProjectInfoOverlay projectTitle={projectTitle} />
+        <ProjectTitleDisplay />
 
-        {/* Editor */}
-        <div
-          className="flex-1 rounded-xl shadow-2xl overflow-hidden border border-white/10 bg-black/40 backdrop-blur-md"
-          style={{ order: layout.flexDirection === 'flex-col' ? 2 : 1 }}
-        >
-          <TypeTabEditor
-            code={showPlaceholder ? code : { ...code, [activeTab]: typedContent }}
-            config={config}
-            onChange={newCode => {
-              // Update the store with the new code for the active tab
-              const changedTab = activeTab;
-              updateCode(changedTab, newCode[changedTab]);
+        {/* Content Wrapper */}
+        <div className={`flex-1 flex ${layout.flexDirection} ${layout.gap} w-full min-h-0`}>
+          {/* Editor */}
+          <div
+            className="flex-1 rounded-xl overflow-hidden bg-black/40 backdrop-blur-md transition-shadow duration-300"
+            style={{
+              order: layout.flexDirection === 'flex-col' ? 2 : 1,
+              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
             }}
-            readOnly={false}
-            activeTab={activeTab}
-            onTabChange={setActiveTab}
-          />
-        </div>
+          >
+            <TypeTabEditor
+              code={showPlaceholder ? code : { ...code, [activeTab]: typedContent }}
+              config={config}
+              onChange={newCode => {
+                // Update the store with the new code for the active tab
+                const changedTab = activeTab;
+                updateCode(changedTab, newCode[changedTab]);
+              }}
+              readOnly={false}
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+            />
+          </div>
 
-        {/* Preview */}
-        <div
-          className="flex-1 rounded-xl shadow-2xl overflow-hidden border border-white/10 bg-white"
-          style={{ order: layout.flexDirection === 'flex-col' ? 1 : 2 }}
-        >
-          <PreviewFrame html={pHTML} css={pCSS} js={pJS} device={config.deviceFrame} scale={1} />
+          {/* Preview */}
+          <div
+            className="flex-1 rounded-xl overflow-hidden bg-white transition-shadow duration-300"
+            style={{
+              order: layout.flexDirection === 'flex-col' ? 1 : 2,
+              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
+            }}
+          >
+            <PreviewFrame html={pHTML} css={pCSS} js={pJS} device={config.deviceFrame} scale={1} />
+          </div>
         </div>
       </div>
 

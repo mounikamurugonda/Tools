@@ -17,6 +17,12 @@ interface CodeCastState {
   // UI State
   projectTitle: string;
   setProjectTitle: (title: string) => void;
+  projectTitleFontSize: number;
+  setProjectTitleFontSize: (size: number) => void;
+  shadowIntensity: number;
+  setShadowIntensity: (intensity: number) => void;
+  showProjectInfo: boolean;
+  setShowProjectInfo: (show: boolean) => void;
   activeTab: 'html' | 'css' | 'js';
   setActiveTab: (tab: 'html' | 'css' | 'js') => void;
 
@@ -71,6 +77,12 @@ const createCodeCastStore = (storageKey: string) => {
         // Initial UI
         projectTitle: 'Pure CSS Carousel with Markers',
         setProjectTitle: title => set({ projectTitle: title }),
+        projectTitleFontSize: 0,
+        setProjectTitleFontSize: size => set({ projectTitleFontSize: size }),
+        shadowIntensity: 40,
+        setShadowIntensity: intensity => set({ shadowIntensity: intensity }),
+        showProjectInfo: true,
+        setShowProjectInfo: show => set({ showProjectInfo: show }),
         activeTab: 'html',
         setActiveTab: tab => set({ activeTab: tab }),
 
@@ -97,6 +109,9 @@ const createCodeCastStore = (storageKey: string) => {
           code: state.code,
           config: state.config,
           projectTitle: state.projectTitle,
+          projectTitleFontSize: state.projectTitleFontSize,
+          shadowIntensity: state.shadowIntensity,
+          showProjectInfo: state.showProjectInfo,
         }),
       }
     )

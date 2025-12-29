@@ -75,6 +75,14 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  icons: {
+    icon: [
+      { url: '/fav-light-logo.ico', media: '(prefers-color-scheme: light)' },
+      { url: '/fav-dark-logo.ico', media: '(prefers-color-scheme: dark)' },
+    ],
+    shortcut: '/fav-light-logo.ico',
+    apple: '/fav-light-logo.ico',
+  },
   other: {
     'theme-color': '#3b82f6',
     'msapplication-TileColor': '#3b82f6',

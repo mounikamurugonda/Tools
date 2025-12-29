@@ -20,11 +20,9 @@ const Sidebar: React.FC = () => {
   const imageStore = useImageStore();
 
   const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-  const { config, setConfig, projectTitle, setProjectTitle } = currentStore;
+  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, shadowIntensity, setShadowIntensity } = currentStore;
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
-
-  const [showProjectInfo, setShowProjectInfo] = useState(false);
 
   const isOpen = isSidebarOpen;
   const onClose = () => setSidebarOpen(false);
@@ -68,6 +66,43 @@ const Sidebar: React.FC = () => {
               className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-2.5 text-xs text-gray-900 dark:text-gray-300 focus:outline-none focus:border-blue-500 placeholder-gray-400 dark:placeholder-gray-700 transition-colors"
               placeholder="Project Title"
             />
+            {/* Project Title Font Size Slider */}
+            <div className="space-y-1 pt-1">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Title Size</span>
+                <span className="text-xs font-mono text-gray-900 dark:text-white">
+                  {projectTitleFontSize === 0 ? 'Auto (14px/24px)' : `${projectTitleFontSize}px`}
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="64"
+                step="2"
+                value={projectTitleFontSize}
+                onChange={e => setProjectTitleFontSize(Number(e.target.value))}
+                className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+              />
+            </div>
+
+            {/* Shadow Intensity Slider */}
+            <div className="space-y-1 pt-2 border-t border-gray-200 dark:border-gray-800 mt-2">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Shadow Intensity</span>
+                <span className="text-xs font-mono text-gray-900 dark:text-white">
+                  {shadowIntensity}%
+                </span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                step="5"
+                value={shadowIntensity}
+                onChange={e => setShadowIntensity(Number(e.target.value))}
+                className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+              />
+            </div>
           </div>
 
           {/* Section: Appearance */}
@@ -244,8 +279,7 @@ const Sidebar: React.FC = () => {
         </div>
       </div>
 
-      {/* Pass showProjectInfo state to pages via a global context or direct prop */}
-      <div className="hidden" data-show-project-info={showProjectInfo} id="project-info-toggle" />
+
     </div>
   );
 };
