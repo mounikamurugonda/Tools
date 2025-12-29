@@ -12,7 +12,7 @@ import { ProjectTitleDisplay } from '../../components/ProjectTitleDisplay';
 import { Mic, MicOff } from 'lucide-react';
 
 export default function TypePage() {
-  const { code, updateCode, setCode, config, activeTab, setActiveTab, projectTitle, shadowIntensity } =
+  const { code, updateCode, setCode, config, activeTab, setActiveTab, projectTitle, shadowBlur, shadowSpread } =
     useTypeStore();
 
   const [isMicEnabled, setIsMicEnabled] = useState(false);
@@ -63,7 +63,7 @@ export default function TypePage() {
             className="flex-1 rounded-xl overflow-hidden bg-black/40 backdrop-blur-md transition-shadow duration-300"
             style={{
               order: layout.flexDirection === 'flex-col' ? 2 : 1,
-              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
+              boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
           >
             <TypeTabEditor
@@ -85,7 +85,7 @@ export default function TypePage() {
             className="flex-1 rounded-xl overflow-hidden bg-white transition-shadow duration-300"
             style={{
               order: layout.flexDirection === 'flex-col' ? 1 : 2,
-              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
+              boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
           >
             <PreviewFrame

@@ -70,15 +70,13 @@ export const TypeTabEditor: React.FC<TypeTabEditorProps> = ({
 
   return (
     <div
-      className={`flex flex-col w-full h-full overflow-hidden rounded-xl border transition-colors duration-300 ${
-        isLight ? 'bg-white border-gray-200' : 'bg-[#1e1e1e] border-white/10'
-      } ${className || ''}`}
+      className={`flex flex-col w-full h-full overflow-hidden rounded-xl transition-colors duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'
+        } ${className || ''}`}
     >
       {/* Tab Bar */}
       <div
-        className={`flex items-center px-2 h-10 border-b shrink-0 ${
-          isLight ? 'bg-gray-50/50 border-gray-200' : 'bg-[#252525] border-white/5'
-        }`}
+        className={`flex items-center px-2 h-10 border-b shrink-0 ${isLight ? 'bg-gray-50/50 border-gray-200' : 'bg-[#252525] border-white/5'
+          }`}
       >
         <div className="flex items-center gap-1">
           {TABS.map(tab => {
@@ -90,12 +88,11 @@ export const TypeTabEditor: React.FC<TypeTabEditorProps> = ({
                 onClick={() => handleTabChange(tab.id)}
                 className={`
                   flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all
-                  ${
-                    isActive
-                      ? isLight
-                        ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
-                        : 'bg-white/10 text-white shadow-sm ring-1 ring-white/10'
-                      : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5'
+                  ${isActive
+                    ? isLight
+                      ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
+                      : 'bg-white/10 text-white shadow-sm ring-1 ring-white/10'
+                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5'
                   }
                 `}
               >

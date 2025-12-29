@@ -19,8 +19,10 @@ interface CodeCastState {
   setProjectTitle: (title: string) => void;
   projectTitleFontSize: number;
   setProjectTitleFontSize: (size: number) => void;
-  shadowIntensity: number;
-  setShadowIntensity: (intensity: number) => void;
+  shadowBlur: number;
+  setShadowBlur: (blur: number) => void;
+  shadowSpread: number;
+  setShadowSpread: (spread: number) => void;
   showProjectInfo: boolean;
   setShowProjectInfo: (show: boolean) => void;
   activeTab: 'html' | 'css' | 'js';
@@ -79,8 +81,10 @@ const createCodeCastStore = (storageKey: string) => {
         setProjectTitle: title => set({ projectTitle: title }),
         projectTitleFontSize: 0,
         setProjectTitleFontSize: size => set({ projectTitleFontSize: size }),
-        shadowIntensity: 40,
-        setShadowIntensity: intensity => set({ shadowIntensity: intensity }),
+        shadowBlur: 40,
+        setShadowBlur: blur => set({ shadowBlur: blur }),
+        shadowSpread: -5,
+        setShadowSpread: spread => set({ shadowSpread: spread }),
         showProjectInfo: true,
         setShowProjectInfo: show => set({ showProjectInfo: show }),
         activeTab: 'html',
@@ -110,7 +114,8 @@ const createCodeCastStore = (storageKey: string) => {
           config: state.config,
           projectTitle: state.projectTitle,
           projectTitleFontSize: state.projectTitleFontSize,
-          shadowIntensity: state.shadowIntensity,
+          shadowBlur: state.shadowBlur,
+          shadowSpread: state.shadowSpread,
           showProjectInfo: state.showProjectInfo,
         }),
       }

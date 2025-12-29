@@ -8,7 +8,7 @@ import { getCanvasLayout } from '../../utils/layoutHelpers';
 import { ProjectTitleDisplay } from '../../components/ProjectTitleDisplay';
 
 export default function ImagePage() {
-  const { code, config, activeTab, setActiveTab, projectTitle, updateCode, shadowIntensity } = useImageStore();
+  const { code, config, activeTab, setActiveTab, projectTitle, updateCode, shadowBlur, shadowSpread } = useImageStore();
 
   // Get responsive layout configuration based on device frame
   const layout = getCanvasLayout(config.deviceFrame);
@@ -42,7 +42,7 @@ export default function ImagePage() {
             className="flex-1 rounded-xl overflow-hidden bg-black/40 backdrop-blur-md transition-shadow duration-300"
             style={{
               order: layout.flexDirection === 'flex-col' ? 2 : 1,
-              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
+              boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
           >
             <TypeTabEditor
@@ -65,7 +65,7 @@ export default function ImagePage() {
             className="flex-1 rounded-xl overflow-hidden bg-white transition-shadow duration-300"
             style={{
               order: layout.flexDirection === 'flex-col' ? 1 : 2,
-              boxShadow: `0 10px ${shadowIntensity}px -5px rgba(0, 0, 0, 0.3)`
+              boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
           >
             <DirectPreview

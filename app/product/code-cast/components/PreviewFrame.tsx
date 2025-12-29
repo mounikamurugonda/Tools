@@ -82,7 +82,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
       'bg-white shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
 
     if (device === 'browser') {
-      return `w-full h-full border border-gray-700 rounded-lg bg-white shadow-lg relative flex flex-col`;
+      return `w-full h-full rounded-lg bg-white shadow-lg relative flex flex-col`;
     }
 
     // For mobile/minimal/social, we just return a clean rounded container that fills the split pane.

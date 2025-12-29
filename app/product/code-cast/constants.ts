@@ -14,25 +14,81 @@ interface BackgroundPreset {
 }
 
 export const BACKGROUND_PRESETS: BackgroundPreset[] = [
-  // --- CodeCast Specific ---
-
+  // --- Brand & Modern Dark ---
   {
-    id: 'logo-gradient',
-    label: 'Logo Vivid',
+    id: 'codecast-gradient',
+    label: 'CodeCast Vivid',
     value: 'bg-gradient-to-br from-blue-600 to-purple-600',
     isDark: true,
   },
-
   {
-    id: 'util-solid-blue',
-    label: 'UtilToolkits Blue',
-    value: 'bg-[#2563eb]', // Blue-500
+    id: 'deep-space',
+    label: 'Deep Space',
+    value: 'bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900',
     isDark: true,
   },
   {
-    id: 'util-solid-black',
-    label: 'UtilToolkits Black',
-    value: 'bg-[#000000]', // Blue-500
+    id: 'midnight-bloom',
+    label: 'Midnight Bloom',
+    value: 'bg-gradient-to-bl from-indigo-900 via-purple-900 to-pink-900',
+    isDark: true,
+  },
+  {
+    id: 'cyber-dim',
+    label: 'Cyber Dim',
+    value: 'bg-gradient-to-r from-slate-900 to-slate-800',
+    isDark: true,
+  },
+
+  // --- Modern Vibrant ---
+  {
+    id: 'electric-violet',
+    label: 'Electric Violet',
+    value: 'bg-gradient-to-tr from-violet-600 to-indigo-600',
+    isDark: true,
+  },
+  {
+    id: 'oceanic-depths',
+    label: 'Oceanic Depths',
+    value: 'bg-gradient-to-br from-blue-900 via-cyan-900 to-blue-900',
+    isDark: true,
+  },
+  {
+    id: 'neon-twilight',
+    label: 'Neon Twilight',
+    value: 'bg-gradient-to-r from-fuchsia-600 to-purple-600',
+    isDark: true,
+  },
+  {
+    id: 'azure-pop',
+    label: 'Azure Pop',
+    value: 'bg-gradient-to-bl from-blue-500 to-cyan-500',
+    isDark: true,
+  },
+
+  // --- Smooth & Subtle ---
+  {
+    id: 'glass-dark',
+    label: 'Glass Dark',
+    value: 'bg-gradient-to-br from-gray-900 to-gray-800',
+    isDark: true,
+  },
+  {
+    id: 'royal-mist',
+    label: 'Royal Mist',
+    value: 'bg-gradient-to-tr from-slate-800 via-violet-900/50 to-slate-900',
+    isDark: true,
+  },
+  {
+    id: 'sunset-vibe',
+    label: 'Sunset Vibe',
+    value: 'bg-gradient-to-br from-rose-500 to-orange-400',
+    isDark: true,
+  },
+  {
+    id: 'pure-black',
+    label: 'Pure Black',
+    value: 'bg-black',
     isDark: true,
   },
 ];

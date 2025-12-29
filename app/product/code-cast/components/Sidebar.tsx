@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
   const imageStore = useImageStore();
 
   const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, shadowIntensity, setShadowIntensity } = currentStore;
+  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, shadowBlur, setShadowBlur, shadowSpread, setShadowSpread } = currentStore;
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
 
@@ -85,23 +85,45 @@ const Sidebar: React.FC = () => {
               />
             </div>
 
-            {/* Shadow Intensity Slider */}
-            <div className="space-y-1 pt-2 border-t border-gray-200 dark:border-gray-800 mt-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Shadow Intensity</span>
-                <span className="text-xs font-mono text-gray-900 dark:text-white">
-                  {shadowIntensity}%
-                </span>
+            {/* Shadow Controls */}
+            <div className="space-y-3 pt-2 border-t border-gray-200 dark:border-gray-800 mt-2">
+              {/* Blur Slider */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Shadow Blur</span>
+                  <span className="text-xs font-mono text-gray-900 dark:text-white">
+                    {shadowBlur}px
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="200"
+                  step="5"
+                  value={shadowBlur}
+                  onChange={e => setShadowBlur(Number(e.target.value))}
+                  className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+                />
               </div>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                step="5"
-                value={shadowIntensity}
-                onChange={e => setShadowIntensity(Number(e.target.value))}
-                className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
-              />
+
+              {/* Spread Slider */}
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Shadow Spread</span>
+                  <span className="text-xs font-mono text-gray-900 dark:text-white">
+                    {shadowSpread}px
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="-50"
+                  max="50"
+                  step="1"
+                  value={shadowSpread}
+                  onChange={e => setShadowSpread(Number(e.target.value))}
+                  className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+                />
+              </div>
             </div>
           </div>
 
@@ -114,7 +136,7 @@ const Sidebar: React.FC = () => {
             {/* Background Selector */}
             <div className="space-y-2">
               <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Background</span>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-5 gap-1.5">
                 {BACKGROUND_PRESETS.map(bg => (
                   <button
                     key={bg.id}
