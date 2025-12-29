@@ -79,12 +79,22 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
           automaticLayout: true,
           fontFamily: '"Fira Code", "JetBrains Mono", "Menlo", "Consolas", monospace',
           fontLigatures: true,
-          cursorBlinking: 'smooth',
+          cursorBlinking: 'phase',
+          cursorSmoothCaretAnimation: 'on',
           smoothScrolling: true,
           contextmenu: !readOnly,
           renderLineHighlight: 'none', // clean look
           padding: { top: 16, bottom: 16 },
-          lineDecorationsWidth: 10, // Remove line decoration width
+          lineDecorationsWidth: 10,
+
+          overviewRulerLanes: 0,
+          overviewRulerBorder: false,
+          hideCursorInOverviewRuler: true,
+          scrollbar: {
+            vertical: 'hidden',
+            horizontal: 'hidden',
+            handleMouseWheel: true,
+          },
         }}
       />
     </div>

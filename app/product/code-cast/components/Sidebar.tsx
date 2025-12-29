@@ -8,6 +8,7 @@ import {
 } from '../store/useCodeCastStore';
 import { AppConfig, Theme, TypingSpeed, SoundType } from '../types';
 import { BACKGROUND_PRESETS, EDITOR_THEMES, FONT_SIZES } from '../constants';
+import { EmojiPicker } from './EmojiPicker';
 import { usePathname } from 'next/navigation';
 
 const Sidebar: React.FC = () => {
@@ -60,12 +61,15 @@ const Sidebar: React.FC = () => {
                 {showProjectInfo ? <Eye size={14} /> : <EyeOff size={14} />}
               </button>
             </div>
-            <input
-              value={projectTitle}
-              onChange={e => setProjectTitle(e.target.value)}
-              className="w-full bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-2.5 text-xs text-gray-900 dark:text-gray-300 focus:outline-none focus:border-blue-500 placeholder-gray-400 dark:placeholder-gray-700 transition-colors"
-              placeholder="Project Title"
-            />
+            <div className="flex gap-2">
+              <input
+                value={projectTitle}
+                onChange={e => setProjectTitle(e.target.value)}
+                className="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-2.5 text-xs text-gray-900 dark:text-gray-300 focus:outline-none focus:border-blue-500 placeholder-gray-400 dark:placeholder-gray-700 transition-colors"
+                placeholder="Project Title"
+              />
+              <EmojiPicker onEmojiSelect={(emoji) => setProjectTitle(projectTitle + emoji)} />
+            </div>
             {/* Project Title Font Size Slider */}
             <div className="space-y-1 pt-1">
               <div className="flex items-center justify-between">

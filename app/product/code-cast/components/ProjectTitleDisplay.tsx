@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAnimateStore, useTypeStore, useImageStore, useSharedUIStore } from '../store/useCodeCastStore';
+import { useAnimateStore, useTypeStore, useImageStore } from '../store/useCodeCastStore';
 import { usePathname } from 'next/navigation';
 
 export const ProjectTitleDisplay = () => {
@@ -13,29 +13,6 @@ export const ProjectTitleDisplay = () => {
 
     const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
     const { projectTitle, showProjectInfo, projectTitleFontSize } = currentStore;
-    const { isSidebarOpen } = useSharedUIStore();
-
-    const [displayedTitle, setDisplayedTitle] = React.useState('');
-
-    // Typewriter effect for title
-    React.useEffect(() => {
-        let currentIndex = 0;
-        setDisplayedTitle(''); // Reset when title changes
-
-        // If title is cleared, just stay empty
-        if (!projectTitle) return;
-
-        const interval = setInterval(() => {
-            if (currentIndex < projectTitle.length) {
-                setDisplayedTitle(projectTitle.slice(0, currentIndex + 1));
-                currentIndex++;
-            } else {
-                clearInterval(interval);
-            }
-        }, 50); // 50ms per char
-
-        return () => clearInterval(interval);
-    }, [projectTitle]);
 
     if (!showProjectInfo || !projectTitle) return null;
 
@@ -52,8 +29,7 @@ export const ProjectTitleDisplay = () => {
                     className="font-bold text-white tracking-tight text-center break-words leading-tight transition-all duration-200 text-[14px] md:text-[24px]"
                     style={projectTitleFontSize > 0 ? { fontSize: `${projectTitleFontSize}px` } : undefined}
                 >
-                    {displayedTitle}
-                    <span className="animate-pulse ml-1 opacity-70">|</span>
+                    {projectTitle}
                 </h1>
             </div>
         </div>
