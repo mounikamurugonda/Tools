@@ -49,6 +49,8 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     };
   }, [isRecording]);
 
+  const audioContextRef = useRef<AudioContext | null>(null);
+
   const startRecording = useCallback(async (isMicEnabled: boolean) => {
     try {
       console.log('Starting recording...');
@@ -71,10 +73,27 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         }
       }
 
+      // Mix audio streams using Web Audio API
+      const audioContext = new AudioContext();
+      audioContextRef.current = audioContext;
+      const destination = audioContext.createMediaStreamDestination();
+      let hasAudio = false;
+
+      if (displayStream.getAudioTracks().length > 0) {
+        const source1 = audioContext.createMediaStreamSource(displayStream);
+        source1.connect(destination);
+        hasAudio = true;
+      }
+
+      if (micStream && micStream.getAudioTracks().length > 0) {
+        const source2 = audioContext.createMediaStreamSource(micStream);
+        source2.connect(destination);
+        hasAudio = true;
+      }
+
       const tracks = [
         ...displayStream.getVideoTracks(),
-        ...displayStream.getAudioTracks(),
-        ...(micStream ? micStream.getAudioTracks() : []),
+        ...(hasAudio ? destination.stream.getAudioTracks() : [])
       ];
       const combinedStream = new MediaStream(tracks);
 
@@ -94,12 +113,12 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
       // Robust MIME type check
       let mimeType = 'video/webm';
-      if (MediaRecorder.isTypeSupported('video/webm; codecs=vp9')) {
-        mimeType = 'video/webm; codecs=vp9';
-      } else if (MediaRecorder.isTypeSupported('video/webm; codecs=vp8')) {
-        mimeType = 'video/webm; codecs=vp8';
+      if (MediaRecorder.isTypeSupported('video/webm; codecs=vp9,opus')) {
+        mimeType = 'video/webm; codecs=vp9,opus';
+      } else if (MediaRecorder.isTypeSupported('video/webm; codecs=vp8,opus')) {
+        mimeType = 'video/webm; codecs=vp8,opus';
       } else if (MediaRecorder.isTypeSupported('video/webm')) {
-        mimeType = 'video/webm';
+        mimeType = 'video/webm'; // Fallback
       } else if (MediaRecorder.isTypeSupported('video/mp4')) {
         mimeType = 'video/mp4';
       }
@@ -132,6 +151,12 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         combinedStream.getTracks().forEach(t => t.stop());
         if (micStream) micStream.getTracks().forEach(t => t.stop());
         displayStream.getTracks().forEach(t => t.stop());
+
+        // Close AudioContext
+        if (audioContextRef.current) {
+          audioContextRef.current.close();
+          audioContextRef.current = null;
+        }
       };
 
       recorder.start(1000);
