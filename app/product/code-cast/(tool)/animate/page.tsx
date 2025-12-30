@@ -12,6 +12,17 @@ import { RecordingDownloadModal } from '../../components/RecordingDownloadModal'
 import { ProjectTitleDisplay } from '../../components/ProjectTitleDisplay';
 import { Play, Pause, RotateCcw, Volume2, VolumeX, Mic, MicOff, Square } from 'lucide-react';
 
+// Convert typing speed to milliseconds
+const getTypingSpeedMs = (speed: 'slow' | 'normal' | 'fast' | 'instant') => {
+  const speedMap = {
+    slow: 80,
+    normal: 30,
+    fast: 10,
+    instant: 0,
+  };
+  return speedMap[speed];
+};
+
 export default function AnimatePage() {
   const {
     code,
@@ -46,16 +57,7 @@ export default function AnimatePage() {
   const fullBackupRef = useRef(code);
   const typingSpeedRef = useRef(config.typingSpeed);
 
-  // Convert typing speed to milliseconds
-  const getTypingSpeedMs = useCallback((speed: typeof config.typingSpeed) => {
-    const speedMap = {
-      slow: 80,
-      normal: 30,
-      fast: 10,
-      instant: 0,
-    };
-    return speedMap[speed];
-  }, []);
+
 
   // Sync typing speed ref with config
   useEffect(() => {
@@ -77,6 +79,47 @@ export default function AnimatePage() {
     setIsPlaying(false);
   }, [setIsPlaying]);
 
+  // Robust cleanup on unmount
+  useEffect(() => {
+    return () => {
+      // Stop timer
+      if (animationTimerRef.current) {
+        window.clearTimeout(animationTimerRef.current);
+      }
+
+      // Stop audio
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
+
+      // If playing on unmount, force stop and restore code to prevent data loss or stuck state
+      if (isPlayingRef.current) {
+        setIsPlaying(false);
+        const backup = fullBackupRef.current;
+        // Direct state updates to ensure they happen even if component is unmounting
+        useAnimateStore.getState().updateCode('html', backup.html);
+        useAnimateStore.getState().updateCode('css', backup.css);
+        useAnimateStore.getState().updateCode('js', backup.js);
+      }
+    };
+  }, [setIsPlaying]);
+
+  // Audio ref
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Initialize audio
+  useEffect(() => {
+    audioRef.current = new Audio('/keyboard-typing.mp3');
+    audioRef.current.loop = true;
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
   // Trigger animation when isPlaying changes (from header button)
   const isPlayingRef = useRef(isPlaying);
   useEffect(() => {
@@ -85,6 +128,11 @@ export default function AnimatePage() {
 
     // If transitioning from not playing to playing, start animation
     if (!wasPlaying && isPlaying) {
+      if (config.soundEnabled && audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(e => console.error("Audio play failed", e));
+      }
+
       // Capture the target state from current editor content
       const target = { ...code };
       fullBackupRef.current = target;
@@ -135,12 +183,16 @@ export default function AnimatePage() {
       animationTimerRef.current = window.setTimeout(startNextTab, 300);
     } else if (wasPlaying && !isPlaying) {
       // If transitioning from playing to not playing, stop and restore
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
       stopAnimation();
       updateCode('html', fullBackupRef.current.html);
       updateCode('css', fullBackupRef.current.css);
       updateCode('js', fullBackupRef.current.js);
     }
-  }, [isPlaying, code, stopAnimation, updateCode, setActiveTab, getTypingSpeedMs]);
+  }, [isPlaying, code, stopAnimation, updateCode, setActiveTab, config.soundEnabled]);
 
   const handleAnimate = useCallback(() => {
     if (isPlaying) {
@@ -201,7 +253,7 @@ export default function AnimatePage() {
 
     // Initial delay
     animationTimerRef.current = window.setTimeout(startNextTab, 300);
-  }, [code, isPlaying, stopAnimation, updateCode, setActiveTab, getTypingSpeedMs]);
+  }, [code, isPlaying, stopAnimation, updateCode, setActiveTab, setIsPlaying]);
 
   // Get responsive layout configuration based on device frame
   const layout = getCanvasLayout(config.deviceFrame);
@@ -298,11 +350,27 @@ export default function AnimatePage() {
                     lineNumbers: config.lineNumbers ? 'on' : 'off',
                     scrollBeyondLastLine: false,
                     automaticLayout: true,
-                    padding: { top: 20 },
-                    fontFamily: "'Fira Code', 'Courier New', monospace",
+                    padding: { top: 8, bottom: 8 },
+                    fontFamily: '"Fira Code", "JetBrains Mono", "Menlo", "Consolas", monospace',
+                    cursorWidth: 0, // Effectively hides the cursor
+                    cursorStyle: 'line',
+                    cursorBlinking: 'solid',
+                    renderLineHighlight: 'none', // Hides active line
+                    guides: { indentation: false }, // Hides nesting lines
+
+                    // Hide selection and other decorations
+                    selectionHighlight: false,
+                    renderValidationDecorations: 'off',
+                    matchBrackets: 'never',
+                    hideCursorInOverviewRuler: true,
+                    overviewRulerLanes: 0,
+                    overviewRulerBorder: false,
+
+                    fontLigatures: true,
                     scrollbar: {
                       vertical: 'hidden',
                       horizontal: 'hidden',
+                      useShadows: false,
                     },
                   }}
                 />
