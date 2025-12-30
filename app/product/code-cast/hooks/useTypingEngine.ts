@@ -77,7 +77,8 @@ export const useTypingEngine = ({
   useEffect(() => {
     // If paused or finished, stop.
     if (!isPlaying || cursorIndex >= fullText.length) {
-      if (cursorIndex >= fullText.length && isPlaying) {
+      // Only call onComplete if we actually typed something (fullText has content)
+      if (cursorIndex >= fullText.length && isPlaying && fullText.length > 0) {
         // Finished just now
         onCompleteRef.current?.();
       }

@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import Editor from '@monaco-editor/react';
+import { Code, FileCode, FileJson } from 'lucide-react';
 import { useAnimateStore } from '../../store/useCodeCastStore';
-import { TypeTabEditor } from '../../components/TypeTabEditor';
 import PreviewFrame from '../../components/PreviewFrame';
-import { useTypingEngine } from '../../hooks/useTypingEngine';
 import { useRecording } from '../../context/RecordingContext';
 import { getCanvasLayout } from '../../utils/layoutHelpers';
 import { RecordingTimer } from '../../components/RecordingTimer';
 import { RecordingDownloadModal } from '../../components/RecordingDownloadModal';
 import { ProjectTitleDisplay } from '../../components/ProjectTitleDisplay';
-import { Play, Pause, RotateCcw, Volume2, VolumeX, Mic, MicOff } from 'lucide-react';
+import { Play, Pause, RotateCcw, Volume2, VolumeX, Mic, MicOff, Square } from 'lucide-react';
 
 export default function AnimatePage() {
   const {
@@ -28,7 +28,6 @@ export default function AnimatePage() {
     shadowSpread,
   } = useAnimateStore();
 
-  const [typedContent, setTypedContent] = useState('');
   const [isMicEnabled, setIsMicEnabled] = useState(false);
   const [showDownloadModal, setShowDownloadModal] = useState(false);
 
@@ -42,6 +41,27 @@ export default function AnimatePage() {
     clearRecording,
   } = useRecording();
 
+  // Animation refs
+  const animationTimerRef = useRef<number | null>(null);
+  const fullBackupRef = useRef(code);
+  const typingSpeedRef = useRef(config.typingSpeed);
+
+  // Convert typing speed to milliseconds
+  const getTypingSpeedMs = useCallback((speed: typeof config.typingSpeed) => {
+    const speedMap = {
+      slow: 80,
+      normal: 30,
+      fast: 10,
+      instant: 0,
+    };
+    return speedMap[speed];
+  }, []);
+
+  // Sync typing speed ref with config
+  useEffect(() => {
+    typingSpeedRef.current = config.typingSpeed;
+  }, [config.typingSpeed]);
+
   // Show download modal when recording is complete
   useEffect(() => {
     if (!isRecording && recordedVideoBlob) {
@@ -49,97 +69,154 @@ export default function AnimatePage() {
     }
   }, [isRecording, recordedVideoBlob]);
 
-  // --- Typing Logic ---
-  const handleTypingComplete = () => {
-    const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
-    const currentIndex = tabs.indexOf(activeTab);
-    let nextTab: 'html' | 'css' | 'js' | null = null;
-    for (let i = currentIndex + 1; i < tabs.length; i++) {
-      const t = tabs[i];
-      if (code[t] && code[t].trim().length > 0) {
-        nextTab = t;
-        break;
-      }
+  const stopAnimation = useCallback(() => {
+    if (animationTimerRef.current) {
+      window.clearTimeout(animationTimerRef.current);
+      animationTimerRef.current = null;
     }
-    if (nextTab) {
-      setTimeout(() => setActiveTab(nextTab!), 500);
-    } else {
-      setIsPlaying(false);
-    }
-  };
+    setIsPlaying(false);
+  }, [setIsPlaying]);
 
-  const { displayedText, reset } = useTypingEngine({
-    fullText: code[activeTab],
-    speed: config.typingSpeed,
-    isPlaying: isPlaying,
-    soundEnabled: config.soundEnabled,
-    soundType: config.soundType,
-    onComplete: handleTypingComplete,
-  });
-
+  // Trigger animation when isPlaying changes (from header button)
+  const isPlayingRef = useRef(isPlaying);
   useEffect(() => {
-    setTypedContent(displayedText);
-  }, [displayedText]);
+    const wasPlaying = isPlayingRef.current;
+    isPlayingRef.current = isPlaying;
 
-  // Handle Play Click (Smart Start)
-  const handlePlayClick = () => {
+    // If transitioning from not playing to playing, start animation
+    if (!wasPlaying && isPlaying) {
+      // Capture the target state from current editor content
+      const target = { ...code };
+      fullBackupRef.current = target;
+
+      // Clear all code fields first
+      updateCode('html', '');
+      updateCode('css', '');
+      updateCode('js', '');
+
+      const sequence: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
+      let sequenceIndex = 0;
+      let charIndex = 0;
+
+      const startNextTab = () => {
+        // Find next non-empty tab in sequence
+        while (sequenceIndex < sequence.length && (!target[sequence[sequenceIndex]] || !target[sequence[sequenceIndex]].trim())) {
+          sequenceIndex++;
+        }
+
+        if (sequenceIndex >= sequence.length) {
+          stopAnimation();
+          return;
+        }
+
+        const currentTabId = sequence[sequenceIndex];
+        setActiveTab(currentTabId);
+        charIndex = 0;
+
+        const typeChar = () => {
+          const fullText = target[currentTabId];
+
+          if (charIndex <= fullText.length) {
+            updateCode(currentTabId, fullText.substring(0, charIndex));
+            charIndex++;
+            animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
+          } else {
+            // Finished this tab, move to next after a small pause
+            sequenceIndex++;
+            animationTimerRef.current = window.setTimeout(startNextTab, 350);
+          }
+        };
+
+        // Start typing after a small delay
+        animationTimerRef.current = window.setTimeout(typeChar, 150);
+      };
+
+      // Initial delay
+      animationTimerRef.current = window.setTimeout(startNextTab, 300);
+    } else if (wasPlaying && !isPlaying) {
+      // If transitioning from playing to not playing, stop and restore
+      stopAnimation();
+      updateCode('html', fullBackupRef.current.html);
+      updateCode('css', fullBackupRef.current.css);
+      updateCode('js', fullBackupRef.current.js);
+    }
+  }, [isPlaying, code, stopAnimation, updateCode, setActiveTab, getTypingSpeedMs]);
+
+  const handleAnimate = useCallback(() => {
     if (isPlaying) {
-      setIsPlaying(false);
+      stopAnimation();
+      // Restore full code
+      updateCode('html', fullBackupRef.current.html);
+      updateCode('css', fullBackupRef.current.css);
+      updateCode('js', fullBackupRef.current.js);
       return;
     }
-    // Always start from the first non-empty tab (HTML -> CSS -> JS)
-    const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
-    const firstNonEmpty = tabs.find(t => code[t] && code[t].trim().length > 0);
-    if (firstNonEmpty) {
-      setActiveTab(firstNonEmpty);
-    }
+
+    // Capture the target state from current editor content
+    const target = { ...code };
+    fullBackupRef.current = target;
+
+    // Clear all code fields first
+    updateCode('html', '');
+    updateCode('css', '');
+    updateCode('js', '');
     setIsPlaying(true);
-  };
 
-  // --- Render ---
-  const previewHtml =
-    activeTab === 'html'
-      ? typedContent
-      : activeTab === 'css' || activeTab === 'js'
-        ? code.html
-        : '';
-  const previewCss =
-    activeTab === 'css'
-      ? typedContent
-      : activeTab === 'js'
-        ? code.css
-        : activeTab === 'html'
-          ? ''
-          : code.css;
+    const sequence: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
+    let sequenceIndex = 0;
+    let charIndex = 0;
 
-  let pHTML = '',
-    pCSS = '',
-    pJS = '';
-  switch (activeTab) {
-    case 'html':
-      pHTML = typedContent;
-      break;
-    case 'css':
-      pHTML = code.html;
-      pCSS = typedContent;
-      break;
-    case 'js':
-      pHTML = code.html;
-      pCSS = code.css;
-      pJS = typedContent;
-      break;
-  }
+    const startNextTab = () => {
+      // Find next non-empty tab in sequence
+      while (sequenceIndex < sequence.length && (!target[sequence[sequenceIndex]] || !target[sequence[sequenceIndex]].trim())) {
+        sequenceIndex++;
+      }
 
-  // Idle State: Show full code if not playing and no typed content
-  const showPlaceholder = !isPlaying && typedContent.length === 0;
-  if (showPlaceholder) {
-    pHTML = code.html;
-    pCSS = code.css;
-    pJS = code.js;
-  }
+      if (sequenceIndex >= sequence.length) {
+        stopAnimation();
+        return;
+      }
+
+      const currentTabId = sequence[sequenceIndex];
+      setActiveTab(currentTabId);
+      charIndex = 0;
+
+      const typeChar = () => {
+        const fullText = target[currentTabId];
+
+        if (charIndex <= fullText.length) {
+          updateCode(currentTabId, fullText.substring(0, charIndex));
+          charIndex++;
+          animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
+        } else {
+          // Finished this tab, move to next after a small pause
+          sequenceIndex++;
+          animationTimerRef.current = window.setTimeout(startNextTab, 350);
+        }
+      };
+
+      // Start typing after a small delay
+      animationTimerRef.current = window.setTimeout(typeChar, 150);
+    };
+
+    // Initial delay
+    animationTimerRef.current = window.setTimeout(startNextTab, 300);
+  }, [code, isPlaying, stopAnimation, updateCode, setActiveTab, getTypingSpeedMs]);
 
   // Get responsive layout configuration based on device frame
   const layout = getCanvasLayout(config.deviceFrame);
+
+  // Tab configuration
+  const tabs = [
+    { id: 'html' as const, label: 'HTML', icon: Code, color: 'text-orange-500' },
+    { id: 'css' as const, label: 'CSS', icon: FileCode, color: 'text-blue-500' },
+    { id: 'js' as const, label: 'JS', icon: FileJson, color: 'text-yellow-500' },
+  ];
+
+  const getLanguage = () => {
+    if (activeTab === 'js') return 'javascript';
+    return activeTab;
+  };
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -164,26 +241,74 @@ export default function AnimatePage() {
         <div className={`flex-1 flex ${layout.flexDirection} ${layout.gap} w-full min-h-0`}>
           {/* Editor */}
           <div
-            className="flex-1 rounded-xl overflow-hidden bg-black/40 backdrop-blur-md transition-shadow duration-300"
+            className="flex-1 rounded-xl overflow-hidden transition-shadow duration-300"
             style={{
               order: layout.flexDirection === 'flex-col' ? 2 : 1,
               boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
           >
-            <TypeTabEditor
-              code={showPlaceholder ? code : { ...code, [activeTab]: typedContent }}
-              config={config}
-              onChange={newCode => {
-                // Update the store with the new code for the active tab
-                const changedTab = activeTab;
-                updateCode(changedTab, newCode[changedTab]);
-              }}
-              readOnly={false}
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-            />
-          </div>
+            <div className="flex flex-col h-full">
+              {/* Tabs */}
+              <div className={`flex border-b shrink-0 ${config.theme === 'light' ? 'bg-gray-100 border-gray-300' : 'bg-slate-950 border-slate-800'}`}>
+                {tabs.map(tab => {
+                  const Icon = tab.icon;
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => setActiveTab(tab.id)}
+                      disabled={isPlaying}
+                      className={`flex items-center gap-2 px-6 py-2 text-xs font-bold transition-all border-b-2 ${isActive
+                        ? config.theme === 'light'
+                          ? 'bg-white border-blue-500 text-blue-600'
+                          : 'bg-slate-900 border-blue-500 text-blue-400'
+                        : config.theme === 'light'
+                          ? 'border-transparent text-gray-500 hover:text-gray-700 disabled:opacity-50'
+                          : 'border-transparent text-slate-500 hover:text-slate-300 disabled:opacity-50'
+                        }`}
+                    >
+                      <Icon size={14} />
+                      {tab.label}
+                      {code[tab.id].trim() && (
+                        <div className={`w-1.5 h-1.5 rounded-full ${isPlaying && isActive ? 'bg-blue-400 animate-pulse' : 'bg-blue-500/30'}`}></div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
 
+              {/* Monaco Editor */}
+              <div className={`flex-1 relative ${config.theme === 'light' ? 'bg-white' : 'bg-slate-900'}`}>
+                <Editor
+                  height="100%"
+                  width="100%"
+                  language={getLanguage()}
+                  value={code[activeTab]}
+                  theme={config.theme === 'light' ? 'vs-light' : 'vs-dark'}
+                  onChange={(value) => {
+                    if (!isPlaying && value !== undefined) {
+                      updateCode(activeTab, value);
+                    }
+                  }}
+                  options={{
+                    readOnly: isPlaying,
+                    minimap: { enabled: false },
+                    fontSize: config.fontSize,
+                    wordWrap: config.wordWrap ? 'on' : 'off',
+                    lineNumbers: config.lineNumbers ? 'on' : 'off',
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                    padding: { top: 20 },
+                    fontFamily: "'Fira Code', 'Courier New', monospace",
+                    scrollbar: {
+                      vertical: 'hidden',
+                      horizontal: 'hidden',
+                    },
+                  }}
+                />
+              </div>
+            </div>
+          </div>
           {/* Preview */}
           <div
             className="flex-1 rounded-xl overflow-hidden bg-white transition-shadow duration-300"
@@ -192,7 +317,7 @@ export default function AnimatePage() {
               boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
           >
-            <PreviewFrame html={pHTML} css={pCSS} js={pJS} device={config.deviceFrame} scale={1} />
+            <PreviewFrame html={code.html} css={code.css} js={code.js} device={config.deviceFrame} scale={1} />
           </div>
         </div>
       </div>

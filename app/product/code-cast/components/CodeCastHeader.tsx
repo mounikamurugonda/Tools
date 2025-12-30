@@ -13,6 +13,7 @@ import {
   Terminal,
   WrapText,
   ListOrdered,
+  Square,
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -171,11 +172,10 @@ export const CodeCastHeader = () => {
             <Link
               key={item.id}
               href={`/product/code-cast/${item.id}`}
-              className={`px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase transition-all ${
-                mode === item.id
-                  ? 'bg-blue-600 text-white'
-                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-              }`}
+              className={`px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase transition-all ${mode === item.id
+                ? 'bg-blue-600 text-white'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                }`}
             >
               {item.label}
             </Link>
@@ -185,34 +185,14 @@ export const CodeCastHeader = () => {
 
       {/* Right: Mode Controls + Device + Recording */}
       <div className="flex items-center gap-2">
-        {/* Animate Mode Controls */}
-        {mode === 'animate' && (
-          <div className="flex items-center gap-1 mr-2">
-            <button
-              onClick={handlePlayClick}
-              className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-              title={isPlaying ? 'Pause Code Execution' : 'Run/Resume Code Execution'}
-            >
-              {isPlaying ? <Pause size={16} /> : <Play size={16} />}
-            </button>
-            <button
-              onClick={handleReset}
-              className="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
-              title="Reset Code & Animation"
-            >
-              <RotateCcw size={16} />
-            </button>
-          </div>
-        )}
 
         {/* Text Wrap Toggle */}
         <button
           onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
-          className={`p-1.5 rounded-md transition-colors ${
-            config.wordWrap
-              ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-          }`}
+          className={`p-1.5 rounded-md transition-colors ${config.wordWrap
+            ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+            }`}
           title={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}
         >
           <WrapText size={16} />
@@ -221,11 +201,10 @@ export const CodeCastHeader = () => {
         {/* Line Numbers Toggle */}
         <button
           onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
-          className={`p-1.5 rounded-md transition-colors ${
-            config.lineNumbers
-              ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-          }`}
+          className={`p-1.5 rounded-md transition-colors ${config.lineNumbers
+            ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+            }`}
           title={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}
         >
           <ListOrdered size={16} />
@@ -307,11 +286,10 @@ export const CodeCastHeader = () => {
                             setConfig((prev: any) => ({ ...prev, deviceFrame: frame.id }));
                             setIsDeviceDropdownOpen(false);
                           }}
-                          className={`w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors ${
-                            config.deviceFrame === frame.id
-                              ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                          }`}
+                          className={`w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors ${config.deviceFrame === frame.id
+                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            }`}
                         >
                           {getDeviceIcon(frame.id)}
                           <span className="text-xs">{frame.label}</span>
@@ -325,16 +303,38 @@ export const CodeCastHeader = () => {
           )}
         </div>
 
+        {/* Animate Button - Animate mode only */}
+        {mode === 'animate' && (
+          <button
+            onClick={handlePlayClick}
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${isPlaying
+              ? 'bg-red-500 hover:bg-red-600 text-white'
+              : 'bg-blue-600 hover:bg-blue-700 text-white'
+              }`}
+          >
+            {isPlaying ? (
+              <>
+                <Square size={14} fill="white" />
+                <span className="hidden sm:inline">Stop</span>
+              </>
+            ) : (
+              <>
+                <Play size={14} fill="currentColor" />
+                <span className="hidden sm:inline">Animate</span>
+              </>
+            )}
+          </button>
+        )}
+
         {/* Recording Controls - Type and Animate modes */}
         {(mode === 'type' || mode === 'animate') && (
           <div className="flex items-center gap-1">
             <button
               onClick={() => setIsMicEnabled(!isMicEnabled)}
-              className={`p-1.5 rounded-md transition-colors ${
-                isMicEnabled
-                  ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
-                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
+              className={`p-1.5 rounded-md transition-colors ${isMicEnabled
+                ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
+                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                }`}
               title={isMicEnabled ? 'Mic On' : 'Mic Off'}
             >
               {isMicEnabled ? <Mic size={14} /> : <MicOff size={14} />}

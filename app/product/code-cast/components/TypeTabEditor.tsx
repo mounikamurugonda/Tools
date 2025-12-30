@@ -68,6 +68,12 @@ export const TypeTabEditor: React.FC<TypeTabEditorProps> = ({
   const isLight =
     config.theme === 'light' || config.theme === 'github' || config.theme === 'solarized-light';
 
+  // Get the language for Monaco based on active tab
+  const getLanguage = (): string => {
+    if (activeTab === 'js') return 'javascript';
+    return activeTab;
+  };
+
   return (
     <div
       className={`flex flex-col w-full h-full overflow-hidden rounded-xl transition-colors duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'
@@ -106,40 +112,15 @@ export const TypeTabEditor: React.FC<TypeTabEditorProps> = ({
         {/* Optional: Add indicators or extra tools here */}
       </div>
 
-      {/* Editor Area */}
-      <div className="flex-1 relative min-h-0">
-        {/* HTML Editor */}
-        <div className={activeTab === 'html' ? 'block h-full' : 'hidden h-full'}>
-          <CodeEditor
-            code={code.html}
-            language="html"
-            config={config}
-            onChange={val => onChange({ ...code, html: val })}
-            readOnly={readOnly}
-          />
-        </div>
-
-        {/* CSS Editor */}
-        <div className={activeTab === 'css' ? 'block h-full' : 'hidden h-full'}>
-          <CodeEditor
-            code={code.css}
-            language="css"
-            config={config}
-            onChange={val => onChange({ ...code, css: val })}
-            readOnly={readOnly}
-          />
-        </div>
-
-        {/* JS Editor */}
-        <div className={activeTab === 'js' ? 'block h-full' : 'hidden h-full'}>
-          <CodeEditor
-            code={code.js}
-            language="js"
-            config={config}
-            onChange={val => onChange({ ...code, js: val })}
-            readOnly={readOnly}
-          />
-        </div>
+      {/* Editor Area - Single editor instance with dynamic language */}
+      <div className="flex-1 relative min-h-0 h-full">
+        <CodeEditor
+          code={code[activeTab]}
+          language={getLanguage()}
+          config={config}
+          onChange={handleCodeChange}
+          readOnly={readOnly}
+        />
       </div>
     </div>
   );
