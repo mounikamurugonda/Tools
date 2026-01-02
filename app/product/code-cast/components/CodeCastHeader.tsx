@@ -15,6 +15,7 @@ import {
   ListOrdered,
   Square,
   Trash2,
+  Sparkles,
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -143,6 +144,40 @@ export const CodeCastHeader = () => {
     }
   };
 
+  // Code Formatting
+  const handleFormat = async () => {
+    if (!activeTab || !code[activeTab]) return;
+
+    try {
+      const { default: beautify } = await import('js-beautify');
+      const options = {
+        indent_size: 2,
+        space_in_empty_paren: true,
+        max_preserve_newlines: 1,
+        preserve_newlines: true,
+      };
+
+      let formatted = '';
+      if (activeTab === 'html') {
+        formatted = beautify.html(code.html, options);
+      } else if (activeTab === 'css') {
+        formatted = beautify.css(code.css, options);
+      } else if (activeTab === 'js') {
+        // The js formatter is exposed as 'js' on the default export based on my check,
+        // but sometimes it is 'js_beautify' or just the function itself.
+        // My check showed ['js', 'css', 'html', 'js_beautify'].
+        // So beautify.js should be correct.
+        formatted = beautify.js(code.js, options);
+      }
+
+      if (formatted && currentStore && currentStore.updateCode) {
+        currentStore.updateCode(activeTab, formatted);
+      }
+    } catch (error) {
+      console.error('Formatting failed:', error);
+    }
+  };
+
   const filteredOptions = getFilteredFrameOptions();
 
   return (
@@ -186,6 +221,15 @@ export const CodeCastHeader = () => {
 
       {/* Right: Mode Controls + Device + Recording */}
       <div className="flex items-center gap-2">
+
+        {/* Format Code */}
+        <button
+          onClick={handleFormat}
+          className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20`}
+          title="Format Code"
+        >
+          <Sparkles size={16} />
+        </button>
 
         {/* Clear All Code */}
         <button

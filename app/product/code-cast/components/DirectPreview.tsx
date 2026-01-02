@@ -149,6 +149,14 @@ const DirectPreview: React.FC<DirectPreviewProps> = ({ html, css, js, device, sc
           }
           dangerouslySetInnerHTML={{ __html: html }}
         />
+
+        {/* Watermark */}
+        <div className="absolute bottom-2 right-2 flex items-center gap-1.5 px-2 py-1 bg-black/40 backdrop-blur-sm rounded-md border border-white/10 pointer-events-none z-50">
+          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
+          <span className="text-[9px] font-medium text-white/90 tracking-wide">
+            CodeCast by utiltoolkits.com
+          </span>
+        </div>
       </div>
     </div>
   );

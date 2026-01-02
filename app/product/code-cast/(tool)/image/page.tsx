@@ -77,6 +77,13 @@ export default function ImagePage() {
             />
           </div>
         </div>
+
+        {/* Watermark */}
+        <div className="absolute bottom-0 right-6 flex items-center px-2 py-1 pointer-events-none z-20 opacity-20">
+          <span className="text-[10px] font-medium text-white tracking-wide mix-blend-plus-lighter">
+            CodeCast by utiltoolkits.com
+          </span>
+        </div>
       </div>
     </div>
   );
