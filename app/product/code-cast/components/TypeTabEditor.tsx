@@ -109,7 +109,7 @@ export const TypeTabEditor: React.FC<TypeTabEditorProps> = ({
           })}
         </div>
 
-        {/* Optional: Add indicators or extra tools here */}
+
       </div>
 
       {/* Editor Area - Single editor instance with dynamic language */}

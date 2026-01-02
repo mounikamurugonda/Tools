@@ -14,6 +14,7 @@ import {
   WrapText,
   ListOrdered,
   Square,
+  Trash2,
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -185,6 +186,25 @@ export const CodeCastHeader = () => {
 
       {/* Right: Mode Controls + Device + Recording */}
       <div className="flex items-center gap-2">
+
+        {/* Clear All Code */}
+        <button
+          onClick={() => {
+            // Check if we have updateCode available (all stores should have it)
+            if (activeTab && currentStore && currentStore.updateCode) {
+              currentStore.updateCode('html', '');
+              currentStore.updateCode('css', '');
+              currentStore.updateCode('js', '');
+            } else if (currentStore && currentStore.setCode) {
+              // Fallback if updateCode isn't directly exposed or for safety
+              currentStore.setCode({ html: '', css: '', js: '' });
+            }
+          }}
+          className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20`}
+          title="Clear All Code"
+        >
+          <Trash2 size={16} />
+        </button>
 
         {/* Text Wrap Toggle */}
         <button

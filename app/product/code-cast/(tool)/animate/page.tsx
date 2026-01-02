@@ -327,6 +327,8 @@ export default function AnimatePage() {
                     </button>
                   );
                 })}
+
+
               </div>
 
               {/* Monaco Editor */}
@@ -400,6 +402,6 @@ export default function AnimatePage() {
         onDownload={downloadRecording}
         recordingTime={recordingTime}
       />
-    </div>
+    </div >
   );
 }
