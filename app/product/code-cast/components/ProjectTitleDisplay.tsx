@@ -24,9 +24,9 @@ export const ProjectTitleDisplay = () => {
         pointer-events-none select-none relative
       `}
         >
-            <div className="bg-gradient-to-r from-blue-600/90 to-purple-600/90 backdrop-blur-md px-4 py-2 sm:px-6 rounded-2xl sm:rounded-full shadow-lg border border-white/10 max-w-[90%] md:max-w-2xl">
+            <div className="bg-white/10 backdrop-blur-xl px-4 py-2 sm:px-6 rounded-2xl sm:rounded-full shadow-2xl border border-white/20 max-w-[90%] md:max-w-2xl">
                 <h1
-                    className="font-bold text-white tracking-tight text-center break-words leading-tight transition-all duration-200 text-[14px] md:text-[24px]"
+                    className="font-bold text-white/90 tracking-tight text-center break-words leading-tight transition-all duration-200 text-[14px] md:text-[24px]"
                     style={projectTitleFontSize > 0 ? { fontSize: `${projectTitleFontSize}px` } : undefined}
                 >
                     {projectTitle}
