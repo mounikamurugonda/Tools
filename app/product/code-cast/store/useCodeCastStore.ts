@@ -48,7 +48,7 @@ const DEFAULT_CONFIG: AppConfig = {
   theme: 'dark',
   background: 'codecast-gradient',
   deviceFrame: 'browser',
-  typingSpeed: 'normal',
+  typingSpeed: 'slow',
   fontSize: 14,
   showCursor: true,
   soundEnabled: true,

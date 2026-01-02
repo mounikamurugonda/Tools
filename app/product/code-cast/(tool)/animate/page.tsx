@@ -56,6 +56,7 @@ export default function AnimatePage() {
   const animationTimerRef = useRef<number | null>(null);
   const fullBackupRef = useRef(code);
   const typingSpeedRef = useRef(config.typingSpeed);
+  const editorRef = useRef<any>(null);
 
 
 
@@ -63,6 +64,17 @@ export default function AnimatePage() {
   useEffect(() => {
     typingSpeedRef.current = config.typingSpeed;
   }, [config.typingSpeed]);
+
+  // Auto-scroll to bottom during animation
+  useEffect(() => {
+    if (isPlaying && editorRef.current) {
+      const model = editorRef.current.getModel();
+      if (model) {
+        const lineCount = model.getLineCount();
+        editorRef.current.revealLine(lineCount);
+      }
+    }
+  }, [code, activeTab, isPlaying]);
 
   // Show download modal when recording is complete
   useEffect(() => {
@@ -338,6 +350,9 @@ export default function AnimatePage() {
                   width="100%"
                   language={getLanguage()}
                   value={code[activeTab]}
+                  onMount={(editor) => {
+                    editorRef.current = editor;
+                  }}
                   theme={config.theme === 'light' ? 'vs-light' : 'vs-dark'}
                   onChange={(value) => {
                     if (!isPlaying && value !== undefined) {
