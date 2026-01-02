@@ -63,8 +63,11 @@ export default function TypePage() {
             className="flex-1 rounded-xl overflow-hidden bg-black/40 backdrop-blur-md transition-shadow duration-300"
             style={{
               order: layout.flexDirection === 'flex-col' ? 2 : 1,
-              boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
-            }}
+              boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`,
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+              textRendering: 'optimizeLegibility',
+            } as React.CSSProperties}
           >
             <TypeTabEditor
               code={code}
@@ -99,7 +102,7 @@ export default function TypePage() {
         </div>
 
         {/* Watermark */}
-        <div className="absolute bottom-0 right-6 flex items-center px-2 py-1 pointer-events-none z-20 opacity-20">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-auto md:right-6 md:translate-x-0 flex items-center px-2 py-1 pointer-events-none z-20 opacity-20">
           <span className="text-[10px] font-medium text-white tracking-wide mix-blend-plus-lighter">
             CodeCast by utiltoolkits.com
           </span>

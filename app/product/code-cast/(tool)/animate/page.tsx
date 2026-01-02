@@ -65,13 +65,15 @@ export default function AnimatePage() {
     typingSpeedRef.current = config.typingSpeed;
   }, [config.typingSpeed]);
 
-  // Auto-scroll to bottom during animation
+  // Auto-scroll to keep typing line visible during animation
   useEffect(() => {
     if (isPlaying && editorRef.current) {
       const model = editorRef.current.getModel();
       if (model) {
         const lineCount = model.getLineCount();
-        editorRef.current.revealLine(lineCount);
+        // Use revealLineInCenterIfOutsideViewport to smoothly keep the typing line visible
+        // This only scrolls if the line is outside the viewport, and centers it when it does
+        editorRef.current.revealLineInCenterIfOutsideViewport(lineCount);
       }
     }
   }, [code, activeTab, isPlaying]);
@@ -344,7 +346,14 @@ export default function AnimatePage() {
               </div>
 
               {/* Monaco Editor */}
-              <div className={`flex-1 relative ${config.theme === 'light' ? 'bg-white' : 'bg-slate-900'}`}>
+              <div
+                className={`flex-1 relative ${config.theme === 'light' ? 'bg-white' : 'bg-slate-900'}`}
+                style={{
+                  WebkitFontSmoothing: 'antialiased',
+                  MozOsxFontSmoothing: 'grayscale',
+                  textRendering: 'optimizeLegibility',
+                } as React.CSSProperties}
+              >
                 <Editor
                   height="100%"
                   width="100%"
@@ -407,7 +416,7 @@ export default function AnimatePage() {
         </div>
 
         {/* Watermark */}
-        <div className="absolute bottom-0 right-6 flex items-center px-2 py-1 pointer-events-none z-20 opacity-20">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 md:left-auto md:right-6 md:translate-x-0 flex items-center px-2 py-1 pointer-events-none z-20 opacity-20">
           <span className="text-[10px] font-medium text-white tracking-wide mix-blend-plus-lighter">
             CodeCast by utiltoolkits.com
           </span>
