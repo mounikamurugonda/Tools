@@ -100,6 +100,20 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className={inter.className}>
       <head>
+        {/* Google Tag Manager */}
+        <Script
+          id="google-tag-manager"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','GTM-TDPZNRZ2');
+            `,
+          }}
+        />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7845670227485203"
@@ -155,6 +169,15 @@ export default function RootLayout({
         className="bg-light-background dark:bg-dark-background text-light-text dark:text-dark-text"
         suppressHydrationWarning
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-TDPZNRZ2"
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
         <ThemeProvider>
           <SmoothScrolling>
             <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
