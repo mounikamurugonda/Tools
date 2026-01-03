@@ -57,6 +57,7 @@ export default function AnimatePage() {
   const fullBackupRef = useRef(code);
   const typingSpeedRef = useRef(config.typingSpeed);
   const editorRef = useRef<any>(null);
+  const prevCodeLengthRef = useRef<number>(0);
 
 
 
@@ -65,17 +66,31 @@ export default function AnimatePage() {
     typingSpeedRef.current = config.typingSpeed;
   }, [config.typingSpeed]);
 
-  // Auto-scroll to keep typing line visible during animation
+  // Auto-scroll logic
   useEffect(() => {
-    if (isPlaying && editorRef.current) {
+    if (!editorRef.current) return;
+
+    const currentLength = code[activeTab]?.length || 0;
+    const prevLength = prevCodeLengthRef.current;
+
+    if (isPlaying) {
+      // During animation: scroll to bottom (current typing line)
       const model = editorRef.current.getModel();
       if (model) {
         const lineCount = model.getLineCount();
-        // Use revealLineInCenterIfOutsideViewport to smoothly keep the typing line visible
-        // This only scrolls if the line is outside the viewport, and centers it when it does
         editorRef.current.revealLineInCenterIfOutsideViewport(lineCount);
       }
+    } else if (currentLength > prevLength + 10) {
+      // When not playing and content significantly increased (paste detected): scroll to top
+      requestAnimationFrame(() => {
+        if (editorRef.current) {
+          editorRef.current.revealLine(1);
+        }
+      });
     }
+
+    // Update prev length for next comparison
+    prevCodeLengthRef.current = currentLength;
   }, [code, activeTab, isPlaying]);
 
   // Show download modal when recording is complete
@@ -84,6 +99,28 @@ export default function AnimatePage() {
       setShowDownloadModal(true);
     }
   }, [isRecording, recordedVideoBlob]);
+
+  // Force Monaco to recalculate layout when recording starts/stops
+  // This handles the Chrome recording indicator strip that shrinks the viewport
+  useEffect(() => {
+    if (editorRef.current) {
+      // Give the browser time to update the layout after the recording bar appears/disappears
+      const timeoutId = setTimeout(() => {
+        if (editorRef.current) {
+          editorRef.current.layout();
+          // Also re-center the current line if playing
+          if (isPlaying) {
+            const model = editorRef.current.getModel();
+            if (model) {
+              const lineCount = model.getLineCount();
+              editorRef.current.revealLineInCenter(lineCount);
+            }
+          }
+        }
+      }, 100);
+      return () => clearTimeout(timeoutId);
+    }
+  }, [isRecording, isPlaying]);
 
   const stopAnimation = useCallback(() => {
     if (animationTimerRef.current) {
@@ -180,6 +217,20 @@ export default function AnimatePage() {
 
           if (charIndex <= fullText.length) {
             updateCode(currentTabId, fullText.substring(0, charIndex));
+
+            // Auto-scroll to keep typing line visible during animation
+            // Use requestAnimationFrame to ensure Monaco has rendered before scrolling
+            requestAnimationFrame(() => {
+              if (editorRef.current) {
+                const model = editorRef.current.getModel();
+                if (model) {
+                  const lineCount = model.getLineCount();
+                  // Reveal line in center of the EDITOR viewport (not browser viewport)
+                  editorRef.current.revealLineInCenter(lineCount);
+                }
+              }
+            });
+
             charIndex++;
             animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
           } else {
@@ -252,6 +303,20 @@ export default function AnimatePage() {
 
         if (charIndex <= fullText.length) {
           updateCode(currentTabId, fullText.substring(0, charIndex));
+
+          // Auto-scroll to keep typing line visible during animation
+          // Use requestAnimationFrame to ensure Monaco has rendered before scrolling
+          requestAnimationFrame(() => {
+            if (editorRef.current) {
+              const model = editorRef.current.getModel();
+              if (model) {
+                const lineCount = model.getLineCount();
+                // Reveal line in center of the EDITOR viewport (not browser viewport)
+                editorRef.current.revealLineInCenter(lineCount);
+              }
+            }
+          });
+
           charIndex++;
           animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
         } else {
@@ -307,7 +372,7 @@ export default function AnimatePage() {
         <div className={`flex-1 flex ${layout.flexDirection} ${layout.gap} w-full min-h-0`}>
           {/* Editor */}
           <div
-            className="flex-1 rounded-xl overflow-hidden transition-shadow duration-300"
+            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} rounded-xl overflow-hidden transition-shadow duration-300`}
             style={{
               order: layout.flexDirection === 'flex-col' ? 2 : 1,
               boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
@@ -398,6 +463,20 @@ export default function AnimatePage() {
                       horizontal: 'hidden',
                       useShadows: false,
                     },
+
+                    // Disable hover and suggestions for lighter performance
+                    hover: { enabled: false },
+                    quickSuggestions: false,
+                    suggestOnTriggerCharacters: false,
+                    parameterHints: { enabled: false },
+                    wordBasedSuggestions: 'off',
+                    snippetSuggestions: 'none',
+                    codeLens: false,
+                    folding: false,
+                    links: false,
+                    colorDecorators: false,
+                    contextmenu: false,
+                    inlayHints: { enabled: 'off' },
                   }}
                 />
               </div>

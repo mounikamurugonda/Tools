@@ -22,7 +22,7 @@ export function getCanvasLayout(deviceFrame: DeviceFrame): CanvasLayoutConfig {
         gap: 'gap-4',
         padding: 'p-4',
         canvasAspectRatio: '9 / 16',
-        maxHeight: '90vh', // Constrain height for vertical videos
+        maxHeight: '95vh', // Increased to fit more content
       };
     case 'linkedin-post': // 4:5 - Portrait
       return {
@@ -30,7 +30,7 @@ export function getCanvasLayout(deviceFrame: DeviceFrame): CanvasLayoutConfig {
         gap: 'gap-4',
         padding: 'p-4',
         canvasAspectRatio: '4 / 5',
-        maxHeight: '85vh',
+        maxHeight: '92vh', // Increased to fit more content
       };
     case 'instagram-square': // 1:1 - Square
       return {
@@ -38,7 +38,7 @@ export function getCanvasLayout(deviceFrame: DeviceFrame): CanvasLayoutConfig {
         gap: 'gap-4',
         padding: 'p-4',
         canvasAspectRatio: '1 / 1',
-        maxHeight: '80vh',
+        maxHeight: '90vh', // Increased to fit more content
       };
     case 'browser': // 16:9 - Desktop
       return {

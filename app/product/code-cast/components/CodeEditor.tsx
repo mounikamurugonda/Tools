@@ -55,6 +55,20 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
           fontFamily: '"Fira Code", "JetBrains Mono", "Menlo", "Consolas", monospace',
           fontLigatures: true,
           padding: { top: 16, bottom: 16 },
+
+          // Disable hover and suggestions for lighter performance
+          hover: { enabled: false },
+          quickSuggestions: false,
+          suggestOnTriggerCharacters: false,
+          parameterHints: { enabled: false },
+          wordBasedSuggestions: 'off',
+          snippetSuggestions: 'none',
+          codeLens: false,
+          folding: false,
+          links: false,
+          colorDecorators: false,
+          contextmenu: false,
+          inlayHints: { enabled: 'off' },
         }}
       />
     </div>
