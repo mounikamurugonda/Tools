@@ -195,8 +195,8 @@ btn.addEventListener('click', () => {
 };
 
 export const SPEEDS = {
-  slow: { min: 80, max: 150 },
-  normal: { min: 30, max: 70 },
-  fast: { min: 10, max: 30 },
+  slow: { min: 100, max: 150 },
+  normal: { min: 50, max: 70 },
+  fast: { min: 20, max: 30 },
   instant: { min: 0, max: 0 },
 };
