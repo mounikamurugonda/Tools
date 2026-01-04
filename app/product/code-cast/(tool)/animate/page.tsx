@@ -15,7 +15,7 @@ import { Play, Pause, RotateCcw, Volume2, VolumeX, Mic, MicOff, Square } from 'l
 // Convert typing speed to milliseconds
 const getTypingSpeedMs = (speed: 'slow' | 'normal' | 'fast' | 'instant') => {
   const speedMap = {
-    slow: 80,
+    slow: 90,
     normal: 30,
     fast: 10,
     instant: 0,
