@@ -75,15 +75,15 @@ const Sidebar: React.FC = () => {
               <div className="flex items-center justify-between">
                 <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Title Size</span>
                 <span className="text-xs font-mono text-gray-900 dark:text-white">
-                  {projectTitleFontSize === 0 ? 'Auto (14px/24px)' : `${projectTitleFontSize}px`}
+                  {projectTitleFontSize === 0 ? '14px' : `${projectTitleFontSize}px`}
                 </span>
               </div>
               <input
                 type="range"
-                min="0"
+                min="14"
                 max="64"
                 step="2"
-                value={projectTitleFontSize}
+                value={projectTitleFontSize === 0 ? 14 : projectTitleFontSize}
                 onChange={e => setProjectTitleFontSize(Number(e.target.value))}
                 className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
               />

@@ -79,7 +79,7 @@ const createCodeCastStore = (storageKey: string) => {
         // Initial UI
         projectTitle: 'Pure CSS Carousel with Markers',
         setProjectTitle: title => set({ projectTitle: title }),
-        projectTitleFontSize: 0,
+        projectTitleFontSize: 14,
         setProjectTitleFontSize: size => set({ projectTitleFontSize: size }),
         shadowBlur: 40,
         setShadowBlur: blur => set({ shadowBlur: blur }),
