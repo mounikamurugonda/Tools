@@ -10,7 +10,7 @@ import Slider from '@/components/ui/Slider';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
 import FileUpload from '@/components/ui/FileUpload';
-import Prism from 'prismjs';
+// import Prism from 'prismjs';
 import {
   Download,
   Copy,
@@ -246,8 +246,8 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                     key={t.name}
                     onClick={() => setTheme(t)}
                     className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${theme.name === t.name
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
-                        : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                      ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
+                      : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
                       }`}
                   >
                     <div
@@ -445,14 +445,9 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                             )}
                             <span
                               className="table-cell pl-4"
-                              dangerouslySetInnerHTML={{
-                                __html: Prism.highlight(
-                                  line || ' ',
-                                  Prism.languages[language] || Prism.languages.javascript,
-                                  language
-                                ),
-                              }}
-                            />
+                            >
+                              {line || ' '}
+                            </span>
                           </div>
                         ))}
                       </pre>
