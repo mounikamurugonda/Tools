@@ -352,6 +352,7 @@ export default function AnimatePage() {
 
   // Get responsive layout configuration based on device frame
   const layout = getCanvasLayout(config.deviceFrame);
+  const isLight = config.theme === 'light' || config.theme === 'github' || config.theme === 'solarized-light';
 
   // Tab configuration
   const tabs = [
@@ -388,52 +389,55 @@ export default function AnimatePage() {
         <div className={`flex-1 flex ${layout.flexDirection} ${layout.gap} w-full min-h-0`}>
           {/* Editor */}
           <div
-            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} rounded-xl transition-shadow duration-300`}
+            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} rounded-xl transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'}`}
             style={{
               order: layout.flexDirection === 'flex-col' ? 2 : 1,
               boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
           >
-            <div className="flex flex-col h-full">
+            <div className="flex flex-col h-full rounded-xl overflow-hidden">
               {/* Tabs */}
-              <div className={`flex border-b shrink-0 rounded-t-xl ${config.theme === 'light' ? 'bg-gray-100 border-gray-300' : 'bg-slate-950 border-slate-800'}`}>
-                {tabs.map(tab => {
-                  const Icon = tab.icon;
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveTab(tab.id)}
-                      disabled={isPlaying}
-                      className={`flex items-center gap-2 px-6 py-2 text-xs font-bold transition-all border-b-2 first:rounded-tl-xl ${isActive
-                        ? config.theme === 'light'
-                          ? 'bg-white border-blue-500 text-blue-600'
-                          : 'bg-slate-900 border-blue-500 text-blue-400'
-                        : config.theme === 'light'
-                          ? 'border-transparent text-gray-500 hover:text-gray-700 disabled:opacity-50'
-                          : 'border-transparent text-slate-500 hover:text-slate-300 disabled:opacity-50'
-                        }`}
-                    >
-                      <Icon size={14} />
-                      {tab.label}
-                      {code[tab.id].trim() && (
-                        <div className={`w-1.5 h-1.5 rounded-full ${isPlaying && isActive ? 'bg-blue-400 animate-pulse' : 'bg-blue-500/30'}`}></div>
-                      )}
-                    </button>
-                  );
-                })}
-
-
+              <div
+                className={`flex items-center px-2 h-10 border-b shrink-0 ${isLight ? 'bg-gray-50/50 border-gray-200' : 'bg-[#252525] border-white/5'
+                  }`}
+              >
+                <div className="flex items-center gap-1">
+                  {tabs.map(tab => {
+                    const Icon = tab.icon;
+                    const isActive = activeTab === tab.id;
+                    return (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        disabled={isPlaying}
+                        className={`
+                        flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all
+                        ${isActive
+                            ? isLight
+                              ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
+                              : 'bg-white/10 text-white shadow-sm ring-1 ring-white/10'
+                            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5 disabled:opacity-50'
+                          }
+                      `}
+                      >
+                        <Icon size={14} className={isActive ? tab.color : 'currentColor'} />
+                        {tab.label}
+                        {code[tab.id].trim() && (
+                          <div className={`w-1.5 h-1.5 rounded-full ${isPlaying && isActive ? 'bg-blue-400 animate-pulse' : 'bg-blue-500/30'}`}></div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Monaco Editor */}
               <div
-                className={`flex-1 relative rounded-b-xl ${config.theme === 'light' ? 'bg-white' : 'bg-slate-900'}`}
+                className={`flex-1 relative ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'}`}
                 style={{
                   WebkitFontSmoothing: 'antialiased',
                   MozOsxFontSmoothing: 'grayscale',
                   textRendering: 'optimizeLegibility',
-                  clipPath: 'inset(0 0 0 0 round 0 0 0.75rem 0.75rem)', // Enforce rounded bottom corners without overflow:hidden
                 } as React.CSSProperties}
               >
                 <Editor
@@ -444,7 +448,7 @@ export default function AnimatePage() {
                   onMount={(editor) => {
                     editorRef.current = editor;
                   }}
-                  theme={config.theme === 'light' ? 'vs-light' : 'vs-dark'}
+                  theme={isLight ? 'vs' : 'vs-dark'}
                   onChange={(value) => {
                     if (!isPlaying && value !== undefined) {
                       updateCode(activeTab, value);
