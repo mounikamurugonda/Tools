@@ -22,7 +22,7 @@ export function getCanvasLayout(deviceFrame: DeviceFrame): CanvasLayoutConfig {
         gap: 'gap-4',
         padding: 'p-4',
         canvasAspectRatio: '9 / 16',
-        maxHeight: '95vh', // Increased to fit more content
+        maxHeight: 'calc(95vh - 140px)', // Increased to fit more content
       };
     case 'linkedin-post': // 4:5 - Portrait
       return {

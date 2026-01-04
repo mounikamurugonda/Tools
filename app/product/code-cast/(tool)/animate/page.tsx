@@ -78,7 +78,11 @@ export default function AnimatePage() {
       const model = editorRef.current.getModel();
       if (model) {
         const lineCount = model.getLineCount();
-        editorRef.current.revealLineInCenterIfOutsideViewport(lineCount);
+        const column = model.getLineMaxColumn(lineCount);
+        editorRef.current.revealPositionInCenter(
+          { lineNumber: lineCount, column: column },
+          0 // scrollType: 0 = Immediate
+        );
       }
     } else if (currentLength > prevLength + 10) {
       // When not playing and content significantly increased (paste detected): scroll to top
@@ -113,7 +117,11 @@ export default function AnimatePage() {
             const model = editorRef.current.getModel();
             if (model) {
               const lineCount = model.getLineCount();
-              editorRef.current.revealLineInCenter(lineCount);
+              const column = model.getLineMaxColumn(lineCount);
+              editorRef.current.revealPositionInCenter(
+                { lineNumber: lineCount, column: column },
+                0 // scrollType: 0 = Immediate
+              );
             }
           }
         }
@@ -225,8 +233,12 @@ export default function AnimatePage() {
                 const model = editorRef.current.getModel();
                 if (model) {
                   const lineCount = model.getLineCount();
-                  // Reveal line in center of the EDITOR viewport (not browser viewport)
-                  editorRef.current.revealLineInCenter(lineCount);
+                  const column = model.getLineMaxColumn(lineCount);
+                  // Use revealPositionInCenter with immediate scroll type for more reliable scrolling
+                  editorRef.current.revealPositionInCenter(
+                    { lineNumber: lineCount, column: column },
+                    0 // scrollType: 0 = Immediate
+                  );
                 }
               }
             });
@@ -311,8 +323,12 @@ export default function AnimatePage() {
               const model = editorRef.current.getModel();
               if (model) {
                 const lineCount = model.getLineCount();
-                // Reveal line in center of the EDITOR viewport (not browser viewport)
-                editorRef.current.revealLineInCenter(lineCount);
+                const column = model.getLineMaxColumn(lineCount);
+                // Use revealPositionInCenter with immediate scroll type for more reliable scrolling
+                editorRef.current.revealPositionInCenter(
+                  { lineNumber: lineCount, column: column },
+                  0 // scrollType: 0 = Immediate
+                );
               }
             }
           });
@@ -354,7 +370,7 @@ export default function AnimatePage() {
       {/* Canvas Area - Responsive Layout */}
       <div
         id="canvas-stage"
-        className={`flex-1 flex flex-col ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative overflow-hidden rounded-xl`}
+        className={`flex-1 flex flex-col ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative rounded-xl`}
         style={{
           aspectRatio: layout.canvasAspectRatio,
           maxWidth: layout.maxWidth || 'none',
@@ -372,7 +388,7 @@ export default function AnimatePage() {
         <div className={`flex-1 flex ${layout.flexDirection} ${layout.gap} w-full min-h-0`}>
           {/* Editor */}
           <div
-            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} rounded-xl overflow-hidden transition-shadow duration-300`}
+            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} rounded-xl transition-shadow duration-300`}
             style={{
               order: layout.flexDirection === 'flex-col' ? 2 : 1,
               boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
@@ -380,7 +396,7 @@ export default function AnimatePage() {
           >
             <div className="flex flex-col h-full">
               {/* Tabs */}
-              <div className={`flex border-b shrink-0 ${config.theme === 'light' ? 'bg-gray-100 border-gray-300' : 'bg-slate-950 border-slate-800'}`}>
+              <div className={`flex border-b shrink-0 rounded-t-xl ${config.theme === 'light' ? 'bg-gray-100 border-gray-300' : 'bg-slate-950 border-slate-800'}`}>
                 {tabs.map(tab => {
                   const Icon = tab.icon;
                   const isActive = activeTab === tab.id;
@@ -389,7 +405,7 @@ export default function AnimatePage() {
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
                       disabled={isPlaying}
-                      className={`flex items-center gap-2 px-6 py-2 text-xs font-bold transition-all border-b-2 ${isActive
+                      className={`flex items-center gap-2 px-6 py-2 text-xs font-bold transition-all border-b-2 first:rounded-tl-xl ${isActive
                         ? config.theme === 'light'
                           ? 'bg-white border-blue-500 text-blue-600'
                           : 'bg-slate-900 border-blue-500 text-blue-400'
@@ -412,11 +428,12 @@ export default function AnimatePage() {
 
               {/* Monaco Editor */}
               <div
-                className={`flex-1 relative ${config.theme === 'light' ? 'bg-white' : 'bg-slate-900'}`}
+                className={`flex-1 relative rounded-b-xl ${config.theme === 'light' ? 'bg-white' : 'bg-slate-900'}`}
                 style={{
                   WebkitFontSmoothing: 'antialiased',
                   MozOsxFontSmoothing: 'grayscale',
                   textRendering: 'optimizeLegibility',
+                  clipPath: 'inset(0 0 0 0 round 0 0 0.75rem 0.75rem)', // Enforce rounded bottom corners without overflow:hidden
                 } as React.CSSProperties}
               >
                 <Editor
