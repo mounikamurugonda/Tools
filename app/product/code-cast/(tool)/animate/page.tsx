@@ -248,7 +248,7 @@ export default function AnimatePage() {
           } else {
             // Finished this tab, move to next after a small pause
             sequenceIndex++;
-            animationTimerRef.current = window.setTimeout(startNextTab, 350);
+            animationTimerRef.current = window.setTimeout(startNextTab, 1000);
           }
         };
 
@@ -338,7 +338,7 @@ export default function AnimatePage() {
         } else {
           // Finished this tab, move to next after a small pause
           sequenceIndex++;
-          animationTimerRef.current = window.setTimeout(startNextTab, 350);
+          animationTimerRef.current = window.setTimeout(startNextTab, 1000);
         }
       };
 
@@ -464,9 +464,10 @@ export default function AnimatePage() {
                     automaticLayout: true,
                     padding: { top: 8, bottom: 8 },
                     fontFamily: '"Fira Code", "JetBrains Mono", "Menlo", "Consolas", monospace',
-                    cursorWidth: 0, // Effectively hides the cursor
+                    cursorWidth: config.showCursor ? 2 : 0,
                     cursorStyle: 'line',
-                    cursorBlinking: 'solid',
+                    cursorBlinking: 'smooth',
+                    cursorSmoothCaretAnimation: 'on',
                     renderLineHighlight: 'none', // Hides active line
                     guides: { indentation: false }, // Hides nesting lines
 
