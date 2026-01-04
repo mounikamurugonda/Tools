@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import CopyButton from '@/components/CopyButton';
@@ -9,7 +9,7 @@ import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
 import Card from '@/components/ui/Card';
 import FileUpload from '@/components/ui/FileUpload';
-import { FileText, Upload } from 'lucide-react';
+import { FileText, Trash, Upload } from 'lucide-react';
 
 const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   const [input, setInput] = useState('');
@@ -19,6 +19,30 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
     type: 'idle' | 'success' | 'error';
     message: string;
   }>({ type: 'idle', message: '' });
+
+  // Auto-format whenever input changes
+  useEffect(() => {
+    if (!input.trim()) {
+      setStatus({ type: 'idle', message: '' });
+      setOutput('');
+      return;
+    }
+    try {
+      const parsed = JSON.parse(input);
+      setOutput(JSON.stringify(parsed, null, 2));
+      setStatus({ type: 'success', message: 'Valid JSON' });
+    } catch (e) {
+      if (e instanceof Error) {
+        setStatus({ type: 'error', message: `Invalid JSON: ${e.message}` });
+      } else {
+        setStatus({
+          type: 'error',
+          message: 'An unknown error occurred during parsing.',
+        });
+      }
+      setOutput(input);
+    }
+  }, [input]);
 
   const handleFormat = () => {
     if (!input.trim()) {
@@ -77,39 +101,37 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId, tool }) => {
   return (
     <ToolContainer title={tool?.name || 'JSON Formatter'} details={details} toolId={toolId}>
       <div className="space-y-6">
-        <div className="flex flex-wrap items-center gap-4 justify-between bg-card p-4 rounded-lg shadow-sm">
-          <div className="flex gap-3">
-            <Button onClick={handleFormat}>Format / Beautify</Button>
-            <Button
-              onClick={() => {
-                setInput('');
-                setOutput('');
-                setStatus({ type: 'idle', message: '' });
-              }}
-              variant="secondary"
-            >
-              Clear
-            </Button>
-          </div>
-          <p className={`text-sm font-medium ${getStatusColor()}`}>{status.message || 'Ready'}</p>
-        </div>
+
         <div className="grid md:grid-cols-2 gap-6">
           {/* Left side - Input */}
           <div className="space-y-2">
             <div className="flex justify-between items-center">
               <Label htmlFor="json-input">JSON Input</Label>
-              <div className="flex gap-1">
+              <div className="flex gap-4">
                 <Button
-                  variant={inputMode === 'text' ? 'secondary' : 'ghost'}
+                  onClick={() => {
+                    setInput('');
+                    setOutput('');
+                    setStatus({ type: 'idle', message: '' });
+                  }}
+                  variant="ghost"
+                  className='!p-0'
+                >
+                  <Trash className="w-4 h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
                   size="sm"
                   onClick={() => setInputMode('text')}
                   title="Paste Text"
+                  className='!p-0'
                 >
                   <FileText className="w-4 h-4" />
                 </Button>
                 <Button
-                  variant={inputMode === 'file' ? 'secondary' : 'ghost'}
+                  variant="ghost"
                   size="sm"
+                  className='!p-0 '
                   onClick={() => setInputMode('file')}
                   title="Upload File"
                 >
