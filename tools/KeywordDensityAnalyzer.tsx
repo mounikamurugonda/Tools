@@ -186,6 +186,7 @@ const KeywordDensityAnalyzer: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="space-y-4">
         <div className="relative">
           <textarea
+            data-lenis-prevent
             value={text}
             onChange={e => setText(e.target.value)}
             placeholder="Enter text here to analyze keyword density..."
@@ -222,7 +223,7 @@ interface KeywordTableProps {
 const KeywordTable: React.FC<KeywordTableProps> = ({ title, data }) => (
   <div className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
     <h3 className="text-lg font-semibold mb-3 text-gray-800 dark:text-gray-200">{title}</h3>
-    <div className="overflow-auto h-80">
+    <div data-lenis-prevent className="overflow-auto h-80">
       <table className="w-full text-sm text-left">
         <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-100 dark:bg-gray-700 sticky top-0">
           <tr>

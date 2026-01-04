@@ -185,7 +185,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
           {inputDelimiter === '\n' || inputDelimiter === 'auto'
             ? input.split('\n').filter(x => x.trim()).length
             : input.split(inputDelimiter === 'custom' ? inputCustomDelimiter : inputDelimiter)
-                .length}{' '}
+              .length}{' '}
           items
         </span>
 
@@ -225,7 +225,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
         <span className="text-xs text-gray-500 font-normal">
           {output.length > 0
             ? output.split(outputDelimiter === 'custom' ? outputCustomDelimiter : outputDelimiter)
-                .length
+              .length
             : 0}{' '}
           items
         </span>
@@ -415,6 +415,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Input Data */}
           <Card title={InputCardHeader} className="h-full flex flex-col">
             <textarea
+              data-lenis-prevent
               className="flex-1 w-full min-h-[400px] p-4 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 font-mono text-sm resize-y"
               placeholder="Paste your list here..."
               value={input}
@@ -454,6 +455,7 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
           {/* Output Result */}
           <Card title={ResultCardHeader} className="h-full flex flex-col">
             <textarea
+              data-lenis-prevent
               className="flex-1 w-full min-h-[400px] p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 font-mono text-sm resize-y"
               readOnly
               placeholder="Result will appear here..."

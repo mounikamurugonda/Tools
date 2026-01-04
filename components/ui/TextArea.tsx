@@ -11,7 +11,7 @@ const TextArea: React.FC<TextAreaProps> = ({ className = '', error, ...props }) 
     ? 'border-red-500 focus:ring-red-500'
     : 'border-gray-200 dark:border-gray-700';
 
-  return <textarea className={`${baseStyles} ${borderStyles} ${className}`} {...props} />;
+  return <textarea data-lenis-prevent className={`${baseStyles} ${borderStyles} ${className}`} {...props} />;
 };
 
 export default TextArea;

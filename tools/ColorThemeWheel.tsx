@@ -754,6 +754,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                 </Button>
               </div>
               <textarea
+                data-lenis-prevent
                 className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"
                 readOnly
                 value={cssVars}
@@ -768,6 +769,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                 </Button>
               </div>
               <textarea
+                data-lenis-prevent
                 className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"
                 readOnly
                 value={scssVars}
@@ -782,6 +784,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                 </Button>
               </div>
               <textarea
+                data-lenis-prevent
                 className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"
                 readOnly
                 value={tailwindConfig}
@@ -796,6 +799,7 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
                 </Button>
               </div>
               <textarea
+                data-lenis-prevent
                 className="w-full h-32 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-3 font-mono text-xs focus:ring-2 focus:ring-blue-500 outline-none"
                 readOnly
                 value={jsonExport}

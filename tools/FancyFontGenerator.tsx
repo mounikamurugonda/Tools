@@ -94,6 +94,7 @@ const FancyFontGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="Fancy Font Generator" details={details} toolId={toolId}>
       <div className="space-y-6">
         <textarea
+          data-lenis-prevent
           value={text}
           onChange={e => setText(e.target.value)}
           className="w-full h-32 brand-input text-lg"

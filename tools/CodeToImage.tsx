@@ -245,11 +245,10 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                   <button
                     key={t.name}
                     onClick={() => setTheme(t)}
-                    className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${
-                      theme.name === t.name
+                    className={`px-3 py-2 text-xs rounded-md border text-left transition-all flex items-center gap-2 ${theme.name === t.name
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 ring-1 ring-blue-500'
                         : 'border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
-                    }`}
+                      }`}
                   >
                     <div
                       className="w-3 h-3 rounded-full border border-black/10"
@@ -411,6 +410,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                   <div className="relative group">
                     {/* Textarea for input - overlay transparently */}
                     <textarea
+                      data-lenis-prevent
                       value={code}
                       onChange={e => setCode(e.target.value)}
                       className="absolute inset-0 w-full h-full p-4 font-mono text-sm bg-transparent text-transparent caret-white outline-none resize-none overflow-hidden z-10 exclude-from-export"

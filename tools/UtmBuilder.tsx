@@ -95,6 +95,7 @@ const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="relative mt-6">
           <label className="block text-sm font-medium mb-1">Generated URL</label>
           <textarea
+            data-lenis-prevent
             readOnly
             value={result}
             className="w-full h-24 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 font-mono text-sm break-all"

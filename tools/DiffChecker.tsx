@@ -246,7 +246,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           </div>
 
-          <div className="flex-grow">
+          <div data-lenis-prevent className="flex-grow">
             <DiffEditor
               height="100%"
               language={language}

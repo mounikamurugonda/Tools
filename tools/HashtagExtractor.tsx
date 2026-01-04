@@ -17,6 +17,7 @@ const HashtagExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="Hashtag Extractor" details={details} toolId={toolId}>
       <div className="space-y-6">
         <textarea
+          data-lenis-prevent
           value={text}
           onChange={e => setText(e.target.value)}
           className="w-full h-40 brand-input"
