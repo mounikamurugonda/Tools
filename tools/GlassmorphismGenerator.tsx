@@ -50,6 +50,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [neuShadowX, setNeuShadowX] = useState(6);
   const [neuShadowY, setNeuShadowY] = useState(6);
   const [neuShadowBlur, setNeuShadowBlur] = useState(12);
+  const [neuShadowSpread, setNeuShadowSpread] = useState(0);
   const [neuIntensity, setNeuIntensity] = useState(0.25);
   const [neuBorderRadius, setNeuBorderRadius] = useState(16);
   const [neuInset, setNeuInset] = useState(false);
@@ -658,8 +659,8 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 <div
                   className="absolute bottom-4 right-4 w-12 h-12 rounded-xl transition-all duration-300"
                   style={{
-                    background: neuBackground,
-                    boxShadow: `inset ${neuShadowX}px ${neuShadowY}px ${neuShadowBlur}px ${adjustColor(neuBackground, -shadowIntensityPercent)}, inset ${-neuShadowX}px ${-neuShadowY}px ${neuShadowBlur}px ${adjustColor(neuBackground, shadowIntensityPercent)}`,
+                    background: neuGradient,
+                    boxShadow: `${neuDarkShadow}, ${neuLightShadow}`,
                   }}
                 />
               </>
