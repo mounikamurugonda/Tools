@@ -51,7 +51,7 @@ export const CodeCastHeader = () => {
     currentStore as any;
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
-  const { isRecording, startRecording, stopRecording } = useRecording();
+  const { isRecording, isPaused, startRecording, stopRecording, pauseRecording, resumeRecording } = useRecording();
 
   // Device dropdown state
   const [isDeviceDropdownOpen, setIsDeviceDropdownOpen] = useState(false);
@@ -411,20 +411,35 @@ export const CodeCastHeader = () => {
                 ● REC
               </button>
             ) : (
-              <button
-                onClick={() => {
-                  console.log('STOP button clicked');
-                  stopRecording();
-                }}
-                className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg animate-pulse"
-                title="Stop Recording"
-              >
-                ■ STOP
-              </button>
+
+              <>
+                <button
+                  onClick={isPaused ? resumeRecording : pauseRecording}
+                  className={`px-2.5 py-1 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg flex items-center gap-1 ${isPaused
+                    ? 'bg-green-500 hover:bg-green-600'
+                    : 'bg-yellow-500 hover:bg-yellow-600'
+                    }`}
+                  title={isPaused ? 'Resume Recording' : 'Pause Recording'}
+                >
+                  {isPaused ? <Play size={10} fill="currentColor" /> : <Pause size={10} fill="currentColor" />}
+                  {isPaused ? 'RESUME' : 'PAUSE'}
+                </button>
+                <button
+                  onClick={() => {
+                    console.log('STOP button clicked');
+                    stopRecording();
+                  }}
+                  className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg animate-pulse"
+                  title="Stop Recording"
+                >
+                  ■ STOP
+                </button>
+              </>
             )}
           </div>
-        )}
-      </div>
-    </header>
+        )
+        }
+      </div >
+    </header >
   );
 };

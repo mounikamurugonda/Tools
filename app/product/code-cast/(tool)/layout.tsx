@@ -37,7 +37,7 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
         <CodeCastHeader />
 
         {/* Content Area (Page) */}
-        <main className="flex-1 overflow-hidden w-full flex flex-col items-center justify-center p-4 md:p-8 bg-gray-50 dark:bg-gray-950 relative transition-colors duration-300">
+        <main className="flex-1 overflow-hidden w-full flex flex-col items-center justify-center p-4 md:p-4 bg-gray-50 dark:bg-gray-950 relative transition-colors duration-300">
           {children}
         </main>
       </div>

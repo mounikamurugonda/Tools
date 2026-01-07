@@ -2,10 +2,13 @@ import React, { createContext, useContext, useRef, useState, useCallback, useEff
 
 interface RecordingContextType {
   isRecording: boolean;
+  isPaused: boolean;
   recordingTime: number;
   recordedVideoBlob: Blob | null;
   startRecording: (isMicEnabled: boolean) => Promise<void>;
   stopRecording: () => void;
+  pauseRecording: () => void;
+  resumeRecording: () => void;
   downloadRecording: () => void;
   clearRecording: () => void;
 }
@@ -22,6 +25,7 @@ export const useRecording = () => {
 
 export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isRecording, setIsRecording] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
   const [recordedVideoBlob, setRecordedVideoBlob] = useState<Blob | null>(null);
 
@@ -48,6 +52,18 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       }
     };
   }, [isRecording]);
+
+  // Pause timer effect
+  useEffect(() => {
+    if (isPaused && timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    } else if (isRecording && !isPaused && !timerRef.current) {
+      timerRef.current = setInterval(() => {
+        setRecordingTime(prev => prev + 1);
+      }, 1000);
+    }
+  }, [isPaused, isRecording]);
 
   const audioContextRef = useRef<AudioContext | null>(null);
 
@@ -146,6 +162,7 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         const blob = new Blob(chunksRef.current, { type: mimeType });
         setRecordedVideoBlob(blob);
         setIsRecording(false);
+        setIsPaused(false);
 
         // Cleanup streams
         combinedStream.getTracks().forEach(t => t.stop());
@@ -161,6 +178,7 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
       recorder.start(1000);
       setIsRecording(true);
+      setIsPaused(false);
     } catch (err) {
       console.error('Failed to start recording', err);
       setIsRecording(false);
@@ -170,6 +188,20 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
       mediaRecorderRef.current.stop();
+    }
+  }, []);
+
+  const pauseRecording = useCallback(() => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+      mediaRecorderRef.current.pause();
+      setIsPaused(true);
+    }
+  }, []);
+
+  const resumeRecording = useCallback(() => {
+    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'paused') {
+      mediaRecorderRef.current.resume();
+      setIsPaused(false);
     }
   }, []);
 
@@ -195,10 +227,13 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const value = {
     isRecording,
+    isPaused,
     recordingTime,
     recordedVideoBlob,
     startRecording,
     stopRecording,
+    pauseRecording,
+    resumeRecording,
     downloadRecording,
     clearRecording,
   };
