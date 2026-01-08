@@ -9,7 +9,7 @@ import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
 import React from 'react';
 import SmoothScrolling from '@/components/SmoothScrolling';
 
-const inter = Inter({ subsets: ['latin'], display: 'swap' });
+const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://utiltoolkits.com'),
@@ -98,7 +98,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={inter.className}>
+    <html lang="en" suppressHydrationWarning className={inter.variable}>
       <head>
         {/* Google Tag Manager */}
         <Script
