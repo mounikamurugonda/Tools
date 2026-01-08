@@ -107,7 +107,7 @@ const DirectPreview: React.FC<DirectPreviewProps> = ({ html, css, js, device, sc
       'bg-white shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
 
     if (device === 'browser') {
-      return `w-full h-full border border-gray-700 rounded-lg bg-white shadow-lg relative flex flex-col`;
+      return `w-full h-full rounded-lg bg-white shadow-lg relative flex flex-col`;
     }
 
     return `${base} rounded-xl`;
