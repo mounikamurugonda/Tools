@@ -57,6 +57,13 @@ export const CodeCastHeader = () => {
   const [isDeviceDropdownOpen, setIsDeviceDropdownOpen] = useState(false);
   const [isMicEnabled, setIsMicEnabled] = useState(false);
   const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
+  const { recordingTime } = useRecording();
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Filter device options based on screen size - hide row layouts on mobile
   const getFilteredFrameOptions = () => {
@@ -432,7 +439,7 @@ export const CodeCastHeader = () => {
                   className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg animate-pulse"
                   title="Stop Recording"
                 >
-                  ■ STOP
+                  ■ STOP {formatTime(recordingTime)}
                 </button>
               </>
             )}
