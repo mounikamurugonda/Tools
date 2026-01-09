@@ -84,7 +84,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
   const [padding, setPadding] = useState(64);
   const [showControls, setShowControls] = useState(true);
   const [windowTitle, setWindowTitle] = useState('Snippet.js');
-  const [showLineNumbers, setShowLineNumbers] = useState(true);
+  const [showLineNumbers, setShowLineNumbers] = useState(false);
   const [shadowBlur, setShadowBlur] = useState(20);
   const [shadowOpacity, setShadowOpacity] = useState(0.5);
   const [isExporting, setIsExporting] = useState(false);
@@ -219,7 +219,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                   <button
                     key={i}
                     onClick={() => setBackground(bg.value)}
-                    className={`aspect-square w-full rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 ${background === bg.value ? 'border-white ring-2 ring-blue-500 shadow-md' : 'border-transparent'}`}
+                    className={`aspect-square w-full rounded-full border-2 transition-all hover:scale-110 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-900 ${background === bg.value ? 'border-white ring-2 ring-blue-500 shadow-md' : 'border-gray-200 dark:border-gray-700'}`}
                     style={{ background: bg.value }}
                     title={bg.name}
                   >
@@ -319,17 +319,17 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
               }}
             ></div>
 
-            <div className="overflow-auto max-w-full max-h-full flex items-center justify-center w-full p-8">
+            <div className="overflow-auto w-full h-full flex flex-col">
               <div
                 ref={exportRef}
                 style={{
                   background,
                   padding: `${padding}px`,
                 }}
-                className="transition-all duration-300 ease-out min-w-[320px] sm:min-w-[480px] rounded-lg"
+                className="transition-all duration-300 ease-out flex-1 w-full flex items-center justify-center min-h-[500px]"
               >
                 <div
-                  className="rounded-xl overflow-hidden transition-all duration-300 border shadow-2xl"
+                  className="rounded-xl overflow-hidden transition-all duration-300 border shadow-2xl min-w-[320px] sm:min-w-[480px]"
                   style={{
                     backgroundColor: theme.bg,
                     boxShadow: `0 ${shadowBlur}px ${shadowBlur * 2}px rgba(0,0,0,${shadowOpacity})`,
@@ -367,17 +367,28 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                         scrollBeyondLastLine: false,
                         folding: false,
                         automaticLayout: true,
-                        readOnly: false, // Allow editing directly in the image preview!
+                        readOnly: false,
                         fontFamily: 'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
                         contextmenu: false,
+
+                        // Clean view options
+                        renderLineHighlight: 'none',
+                        guides: { indentation: false },
+                        matchBrackets: 'never',
+                        renderValidationDecorations: 'off',
+                        selectionHighlight: false,
+                        occurrencesHighlight: 'off',
+
                         overviewRulerBorder: false,
                         hideCursorInOverviewRuler: true,
+                        overviewRulerLanes: 0,
+
                         scrollbar: {
                           vertical: 'hidden',
                           horizontal: 'hidden',
                           handleMouseWheel: false,
+                          useShadows: false,
                         },
-                        overviewRulerLanes: 0
                       }}
                     />
                   </div>
