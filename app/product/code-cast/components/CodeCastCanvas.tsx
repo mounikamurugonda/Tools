@@ -23,6 +23,7 @@ export const CodeCastCanvas: React.FC<CodeCastCanvasProps> = ({
                 maxHeight: layout.maxHeight || 'none',
                 margin: layout.canvasAspectRatio ? 'auto' : undefined,
                 padding: `${config.canvasPadding}px`,
+                overflow: 'hidden',
             }}
         >
             <ProjectTitleDisplay />

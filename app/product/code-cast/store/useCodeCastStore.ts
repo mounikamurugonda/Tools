@@ -28,6 +28,12 @@ interface CodeCastState {
   activeTab: 'html' | 'css' | 'js';
   setActiveTab: (tab: 'html' | 'css' | 'js') => void;
 
+  // Image Mode View Controls
+  showEditor: boolean;
+  setShowEditor: (show: boolean) => void;
+  showPreview: boolean;
+  setShowPreview: (show: boolean) => void;
+
   // Animation/Recording State
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
@@ -90,6 +96,12 @@ const createCodeCastStore = (storageKey: string) => {
         activeTab: 'html',
         setActiveTab: tab => set({ activeTab: tab }),
 
+        // Image View Controls (defaults to true)
+        showEditor: true,
+        setShowEditor: show => set({ showEditor: show }),
+        showPreview: true,
+        setShowPreview: show => set({ showPreview: show }),
+
         // Animation/Rec
         isPlaying: false,
         setIsPlaying: isPlaying => set({ isPlaying }),
@@ -105,6 +117,8 @@ const createCodeCastStore = (storageKey: string) => {
             activeTab: 'html',
             isPlaying: false,
             isRecording: false,
+            showEditor: true,
+            showPreview: true,
           }),
       }),
       {
@@ -117,6 +131,8 @@ const createCodeCastStore = (storageKey: string) => {
           shadowBlur: state.shadowBlur,
           shadowSpread: state.shadowSpread,
           showProjectInfo: state.showProjectInfo,
+          showEditor: state.showEditor,
+          showPreview: state.showPreview,
         }),
       }
     )

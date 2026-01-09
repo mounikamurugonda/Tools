@@ -98,7 +98,7 @@ export const useMultiTabAnimation = ({
                 updateCode('js', backup.js);
             }
         };
-    }, []); // Run once on mount/unmount
+    }, [setIsPlaying, updateCode]); // Run once on mount/unmount logic handled by refs
 
     // Trigger animation when isPlaying changes
     useEffect(() => {
@@ -190,7 +190,7 @@ export const useMultiTabAnimation = ({
             updateCode('css', fullBackupRef.current.css);
             updateCode('js', fullBackupRef.current.js);
         }
-    }, [isPlaying, stopAnimation, updateCode, setActiveTab, config.soundEnabled, editorRef]); // Removing 'code' from deps to avoid restart loops, but we need it for 'target' capture.
+    }, [isPlaying, stopAnimation, updateCode, setActiveTab, config.soundEnabled, editorRef, code]);
     // Actually, 'code' changing *while* playing shouldn't restart. 
     // But we need to capture `code` at the *moment* isPlaying becomes true.
     // The effect runs when isPlaying changes. At that moment, `code` is the valid code.

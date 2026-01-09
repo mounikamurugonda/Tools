@@ -47,7 +47,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
 
     return (
         <div
-            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} rounded-xl transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'}`}
+            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 rounded-xl transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'}`}
             style={{
                 order: layout.flexDirection === 'flex-col' ? 2 : 1,
                 boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`

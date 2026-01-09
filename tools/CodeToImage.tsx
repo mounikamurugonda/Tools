@@ -280,16 +280,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           </Card>
 
           <Card title="Editor" className="space-y-4">
-            <div>
-              <Label>Language</Label>
-              <Select value={language} onChange={e => setLanguage(e.target.value)}>
-                {LANGUAGES.map(l => (
-                  <option key={l.value} value={l.value}>
-                    {l.name}
-                  </option>
-                ))}
-              </Select>
-            </div>
+
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Line Numbers

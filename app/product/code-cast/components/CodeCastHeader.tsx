@@ -16,6 +16,12 @@ import {
   Square,
   Trash2,
   Sparkles,
+  Copy,
+  Eye,
+  EyeOff,
+  Image as ImageIcon,
+  Code2,
+  Columns,
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -28,7 +34,22 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { DeviceFrame } from '../types';
 import { useRecording } from '../context/RecordingContext';
-import { toPng, toJpeg, toSvg } from 'html-to-image';
+import * as htmlToImage from 'html-to-image';
+
+// Internal reusable Tooltip Wrapper
+const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
+  return (
+    <div className={`relative group ${className}`}>
+      {children}
+      <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-900/90 dark:bg-white/90 backdrop-blur-sm text-white dark:text-gray-900 text-[10px] font-semibold rounded-md opacity-0 group-hover:opacity-100 transition-all duration-200 pointer-events-none whitespace-nowrap z-50">
+        {label}
+        {/* Arrow */}
+        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900/90 dark:bg-white/90 rotate-45"></div>
+      </div>
+    </div>
+  );
+};
+
 
 export const CodeCastHeader = () => {
   // Navigation items configuration
@@ -50,13 +71,16 @@ export const CodeCastHeader = () => {
   const { config, setConfig, isPlaying, setIsPlaying, code, setActiveTab, activeTab } =
     currentStore as any;
 
+  // Image Store Specific Props
+  const { showEditor, setShowEditor, showPreview, setShowPreview } = imageStore as any;
+
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
   const { isRecording, isPaused, startRecording, stopRecording, pauseRecording, resumeRecording } = useRecording();
 
   // Device dropdown state
   const [isDeviceDropdownOpen, setIsDeviceDropdownOpen] = useState(false);
   const [isMicEnabled, setIsMicEnabled] = useState(false);
-  const [isExportMenuOpen, setIsExportMenuOpen] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
   const { recordingTime } = useRecording();
 
   const formatTime = (seconds: number) => {
@@ -109,45 +133,53 @@ export const CodeCastHeader = () => {
   };
 
   // Image export
-  const handleDownload = async (format: 'png' | 'jpg' | 'svg') => {
+  const handleExport = async (format: 'png' | 'jpeg' | 'svg' | 'copy') => {
     const element = document.getElementById('canvas-stage');
     if (!element) return;
 
+    setIsExporting(true);
+
     try {
-      // Simplified options - no complex iframe cloning needed
-      // since DirectPreview renders content directly in DOM
+      const filter = (node: HTMLElement) => !node.classList?.contains('exclude-from-export');
+
       const options = {
-        quality: 0.95,
+        quality: 1,
         pixelRatio: 2,
-        skipFonts: true,
-        width: element.offsetWidth,
-        height: element.offsetHeight,
-        style: {
-          margin: '0',
-          transform: 'none',
-        },
+        filter,
+        style: { margin: '0' },
       };
+
       let dataUrl = '';
 
-      switch (format) {
-        case 'png':
-          dataUrl = await toPng(element, options);
-          break;
-        case 'jpg':
-          dataUrl = await toJpeg(element, options);
-          break;
-        case 'svg':
-          dataUrl = await toSvg(element, options);
-          break;
+      if (format === 'png') {
+        dataUrl = await htmlToImage.toPng(element, options);
+      } else if (format === 'jpeg') {
+        dataUrl = await htmlToImage.toJpeg(element, options);
+      } else if (format === 'svg') {
+        dataUrl = await htmlToImage.toSvg(element, options);
+      } else if (format === 'copy') {
+        const blob = await htmlToImage.toPng(element, {
+          ...options,
+          type: 'image/png',
+        });
+        const response = await fetch(blob);
+        const blobData = await response.blob();
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobData })]);
+        setIsExporting(false);
+        // Could show a toast here if we had one
+        alert('Image copied to clipboard!');
+        return;
       }
 
       const link = document.createElement('a');
-      link.download = `codecast-export-${Date.now()}.${format === 'jpg' ? 'jpeg' : format}`;
+      link.download = `codecast-export-${Date.now()}.${format}`;
       link.href = dataUrl;
       link.click();
-      setIsExportMenuOpen(false);
     } catch (err) {
       console.error('Export failed', err);
+      alert('Failed to export image.');
+    } finally {
+      setIsExporting(false);
     }
   };
 
@@ -185,19 +217,43 @@ export const CodeCastHeader = () => {
     }
   };
 
+  // View Mode Cycle Logic for Image Tab
+  const toggleViewMode = () => {
+    if (showEditor && showPreview) {
+      // Split -> Preview Only
+      setShowEditor(false);
+      setShowPreview(true);
+    } else if (!showEditor && showPreview) {
+      // Preview Only -> Code Only
+      setShowEditor(true);
+      setShowPreview(false);
+    } else {
+      // Code Only (or others) -> Split
+      setShowEditor(true);
+      setShowPreview(true);
+    }
+  };
+
+  const getViewModeIcon = () => {
+    if (showEditor && showPreview) return <Columns size={16} />;
+    if (!showEditor && showPreview) return <ImageIcon size={16} />;
+    return <Code2 size={16} />;
+  };
+
   const filteredOptions = getFilteredFrameOptions();
 
   return (
     <header className="h-14 flex items-center justify-between px-4 shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
       {/* Left: Sidebar + Brand + Mode Switcher */}
       <div className="flex items-center gap-3">
-        <button
-          onClick={() => setSidebarOpen(!isSidebarOpen)}
-          className="p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10"
-          title="Toggle Sidebar"
-        >
-          <PanelLeft size={18} />
-        </button>
+        <TooltipWrapper label="Toggle Sidebar">
+          <button
+            onClick={() => setSidebarOpen(!isSidebarOpen)}
+            className="p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10"
+          >
+            <PanelLeft size={18} />
+          </button>
+        </TooltipWrapper>
 
         {/* Brand - hide on very small screens */}
         <div className="hidden sm:flex items-center gap-2">
@@ -227,98 +283,122 @@ export const CodeCastHeader = () => {
       </div>
 
       {/* Right: Mode Controls + Device + Recording */}
-      <div className="flex items-center gap-2">
+      < div className="flex items-center gap-2" >
 
         {/* Format Code */}
-        <button
-          onClick={handleFormat}
-          className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20`}
-          title="Format Code"
-        >
-          <Sparkles size={16} />
-        </button>
+        {/* Format Code */}
+        <TooltipWrapper label="Format Code">
+          <button
+            onClick={handleFormat}
+            className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20`}
+          >
+            <Sparkles size={16} />
+          </button>
+        </TooltipWrapper>
 
         {/* Clear All Code */}
-        <button
-          onClick={() => {
-            // Check if we have updateCode available (all stores should have it)
-            if (activeTab && currentStore && currentStore.updateCode) {
-              currentStore.updateCode('html', '');
-              currentStore.updateCode('css', '');
-              currentStore.updateCode('js', '');
-            } else if (currentStore && currentStore.setCode) {
-              // Fallback if updateCode isn't directly exposed or for safety
-              currentStore.setCode({ html: '', css: '', js: '' });
-            }
-          }}
-          className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20`}
-          title="Clear All Code"
-        >
-          <Trash2 size={16} />
-        </button>
+        {/* Clear All Code */}
+        <TooltipWrapper label="Clear All Code">
+          <button
+            onClick={() => {
+              // Check if we have updateCode available (all stores should have it)
+              if (activeTab && currentStore && currentStore.updateCode) {
+                currentStore.updateCode('html', '');
+                currentStore.updateCode('css', '');
+                currentStore.updateCode('js', '');
+              } else if (currentStore && currentStore.setCode) {
+                // Fallback if updateCode isn't directly exposed or for safety
+                currentStore.setCode({ html: '', css: '', js: '' });
+              }
+            }}
+            className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20`}
+          >
+            <Trash2 size={16} />
+          </button>
+        </TooltipWrapper>
 
         {/* Text Wrap Toggle */}
-        <button
-          onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
-          className={`p-1.5 rounded-md transition-colors ${config.wordWrap
-            ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-            }`}
-          title={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}
-        >
-          <WrapText size={16} />
-        </button>
+        {/* Text Wrap Toggle */}
+        <TooltipWrapper label={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}>
+          <button
+            onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
+            className={`p-1.5 rounded-md transition-colors ${config.wordWrap
+              ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+          >
+            <WrapText size={16} />
+          </button>
+        </TooltipWrapper>
 
         {/* Line Numbers Toggle */}
-        <button
-          onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
-          className={`p-1.5 rounded-md transition-colors ${config.lineNumbers
-            ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-            : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-            }`}
-          title={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}
-        >
-          <ListOrdered size={16} />
-        </button>
+        {/* Line Numbers Toggle */}
+        <TooltipWrapper label={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}>
+          <button
+            onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
+            className={`p-1.5 rounded-md transition-colors ${config.lineNumbers
+              ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+              }`}
+          >
+            <ListOrdered size={16} />
+          </button>
+        </TooltipWrapper>
 
-        {/* Image Mode Export */}
-        {mode === 'image' && (
-          <div className="relative mr-2">
-            <button
-              onClick={() => setIsExportMenuOpen(!isExportMenuOpen)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-xs font-bold transition-colors"
-            >
-              <Download size={14} />
-              <span className="hidden sm:inline">Export</span>
-            </button>
+        {/* Image Mode Export & View Controls */}
+        {
+          mode === 'image' && (
+            <div className="flex items-center gap-2 mr-2 border-r border-gray-200 dark:border-gray-800 pr-2">
+              {/* View Controls - Single Cycle Button */}
+              {/* View Controls - Single Cycle Button */}
+              <div className="flex items-center bg-white dark:bg-gray-900 rounded-lg p-0.5 border border-gray-200 dark:border-gray-800 mr-2">
+                <TooltipWrapper label="Toggle View (Split / Preview / Code)">
+                  <button
+                    onClick={toggleViewMode}
+                    className="p-1.5 rounded transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  >
+                    {getViewModeIcon()}
+                  </button>
+                </TooltipWrapper>
+              </div>
 
-            {isExportMenuOpen && (
-              <>
-                <div className="fixed inset-0 z-10" onClick={() => setIsExportMenuOpen(false)} />
-                <div className="absolute top-full right-0 mt-2 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xl z-20 overflow-hidden">
+              {/* Export Buttons */}
+              {/* Export Buttons */}
+              <div className="flex items-center gap-1">
+                <TooltipWrapper label="Download PNG">
                   <button
-                    onClick={() => handleDownload('png')}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 dark:hover:bg-gray-800"
+                    onClick={() => handleExport('png')}
+                    disabled={isExporting}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-md text-xs font-bold transition-colors"
                   >
-                    PNG
+                    <Download size={14} />
+                    <span className="hidden lg:inline">PNG</span>
                   </button>
+                </TooltipWrapper>
+                <TooltipWrapper label="Download SVG">
                   <button
-                    onClick={() => handleDownload('jpg')}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 dark:hover:bg-gray-800"
+                    onClick={() => handleExport('svg')}
+                    disabled={isExporting}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 rounded-md text-xs font-bold transition-colors"
                   >
-                    JPG
+                    <Download size={14} />
+                    <span className="hidden lg:inline">SVG</span>
                   </button>
+                </TooltipWrapper>
+                <TooltipWrapper label="Copy to Clipboard">
                   <button
-                    onClick={() => handleDownload('svg')}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 dark:hover:bg-gray-800"
+                    onClick={() => handleExport('copy')}
+                    disabled={isExporting}
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/30 disabled:opacity-50 disabled:cursor-not-allowed text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 rounded-md text-xs font-bold transition-colors"
                   >
-                    SVG
+                    <Copy size={14} />
+                    <span className="hidden lg:inline">Copy</span>
                   </button>
-                </div>
-              </>
-            )}
-          </div>
-        )}
+                </TooltipWrapper>
+              </div>
+            </div>
+          )
+        }
 
         {/* Device Frame Dropdown */}
         <div className="relative">
@@ -375,76 +455,82 @@ export const CodeCastHeader = () => {
         </div>
 
         {/* Animate Button - Animate mode only */}
-        {mode === 'animate' && (
-          <button
-            onClick={handlePlayClick}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${isPlaying
-              ? 'bg-red-500 hover:bg-red-600 text-white'
-              : 'bg-blue-600 hover:bg-blue-700 text-white'
-              }`}
-          >
-            {isPlaying ? (
-              <>
-                <Square size={14} fill="white" />
-                <span className="hidden sm:inline">Stop</span>
-              </>
-            ) : (
-              <>
-                <Play size={14} fill="currentColor" />
-                <span className="hidden sm:inline">Animate</span>
-              </>
-            )}
-          </button>
-        )}
+        {
+          mode === 'animate' && (
+            <button
+              onClick={handlePlayClick}
+              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${isPlaying
+                ? 'bg-red-500 hover:bg-red-600 text-white'
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+                }`}
+            >
+              {isPlaying ? (
+                <>
+                  <Square size={14} fill="white" />
+                  <span className="hidden sm:inline">Stop</span>
+                </>
+              ) : (
+                <>
+                  <Play size={14} fill="currentColor" />
+                  <span className="hidden sm:inline">Animate</span>
+                </>
+              )}
+            </button>
+          )
+        }
 
         {/* Recording Controls - Type and Animate modes */}
-        {(mode === 'type' || mode === 'animate') && (
-          <div className="flex items-center gap-1">
-            <button
-              onClick={() => setIsMicEnabled(!isMicEnabled)}
-              className={`p-1.5 rounded-md transition-colors ${isMicEnabled
-                ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
-                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                }`}
-              title={isMicEnabled ? 'Mic On' : 'Mic Off'}
-            >
-              {isMicEnabled ? <Mic size={14} /> : <MicOff size={14} />}
-            </button>
-            {!isRecording ? (
-              <button
-                onClick={() => startRecording(isMicEnabled)}
-                className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg"
-              >
-                ● REC
-              </button>
-            ) : (
-
-              <>
+        {
+          (mode === 'type' || mode === 'animate') && (
+            <div className="flex items-center gap-1">
+              <TooltipWrapper label={isMicEnabled ? 'Mic On' : 'Mic Off'}>
                 <button
-                  onClick={isPaused ? resumeRecording : pauseRecording}
-                  className={`px-2.5 py-1 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg flex items-center gap-1 ${isPaused
-                    ? 'bg-green-500 hover:bg-green-600'
-                    : 'bg-yellow-500 hover:bg-yellow-600'
+                  onClick={() => setIsMicEnabled(!isMicEnabled)}
+                  className={`p-1.5 rounded-md transition-colors ${isMicEnabled
+                    ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
-                  title={isPaused ? 'Resume Recording' : 'Pause Recording'}
                 >
-                  {isPaused ? <Play size={10} fill="currentColor" /> : <Pause size={10} fill="currentColor" />}
-                  {isPaused ? 'RESUME' : 'PAUSE'}
+                  {isMicEnabled ? <Mic size={14} /> : <MicOff size={14} />}
                 </button>
+              </TooltipWrapper>
+              {!isRecording ? (
                 <button
-                  onClick={() => {
-                    console.log('STOP button clicked');
-                    stopRecording();
-                  }}
-                  className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg animate-pulse"
-                  title="Stop Recording"
+                  onClick={() => startRecording(isMicEnabled)}
+                  className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg"
                 >
-                  ■ STOP {formatTime(recordingTime)}
+                  ● REC
                 </button>
-              </>
-            )}
-          </div>
-        )
+              ) : (
+
+                <>
+                  <TooltipWrapper label={isPaused ? 'Resume Recording' : 'Pause Recording'}>
+                    <button
+                      onClick={isPaused ? resumeRecording : pauseRecording}
+                      className={`px-2.5 py-1 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg flex items-center gap-1 ${isPaused
+                        ? 'bg-green-500 hover:bg-green-600'
+                        : 'bg-yellow-500 hover:bg-yellow-600'
+                        }`}
+                    >
+                      {isPaused ? <Play size={10} fill="currentColor" /> : <Pause size={10} fill="currentColor" />}
+                      {isPaused ? 'RESUME' : 'PAUSE'}
+                    </button>
+                  </TooltipWrapper>
+                  <TooltipWrapper label="Stop Recording">
+                    <button
+                      onClick={() => {
+                        console.log('STOP button clicked');
+                        stopRecording();
+                      }}
+                      className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg animate-pulse"
+                    >
+                      ■ STOP {formatTime(recordingTime)}
+                    </button>
+                  </TooltipWrapper>
+                </>
+              )}
+            </div>
+          )
         }
       </div >
     </header >
