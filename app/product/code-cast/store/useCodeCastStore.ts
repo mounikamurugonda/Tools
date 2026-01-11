@@ -25,8 +25,8 @@ interface CodeCastState {
   setShadowSpread: (spread: number) => void;
   showProjectInfo: boolean;
   setShowProjectInfo: (show: boolean) => void;
-  activeTab: 'html' | 'css' | 'js';
-  setActiveTab: (tab: 'html' | 'css' | 'js') => void;
+  activeTab: 'html' | 'css' | 'js' | 'libs';
+  setActiveTab: (tab: 'html' | 'css' | 'js' | 'libs') => void;
 
   // Image Mode View Controls
   showEditor: boolean;
@@ -37,6 +37,8 @@ interface CodeCastState {
   // Animation/Recording State
   isPlaying: boolean;
   setIsPlaying: (isPlaying: boolean) => void;
+  isPaused: boolean;
+  setIsPaused: (isPaused: boolean) => void;
   isRecording: boolean;
   setIsRecording: (isRecording: boolean) => void;
 
@@ -62,6 +64,7 @@ const DEFAULT_CONFIG: AppConfig = {
   lineNumbers: false,
   canvasPadding: 32,
   wordWrap: true,
+  libraries: [],
 };
 
 // Factory function to create route-specific stores
@@ -105,6 +108,8 @@ const createCodeCastStore = (storageKey: string) => {
         // Animation/Rec
         isPlaying: false,
         setIsPlaying: isPlaying => set({ isPlaying }),
+        isPaused: false,
+        setIsPaused: isPaused => set({ isPaused }),
         isRecording: false,
         setIsRecording: isRecording => set({ isRecording }),
 
@@ -116,6 +121,7 @@ const createCodeCastStore = (storageKey: string) => {
             projectTitle: 'Pure CSS Carousel with Markers',
             activeTab: 'html',
             isPlaying: false,
+            isPaused: false,
             isRecording: false,
             showEditor: true,
             showPreview: true,

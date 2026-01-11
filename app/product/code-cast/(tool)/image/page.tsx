@@ -14,6 +14,7 @@ export default function ImagePage() {
     activeTab,
     setActiveTab,
     updateCode,
+    updateConfig,
     shadowBlur,
     shadowSpread,
     showEditor,
@@ -45,6 +46,7 @@ export default function ImagePage() {
             shadowBlur={shadowBlur}
             shadowSpread={shadowSpread}
             layout={layout}
+            updateConfig={updateConfig}
           />
 
         )}
@@ -64,6 +66,7 @@ export default function ImagePage() {
               js={code.js}
               device={config.deviceFrame}
               scale={1}
+              libraries={config.libraries}
             />
           </div>
         )}

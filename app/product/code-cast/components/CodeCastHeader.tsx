@@ -68,7 +68,7 @@ export const CodeCastHeader = () => {
   const imageStore = useImageStore();
 
   const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-  const { config, setConfig, isPlaying, setIsPlaying, code, setActiveTab, activeTab } =
+  const { config, setConfig, isPlaying, setIsPlaying, isPaused: isAnimationPaused, setIsPaused: setIsAnimationPaused, code, setActiveTab, activeTab } =
     currentStore as any;
 
   // Image Store Specific Props
@@ -112,11 +112,15 @@ export const CodeCastHeader = () => {
   const handlePlayClick = () => {
     if (mode === 'animate') {
       if (isPlaying) {
+        // Now handling Stop distinctly. This click might be legacy, but we'll update UI to separate Stop/Pause.
+        // If clicking the main toggle while playing, we used to Stop.
         setIsPlaying(false);
+        setIsAnimationPaused(false); // Reset pause state
         return;
       }
-      // If current tab is empty, scan for start
-      if (!code[activeTab] || code[activeTab].trim() === '') {
+      // If current tab is empty or not a code tab, scan for start
+      const isCodeTab = activeTab === 'html' || activeTab === 'css' || activeTab === 'js';
+      if (!isCodeTab || !code[activeTab] || code[activeTab].trim() === '') {
         const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
         const firstNonEmpty = tabs.find(t => code[t] && code[t].trim().length > 0);
         if (firstNonEmpty) setActiveTab(firstNonEmpty);
@@ -185,7 +189,7 @@ export const CodeCastHeader = () => {
 
   // Code Formatting
   const handleFormat = async () => {
-    if (!activeTab || !code[activeTab]) return;
+    if (!activeTab || activeTab === 'libs' || !code[activeTab as keyof typeof code]) return;
 
     try {
       const { default: beautify } = await import('js-beautify');
@@ -457,25 +461,45 @@ export const CodeCastHeader = () => {
         {/* Animate Button - Animate mode only */}
         {
           mode === 'animate' && (
-            <button
-              onClick={handlePlayClick}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all ${isPlaying
-                ? 'bg-red-500 hover:bg-red-600 text-white'
-                : 'bg-blue-600 hover:bg-blue-700 text-white'
-                }`}
-            >
-              {isPlaying ? (
-                <>
-                  <Square size={14} fill="white" />
-                  <span className="hidden sm:inline">Stop</span>
-                </>
-              ) : (
-                <>
+            <div className="flex items-center gap-1">
+              {!isPlaying ? (
+                <button
+                  onClick={handlePlayClick}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all bg-blue-600 hover:bg-blue-700 text-white"
+                >
                   <Play size={14} fill="currentColor" />
                   <span className="hidden sm:inline">Animate</span>
+                </button>
+              ) : (
+                <>
+                  {/* Pause / Resume Button */}
+                  <TooltipWrapper label={isAnimationPaused ? 'Resume Animation' : 'Pause Animation'}>
+                    <button
+                      onClick={() => setIsAnimationPaused(!isAnimationPaused)}
+                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all text-white ${isAnimationPaused ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'
+                        }`}
+                    >
+                      {isAnimationPaused ? <Play size={14} fill="currentColor" /> : <Pause size={14} fill="currentColor" />}
+                      <span className="hidden sm:inline">{isAnimationPaused ? 'Resume' : 'Pause'}</span>
+                    </button>
+                  </TooltipWrapper>
+
+                  {/* Stop Button */}
+                  <TooltipWrapper label="Stop Animation">
+                    <button
+                      onClick={() => {
+                        setIsPlaying(false);
+                        setIsAnimationPaused(false);
+                      }}
+                      className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all bg-red-500 hover:bg-red-600 text-white"
+                    >
+                      <Square size={14} fill="white" />
+                      <span className="hidden sm:inline">Stop</span>
+                    </button>
+                  </TooltipWrapper>
                 </>
               )}
-            </button>
+            </div>
           )
         }
 

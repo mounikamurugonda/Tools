@@ -46,7 +46,8 @@ export function getCanvasLayout(deviceFrame: DeviceFrame): CanvasLayoutConfig {
         gap: 'gap-6',
         padding: 'p-6',
         canvasAspectRatio: '16 / 9',
-        maxWidth: '90vw',
+        maxWidth: '96%', // Slightly wider but constrained
+        maxHeight: 'calc(100vh - 140px)', // Constrain height to viewport
       };
     case 'minimal': // Full width
     default:
@@ -54,6 +55,7 @@ export function getCanvasLayout(deviceFrame: DeviceFrame): CanvasLayoutConfig {
         flexDirection: 'flex-row',
         gap: 'gap-6',
         padding: 'p-6',
+        maxHeight: 'calc(100vh - 140px)', // Constrain height
       };
   }
 }

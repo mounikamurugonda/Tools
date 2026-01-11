@@ -32,6 +32,7 @@ export interface AppConfig {
   lineNumbers: boolean;
   canvasPadding: number;
   wordWrap: boolean;
+  libraries: string[];
 }
 
 export interface CodeSnippet {

@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useMemo } from 'react';
 import { DeviceFrame } from '../types';
-import { transformViewportUnits, getViewportCssProperties } from '../utils/cssViewportTransform';
 
 interface DirectPreviewProps {
   html: string;
@@ -10,101 +9,64 @@ interface DirectPreviewProps {
   js: string;
   device: DeviceFrame;
   scale?: number;
+  libraries?: string[];
 }
 
 /**
- * DirectPreview renders HTML/CSS/JS directly in a div element instead of an iframe.
- * This allows html-to-image to capture the content properly for image export.
- * Note: JS execution is limited since it runs in the page context.
+ * DirectPreview now uses an iframe to isolate user code and external libraries
+ * from the main application to prevent style pollution.
  */
-const DirectPreview: React.FC<DirectPreviewProps> = ({ html, css, js, device, scale = 1 }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const styleRef = useRef<HTMLStyleElement | null>(null);
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+const DirectPreview: React.FC<DirectPreviewProps> = ({ html, css, js, device, scale = 1, libraries = [] }) => {
 
-  // Track container size with ResizeObserver
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const updateSize = () => {
-      const rect = container.getBoundingClientRect();
-      setContainerSize({ width: rect.width, height: rect.height });
-    };
-
-    // Initial size
-    updateSize();
-
-    // Observe size changes
-    const resizeObserver = new ResizeObserver(updateSize);
-    resizeObserver.observe(container);
-
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
-
-  // Inject CSS into the document head with a unique scope
-  useEffect(() => {
-    // Create a scoped style element
-    if (!styleRef.current) {
-      styleRef.current = document.createElement('style');
-      styleRef.current.setAttribute('data-direct-preview', 'true');
-      document.head.appendChild(styleRef.current);
-    }
-
-    // Transform viewport units to use container-relative custom properties
-    const transformedCss = transformViewportUnits(css);
-
-    // Scope the CSS to prevent it from affecting the rest of the page
-    const scopedCss = transformedCss
-      .split('}')
-      .map(rule => {
-        if (rule.trim()) {
-          // Add the container selector to scope the CSS
-          const parts = rule.split('{');
-          if (parts.length === 2) {
-            const selectors = parts[0]
-              .split(',')
-              .map(s => {
-                const trimmed = s.trim();
-                if (trimmed.startsWith('@') || trimmed === '') return trimmed;
-                return `[data-preview-content] ${trimmed}`;
-              })
-              .join(', ');
-            return `${selectors}{${parts[1]}`;
-          }
-        }
-        return rule;
-      })
-      .join('}');
-
-    styleRef.current.textContent = scopedCss;
-
-    return () => {
-      if (styleRef.current) {
-        styleRef.current.remove();
-        styleRef.current = null;
+  const srcDoc = useMemo(() => {
+    // Construct the library tags
+    const libTags = libraries.map(lib => {
+      if (lib === 'bootstrap') {
+        return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" data-preview-lib="bootstrap">
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>`;
       }
-    };
-  }, [css]);
-
-  // Execute JS (with caution - runs in page context)
-  useEffect(() => {
-    if (js && containerRef.current) {
-      try {
-        // Create a function and execute it with limited scope
-        const fn = new Function(js);
-        fn();
-      } catch (e) {
-        console.error('DirectPreview JS error:', e);
+      if (lib === 'tailwind') {
+        return `<script src="https://cdn.tailwindcss.com"></script>
+                <script>
+                  tailwind.config = {
+                    corePlugins: {
+                      preflight: true, // We want preflight inside the iframe
+                    }
+                  }
+                </script>`;
       }
-    }
-  }, [js, html]); // Re-run when html changes as elements may need rebinding
+      return '';
+    }).join('\n');
+
+    return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          ${libTags}
+          <style>
+            body { margin: 0; padding: 0; }
+            /* User CSS */
+            ${css}
+          </style>
+        </head>
+        <body>
+          ${html}
+          <script>
+            try {
+              ${js}
+            } catch (err) {
+              console.error('Preview JS Error:', err);
+            }
+          </script>
+        </body>
+      </html>
+    `;
+  }, [html, css, js, libraries]);
 
   const getFrameStyles = () => {
-    const base =
-      'bg-white shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
+    const base = 'bg-white shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
 
     if (device === 'browser') {
       return `w-full h-full rounded-lg bg-white shadow-lg relative flex flex-col`;
@@ -131,26 +93,15 @@ const DirectPreview: React.FC<DirectPreviewProps> = ({ html, css, js, device, sc
           </div>
         )}
 
-        {/* Direct DOM render instead of iframe */}
-        <div
-          ref={containerRef}
-          data-preview-content
-          className={`w-full h-full bg-white overflow-hidden ${device === 'browser' ? 'rounded-b-lg' : 'rounded-xl'}`}
-          style={
-            {
-              margin: 0,
-              padding: 0,
-              fontFamily: 'sans-serif',
-              boxSizing: 'border-box',
-              transition: 'all 0.3s ease-in-out',
-              // CSS custom properties for viewport unit transformation
-              ...getViewportCssProperties(containerSize.width, containerSize.height),
-            } as React.CSSProperties
-          }
-          dangerouslySetInnerHTML={{ __html: html }}
-        />
-
-
+        {/* Iframe for Isolation */}
+        <div className={`w-full h-full bg-white overflow-hidden ${device === 'browser' ? 'rounded-b-lg' : 'rounded-xl'}`}>
+          <iframe
+            srcDoc={srcDoc}
+            title="Code Preview"
+            className="w-full h-full border-0"
+            sandbox="allow-scripts allow-modals allow-same-origin"
+          />
+        </div>
       </div>
     </div>
   );

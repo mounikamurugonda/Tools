@@ -11,7 +11,7 @@ import { RecordingDownloadModal } from '../../components/RecordingDownloadModal'
 import { useMultiTabAnimation } from '../../hooks/useMultiTabAnimation';
 
 // Components
-import { AnimateEditor } from '../../components/AnimateEditor';
+import { CodeCastEditor } from '../../components/CodeCastEditor';
 import { AnimateCanvas } from '../../components/AnimateCanvas';
 
 export default function AnimatePage() {
@@ -23,8 +23,11 @@ export default function AnimatePage() {
     setActiveTab,
     isPlaying,
     setIsPlaying,
+    isPaused,
+    setIsPaused,
     shadowBlur,
     shadowSpread,
+    updateConfig,
   } = useAnimateStore();
 
   const [showDownloadModal, setShowDownloadModal] = useState(false);
@@ -49,6 +52,8 @@ export default function AnimatePage() {
     setActiveTab,
     isPlaying,
     setIsPlaying,
+    isPaused,
+    setIsPaused,
     editorRef,
   });
 
@@ -67,7 +72,7 @@ export default function AnimatePage() {
     <div className="w-full h-full flex flex-col">
       <AnimateCanvas layout={layout} config={config}>
         {/* Editor */}
-        <AnimateEditor
+        <CodeCastEditor
           code={code}
           updateCode={updateCode}
           config={config}
@@ -79,6 +84,7 @@ export default function AnimatePage() {
           shadowSpread={shadowSpread}
           layout={layout}
           editorRef={editorRef}
+          updateConfig={updateConfig}
         />
 
         {/* Preview */}
@@ -95,6 +101,7 @@ export default function AnimatePage() {
             js={code.js}
             device={config.deviceFrame}
             scale={1}
+            libraries={config.libraries}
           />
         </div>
       </AnimateCanvas>

@@ -16,10 +16,12 @@ interface UseMultiTabAnimationProps {
     code: CodeSnippet;
     updateCode: (tab: 'html' | 'css' | 'js', content: string) => void;
     config: AppConfig;
-    activeTab: 'html' | 'css' | 'js';
-    setActiveTab: (tab: 'html' | 'css' | 'js') => void;
+    activeTab: 'html' | 'css' | 'js' | 'libs';
+    setActiveTab: (tab: 'html' | 'css' | 'js' | 'libs') => void;
     isPlaying: boolean;
     setIsPlaying: (isPlaying: boolean) => void;
+    isPaused: boolean;
+    setIsPaused: (isPaused: boolean) => void;
     editorRef: React.MutableRefObject<any>;
 }
 
@@ -30,6 +32,8 @@ export const useMultiTabAnimation = ({
     setActiveTab,
     isPlaying,
     setIsPlaying,
+    isPaused,
+    setIsPaused,
     editorRef,
 }: UseMultiTabAnimationProps) => {
     // Animation refs
@@ -37,7 +41,12 @@ export const useMultiTabAnimation = ({
     const fullBackupRef = useRef(code);
     const typingSpeedRef = useRef(config.typingSpeed);
     const isPlayingRef = useRef(isPlaying);
+    const isPausedRef = useRef(isPaused);
     const audioRef = useRef<HTMLAudioElement | null>(null);
+
+    // State tracking refs (to support pause/resume)
+    const sequenceIndexRef = useRef(0);
+    const charIndexRef = useRef(0);
 
     // Sync typing speed ref with config
     useEffect(() => {
@@ -65,7 +74,10 @@ export const useMultiTabAnimation = ({
             animationTimerRef.current = null;
         }
         setIsPlaying(false);
-    }, [setIsPlaying]);
+        setIsPaused(false);
+        sequenceIndexRef.current = 0;
+        charIndexRef.current = 0;
+    }, [setIsPlaying, setIsPaused]);
 
     // Robust cleanup on unmount or when stopping
     useEffect(() => {
@@ -83,114 +95,146 @@ export const useMultiTabAnimation = ({
 
             // If playing on unmount, force stop and restore code to prevent data loss or stuck state
             if (isPlayingRef.current) {
+                // If we were just paused, restore anyway on unmount
                 setIsPlaying(false);
                 const backup = fullBackupRef.current;
-                // Direct state updates to ensure they happen even if component is unmounting
-                // This assumes updateCode is stable; using the passed prop.
-                // NOTE: In the original code, it accessed store.getState() directly for unmount cleanup.
-                // We might want to handle that in the consumer or trust the prop if the store is stable.
-                // For safety, we'll try to use the prop, but ideally we'd access the store instance directly if we could.
-                // Since we don't have direct store access here without import, we'll rely on the parent or adding logic there.
-                // However, standard useEffect cleanup with props works if the component remains mounted long enough for the callback? 
-                // No, unmount cleanup runs when component is removed. Props are still accessible in closure.
                 updateCode('html', backup.html);
                 updateCode('css', backup.css);
                 updateCode('js', backup.js);
             }
         };
-    }, [setIsPlaying, updateCode]); // Run once on mount/unmount logic handled by refs
+    }, [setIsPlaying, updateCode]);
 
-    // Trigger animation when isPlaying changes
+    // Trigger animation when isPlaying or isPaused changes
     useEffect(() => {
         const wasPlaying = isPlayingRef.current;
-        isPlayingRef.current = isPlaying;
+        const wasPaused = isPausedRef.current;
 
-        // If transitioning from not playing to playing, start animation
+        isPlayingRef.current = isPlaying;
+        isPausedRef.current = isPaused;
+
+        // CASE 1: Start Animation (from stopped state)
         if (!wasPlaying && isPlaying) {
             if (config.soundEnabled && audioRef.current) {
                 audioRef.current.currentTime = 0;
                 audioRef.current.play().catch(e => console.error("Audio play failed", e));
             }
 
-            // Capture the target state from current editor content
-            // Note: We used 'code' from props. Ensure it's the latest.
+            // Capture target state
             const target = { ...code };
             fullBackupRef.current = target;
 
-            // Clear all code fields first
+            // Clear code (unless we want to support resuming from stopped, but "Stop" usually implies reset)
+            // Current requirement: "continue from where it was stopped" -> implies Pause.
+            // "Stop" resets. "Pause" holds.
+
             updateCode('html', '');
             updateCode('css', '');
             updateCode('js', '');
 
-            const sequence: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
-            let sequenceIndex = 0;
-            let charIndex = 0;
+            sequenceIndexRef.current = 0;
+            charIndexRef.current = 0;
 
-            const startNextTab = () => {
-                // Find next non-empty tab in sequence
-                while (sequenceIndex < sequence.length && (!target[sequence[sequenceIndex]] || !target[sequence[sequenceIndex]].trim())) {
-                    sequenceIndex++;
-                }
-
-                if (sequenceIndex >= sequence.length) {
-                    stopAnimation();
-                    return;
-                }
-
-                const currentTabId = sequence[sequenceIndex];
-                setActiveTab(currentTabId);
-                charIndex = 0;
-
-                const typeChar = () => {
-                    const fullText = target[currentTabId];
-
-                    if (charIndex <= fullText.length) {
-                        updateCode(currentTabId, fullText.substring(0, charIndex));
-
-                        // Auto-scroll to keep typing line visible during animation
-                        // Use requestAnimationFrame to ensure Monaco has rendered before scrolling
-                        requestAnimationFrame(() => {
-                            if (editorRef.current) {
-                                const model = editorRef.current.getModel();
-                                if (model) {
-                                    const lineCount = model.getLineCount();
-                                    const column = model.getLineMaxColumn(lineCount);
-                                    // Use revealPositionInCenter with immediate scroll type for more reliable scrolling
-                                    editorRef.current.revealPositionInCenter(
-                                        { lineNumber: lineCount, column: column },
-                                        0 // scrollType: 0 = Immediate
-                                    );
-                                }
-                            }
-                        });
-
-                        charIndex++;
-                        animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
-                    } else {
-                        // Finished this tab, move to next after a small pause
-                        sequenceIndex++;
-                        animationTimerRef.current = window.setTimeout(startNextTab, 1000);
-                    }
-                };
-
-                // Start typing after a small delay
-                animationTimerRef.current = window.setTimeout(typeChar, 150);
-            };
-
-            // Initial delay
-            animationTimerRef.current = window.setTimeout(startNextTab, 300);
-        } else if (wasPlaying && !isPlaying) {
-            // If transitioning from playing to not playing, stop and restore
+            startAnimationLoop(target);
+        }
+        // CASE 2: Resume Animation (from paused state)
+        else if (wasPlaying && isPlaying && wasPaused && !isPaused) {
+            if (config.soundEnabled && audioRef.current) {
+                audioRef.current.play().catch(e => console.error("Audio resume failed", e));
+            }
+            // Resume loop with existing refs
+            startAnimationLoop(fullBackupRef.current);
+        }
+        // CASE 3: Pause Animation
+        else if (isPlaying && isPaused) {
+            if (audioRef.current) {
+                audioRef.current.pause();
+            }
+            if (animationTimerRef.current) {
+                window.clearTimeout(animationTimerRef.current);
+                animationTimerRef.current = null;
+            }
+        }
+        // CASE 4: Stop Animation
+        else if (wasPlaying && !isPlaying) {
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;
             }
-            stopAnimation();
+            // Clear timer logic handled by cleanup/callback usually, but ensure here
+            if (animationTimerRef.current) {
+                window.clearTimeout(animationTimerRef.current);
+                animationTimerRef.current = null;
+            }
+
+            // Restore code
             updateCode('html', fullBackupRef.current.html);
             updateCode('css', fullBackupRef.current.css);
             updateCode('js', fullBackupRef.current.js);
         }
-    }, [isPlaying, stopAnimation, updateCode, setActiveTab, config.soundEnabled, editorRef, code]);
+    }, [isPlaying, isPaused, config.soundEnabled, stopAnimation, updateCode, setActiveTab, code]); // Added isPaused
+
+    const startAnimationLoop = (target: CodeSnippet) => {
+        const sequence: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
+
+        const runLoop = () => {
+            // Find next non-empty tab if needed
+            while (sequenceIndexRef.current < sequence.length &&
+                (!target[sequence[sequenceIndexRef.current]] || !target[sequence[sequenceIndexRef.current]].trim())) {
+                sequenceIndexRef.current++;
+                charIndexRef.current = 0; // Reset char index for new tab
+            }
+
+            if (sequenceIndexRef.current >= sequence.length) {
+                stopAnimation();
+                return;
+            }
+
+            const currentTabId = sequence[sequenceIndexRef.current];
+            setActiveTab(currentTabId);
+
+            const typeChar = () => {
+                // Check pause/stopRef in loop? 
+                // No, the timeouts are cleared on state change. 
+                // So if we are here, we act.
+
+                const fullText = target[currentTabId];
+
+                if (charIndexRef.current <= fullText.length) {
+                    updateCode(currentTabId, fullText.substring(0, charIndexRef.current));
+
+                    // Auto-scroll
+                    requestAnimationFrame(() => {
+                        if (editorRef.current) {
+                            const model = editorRef.current.getModel();
+                            if (model) {
+                                const lineCount = model.getLineCount();
+                                const column = model.getLineMaxColumn(lineCount);
+                                editorRef.current.revealPositionInCenter(
+                                    { lineNumber: lineCount, column: column },
+                                    0
+                                );
+                            }
+                        }
+                    });
+
+                    charIndexRef.current++;
+                    animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
+                } else {
+                    // Finished tab
+                    sequenceIndexRef.current++;
+                    charIndexRef.current = 0;
+                    animationTimerRef.current = window.setTimeout(runLoop, 1000);
+                }
+            };
+
+            // Start typing
+            animationTimerRef.current = window.setTimeout(typeChar, 150);
+        };
+
+        // Start the loop
+        runLoop();
+    };
     // Actually, 'code' changing *while* playing shouldn't restart. 
     // But we need to capture `code` at the *moment* isPlaying becomes true.
     // The effect runs when isPlaying changes. At that moment, `code` is the valid code.
@@ -209,8 +253,15 @@ export const useMultiTabAnimation = ({
         setIsPlaying(true);
     }, [isPlaying, stopAnimation, setIsPlaying]);
 
+    const handlePauseResume = useCallback(() => {
+        if (isPlaying) {
+            setIsPaused(!isPaused);
+        }
+    }, [isPlaying, isPaused, setIsPaused]);
+
     return {
         handleAnimate,
         stopAnimation,
+        handlePauseResume,
     };
 };

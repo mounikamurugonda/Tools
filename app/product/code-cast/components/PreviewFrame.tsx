@@ -7,9 +7,30 @@ interface PreviewFrameProps {
   js: string;
   device: DeviceFrame;
   scale?: number;
+  libraries?: string[];
 }
 
-const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scale = 1 }) => {
+const getLibraryTags = (libraries: string[]) => {
+  return libraries.map(lib => {
+    if (lib === 'bootstrap') {
+      return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" data-preview-lib="bootstrap">
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>`;
+    }
+    if (lib === 'tailwind') {
+      return `<script src="https://cdn.tailwindcss.com"></script>
+              <script>
+                tailwind.config = {
+                  corePlugins: {
+                    preflight: true,
+                  }
+                }
+              </script>`;
+    }
+    return '';
+  }).join('\n');
+};
+
+const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scale = 1, libraries = [] }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Use a static srcDoc to initialize the iframe once.
@@ -23,6 +44,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
             * { box-sizing: border-box; }
             body { margin: 0; padding: 0px; font-family: sans-serif; overflow-x: hidden; transition: all 0.3s ease-in-out; }
           </style>
+          ${getLibraryTags(libraries)}
           <style id="preview-css"></style>
         </head>
         <body>
@@ -58,7 +80,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
         </body>
       </html>
     `;
-  }, []);
+  }, [libraries]);
 
   // Send updates to the iframe whenever props change
   useEffect(() => {

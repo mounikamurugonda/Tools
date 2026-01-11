@@ -12,7 +12,7 @@ import { RecordingDownloadModal } from '../../components/RecordingDownloadModal'
 import { Mic, MicOff } from 'lucide-react';
 
 export default function TypePage() {
-  const { code, updateCode, setCode, config, activeTab, setActiveTab, projectTitle, shadowBlur, shadowSpread } =
+  const { code, updateCode, setCode, config, activeTab, setActiveTab, projectTitle, shadowBlur, shadowSpread, updateConfig } =
     useTypeStore();
 
   const [isMicEnabled, setIsMicEnabled] = useState(false);
@@ -51,6 +51,7 @@ export default function TypePage() {
           shadowBlur={shadowBlur}
           shadowSpread={shadowSpread}
           layout={layout}
+          updateConfig={updateConfig}
         />
 
         {/* Preview */}
@@ -67,6 +68,7 @@ export default function TypePage() {
             js={code.js}
             device={config.deviceFrame}
             scale={1}
+            libraries={config.libraries}
           />
         </div>
       </CodeCastCanvas>
