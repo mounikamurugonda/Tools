@@ -2,6 +2,7 @@
 
 import { CodeCastVideo } from '../data/videos';
 import { Play } from 'lucide-react';
+import Image from 'next/image';
 
 interface VideoCardProps {
     video: CodeCastVideo;
@@ -20,10 +21,12 @@ export function VideoCard({ video }: VideoCardProps) {
         >
             {/* Thumbnail with Play Overlay */}
             <div className="relative aspect-video w-full overflow-hidden bg-slate-900">
-                <img
+                <Image
                     src={thumbnailUrl}
                     alt={video.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    unoptimized
                 />
 
                 {/* Play Button Overlay */}

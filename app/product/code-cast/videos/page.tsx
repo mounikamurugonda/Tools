@@ -36,7 +36,7 @@ export default function VideosPage() {
 
                         <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
                             Discover amazing coding tutorials, demos, and content created by the CodeCast
-                            community. Get inspired and see what's possible with clean, professional code
+                            community. Get inspired and see what&apos;s possible with clean, professional code
                             demonstrations.
                         </p>
 
