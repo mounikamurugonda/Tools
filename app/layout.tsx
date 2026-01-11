@@ -8,6 +8,7 @@ import ConditionalFooter from '@/components/ConditionalFooter';
 import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
 import React from 'react';
 import SmoothScrolling from '@/components/SmoothScrolling';
+import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 
@@ -179,14 +180,16 @@ export default function RootLayout({
           />
         </noscript>
         <ThemeProvider>
-          <SmoothScrolling>
-            <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
-              <Header />
-              <main className="flex-grow flex flex-col">{children}</main>
-              <BuyMeACoffeeSection />
-              <ConditionalFooter />
-            </div>
-          </SmoothScrolling>
+          <SessionProviderWrapper>
+            <SmoothScrolling>
+              <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
+                <Header />
+                <main className="flex-grow flex flex-col">{children}</main>
+                <BuyMeACoffeeSection />
+                <ConditionalFooter />
+              </div>
+            </SmoothScrolling>
+          </SessionProviderWrapper>
         </ThemeProvider>
       </body>
     </html>

@@ -10,7 +10,7 @@ import SearchBar from './SearchBar';
 import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
 import { TOOLS } from '@/constants';
 import { ToolCategory } from '@/types';
-import { Terminal } from 'lucide-react';
+import { Terminal, Play, Keyboard, Image as ImageIcon } from 'lucide-react';
 
 interface NavLinkProps {
   href: string;
@@ -26,17 +26,15 @@ const NavLink = ({ href, children, onClick, pathname }: NavLinkProps) => {
     <Link
       href={href}
       onClick={onClick}
-      className={`relative px-3 py-2 text-sm font-medium transition-colors group ${
-        isActive
-          ? 'text-blue-600 dark:text-blue-400'
-          : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-      }`}
+      className={`relative px-3 py-2 text-sm font-medium transition-colors group ${isActive
+        ? 'text-blue-600 dark:text-blue-400'
+        : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+        }`}
     >
       {children}
       <span
-        className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 transform origin-left transition-transform duration-300 ease-out ${
-          isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-        }`}
+        className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 transform origin-left transition-transform duration-300 ease-out ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+          }`}
       />
     </Link>
   );
@@ -105,11 +103,10 @@ const Header: React.FC = () => {
               {/* Categories Dropdown */}
               <div className="relative group">
                 <button
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                    pathname.startsWith('/tools/category')
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                  }`}
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors ${pathname.startsWith('/tools/category')
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
+                    }`}
                 >
                   Categories
                   <svg
@@ -127,11 +124,10 @@ const Header: React.FC = () => {
                   </svg>
                 </button>
                 <span
-                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 transform origin-left transition-transform duration-300 ease-out ${
-                    pathname.startsWith('/tools/category')
-                      ? 'scale-x-100'
-                      : 'scale-x-0 group-hover:scale-x-100'
-                  }`}
+                  className={`absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400 transform origin-left transition-transform duration-300 ease-out ${pathname.startsWith('/tools/category')
+                    ? 'scale-x-100'
+                    : 'scale-x-0 group-hover:scale-x-100'
+                    }`}
                 />
 
                 {/* Dropdown Menu */}
@@ -167,42 +163,77 @@ const Header: React.FC = () => {
                 FAQ
               </NavLink>
 
-              <Link
-                href="/product/code-cast"
-                onClick={closeAllMenus}
-                className={`group relative flex items-center gap-2 px-3 py-2 transition-all rounded-lg ${
-                  pathname.startsWith('/product/code-cast')
-                    ? 'bg-blue-50 dark:bg-blue-900/20'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800'
-                }`}
-              >
-                {/* Active Indicator Border */}
-                {pathname.startsWith('/product/code-cast') && (
-                  <div className="absolute inset-0 rounded-lg border-2 border-blue-500/20 dark:border-blue-400/20 pointer-events-none" />
-                )}
+              <div className="relative group/codecast">
+                <Link
+                  href="/product/code-cast"
+                  onClick={closeAllMenus}
+                  className={`group relative flex items-center gap-2 px-3 py-2 transition-all rounded-lg ${pathname.startsWith('/product/code-cast')
+                      ? 'bg-blue-50 dark:bg-blue-900/20'
+                      : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                    }`}
+                >
+                  {/* Active Indicator Border */}
+                  {pathname.startsWith('/product/code-cast') && (
+                    <div className="absolute inset-0 rounded-lg border-2 border-blue-500/20 dark:border-blue-400/20 pointer-events-none" />
+                  )}
 
-                {/* Logo Container */}
-                <div className="relative flex items-center gap-2">
-                  <div
-                    className={`flex items-center justify-center w-7 h-7 rounded-lg text-white shadow-md transition-transform duration-300 ${
-                      pathname.startsWith('/product/code-cast')
-                        ? 'bg-gradient-to-br from-blue-600 to-purple-600 scale-105 shadow-blue-600/30'
-                        : 'bg-gradient-to-br from-gray-700 to-gray-900 group-hover:from-blue-600 group-hover:to-purple-600 shadow-gray-600/20 group-hover:shadow-blue-600/20'
-                    }`}
-                  >
-                    <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
+                  {/* Logo Container */}
+                  <div className="relative flex items-center gap-2">
+                    <div
+                      className={`flex items-center justify-center w-7 h-7 rounded-lg text-white shadow-md transition-transform duration-300 ${pathname.startsWith('/product/code-cast')
+                          ? 'bg-gradient-to-br from-blue-600 to-purple-600 scale-105 shadow-blue-600/30'
+                          : 'bg-gradient-to-br from-gray-700 to-gray-900 group-hover:from-blue-600 group-hover:to-purple-600 shadow-gray-600/20 group-hover:shadow-blue-600/20'
+                        }`}
+                    >
+                      <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
+                    </div>
+                    <span
+                      className={`font-bold text-sm tracking-tight transition-colors ${pathname.startsWith('/product/code-cast')
+                          ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-400 dark:to-purple-400'
+                          : 'text-gray-700 dark:text-gray-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600'
+                        }`}
+                    >
+                      CodeCast
+                    </span>
                   </div>
-                  <span
-                    className={`font-bold text-sm tracking-tight transition-colors ${
-                      pathname.startsWith('/product/code-cast')
-                        ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-400 dark:to-purple-400'
-                        : 'text-gray-700 dark:text-gray-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600'
-                    }`}
-                  >
-                    CodeCast
-                  </span>
+                </Link>
+
+                {/* Hover Dropdown */}
+                <div className="absolute top-full left-0 pt-2 w-48 opacity-0 invisible group-hover/codecast:opacity-100 group-hover/codecast:visible transition-all duration-200 z-50">
+                  <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 py-1 overflow-hidden">
+                    <Link
+                      href="/product/code-cast/animate"
+                      onClick={closeAllMenus}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    >
+                      <Play size={16} className="text-blue-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Animation
+                      </span>
+                    </Link>
+                    <Link
+                      href="/product/code-cast/type"
+                      onClick={closeAllMenus}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    >
+                      <Keyboard size={16} className="text-purple-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Type Code
+                      </span>
+                    </Link>
+                    <Link
+                      href="/product/code-cast/image"
+                      onClick={closeAllMenus}
+                      className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                    >
+                      <ImageIcon size={16} className="text-pink-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Code to Image
+                      </span>
+                    </Link>
+                  </div>
                 </div>
-              </Link>
+              </div>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
@@ -271,13 +302,26 @@ const Header: React.FC = () => {
               </Link>
 
               <Link
+                href="/product/code-cast"
+                onClick={closeAllMenus}
+                className={`flex items-center gap-3 px-4 py-3 text-lg font-medium rounded-xl transition-all active:scale-95 ${pathname.startsWith('/product/code-cast')
+                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
+              >
+                <div className="flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-sm">
+                  <Terminal size={12} strokeWidth={2.5} />
+                </div>
+                CodeCast
+              </Link>
+
+              <Link
                 href="/"
                 onClick={closeAllMenus}
-                className={`block px-4 py-3 text-lg font-medium rounded-xl transition-all active:scale-95 ${
-                  pathname === '/'
-                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                }`}
+                className={`block px-4 py-3 text-lg font-medium rounded-xl transition-all active:scale-95 ${pathname === '/'
+                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                  }`}
               >
                 Home
               </Link>
@@ -303,11 +347,10 @@ const Header: React.FC = () => {
                       <div key={category} className="rounded-xl overflow-hidden">
                         <button
                           onClick={() => toggleCategory(category)}
-                          className={`w-full flex items-center justify-between px-4 py-3 transition-colors ${
-                            isOpen
-                              ? 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white'
-                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                          }`}
+                          className={`w-full flex items-center justify-between px-4 py-3 transition-colors ${isOpen
+                            ? 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                            }`}
                         >
                           <div className="flex items-center gap-3">
                             <CategoryIcon className="w-5 h-5 text-blue-500" />
@@ -333,11 +376,10 @@ const Header: React.FC = () => {
                                   key={tool.id}
                                   href={`/tools/${tool.id}`}
                                   onClick={closeAllMenus}
-                                  className={`flex items-center gap-3 px-3 py-2 pl-10 rounded-lg text-sm transition-colors ${
-                                    isToolActive
-                                      ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-900/20'
-                                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50'
-                                  }`}
+                                  className={`flex items-center gap-3 px-3 py-2 pl-10 rounded-lg text-sm transition-colors ${isToolActive
+                                    ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-900/20'
+                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50'
+                                    }`}
                                 >
                                   <span className="truncate">{tool.name}</span>
                                 </Link>

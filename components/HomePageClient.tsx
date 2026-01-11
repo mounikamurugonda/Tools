@@ -51,16 +51,16 @@ const HomePageClient: React.FC = () => {
           <div className="mt-8 sm:mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200 relative z-50">
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/tools"
+                href="/product/code-cast"
                 className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-base font-semibold rounded-lg transition-transform hover:scale-105 shadow-lg shadow-blue-500/20"
               >
-                Browse All Tools
+                CodeCast
               </Link>
               <Link
-                href="/request-tool"
+                href="/tools"
                 className="px-6 py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 text-base font-semibold rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-700 transition-transform hover:scale-105 shadow-sm"
               >
-                Request a Tool
+                Browse All Tools
               </Link>
             </div>
           </div>

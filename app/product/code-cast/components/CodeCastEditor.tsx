@@ -1,6 +1,8 @@
+
 import React, { useRef } from 'react';
 import Editor from '@monaco-editor/react';
-import { Code, FileCode, FileJson, Package, Check, Sparkles } from 'lucide-react';
+import { Code, FileCode, FileJson, Package, Check, Sparkles, Copy, Info } from 'lucide-react';
+import { FeatureGuard } from '@/components/FeatureGuard';
 import { AppConfig, CodeSnippet } from '../types';
 
 interface CodeCastEditorProps {
@@ -111,119 +113,96 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
             <div className="flex flex-col h-full rounded-xl overflow-hidden">
                 {/* Tabs */}
                 <div
-                    className={`flex items-center justify-between px-2 h-10 border-b shrink-0 ${isLight ? 'bg-gray-50/50 border-gray-200' : 'bg-[#252525] border-white/5'
-                        }`}
+                    className={`flex items-center justify-between px-2 h-10 border-b shrink-0 ${isLight ? 'bg-gray-50/50 border-gray-200' : 'bg-[#252525] border-white/5'}`}
                 >
                     <div className="flex items-center gap-1">
-                        {TABS.filter(t => t.id !== 'libs').map(tab => {
+                        {TABS.map(tab => {
                             const Icon = tab.icon;
                             const isActive = activeTab === tab.id;
+                            const isLibs = tab.id === 'libs';
                             const hasContent = code[tab.id as keyof CodeSnippet] && code[tab.id as keyof CodeSnippet].trim();
+                            const selectedLibIds = config.libraries || [];
+                            const hasSelection = selectedLibIds.length > 0;
+                            const firstSelectedLib = hasSelection && isLibs
+                                ? AVAILABLE_LIBRARIES.find(l => l.id === selectedLibIds[0])
+                                : null;
 
-                            return (
+                            const button = (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id as any)}
                                     disabled={isPlaying}
                                     className={`
-                  flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all
-                  ${isActive
+                                        flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all
+                                        ${isActive
                                             ? isLight
                                                 ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
                                                 : 'bg-white/10 text-white shadow-sm ring-1 ring-white/10'
                                             : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5 disabled:opacity-50'
                                         }
-                `}
+                                    `}
                                 >
-                                    <Icon size={14} className={isActive ? tab.color : 'currentColor'} />
-                                    {tab.label}
-                                    {hasContent && (
-                                        <div className={`w-1.5 h-1.5 rounded-full ${isPlaying && isActive ? 'bg-blue-400 animate-pulse' : 'bg-blue-500/30'}`}></div>
+                                    {/* Icon Logic */}
+                                    {isLibs && firstSelectedLib ? (
+                                        <div className="w-4 h-4">
+                                            {firstSelectedLib.icon}
+                                        </div>
+                                    ) : isLibs && isActive ? (
+                                        <Icon
+                                            size={14}
+                                            className="text-orange-500 animate-[spin_3s_linear_infinite] lg:animate-none"
+                                            style={{ color: '#f97316' }}
+                                        />
+                                    ) : (
+                                        <Icon size={14} className={isActive ? tab.color : 'currentColor'} />
+                                    )}
+
+                                    {/* Label Logic */}
+                                    {isLibs && firstSelectedLib ? (
+                                        <span className={isLight ? 'text-gray-900' : 'text-white'}>
+                                            {firstSelectedLib.label}
+                                            {selectedLibIds.length > 1 && <span className="ml-1 opacity-60">+{selectedLibIds.length - 1}</span>}
+                                        </span>
+                                    ) : isLibs && isActive ? (
+                                        <span
+                                            className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 bg-[length:200%_auto] bg-clip-text text-transparent font-bold animate-[gradient_3s_linear_infinite]"
+                                            style={{
+                                                animation: 'gradient 3s linear infinite',
+                                            }}
+                                        >
+                                            {tab.label}
+                                            <style dangerouslySetInnerHTML={{
+                                                __html: `
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+`
+                                            }} />
+                                        </span>
+                                    ) : (
+                                        <span>{tab.label}</span>
+                                    )}
+
+                                    {/* Dot Indicator */}
+                                    {(hasContent || (isLibs && hasSelection && !firstSelectedLib)) && (
+                                        <div className={`w-1.5 h-1.5 rounded-full ml-1 ${isPlaying && isActive ? 'bg-blue-400 animate-pulse' : 'bg-blue-500/30'}`}></div>
                                     )}
                                 </button>
                             );
+
+                            if (isLibs) {
+                                return (
+                                    <FeatureGuard key={tab.id} actionName="use external libraries">
+                                        {button}
+                                    </FeatureGuard>
+                                );
+                            }
+
+                            return button;
                         })}
                     </div>
-
-                    {/* Right Aligned: Libs Tab */}
-                    {(() => {
-                        const tab = TABS.find(t => t.id === 'libs')!;
-                        const isActive = activeTab === 'libs';
-                        const selectedLibIds = config.libraries || [];
-                        const hasSelection = selectedLibIds.length > 0;
-
-                        // Find first selected library to show its icon
-                        const firstSelectedLib = hasSelection
-                            ? AVAILABLE_LIBRARIES.find(l => l.id === selectedLibIds[0])
-                            : null;
-
-                        return (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab('libs')}
-                                disabled={isPlaying}
-                                className={`
-              flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all
-              ${isActive
-                                        ? isLight
-                                            ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
-                                            : 'bg-white/10 text-white shadow-sm ring-1 ring-white/10'
-                                        : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5 disabled:opacity-50'
-                                    }
-            `}
-                            >
-                                {firstSelectedLib ? (
-                                    <div className="w-4 h-4">
-                                        {firstSelectedLib.icon}
-                                    </div>
-                                ) : (
-                                    tab.id === 'libs' ? (
-                                        <tab.icon
-                                            size={14}
-                                            className="text-orange-500 animate-[spin_3s_linear_infinite] lg:animate-none" // Fallback / Base animation
-                                            style={{
-                                                color: '#f97316' // Orange-500 fallback 
-                                            }}
-                                        />
-                                        // Note: SVG Stroke Gradients are hard in CSS. 
-                                        // Changing to text-orange-500 with a pulse/spin for "hot" feel as precise gradient on stroke requires <defs>.
-                                        // User asked "do same" - implying "make it hot/gradient".
-                                        // I will simply use a hot solid color that complements the text gradient to avoid invisible icons.
-                                    ) : (
-                                        <tab.icon size={14} className={isActive ? tab.color : 'currentColor'} />
-                                    )
-                                )}
-
-                                {firstSelectedLib ? (
-                                    <span className={isLight ? 'text-gray-900' : 'text-white'}>
-                                        {firstSelectedLib.label}
-                                        {selectedLibIds.length > 1 && <span className="ml-1 opacity-60">+{selectedLibIds.length - 1}</span>}
-                                    </span>
-                                ) : (
-                                    <span
-                                        className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 bg-[length:200%_auto] bg-clip-text text-transparent font-bold animate-[gradient_3s_linear_infinite]"
-                                        style={{
-                                            animation: 'gradient 3s linear infinite',
-                                        }}
-                                    >
-                                        {tab.label}
-                                        <style dangerouslySetInnerHTML={{
-                                            __html: `
-                                            @keyframes gradient {
-                                                0% { background-position: 0% 50%; }
-                                                50% { background-position: 100% 50%; }
-                                                100% { background-position: 0% 50%; }
-                                            }
-                                        `}} />
-                                    </span>
-                                )}
-
-                                {hasSelection && !firstSelectedLib && (
-                                    <div className={`w-1.5 h-1.5 rounded-full ${isPlaying && isActive ? 'bg-blue-400 animate-pulse' : 'bg-blue-500/30'}`}></div>
-                                )}
-                            </button>
-                        );
-                    })()}
                 </div>
 
                 {/* Content Area */}

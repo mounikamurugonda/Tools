@@ -35,6 +35,8 @@ import { usePathname } from 'next/navigation';
 import { DeviceFrame } from '../types';
 import { useRecording } from '../context/RecordingContext';
 import * as htmlToImage from 'html-to-image';
+import LoginButton from '@/components/LoginButton';
+import { FeatureGuard } from '@/components/FeatureGuard';
 
 // Internal reusable Tooltip Wrapper
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -250,6 +252,16 @@ export const CodeCastHeader = () => {
     <header className="h-14 flex items-center justify-between px-4 shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
       {/* Left: Sidebar + Brand + Mode Switcher */}
       <div className="flex items-center gap-3">
+        {/* Brand */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-md shadow-blue-600/20">
+            <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
+          </div>
+          <span className="hidden sm:inline font-bold text-sm tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+            CodeCast
+          </span>
+        </div>
+
         <TooltipWrapper label="Toggle Sidebar">
           <button
             onClick={() => setSidebarOpen(!isSidebarOpen)}
@@ -258,16 +270,6 @@ export const CodeCastHeader = () => {
             <PanelLeft size={18} />
           </button>
         </TooltipWrapper>
-
-        {/* Brand - hide on very small screens */}
-        <div className="hidden sm:flex items-center gap-2">
-          <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-md shadow-blue-600/20">
-            <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
-          </div>
-          <span className="font-bold text-sm tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-            CodeCast
-          </span>
-        </div>
 
         {/* Mode Switcher - compact on mobile */}
         <div className="flex items-center gap-1 p-0.5 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
@@ -369,36 +371,42 @@ export const CodeCastHeader = () => {
               {/* Export Buttons */}
               {/* Export Buttons */}
               <div className="flex items-center gap-1">
-                <TooltipWrapper label="Download PNG">
-                  <button
-                    onClick={() => handleExport('png')}
-                    disabled={isExporting}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-md text-xs font-bold transition-colors"
-                  >
-                    <Download size={14} />
-                    <span className="hidden lg:inline">PNG</span>
-                  </button>
-                </TooltipWrapper>
-                <TooltipWrapper label="Download SVG">
-                  <button
-                    onClick={() => handleExport('svg')}
-                    disabled={isExporting}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 rounded-md text-xs font-bold transition-colors"
-                  >
-                    <Download size={14} />
-                    <span className="hidden lg:inline">SVG</span>
-                  </button>
-                </TooltipWrapper>
-                <TooltipWrapper label="Copy to Clipboard">
-                  <button
-                    onClick={() => handleExport('copy')}
-                    disabled={isExporting}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/30 disabled:opacity-50 disabled:cursor-not-allowed text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 rounded-md text-xs font-bold transition-colors"
-                  >
-                    <Copy size={14} />
-                    <span className="hidden lg:inline">Copy</span>
-                  </button>
-                </TooltipWrapper>
+                <FeatureGuard actionName="download image">
+                  <TooltipWrapper label="Download PNG">
+                    <button
+                      onClick={() => handleExport('png')}
+                      disabled={isExporting}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-md text-xs font-bold transition-colors"
+                    >
+                      <Download size={14} />
+                      <span className="hidden lg:inline">PNG</span>
+                    </button>
+                  </TooltipWrapper>
+                </FeatureGuard>
+                <FeatureGuard actionName="download image">
+                  <TooltipWrapper label="Download SVG">
+                    <button
+                      onClick={() => handleExport('svg')}
+                      disabled={isExporting}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 rounded-md text-xs font-bold transition-colors"
+                    >
+                      <Download size={14} />
+                      <span className="hidden lg:inline">SVG</span>
+                    </button>
+                  </TooltipWrapper>
+                </FeatureGuard>
+                <FeatureGuard actionName="copy image">
+                  <TooltipWrapper label="Copy to Clipboard">
+                    <button
+                      onClick={() => handleExport('copy')}
+                      disabled={isExporting}
+                      className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/30 disabled:opacity-50 disabled:cursor-not-allowed text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 rounded-md text-xs font-bold transition-colors"
+                    >
+                      <Copy size={14} />
+                      <span className="hidden lg:inline">Copy</span>
+                    </button>
+                  </TooltipWrapper>
+                </FeatureGuard>
               </div>
             </div>
           )
@@ -463,13 +471,15 @@ export const CodeCastHeader = () => {
           mode === 'animate' && (
             <div className="flex items-center gap-1">
               {!isPlaying ? (
-                <button
-                  onClick={handlePlayClick}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  <Play size={14} fill="currentColor" />
-                  <span className="hidden sm:inline">Animate</span>
-                </button>
+                <FeatureGuard actionName="animate code">
+                  <button
+                    onClick={handlePlayClick}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    <Play size={14} fill="currentColor" />
+                    <span className="hidden sm:inline">Animate</span>
+                  </button>
+                </FeatureGuard>
               ) : (
                 <>
                   {/* Pause / Resume Button */}
@@ -507,24 +517,28 @@ export const CodeCastHeader = () => {
         {
           (mode === 'type' || mode === 'animate') && (
             <div className="flex items-center gap-1">
-              <TooltipWrapper label={isMicEnabled ? 'Mic On' : 'Mic Off'}>
-                <button
-                  onClick={() => setIsMicEnabled(!isMicEnabled)}
-                  className={`p-1.5 rounded-md transition-colors ${isMicEnabled
-                    ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
-                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`}
-                >
-                  {isMicEnabled ? <Mic size={14} /> : <MicOff size={14} />}
-                </button>
-              </TooltipWrapper>
+              <FeatureGuard actionName="use microphone">
+                <TooltipWrapper label={isMicEnabled ? 'Mic On' : 'Mic Off'}>
+                  <button
+                    onClick={() => setIsMicEnabled(!isMicEnabled)}
+                    className={`p-1.5 rounded-md transition-colors ${isMicEnabled
+                      ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
+                      : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      }`}
+                  >
+                    {isMicEnabled ? <Mic size={14} /> : <MicOff size={14} />}
+                  </button>
+                </TooltipWrapper>
+              </FeatureGuard>
               {!isRecording ? (
-                <button
-                  onClick={() => startRecording(isMicEnabled)}
-                  className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg"
-                >
-                  ● REC
-                </button>
+                <FeatureGuard actionName="record screen">
+                  <button
+                    onClick={() => startRecording(isMicEnabled)}
+                    className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg"
+                  >
+                    ● REC
+                  </button>
+                </FeatureGuard>
               ) : (
 
                 <>
@@ -556,6 +570,7 @@ export const CodeCastHeader = () => {
             </div>
           )
         }
+        <LoginButton />
       </div >
     </header >
   );

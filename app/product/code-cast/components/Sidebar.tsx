@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSession } from 'next-auth/react';
 import { Settings, Volume2, MousePointer2, Eye, EyeOff } from 'lucide-react';
 import {
   useAnimateStore,
@@ -10,8 +11,10 @@ import { AppConfig, Theme, TypingSpeed, SoundType } from '../types';
 import { BACKGROUND_PRESETS, EDITOR_THEMES, FONT_SIZES } from '../constants';
 import { EmojiPicker } from './EmojiPicker';
 import { usePathname } from 'next/navigation';
+import { FeatureGuard } from '@/components/FeatureGuard';
 
 const Sidebar: React.FC = () => {
+  const { data: session } = useSession();
   const pathname = usePathname();
   const mode = pathname?.split('/').pop() as 'animate' | 'type' | 'image' | undefined;
 
@@ -37,14 +40,6 @@ const Sidebar: React.FC = () => {
       `}
     >
       <div className="w-80 h-full flex flex-col overflow-hidden">
-        {/* Header */}
-        <div className="h-14 flex items-center justify-between px-6 border-b border-gray-200 dark:border-gray-800 shrink-0 bg-white dark:bg-gray-950">
-          <div className="flex items-center gap-2 text-gray-900 dark:text-white font-semibold text-sm">
-            <Settings size={16} />
-            <span>Settings</span>
-          </div>
-        </div>
-
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
           {/* Section: Project Info */}
@@ -134,90 +129,94 @@ const Sidebar: React.FC = () => {
           {/* Section: Appearance */}
           <div className="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-800">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Appearance
+              Appearance {!session && <span className="normal-case font-normal text-[10px] ml-1 opacity-70">(Login Required)</span>}
             </label>
 
-            {/* Background Selector */}
-            <div className="space-y-2">
-              <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Background</span>
-              <div className="grid grid-cols-5 gap-1.5">
-                {BACKGROUND_PRESETS.map(bg => (
-                  <button
-                    key={bg.id}
-                    onClick={() => setConfig((p: AppConfig) => ({ ...p, background: bg.value }))}
-                    className={`
+            <FeatureGuard actionName="customize appearance">
+              <div className="space-y-4">
+                {/* Background Selector */}
+                <div className="space-y-2">
+                  <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Background</span>
+                  <div className="grid grid-cols-5 gap-1.5">
+                    {BACKGROUND_PRESETS.map(bg => (
+                      <button
+                        key={bg.id}
+                        onClick={() => setConfig((p: AppConfig) => ({ ...p, background: bg.value }))}
+                        className={`
                        aspect-square rounded-lg border-2 transition-all relative overflow-hidden group
                        ${config.background === bg.value ? 'border-blue-600 dark:border-blue-400 shadow-lg scale-105' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500'}
                      `}
-                    title={bg.label}
-                  >
-                    <div className={`w-full h-full ${bg.value}`} />
-                    {config.background === bg.value && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                        <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
-                      </div>
-                    )}
-                  </button>
-                ))}
-              </div>
-            </div>
+                        title={bg.label}
+                      >
+                        <div className={`w-full h-full ${bg.value}`} />
+                        {config.background === bg.value && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                            <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
+                          </div>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-2 gap-3">
-              <div className="space-y-2">
-                <span className="text-xs text-gray-600 dark:text-gray-400">Theme</span>
-                <select
-                  value={config.theme}
-                  onChange={e =>
-                    setConfig((p: AppConfig) => ({ ...p, theme: e.target.value as Theme }))
-                  }
-                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xs rounded-md border border-gray-200 dark:border-gray-700 px-2.5 py-2 outline-none focus:border-blue-500"
-                >
-                  {EDITOR_THEMES.map(t => (
-                    <option key={t.id} value={t.id}>
-                      {t.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="space-y-2">
+                    <span className="text-xs text-gray-600 dark:text-gray-400">Theme</span>
+                    <select
+                      value={config.theme}
+                      onChange={e =>
+                        setConfig((p: AppConfig) => ({ ...p, theme: e.target.value as Theme }))
+                      }
+                      className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xs rounded-md border border-gray-200 dark:border-gray-700 px-2.5 py-2 outline-none focus:border-blue-500"
+                    >
+                      {EDITOR_THEMES.map(t => (
+                        <option key={t.id} value={t.id}>
+                          {t.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-              <div className="space-y-2">
-                <span className="text-xs text-gray-600 dark:text-gray-400">Font Size</span>
-                <select
-                  value={config.fontSize}
-                  onChange={e =>
-                    setConfig((p: AppConfig) => ({ ...p, fontSize: Number(e.target.value) }))
-                  }
-                  className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xs rounded-md border border-gray-200 dark:border-gray-700 px-2.5 py-2 outline-none focus:border-blue-500"
-                >
-                  {FONT_SIZES.map(size => (
-                    <option key={size} value={size}>
-                      {size}px
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+                  <div className="space-y-2">
+                    <span className="text-xs text-gray-600 dark:text-gray-400">Font Size</span>
+                    <select
+                      value={config.fontSize}
+                      onChange={e =>
+                        setConfig((p: AppConfig) => ({ ...p, fontSize: Number(e.target.value) }))
+                      }
+                      className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xs rounded-md border border-gray-200 dark:border-gray-700 px-2.5 py-2 outline-none focus:border-blue-500"
+                    >
+                      {FONT_SIZES.map(size => (
+                        <option key={size} value={size}>
+                          {size}px
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
 
-            {/* Canvas Padding Slider */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Padding</span>
-                <span className="text-xs font-mono text-gray-900 dark:text-white">
-                  {config.canvasPadding}px
-                </span>
+                {/* Canvas Padding Slider */}
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Padding</span>
+                    <span className="text-xs font-mono text-gray-900 dark:text-white">
+                      {config.canvasPadding}px
+                    </span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="128"
+                    step="4"
+                    value={config.canvasPadding}
+                    onChange={e =>
+                      setConfig((p: AppConfig) => ({ ...p, canvasPadding: Number(e.target.value) }))
+                    }
+                    className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+                  />
+                </div>
               </div>
-              <input
-                type="range"
-                min="0"
-                max="128"
-                step="4"
-                value={config.canvasPadding}
-                onChange={e =>
-                  setConfig((p: AppConfig) => ({ ...p, canvasPadding: Number(e.target.value) }))
-                }
-                className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
-              />
-            </div>
+            </FeatureGuard>
           </div>
 
           {/* Section: Animation - Only for Animate mode */}
