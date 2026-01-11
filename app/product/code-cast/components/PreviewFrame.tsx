@@ -119,10 +119,10 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
       <div className={getFrameStyles()}>
         {/* Browser Chrome Header (Only for Browser mode) */}
         {device === 'browser' && (
-          <div className="h-8 bg-gray-100 border-b border-gray-200 flex items-center px-3 gap-2 rounded-t-lg shrink-0">
-            <div className="w-3 h-3 rounded-full bg-red-400"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+          <div className="h-8 bg-gray-100 border-b border-gray-200 flex items-center px-3 gap-1.5 rounded-t-lg shrink-0">
+            <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black/10"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10"></div>
             <div className="ml-4 flex-1 h-5 bg-white rounded border border-gray-200 text-[10px] text-gray-400 flex items-center px-2">
               localhost:3000
             </div>

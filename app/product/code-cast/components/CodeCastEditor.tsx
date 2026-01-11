@@ -1,7 +1,7 @@
 
 import React, { useRef } from 'react';
 import Editor from '@monaco-editor/react';
-import { Code, FileCode, FileJson, Package, Check, Sparkles, Copy, Info } from 'lucide-react';
+import { Package, Check, Sparkles } from 'lucide-react';
 import { FeatureGuard } from '@/components/FeatureGuard';
 import { AppConfig, CodeSnippet } from '../types';
 
@@ -20,10 +20,43 @@ interface CodeCastEditorProps {
     updateConfig?: (key: keyof AppConfig, value: any) => void;
 }
 
+// Local SVG Logos (Optimized)
+
+const HTML_LOGO = (
+    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <polygon points="5.902 27.201 3.655 2 28.345 2 26.095 27.197 15.985 30 5.902 27.201" fill="#e44f26" />
+        <polygon points="16 27.858 24.17 25.593 26.092 4.061 16 4.061 16 27.858" fill="#f1662a" />
+        <polygon points="16 13.407 11.91 13.407 11.628 10.242 16 10.242 16 7.151 15.989 7.151 8.25 7.151 8.324 7.981 9.083 16.498 16 16.498 16 13.407" fill="#ebebeb" />
+        <polygon points="16 21.434 15.986 21.438 12.544 20.509 12.324 18.044 10.651 18.044 9.221 18.044 9.654 22.896 15.986 24.654 16 24.65 16 21.434" fill="#ebebeb" />
+        <polygon points="15.989 13.407 15.989 16.498 19.795 16.498 19.437 20.507 15.989 21.437 15.989 24.653 22.326 22.896 22.372 22.374 23.098 14.237 23.174 13.407 22.341 13.407 15.989 13.407" fill="#fff" />
+        <polygon points="15.989 7.151 15.989 9.071 15.989 10.235 15.989 10.242 23.445 10.242 23.445 10.242 23.455 10.242 23.517 9.548 23.658 7.981 23.732 7.151 15.989 7.151" fill="#fff" />
+    </svg>
+);
+
+const CSS_LOGO = (
+    <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <path fill="#264de4" d="M72 460L30 0h451l-41 460-184 52" />
+        <path fill="#2965f1" d="M256 37V472l149-41 35-394" />
+        <path fill="#ebebeb" d="m114 94h142v56H119m5 58h132v57H129m3 28h56l4 45 64 17v59L139 382" />
+        <path fill="#ffffff" d="m256 208v57h69l-7 73-62 17v59l115-32 26-288H256v56h80l-5.5 58Z" />
+    </svg>
+);
+
+const JS_LOGO = (
+    <svg viewBox="0 0 256.4 291.5" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
+        <g transform="translate(4.988 -113.385)">
+            <path fill="#d4b830" d="M18.8 375.4L-5 113.4l256.4.1-23.6 261.7L123 404.8 18.8 375.4zm189.7-14.3l19.9-224.4h-105l.8 247.5 84.3-23.1zm-94.9-191.5H88.1l-.3 134.3-49.5-13.5.1 30.7 75.2 20.3V169.6z" />
+            <path fill="#ebebeb" fillOpacity="0" opacity="0.986" d="M105.2 338.9c-3.3-1-19.6-5.4-36.2-9.9l-30.1-8.1v-15.1c0-14.8 0-15.1 1.5-14.6.8.3 11.8 3.3 24.4 6.8l22.9 6.3.2-67 .2-67h25v85.2c0 67.7-.2 85.2-.9 85.2-.5-.1-3.7-.9-7-1.8z" />
+            <path fill="#ebebeb" fillOpacity="0.9216" opacity="0.986" d="M38.4 321.1l-.1-30.7s31.6 8.9 49.5 13.5l.3-134.2h25.5v171.7l-75.2-20.3z" />
+            <path fill="#fdd83c" d="M123.4 136.6h105L208.5 361l-85.1 23.1V136.6zm79.7 186.8l6.9-83.9-51 5.7v-44.8l54.4-.2 2.2-30.6-82.1.4 1.1 111.4 49.6-8.5-.7 24.8-50 13.3.5 30.4 69.1-18z" />
+        </g>
+    </svg>
+);
+
 const TABS = [
-    { id: 'html' as const, label: 'HTML', icon: Code, color: 'text-orange-500' },
-    { id: 'css' as const, label: 'CSS', icon: FileCode, color: 'text-blue-500' },
-    { id: 'js' as const, label: 'JS', icon: FileJson, color: 'text-yellow-500' },
+    { id: 'html' as const, label: 'HTML', icon: () => HTML_LOGO, color: 'text-orange-500' },
+    { id: 'css' as const, label: 'CSS', icon: () => CSS_LOGO, color: 'text-blue-500' },
+    { id: 'js' as const, label: 'JS', icon: () => JS_LOGO, color: 'text-yellow-500' },
     { id: 'libs' as const, label: 'Libs', icon: Package, color: 'text-purple-500' },
 ];
 
@@ -111,11 +144,18 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
             }}
         >
             <div className="flex flex-col h-full rounded-xl overflow-hidden">
-                {/* Tabs */}
+                {/* Tabs Header */}
                 <div
-                    className={`flex items-center justify-between px-2 h-10 border-b shrink-0 ${isLight ? 'bg-gray-50/50 border-gray-200' : 'bg-[#252525] border-white/5'}`}
+                    className={`flex items-center gap-4 px-3 h-8 shrink-0 w-full ${isLight ? 'bg-gray-100 border-b border-gray-200' : 'bg-[#252525] border-b border-white/5'}`}
                 >
-                    <div className="flex items-center gap-1">
+                    {/* Window Controls (Traffic Lights) */}
+                    <div className="flex items-center gap-1.5 shrink-0">
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black/10"></div>
+                        <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10"></div>
+                    </div>
+
+                    <div className="flex items-center gap-1 flex-1">
                         {TABS.map(tab => {
                             const Icon = tab.icon;
                             const isActive = activeTab === tab.id;
@@ -133,62 +173,35 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                     onClick={() => setActiveTab(tab.id as any)}
                                     disabled={isPlaying}
                                     className={`
-                                        flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-all
+                                        flex items-center  md:gap-2 px-2  md:py-2 rounded-md text-[10px] font-medium transition-all
+                                        ${isLibs ? 'ml-auto' : ''}
                                         ${isActive
                                             ? isLight
                                                 ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
-                                                : 'bg-white/10 text-white shadow-sm ring-1 ring-white/10'
-                                            : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-black/5 dark:hover:bg-white/5 disabled:opacity-50'
+                                                : 'bg-[#3c3c3c] text-white shadow-sm ring-1 ring-white/10'
+                                            : isLight
+                                                ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200/50'
+                                                : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
                                         }
                                     `}
                                 >
-                                    {/* Icon Logic */}
-                                    {isLibs && firstSelectedLib ? (
-                                        <div className="w-4 h-4">
-                                            {firstSelectedLib.icon}
-                                        </div>
-                                    ) : isLibs && isActive ? (
-                                        <Icon
-                                            size={14}
-                                            className="text-orange-500 animate-[spin_3s_linear_infinite] lg:animate-none"
-                                            style={{ color: '#f97316' }}
-                                        />
-                                    ) : (
-                                        <Icon size={14} className={isActive ? tab.color : 'currentColor'} />
-                                    )}
+                                    {/* Icon */}
+                                    <div className="w-3.5 h-3.5 shrink-0 flex items-center justify-center">
+                                        {tab.id === 'html' ? HTML_LOGO :
+                                            tab.id === 'css' ? CSS_LOGO :
+                                                tab.id === 'js' ? JS_LOGO :
+                                                    <Icon size={14} className={tab.color} />}
+                                    </div>
 
-                                    {/* Label Logic */}
-                                    {isLibs && firstSelectedLib ? (
-                                        <span className={isLight ? 'text-gray-900' : 'text-white'}>
-                                            {firstSelectedLib.label}
-                                            {selectedLibIds.length > 1 && <span className="ml-1 opacity-60">+{selectedLibIds.length - 1}</span>}
-                                        </span>
-                                    ) : isLibs && isActive ? (
-                                        <span
-                                            className="bg-gradient-to-r from-orange-500 via-red-500 to-yellow-500 bg-[length:200%_auto] bg-clip-text text-transparent font-bold animate-[gradient_3s_linear_infinite]"
-                                            style={{
-                                                animation: 'gradient 3s linear infinite',
-                                            }}
-                                        >
-                                            {tab.label}
-                                            <style dangerouslySetInnerHTML={{
-                                                __html: `
-@keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-`
-                                            }} />
-                                        </span>
-                                    ) : (
-                                        <span>{tab.label}</span>
-                                    )}
+                                    {/* Label */}
+                                    <span className={`truncate ${isLibs ? 'hidden sm:inline' : ''}`}>
+                                        {isLibs && firstSelectedLib ? `+${selectedLibIds.length} Libs` : tab.label}
+                                    </span>
 
                                     {/* Dot Indicator */}
-                                    {(hasContent || (isLibs && hasSelection && !firstSelectedLib)) && (
-                                        <div className={`w-1.5 h-1.5 rounded-full ml-1 ${isPlaying && isActive ? 'bg-blue-400 animate-pulse' : 'bg-blue-500/30'}`}></div>
-                                    )}
+                                    {/* {(hasContent || (isLibs && hasSelection)) && (
+                                        <div className={`w-1 h-1 rounded-full ml-1.5 ${isActive ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-600'}`} />
+                                    )} */}
                                 </button>
                             );
 
@@ -368,6 +381,6 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };

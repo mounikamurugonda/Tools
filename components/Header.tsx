@@ -168,8 +168,8 @@ const Header: React.FC = () => {
                   href="/product/code-cast"
                   onClick={closeAllMenus}
                   className={`group relative flex items-center gap-2 px-3 py-2 transition-all rounded-lg ${pathname.startsWith('/product/code-cast')
-                      ? 'bg-blue-50 dark:bg-blue-900/20'
-                      : 'hover:bg-gray-50 dark:hover:bg-gray-800'
+                    ? 'bg-blue-50 dark:bg-blue-900/20'
+                    : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                     }`}
                 >
                   {/* Active Indicator Border */}
@@ -181,16 +181,16 @@ const Header: React.FC = () => {
                   <div className="relative flex items-center gap-2">
                     <div
                       className={`flex items-center justify-center w-7 h-7 rounded-lg text-white shadow-md transition-transform duration-300 ${pathname.startsWith('/product/code-cast')
-                          ? 'bg-gradient-to-br from-blue-600 to-purple-600 scale-105 shadow-blue-600/30'
-                          : 'bg-gradient-to-br from-gray-700 to-gray-900 group-hover:from-blue-600 group-hover:to-purple-600 shadow-gray-600/20 group-hover:shadow-blue-600/20'
+                        ? 'bg-gradient-to-br from-blue-600 to-purple-600 scale-105 shadow-blue-600/30'
+                        : 'bg-gradient-to-br from-gray-700 to-gray-900 group-hover:from-blue-600 group-hover:to-purple-600 shadow-gray-600/20 group-hover:shadow-blue-600/20'
                         }`}
                     >
                       <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
                     </div>
                     <span
                       className={`font-bold text-sm tracking-tight transition-colors ${pathname.startsWith('/product/code-cast')
-                          ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-400 dark:to-purple-400'
-                          : 'text-gray-700 dark:text-gray-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600'
+                        ? 'text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-purple-700 dark:from-blue-400 dark:to-purple-400'
+                        : 'text-gray-700 dark:text-gray-300 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600'
                         }`}
                     >
                       CodeCast
@@ -208,7 +208,7 @@ const Header: React.FC = () => {
                     >
                       <Play size={16} className="text-blue-500" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Animation
+                        Play Code
                       </span>
                     </Link>
                     <Link
