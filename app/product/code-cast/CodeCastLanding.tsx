@@ -28,6 +28,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { VideoCard } from './components/VideoCard';
+import { CODECAST_VIDEOS } from './data/videos';
 
 interface CodeCastLandingProps {
   onStart: () => void;
@@ -629,6 +631,46 @@ export default function CodeCastLanding({ onStart }: CodeCastLandingProps) {
             <p className="text-lg md:text-xl font-medium text-slate-500 dark:text-slate-400 italic border-t border-slate-200 dark:border-slate-800 pt-8 inline-block px-8">
               &quot;If you teach, explain, or share code — CodeCast fits your workflow.&quot;
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 🎬 Videos Made with CodeCast */}
+      <section className="py-24 bg-gradient-to-b from-white to-slate-50 dark:from-slate-950 dark:to-slate-900 transition-colors duration-300">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-xs font-bold uppercase tracking-wide mb-4">
+              Community Showcase
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
+              Videos made with{' '}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+                CodeCast
+              </span>
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400">
+              See how creators are using CodeCast to make amazing coding content
+            </p>
+          </div>
+
+          {/* Video Grid - Show first 6 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto mb-12">
+            {CODECAST_VIDEOS.slice(0, 6).map((video) => (
+              <VideoCard key={video.id} video={video} />
+            ))}
+          </div>
+
+          {/* View All Link */}
+          <div className="text-center">
+            <Link href="/product/code-cast/videos">
+              <Button
+                variant="outline"
+                size="lg"
+                className="rounded-full px-8 h-12 text-base backdrop-blur-sm bg-white/50 dark:bg-slate-900/50 border-2 hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+              >
+                View All Videos →
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

@@ -19,9 +19,9 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
 
   return (
-    <div className="flex h-[calc(100vh-5rem)] w-full bg-white dark:bg-gray-950 overflow-hidden transition-colors duration-300">
-      {/* Sidebar - Controlled by Store */}
-      <Sidebar />
+    <div className="flex flex-col h-[calc(100vh-5rem)] w-full bg-white dark:bg-gray-950 overflow-hidden transition-colors duration-300">
+      {/* Header - Full Width at Top */}
+      <CodeCastHeader />
 
       {/* Mobile Backdrop */}
       {isSidebarOpen && (
@@ -31,12 +31,12 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
         />
       )}
 
-      {/* Main Wrapper */}
-      <div className="flex-1 flex flex-col h-full min-w-0 relative bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-300 transition-colors duration-300">
-        {/* Header - Navigation & Global Controls */}
-        <CodeCastHeader />
+      {/* Content Wrapper: Sidebar + Main Content */}
+      <div className="flex flex-1 h-full min-h-0 overflow-hidden">
+        {/* Sidebar - Below Header on Left */}
+        <Sidebar />
 
-        {/* Content Area (Page) */}
+        {/* Main Content Area */}
         <main className="flex-1 overflow-hidden w-full flex flex-col items-center justify-center p-4 md:p-4 bg-gray-50 dark:bg-gray-950 relative transition-colors duration-300">
           {children}
         </main>

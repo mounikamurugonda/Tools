@@ -78,7 +78,7 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="fixed left-0 top-0 right-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 h-20 transition-colors duration-300">
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between gap-4">
+        <div className="w-full px-4 sm:px-6   h-full flex items-center justify-between gap-4">
           {/* Logo Area */}
           <Link
             href="/"
