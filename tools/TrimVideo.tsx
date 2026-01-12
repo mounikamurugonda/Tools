@@ -76,116 +76,114 @@ const TrimVideo: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
         <div className="space-y-6">
-          <Card title="Video Input">
-            <div className="space-y-6">
-              <FileUpload
-                accept="video/*"
-                onChange={handleFileChange}
-                label="Upload a video"
-                description="Select a video file to trim. You can specify start and end times to cut the video."
-                maxSize={500}
+          <div>
+            <Label>Video Input</Label>
+            <FileUpload
+              accept="video/*"
+              onChange={handleFileChange}
+              label="Upload a video"
+              description="Select a video file to trim. You can specify start and end times to cut the video."
+              maxSize={500}
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <Label>Start Time (s)</Label>
+              <Input
+                type="number"
+                value={startTime}
+                onChange={e => setStartTime(Number(e.target.value))}
+                min={0}
               />
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Start Time (s)</Label>
-                  <Input
-                    type="number"
-                    value={startTime}
-                    onChange={e => setStartTime(Number(e.target.value))}
-                    min={0}
-                  />
-                </div>
-                <div>
-                  <Label>End Time (s)</Label>
-                  <Input
-                    type="number"
-                    value={endTime}
-                    onChange={e => setEndTime(Number(e.target.value))}
-                    min={0}
-                  />
-                </div>
-              </div>
-
-              <Button
-                onClick={trimVideo}
-                disabled={!videoFile || isLoading}
-                className="w-full"
-                variant="primary"
-              >
-                {isLoading ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                    Trimming... {(progress * 100).toFixed(0)}%
-                  </>
-                ) : (
-                  <>
-                    <Scissors className="w-4 h-4 mr-2" /> Trim Video
-                  </>
-                )}
-              </Button>
-
-              {error && (
-                <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center text-red-600 dark:text-red-400">
-                  <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
-                  <p>{error}</p>
-                </div>
-              )}
             </div>
-          </Card>
+            <div>
+              <Label>End Time (s)</Label>
+              <Input
+                type="number"
+                value={endTime}
+                onChange={e => setEndTime(Number(e.target.value))}
+                min={0}
+              />
+            </div>
+          </div>
+
+          <Button
+            onClick={trimVideo}
+            disabled={!videoFile || isLoading}
+            className="w-full"
+            variant="primary"
+          >
+            {isLoading ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                Trimming... {(progress * 100).toFixed(0)}%
+              </>
+            ) : (
+              <>
+                <Scissors className="w-4 h-4 mr-2" /> Trim Video
+              </>
+            )}
+          </Button>
+
+          {error && (
+            <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center text-red-600 dark:text-red-400">
+              <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+              <p>{error}</p>
+            </div>
+          )}
         </div>
 
         {/* Right side - Preview */}
-        <div className="space-y-4">
-          <Card title="Preview" className="h-full">
-            <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 min-h-[300px] flex items-center justify-center h-full">
-              {videoFile && !trimmedVideo ? (
-                <div className="text-center w-full">
-                  <video
-                    src={URL.createObjectURL(videoFile)}
-                    controls
-                    className="max-w-full max-h-64 rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
-                  />
-                  <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
-                    <Video className="w-4 h-4 mr-1" /> Original Video
-                  </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                    Trim: {startTime}s - {endTime}s
-                  </p>
+        <div className="space-y-2">
+          <Label>Preview</Label>
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 h-96 flex items-center justify-center">
+            {videoFile && !trimmedVideo ? (
+              <div className="text-center w-full h-full flex flex-col justify-center">
+                <video
+                  src={URL.createObjectURL(videoFile)}
+                  controls
+                  className="max-w-full max-h-[70%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
+                />
+                <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
+                  <Video className="w-4 h-4 mr-1" /> Original Video
                 </div>
-              ) : trimmedVideo ? (
-                <div className="text-center w-full">
-                  <video
-                    src={trimmedVideo}
-                    controls
-                    className="max-w-full max-h-64 rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
-                  />
-                  <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
-                    <Scissors className="w-4 h-4 mr-1" /> Trimmed Video
-                  </div>
+                <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                  Trim: {startTime}s - {endTime}s
+                </p>
+              </div>
+            ) : trimmedVideo ? (
+              <div className="text-center w-full h-full flex flex-col justify-center">
+                <video
+                  src={trimmedVideo}
+                  controls
+                  className="max-w-full max-h-[70%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
+                />
+                <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
+                  <Scissors className="w-4 h-4 mr-1" /> Trimmed Video
+                </div>
 
-                  <div className="mt-4">
-                    <Button
-                      onClick={() => {
-                        const link = document.createElement('a');
-                        link.href = trimmedVideo;
-                        link.download = 'trimmed_video.mp4';
-                        link.click();
-                      }}
-                      variant="success"
-                    >
-                      <Download className="w-4 h-4 mr-2" /> Download Video
-                    </Button>
-                  </div>
+                <div className="mt-4">
+                  <Button
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = trimmedVideo;
+                      link.download = 'trimmed_video.mp4';
+                      link.click();
+                    }}
+                    variant="success"
+                  >
+                    <Download className="w-4 h-4 mr-2" /> Download Video
+                  </Button>
                 </div>
-              ) : (
-                <div className="text-center text-gray-400 dark:text-gray-500 flex flex-col items-center">
-                  <Scissors className="w-16 h-16 mb-4 opacity-50" />
-                  <p>Upload a video to trim</p>
-                </div>
-              )}
-            </div>
-          </Card>
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 dark:text-gray-500 flex flex-col items-center">
+                <Scissors className="w-16 h-16 mb-4 opacity-50" />
+                <p>Upload a video to trim</p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </ToolContainer>
