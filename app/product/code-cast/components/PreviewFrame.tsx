@@ -42,7 +42,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
           <style>
             /* Reset & Defaults */
             * { box-sizing: border-box; }
-            body { margin: 0; padding: 0px; font-family: sans-serif; overflow-x: hidden; transition: all 0.3s ease-in-out; }
+            body { margin: 0; padding: 0px; font-family: sans-serif; overflow-x: hidden; transition: all 0.3s ease-in-out; background-color: white; min-height: 100vh; }
           </style>
           ${getLibraryTags(libraries)}
           <style id="preview-css"></style>
@@ -101,10 +101,10 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
   // The Parent (Canvas) determines the overall aspect ratio.
   const getFrameStyles = () => {
     const base =
-      'bg-white shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
+      'shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
 
     if (device === 'browser') {
-      return `w-full h-full rounded-lg bg-white shadow-lg relative flex flex-col`;
+      return `w-full h-full rounded-lg bg-transparent shadow-lg relative flex flex-col`;
     }
 
     // For mobile/minimal/social, we just return a clean rounded container that fills the split pane.
@@ -133,7 +133,8 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
           ref={iframeRef}
           title="preview"
           srcDoc={srcDoc}
-          className={`w-full h-full bg-white ${device === 'browser' ? 'rounded-b-lg' : 'rounded-xl'}`}
+          className={`w-full h-full border-0 ${device === 'browser' ? 'rounded-b-lg' : 'rounded-xl'}`}
+          style={{ backgroundColor: 'transparent' }}
           sandbox="allow-scripts"
           onLoad={handleLoad}
         />

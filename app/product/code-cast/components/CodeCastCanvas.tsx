@@ -16,14 +16,13 @@ export const CodeCastCanvas: React.FC<CodeCastCanvasProps> = ({
     return (
         <div
             id="canvas-stage"
-            className={`flex-1 flex flex-col ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative rounded-xl`}
+            className={`flex-1 flex flex-col ${config.background === 'codecast-gradient' ? 'bg-gradient-to-br from-blue-600 to-purple-600' : config.background} relative rounded-xl overflow-hidden`}
             style={{
                 aspectRatio: layout.canvasAspectRatio,
                 maxWidth: layout.maxWidth || 'none',
                 maxHeight: layout.maxHeight || 'none',
                 margin: layout.canvasAspectRatio ? 'auto' : undefined,
                 padding: `${config.canvasPadding}px`,
-                overflow: 'hidden',
             }}
         >
             <ProjectTitleDisplay />

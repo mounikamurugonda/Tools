@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useTypeStore } from '../../store/useCodeCastStore';
 import { CodeCastEditor } from '../../components/CodeCastEditor';
 import { CodeCastCanvas } from '../../components/CodeCastCanvas';
@@ -34,8 +34,8 @@ export default function TypePage() {
     }
   }, [isRecording, recordedVideoBlob]);
 
-  // Get responsive layout configuration based on device frame
-  const layout = getCanvasLayout(config.deviceFrame);
+  // Get responsive layout configuration based on device frame - memoized to update when device changes
+  const layout = useMemo(() => getCanvasLayout(config.deviceFrame), [config.deviceFrame]);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -56,7 +56,7 @@ export default function TypePage() {
 
         {/* Preview */}
         <div
-          className="flex-1 rounded-xl overflow-hidden bg-white transition-shadow duration-300"
+          className="flex-1 min-h-0 max-h-full rounded-xl overflow-hidden bg-white transition-shadow duration-300"
           style={{
             order: layout.flexDirection === 'flex-col' ? 1 : 2,
             boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`

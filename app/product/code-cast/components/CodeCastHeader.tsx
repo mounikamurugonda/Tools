@@ -22,6 +22,7 @@ import {
   Image as ImageIcon,
   Code2,
   Columns,
+  Keyboard,
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -54,11 +55,11 @@ const TooltipWrapper = ({ children, label, className = '' }: { children: React.R
 
 
 export const CodeCastHeader = () => {
-  // Navigation items configuration
+  // Navigation items configuration with icons
   const NAV_ITEMS = [
-    { id: 'animate', label: 'Play code' },
-    { id: 'type', label: 'Type code' },
-    { id: 'image', label: 'Code to image' },
+    { id: 'animate', label: 'Play code', icon: Play, shortLabel: 'Play' },
+    { id: 'type', label: 'Type code', icon: Keyboard, shortLabel: 'Type' },
+    { id: 'image', label: 'Code to image', icon: ImageIcon, shortLabel: 'Image' },
   ] as const;
 
   const pathname = usePathname();
@@ -103,11 +104,12 @@ export const CodeCastHeader = () => {
   };
 
   // Helper to get device icon
+  // Helper to get device icon
   const getDeviceIcon = (device: DeviceFrame) => {
     if (device === 'browser' || device === 'minimal') {
-      return <Monitor size={14} />;
+      return <Monitor size={16} strokeWidth={2} />;
     }
-    return <Smartphone size={14} />;
+    return <Smartphone size={16} strokeWidth={2} />;
   };
 
   // Animate mode controls
@@ -249,329 +251,376 @@ export const CodeCastHeader = () => {
   const filteredOptions = getFilteredFrameOptions();
 
   return (
-    <header className="h-14 flex items-center justify-between px-4 shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
-      {/* Left: Sidebar + Brand + Mode Switcher */}
-      <div className="flex items-center gap-3">
-        {/* Brand */}
-        <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-md shadow-blue-600/20">
-            <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
+    <header className="shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+      {/* Row 1: Main controls */}
+      <div className="h-14 flex items-center justify-between px-4">
+        {/* Left: Sidebar + Brand + Mode Switcher (desktop only) */}
+        <div className="flex items-center gap-3">
+          {/* Brand */}
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-md shadow-blue-600/20">
+              <Terminal size={14} strokeWidth={2.5} className="opacity-100" />
+            </div>
+            <span className="hidden sm:inline font-bold text-sm tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
+              CodeCast
+            </span>
           </div>
-          <span className="hidden sm:inline font-bold text-sm tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-            CodeCast
-          </span>
+
+          <TooltipWrapper label="Toggle Sidebar">
+            <button
+              onClick={() => setSidebarOpen(!isSidebarOpen)}
+              className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10"
+              aria-label="Toggle Sidebar"
+            >
+              <PanelLeft size={20} strokeWidth={2} />
+            </button>
+          </TooltipWrapper>
+
+          {/* Mode Switcher - desktop only */}
+          <div className="hidden md:flex items-center gap-1 p-0.5 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
+            {NAV_ITEMS.map(item => (
+              <TooltipWrapper key={item.id} label={item.label}>
+                <Link
+                  href={`/product/code-cast/${item.id}`}
+                  className={`px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase transition-all ${mode === item.id
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    }`}
+                >
+                  {item.label}
+                </Link>
+              </TooltipWrapper>
+            ))}
+          </div>
         </div>
 
-        <TooltipWrapper label="Toggle Sidebar">
-          <button
-            onClick={() => setSidebarOpen(!isSidebarOpen)}
-            className="p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/10"
-          >
-            <PanelLeft size={18} />
-          </button>
-        </TooltipWrapper>
+        {/* Right: Mode Controls + Device + Recording */}
+        <div className="flex items-center gap-1.5 md:gap-2">
 
-        {/* Mode Switcher - compact on mobile */}
-        <div className="flex items-center gap-1 p-0.5 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800">
-          {NAV_ITEMS.map(item => (
-            <Link
-              key={item.id}
-              href={`/product/code-cast/${item.id}`}
-              className={`px-2 sm:px-3 py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase transition-all ${mode === item.id
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
-                }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {/* Format Code - hidden on mobile */}
+          <div className="hidden md:block">
+            <TooltipWrapper label="Format Code">
+              <button
+                onClick={handleFormat}
+                className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20`}
+              >
+                <Sparkles size={16} />
+              </button>
+            </TooltipWrapper>
+          </div>
+
+          {/* Clear All Code - hidden on mobile */}
+          <div className="hidden md:block">
+            <TooltipWrapper label="Clear All Code">
+              <button
+                onClick={() => {
+                  // Check if we have updateCode available (all stores should have it)
+                  if (activeTab && currentStore && currentStore.updateCode) {
+                    currentStore.updateCode('html', '');
+                    currentStore.updateCode('css', '');
+                    currentStore.updateCode('js', '');
+                  } else if (currentStore && currentStore.setCode) {
+                    // Fallback if updateCode isn't directly exposed or for safety
+                    currentStore.setCode({ html: '', css: '', js: '' });
+                  }
+                }}
+                className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20`}
+              >
+                <Trash2 size={16} />
+              </button>
+            </TooltipWrapper>
+          </div>
+
+          {/* Text Wrap Toggle - hidden on mobile */}
+          <div className="hidden md:block">
+            <TooltipWrapper label={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}>
+              <button
+                onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
+                className={`p-1.5 rounded-md transition-colors ${config.wordWrap
+                  ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+              >
+                <WrapText size={16} />
+              </button>
+            </TooltipWrapper>
+          </div>
+
+          {/* Line Numbers Toggle - hidden on mobile */}
+          <div className="hidden md:block">
+            <TooltipWrapper label={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}>
+              <button
+                onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
+                className={`p-1.5 rounded-md transition-colors ${config.lineNumbers
+                  ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+              >
+                <ListOrdered size={16} />
+              </button>
+            </TooltipWrapper>
+          </div>
+
+          {/* Image Mode Export & View Controls */}
+          {
+            mode === 'image' && (
+              <div className="flex items-center gap-2 mr-2 border-r border-gray-200 dark:border-gray-800 pr-2">
+                {/* View Controls - Single Cycle Button */}
+                {/* View Controls - Single Cycle Button */}
+                <div className="flex items-center bg-white dark:bg-gray-900 rounded-lg p-0.5 border border-gray-200 dark:border-gray-800 mr-2">
+                  <TooltipWrapper label="Toggle View (Split / Preview / Code)">
+                    <button
+                      onClick={toggleViewMode}
+                      className="p-1.5 rounded transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    >
+                      {getViewModeIcon()}
+                    </button>
+                  </TooltipWrapper>
+                </div>
+
+                {/* Export Buttons */}
+                {/* Export Buttons */}
+                <div className="flex items-center gap-1">
+                  <FeatureGuard actionName="download image">
+                    <TooltipWrapper label="Download PNG">
+                      <button
+                        onClick={() => handleExport('png')}
+                        disabled={isExporting}
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-md text-xs font-bold transition-colors"
+                      >
+                        <Download size={14} />
+                        <span className="hidden lg:inline">PNG</span>
+                      </button>
+                    </TooltipWrapper>
+                  </FeatureGuard>
+                  <FeatureGuard actionName="download image">
+                    <TooltipWrapper label="Download SVG">
+                      <button
+                        onClick={() => handleExport('svg')}
+                        disabled={isExporting}
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 rounded-md text-xs font-bold transition-colors"
+                      >
+                        <Download size={14} />
+                        <span className="hidden lg:inline">SVG</span>
+                      </button>
+                    </TooltipWrapper>
+                  </FeatureGuard>
+                  <FeatureGuard actionName="copy image">
+                    <TooltipWrapper label="Copy to Clipboard">
+                      <button
+                        onClick={() => handleExport('copy')}
+                        disabled={isExporting}
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/30 disabled:opacity-50 disabled:cursor-not-allowed text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 rounded-md text-xs font-bold transition-colors"
+                      >
+                        <Copy size={14} />
+                        <span className="hidden lg:inline">Copy</span>
+                      </button>
+                    </TooltipWrapper>
+                  </FeatureGuard>
+                </div>
+              </div>
+            )
+          }
+
+          {/* Device Frame Dropdown */}
+          <div className="relative">
+            <TooltipWrapper label="Select Device Frame">
+              <button
+                onClick={() => setIsDeviceDropdownOpen(!isDeviceDropdownOpen)}
+                className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 flex items-center justify-center md:justify-between gap-2 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  {getDeviceIcon(config.deviceFrame)}
+                  <span className="hidden md:inline text-xs font-bold text-gray-900 dark:text-gray-100">
+                    {(() => {
+                      const label = FRAME_OPTIONS.find(f => f.id === config.deviceFrame)?.label || 'Device';
+                      const match = label.match(/\((.*?)\)/);
+                      if (match) return match[1]; // Show "9:16", "16:9", etc.
+                      return label.split('/')[0].trim(); // Fallback to "Full Width", "Desktop", etc.
+                    })()}
+                  </span>
+                </div>
+                <ChevronDown
+                  size={12}
+                  className={`transition-transform ml-0.5 md:ml-0 ${isDeviceDropdownOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+            </TooltipWrapper>
+
+            {isDeviceDropdownOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setIsDeviceDropdownOpen(false)} />
+                <div className="absolute top-full right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xl z-20 overflow-hidden">
+                  {['Standard', 'Social Media'].map(group => {
+                    const groupOptions = filteredOptions.filter(f => f.group === group);
+                    if (groupOptions.length === 0) return null;
+
+                    return (
+                      <div key={group}>
+                        <div className="px-3 py-2 text-[10px] uppercase font-bold text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-800/50">
+                          {group}
+                        </div>
+                        {groupOptions.map(frame => (
+                          <button
+                            key={frame.id}
+                            onClick={() => {
+                              setConfig((prev: any) => ({ ...prev, deviceFrame: frame.id }));
+                              setIsDeviceDropdownOpen(false);
+                            }}
+                            className={`w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors ${config.deviceFrame === frame.id
+                              ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
+                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                              }`}
+                          >
+                            {getDeviceIcon(frame.id)}
+                            <span className="text-xs">{frame.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Animate Button - Animate mode only */}
+          {
+            mode === 'animate' && (
+              <div className="flex items-center gap-1.5">
+                {!isPlaying ? (
+                  <TooltipWrapper label="Start Animation">
+                    <button
+                      onClick={handlePlayClick}
+                      className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center md:gap-2"
+                      aria-label="Animate"
+                    >
+                      <Play size={20} fill="currentColor" strokeWidth={0} className="md:w-3.5 md:h-3.5" />
+                      <span className="hidden md:inline text-xs font-bold">Animate</span>
+                    </button>
+                  </TooltipWrapper>
+                ) : (
+                  <>
+                    {/* Pause / Resume Button */}
+                    <TooltipWrapper label={isAnimationPaused ? 'Resume Animation' : 'Pause Animation'}>
+                      <button
+                        onClick={() => setIsAnimationPaused(!isAnimationPaused)}
+                        className={`w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors text-white flex items-center justify-center md:gap-2 ${isAnimationPaused ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'
+                          }`}
+                        aria-label={isAnimationPaused ? 'Resume' : 'Pause'}
+                      >
+                        {isAnimationPaused ? <Play size={20} fill="currentColor" strokeWidth={0} className="md:w-3.5 md:h-3.5" /> : <Pause size={20} fill="currentColor" strokeWidth={0} className="md:w-3.5 md:h-3.5" />}
+                        <span className="hidden md:inline text-xs font-bold">{isAnimationPaused ? 'Resume' : 'Pause'}</span>
+                      </button>
+                    </TooltipWrapper>
+
+                    {/* Stop Button */}
+                    <TooltipWrapper label="Stop Animation">
+                      <button
+                        onClick={() => {
+                          setIsPlaying(false);
+                          setIsAnimationPaused(false);
+                        }}
+                        className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors bg-red-500 hover:bg-red-600 text-white flex items-center justify-center md:gap-2"
+                        aria-label="Stop"
+                      >
+                        <Square size={20} fill="white" strokeWidth={0} className="md:w-3.5 md:h-3.5" />
+                        <span className="hidden md:inline text-xs font-bold">Stop</span>
+                      </button>
+                    </TooltipWrapper>
+                  </>
+                )}
+              </div>
+            )
+          }
+
+          {/* Recording Controls - Type and Animate modes */}
+          {
+            (mode === 'type' || mode === 'animate') && (
+              <div className="flex items-center gap-1.5">
+                <FeatureGuard actionName="use microphone">
+                  <TooltipWrapper label={isMicEnabled ? 'Mic On' : 'Mic Off'}>
+                    <button
+                      onClick={() => setIsMicEnabled(!isMicEnabled)}
+                      className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isMicEnabled
+                        ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
+                        : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                        }`}
+                    >
+                      {isMicEnabled ? <Mic size={20} /> : <MicOff size={20} />}
+                    </button>
+                  </TooltipWrapper>
+                </FeatureGuard>
+                {!isRecording ? (
+                  <FeatureGuard actionName="record screen">
+                    <TooltipWrapper label="Start Recording">
+                      <button
+                        onClick={() => startRecording(isMicEnabled)}
+                        className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex items-center justify-center md:gap-2 shadow-lg"
+                        aria-label="Start Recording"
+                      >
+                        <div className="w-3.5 h-3.5 bg-white rounded-full md:w-2.5 md:h-2.5" />
+                        <span className="hidden md:inline text-xs font-bold">REC</span>
+                      </button>
+                    </TooltipWrapper>
+                  </FeatureGuard>
+                ) : (
+
+                  <>
+                    <TooltipWrapper label={isPaused ? 'Resume Recording' : 'Pause Recording'}>
+                      <button
+                        onClick={isPaused ? resumeRecording : pauseRecording}
+                        className={`w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors text-white flex items-center justify-center md:gap-2 ${isPaused ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'
+                          }`}
+                        aria-label={isPaused ? 'Resume' : 'Pause'}
+                      >
+                        {isPaused ? <Play size={20} fill="currentColor" strokeWidth={0} className="md:w-3 md:h-3" /> : <Pause size={20} fill="currentColor" strokeWidth={0} className="md:w-3 md:h-3" />}
+                        <span className="hidden md:inline text-xs font-bold uppercase">{isPaused ? 'Resume' : 'Pause'}</span>
+                      </button>
+                    </TooltipWrapper>
+                    <TooltipWrapper label="Stop Recording">
+                      <button
+                        onClick={() => {
+                          console.log('STOP button clicked');
+                          stopRecording();
+                        }}
+                        className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex items-center justify-center md:gap-2 animate-pulse"
+                        aria-label="Stop Recording"
+                      >
+                        <Square size={20} fill="white" strokeWidth={0} className="md:w-3 md:h-3" />
+                        <span className="hidden md:inline text-xs font-bold">STOP {formatTime(recordingTime)}</span>
+                      </button>
+                    </TooltipWrapper>
+                  </>
+                )}
+              </div>
+            )
+          }
+          <LoginButton />
         </div>
       </div>
 
-      {/* Right: Mode Controls + Device + Recording */}
-      < div className="flex items-center gap-2" >
-
-        {/* Format Code */}
-        {/* Format Code */}
-        <TooltipWrapper label="Format Code">
-          <button
-            onClick={handleFormat}
-            className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20`}
-          >
-            <Sparkles size={16} />
-          </button>
-        </TooltipWrapper>
-
-        {/* Clear All Code */}
-        {/* Clear All Code */}
-        <TooltipWrapper label="Clear All Code">
-          <button
-            onClick={() => {
-              // Check if we have updateCode available (all stores should have it)
-              if (activeTab && currentStore && currentStore.updateCode) {
-                currentStore.updateCode('html', '');
-                currentStore.updateCode('css', '');
-                currentStore.updateCode('js', '');
-              } else if (currentStore && currentStore.setCode) {
-                // Fallback if updateCode isn't directly exposed or for safety
-                currentStore.setCode({ html: '', css: '', js: '' });
-              }
-            }}
-            className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20`}
-          >
-            <Trash2 size={16} />
-          </button>
-        </TooltipWrapper>
-
-        {/* Text Wrap Toggle */}
-        {/* Text Wrap Toggle */}
-        <TooltipWrapper label={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}>
-          <button
-            onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
-            className={`p-1.5 rounded-md transition-colors ${config.wordWrap
-              ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-          >
-            <WrapText size={16} />
-          </button>
-        </TooltipWrapper>
-
-        {/* Line Numbers Toggle */}
-        {/* Line Numbers Toggle */}
-        <TooltipWrapper label={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}>
-          <button
-            onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
-            className={`p-1.5 rounded-md transition-colors ${config.lineNumbers
-              ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
-              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-              }`}
-          >
-            <ListOrdered size={16} />
-          </button>
-        </TooltipWrapper>
-
-        {/* Image Mode Export & View Controls */}
-        {
-          mode === 'image' && (
-            <div className="flex items-center gap-2 mr-2 border-r border-gray-200 dark:border-gray-800 pr-2">
-              {/* View Controls - Single Cycle Button */}
-              {/* View Controls - Single Cycle Button */}
-              <div className="flex items-center bg-white dark:bg-gray-900 rounded-lg p-0.5 border border-gray-200 dark:border-gray-800 mr-2">
-                <TooltipWrapper label="Toggle View (Split / Preview / Code)">
-                  <button
-                    onClick={toggleViewMode}
-                    className="p-1.5 rounded transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  >
-                    {getViewModeIcon()}
-                  </button>
-                </TooltipWrapper>
-              </div>
-
-              {/* Export Buttons */}
-              {/* Export Buttons */}
-              <div className="flex items-center gap-1">
-                <FeatureGuard actionName="download image">
-                  <TooltipWrapper label="Download PNG">
-                    <button
-                      onClick={() => handleExport('png')}
-                      disabled={isExporting}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-md text-xs font-bold transition-colors"
-                    >
-                      <Download size={14} />
-                      <span className="hidden lg:inline">PNG</span>
-                    </button>
-                  </TooltipWrapper>
-                </FeatureGuard>
-                <FeatureGuard actionName="download image">
-                  <TooltipWrapper label="Download SVG">
-                    <button
-                      onClick={() => handleExport('svg')}
-                      disabled={isExporting}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300 rounded-md text-xs font-bold transition-colors"
-                    >
-                      <Download size={14} />
-                      <span className="hidden lg:inline">SVG</span>
-                    </button>
-                  </TooltipWrapper>
-                </FeatureGuard>
-                <FeatureGuard actionName="copy image">
-                  <TooltipWrapper label="Copy to Clipboard">
-                    <button
-                      onClick={() => handleExport('copy')}
-                      disabled={isExporting}
-                      className="flex items-center gap-1.5 px-3 py-1.5 bg-green-50 hover:bg-green-100 dark:bg-green-900/20 dark:hover:bg-green-900/30 disabled:opacity-50 disabled:cursor-not-allowed text-green-600 dark:text-green-400 border border-green-200 dark:border-green-800 rounded-md text-xs font-bold transition-colors"
-                    >
-                      <Copy size={14} />
-                      <span className="hidden lg:inline">Copy</span>
-                    </button>
-                  </TooltipWrapper>
-                </FeatureGuard>
-              </div>
-            </div>
-          )
-        }
-
-        {/* Device Frame Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => setIsDeviceDropdownOpen(!isDeviceDropdownOpen)}
-            className="flex items-center gap-1.5 px-2 sm:px-3 py-1.5 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-xs font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-          >
-            {getDeviceIcon(config.deviceFrame)}
-            <span className="hidden md:inline text-[11px]">
-              {FRAME_OPTIONS.find(f => f.id === config.deviceFrame)?.label.split(' ')[0] ||
-                'Device'}
-            </span>
-            <ChevronDown
-              size={12}
-              className={`transition-transform ${isDeviceDropdownOpen ? 'rotate-180' : ''}`}
-            />
-          </button>
-
-          {isDeviceDropdownOpen && (
-            <>
-              <div className="fixed inset-0 z-10" onClick={() => setIsDeviceDropdownOpen(false)} />
-              <div className="absolute top-full right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xl z-20 overflow-hidden">
-                {['Standard', 'Social Media'].map(group => {
-                  const groupOptions = filteredOptions.filter(f => f.group === group);
-                  if (groupOptions.length === 0) return null;
-
-                  return (
-                    <div key={group}>
-                      <div className="px-3 py-2 text-[10px] uppercase font-bold text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-800/50">
-                        {group}
-                      </div>
-                      {groupOptions.map(frame => (
-                        <button
-                          key={frame.id}
-                          onClick={() => {
-                            setConfig((prev: any) => ({ ...prev, deviceFrame: frame.id }));
-                            setIsDeviceDropdownOpen(false);
-                          }}
-                          className={`w-full px-3 py-2 text-left text-sm flex items-center gap-2 transition-colors ${config.deviceFrame === frame.id
-                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                            }`}
-                        >
-                          {getDeviceIcon(frame.id)}
-                          <span className="text-xs">{frame.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          )}
+      {/* Row 2: Mode tabs - mobile only */}
+      <div className="md:hidden border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+        <div className="flex items-center justify-around px-2 py-1.5">
+          {NAV_ITEMS.map(item => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.id}
+                href={`/product/code-cast/${item.id}`}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[10px] font-semibold uppercase transition-all ${mode === item.id
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+              >
+                <Icon size={14} strokeWidth={2.5} />
+                <span>{item.shortLabel}</span>
+              </Link>
+            );
+          })}
         </div>
-
-        {/* Animate Button - Animate mode only */}
-        {
-          mode === 'animate' && (
-            <div className="flex items-center gap-1">
-              {!isPlaying ? (
-                <FeatureGuard actionName="animate code">
-                  <button
-                    onClick={handlePlayClick}
-                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    <Play size={14} fill="currentColor" />
-                    <span className="hidden sm:inline">Animate</span>
-                  </button>
-                </FeatureGuard>
-              ) : (
-                <>
-                  {/* Pause / Resume Button */}
-                  <TooltipWrapper label={isAnimationPaused ? 'Resume Animation' : 'Pause Animation'}>
-                    <button
-                      onClick={() => setIsAnimationPaused(!isAnimationPaused)}
-                      className={`flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all text-white ${isAnimationPaused ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'
-                        }`}
-                    >
-                      {isAnimationPaused ? <Play size={14} fill="currentColor" /> : <Pause size={14} fill="currentColor" />}
-                      <span className="hidden sm:inline">{isAnimationPaused ? 'Resume' : 'Pause'}</span>
-                    </button>
-                  </TooltipWrapper>
-
-                  {/* Stop Button */}
-                  <TooltipWrapper label="Stop Animation">
-                    <button
-                      onClick={() => {
-                        setIsPlaying(false);
-                        setIsAnimationPaused(false);
-                      }}
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-lg font-bold text-xs transition-all bg-red-500 hover:bg-red-600 text-white"
-                    >
-                      <Square size={14} fill="white" />
-                      <span className="hidden sm:inline">Stop</span>
-                    </button>
-                  </TooltipWrapper>
-                </>
-              )}
-            </div>
-          )
-        }
-
-        {/* Recording Controls - Type and Animate modes */}
-        {
-          (mode === 'type' || mode === 'animate') && (
-            <div className="flex items-center gap-1">
-              <FeatureGuard actionName="use microphone">
-                <TooltipWrapper label={isMicEnabled ? 'Mic On' : 'Mic Off'}>
-                  <button
-                    onClick={() => setIsMicEnabled(!isMicEnabled)}
-                    className={`p-1.5 rounded-md transition-colors ${isMicEnabled
-                      ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
-                      : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                      }`}
-                  >
-                    {isMicEnabled ? <Mic size={14} /> : <MicOff size={14} />}
-                  </button>
-                </TooltipWrapper>
-              </FeatureGuard>
-              {!isRecording ? (
-                <FeatureGuard actionName="record screen">
-                  <button
-                    onClick={() => startRecording(isMicEnabled)}
-                    className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg"
-                  >
-                    ● REC
-                  </button>
-                </FeatureGuard>
-              ) : (
-
-                <>
-                  <TooltipWrapper label={isPaused ? 'Resume Recording' : 'Pause Recording'}>
-                    <button
-                      onClick={isPaused ? resumeRecording : pauseRecording}
-                      className={`px-2.5 py-1 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg flex items-center gap-1 ${isPaused
-                        ? 'bg-green-500 hover:bg-green-600'
-                        : 'bg-yellow-500 hover:bg-yellow-600'
-                        }`}
-                    >
-                      {isPaused ? <Play size={10} fill="currentColor" /> : <Pause size={10} fill="currentColor" />}
-                      {isPaused ? 'RESUME' : 'PAUSE'}
-                    </button>
-                  </TooltipWrapper>
-                  <TooltipWrapper label="Stop Recording">
-                    <button
-                      onClick={() => {
-                        console.log('STOP button clicked');
-                        stopRecording();
-                      }}
-                      className="px-2.5 py-1 bg-red-500 hover:bg-red-600 text-white text-[10px] font-bold rounded-full transition-colors shadow-lg animate-pulse"
-                    >
-                      ■ STOP {formatTime(recordingTime)}
-                    </button>
-                  </TooltipWrapper>
-                </>
-              )}
-            </div>
-          )
-        }
-        <LoginButton />
-      </div >
-    </header >
+      </div>
+    </header>
   );
 };

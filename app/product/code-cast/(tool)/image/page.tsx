@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useImageStore } from '../../store/useCodeCastStore';
 import { CodeCastEditor } from '../../components/CodeCastEditor';
 import { CodeCastCanvas } from '../../components/CodeCastCanvas';
@@ -21,8 +21,8 @@ export default function ImagePage() {
     showPreview
   } = useImageStore();
 
-  // Get responsive layout configuration based on device frame
-  const layout = getCanvasLayout(config.deviceFrame);
+  // Get responsive layout configuration based on device frame - memoized to update when device changes
+  const layout = useMemo(() => getCanvasLayout(config.deviceFrame), [config.deviceFrame]);
 
   // Determine visibility - ensure at least one is always visible to avoid empty canvas
   const isEditorVisible = showEditor !== false; // Default to true if undefined
@@ -54,7 +54,7 @@ export default function ImagePage() {
         {/* Preview */}
         {isPreviewVisible && (
           <div
-            className={`${safeEditorVisible ? 'flex-1' : 'w-full flex-grow'} rounded-xl overflow-hidden bg-white transition-shadow duration-300 min-w-0`}
+            className={`${safeEditorVisible ? 'flex-1' : 'w-full flex-grow'} min-h-0 max-h-full rounded-xl overflow-hidden bg-white transition-shadow duration-300 min-w-0`}
             style={{
               order: layout.flexDirection === 'flex-col' ? 1 : 2,
               boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`

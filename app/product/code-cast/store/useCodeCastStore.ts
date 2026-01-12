@@ -152,6 +152,6 @@ export const useImageStore = createCodeCastStore('code-cast-image');
 
 // Shared UI store for sidebar toggle
 export const useSharedUIStore = create<SharedUIState>()(set => ({
-  isSidebarOpen: true,
+  isSidebarOpen: false,
   setSidebarOpen: isOpen => set({ isSidebarOpen: isOpen }),
 }));

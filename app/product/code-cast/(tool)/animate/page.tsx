@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useAnimateStore } from '../../store/useCodeCastStore';
 import PreviewFrame from '../../components/PreviewFrame';
 import { useRecording } from '../../context/RecordingContext';
@@ -64,8 +64,8 @@ export default function AnimatePage() {
     }
   }, [isRecording, recordedVideoBlob]);
 
-  // Layout calculations
-  const layout = getCanvasLayout(config.deviceFrame);
+  // Layout calculations - memoized to update when device changes
+  const layout = useMemo(() => getCanvasLayout(config.deviceFrame), [config.deviceFrame]);
   const isLight = config.theme === 'light' || config.theme === 'github' || config.theme === 'solarized-light';
 
   return (
@@ -89,7 +89,7 @@ export default function AnimatePage() {
 
         {/* Preview */}
         <div
-          className="flex-1 rounded-xl overflow-hidden bg-white transition-shadow duration-300"
+          className="flex-1 min-h-0 max-h-full rounded-xl overflow-hidden bg-white transition-shadow duration-300"
           style={{
             order: layout.flexDirection === 'flex-col' ? 1 : 2,
             boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
