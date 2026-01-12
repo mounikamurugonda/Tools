@@ -1,6 +1,6 @@
 import { TOOLS, getToolDetails } from '@/constants';
 import ToolLoader from '@/components/ToolLoader';
-import { getToolSchema, getWebsiteSchema, getOrganizationSchema } from '@/lib/schema';
+import { getToolSchema, getBreadcrumbSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { notFound } from 'next/navigation';
@@ -38,14 +38,14 @@ export async function generateMetadata(
     description,
     keywords: tool.keywords
       ? [
-          ...tool.keywords,
-          'developer tools',
-          'online tools',
-          'free utilities',
-          'browser tools',
-          'privacy tools',
-          'no registration required',
-        ]
+        ...tool.keywords,
+        'developer tools',
+        'online tools',
+        'free utilities',
+        'browser tools',
+        'privacy tools',
+        'no registration required',
+      ]
       : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities, browser tools`,
     authors: [{ name: 'UtilToolkits Team' }],
     creator: 'UtilToolkits',
@@ -126,9 +126,14 @@ export default async function ToolPage({ params }: { params: Promise<{ toolId: s
   return (
     <AnalyticsWrapper pageType="tool" toolName={tool.name}>
       {/* Schema Markup */}
-      <Schema schema={getWebsiteSchema()} />
-      <Schema schema={getOrganizationSchema()} />
       <Schema schema={getToolSchema(tool)} />
+      <Schema
+        schema={getBreadcrumbSchema([
+          { name: 'Home', url: 'https://utiltoolkits.com' },
+          { name: 'Tools', url: 'https://utiltoolkits.com/tools' },
+          { name: tool.name, url: `https://utiltoolkits.com/tools/${tool.id}` },
+        ])}
+      />
 
       <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <ToolLoader toolId={tool.id} details={toolDetails} tool={toolData} />

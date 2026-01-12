@@ -4,8 +4,6 @@ import { TOOLS } from '@/constants';
 import ToolCard from '@/components/ToolCard';
 import {
   getToolsPageSchema,
-  getWebsiteSchema,
-  getOrganizationSchema,
   getBreadcrumbSchema,
 } from '@/lib/schema';
 import Schema from '@/components/Schema';
@@ -49,8 +47,6 @@ function ToolsContent() {
   return (
     <>
       {/* Schema Markup */}
-      <Schema schema={getWebsiteSchema()} />
-      <Schema schema={getOrganizationSchema()} />
       <Schema schema={getToolsPageSchema(searchQuery)} />
       <Schema schema={getBreadcrumbSchema(breadcrumbItems)} />
 

@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
 import CodeCastClientWrapper from './CodeCastClientWrapper';
+import Schema from '../../../components/Schema';
+import { getCodeCastProductSchema, getBreadcrumbSchema } from '../../../lib/schema';
 
 export const metadata: Metadata = {
   title: 'CodeCast | Viral Code Animations & Beautiful Syntax Highlighting',
@@ -41,5 +43,16 @@ export const metadata: Metadata = {
 };
 
 export default function CodeCastPage() {
-  return <CodeCastClientWrapper />;
+  return (
+    <>
+      <Schema schema={getCodeCastProductSchema()} />
+      <Schema
+        schema={getBreadcrumbSchema([
+          { name: 'Home', url: 'https://utiltoolkits.com' },
+          { name: 'CodeCast', url: 'https://utiltoolkits.com/product/code-cast' },
+        ])}
+      />
+      <CodeCastClientWrapper />
+    </>
+  );
 }

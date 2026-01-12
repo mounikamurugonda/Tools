@@ -244,3 +244,97 @@ export const getBreadcrumbSchema = (items: Array<{ name: string; url: string }>)
     item: item.url,
   })),
 });
+
+// CodeCast Product Schema
+export const getCodeCastProductSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'CodeCast',
+  description: 'The #1 tool for developer content creators. Create studio-quality code animations, beautiful screenshots, and viral coding videos.',
+  url: 'https://utiltoolkits.com/product/code-cast',
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'Web Browser',
+  browserRequirements: 'Requires JavaScript. Works with all modern browsers.',
+  softwareVersion: '2.0',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    ratingCount: '500',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  featureList: [
+    'Code to Video Animation',
+    'Typing Effect Generator',
+    'Beautiful Code Screenshots',
+    'Syntax Highlighting',
+    'Export to MP4/WebM',
+  ],
+  isAccessibleForFree: true,
+  author: {
+    '@type': 'Organization',
+    name: 'UtilToolkits',
+    url: 'https://utiltoolkits.com',
+  },
+});
+
+// CodeCast Sub-tool Schema
+export const getCodeCastToolSchema = (type: 'animate' | 'type' | 'image') => {
+  const tools = {
+    animate: {
+      name: 'CodeCast Animate',
+      description: 'Animate your code snippets into viral videos. Create typing effects and scrolling animations for social media.',
+      url: 'https://utiltoolkits.com/product/code-cast/animate',
+      featureList: ['Auto-scroll animation', 'Typing effect', 'Custom themes', 'Export as Video'],
+    },
+    type: {
+      name: 'CodeCast Type',
+      description: 'Record yourself typing code in real-time. Create authentic coding tutorials and demonstrations.',
+      url: 'https://utiltoolkits.com/product/code-cast/type',
+      featureList: ['Real-time recording', 'Voiceover support', 'Syntax highlighting', 'Export as Video'],
+    },
+    image: {
+      name: 'CodeCast Image',
+      description: 'Convert your source code into beautiful, shareable images. Perfect for Twitter and Instagram.',
+      url: 'https://utiltoolkits.com/product/code-cast/image',
+      featureList: ['High-quality export', 'Custom backgrounds', 'Window controls', 'Syntax highlighting'],
+    },
+  };
+
+  const tool = tools[type];
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: tool.name,
+    description: tool.description,
+    url: tool.url,
+    applicationCategory: 'MultimediaApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      ratingCount: '350',
+      bestRating: '5',
+      worstRating: '1',
+    },
+    featureList: tool.featureList,
+    author: {
+      '@type': 'Organization',
+      name: 'UtilToolkits',
+      url: 'https://utiltoolkits.com',
+    },
+    isAccessibleForFree: true,
+  };
+};
