@@ -1366,9 +1366,9 @@ export const TOOLS: Tool[] = [
     id: 'video-compressor',
     name: 'Video Compressor',
     description: 'Reduce video file size without significant quality loss.',
-    seoTitle: 'Online Video Compressor 🗜️ | Reduce Video File Size Free',
+    seoTitle: 'Video Compressor Free 🗜️ | Reduce MP4 Size Online',
     seoDescription:
-      'Compress MP4, MOV, and AVI video files online for free. Reduce file size without losing quality. Perfect for sharing on WhatsApp, Email, or Web.',
+      'Compress video files online for free without losing quality. Reduce MP4, MOV, AVI size for WhatsApp, Email, or Web. Fast and secure.',
     icon: <VideoCompressorIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1378,15 +1378,17 @@ export const TOOLS: Tool[] = [
       'video size reducer',
       'shrink video file',
       'free video compression',
+      'reduce video file size free',
+      'compress video for whatsapp',
     ],
   },
   {
     id: 'video-to-audio-converter',
     name: 'Video to Audio Converter',
     description: 'Extract audio tracks from video files as MP3.',
-    seoTitle: 'Video to Audio Converter 🎵 | Extract MP3 from MP4',
+    seoTitle: 'Video to Audio Converter 🎵 | MP4 to MP3 - Free Online',
     seoDescription:
-      'Extract audio from any video file instantly. Convert MP4 to MP3, WAV, or AAC with our free online Video to Audio Converter.',
+      'Convert video to audio instantly. Extract MP3 from MP4, WAV from MOV. Free online video to sound converter. No signup required.',
     icon: <VideoToAudioIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1396,15 +1398,16 @@ export const TOOLS: Tool[] = [
       'video to sound converter',
       'mp4 to audio',
       'online audio extractor',
+      'mp4 to mp3 converter',
     ],
   },
   {
     id: 'gif-maker',
     name: 'GIF Maker',
     description: 'Convert video clips into animated GIFs.',
-    seoTitle: 'Online GIF Maker 🎞️ | Create Animated GIFs from Video',
+    seoTitle: 'Video to GIF Converter 🎞️ | Make Animated GIFs Free',
     seoDescription:
-      'Create funny animated GIFs from your videos instantly. Convert MP4 to GIF with customizable start/end times and dimensions.',
+      'Turn video clips into animated GIFs instantly. Convert MP4 to GIF online. Customize start/end time and size. High quality and free.',
     icon: <GifMakerIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1414,15 +1417,16 @@ export const TOOLS: Tool[] = [
       'mp4 to gif',
       'make animated gif',
       'free gif generator',
+      'video to gif converter',
     ],
   },
   {
     id: 'trim-video',
     name: 'Trim Video',
     description: 'Cut and trim video files to desired length.',
-    seoTitle: 'Online Video Trimmer ✂️ | Cut MP4 Video Length | Free MP4 Trimmer',
+    seoTitle: 'Trim Video Online Free ✂️ | Cut MP4, MOV - No Watermark',
     seoDescription:
-      'Trim and cut MP4 video files online for free. The ultimate MP4 trimmer and length editor to remove unwanted parts easily. No signup required.',
+      'Trim and cut video files online for free. Support for MP4, MOV, AVI. Fast, secure, and no watermark. Remove unwanted parts instantly in your browser.',
     icon: <TrimVideoIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1436,15 +1440,17 @@ export const TOOLS: Tool[] = [
       'mp4 trimmer',
       'trim mp4 file',
       'mp4 length editor',
+      'trim video no watermark',
+      'cut video online free',
     ],
   },
   {
     id: 'format-converter',
     name: 'Video Format Converter',
     description: 'Convert videos between different formats like MP4, AVI, MOV.',
-    seoTitle: 'Video Format Converter 🎞️ | Change Video Format Online',
+    seoTitle: 'Video Converter Online 🎞️ | MP4, AVI, MOV, WEBM',
     seoDescription:
-      'Convert video files to any format (MP4, AVI, MKV, MOV, WEBM) for free. Fast, secure, and high-quality online video converter.',
+      'Free online video converter. Change video format easily. Convert MP4 to AVI, MOV to MP4, and more. No file size limit, no watermark.',
     icon: <FormatConverterIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1454,15 +1460,16 @@ export const TOOLS: Tool[] = [
       'change video format',
       'online video transcoder',
       'free video converter',
+      'video converter online',
     ],
   },
   {
     id: 'video-thumbnail-extractor',
     name: 'Video Thumbnail Extractor',
     description: 'Extract image thumbnails from specific timestamps in a video.',
-    seoTitle: 'Video Thumbnail Extractor 📸 | Capture Frames from Video',
+    seoTitle: 'Video Thumbnail Grabber 📸 | Extract Images from Video',
     seoDescription:
-      'Extract high-quality image frames from any video. Pick a timestamp and save the frame as JPG or PNG for thumbnails.',
+      'Extract high-quality JPG/PNG frames from video. Capture video screenshots instantly. Perfect for YouTube thumbnails or previews.',
     icon: <VideoThumbnailIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1472,15 +1479,16 @@ export const TOOLS: Tool[] = [
       'get image from video',
       'video frame grabber',
       'create thumbnail from video',
+      'video to image',
     ],
   },
   {
     id: 'video-mute',
     name: 'Mute Video',
     description: 'Remove audio track from a video file.',
-    seoTitle: 'Mute Video Online 🔇 | Remove Audio from Video | MP4 Muter',
+    seoTitle: 'Mute Video Online 🔇 | Remove Audio from MP4 - Free',
     seoDescription:
-      'Instantly mute audio video files. Remove sound from your MP4 clips, silence background noise, and create silent videos easily.',
+      'Remove audio from video files instantly. Mute MP4, MOV, and AVI videos online for free. No watermark, processing happens in your browser.',
     icon: <VideoMuteIcon />,
     category: ToolCategory.VIDEO,
     keywords: [
@@ -1493,6 +1501,7 @@ export const TOOLS: Tool[] = [
       'mute audio video',
       'mute video',
       'remove sound from mp4',
+      'mute mp4 online',
     ],
   },
   {
