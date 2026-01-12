@@ -8,8 +8,7 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile } from '@ffmpeg/util';
+import type { FFmpeg } from '@ffmpeg/ffmpeg';
 import { Image as ImageIcon, Download, Video, AlertCircle, FileVideo, X } from 'lucide-react';
 
 const VideoThumbnailExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
@@ -34,6 +33,10 @@ const VideoThumbnailExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
       setIsLoading(true);
       setError('');
 
+      // Dynamically load FFmpeg only when needed
+      const { FFmpeg } = await import('@ffmpeg/ffmpeg');
+      const { fetchFile, toBlobURL } = await import('@ffmpeg/util');
+
       // Initialize FFmpeg only when needed
       if (!ffmpegRef.current) {
         ffmpegRef.current = new FFmpeg();
@@ -44,7 +47,11 @@ const VideoThumbnailExtractor: React.FC<ToolProps> = ({ details, toolId }) => {
         setProgress(progress);
       });
 
-      await ffmpeg.load();
+      const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+      await ffmpeg.load({
+        coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+        wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      });
 
       await ffmpeg.writeFile(videoFile.name, await fetchFile(videoFile));
       await ffmpeg.exec([

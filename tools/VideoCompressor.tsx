@@ -33,7 +33,7 @@ const VideoCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
 
       // Dynamically load FFmpeg only when needed
       const { FFmpeg } = await import('@ffmpeg/ffmpeg');
-      const { fetchFile } = await import('@ffmpeg/util');
+      const { fetchFile, toBlobURL } = await import('@ffmpeg/util');
 
       // Initialize FFmpeg only when needed
       if (!ffmpegRef.current) {
@@ -45,7 +45,11 @@ const VideoCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
         setProgress(progress);
       });
 
-      await ffmpeg.load();
+      const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+      await ffmpeg.load({
+        coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+        wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      });
 
       await ffmpeg.writeFile(videoFile.name, await fetchFile(videoFile));
       await ffmpeg.exec(['-i', videoFile.name, '-vcodec', 'libx264', '-crf', '28', 'output.mp4']);

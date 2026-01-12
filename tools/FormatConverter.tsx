@@ -7,8 +7,7 @@ import FileUpload from '@/components/ui/FileUpload';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
 import Select from '@/components/ui/Select';
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile } from '@ffmpeg/util';
+import type { FFmpeg } from '@ffmpeg/ffmpeg';
 import { RefreshCw, Download, Video, FileVideo, AlertCircle, X, ArrowRight } from 'lucide-react';
 
 const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
@@ -33,6 +32,10 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       setIsLoading(true);
       setError('');
 
+      // Dynamically load FFmpeg only when needed
+      const { FFmpeg } = await import('@ffmpeg/ffmpeg');
+      const { fetchFile, toBlobURL } = await import('@ffmpeg/util');
+
       // Initialize FFmpeg only when needed
       if (!ffmpegRef.current) {
         ffmpegRef.current = new FFmpeg();
@@ -43,7 +46,11 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         setProgress(progress);
       });
 
-      await ffmpeg.load();
+      const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd';
+      await ffmpeg.load({
+        coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+        wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+      });
 
       const outputFileName = `output.${outputFormat}`;
       await ffmpeg.writeFile(videoFile.name, await fetchFile(videoFile));
