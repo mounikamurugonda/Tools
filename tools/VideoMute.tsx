@@ -62,123 +62,124 @@ const VideoMute: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="Mute MP4 Video" details={details} toolId={toolId}>
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
-        <div>
-          <Label>Upload Video</Label>
-          {!videoFile ? (
-            <FileUpload
-              accept="video/*"
-              onFileSelect={(file) => {
-                if (file.size > 500 * 1024 * 1024) {
-                  setError('File size must be less than 500MB');
-                  return;
-                }
-                handleFileChange(file);
-              }}
-              title="Click to upload or drag and drop"
-              description="Supported formats: MP4, AVI, MOV, WEBM (max 500MB)"
-            />
-          ) : (
-            <div className="border-2 border-dashed border-blue-200 dark:border-blue-800 rounded-xl p-6 flex items-center justify-between bg-blue-50 dark:bg-blue-900/20">
-              <div className="flex items-center gap-4">
-                <div className="p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                  <FileVideo className="w-6 h-6 text-blue-500" />
-                </div>
-                <div>
-                  <p className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate max-w-[200px]">
-                    {videoFile.name}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
-                  </p>
-                </div>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleFileChange(null)}
-                className="text-gray-500 hover:text-red-500"
-              >
-                <X className="w-5 h-5" />
-              </Button>
-            </div>
-          )}
-        </div>
-
-        <Button
-          onClick={muteVideo}
-          disabled={!videoFile || isLoading}
-          className="w-full"
-          variant="primary"
-        >
-          {isLoading ? (
-            <>
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-              Muting... {(progress * 100).toFixed(0)}%
-            </>
-          ) : (
-            <>
-              <VolumeX className="w-4 h-4 mr-2" /> Mute Video
-            </>
-          )}
-        </Button>
-
-        {error && (
-          <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center text-red-600 dark:text-red-400">
-            <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
-            <p>{error}</p>
-          </div>
-        )}
-      </div>
-
-      {/* Right side - Preview */}
-      <div className="space-y-2">
-        <Label>Preview</Label>
-        <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 h-96 flex items-center justify-center">
-          {videoFile && !mutedVideo ? (
-            <div className="text-center w-full h-full flex flex-col justify-center">
-              <video
-                src={URL.createObjectURL(videoFile)}
-                controls
-                className="max-w-full max-h-[80%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
+        <div className="space-y-6">
+          <div>
+            <Label>Upload Video</Label>
+            {!videoFile ? (
+              <FileUpload
+                accept="video/*"
+                onFileSelect={(file) => {
+                  if (file.size > 500 * 1024 * 1024) {
+                    setError('File size must be less than 500MB');
+                    return;
+                  }
+                  handleFileChange(file);
+                }}
+                title="Click to upload or drag and drop"
+                description="Supported formats: MP4, AVI, MOV, WEBM (max 500MB)"
               />
-              <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
-                <Video className="w-4 h-4 mr-1" /> Original Video
-              </div>
-            </div>
-          ) : mutedVideo ? (
-            <div className="text-center w-full h-full flex flex-col justify-center">
-              <video
-                src={mutedVideo}
-                controls
-                className="max-w-full max-h-[70%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
-              />
-              <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
-                <VolumeX className="w-4 h-4 mr-1" /> Muted Video
-              </div>
-              <div className="mt-4">
+            ) : (
+              <div className="border-2 border-dashed border-blue-200 dark:border-blue-800 rounded-xl p-6 flex items-center justify-between bg-blue-50 dark:bg-blue-900/20">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                    <FileVideo className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate max-w-[200px]">
+                      {videoFile.name}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
+                    </p>
+                  </div>
+                </div>
                 <Button
-                  onClick={() => {
-                    const link = document.createElement('a');
-                    link.href = mutedVideo;
-                    link.download = 'muted_video.mp4';
-                    link.click();
-                  }}
-                  variant="success"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleFileChange(null)}
+                  className="text-gray-500 hover:text-red-500"
                 >
-                  <Download className="w-4 h-4 mr-2" /> Download Muted Video
+                  <X className="w-5 h-5" />
                 </Button>
               </div>
-            </div>
-          ) : (
-            <div className="text-center text-gray-400 dark:text-gray-500 flex flex-col items-center">
-              <VolumeX className="w-16 h-16 mb-4 opacity-50" />
-              <p>Upload a video to mute</p>
+            )}
+          </div>
+
+          <Button
+            onClick={muteVideo}
+            disabled={!videoFile || isLoading}
+            className="w-full"
+            variant="primary"
+          >
+            {isLoading ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                Muting... {Math.max(0, Math.min(100, Math.round(progress * 100)))}%
+              </>
+            ) : (
+              <>
+                <VolumeX className="w-4 h-4 mr-2" /> Mute Video
+              </>
+            )}
+          </Button>
+
+          {error && (
+            <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center text-red-600 dark:text-red-400">
+              <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+              <p>{error}</p>
             </div>
           )}
         </div>
+
+        {/* Right side - Preview */}
+        <div className="space-y-2">
+          <Label>Preview</Label>
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 h-96 flex items-center justify-center">
+            {videoFile && !mutedVideo ? (
+              <div className="text-center w-full h-full flex flex-col justify-center">
+                <video
+                  src={URL.createObjectURL(videoFile)}
+                  controls
+                  className="max-w-full max-h-[80%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
+                />
+                <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
+                  <Video className="w-4 h-4 mr-1" /> Original Video
+                </div>
+              </div>
+            ) : mutedVideo ? (
+              <div className="text-center w-full h-full flex flex-col justify-center">
+                <video
+                  src={mutedVideo}
+                  controls
+                  className="max-w-full max-h-[70%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
+                />
+                <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
+                  <VolumeX className="w-4 h-4 mr-1" /> Muted Video
+                </div>
+                <div className="mt-4">
+                  <Button
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = mutedVideo;
+                      link.download = 'muted_video.mp4';
+                      link.click();
+                    }}
+                    variant="success"
+                  >
+                    <Download className="w-4 h-4 mr-2" /> Download Muted Video
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center text-gray-400 dark:text-gray-500 flex flex-col items-center">
+                <VolumeX className="w-16 h-16 mb-4 opacity-50" />
+                <p>Upload a video to mute</p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
-    </ToolContainer >
+    </ToolContainer>
   );
 };
 

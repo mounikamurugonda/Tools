@@ -3,9 +3,13 @@
 import React, { useState, useRef } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
+import Button from '@/components/ui/Button';
+import Label from '@/components/ui/Label';
+import Select from '@/components/ui/Select';
 import { FFmpeg } from '@ffmpeg/ffmpeg';
 import { fetchFile } from '@ffmpeg/util';
+import { RefreshCw, Download, Video, FileVideo, AlertCircle, X, ArrowRight } from 'lucide-react';
 
 const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -19,6 +23,7 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const handleFileChange = (file: File | null) => {
     setVideoFile(file);
     setError('');
+    if (file) setConvertedVideo(null);
   };
 
   const convertFormat = async () => {
@@ -62,82 +67,132 @@ const FormatConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Left side - Upload and Controls */}
         <div className="space-y-6">
-          <FileUpload
-            accept="video/*"
-            onChange={handleFileChange}
-            label="Upload a video"
-            description="Select a video file to convert to a different format."
-            maxSize={500}
-          />
+          <div>
+            <Label>Upload Video</Label>
+            {!videoFile ? (
+              <FileUpload
+                accept="video/*"
+                onFileSelect={(file) => {
+                  if (file.size > 500 * 1024 * 1024) {
+                    setError('File size must be less than 500MB');
+                    return;
+                  }
+                  handleFileChange(file);
+                }}
+                title="Click to upload or drag and drop"
+                description="Supported formats: MP4, AVI, MOV, WEBM (max 500MB)"
+              />
+            ) : (
+              <div className="border-2 border-dashed border-blue-200 dark:border-blue-800 rounded-xl p-6 flex items-center justify-between bg-blue-50 dark:bg-blue-900/20">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                    <FileVideo className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate max-w-[200px]">
+                      {videoFile.name}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleFileChange(null)}
+                  className="text-gray-500 hover:text-red-500"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+            )}
+          </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Output Format
-            </label>
-            <select
+            <Label>Output Format</Label>
+            <Select
               value={outputFormat}
               onChange={e => setOutputFormat(e.target.value)}
-              className="w-full bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
             >
               <option value="mp4">MP4</option>
               <option value="avi">AVI</option>
               <option value="mov">MOV</option>
               <option value="webm">WEBM</option>
-            </select>
+            </Select>
           </div>
 
-          <button
+          <Button
             onClick={convertFormat}
             disabled={!videoFile || isLoading}
-            className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors font-medium"
+            className="w-full"
+            variant="primary"
           >
-            {isLoading ? `Converting... ${(progress * 100).toFixed(0)}%` : 'Convert Format'}
-          </button>
+            {isLoading ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                Converting... {Math.max(0, Math.min(100, Math.round(progress * 100)))}%
+              </>
+            ) : (
+              <>
+                <RefreshCw className="w-4 h-4 mr-2" /> Convert Format
+              </>
+            )}
+          </Button>
 
           {error && (
-            <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-red-600 dark:text-red-400">{error}</p>
+            <div className="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center text-red-600 dark:text-red-400">
+              <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0" />
+              <p>{error}</p>
             </div>
           )}
         </div>
 
         {/* Right side - Preview */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Preview:</h3>
-          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 min-h-[300px] flex items-center justify-center">
+        <div className="space-y-2">
+          <Label>Preview</Label>
+          <div className="bg-gray-50 dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-700 p-4 h-96 flex items-center justify-center">
             {videoFile && !convertedVideo ? (
-              <div className="text-center">
+              <div className="text-center w-full h-full flex flex-col justify-center">
                 <video
                   src={URL.createObjectURL(videoFile)}
                   controls
-                  className="max-w-full max-h-64 rounded-lg border border-gray-200 dark:border-gray-700"
+                  className="max-w-full max-h-[70%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
                 />
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">Original Video</p>
+                <div className="mt-4 flex items-center justify-center text-sm text-gray-600 dark:text-gray-400">
+                  <Video className="w-4 h-4 mr-1" /> Original Video
+                </div>
                 <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                   Converting to: {outputFormat.toUpperCase()}
                 </p>
               </div>
             ) : convertedVideo ? (
-              <div className="text-center">
+              <div className="text-center w-full h-full flex flex-col justify-center">
                 <video
                   src={convertedVideo}
                   controls
-                  className="max-w-full max-h-64 rounded-lg border border-gray-200 dark:border-gray-700"
+                  className="max-w-full max-h-[70%] rounded-lg border border-gray-200 dark:border-gray-700 mx-auto"
                 />
-                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                  Converted Video ({outputFormat.toUpperCase()})
-                </p>
-                <a
-                  href={convertedVideo}
-                  download={`converted_video.${outputFormat}`}
-                  className="inline-block mt-4 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors font-medium"
-                >
-                  Download Converted Video
-                </a>
+                <div className="mt-4 flex items-center justify-center text-sm text-green-600 dark:text-green-400">
+                  <ArrowRight className="w-4 h-4 mr-1" /> Converted ({outputFormat.toUpperCase()})
+                </div>
+                <div className="mt-4">
+                  <Button
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = convertedVideo;
+                      link.download = `converted_video.${outputFormat}`;
+                      link.click();
+                    }}
+                    variant="success"
+                  >
+                    <Download className="w-4 h-4 mr-2" /> Download Converted Video
+                  </Button>
+                </div>
               </div>
             ) : (
-              <div className="text-center text-gray-500 dark:text-gray-400">
-                <div className="text-2xl mb-2">🔄</div>
+              <div className="text-center text-gray-400 dark:text-gray-500 flex flex-col items-center">
+                <RefreshCw className="w-16 h-16 mb-4 opacity-50" />
                 <p>Upload a video to convert format</p>
               </div>
             )}

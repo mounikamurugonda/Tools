@@ -3,10 +3,10 @@
 import React, { useState, useRef } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { Video, Download, FileVideo, AlertCircle, Minimize2 } from 'lucide-react';
+import { Video, Download, FileVideo, AlertCircle, Minimize2, X } from 'lucide-react';
 import type { FFmpeg } from '@ffmpeg/ffmpeg';
 import Label from '@/components/ui/Label';
 
@@ -68,13 +68,44 @@ const VideoCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="space-y-6">
           <div>
             <Label>Upload Video</Label>
-            <FileUpload
-              accept="video/*"
-              onChange={handleFileChange}
-              label="Upload a video"
-              description="Select a video file to compress. Supported formats: MP4, AVI, MOV, WEBM, etc."
-              maxSize={500}
-            />
+            {!videoFile ? (
+              <FileUpload
+                accept="video/*"
+                onFileSelect={(file) => {
+                  if (file.size > 500 * 1024 * 1024) {
+                    setError('File size must be less than 500MB');
+                    return;
+                  }
+                  handleFileChange(file);
+                }}
+                title="Click to upload or drag and drop"
+                description="Supported formats: MP4, AVI, MOV, WEBM (max 500MB)"
+              />
+            ) : (
+              <div className="border-2 border-dashed border-blue-200 dark:border-blue-800 rounded-xl p-6 flex items-center justify-between bg-blue-50 dark:bg-blue-900/20">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
+                    <FileVideo className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm text-gray-900 dark:text-gray-100 truncate max-w-[200px]">
+                      {videoFile.name}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {(videoFile.size / (1024 * 1024)).toFixed(2)} MB
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleFileChange(null)}
+                  className="text-gray-500 hover:text-red-500"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+            )}
           </div>
 
           <Button
@@ -86,7 +117,7 @@ const VideoCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
             {isLoading ? (
               <>
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                Compressing... {(progress * 100).toFixed(0)}%
+                Compressing... {Math.max(0, Math.min(100, Math.round(progress * 100)))}%
               </>
             ) : (
               <>
