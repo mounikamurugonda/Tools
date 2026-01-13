@@ -4,10 +4,10 @@ import type { CodeSnippet, AppConfig } from '../types';
 // Convert typing speed to milliseconds
 const getTypingSpeedMs = (speed: 'slow' | 'normal' | 'fast' | 'instant') => {
     const speedMap = {
-        slow: 100,
-        normal: 40,
-        fast: 20,
-        instant: 10,
+        slow: 150,
+        normal: 100,
+        fast: 50,
+        instant: 20,
     };
     return speedMap[speed];
 };
@@ -194,38 +194,40 @@ export const useMultiTabAnimation = ({
             setActiveTab(currentTabId);
 
             const typeChar = () => {
-                // Check pause/stopRef in loop? 
-                // No, the timeouts are cleared on state change. 
-                // So if we are here, we act.
-
                 const fullText = target[currentTabId];
 
-                if (charIndexRef.current <= fullText.length) {
-                    updateCode(currentTabId, fullText.substring(0, charIndexRef.current));
-
-                    // Auto-scroll
-                    requestAnimationFrame(() => {
-                        if (editorRef.current) {
-                            const model = editorRef.current.getModel();
-                            if (model) {
-                                const lineCount = model.getLineCount();
-                                const column = model.getLineMaxColumn(lineCount);
-                                editorRef.current.revealPositionInCenter(
-                                    { lineNumber: lineCount, column: column },
-                                    0
-                                );
-                            }
-                        }
-                    });
-
-                    charIndexRef.current++;
-                    animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
-                } else {
-                    // Finished tab
+                // If index exceeds length, we are done with this tab
+                if (charIndexRef.current >= fullText.length) {
                     sequenceIndexRef.current++;
                     charIndexRef.current = 0;
                     animationTimerRef.current = window.setTimeout(runLoop, 1000);
+                    return;
                 }
+
+                // If starting fresh on this tab, clear explicit focus once
+                if (charIndexRef.current === 0) {
+                    editorRef.current?.focus();
+                }
+
+                const charToType = fullText[charIndexRef.current];
+
+                if (editorRef.current) {
+                    // Use Monaco's native type command for smooth insertion and cursor movement
+                    editorRef.current.trigger('keyboard', 'type', { text: charToType });
+
+                    // We DO need to ensure the view follows the cursor
+                    editorRef.current.revealPosition(editorRef.current.getPosition());
+
+                    // Update store to keep Preview in sync - using editor value prevents race conditions
+                    // This "should" be safe because editor.getValue() matches the value prop
+                    updateCode(currentTabId, editorRef.current.getValue());
+                } else {
+                    // Fallback if editor not ready (shouldn't happen in loop)
+                    updateCode(currentTabId, fullText.substring(0, charIndexRef.current + 1));
+                }
+
+                charIndexRef.current++;
+                animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
             };
 
             // Start typing

@@ -120,6 +120,8 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
     const internalRef = useRef<any>(null);
     const finalRef = editorRef || internalRef;
 
+    const isSocialMedia = ['instagram-square', 'linkedin-post', 'tiktok-shorts'].includes(config.deviceFrame);
+
     const getLanguage = () => {
         if (activeTab === 'js') return 'javascript';
         if (activeTab === 'libs') return 'json'; // Placeholder
@@ -137,7 +139,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
 
     return (
         <div
-            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 min-h-0 max-h-full rounded-xl transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'}`}
+            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 min-h-0 max-h-full rounded-xl transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'} ${isPlaying ? 'pointer-events-none' : ''}`}
             style={{
                 order: layout.flexDirection === 'flex-col' ? 2 : 1,
                 boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
@@ -194,7 +196,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                     </div>
 
                                     {/* Label */}
-                                    <span className={`truncate ${isLibs ? 'hidden sm:inline' : ''}`}>
+                                    <span className={`truncate ${isLibs ? (isSocialMedia ? 'hidden' : 'hidden sm:inline') : ''}`}>
                                         {isLibs && firstSelectedLib ? `+${selectedLibIds.length} Libs` : tab.label}
                                     </span>
 
@@ -332,7 +334,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 }
                             }}
                             options={{
-                                readOnly: isPlaying,
+                                readOnly: false,
                                 minimap: { enabled: false },
                                 fontSize: config.fontSize,
                                 wordWrap: config.wordWrap ? 'on' : 'off',
@@ -376,6 +378,14 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 colorDecorators: false,
                                 contextmenu: false,
                                 inlayHints: { enabled: 'off' },
+
+                                // Disable smart features during animation to prevent double indentation/closing
+                                autoIndent: isPlaying ? 'none' : 'advanced',
+                                autoClosingBrackets: isPlaying ? 'never' : 'always',
+                                autoClosingQuotes: isPlaying ? 'never' : 'always',
+                                autoSurround: isPlaying ? 'never' : 'languageDefined',
+                                formatOnType: isPlaying ? false : true,
+                                formatOnPaste: isPlaying ? false : true,
                             }}
                         />
                     )}

@@ -82,6 +82,7 @@ export const CodeCastHeader = () => {
 
   // Device dropdown state
   const [isDeviceDropdownOpen, setIsDeviceDropdownOpen] = useState(false);
+  const [isDownloadDropdownOpen, setIsDownloadDropdownOpen] = useState(false);
   const [isMicEnabled, setIsMicEnabled] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const { recordingTime } = useRecording();
@@ -150,11 +151,19 @@ export const CodeCastHeader = () => {
     try {
       const filter = (node: HTMLElement) => !node.classList?.contains('exclude-from-export');
 
+      const rect = element.getBoundingClientRect();
       const options = {
         quality: 1,
-        pixelRatio: 2,
+        pixelRatio: 3,
         filter,
-        style: { margin: '0' },
+        width: rect.width,
+        height: rect.height,
+        style: {
+          margin: '0',
+          transform: 'none',
+          maxWidth: 'none',
+          maxHeight: 'none',
+        },
       };
 
       let dataUrl = '';
@@ -421,6 +430,68 @@ export const CodeCastHeader = () => {
               </div>
             )
           }
+
+          {/* Download Dropdown - Animate & Type modes */}
+          {(mode === 'animate' || mode === 'type') && (
+            <div className="relative mr-1.5 md:mr-2">
+              <TooltipWrapper label="Download Options">
+                <button
+                  onClick={() => setIsDownloadDropdownOpen(!isDownloadDropdownOpen)}
+                  className={`w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 flex items-center justify-center md:justify-between gap-2 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${isDownloadDropdownOpen ? 'ring-2 ring-blue-500/20 border-blue-500/50' : ''}`}
+                >
+                  <Download size={16} />
+                  <ChevronDown
+                    size={12}
+                    className={`hidden md:block transition-transform ${isDownloadDropdownOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              </TooltipWrapper>
+
+              {isDownloadDropdownOpen && (
+                <>
+                  <div className="fixed inset-0 z-10" onClick={() => setIsDownloadDropdownOpen(false)} />
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xl z-20 overflow-hidden py-1">
+                    <FeatureGuard actionName="download image">
+                      <button
+                        onClick={() => {
+                          setIsDownloadDropdownOpen(false);
+                          handleExport('png');
+                        }}
+                        className="w-full px-3 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      >
+                        <Download size={14} />
+                        <span>Download PNG</span>
+                      </button>
+                    </FeatureGuard>
+                    <FeatureGuard actionName="download image">
+                      <button
+                        onClick={() => {
+                          setIsDownloadDropdownOpen(false);
+                          handleExport('svg');
+                        }}
+                        className="w-full px-3 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      >
+                        <Download size={14} />
+                        <span>Download SVG</span>
+                      </button>
+                    </FeatureGuard>
+                    <FeatureGuard actionName="copy image">
+                      <button
+                        onClick={() => {
+                          setIsDownloadDropdownOpen(false);
+                          handleExport('copy');
+                        }}
+                        className="w-full px-3 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      >
+                        <Copy size={14} />
+                        <span>Copy to Clipboard</span>
+                      </button>
+                    </FeatureGuard>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
 
           {/* Device Frame Dropdown */}
           <div className="relative">
