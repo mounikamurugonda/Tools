@@ -9,6 +9,7 @@ import { RecordingDownloadModal } from '../../components/RecordingDownloadModal'
 
 // Hooks
 import { useMultiTabAnimation } from '../../hooks/useMultiTabAnimation';
+import { useMobileDefaultConfig } from '../../hooks/useMobileDefaultConfig';
 
 // Components
 import { CodeCastEditor } from '../../components/CodeCastEditor';
@@ -39,6 +40,9 @@ export default function AnimatePage() {
     downloadRecording,
     clearRecording,
   } = useRecording();
+
+  // Handle Mobile Defaults
+  useMobileDefaultConfig(useAnimateStore);
 
   // Animation & Refs
   const editorRef = useRef<any>(null);

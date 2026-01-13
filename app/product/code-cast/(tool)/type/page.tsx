@@ -10,6 +10,7 @@ import { getCanvasLayout } from '../../utils/layoutHelpers';
 import { RecordingTimer } from '../../components/RecordingTimer';
 import { RecordingDownloadModal } from '../../components/RecordingDownloadModal';
 import { Mic, MicOff } from 'lucide-react';
+import { useMobileDefaultConfig } from '../../hooks/useMobileDefaultConfig';
 
 export default function TypePage() {
   const { code, updateCode, setCode, config, activeTab, setActiveTab, projectTitle, shadowBlur, shadowSpread, updateConfig } =
@@ -26,6 +27,9 @@ export default function TypePage() {
     downloadRecording,
     clearRecording,
   } = useRecording();
+
+  // Handle Mobile Defaults
+  useMobileDefaultConfig(useTypeStore);
 
   // Show download modal when recording is complete
   useEffect(() => {

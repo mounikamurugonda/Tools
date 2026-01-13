@@ -6,6 +6,7 @@ import { CodeCastEditor } from '../../components/CodeCastEditor';
 import { CodeCastCanvas } from '../../components/CodeCastCanvas';
 import DirectPreview from '../../components/DirectPreview';
 import { getCanvasLayout } from '../../utils/layoutHelpers';
+import { useMobileDefaultConfig } from '../../hooks/useMobileDefaultConfig';
 
 export default function ImagePage() {
   const {
@@ -20,6 +21,9 @@ export default function ImagePage() {
     showEditor,
     showPreview
   } = useImageStore();
+
+  // Handle Mobile Defaults
+  useMobileDefaultConfig(useImageStore);
 
   // Get responsive layout configuration based on device frame - memoized to update when device changes
   const layout = useMemo(() => getCanvasLayout(config.deviceFrame), [config.deviceFrame]);
