@@ -3,8 +3,6 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import Card from '@/components/ui/Card';
-import Slider from '@/components/ui/Slider';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
@@ -56,92 +54,97 @@ border-color: ${getBorderStyles().borderColor};`;
 
   return (
     <ToolContainer title="CSS Triangle Generator" details={details} toolId={toolId}>
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid md:grid-cols-2 gap-8 items-start">
+
+        {/* Left Side: Controls */}
         <div className="space-y-6">
-          <Card title="Settings">
-            <div className="space-y-6">
-              <div>
-                <Label>Direction</Label>
-                <div className="grid grid-cols-4 gap-2">
-                  {[
-                    { val: 'top', icon: ChevronUp },
-                    { val: 'right', icon: ChevronRight },
-                    { val: 'bottom', icon: ChevronDown },
-                    { val: 'left', icon: ChevronLeft },
-                  ].map(({ val, icon: Icon }) => (
-                    <Button
-                      key={val}
-                      variant={direction === val ? 'primary' : 'outline'}
-                      onClick={() => setDirection(val)}
-                      className="flex items-center justify-center py-3"
-                      title={val.charAt(0).toUpperCase() + val.slice(1)}
-                    >
-                      <Icon size={20} />
-                    </Button>
-                  ))}
-                </div>
-              </div>
 
-              <Slider
-                label="Width"
-                min={0}
-                max={300}
-                value={width}
-                onChange={e => setWidth(parseFloat(e.target.value))}
-                valueDisplay={`${width}px`}
-              />
-
-              <Slider
-                label="Height"
-                min={0}
-                max={300}
-                value={height}
-                onChange={e => setHeight(parseFloat(e.target.value))}
-                valueDisplay={`${height}px`}
-              />
-
-              <div>
-                <Label>Color</Label>
-                <div className="flex gap-2">
-                  <input
-                    type="color"
-                    value={color}
-                    onChange={e => setColor(e.target.value)}
-                    className="h-10 w-12 rounded cursor-pointer border border-gray-300 dark:border-gray-600"
-                  />
-                  <Input
-                    value={color}
-                    onChange={e => setColor(e.target.value)}
-                    className="flex-grow font-mono"
-                  />
-                </div>
-              </div>
+          {/* Direction Toggle */}
+          <div>
+            <Label className="mb-2 block">Direction</Label>
+            <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-lg border border-gray-200 dark:border-gray-700 w-full mb-4">
+              {[
+                { val: 'top', icon: ChevronUp },
+                { val: 'right', icon: ChevronRight },
+                { val: 'bottom', icon: ChevronDown },
+                { val: 'left', icon: ChevronLeft },
+              ].map(({ val, icon: Icon }) => (
+                <button
+                  key={val}
+                  onClick={() => setDirection(val)}
+                  className={`flex-1 py-2 rounded-md transition-all flex items-center justify-center ${direction === val
+                    ? 'bg-white dark:bg-gray-700 shadow text-blue-600 dark:text-blue-400'
+                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+                    }`}
+                  title={val.charAt(0).toUpperCase() + val.slice(1)}
+                >
+                  <Icon size={18} />
+                </button>
+              ))}
             </div>
-          </Card>
+          </div>
+
+          <div className="space-y-6">
+            <ControlSlider label="Width" value={width} onChange={setWidth} min={0} max={300} unit="px" />
+            <ControlSlider label="Height" value={height} onChange={setHeight} min={0} max={300} unit="px" />
+          </div>
+
+          <div>
+            <Label className="mb-2 block">Color</Label>
+            <div className="flex items-center gap-2 bg-white dark:bg-gray-800 p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 w-full">
+              <div className="relative w-8 h-8 rounded overflow-hidden border border-gray-200 dark:border-gray-600 flex-shrink-0">
+                <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] p-0 border-0 cursor-pointer" />
+              </div>
+              <input type="text" value={color} onChange={(e) => setColor(e.target.value)} className="flex-1 bg-transparent border-none text-sm font-mono focus:ring-0 p-0" />
+            </div>
+          </div>
         </div>
 
-        <div className="space-y-6">
-          <Card className="h-[300px] flex items-center justify-center bg-gray-50 dark:bg-gray-800/50 relative">
-            <div className="absolute top-4 left-4 text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/50 dark:bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
-              Preview
+        {/* Right Side: Preview & Code */}
+        <div className="space-y-6 sticky top-6">
+          <div className="space-y-2">
+            <Label>Preview</Label>
+            <div className="min-h-[300px] flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 relative overflow-hidden bg-gray-50 dark:bg-gray-900/50">
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#000_1px,transparent_1px)] dark:bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+              <div style={getBorderStyles()} className="transition-all duration-200 relative z-10 drop-shadow-sm"></div>
             </div>
-            <div style={getBorderStyles()} className="transition-all duration-200"></div>
-          </Card>
+          </div>
 
-          <Card className="relative group">
-            <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800 h-40">
-              <code>{cssOutput}</code>
-            </pre>
-            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              <Button size="sm" variant="secondary" onClick={copyToClipboard} className="shadow-sm">
-                <Copy className="w-3 h-3 mr-1" /> Copy CSS
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <Label>CSS Output</Label>
+              <Button size="sm" variant="ghost" onClick={copyToClipboard} className="h-6 text-xs text-blue-600 hover:bg-blue-50 px-2">
+                <Copy className="w-3 h-3 mr-1.5" /> Copy Code
               </Button>
             </div>
-          </Card>
+            <div className="relative group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+              <pre className="p-4 text-gray-800 dark:text-gray-200 text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
+                <code>{cssOutput}</code>
+              </pre>
+            </div>
+          </div>
         </div>
       </div>
     </ToolContainer>
   );
 };
+
+const ControlSlider = ({ label, value, onChange, min = 0, max, step = 1, unit = '' }: any) => (
+  <div>
+    <div className="flex justify-between mb-2">
+      <Label className="text-sm">{label}</Label>
+      <span className="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded text-gray-600 dark:text-gray-300">{value}{unit}</span>
+    </div>
+    <input
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(e) => onChange(Number(e.target.value))}
+      className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-110 focus:outline-none transition-all"
+    />
+  </div>
+);
 
 export default CssTriangle;

@@ -3,11 +3,8 @@
 import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import Card from '@/components/ui/Card';
-import Slider from '@/components/ui/Slider';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
-import Input from '@/components/ui/Input';
 import { Copy } from 'lucide-react';
 
 const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
@@ -29,172 +26,130 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const textShadowValue = `${hOffset}px ${vOffset}px ${blur}px ${colorWithOpacity}`;
 
-  const fullExample = `.text-shadow-example {
-  color: ${textColor};
-  text-shadow: ${textShadowValue};
-}`;
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(`text-shadow: ${textShadowValue};`);
   };
 
   return (
     <ToolContainer title="Text Shadow Generator" details={details} toolId={toolId}>
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <Card title="Settings">
-            <div className="space-y-6">
-              <Slider
-                label="Horizontal Offset"
-                value={hOffset}
-                onChange={e => setHOffset(parseFloat(e.target.value))}
-                min={-20}
-                max={20}
-                valueDisplay={`${hOffset}px`}
-              />
-              <Slider
-                label="Vertical Offset"
-                value={vOffset}
-                onChange={e => setVOffset(parseFloat(e.target.value))}
-                min={-20}
-                max={20}
-                valueDisplay={`${vOffset}px`}
-              />
-              <Slider
-                label="Blur Radius"
-                value={blur}
-                onChange={e => setBlur(parseFloat(e.target.value))}
-                min={0}
-                max={20}
-                valueDisplay={`${blur}px`}
-              />
-              <Slider
-                label="Shadow Opacity"
-                value={opacity}
-                onChange={e => setOpacity(parseFloat(e.target.value))}
-                min={0}
-                max={1}
-                step={0.01}
-                valueDisplay={`${Math.round(opacity * 100)}%`}
-              />
+      <div className="grid md:grid-cols-2 gap-8 items-start">
 
-              <div className="grid grid-cols-1 gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
-                <div className="grid grid-cols-[1fr,auto] gap-4 items-center">
-                  <Label className="mb-0">Shadow Color</Label>
-                  <div className="flex gap-2">
-                    <input
-                      type="color"
-                      value={color}
-                      onChange={e => setColor(e.target.value)}
-                      className="h-9 w-9 rounded cursor-pointer border-0"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-[1fr,auto] gap-4 items-center">
-                  <Label className="mb-0">Text Color</Label>
-                  <div className="flex gap-2">
-                    <input
-                      type="color"
-                      value={textColor}
-                      onChange={e => setTextColor(e.target.value)}
-                      className="h-9 w-9 rounded cursor-pointer border-0"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-[1fr,auto] gap-4 items-center">
-                  <Label className="mb-0">Background Color</Label>
-                  <div className="flex gap-2">
-                    <input
-                      type="color"
-                      value={backgroundColor}
-                      onChange={e => setBackgroundColor(e.target.value)}
-                      className="h-9 w-9 rounded cursor-pointer border-0"
-                    />
-                  </div>
-                </div>
-              </div>
+        {/* Left Side: Controls */}
+        <div className="space-y-8">
+
+          <div className="space-y-6">
+            <ControlSlider label="Horizontal Offset" value={hOffset} onChange={setHOffset} min={-20} max={20} unit="px" />
+            <ControlSlider label="Vertical Offset" value={vOffset} onChange={setVOffset} min={-20} max={20} unit="px" />
+            <ControlSlider label="Blur Radius" value={blur} onChange={setBlur} max={20} unit="px" />
+            <ControlSlider label="Shadow Opacity" value={opacity} onChange={setOpacity} max={1} step={0.01} unit="%" displayMultiplier={100} />
+          </div>
+
+          <div className="border-t border-gray-200 dark:border-gray-800 pt-6 space-y-4">
+            <Label>Colors</Label>
+            <div className="grid grid-cols-1 gap-3">
+              <ColorRow label="Shadow Color" value={color} onChange={setColor} />
+              <ColorRow label="Text Color" value={textColor} onChange={setTextColor} />
+              <ColorRow label="Background Color" value={backgroundColor} onChange={setBackgroundColor} />
             </div>
-          </Card>
+          </div>
 
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-900/50">
-            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+          {/* Tips */}
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/10 rounded-xl border border-blue-100 dark:border-blue-900/30">
+            <h4 className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-2">
               Text Shadow Tips
             </h4>
-            <div className="text-sm text-blue-700 dark:text-blue-300 space-y-1">
-              <p>
-                • <strong>Subtle depth:</strong> Small offsets (1-2px) with low blur
-              </p>
-              <p>
-                • <strong>Dramatic effect:</strong> Larger offsets with high blur
-              </p>
-              <p>
-                • <strong>Glow effect:</strong> Zero offset, high blur
-              </p>
-              <p>
-                • <strong>Multiple shadows:</strong> Use comma-separated values (advanced)
-              </p>
+            <div className="text-xs text-blue-700 dark:text-blue-300 space-y-1">
+              <p>• <strong>Subtle depth:</strong> Small offsets (1-2px) with low blur</p>
+              <p>• <strong>Glow effect:</strong> Zero offset, high blur</p>
+              <p>• <strong>Letterpress:</strong> Light shadow on dark bg (inset style)</p>
             </div>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <Card
-            className="h-[250px] flex items-center justify-center p-0 overflow-hidden relative transition-colors duration-300"
-            style={{ backgroundColor }}
-          >
-            <div className="absolute top-4 left-4 text-sm font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/50 dark:bg-black/20 backdrop-blur-sm px-2 py-1 rounded">
-              Preview
-            </div>
-            <h2
-              className="text-5xl font-bold transition-all duration-300 p-8 text-center leading-tight"
-              style={{
-                color: textColor,
-                textShadow: textShadowValue,
-              }}
+        {/* Right Side: Preview & Code */}
+        <div className="space-y-6 sticky top-6">
+          <div className="space-y-2">
+            <Label>Preview</Label>
+            <div
+              className="min-h-[300px] flex items-center justify-center rounded-xl border border-gray-200 dark:border-gray-700 relative overflow-hidden transition-colors duration-300"
+              style={{ backgroundColor }}
             >
-              Text Shadow <br /> Generator
-            </h2>
-          </Card>
-
-          <Card className="space-y-4">
-            <div className="relative group">
-              <div className="text-xs font-semibold text-gray-500 uppercase mb-2">Shadow Value</div>
-              <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800">
-                <code>{`text-shadow: ${textShadowValue};`}</code>
-              </pre>
-              <div className="absolute top-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => copyToClipboard(`text-shadow: ${textShadowValue};`)}
-                  className="shadow-sm"
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
-              </div>
+              <div className="absolute inset-0 pointer-events-none opacity-50 bg-[radial-gradient(#000000_1px,transparent_1px)] [background-size:20px_20px] dark:bg-[radial-gradient(#ffffff_1px,transparent_1px)] opacity-5 mix-blend-overlay"></div>
+              <h2
+                className="text-5xl font-bold transition-all duration-300 p-8 text-center leading-tight break-words max-w-full"
+                style={{
+                  color: textColor,
+                  textShadow: textShadowValue,
+                }}
+              >
+                Text Shadow <br /> Generator
+              </h2>
             </div>
+          </div>
 
-            <div className="relative group">
-              <div className="text-xs font-semibold text-gray-500 uppercase mb-2">Full CSS</div>
-              <pre className="p-4 bg-gray-50 dark:bg-gray-950 rounded-lg text-sm font-mono overflow-x-auto border border-gray-200 dark:border-gray-800">
-                <code>{fullExample}</code>
-              </pre>
-              <div className="absolute top-8 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => copyToClipboard(fullExample)}
-                  className="shadow-sm"
-                >
-                  <Copy className="w-3 h-3" />
-                </Button>
-              </div>
+          {/* Code Output */}
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <Label>CSS Output</Label>
+              <Button size="sm" variant="ghost" onClick={copyToClipboard} className="h-6 text-xs text-blue-600 hover:bg-blue-50 px-2">
+                <Copy className="w-3 h-3 mr-1.5" /> Copy Code
+              </Button>
             </div>
-          </Card>
+            <div className="relative group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+              <pre className="p-4 text-gray-800 dark:text-gray-200 text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
+                <code>text-shadow: {textShadowValue};</code>
+              </pre>
+            </div>
+          </div>
+
+          {/* Full Example Code - Optional but good for this tool */}
+          <div className="space-y-2 opacity-80">
+            <Label className="text-xs text-gray-400 font-normal">Full CSS Context</Label>
+            <div className="relative group overflow-hidden rounded-lg border border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
+              <pre className="p-3 text-gray-500 dark:text-gray-400 text-xs font-mono overflow-x-auto whitespace-pre-wrap break-all">
+                <code>{`.text-shadow-example {
+  color: ${textColor};
+  background-color: ${backgroundColor};
+  text-shadow: ${textShadowValue};
+}`}</code>
+              </pre>
+            </div>
+          </div>
         </div>
       </div>
     </ToolContainer>
   );
 };
+
+// Reusable Components
+const ControlSlider = ({ label, value, onChange, min = 0, max, step = 1, unit = '', displayMultiplier = 1 }: any) => (
+  <div>
+    <div className="flex justify-between mb-2">
+      <Label className="text-sm">{label}</Label>
+      <span className="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded text-gray-600 dark:text-gray-300">{Math.round(value * displayMultiplier)}{unit}</span>
+    </div>
+    <input
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(e) => onChange(Number(e.target.value))}
+      className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-110 focus:outline-none transition-all"
+    />
+  </div>
+);
+
+const ColorRow = ({ label, value, onChange }: any) => (
+  <div className="flex items-center justify-between p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+    <Label className="mb-0 text-xs font-medium text-gray-600 dark:text-gray-400">{label}</Label>
+    <div className="flex items-center gap-2">
+      <span className="text-xs font-mono text-gray-400">{value}</span>
+      <div className="relative w-6 h-6 rounded-full overflow-hidden border border-gray-200 dark:border-gray-600 shadow-sm">
+        <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] p-0 border-0 cursor-pointer" />
+      </div>
+    </div>
+  </div>
+);
 
 export default TextShadowGenerator;

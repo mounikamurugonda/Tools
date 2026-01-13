@@ -3,8 +3,6 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import Card from '@/components/ui/Card';
-import Slider from '@/components/ui/Slider';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
@@ -89,7 +87,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     return `rgba(${r}, ${g}, ${b}, ${shadowOpacity})`;
   }, [shadowColor, shadowOpacity]);
 
-  // Neumorphism shadow calculation - intensity controls color contrast (0-50 range)
+  // Neumorphism shadow calculation
   const shadowIntensityPercent = Math.round(neuIntensity * 100);
 
   const neuLightShadow = useMemo(() => {
@@ -102,7 +100,6 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     return `${neuInset ? 'inset ' : ''}${neuShadowX}px ${neuShadowY}px ${neuShadowBlur}px ${darkColor}`;
   }, [neuBackground, neuShadowX, neuShadowY, neuShadowBlur, neuInset, adjustColor, shadowIntensityPercent]);
 
-  // Neumorphism gradient for shape
   const neuGradient = useMemo(() => {
     if (neuShape === 'flat') return neuBackground;
     const lightColor = adjustColor(neuBackground, 5);
@@ -131,21 +128,9 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
       };
     }
   }, [
-    style,
-    opacity,
-    blur,
-    borderRadius,
-    borderWidth,
-    borderColorWithOpacity,
-    shadowX,
-    shadowY,
-    shadowBlur,
-    shadowSpread,
-    shadowColorWithOpacity,
-    neuGradient,
-    neuBorderRadius,
-    neuDarkShadow,
-    neuLightShadow,
+    style, opacity, blur, borderRadius, borderWidth, borderColorWithOpacity,
+    shadowX, shadowY, shadowBlur, shadowSpread, shadowColorWithOpacity,
+    neuGradient, neuBorderRadius, neuDarkShadow, neuLightShadow,
   ]);
 
   const cssCode = useMemo(() => {
@@ -180,26 +165,10 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 }`;
     }
   }, [
-    style,
-    opacity,
-    blur,
-    borderRadius,
-    borderWidth,
-    borderColorWithOpacity,
-    shadowX,
-    shadowY,
-    shadowBlur,
-    shadowSpread,
-    shadowColorWithOpacity,
-    neuBackground,
-    neuBorderRadius,
-    neuShadowX,
-    neuShadowY,
-    neuShadowBlur,
-    neuInset,
-    neuShape,
-    adjustColor,
-    shadowIntensityPercent,
+    style, opacity, blur, borderRadius, borderWidth, borderColorWithOpacity,
+    shadowX, shadowY, shadowBlur, shadowSpread, shadowColorWithOpacity,
+    neuBackground, neuBorderRadius, neuShadowX, neuShadowY, neuShadowBlur,
+    neuInset, neuShape, adjustColor, shadowIntensityPercent,
   ]);
 
   const copyToClipboard = useCallback(() => {
@@ -227,487 +196,233 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const resetToDefault = useCallback(() => {
     if (style === 'glassmorphism') {
-      setOpacity(0.2);
-      setBlur(10);
-      setBorderRadius(16);
-      setBorderWidth(1);
-      setBorderOpacity(0.2);
-      setShadowX(0);
-      setShadowY(8);
-      setShadowBlur(32);
-      setShadowSpread(0);
-      setShadowOpacity(0.1);
+      setOpacity(0.2); setBlur(10); setBorderRadius(16); setBorderWidth(1);
+      setBorderOpacity(0.2); setShadowX(0); setShadowY(8); setShadowBlur(32);
+      setShadowSpread(0); setShadowOpacity(0.1);
     } else {
-      setNeuBackground('#e0e5ec');
-      setNeuShadowX(6);
-      setNeuShadowY(6);
-      setNeuShadowBlur(12);
-      setNeuIntensity(0.25);
-      setNeuBorderRadius(16);
-      setNeuInset(false);
-      setNeuShape('flat');
+      setNeuBackground('#e0e5ec'); setNeuShadowX(6); setNeuShadowY(6);
+      setNeuShadowBlur(12); setNeuIntensity(0.25); setNeuBorderRadius(16);
+      setNeuInset(false); setNeuShape('flat');
     }
   }, [style]);
 
   return (
     <ToolContainer title="Glassmorphism & Neumorphism Generator" details={details} toolId={toolId}>
-      <div className="grid lg:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <Card title="Settings">
-            <div className="space-y-6">
-              {/* Style Tabs */}
-              <div className="flex gap-1 p-1 bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-xl">
-                <button
-                  onClick={() => setStyle('glassmorphism')}
-                  className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-lg transition-all duration-300 flex items-center justify-center gap-2 ${style === 'glassmorphism'
-                    ? 'bg-white dark:bg-gray-700 shadow-lg shadow-blue-500/20 text-blue-600 dark:text-blue-400 scale-[1.02]'
-                    : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'
-                    }`}
-                >
-                  <Sparkles className="w-4 h-4" />
-                  Glassmorphism
-                </button>
-                <button
-                  onClick={() => setStyle('neumorphism')}
-                  className={`flex-1 py-2.5 px-4 text-sm font-medium rounded-lg transition-all duration-300 flex items-center justify-center gap-2 ${style === 'neumorphism'
-                    ? 'bg-white dark:bg-gray-700 shadow-lg shadow-purple-500/20 text-purple-600 dark:text-purple-400 scale-[1.02]'
-                    : 'text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-white/50 dark:hover:bg-gray-700/50'
-                    }`}
-                >
-                  <Box className="w-4 h-4" />
-                  Neumorphism
-                </button>
-              </div>
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
 
-              {/* Presets */}
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <Label className="flex items-center gap-2">
-                    <Layers className="w-4 h-4" />
-                    Quick Presets
-                  </Label>
-                  <button
-                    onClick={resetToDefault}
-                    className="text-xs text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 flex items-center gap-1 transition-colors"
-                  >
-                    <RotateCcw className="w-3 h-3" />
-                    Reset
-                  </button>
-                </div>
-                <div className="grid grid-cols-2 gap-2">
-                  {style === 'glassmorphism'
-                    ? PRESETS.glassmorphism.map((preset, i) => (
-                      <button
-                        key={i}
-                        onClick={() => applyGlassPreset(preset)}
-                        className="px-3 py-2 text-xs font-medium bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 hover:from-blue-100 hover:to-purple-100 dark:hover:from-blue-900/40 dark:hover:to-purple-900/40 border border-blue-100 dark:border-blue-800 rounded-lg transition-all hover:scale-[1.02] hover:shadow-md"
-                      >
-                        {preset.name}
-                      </button>
-                    ))
-                    : PRESETS.neumorphism.map((preset, i) => (
-                      <button
-                        key={i}
-                        onClick={() => applyNeuPreset(preset)}
-                        className="px-3 py-2 text-xs font-medium bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 hover:from-purple-100 hover:to-pink-100 dark:hover:from-purple-900/40 dark:hover:to-pink-900/40 border border-purple-100 dark:border-purple-800 rounded-lg transition-all hover:scale-[1.02] hover:shadow-md"
-                      >
-                        {preset.name}
-                      </button>
-                    ))}
-                </div>
-              </div>
+        {/* Left Side: Controls */}
+        <div className="space-y-8">
 
-              {/* Controls */}
-              {style === 'glassmorphism' ? (
-                <>
-                  <Slider
-                    label="Opacity"
-                    value={opacity}
-                    onChange={e => setOpacity(parseFloat(e.target.value))}
-                    min={0}
-                    max={1}
-                    step={0.01}
-                    valueDisplay={`${Math.round(opacity * 100)}%`}
-                  />
-                  <Slider
-                    label="Blur"
-                    value={blur}
-                    onChange={e => setBlur(parseFloat(e.target.value))}
-                    min={0}
-                    max={50}
-                    valueDisplay={`${blur}px`}
-                  />
-                  <Slider
-                    label="Border Radius"
-                    value={borderRadius}
-                    onChange={e => setBorderRadius(parseFloat(e.target.value))}
-                    min={0}
-                    max={50}
-                    valueDisplay={`${borderRadius}px`}
-                  />
-                  <Slider
-                    label="Border Width"
-                    value={borderWidth}
-                    onChange={e => setBorderWidth(parseFloat(e.target.value))}
-                    min={0}
-                    max={5}
-                    valueDisplay={`${borderWidth}px`}
-                  />
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label>Border Color</Label>
-                      <div className="flex gap-2 mt-1">
-                        <input
-                          type="color"
-                          value={borderColor}
-                          onChange={e => setBorderColor(e.target.value)}
-                          className="h-10 w-12 rounded-lg cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm"
-                        />
-                        <Input
-                          value={borderColor}
-                          onChange={e => setBorderColor(e.target.value)}
-                          className="flex-grow font-mono text-sm"
-                        />
-                      </div>
-                    </div>
-                    <div>
-                      <Slider
-                        label="Border Opacity"
-                        value={borderOpacity}
-                        onChange={e => setBorderOpacity(parseFloat(e.target.value))}
-                        min={0}
-                        max={1}
-                        step={0.01}
-                        valueDisplay={`${Math.round(borderOpacity * 100)}%`}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <h4 className="font-semibold mb-4 text-gray-900 dark:text-gray-100">Shadow Settings</h4>
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <Slider
-                          label="Shadow X"
-                          value={shadowX}
-                          onChange={e => setShadowX(parseFloat(e.target.value))}
-                          min={-20}
-                          max={20}
-                          valueDisplay={`${shadowX}px`}
-                        />
-                        <Slider
-                          label="Shadow Y"
-                          value={shadowY}
-                          onChange={e => setShadowY(parseFloat(e.target.value))}
-                          min={-20}
-                          max={20}
-                          valueDisplay={`${shadowY}px`}
-                        />
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <Slider
-                          label="Shadow Blur"
-                          value={shadowBlur}
-                          onChange={e => setShadowBlur(parseFloat(e.target.value))}
-                          min={0}
-                          max={50}
-                          valueDisplay={`${shadowBlur}px`}
-                        />
-                        <Slider
-                          label="Shadow Spread"
-                          value={shadowSpread}
-                          onChange={e => setShadowSpread(parseFloat(e.target.value))}
-                          min={-20}
-                          max={20}
-                          valueDisplay={`${shadowSpread}px`}
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label>Shadow Color</Label>
-                          <input
-                            type="color"
-                            value={shadowColor}
-                            onChange={e => setShadowColor(e.target.value)}
-                            className="h-10 w-full rounded-lg cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm mt-1"
-                          />
-                        </div>
-                        <div>
-                          <Slider
-                            label="Shadow Opacity"
-                            value={shadowOpacity}
-                            onChange={e => setShadowOpacity(parseFloat(e.target.value))}
-                            min={0}
-                            max={1}
-                            step={0.01}
-                            valueDisplay={`${Math.round(shadowOpacity * 100)}%`}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  {/* Neumorphism Controls */}
-                  <div>
-                    <Label>Background Color</Label>
-                    <div className="flex gap-2 mt-1">
-                      <input
-                        type="color"
-                        value={neuBackground}
-                        onChange={e => setNeuBackground(e.target.value)}
-                        className="h-10 w-12 rounded-lg cursor-pointer border border-gray-200 dark:border-gray-700 shadow-sm"
-                      />
-                      <Input
-                        value={neuBackground}
-                        onChange={e => setNeuBackground(e.target.value)}
-                        className="flex-grow font-mono text-sm"
-                      />
-                    </div>
-                    <div className="flex gap-1.5 mt-2">
-                      {['#e0e5ec', '#f0f0f3', '#d1d9e6', '#bec8e4', '#c9d6df', '#e8dfe0'].map(color => (
-                        <button
-                          key={color}
-                          onClick={() => setNeuBackground(color)}
-                          className={`w-7 h-7 rounded-lg border-2 transition-all hover:scale-110 ${neuBackground === color ? 'border-purple-500 ring-2 ring-purple-300' : 'border-gray-300 dark:border-gray-600'}`}
-                          style={{ background: color }}
-                          title={color}
-                        />
-                      ))}
-                    </div>
-                    <p className="text-xs text-amber-600 dark:text-amber-400 mt-2">
-                      💡 Tip: Neumorphism works best with light, muted colors
-                    </p>
-                  </div>
-
-                  <Slider
-                    label="Border Radius"
-                    value={neuBorderRadius}
-                    onChange={e => setNeuBorderRadius(parseFloat(e.target.value))}
-                    min={0}
-                    max={50}
-                    valueDisplay={`${neuBorderRadius}px`}
-                  />
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <Slider
-                      label="Shadow Distance X"
-                      value={neuShadowX}
-                      onChange={e => setNeuShadowX(parseFloat(e.target.value))}
-                      min={0}
-                      max={30}
-                      valueDisplay={`${neuShadowX}px`}
-                    />
-                    <Slider
-                      label="Shadow Distance Y"
-                      value={neuShadowY}
-                      onChange={e => setNeuShadowY(parseFloat(e.target.value))}
-                      min={0}
-                      max={30}
-                      valueDisplay={`${neuShadowY}px`}
-                    />
-                  </div>
-
-                  <Slider
-                    label="Shadow Blur"
-                    value={neuShadowBlur}
-                    onChange={e => setNeuShadowBlur(parseFloat(e.target.value))}
-                    min={0}
-                    max={60}
-                    valueDisplay={`${neuShadowBlur}px`}
-                  />
-
-                  <Slider
-                    label="Shadow Intensity"
-                    value={neuIntensity}
-                    onChange={e => setNeuIntensity(parseFloat(e.target.value))}
-                    min={0}
-                    max={0.5}
-                    step={0.01}
-                    valueDisplay={`${Math.round(neuIntensity * 100)}%`}
-                  />
-
-                  {/* Shape Selection */}
-                  <div>
-                    <Label>Shape Style</Label>
-                    <div className="grid grid-cols-3 gap-2 mt-2">
-                      {(['flat', 'concave', 'convex'] as const).map(shape => (
-                        <button
-                          key={shape}
-                          onClick={() => setNeuShape(shape)}
-                          className={`py-2 px-3 text-sm font-medium rounded-lg transition-all capitalize ${neuShape === shape
-                            ? 'bg-purple-100 dark:bg-purple-900/40 text-purple-700 dark:text-purple-300 ring-2 ring-purple-500/50'
-                            : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700'
-                            }`}
-                        >
-                          {shape}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Inset Toggle */}
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                    <Label className="mb-0">Inset (Pressed Effect)</Label>
-                    <button
-                      onClick={() => setNeuInset(!neuInset)}
-                      className={`relative w-12 h-6 rounded-full transition-colors ${neuInset ? 'bg-purple-500' : 'bg-gray-300 dark:bg-gray-600'
-                        }`}
-                    >
-                      <span
-                        className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform shadow ${neuInset ? 'translate-x-6' : 'translate-x-0'
-                          }`}
-                      />
-                    </button>
-                  </div>
-                </>
-              )}
+          {/* Style Toggle */}
+          <div>
+            <div className="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-lg border border-gray-200 dark:border-gray-700 w-full mb-4">
+              <button
+                onClick={() => setStyle('glassmorphism')}
+                className={`flex-1 py-1.5 px-3 rounded-md text-sm font-medium transition-all ${style === 'glassmorphism'
+                  ? 'bg-white dark:bg-gray-700 shadow text-blue-600 dark:text-blue-400'
+                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+                  }`}
+              >
+                Glassmorphism
+              </button>
+              <button
+                onClick={() => setStyle('neumorphism')}
+                className={`flex-1 py-1.5 px-3 rounded-md text-sm font-medium transition-all ${style === 'neumorphism'
+                  ? 'bg-white dark:bg-gray-700 shadow text-purple-600 dark:text-purple-400'
+                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+                  }`}
+              >
+                Neumorphism
+              </button>
             </div>
-          </Card>
 
-          {/* Tips Card */}
-          <div className={`p-4 rounded-xl border transition-all ${style === 'glassmorphism'
-            ? 'bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-blue-100 dark:border-blue-800'
-            : 'bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-purple-100 dark:border-purple-800'
-            }`}>
-            <h4 className={`font-semibold mb-3 flex items-center gap-2 ${style === 'glassmorphism' ? 'text-blue-900 dark:text-blue-100' : 'text-purple-900 dark:text-purple-100'
-              }`}>
-              <Sparkles className="w-4 h-4" />
-              {style === 'glassmorphism' ? 'Glassmorphism Tips' : 'Neumorphism Tips'}
-            </h4>
-            <div className={`text-sm space-y-2 ${style === 'glassmorphism' ? 'text-blue-700 dark:text-blue-300' : 'text-purple-700 dark:text-purple-300'
-              }`}>
-              {style === 'glassmorphism' ? (
-                <>
-                  <p>• <strong>Low opacity:</strong> 10-30% for a subtle, elegant effect</p>
-                  <p>• <strong>High blur:</strong> 10-20px creates a frosted glass appearance</p>
-                  <p>• <strong>Light borders:</strong> White with low opacity adds depth</p>
-                  <p>• <strong>Background:</strong> Use colorful gradients behind the glass</p>
-                </>
-              ) : (
-                <>
-                  <p>• <strong>Matching colors:</strong> Background should match the parent element</p>
-                  <p>• <strong>Light source:</strong> Top-left is the standard light direction</p>
-                  <p>• <strong>Soft shadows:</strong> Keep blur high relative to distance</p>
-                  <p>• <strong>Subtle colors:</strong> Use muted, pastel backgrounds</p>
-                </>
-              )}
+            {/* Presets */}
+            <div className="p-3 bg-gray-50 dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800">
+              <div className="flex items-center justify-between mb-3">
+                <Label className="flex items-center gap-1.5 mb-0">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  Presets
+                </Label>
+                <Button size="sm" variant="ghost" onClick={resetToDefault} className="h-6 text-xs text-gray-500 hover:text-gray-700">
+                  <RotateCcw className="w-3 h-3 mr-1" /> Reset
+                </Button>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {(style === 'glassmorphism' ? PRESETS.glassmorphism : PRESETS.neumorphism).map((preset, i) => (
+                  <button
+                    key={i}
+                    onClick={() => style === 'glassmorphism' ? applyGlassPreset(preset as any) : applyNeuPreset(preset as any)}
+                    className={`px-3 py-2 text-xs font-medium rounded-lg border transition-all hover:scale-[1.02] hover:shadow-sm ${style === 'glassmorphism'
+                        ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 text-blue-700 dark:text-blue-300'
+                        : 'bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30 text-purple-700 dark:text-purple-300'
+                      }`}
+                  >
+                    {preset.name}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* Main Controls - Height optimized with Grid */}
+          <div className="space-y-6">
+            {style === 'glassmorphism' ? (
+              <>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <ControlSlider label="Opacity" value={opacity} onChange={setOpacity} max={1} step={0.01} unit="%" displayMultiplier={100} />
+                  <ControlSlider label="Blur" value={blur} onChange={setBlur} max={50} unit="px" />
+                  <ControlSlider label="Border Radius" value={borderRadius} onChange={setBorderRadius} max={50} unit="px" />
+                  <ControlSlider label="Border Width" value={borderWidth} onChange={setBorderWidth} max={5} unit="px" />
+                </div>
+
+                <div className="border-t border-gray-200 dark:border-gray-800 pt-6"></div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="col-span-2">
+                    <Label className="mb-2 block">Shadow</Label>
+                    <div className="grid grid-cols-2 gap-4">
+                      <ControlSlider label="X" value={shadowX} onChange={setShadowX} min={-20} max={20} unit="px" />
+                      <ControlSlider label="Y" value={shadowY} onChange={setShadowY} min={-20} max={20} unit="px" />
+                      <ControlSlider label="Blur" value={shadowBlur} onChange={setShadowBlur} max={50} unit="px" />
+                      <ControlSlider label="Opacity" value={shadowOpacity} onChange={setShadowOpacity} max={1} step={0.01} unit="%" displayMultiplier={100} />
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              // Neumorphism Controls
+              <>
+                <div>
+                  <Label className="mb-2 block">Background Color</Label>
+                  <div className="flex gap-2">
+                    <ColorInput value={neuBackground} onChange={setNeuBackground} />
+                  </div>
+                  <div className="flex gap-1.5 mt-2">
+                    {['#e0e5ec', '#f0f0f3', '#d1d9e6', '#bec8e4', '#c9d6df'].map(color => (
+                      <button
+                        key={color}
+                        onClick={() => setNeuBackground(color)}
+                        className={`w-6 h-6 rounded border transition-all ${neuBackground === color ? 'border-purple-500 ring-1 ring-purple-300' : 'border-gray-300 dark:border-gray-600'}`}
+                        style={{ background: color }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <ControlSlider label="Size" value={neuBorderRadius} onChange={setNeuBorderRadius} max={50} unit="px" />
+                  <ControlSlider label="Intensity" value={neuIntensity} onChange={setNeuIntensity} max={0.5} step={0.01} unit="%" displayMultiplier={100} />
+                  <ControlSlider label="Distance X" value={neuShadowX} onChange={setNeuShadowX} max={30} unit="px" />
+                  <ControlSlider label="Distance Y" value={neuShadowY} onChange={setNeuShadowY} max={30} unit="px" />
+                </div>
+
+                <div>
+                  <Label className="mb-2 block">Shape & Effect</Label>
+                  <div className="flex gap-2 mb-4">
+                    {(['flat', 'concave', 'convex'] as const).map(s => (
+                      <button key={s} onClick={() => setNeuShape(s)} className={`flex-1 py-1.5 text-xs font-medium rounded border ${neuShape === s ? 'bg-purple-50 border-purple-200 text-purple-700 dark:bg-purple-900/20 dark:border-purple-800 dark:text-purple-300' : 'bg-transparent border-gray-200 text-gray-600 dark:border-gray-700 dark:text-gray-400'}`}>{s.charAt(0).toUpperCase() + s.slice(1)}</button>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
+                    <Label className="mb-0">Inset (Pressed)</Label>
+                    <button onClick={() => setNeuInset(!neuInset)} className={`w-10 h-5 rounded-full relative transition-colors ${neuInset ? 'bg-purple-500' : 'bg-gray-300 dark:bg-gray-600'}`}>
+                      <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full transition-transform ${neuInset ? 'translate-x-5' : 'translate-x-0'}`} />
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
         </div>
 
-        <div className="space-y-6">
-          {/* Preview Card */}
-          <Card className="h-[320px] flex items-center justify-center p-0 overflow-hidden relative">
-            <div className="absolute top-4 left-4 z-10 text-xs font-medium text-gray-500 dark:text-gray-400 pointer-events-none select-none bg-white/70 dark:bg-black/30 backdrop-blur-sm px-2.5 py-1 rounded-lg flex items-center gap-1.5">
-              <div className={`w-2 h-2 rounded-full ${style === 'glassmorphism' ? 'bg-blue-500' : 'bg-purple-500'} animate-pulse`} />
-              Live Preview
-            </div>
+        {/* Right Side: Preview & Code */}
+        <div className="space-y-6 sticky top-6">
+          {/* Preview */}
+          <div className="space-y-2">
+            <Label>Preview</Label>
+            <div className="relative h-[400px] w-full rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden flex items-center justify-center">
+              {/* Background */}
+              <div
+                className="absolute inset-0 transition-all duration-500"
+                style={{
+                  background:
+                    style === 'glassmorphism'
+                      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)'
+                      : neuBackground,
+                }}
+              />
 
-            {/* Background */}
-            <div
-              className="absolute inset-0 transition-all duration-500"
-              style={{
-                background:
-                  style === 'glassmorphism'
-                    ? 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)'
-                    : neuBackground,
-              }}
-            />
+              {/* Decorations */}
+              {style === 'glassmorphism' && (
+                <>
+                  <div className="absolute top-10 left-10 w-24 h-24 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse" />
+                  <div className="absolute top-16 right-16 w-20 h-20 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse delay-75" />
+                  <div className="absolute bottom-12 left-1/3 w-32 h-32 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-60 animate-pulse delay-150" />
+                </>
+              )}
 
-            {/* Decorative elements for glassmorphism */}
-            {style === 'glassmorphism' && (
-              <>
-                <div className="absolute top-8 left-8 w-24 h-24 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" />
-                <div className="absolute top-12 right-12 w-20 h-20 bg-yellow-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style={{ animationDelay: '1s' }} />
-                <div className="absolute bottom-8 left-1/4 w-28 h-28 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse" style={{ animationDelay: '2s' }} />
-              </>
-            )}
-
-            {/* Preview Element */}
-            <div
-              className="w-48 h-48 flex flex-col items-center justify-center text-center transition-all duration-300 select-none relative z-10"
-              style={{
-                ...glassmorphismStyles,
-                color: style === 'glassmorphism' ? 'white' : adjustColor(neuBackground, -50),
-              }}
-            >
-              <span className="text-2xl font-bold mb-1">
-                {style === 'glassmorphism' ? '✨' : '🎨'}
-              </span>
-              <span className="text-lg font-semibold">
-                {style === 'glassmorphism' ? 'Glass' : 'Soft UI'}
-              </span>
-              <span className="text-xs opacity-70 mt-1">
-                {style === 'glassmorphism' ? 'Frosted Effect' : neuInset ? 'Pressed' : 'Raised'}
-              </span>
-            </div>
-
-            {/* Additional neumorphism demo elements */}
-            {style === 'neumorphism' && (
-              <>
-                <div
-                  className="absolute bottom-4 left-4 w-12 h-12 rounded-full transition-all duration-300"
-                  style={{
-                    background: neuGradient,
-                    boxShadow: `${neuDarkShadow}, ${neuLightShadow}`,
-                  }}
-                />
-                <div
-                  className="absolute bottom-4 right-4 w-12 h-12 rounded-xl transition-all duration-300"
-                  style={{
-                    background: neuGradient,
-                    boxShadow: `${neuDarkShadow}, ${neuLightShadow}`,
-                  }}
-                />
-              </>
-            )}
-          </Card>
-
-          {/* CSS Output */}
-          <Card className="relative group">
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="font-semibold text-gray-900 dark:text-gray-100">CSS Output</h3>
-              <Button
-                size="sm"
-                variant={copied ? 'primary' : 'secondary'}
-                onClick={copyToClipboard}
-                className={`shadow-sm transition-all ${copied ? 'bg-green-500 hover:bg-green-600' : ''}`}
+              {/* The Object */}
+              <div
+                className="w-48 h-48 flex flex-col items-center justify-center text-center transition-all duration-300 select-none relative z-10"
+                style={{
+                  ...glassmorphismStyles,
+                  color: style === 'glassmorphism' ? 'white' : adjustColor(neuBackground, -50),
+                }}
               >
-                {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 mr-1.5" />
-                    Copied!
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 mr-1.5" />
-                    Copy CSS
-                  </>
-                )}
+                <span className="text-2xl mb-1">{style === 'glassmorphism' ? '✨' : '🎨'}</span>
+                <span className="font-semibold text-lg">{style === 'glassmorphism' ? 'Glass' : 'Neumorphic'}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Code Output */}
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <Label>CSS Output</Label>
+              <Button size="sm" variant="ghost" onClick={copyToClipboard} className="h-6 text-xs text-blue-600 hover:bg-blue-50 px-2">
+                {copied ? <Check className="w-3 h-3 mr-1.5" /> : <Copy className="w-3 h-3 mr-1.5" />}
+                {copied ? 'Copied' : 'Copy'}
               </Button>
             </div>
-            <pre className="p-4 bg-gray-950 rounded-xl text-sm font-mono overflow-x-auto border border-gray-800">
-              <code className="text-gray-100">{cssCode}</code>
-            </pre>
-          </Card>
-
-          {/* Browser Support Note */}
-          <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800/50">
-            <p className="text-xs text-amber-700 dark:text-amber-300">
-              <strong>Browser Support:</strong> {style === 'glassmorphism'
-                ? 'backdrop-filter is supported in modern browsers. Safari requires -webkit- prefix (included in output).'
-                : 'box-shadow is widely supported. Works in all modern browsers.'
-              }
-            </p>
+            <div className="relative group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
+              <pre className="p-4 text-gray-800 dark:text-gray-200 text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
+                <code>{cssCode}</code>
+              </pre>
+            </div>
           </div>
         </div>
       </div>
     </ToolContainer>
   );
 };
+
+// Reusable Components to reduce clutter
+const ControlSlider = ({ label, value, onChange, min = 0, max, step = 1, unit = '', displayMultiplier = 1 }: any) => (
+  <div>
+    <div className="flex justify-between mb-2">
+      <Label className="text-xs text-gray-500 uppercase tracking-wide">{label}</Label>
+      <span className="text-xs font-mono bg-gray-100 dark:bg-gray-800 px-1.5 rounded">{Math.round(value * displayMultiplier)}{unit}</span>
+    </div>
+    <input
+      type="range"
+      min={min}
+      max={max}
+      step={step}
+      value={value}
+      onChange={(e) => onChange(Number(e.target.value))}
+      className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-blue-500 [&::-webkit-slider-thumb]:rounded-full hover:[&::-webkit-slider-thumb]:scale-110 focus:outline-none transition-all"
+    />
+  </div>
+);
+
+const ColorInput = ({ value, onChange }: any) => (
+  <div className="flex items-center gap-2 bg-white dark:bg-gray-800 p-1.5 rounded-lg border border-gray-200 dark:border-gray-700 w-full">
+    <div className="relative w-8 h-8 rounded overflow-hidden border border-gray-200 dark:border-gray-600 flex-shrink-0">
+      <input type="color" value={value} onChange={(e) => onChange(e.target.value)} className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] p-0 border-0 cursor-pointer" />
+    </div>
+    <input type="text" value={value} onChange={(e) => onChange(e.target.value)} className="w-[80px] bg-transparent border-none text-xs font-mono focus:ring-0 p-0" />
+  </div>
+);
 
 export default GlassmorphismGenerator;
