@@ -5,7 +5,7 @@ import { TIPS } from '@/lib/tips';
 export const getWebsiteSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'UtilToolkits',
+  name: 'UtilToolkits - Your Free Online Developer Toolbox',
   description:
     'Your comprehensive free online developer toolbox with 90+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.',
   url: 'https://utiltoolkits.com',
@@ -23,7 +23,7 @@ export const getWebsiteSchema = () => ({
     name: 'UtilToolkits',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://utiltoolkits.com/icon.png',
+      url: 'https://utiltoolkits.com/og-image.png',
     },
   },
   inLanguage: 'en-US',
@@ -34,11 +34,11 @@ export const getWebsiteSchema = () => ({
 export const getOrganizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'UtilToolkits',
+  name: 'UtilToolkits - Your Free Online Developer Toolbox',
   description:
     'A comprehensive collection of free, browser-based developer tools and utilities for developers, designers, and productivity enthusiasts.',
   url: 'https://utiltoolkits.com',
-  logo: 'https://utiltoolkits.com/icon.png',
+  logo: 'https://utiltoolkits.com/og-image.png',
   foundingDate: '2024',
   sameAs: ['https://github.com/utiltoolkits', 'https://twitter.com/utiltoolkits'],
   contactPoint: {
@@ -196,7 +196,7 @@ export const getToolSchema = (tool: any) => ({
     name: 'UtilToolkits',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://utiltoolkits.com/icon.png',
+      url: 'https://utiltoolkits.com/og-image.png',
     },
   },
   offers: {

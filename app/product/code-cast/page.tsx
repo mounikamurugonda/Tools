@@ -4,7 +4,7 @@ import Schema from '../../../components/Schema';
 import { getCodeCastProductSchema, getBreadcrumbSchema } from '../../../lib/schema';
 
 export const metadata: Metadata = {
-  title: 'CodeCast | Viral Code Animations & Beautiful Syntax Highlighting',
+  title: 'CodeCast - Professional Code Animations',
   description:
     'The #1 tool for developer content creators. Create studio-quality code animations, beautiful screenshots, and viral coding videos for Instagram, TikTok, and YouTube in seconds.',
   keywords: [

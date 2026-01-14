@@ -77,12 +77,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   icons: {
-    icon: [
-      { url: '/logo.svg', type: 'image/svg+xml' }, // Default high-res icon for Google
-      { url: '/fav-light-logo.ico', media: '(prefers-color-scheme: light)' },
-      { url: '/fav-dark-logo.ico', media: '(prefers-color-scheme: dark)' },
-    ],
-    shortcut: '/fav-light-logo.ico',
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
     apple: '/fav-light-logo.ico',
   },
   other: {
