@@ -174,7 +174,7 @@ export const getCategoryPageSchema = (category: string, tools: any[]) => ({
 });
 
 // Individual tool schema
-export const getToolSchema = (tool: any) => ({
+export const getToolSchema = (tool: any, details?: any) => ({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: tool.name,
@@ -183,9 +183,9 @@ export const getToolSchema = (tool: any) => ({
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Web Browser',
   browserRequirements: 'Requires JavaScript. Works with all modern browsers.',
-  softwareVersion: '1.0',
+  softwareVersion: '2.0',
   datePublished: '2024-01-01',
-  dateModified: new Date().toISOString().split('T')[0],
+  dateModified: new Date().getFullYear() + '-01-01',
   author: {
     '@type': 'Organization',
     name: 'UtilToolkits',
@@ -231,6 +231,21 @@ export const getToolSchema = (tool: any) => ({
   inLanguage: 'en-US',
   isAccessibleForFree: true,
   license: 'https://opensource.org/licenses/MIT',
+  ...(details?.faqs && details.faqs.length > 0
+    ? {
+      mainEntity: {
+        '@type': 'FAQPage',
+        mainEntity: details.faqs.map((faq: any) => ({
+          '@type': 'Question',
+          name: faq.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: faq.answer,
+          },
+        })),
+      },
+    }
+    : {}),
 });
 
 // Breadcrumb schema

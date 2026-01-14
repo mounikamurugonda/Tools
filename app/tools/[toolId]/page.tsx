@@ -126,7 +126,7 @@ export default async function ToolPage({ params }: { params: Promise<{ toolId: s
   return (
     <AnalyticsWrapper pageType="tool" toolName={tool.name}>
       {/* Schema Markup */}
-      <Schema schema={getToolSchema(tool)} />
+      <Schema schema={getToolSchema(tool, toolDetails)} />
       <Schema
         schema={getBreadcrumbSchema([
           { name: 'Home', url: 'https://utiltoolkits.com' },

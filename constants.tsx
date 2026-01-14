@@ -745,7 +745,7 @@ export const TOOLS: Tool[] = [
     name: 'Flesch-Kincaid /Readability Score Calculator',
     description:
       'Analyze text complexity and calculate Flesch-Kincaid and other readability scores to improve content clarity and accessibility.',
-    seoTitle: 'Flesch-Kincaid Calculator 📖 - Readability Score Calculator',
+    seoTitle: 'Flesch-Kincaid Grade Level Readability Calculator',
     seoDescription:
       'Check your text readability instantly using Flesch Reading Ease and Flesch-Kincaid Grade Level. Free online readability score calculator. No signup required.',
     icon: <ReadabilityIcon />,
