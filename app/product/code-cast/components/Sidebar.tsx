@@ -12,6 +12,7 @@ import { BACKGROUND_PRESETS, EDITOR_THEMES, FONT_SIZES } from '../constants';
 import { EmojiPicker } from './EmojiPicker';
 import { usePathname } from 'next/navigation';
 import { FeatureGuard } from '@/components/FeatureGuard';
+import { BackgroundRenderer, getContainerBackgroundClass } from './BackgroundRenderer';
 
 // Internal reusable Tooltip Wrapper (Copied from CodeCastHeader for consistency)
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -208,9 +209,12 @@ const Sidebar: React.FC = () => {
                        ${config.background === bg.value ? 'border-blue-600 dark:border-blue-400 shadow-lg scale-105' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500'}
                      `}
                           >
-                            <div className={`w-full h-full ${bg.value}`} />
+                            <div className={`w-full h-full relative ${getContainerBackgroundClass(bg.id) === bg.id ? bg.value : getContainerBackgroundClass(bg.id)}`}>
+                              <BackgroundRenderer background={bg.id} />
+                            </div>
+
                             {config.background === bg.value && (
-                              <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                              <div className="absolute inset-0 flex items-center justify-center bg-black/20 z-10">
                                 <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
                               </div>
                             )}

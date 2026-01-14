@@ -33,32 +33,16 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     value: 'bg-gradient-to-bl from-indigo-900 via-purple-900 to-pink-900',
     isDark: true,
   },
-  {
-    id: 'cyber-dim',
-    label: 'Cyber Dim',
-    value: 'bg-gradient-to-r from-slate-900 to-slate-800',
-    isDark: true,
-  },
 
   // --- Modern Vibrant ---
-  {
-    id: 'electric-violet',
-    label: 'Electric Violet',
-    value: 'bg-gradient-to-tr from-violet-600 to-indigo-600',
-    isDark: true,
-  },
+
   {
     id: 'oceanic-depths',
     label: 'Oceanic Depths',
     value: 'bg-gradient-to-br from-blue-900 via-cyan-900 to-blue-900',
     isDark: true,
   },
-  {
-    id: 'neon-twilight',
-    label: 'Neon Twilight',
-    value: 'bg-gradient-to-r from-fuchsia-600 to-purple-600',
-    isDark: true,
-  },
+
   {
     id: 'azure-pop',
     label: 'Azure Pop',
@@ -79,17 +63,74 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     value: 'bg-gradient-to-tr from-slate-800 via-violet-900/50 to-slate-900',
     isDark: true,
   },
-  {
-    id: 'sunset-vibe',
-    label: 'Sunset Vibe',
-    value: 'bg-gradient-to-br from-rose-500 to-orange-400',
-    isDark: true,
-  },
+
   {
     id: 'pure-black',
     label: 'Pure Black',
     value: 'bg-black',
     isDark: true,
+  },
+
+  // --- Custom Patterns ---
+  {
+    id: 'aurora-dream',
+    label: 'Aurora Dream',
+    value: 'aurora-dream',
+    isDark: false,
+  },
+  {
+    id: 'zigzag-lightning',
+    label: 'Zigzag Lightning',
+    value: 'zigzag-lightning',
+    isDark: false,
+  },
+  {
+    id: 'clean-grid',
+    label: 'Clean Grid',
+    value: 'clean-grid',
+    isDark: false,
+  },
+  {
+    id: 'tropical-dusk',
+    label: 'Tropical Dusk',
+    value: 'tropical-dusk',
+    isDark: true,
+  },
+  {
+    id: 'purple-radial',
+    label: 'Purple Radial',
+    value: 'purple-radial',
+    isDark: true,
+  },
+  {
+    id: 'dual-gradient',
+    label: 'Dual Gradient',
+    value: 'dual-gradient',
+    isDark: false,
+  },
+  {
+    id: 'crimson-shadow',
+    label: 'Crimson Shadow',
+    value: 'crimson-shadow',
+    isDark: true,
+  },
+  {
+    id: 'rose-corner',
+    label: 'Rose Corner',
+    value: 'rose-corner',
+    isDark: false,
+  },
+  {
+    id: 'diagonal-stripes',
+    label: 'Diagonal Stripes',
+    value: 'diagonal-stripes',
+    isDark: false,
+  },
+  {
+    id: 'circuit-board',
+    label: 'Circuit Board',
+    value: 'circuit-board',
+    isDark: false,
   },
 ];
 

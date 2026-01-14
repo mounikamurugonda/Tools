@@ -136,6 +136,6 @@ const config: Config = {
       }),
     },
   },
-  plugins: [typography, forms],
+  plugins: [typography, forms, require('tailwind-scrollbar-hide')],
 };
 export default config;
