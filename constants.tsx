@@ -112,6 +112,7 @@ import {
   SeparatorIcon,
   AsciiIcon,
 } from '@/components/icons';
+import { SeparatorHorizontalIcon } from 'lucide-react';
 
 const PRIVACY_STATEMENT =
   'All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.';
@@ -820,7 +821,7 @@ export const TOOLS: Tool[] = [
     seoTitle: 'Comma Separator 📝 | Convert Column to Comma Separated List',
     seoDescription:
       'Free online tool to convert lists to comma-separated values (CSV) and vice versa. Support for custom delimiters, wrapping, sorting, and duplicate removal.',
-    icon: <SeparatorIcon />,
+    icon: <SeparatorHorizontalIcon />,
     category: ToolCategory.TEXT,
     keywords: [
       'comma separator',

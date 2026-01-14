@@ -18,7 +18,7 @@ export default async function VerifyUsersPage() {
                 <pre>{JSON.stringify(users, null, 2)}</pre>
             </div>
             <p className="mt-4 text-sm text-gray-500">
-                Note: If this list is empty, try logging in with Google. If error says "permission denied", ensure RLS policies allow access or `SUPABASE_SERVICE_ROLE_KEY` is set in .env.local and used in `lib/supabase.ts`.
+                Note: If this list is empty, try logging in with Google. If error says &quot;permission denied&quot;, ensure RLS policies allow access or `SUPABASE_SERVICE_ROLE_KEY` is set in .env.local and used in `lib/supabase.ts`.
             </p>
         </div>
     );

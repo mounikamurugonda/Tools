@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+"use client";
+
+import React, { useRef, useEffect, useState } from 'react';
 import type { Tool, ToolDetails } from '@/types';
 import ToolDescription from './ToolDescription';
 import ShareButton from './ShareButton';
@@ -7,6 +9,9 @@ import { SITE_CREDITS, TOOL_CREDITS } from '@/lib/credits';
 import ToolCard from './ToolCard'; // Import ToolCard for recommended tools
 import Link from 'next/link';
 import { TOOLS } from '@/constants';
+import { Heart } from 'lucide-react';
+import { useFavoritesStore } from '@/store/useFavoritesStore';
+import { useSession } from 'next-auth/react';
 
 interface ToolContainerProps {
   title: string;
@@ -24,9 +29,33 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
   headerContent,
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { favorites, isFavorite, toggleFavorite } = useFavoritesStore();
+  const { data: session } = useSession();
+  const [isFav, setIsFav] = useState(false);
 
   const currentTool = toolId ? TOOLS.find(tool => tool.id === toolId) : undefined;
   const currentToolCategory = currentTool ? currentTool.category : undefined;
+
+  // Sync with favorites store - depend on favorites array so it updates when changed
+  useEffect(() => {
+    if (toolId) {
+      setIsFav(isFavorite(toolId));
+    }
+  }, [toolId, favorites, isFavorite]);
+
+  const handleToggleFavorite = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!session) {
+      alert("Please sign in to save favorites!");
+      return;
+    }
+
+    if (toolId) {
+      toggleFavorite(toolId);
+    }
+  };
 
   const scroll = (scrollOffset: number) => {
     if (scrollContainerRef.current) {
@@ -50,6 +79,19 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
         </h1>
         <div className="flex items-center gap-2">
           {headerContent}
+          {toolId && (
+            <button
+              onClick={handleToggleFavorite}
+              className={`p-2 rounded-lg transition-all duration-200 ${isFav
+                ? 'text-red-500 '
+                : 'text-gray-400'
+                }`}
+              title={isFav ? "Remove from favorites" : "Add to favorites"}
+              aria-label={isFav ? "Remove from favorites" : "Add to favorites"}
+            >
+              <Heart size={20} className={isFav ? "fill-current" : ""} />
+            </button>
+          )}
           {toolId && <ShareButton toolId={toolId} title={title} />}
         </div>
       </div>

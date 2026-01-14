@@ -1,9 +1,10 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import type { Tool } from '@/types';
 import { Heart } from 'lucide-react';
 import { useFavoritesStore } from '@/store/useFavoritesStore';
 import { useSession } from 'next-auth/react';
-import { FeatureGuard } from './FeatureGuard'; // Optional, or just let users click but handle auth
 
 interface ToolCardProps {
   tool: Tool;
@@ -51,8 +52,8 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
           <button
             onClick={handleToggleFavorite}
             className={`p-1.5 rounded-full transition-all ${isFav
-                ? 'text-red-500 bg-red-50 dark:bg-red-900/20 opacity-100'
-                : 'text-gray-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 opacity-0 group-hover:opacity-100'
+              ? 'text-red-500 bg-red-50 dark:bg-red-900/20 opacity-100'
+              : 'text-gray-400 hover:text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 opacity-0 group-hover:opacity-100'
               }`}
             title={isFav ? "Remove from favorites" : "Add to favorites"}
           >
@@ -73,8 +74,8 @@ const ToolCard: React.FC<ToolCardProps> = ({ tool, isCompact = false }) => {
           <button
             onClick={handleToggleFavorite}
             className={`p-2 rounded-full transition-all transform hover:scale-110 shadow-sm ${isFav
-                ? 'text-red-500 bg-white/90 dark:bg-gray-800/90'
-                : 'text-gray-400 bg-white/80 dark:bg-gray-800/80 hover:text-red-500 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0'
+              ? 'text-red-500 bg-white/90 dark:bg-gray-800/90'
+              : 'text-gray-400 bg-white/80 dark:bg-gray-800/80 hover:text-red-500 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0'
               }`}
             title={isFav ? "Remove from favorites" : "Add to favorites"}
           >

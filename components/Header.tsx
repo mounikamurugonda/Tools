@@ -264,8 +264,8 @@ const Header: React.FC = () => {
                 <button
                   onClick={() => setIsFavoritesOpen(!isFavoritesOpen)}
                   className={`p-2 rounded-full transition-colors relative ${isFavoritesOpen
-                      ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
-                      : 'text-gray-500 hover:text-red-500 hover:bg-red-50 dark:text-gray-400 dark:hover:bg-red-900/10'
+                    ? 'text-red-500 '
+                    : 'text-gray-500'
                     }`}
                   aria-label="Favorites"
                 >

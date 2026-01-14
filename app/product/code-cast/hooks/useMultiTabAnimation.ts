@@ -79,6 +79,70 @@ export const useMultiTabAnimation = ({
         charIndexRef.current = 0;
     }, [setIsPlaying, setIsPaused]);
 
+    const startAnimationLoop = useCallback((target: CodeSnippet) => {
+        const sequence: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
+
+        const runLoop = () => {
+            // Find next non-empty tab if needed
+            while (sequenceIndexRef.current < sequence.length &&
+                (!target[sequence[sequenceIndexRef.current]] || !target[sequence[sequenceIndexRef.current]].trim())) {
+                sequenceIndexRef.current++;
+                charIndexRef.current = 0; // Reset char index for new tab
+            }
+
+            if (sequenceIndexRef.current >= sequence.length) {
+                stopAnimation();
+                return;
+            }
+
+            const currentTabId = sequence[sequenceIndexRef.current];
+            setActiveTab(currentTabId);
+
+            const typeChar = () => {
+                const fullText = target[currentTabId];
+
+                // If index exceeds length, we are done with this tab
+                if (charIndexRef.current >= fullText.length) {
+                    sequenceIndexRef.current++;
+                    charIndexRef.current = 0;
+                    animationTimerRef.current = window.setTimeout(runLoop, 1000);
+                    return;
+                }
+
+                // If starting fresh on this tab, clear explicit focus once
+                if (charIndexRef.current === 0) {
+                    editorRef.current?.focus();
+                }
+
+                const charToType = fullText[charIndexRef.current];
+
+                if (editorRef.current) {
+                    // Use Monaco's native type command for smooth insertion and cursor movement
+                    editorRef.current.trigger('keyboard', 'type', { text: charToType });
+
+                    // We DO need to ensure the view follows the cursor
+                    editorRef.current.revealPosition(editorRef.current.getPosition());
+
+                    // Update store to keep Preview in sync - using editor value prevents race conditions
+                    // This "should" be safe because editor.getValue() matches the value prop
+                    updateCode(currentTabId, editorRef.current.getValue());
+                } else {
+                    // Fallback if editor not ready (shouldn't happen in loop)
+                    updateCode(currentTabId, fullText.substring(0, charIndexRef.current + 1));
+                }
+
+                charIndexRef.current++;
+                animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
+            };
+
+            // Start typing
+            animationTimerRef.current = window.setTimeout(typeChar, 150);
+        };
+
+        // Start the loop
+        runLoop();
+    }, [stopAnimation, setActiveTab, updateCode, editorRef]);
+
     // Robust cleanup on unmount or when stopping
     useEffect(() => {
         return () => {
@@ -172,71 +236,7 @@ export const useMultiTabAnimation = ({
             updateCode('css', fullBackupRef.current.css);
             updateCode('js', fullBackupRef.current.js);
         }
-    }, [isPlaying, isPaused, config.soundEnabled, stopAnimation, updateCode, setActiveTab, code]); // Added isPaused
-
-    const startAnimationLoop = (target: CodeSnippet) => {
-        const sequence: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
-
-        const runLoop = () => {
-            // Find next non-empty tab if needed
-            while (sequenceIndexRef.current < sequence.length &&
-                (!target[sequence[sequenceIndexRef.current]] || !target[sequence[sequenceIndexRef.current]].trim())) {
-                sequenceIndexRef.current++;
-                charIndexRef.current = 0; // Reset char index for new tab
-            }
-
-            if (sequenceIndexRef.current >= sequence.length) {
-                stopAnimation();
-                return;
-            }
-
-            const currentTabId = sequence[sequenceIndexRef.current];
-            setActiveTab(currentTabId);
-
-            const typeChar = () => {
-                const fullText = target[currentTabId];
-
-                // If index exceeds length, we are done with this tab
-                if (charIndexRef.current >= fullText.length) {
-                    sequenceIndexRef.current++;
-                    charIndexRef.current = 0;
-                    animationTimerRef.current = window.setTimeout(runLoop, 1000);
-                    return;
-                }
-
-                // If starting fresh on this tab, clear explicit focus once
-                if (charIndexRef.current === 0) {
-                    editorRef.current?.focus();
-                }
-
-                const charToType = fullText[charIndexRef.current];
-
-                if (editorRef.current) {
-                    // Use Monaco's native type command for smooth insertion and cursor movement
-                    editorRef.current.trigger('keyboard', 'type', { text: charToType });
-
-                    // We DO need to ensure the view follows the cursor
-                    editorRef.current.revealPosition(editorRef.current.getPosition());
-
-                    // Update store to keep Preview in sync - using editor value prevents race conditions
-                    // This "should" be safe because editor.getValue() matches the value prop
-                    updateCode(currentTabId, editorRef.current.getValue());
-                } else {
-                    // Fallback if editor not ready (shouldn't happen in loop)
-                    updateCode(currentTabId, fullText.substring(0, charIndexRef.current + 1));
-                }
-
-                charIndexRef.current++;
-                animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
-            };
-
-            // Start typing
-            animationTimerRef.current = window.setTimeout(typeChar, 150);
-        };
-
-        // Start the loop
-        runLoop();
-    };
+    }, [isPlaying, isPaused, config.soundEnabled, stopAnimation, updateCode, setActiveTab, code, startAnimationLoop]); // Added isPaused and startAnimationLoop
     // Actually, 'code' changing *while* playing shouldn't restart. 
     // But we need to capture `code` at the *moment* isPlaying becomes true.
     // The effect runs when isPlaying changes. At that moment, `code` is the valid code.

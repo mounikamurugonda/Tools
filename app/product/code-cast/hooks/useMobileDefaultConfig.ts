@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 /**
  * Hook to set default config for mobile devices.
@@ -9,8 +9,12 @@ import { useEffect } from 'react';
  */
 export const useMobileDefaultConfig = (useStore: any) => {
     const { config, updateConfig } = useStore();
+    const hasRunRef = useRef(false);
 
     useEffect(() => {
+        // Only run once on initial mount to respect user changes afterward
+        if (hasRunRef.current) return;
+
         const checkMobileDefaults = () => {
             // Check if width is less than 768px (standard mobile breakpoint)
             const isMobile = window.innerWidth < 768;
@@ -21,11 +25,11 @@ export const useMobileDefaultConfig = (useStore: any) => {
             }
         };
 
-        // Run immediately
         checkMobileDefaults();
+        hasRunRef.current = true;
 
         // Optionally run on resize (though typically we only care about initial load)
         // window.addEventListener('resize', checkMobileDefaults);
         // return () => window.removeEventListener('resize', checkMobileDefaults);
-    }, []); // Run only on mount to respect user changes afterward
+    }, [config.deviceFrame, updateConfig]);
 };

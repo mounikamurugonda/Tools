@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { supabase } from "@/lib/supabase";
-import { authOptions } from "../auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 // We need to import the authOptions properly. 
 // Looking at route.ts: `const handler = NextAuth({...})`. `export { handler as GET, handler as POST }`.
