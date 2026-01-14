@@ -36,7 +36,6 @@ import { usePathname } from 'next/navigation';
 import { DeviceFrame } from '../types';
 import { useRecording } from '../context/RecordingContext';
 import * as htmlToImage from 'html-to-image';
-import LoginButton from '@/components/LoginButton';
 import { FeatureGuard } from '@/components/FeatureGuard';
 
 // Internal reusable Tooltip Wrapper
@@ -667,7 +666,6 @@ export const CodeCastHeader = () => {
               </div>
             )
           }
-          <LoginButton />
         </div>
       </div>
 

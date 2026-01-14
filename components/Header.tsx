@@ -10,7 +10,11 @@ import SearchBar from './SearchBar';
 import { CATEGORY_ORDER, CATEGORY_ICONS, CATEGORY_URL_MAP } from '@/constants';
 import { TOOLS } from '@/constants';
 import { ToolCategory } from '@/types';
-import { Terminal, Play, Keyboard, Image as ImageIcon } from 'lucide-react';
+import { Terminal, Play, Keyboard, Image as ImageIcon, Heart } from 'lucide-react';
+import LoginButton from './LoginButton';
+import { useFavoritesStore } from '@/store/useFavoritesStore';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface NavLinkProps {
   href: string;
@@ -44,6 +48,22 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const pathname = usePathname();
   const [openCategory, setOpenCategory] = useState<ToolCategory | null>(null);
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
+
+  const { favorites, fetchFavorites, isLoading } = useFavoritesStore();
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  // Fetch favorites on mount if session exists
+  React.useEffect(() => {
+    if (session?.user?.email) {
+      fetchFavorites();
+    }
+  }, [session, fetchFavorites]);
+
+  const favoriteTools = React.useMemo(() => {
+    return TOOLS.filter(t => favorites.includes(t.id));
+  }, [favorites]);
 
   React.useEffect(() => {
     if (isMenuOpen && pathname) {
@@ -239,18 +259,91 @@ const Header: React.FC = () => {
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
 
             <div className="flex items-center gap-3">
+              {/* Favorites Button (Desktop) */}
+              <div className="relative">
+                <button
+                  onClick={() => setIsFavoritesOpen(!isFavoritesOpen)}
+                  className={`p-2 rounded-full transition-colors relative ${isFavoritesOpen
+                      ? 'text-red-500 bg-red-50 dark:bg-red-900/20'
+                      : 'text-gray-500 hover:text-red-500 hover:bg-red-50 dark:text-gray-400 dark:hover:bg-red-900/10'
+                    }`}
+                  aria-label="Favorites"
+                >
+                  <Heart size={20} className={favorites.length > 0 ? "fill-red-500 text-red-500" : ""} />
+                  {favorites.length > 0 && (
+                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white">
+                      {favorites.length}
+                    </span>
+                  )}
+                </button>
+
+                {/* Favorites Dropdown */}
+                {isFavoritesOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setIsFavoritesOpen(false)} />
+                    <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-fade-in-up">
+                      <div className="p-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                        <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Your Favorites</h3>
+                      </div>
+                      <div className="max-h-80 overflow-y-auto p-2 space-y-1">
+                        {!session ? (
+                          <div className="p-4 text-center">
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">Sign in to view your favorites</p>
+                          </div>
+                        ) : favoriteTools.length === 0 ? (
+                          <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+                            <Heart size={32} className="mx-auto mb-2 opacity-20" />
+                            <p className="text-sm">No favorite tools yet</p>
+                          </div>
+                        ) : (
+                          favoriteTools.map(tool => (
+                            <Link
+                              key={tool.id}
+                              href={`/tools/${tool.id}`}
+                              onClick={() => setIsFavoritesOpen(false)}
+                              className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                            >
+                              <div className="w-8 h-8 flex items-center justify-center rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 group-hover:scale-110 transition-transform">
+                                {tool.icon}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{tool.name}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{tool.category}</p>
+                              </div>
+                            </Link>
+                          ))
+                        )}
+                      </div>
+                      {session && (
+                        <div className="p-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-center">
+                          <Link
+                            href="/tools"
+                            onClick={() => setIsFavoritesOpen(false)}
+                            className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                          >
+                            Browse all tools
+                          </Link>
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+
               <Link
                 href="/request-tool"
-                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg transition-colors"
+                className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg transition-colors shadow-sm"
               >
                 Request a Tool
               </Link>
               <ThemeSwitcher />
+              <LoginButton />
             </div>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-3 md:hidden">
+            <LoginButton /> {/* Compact on mobile */}
             <ThemeSwitcher />
             <button
               onClick={() => setIsMenuOpen(true)}
@@ -290,6 +383,25 @@ const Header: React.FC = () => {
             <div className="p-4 border-b border-gray-200 dark:border-gray-800 shrink-0">
               <SearchBar />
             </div>
+
+            {/* Mobile Favorites Link */}
+            {session && (
+              <div className="px-4 pt-4">
+                <button
+                  onClick={() => {
+                    setIsFavoritesOpen(true); // Re-use the desktop dropdown logic or just navigate? 
+                    // For mobile menu, maybe better to just list them inline or standard nav link?
+                    // Let's add an inline section.
+                    setIsMenuOpen(false);
+                    setIsFavoritesOpen(true); // Reuse the dropdown logic which is fixed position
+                  }}
+                  className="flex items-center gap-3 w-full p-3 bg-red-50 dark:bg-red-900/20 rounded-xl text-red-600 dark:text-red-400"
+                >
+                  <Heart size={20} className="fill-current" />
+                  <span className="font-bold">Your Favorites ({favorites.length})</span>
+                </button>
+              </div>
+            )}
 
             <nav className="flex-1 overflow-y-auto p-4 space-y-2">
               {/* Request a Tool Button */}
