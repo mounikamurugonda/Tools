@@ -12,7 +12,7 @@ export const ProjectTitleDisplay = () => {
     const imageStore = useImageStore();
 
     const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-    const { projectTitle, showProjectInfo, projectTitleFontSize } = currentStore;
+    const { projectTitle, showProjectInfo, projectTitleFontSize, projectTitleColor } = currentStore;
 
     if (!showProjectInfo || !projectTitle) return null;
 
@@ -26,8 +26,11 @@ export const ProjectTitleDisplay = () => {
         >
             <div className="bg-white/10 backdrop-blur-xl px-4 py-2 sm:px-6 rounded-2xl sm:rounded-full shadow-2xl border border-white/20 max-w-[90%] md:max-w-2xl">
                 <h1
-                    className="font-bold text-white/90 tracking-tight text-center break-words leading-tight transition-all duration-200"
-                    style={{ fontSize: `${projectTitleFontSize || 14}px` }}
+                    className="font-bold tracking-tight text-center break-words leading-tight transition-all duration-200"
+                    style={{
+                        fontSize: `${projectTitleFontSize || 14}px`,
+                        color: projectTitleColor || '#FFFFFF'
+                    }}
                 >
                     {projectTitle}
                 </h1>

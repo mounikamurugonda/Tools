@@ -253,19 +253,28 @@ const Header: React.FC = () => {
                     </Link>
                   </div>
                 </div>
+
+
               </div>
+              <Link
+                href="/request-tool"
+                className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg transition-colors shadow-sm"
+              >
+                Request a Tool
+              </Link>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
 
             <div className="flex items-center gap-3">
               {/* Favorites Button (Desktop) */}
-              <div className="relative">
+              {/* Favorites Button (Desktop) */}
+              <div className="relative group">
                 <button
                   onClick={() => setIsFavoritesOpen(!isFavoritesOpen)}
                   className={`p-2 rounded-full transition-colors relative ${isFavoritesOpen
                     ? 'text-red-500 '
-                    : 'text-gray-500'
+                    : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                   aria-label="Favorites"
                 >
@@ -279,63 +288,62 @@ const Header: React.FC = () => {
 
                 {/* Favorites Dropdown */}
                 {isFavoritesOpen && (
-                  <>
-                    <div className="fixed inset-0 z-40" onClick={() => setIsFavoritesOpen(false)} />
-                    <div className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-fade-in-up">
-                      <div className="p-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
-                        <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Your Favorites</h3>
-                      </div>
-                      <div className="max-h-80 overflow-y-auto p-2 space-y-1">
-                        {!session ? (
-                          <div className="p-4 text-center">
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">Sign in to view your favorites</p>
-                          </div>
-                        ) : favoriteTools.length === 0 ? (
-                          <div className="p-8 text-center text-gray-500 dark:text-gray-400">
-                            <Heart size={32} className="mx-auto mb-2 opacity-20" />
-                            <p className="text-sm">No favorite tools yet</p>
-                          </div>
-                        ) : (
-                          favoriteTools.map(tool => (
-                            <Link
-                              key={tool.id}
-                              href={`/tools/${tool.id}`}
-                              onClick={() => setIsFavoritesOpen(false)}
-                              className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
-                            >
-                              <div className="w-8 h-8 flex items-center justify-center rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 group-hover:scale-110 transition-transform">
-                                {tool.icon}
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{tool.name}</p>
-                                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{tool.category}</p>
-                              </div>
-                            </Link>
-                          ))
-                        )}
-                      </div>
-                      {session && (
-                        <div className="p-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-center">
-                          <Link
-                            href="/tools"
-                            onClick={() => setIsFavoritesOpen(false)}
-                            className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
-                          >
-                            Browse all tools
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-                  </>
+                  <div className="fixed inset-0 z-40" onClick={() => setIsFavoritesOpen(false)} />
                 )}
+
+                <div
+                  className={`absolute right-0 top-full mt-2 w-72 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-fade-in-up transition-all duration-200 ${isFavoritesOpen
+                    ? 'opacity-100 visible'
+                    : 'opacity-0 invisible group-hover:opacity-100 group-hover:visible'
+                    }`}
+                >
+                  <div className="p-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Your Favorites</h3>
+                  </div>
+                  <div className="max-h-80 overflow-y-auto p-2 space-y-1">
+                    {!session ? (
+                      <div className="p-4 text-center">
+                        <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">Sign in to view your favorites</p>
+                      </div>
+                    ) : favoriteTools.length === 0 ? (
+                      <div className="p-8 text-center text-gray-500 dark:text-gray-400">
+                        <Heart size={32} className="mx-auto mb-2 opacity-20" />
+                        <p className="text-sm">No favorite tools yet</p>
+                      </div>
+                    ) : (
+                      favoriteTools.map(tool => (
+                        <Link
+                          key={tool.id}
+                          href={`/tools/${tool.id}`}
+                          onClick={() => setIsFavoritesOpen(false)}
+                          className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
+                        >
+                          <div className="w-8 h-8 flex items-center justify-center rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 group-hover:scale-110 transition-transform">
+                            {tool.icon}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{tool.name}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{tool.category}</p>
+                          </div>
+                        </Link>
+                      ))
+                    )}
+                  </div>
+                  {session && (
+                    <div className="p-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-center">
+                      <Link
+                        href="/tools"
+                        onClick={() => setIsFavoritesOpen(false)}
+                        className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                      >
+                        Browse all tools
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <Link
-                href="/request-tool"
-                className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg transition-colors shadow-sm"
-              >
-                Request a Tool
-              </Link>
+
               <ThemeSwitcher />
               <LoginButton />
             </div>

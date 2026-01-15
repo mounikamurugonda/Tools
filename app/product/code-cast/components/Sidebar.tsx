@@ -39,7 +39,7 @@ const Sidebar: React.FC = () => {
   const imageStore = useImageStore();
 
   const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, shadowBlur, setShadowBlur, shadowSpread, setShadowSpread } = currentStore;
+  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, projectTitleColor, setProjectTitleColor, shadowBlur, setShadowBlur, shadowSpread, setShadowSpread } = currentStore;
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
 
@@ -125,6 +125,21 @@ const Sidebar: React.FC = () => {
                   className="flex-1 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-2.5 text-xs text-gray-900 dark:text-gray-300 focus:outline-none focus:border-blue-500 placeholder-gray-400 dark:placeholder-gray-700 transition-colors"
                   placeholder="Project Title"
                 />
+                <TooltipWrapper label="Choose title color">
+                  <div className="relative">
+                    <input
+                      type="color"
+                      value={projectTitleColor}
+                      onChange={e => setProjectTitleColor(e.target.value)}
+                      className="absolute inset-0 opacity-0 cursor-pointer"
+                      title="Choose title text color"
+                    />
+                    <div
+                      className="w-9 h-9 rounded-lg border-2 border-gray-200 dark:border-gray-700 cursor-pointer hover:border-gray-300 dark:hover:border-gray-600 transition-colors"
+                      style={{ backgroundColor: projectTitleColor }}
+                    />
+                  </div>
+                </TooltipWrapper>
                 <EmojiPicker onEmojiSelect={(emoji) => setProjectTitle(projectTitle + emoji)} />
               </div>
               {/* Project Title Font Size Slider */}
