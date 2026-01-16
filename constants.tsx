@@ -236,6 +236,7 @@ export const TOOLS: Tool[] = [
       'Check the contrast ratio between text and background colors. Ensure your design meets WCAG accessibility standards with our free online Contrast Checker.',
     icon: <ContrastIcon />,
     category: ToolCategory.COLOR,
+    keywords: ['contrast checker', 'wcag', 'accessibility', 'color contrast', 'a11y'],
   },
   {
     id: 'chmod-calculator',
@@ -264,6 +265,7 @@ export const TOOLS: Tool[] = [
       'Easily build campaign URLs with UTM parameters. Track the effectiveness of your marketing campaigns in Google Analytics. Free and easy to use.',
     icon: <UtmIcon />,
     category: ToolCategory.PRODUCTIVITY,
+    keywords: ['utm builder', 'campaign tracking', 'google analytics', 'utm parameters'],
   },
   {
     id: 'aspect-ratio-calculator',
@@ -292,6 +294,7 @@ export const TOOLS: Tool[] = [
       'Generate pure CSS triangles in any direction and color. Adjust size and copy the code instantly. No images required.',
     icon: <TriangleIcon />,
     category: ToolCategory.CSS,
+    keywords: ['css triangle', 'triangle generator', 'css shapes', 'border triangle'],
   },
   {
     id: 'xml-formatter',
@@ -320,6 +323,7 @@ export const TOOLS: Tool[] = [
       'Convert text to Morse code and decode Morse code back to text. Listen to the audio and learn the alphabet. Free online tool.',
     icon: <MorseIcon />,
     category: ToolCategory.FUN,
+    keywords: ['morse code', 'morse converter', 'text to morse', 'morse translator'],
   },
   {
     id: 'binary-converter',
@@ -330,6 +334,7 @@ export const TOOLS: Tool[] = [
       'Convert text to binary code (0s and 1s) and decode binary back to text. Understand computer data representation with this free tool.',
     icon: <BinaryIcon />,
     category: ToolCategory.CODING,
+    keywords: ['binary converter', 'text to binary', 'binary to text', 'binary code'],
   },
   {
     id: 'password-strength',
@@ -340,6 +345,7 @@ export const TOOLS: Tool[] = [
       'Check how strong your password is against cracking attacks. Get instant feedback and tips to improve security. 100% processing in browser.',
     icon: <ShieldCheckIcon />,
     category: ToolCategory.MISC,
+    keywords: ['password strength', 'password checker', 'password security', 'strong password'],
   },
   {
     id: 'string-escaper',
@@ -368,6 +374,7 @@ export const TOOLS: Tool[] = [
       'Calculate percentages, percent change, and fractions of numbers instantly. Simple, free online percentage calculator for daily math.',
     icon: <PercentIcon />,
     category: ToolCategory.MATH,
+    keywords: ['percentage calculator', 'percent calculator', 'calculate percentage', 'percent change'],
   },
   {
     id: 'markdown-table-generator',
@@ -396,6 +403,7 @@ export const TOOLS: Tool[] = [
       'Randomize and shuffle any list of items instantly. Perfect for raffles, lottery picks, or mixing content. Fair and unbiased shuffling.',
     icon: <ListIcon />,
     category: ToolCategory.FUN,
+    keywords: ['list randomizer', 'shuffle list', 'random picker', 'raffle tool'],
   },
   {
     id: 'text-cleaner',
@@ -587,6 +595,7 @@ export const TOOLS: Tool[] = [
     description: 'View your current screen and viewport dimensions.',
     icon: <ScreenIcon />,
     category: ToolCategory.PRODUCTIVITY,
+    keywords: ['screen resolution', 'viewport size', 'screen info', 'display info'],
   },
   {
     id: 'text-to-speech',
@@ -615,6 +624,7 @@ export const TOOLS: Tool[] = [
       'Convert standard numbers to Roman numerals (I, V, X, L, C, D, M) and vice versa. Learn the rules and convert dates instantly.',
     icon: <RomanIcon />,
     category: ToolCategory.MATH,
+    keywords: ['roman numerals', 'roman converter', 'numbers to roman', 'roman to numbers'],
   },
   {
     id: 'age-calculator',
@@ -625,6 +635,7 @@ export const TOOLS: Tool[] = [
       'Find out exactly how old you are in years, months, days, hours, and minutes. Calculate the time until your next birthday.',
     icon: <BabyIcon />,
     category: ToolCategory.MATH,
+    keywords: ['age calculator', 'calculate age', 'date of birth', 'age from dob'],
   },
   {
     id: 'random-number-generator',
@@ -635,6 +646,7 @@ export const TOOLS: Tool[] = [
       'Generate true random numbers within a custom range. Set minimum and maximum values and generate multiple numbers instantly.',
     icon: <DiceIcon />,
     category: ToolCategory.MATH,
+    keywords: ['random number generator', 'rng', 'random numbers', 'number generator'],
   },
   {
     id: 'duplicate-remover',
@@ -681,6 +693,7 @@ export const TOOLS: Tool[] = [
       'Interactive guide to all CSS cursor properties. Hover over items to see pointer, help, wait, grab, and other cursor styles in action.',
     icon: <CursorIcon />,
     category: ToolCategory.CSS,
+    keywords: ['css cursor', 'cursor styles', 'mouse pointer', 'cursor property'],
   },
   {
     id: 'device-resolutions',
@@ -691,6 +704,7 @@ export const TOOLS: Tool[] = [
       'List of common screen resolutions and viewport sizes for mobile, tablet, and desktop devices. Essential reference for responsive web design.',
     icon: <DevicesIcon />,
     category: ToolCategory.PRODUCTIVITY,
+    keywords: ['device resolutions', 'screen sizes', 'viewport sizes', 'responsive design'],
   },
   {
     id: 'lorem-image-generator',
@@ -719,6 +733,7 @@ export const TOOLS: Tool[] = [
       'Visualize and generate all CSS border styles. Test solid, dashed, dotted, double, groove, ridge, inset, and outset borders instantly.',
     icon: <BorderIcon />,
     category: ToolCategory.CSS,
+    keywords: ['css borders', 'border styles', 'border generator', 'css border preview'],
   },
   {
     id: 'css-patterns',
@@ -729,6 +744,7 @@ export const TOOLS: Tool[] = [
       'Create lightweight, scalable background patterns with pure CSS. No images required. Copy the code for stripes, checks, dots, and more.',
     icon: <PatternIcon />,
     category: ToolCategory.CSS,
+    keywords: ['css patterns', 'background patterns', 'css backgrounds', 'pattern generator'],
   },
   {
     id: 'signature-pad',
@@ -739,6 +755,7 @@ export const TOOLS: Tool[] = [
       'Draw your signature online and download it as a transparent PNG. Perfect for signing documents digitally. Works on mobile and desktop.',
     icon: <SignatureIcon />,
     category: ToolCategory.MISC,
+    keywords: ['signature pad', 'digital signature', 'sign online', 'signature generator'],
   },
   // ... rest of the existing tools (ensure Readability Score, Loan Calculator, etc. are preserved)
   {
@@ -1586,6 +1603,14 @@ export const TOOLS: Tool[] = [
       'A clean and simple to-do list that saves your tasks in your browser. Organize your day and stay on track with our free and private To-Do List tool.',
     icon: <TodoIcon />,
     category: ToolCategory.PRODUCTIVITY,
+    keywords: [
+      'todo list',
+      'task manager',
+      'checklist',
+      'to do list online',
+      'task list',
+      'productivity tool',
+    ],
   },
   {
     id: 'password-generator',
