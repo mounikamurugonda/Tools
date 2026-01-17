@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
-    apple: '/fav-light-logo.ico',
+    apple: '/favicon.ico',
   },
   other: {
     'theme-color': '#3b82f6',
