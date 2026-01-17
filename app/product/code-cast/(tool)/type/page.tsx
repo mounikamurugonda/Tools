@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense } from 'react';
 import { useTypeStore } from '../../store/useCodeCastStore';
 import { CodeCastEditor } from '../../components/CodeCastEditor';
 import { CodeCastCanvas } from '../../components/CodeCastCanvas';
@@ -9,12 +9,41 @@ import { useRecording } from '../../context/RecordingContext';
 import { getCanvasLayout } from '../../utils/layoutHelpers';
 import { RecordingTimer } from '../../components/RecordingTimer';
 import { RecordingDownloadModal } from '../../components/RecordingDownloadModal';
-import { Mic, MicOff } from 'lucide-react';
+import { Mic, MicOff, Loader2 } from 'lucide-react';
 import { useMobileDefaultConfig } from '../../hooks/useMobileDefaultConfig';
+import { useSearchParams } from 'next/navigation';
 
-export default function TypePage() {
-  const { code, updateCode, setCode, config, activeTab, setActiveTab, projectTitle, shadowBlur, shadowSpread, updateConfig } =
+function TypePageContent() {
+  const { code, updateCode, setCode, config, setConfig, activeTab, setActiveTab, projectTitle, setProjectTitle, shadowBlur, shadowSpread, updateConfig } =
     useTypeStore();
+
+  const searchParams = useSearchParams();
+  const snippetId = searchParams.get('snippet');
+
+  useEffect(() => {
+    if (!snippetId) return;
+
+    const fetchSnippet = async () => {
+      try {
+        const res = await fetch(`/api/code-cast/snippet/${snippetId}`);
+        const data = await res.json();
+        if (data.snippet) {
+          if (data.snippet.code) {
+            setCode({
+              html: data.snippet.code.html || '',
+              css: data.snippet.code.css || '',
+              js: data.snippet.code.js || ''
+            });
+          }
+          if (data.snippet.config) setConfig(data.snippet.config);
+          if (data.snippet.title) setProjectTitle(data.snippet.title);
+        }
+      } catch (e) {
+        console.error("Failed to load snippet", e);
+      }
+    };
+    fetchSnippet();
+  }, [snippetId, setCode, setConfig, setProjectTitle]);
 
   const [isMicEnabled, setIsMicEnabled] = useState(false);
   const [showDownloadModal, setShowDownloadModal] = useState(false);
@@ -88,5 +117,17 @@ export default function TypePage() {
         recordingTime={recordingTime}
       />
     </div>
+  );
+}
+
+export default function TypePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex w-full h-full items-center justify-center">
+        <Loader2 className="animate-spin text-blue-500" size={32} />
+      </div>
+    }>
+      <TypePageContent />
+    </Suspense>
   );
 }

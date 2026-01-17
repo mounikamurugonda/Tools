@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo, Suspense } from 'react';
 import { useAnimateStore } from '../../store/useCodeCastStore';
 import PreviewFrame from '../../components/PreviewFrame';
 import { useRecording } from '../../context/RecordingContext';
@@ -10,12 +10,14 @@ import { RecordingDownloadModal } from '../../components/RecordingDownloadModal'
 // Hooks
 import { useMultiTabAnimation } from '../../hooks/useMultiTabAnimation';
 import { useMobileDefaultConfig } from '../../hooks/useMobileDefaultConfig';
+import { useSearchParams } from 'next/navigation';
 
 // Components
 import { CodeCastEditor } from '../../components/CodeCastEditor';
 import { AnimateCanvas } from '../../components/AnimateCanvas';
+import { Loader2 } from 'lucide-react';
 
-export default function AnimatePage() {
+function AnimatePageContent() {
   const {
     code,
     updateCode,
@@ -29,7 +31,38 @@ export default function AnimatePage() {
     shadowBlur,
     shadowSpread,
     updateConfig,
+    setCode,
+    setConfig,
+    setProjectTitle,
   } = useAnimateStore();
+
+  const searchParams = useSearchParams();
+  const snippetId = searchParams.get('snippet');
+
+  useEffect(() => {
+    if (!snippetId) return;
+
+    const fetchSnippet = async () => {
+      try {
+        const res = await fetch(`/api/code-cast/snippet/${snippetId}`);
+        const data = await res.json();
+        if (data.snippet) {
+          if (data.snippet.code) {
+            setCode({
+              html: data.snippet.code.html || '',
+              css: data.snippet.code.css || '',
+              js: data.snippet.code.js || ''
+            });
+          }
+          if (data.snippet.config) setConfig(data.snippet.config);
+          if (data.snippet.title) setProjectTitle(data.snippet.title);
+        }
+      } catch (e) {
+        console.error("Failed to load snippet", e);
+      }
+    };
+    fetchSnippet();
+  }, [snippetId, setCode, setConfig, setProjectTitle]);
 
   const [showDownloadModal, setShowDownloadModal] = useState(false);
 
@@ -121,5 +154,17 @@ export default function AnimatePage() {
         recordingTime={recordingTime}
       />
     </div>
+  );
+}
+
+export default function AnimatePage() {
+  return (
+    <Suspense fallback={
+      <div className="flex w-full h-full items-center justify-center">
+        <Loader2 className="animate-spin text-blue-500" size={32} />
+      </div>
+    }>
+      <AnimatePageContent />
+    </Suspense>
   );
 }

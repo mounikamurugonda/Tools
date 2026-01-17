@@ -23,6 +23,11 @@ import {
   Code2,
   Columns,
   Keyboard,
+  Share2,
+  Save,
+  Loader2,
+  Check,
+  X,
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -37,6 +42,7 @@ import { DeviceFrame } from '../types';
 import { useRecording } from '../context/RecordingContext';
 import * as htmlToImage from 'html-to-image';
 import { FeatureGuard } from '@/components/FeatureGuard';
+import { ShareModal } from './ShareModal';
 
 // Internal reusable Tooltip Wrapper
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -59,10 +65,11 @@ export const CodeCastHeader = () => {
     { id: 'animate', label: 'Play code', icon: Play, shortLabel: 'Play' },
     { id: 'type', label: 'Type code', icon: Keyboard, shortLabel: 'Type' },
     { id: 'image', label: 'Code to image', icon: ImageIcon, shortLabel: 'Image' },
+    { id: 'library', label: 'Library', icon: Columns, shortLabel: 'Lib' },
   ] as const;
 
   const pathname = usePathname();
-  const mode = pathname?.split('/').pop() as 'animate' | 'type' | 'image' | undefined;
+  const mode = pathname?.split('/').pop() as 'animate' | 'type' | 'image' | 'library' | undefined;
 
   // Use the appropriate store based on the current route
   const animateStore = useAnimateStore();
@@ -85,6 +92,83 @@ export const CodeCastHeader = () => {
   const [isMicEnabled, setIsMicEnabled] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const { recordingTime } = useRecording();
+
+  // Save/Share State
+  const [isSaving, setIsSaving] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isSaveDropdownOpen, setIsSaveDropdownOpen] = useState(false);
+  const [saveName, setSaveName] = useState('');
+  const [isPublic, setIsPublic] = useState(false);
+  const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
+
+  // Sync save name with project title when opening dropdown
+  React.useEffect(() => {
+    if (isSaveDropdownOpen && currentStore) {
+      setSaveName(currentStore.projectTitle || '');
+      setIsPublic(false);
+      setSaveStatus('idle');
+    }
+  }, [isSaveDropdownOpen, currentStore]);
+
+  const handleSave = async (isShare = false, titleOverride?: string) => {
+    if (!currentStore || (mode !== 'animate' && mode !== 'type')) return;
+
+    if (!isShare) {
+      // Called from Dropdown Save button
+      setSaveStatus('saving');
+    } else {
+      // Called from Share button
+      setIsSaving(true);
+    }
+
+    try {
+      // Access store state directly
+      const state = currentStore;
+
+      const response = await fetch('/api/code-cast/snippet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: mode,
+          title: titleOverride || state.projectTitle || 'Untitled Snippet',
+          code: state.code,
+          config: state.config,
+          is_public: isPublic
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success && data.snippet) {
+        // Use short URL if available, otherwise fallback to long URL
+        const id = data.snippet.short_id || data.snippet.id;
+        // If we have short_id, we use the redirect route /s/[id]
+        // If not, we fall back to /product/code-cast/[mode]?snippet=[id]
+        const url = data.snippet.short_id
+          ? `https://utiltoolkits.com/s/${data.snippet.short_id}`
+          : `https://utiltoolkits.com/product/code-cast/${mode}?snippet=${data.snippet.id}`;
+
+        if (isShare) {
+          setShareUrl(url);
+          setIsShareModalOpen(true);
+        } else {
+          setSaveStatus('success');
+          // Optionally Update global project title if we want
+          // if (state.setProjectTitle) state.setProjectTitle(titleOverride);
+        }
+      } else {
+        if (!isShare) setSaveStatus('error');
+        else alert('Failed to save snippet');
+      }
+    } catch (error) {
+      console.error('Save error:', error);
+      if (!isShare) setSaveStatus('error');
+      else alert('An error occurred while saving.');
+    } finally {
+      if (isShare) setIsSaving(false);
+    }
+  };
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -604,6 +688,96 @@ export const CodeCastHeader = () => {
             )
           }
 
+          {/* Save & Share Buttons - Animate & Type modes */}
+          {(mode === 'animate' || mode === 'type') && (
+            <div className="flex items-center gap-1.5 md:gap-2 mr-1.5 md:mr-2 border-r border-gray-200 dark:border-gray-800 pr-2">
+              <div className="relative">
+                <TooltipWrapper label="Save Snippet">
+                  <button
+                    onClick={() => setIsSaveDropdownOpen(!isSaveDropdownOpen)}
+                    disabled={isSaving}
+                    className="p-2 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 disabled:opacity-50"
+                    aria-label="Save"
+                  >
+                    <Save size={18} />
+                  </button>
+                </TooltipWrapper>
+
+                {isSaveDropdownOpen && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setIsSaveDropdownOpen(false)} />
+                    <div className="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xl z-20 p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-sm font-bold text-gray-900 dark:text-white">Save Snippet</h3>
+                        <button onClick={() => setIsSaveDropdownOpen(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                          <X size={16} />
+                        </button>
+                      </div>
+
+                      {saveStatus === 'success' ? (
+                        <div className="flex flex-col items-center justify-center py-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
+                          <div className="w-8 h-8 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mb-2">
+                            <Check size={16} className="text-green-600 dark:text-green-400" />
+                          </div>
+                          <span className="text-sm font-semibold text-green-700 dark:text-green-300">Snippet Saved!</span>
+                        </div>
+                      ) : (
+                        <div className="space-y-3">
+                          <div>
+                            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Name</label>
+                            <input
+                              type="text"
+                              value={saveName}
+                              onChange={(e) => setSaveName(e.target.value)}
+                              className="w-full text-sm px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50"
+                              placeholder="Enter snippet name..."
+                            />
+                            <div className="flex items-start gap-2 py-2 ">
+                              <input
+                                type="checkbox"
+                                id="public-snippet"
+                                checked={isPublic}
+                                onChange={(e) => setIsPublic(e.target.checked)}
+                                className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                              />
+                              <label htmlFor="public-snippet" className="text-xs text-gray-600 dark:text-gray-300">
+
+                                Let others discover and watch your creative snippet.
+                              </label>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleSave(false, saveName)}
+                            disabled={saveStatus === 'saving'}
+                            className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 rounded-md transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
+                          >
+                            {saveStatus === 'saving' ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+                            <span>Save Snippet</span>
+                          </button>
+                          {saveStatus === 'error' && (
+                            <p className="text-xs text-red-500 text-center">Failed to save. Please try again.</p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              <TooltipWrapper label="Share Snippet">
+                <button
+                  onClick={() => handleSave(true)}
+                  disabled={isSaving}
+                  className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors text-xs font-bold disabled:opacity-50"
+                  aria-label="Share"
+                >
+                  {isSaving ? <Loader2 size={14} className="animate-spin" /> : <Share2 size={14} />}
+                  <span className="hidden md:inline">Share</span>
+                </button>
+              </TooltipWrapper>
+            </div>
+          )}
+
           {/* Recording Controls - Type and Animate modes */}
           {
             (mode === 'type' || mode === 'animate') && (
@@ -690,6 +864,11 @@ export const CodeCastHeader = () => {
           })}
         </div>
       </div>
+      <ShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        url={shareUrl}
+      />
     </header>
   );
 };
