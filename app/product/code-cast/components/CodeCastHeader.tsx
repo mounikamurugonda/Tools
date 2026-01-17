@@ -43,6 +43,7 @@ import { useRecording } from '../context/RecordingContext';
 import * as htmlToImage from 'html-to-image';
 import { FeatureGuard } from '@/components/FeatureGuard';
 import { ShareModal } from './ShareModal';
+import { useSession } from 'next-auth/react';
 
 // Internal reusable Tooltip Wrapper
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -69,6 +70,7 @@ export const CodeCastHeader = () => {
   ] as const;
 
   const pathname = usePathname();
+  const { data: session } = useSession();
   const mode = pathname?.split('/').pop() as 'animate' | 'type' | 'image' | 'library' | undefined;
 
   // Use the appropriate store based on the current route
@@ -688,8 +690,8 @@ export const CodeCastHeader = () => {
             )
           }
 
-          {/* Save & Share Buttons - Animate & Type modes */}
-          {(mode === 'animate' || mode === 'type') && (
+          {/* Save & Share Buttons - Animate & Type modes, Only for logged in users */}
+          {(mode === 'animate' || mode === 'type') && session && (
             <div className="flex items-center gap-1.5 md:gap-2 mr-1.5 md:mr-2 border-r border-gray-200 dark:border-gray-800 pr-2">
               <div className="relative">
                 <TooltipWrapper label="Save Snippet">

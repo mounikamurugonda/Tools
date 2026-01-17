@@ -128,21 +128,23 @@ const Sidebar: React.FC = () => {
           <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
             {/* Navigation Section */}
             <div className="space-y-2">
-              <Link
-                href="/product/code-cast/saved"
-                onClick={() => { if (window.innerWidth < 768) setSidebarOpen(false); }}
-                className={`flex items-center gap-3 w-full p-3 rounded-lg transition-colors border ${pathname?.includes('/saved')
-                  ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800'
-                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 border-transparent hover:border-gray-200 dark:hover:border-gray-800'}`}
-              >
-                <Bookmark size={18} />
-                <span className="text-sm font-bold flex-1">Saved Snippets</span>
-                {snippetCount !== null && snippetCount > 0 && (
-                  <span className="bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200 text-[10px] font-bold px-2 py-0.5 rounded-full">
-                    {snippetCount}
-                  </span>
-                )}
-              </Link>
+              {session && (
+                <Link
+                  href="/product/code-cast/saved"
+                  onClick={() => { if (window.innerWidth < 768) setSidebarOpen(false); }}
+                  className={`flex items-center gap-3 w-full p-3 rounded-lg transition-colors border ${pathname?.includes('/saved')
+                    ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800'
+                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 border-transparent hover:border-gray-200 dark:hover:border-gray-800'}`}
+                >
+                  <Bookmark size={18} />
+                  <span className="text-sm font-bold flex-1">Saved Snippets</span>
+                  {snippetCount !== null && snippetCount > 0 && (
+                    <span className="bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                      {snippetCount}
+                    </span>
+                  )}
+                </Link>
+              )}
             </div>
 
             {/* Tool Specific Settings - Hide on Saved Page and Library Page */}
