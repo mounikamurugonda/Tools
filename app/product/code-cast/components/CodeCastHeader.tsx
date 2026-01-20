@@ -396,9 +396,9 @@ export const CodeCastHeader = () => {
             <TooltipWrapper label="Format Code">
               <button
                 onClick={handleFormat}
-                className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20`}
+                className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-yellow-600 dark:hover:text-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-900/20"
               >
-                <Sparkles size={16} />
+                <Sparkles size={18} />
               </button>
             </TooltipWrapper>
           </div>
@@ -418,9 +418,9 @@ export const CodeCastHeader = () => {
                     currentStore.setCode({ html: '', css: '', js: '' });
                   }
                 }}
-                className={`p-1.5 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20`}
+                className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
               >
-                <Trash2 size={16} />
+                <Trash2 size={18} />
               </button>
             </TooltipWrapper>
           </div>
@@ -430,12 +430,12 @@ export const CodeCastHeader = () => {
             <TooltipWrapper label={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}>
               <button
                 onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
-                className={`p-1.5 rounded-md transition-colors ${config.wordWrap
+                className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${config.wordWrap
                   ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
                   : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
               >
-                <WrapText size={16} />
+                <WrapText size={18} />
               </button>
             </TooltipWrapper>
           </div>
@@ -445,12 +445,12 @@ export const CodeCastHeader = () => {
             <TooltipWrapper label={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}>
               <button
                 onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
-                className={`p-1.5 rounded-md transition-colors ${config.lineNumbers
+                className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${config.lineNumbers
                   ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20'
                   : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
               >
-                <ListOrdered size={16} />
+                <ListOrdered size={18} />
               </button>
             </TooltipWrapper>
           </div>
@@ -522,13 +522,11 @@ export const CodeCastHeader = () => {
               <TooltipWrapper label="Download Options">
                 <button
                   onClick={() => setIsDownloadDropdownOpen(!isDownloadDropdownOpen)}
-                  className={`w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 flex items-center justify-center md:justify-between gap-2 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors ${isDownloadDropdownOpen ? 'ring-2 ring-blue-500/20 border-blue-500/50' : ''}`}
+                  className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isDownloadDropdownOpen
+                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+                    : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
                 >
-                  <Download size={16} />
-                  <ChevronDown
-                    size={12}
-                    className={`hidden md:block transition-transform ${isDownloadDropdownOpen ? 'rotate-180' : ''}`}
-                  />
+                  <Download size={18} />
                 </button>
               </TooltipWrapper>
 
@@ -583,23 +581,11 @@ export const CodeCastHeader = () => {
             <TooltipWrapper label="Select Device Frame">
               <button
                 onClick={() => setIsDeviceDropdownOpen(!isDeviceDropdownOpen)}
-                className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 flex items-center justify-center md:justify-between gap-2 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isDeviceDropdownOpen
+                  ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+                  : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}
               >
-                <div className="flex items-center justify-center gap-2">
-                  {getDeviceIcon(config.deviceFrame)}
-                  <span className="hidden md:inline text-xs font-bold text-gray-900 dark:text-gray-100">
-                    {(() => {
-                      const label = FRAME_OPTIONS.find(f => f.id === config.deviceFrame)?.label || 'Device';
-                      const match = label.match(/\((.*?)\)/);
-                      if (match) return match[1]; // Show "9:16", "16:9", etc.
-                      return label.split('/')[0].trim(); // Fallback to "Full Width", "Desktop", etc.
-                    })()}
-                  </span>
-                </div>
-                <ChevronDown
-                  size={12}
-                  className={`transition-transform ml-0.5 md:ml-0 ${isDeviceDropdownOpen ? 'rotate-180' : ''}`}
-                />
+                {getDeviceIcon(config.deviceFrame)}
               </button>
             </TooltipWrapper>
 
@@ -648,11 +634,10 @@ export const CodeCastHeader = () => {
                   <TooltipWrapper label="Start Animation">
                     <button
                       onClick={handlePlayClick}
-                      className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center md:gap-2"
+                      className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                       aria-label="Animate"
                     >
-                      <Play size={20} fill="currentColor" strokeWidth={0} className="md:w-3.5 md:h-3.5" />
-                      <span className="hidden md:inline text-xs font-bold">Animate</span>
+                      <Play size={18} fill="currentColor" strokeWidth={0} />
                     </button>
                   </TooltipWrapper>
                 ) : (
@@ -661,27 +646,27 @@ export const CodeCastHeader = () => {
                     <TooltipWrapper label={isAnimationPaused ? 'Resume Animation' : 'Pause Animation'}>
                       <button
                         onClick={() => setIsAnimationPaused(!isAnimationPaused)}
-                        className={`w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors text-white flex items-center justify-center md:gap-2 ${isAnimationPaused ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'
+                        className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isAnimationPaused
+                          ? 'text-green-600 bg-green-50 dark:bg-green-900/20'
+                          : 'text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20'
                           }`}
                         aria-label={isAnimationPaused ? 'Resume' : 'Pause'}
                       >
-                        {isAnimationPaused ? <Play size={20} fill="currentColor" strokeWidth={0} className="md:w-3.5 md:h-3.5" /> : <Pause size={20} fill="currentColor" strokeWidth={0} className="md:w-3.5 md:h-3.5" />}
-                        <span className="hidden md:inline text-xs font-bold">{isAnimationPaused ? 'Resume' : 'Pause'}</span>
+                        {isAnimationPaused ? <Play size={18} fill="currentColor" strokeWidth={0} /> : <Pause size={18} fill="currentColor" strokeWidth={0} />}
                       </button>
                     </TooltipWrapper>
 
                     {/* Stop Button */}
-                    <TooltipWrapper label="Stop Animation">
+                    <TooltipWrapper label="Reset Animation">
                       <button
                         onClick={() => {
                           setIsPlaying(false);
                           setIsAnimationPaused(false);
                         }}
-                        className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors bg-red-500 hover:bg-red-600 text-white flex items-center justify-center md:gap-2"
-                        aria-label="Stop"
+                        className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-red-500 bg-red-50 dark:bg-red-900/20 hover:text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30"
+                        aria-label="Reset"
                       >
-                        <Square size={20} fill="white" strokeWidth={0} className="md:w-3.5 md:h-3.5" />
-                        <span className="hidden md:inline text-xs font-bold">Stop</span>
+                        <RotateCcw size={18} strokeWidth={2} />
                       </button>
                     </TooltipWrapper>
                   </>
@@ -696,9 +681,9 @@ export const CodeCastHeader = () => {
               <div className="relative">
                 <TooltipWrapper label="Save Snippet">
                   <button
-                    onClick={() => setIsSaveDropdownOpen(!isSaveDropdownOpen)}
-                    disabled={isSaving}
-                    className="p-2 rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 disabled:opacity-50"
+                    className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isSaveDropdownOpen
+                      ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
+                      : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'} disabled:opacity-50`}
                     aria-label="Save"
                   >
                     <Save size={18} />
@@ -770,11 +755,10 @@ export const CodeCastHeader = () => {
                 <button
                   onClick={() => handleSave(true)}
                   disabled={isSaving}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors text-xs font-bold disabled:opacity-50"
+                  className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 disabled:opacity-50"
                   aria-label="Share"
                 >
-                  {isSaving ? <Loader2 size={14} className="animate-spin" /> : <Share2 size={14} />}
-                  <span className="hidden md:inline">Share</span>
+                  {isSaving ? <Loader2 size={18} className="animate-spin" /> : <Share2 size={18} />}
                 </button>
               </TooltipWrapper>
             </div>
@@ -802,11 +786,10 @@ export const CodeCastHeader = () => {
                     <TooltipWrapper label="Start Recording">
                       <button
                         onClick={() => startRecording(isMicEnabled)}
-                        className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex items-center justify-center md:gap-2 shadow-lg"
+                        className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 shadow-none"
                         aria-label="Start Recording"
                       >
-                        <div className="w-3.5 h-3.5 bg-white rounded-full md:w-2.5 md:h-2.5" />
-                        <span className="hidden md:inline text-xs font-bold">REC</span>
+                        <div className="w-3 h-3 bg-current rounded-full" />
                       </button>
                     </TooltipWrapper>
                   </FeatureGuard>
@@ -816,25 +799,25 @@ export const CodeCastHeader = () => {
                     <TooltipWrapper label={isPaused ? 'Resume Recording' : 'Pause Recording'}>
                       <button
                         onClick={isPaused ? resumeRecording : pauseRecording}
-                        className={`w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 rounded-lg transition-colors text-white flex items-center justify-center md:gap-2 ${isPaused ? 'bg-green-500 hover:bg-green-600' : 'bg-yellow-500 hover:bg-yellow-600'
+                        className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isPaused
+                          ? 'text-green-600 bg-green-50 dark:bg-green-900/20'
+                          : 'text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20'
                           }`}
                         aria-label={isPaused ? 'Resume' : 'Pause'}
                       >
-                        {isPaused ? <Play size={20} fill="currentColor" strokeWidth={0} className="md:w-3 md:h-3" /> : <Pause size={20} fill="currentColor" strokeWidth={0} className="md:w-3 md:h-3" />}
-                        <span className="hidden md:inline text-xs font-bold uppercase">{isPaused ? 'Resume' : 'Pause'}</span>
+                        {isPaused ? <Play size={18} fill="currentColor" strokeWidth={0} /> : <Pause size={18} fill="currentColor" strokeWidth={0} />}
                       </button>
                     </TooltipWrapper>
-                    <TooltipWrapper label="Stop Recording">
+                    <TooltipWrapper label={`Stop Recording (${formatTime(recordingTime)})`}>
                       <button
                         onClick={() => {
                           console.log('STOP button clicked');
                           stopRecording();
                         }}
-                        className="w-9 h-9 md:w-auto md:h-auto md:px-3 md:py-1.5 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors flex items-center justify-center md:gap-2 animate-pulse"
+                        className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-red-500 bg-red-50 dark:bg-red-900/20 hover:text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 animate-pulse"
                         aria-label="Stop Recording"
                       >
-                        <Square size={20} fill="white" strokeWidth={0} className="md:w-3 md:h-3" />
-                        <span className="hidden md:inline text-xs font-bold">STOP {formatTime(recordingTime)}</span>
+                        <Square size={18} fill="currentColor" strokeWidth={0} />
                       </button>
                     </TooltipWrapper>
                   </>
