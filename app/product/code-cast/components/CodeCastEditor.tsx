@@ -386,6 +386,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 autoSurround: isPlaying ? 'never' : 'languageDefined',
                                 formatOnType: isPlaying ? false : true,
                                 formatOnPaste: isPlaying ? false : true,
+                                stickyScroll: { enabled: false },
                             }}
                         />
                     )}
