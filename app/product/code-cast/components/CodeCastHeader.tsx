@@ -113,6 +113,37 @@ export const CodeCastHeader = () => {
     }
   }, [isSaveDropdownOpen, currentStore]);
 
+  // Keyboard Shortcuts
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check for Ctrl (or Cmd) + Shift
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey) {
+        // Record Video: Ctrl + Shift + Q
+        if (e.key.toLowerCase() === 'q') {
+          e.preventDefault();
+          if (mode === 'animate' || mode === 'type') {
+            if (isRecording) {
+              stopRecording();
+            } else {
+              startRecording(isMicEnabled);
+            }
+          }
+        }
+        // Play Animation: Ctrl + Shift + E
+        if (e.key.toLowerCase() === 'e') {
+          e.preventDefault();
+          // Assuming we only want to trigger play/stop via shortcut in animate mode
+          if (mode === 'animate') {
+            handlePlayClick();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mode, isRecording, isMicEnabled, isPlaying]); // Added deps for closure correctness
+
   const handleSave = async (isShare = false, titleOverride?: string) => {
     if (!currentStore || (mode !== 'animate' && mode !== 'type')) return;
 
