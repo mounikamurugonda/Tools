@@ -21,6 +21,25 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isLibraryPage = pathname?.includes('/library');
 
+  // Warn user before leaving if there might be unsaved changes
+  React.useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      // In a real app we might check isDirty state, but for this tool
+      // since state is now ephemeral (no local storage), ANY navigation loses data.
+      // So we generally warn if they try to leave.
+      // However, browsers only show a generic message.
+      e.preventDefault();
+      e.returnValue = ''; // Required for specific browsers
+      return '';
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <div className="flex flex-col min-h-[calc(100vh-5rem)] md:h-[calc(100vh-5rem)] w-full bg-white dark:bg-gray-950 md:overflow-hidden transition-colors duration-300">
       {/* Header - Full Width at Top */}

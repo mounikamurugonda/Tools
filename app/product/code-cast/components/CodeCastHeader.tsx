@@ -44,6 +44,7 @@ import * as htmlToImage from 'html-to-image';
 import { FeatureGuard } from '@/components/FeatureGuard';
 import { ShareModal } from './ShareModal';
 import { useSession } from 'next-auth/react';
+import { Toast, ToastType } from '@/components/ui/Toast';
 
 // Internal reusable Tooltip Wrapper
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -103,6 +104,15 @@ export const CodeCastHeader = () => {
   const [saveName, setSaveName] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
+
+  // Toast State
+  const [toast, setToast] = useState<{ message: string, type: ToastType, isVisible: boolean }>({
+    message: '', type: 'info', isVisible: false
+  });
+
+  const showToast = (message: string, type: ToastType = 'info') => {
+    setToast({ message, type, isVisible: true });
+  };
 
   // Sync save name with project title when opening dropdown
   React.useEffect(() => {
@@ -187,17 +197,24 @@ export const CodeCastHeader = () => {
           setIsShareModalOpen(true);
         } else {
           setSaveStatus('success');
+          showToast('Snippet saved successfully!', 'success');
           // Optionally Update global project title if we want
           // if (state.setProjectTitle) state.setProjectTitle(titleOverride);
         }
       } else {
-        if (!isShare) setSaveStatus('error');
-        else alert('Failed to save snippet');
+        if (!isShare) {
+          setSaveStatus('error');
+          showToast('Failed to save snippet', 'error');
+        }
+        else showToast('Failed to save snippet', 'error');
       }
     } catch (error) {
       console.error('Save error:', error);
-      if (!isShare) setSaveStatus('error');
-      else alert('An error occurred while saving.');
+      if (!isShare) {
+        setSaveStatus('error');
+        showToast('An error occurred while saving', 'error');
+      }
+      else showToast('An error occurred while saving', 'error');
     } finally {
       if (isShare) setIsSaving(false);
     }
@@ -299,8 +316,7 @@ export const CodeCastHeader = () => {
         const blobData = await response.blob();
         await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobData })]);
         setIsExporting(false);
-        // Could show a toast here if we had one
-        alert('Image copied to clipboard!');
+        showToast('Image copied to clipboard!', 'success');
         return;
       }
 
@@ -310,7 +326,7 @@ export const CodeCastHeader = () => {
       link.click();
     } catch (err) {
       console.error('Export failed', err);
-      alert('Failed to export image.');
+      showToast('Failed to export image', 'error');
     } finally {
       setIsExporting(false);
     }
@@ -344,9 +360,11 @@ export const CodeCastHeader = () => {
 
       if (formatted && currentStore && currentStore.updateCode) {
         currentStore.updateCode(activeTab, formatted);
+        showToast('Code formatted successfully', 'success');
       }
     } catch (error) {
       console.error('Formatting failed:', error);
+      showToast('Formatting failed', 'error');
     }
   };
 
@@ -377,6 +395,12 @@ export const CodeCastHeader = () => {
 
   return (
     <header className="shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={() => setToast(prev => ({ ...prev, isVisible: false }))}
+      />
       {/* Row 1: Main controls */}
       <div className="h-14 flex items-center justify-between px-4">
         {/* Left: Sidebar + Brand + Mode Switcher (desktop only) */}
@@ -439,14 +463,15 @@ export const CodeCastHeader = () => {
             <TooltipWrapper label="Clear All Code">
               <button
                 onClick={() => {
-                  // Check if we have updateCode available (all stores should have it)
                   if (activeTab && currentStore && currentStore.updateCode) {
                     currentStore.updateCode('html', '');
                     currentStore.updateCode('css', '');
                     currentStore.updateCode('js', '');
+                    showToast('All code cleared', 'info');
                   } else if (currentStore && currentStore.setCode) {
                     // Fallback if updateCode isn't directly exposed or for safety
                     currentStore.setCode({ html: '', css: '', js: '' });
+                    showToast('All code cleared', 'info');
                   }
                 }}
                 className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
@@ -712,6 +737,7 @@ export const CodeCastHeader = () => {
               <div className="relative">
                 <TooltipWrapper label="Save Snippet">
                   <button
+                    onClick={() => setIsSaveDropdownOpen(!isSaveDropdownOpen)}
                     className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isSaveDropdownOpen
                       ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
                       : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'} disabled:opacity-50`}
@@ -885,6 +911,6 @@ export const CodeCastHeader = () => {
         onClose={() => setIsShareModalOpen(false)}
         url={shareUrl}
       />
-    </header>
+    </header >
   );
 };
