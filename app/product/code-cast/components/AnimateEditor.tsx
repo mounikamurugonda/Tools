@@ -151,7 +151,7 @@ export const AnimateEditor: React.FC<AnimateEditorProps> = ({
                             folding: false,
                             links: false,
                             colorDecorators: false,
-                            contextmenu: false,
+                            contextmenu: true,
                             inlayHints: { enabled: 'off' },
                             stickyScroll: { enabled: false },
                         }}

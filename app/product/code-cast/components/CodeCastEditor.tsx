@@ -376,7 +376,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 folding: false,
                                 links: false,
                                 colorDecorators: false,
-                                contextmenu: false,
+                                contextmenu: true,
                                 inlayHints: { enabled: 'off' },
 
                                 // Disable smart features during animation to prevent double indentation/closing

@@ -67,7 +67,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ code, language, config, onChang
           folding: false,
           links: false,
           colorDecorators: false,
-          contextmenu: false,
+          contextmenu: true,
           inlayHints: { enabled: 'off' },
         }}
       />
