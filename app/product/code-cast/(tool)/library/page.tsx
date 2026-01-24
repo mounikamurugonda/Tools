@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Loader2, Calendar, Code2, ArrowRight, Video, Keyboard, Eye, Search } from 'lucide-react';
+import { Loader2, Calendar, Code2, ArrowRight, Video, Keyboard, Eye, Search, Trash2 } from 'lucide-react';
 import Sidebar from '../../components/Sidebar';
 import { SnippetPreview } from '../../components/SnippetPreview';
 
@@ -16,6 +16,7 @@ interface Snippet {
     code_html?: string;
     code_css?: string;
     code_js?: string;
+    visits?: number;
 }
 
 export default function LibraryPage() {
@@ -46,6 +47,28 @@ export default function LibraryPage() {
         s.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         s.type.includes(searchQuery.toLowerCase())
     );
+
+    const handleDelete = async (e: React.MouseEvent, id: string) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!confirm('Are you sure you want to delete this snippet?')) return;
+
+        try {
+            const res = await fetch(`/api/code-cast/snippet/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (res.ok) {
+                setSnippets(prev => prev.filter(s => s.id !== id));
+            } else {
+                console.error('Failed to delete');
+                alert('Failed to delete snippet');
+            }
+        } catch (error) {
+            console.error('Error deleting snippet:', error);
+            alert('Error deleting snippet');
+        }
+    };
 
     return (
         <div className="flex h-full bg-gray-50 dark:bg-black">
@@ -153,9 +176,23 @@ export default function LibraryPage() {
                                                 <Calendar size={12} />
                                                 <span>{new Date(snippet.created_at).toLocaleDateString()}</span>
                                             </div>
-                                            <div className="flex items-center gap-1 text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity font-semibold">
-                                                <span>View</span>
-                                                <ArrowRight size={12} />
+                                            <div className="flex items-center gap-1.5 ml-2">
+                                                <Eye size={12} />
+                                                <span>{snippet.visits || 0}</span>
+                                            </div>
+
+                                            <div className="flex items-center gap-2">
+                                                <button
+                                                    onClick={(e) => handleDelete(e, snippet.id)}
+                                                    className="p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-400 hover:text-red-500 transition-colors z-20 relative"
+                                                    title="Delete Snippet"
+                                                >
+                                                    <Trash2 size={14} />
+                                                </button>
+                                                <div className="flex items-center gap-1 text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity font-semibold">
+                                                    <span>View</span>
+                                                    <ArrowRight size={12} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

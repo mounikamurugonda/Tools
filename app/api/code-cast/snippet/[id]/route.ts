@@ -23,6 +23,9 @@ export async function GET(
             return NextResponse.json({ error: 'Snippet not found' }, { status: 404 });
         }
 
+        // Increment visits
+        await supabase.rpc('increment_snippet_visits', { snippet_id: id });
+
         return NextResponse.json({
             snippet: {
                 id: data.id,
@@ -39,6 +42,37 @@ export async function GET(
         });
     } catch (error) {
         console.error('Get snippet error:', error);
+        return NextResponse.json(
+            { error: 'Internal Server Error' },
+            { status: 500 }
+        );
+    }
+}
+
+export async function DELETE(
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    try {
+        const { id } = await params;
+
+        if (!id) {
+            return NextResponse.json({ error: 'Snippet ID is required' }, { status: 400 });
+        }
+
+        const { error } = await supabase
+            .from('snippets')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error('Supabase delete error:', error);
+            return NextResponse.json({ error: 'Failed to delete snippet' }, { status: 500 });
+        }
+
+        return NextResponse.json({ success: true });
+    } catch (error) {
+        console.error('Delete snippet error:', error);
         return NextResponse.json(
             { error: 'Internal Server Error' },
             { status: 500 }

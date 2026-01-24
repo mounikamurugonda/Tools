@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { Loader2, Calendar, Code2, ArrowRight, Video, Keyboard, Share2, Check } from 'lucide-react';
+import { Loader2, Calendar, Code2, ArrowRight, Video, Keyboard, Share2, Check, Trash2, Eye } from 'lucide-react';
 
 interface Snippet {
     id: string;
@@ -11,6 +11,7 @@ interface Snippet {
     created_at: string;
     config: any;
     short_id?: string;
+    visits?: number;
 }
 
 export default function SavedSnippetsPage() {
@@ -45,6 +46,27 @@ export default function SavedSnippetsPage() {
         navigator.clipboard.writeText(url);
         setCopiedId(snippet.id);
         setTimeout(() => setCopiedId(null), 2000);
+    };
+
+    const handleDelete = async (e: React.MouseEvent, id: string) => {
+        e.preventDefault(); // Prevent link navigation if inside a link
+        if (!confirm('Are you sure you want to delete this snippet?')) return;
+
+        try {
+            const res = await fetch(`/api/code-cast/snippet/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (res.ok) {
+                setSnippets(prev => prev.filter(s => s.id !== id));
+            } else {
+                console.error('Failed to delete');
+                alert('Failed to delete snippet');
+            }
+        } catch (error) {
+            console.error('Error deleting snippet:', error);
+            alert('Error deleting snippet');
+        }
     };
 
     if (loading) {
@@ -113,6 +135,13 @@ export default function SavedSnippetsPage() {
                                 >
                                     {copiedId === snippet.id ? <Check size={16} className="text-green-500" /> : <Share2 size={16} />}
                                 </button>
+                                <button
+                                    onClick={(e) => handleDelete(e, snippet.id)}
+                                    className="p-2 rounded-lg text-gray-400 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:text-red-400 transition-colors ml-1"
+                                    title="Delete Snippet"
+                                >
+                                    <Trash2 size={16} />
+                                </button>
                             </div>
 
                             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
@@ -120,8 +149,14 @@ export default function SavedSnippetsPage() {
                             </h3>
 
                             <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mb-6">
-                                <Calendar size={14} />
-                                <span>{new Date(snippet.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                <div className="flex items-center gap-1">
+                                    <Calendar size={14} />
+                                    <span>{new Date(snippet.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}</span>
+                                </div>
+                                <div className="flex items-center gap-1 ml-3">
+                                    <Eye size={14} />
+                                    <span>{snippet.visits || 0} visits</span>
+                                </div>
                             </div>
 
                             <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800">
