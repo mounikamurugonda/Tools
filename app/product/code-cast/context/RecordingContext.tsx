@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useRef, useState, useCallback, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { trackCodeCastDownload } from '../../../../lib/analytics';
 
 interface RecordingContextType {
   isRecording: boolean;
@@ -24,6 +26,7 @@ export const useRecording = () => {
 };
 
 export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { data: session } = useSession();
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [recordingTime, setRecordingTime] = useState(0);
@@ -218,7 +221,10 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, [recordedVideoBlob]);
+
+    // Track download
+    trackCodeCastDownload(ext, recordingTime, session?.user?.email || undefined);
+  }, [recordedVideoBlob, recordingTime, session]);
 
   const clearRecording = useCallback(() => {
     setRecordedVideoBlob(null);

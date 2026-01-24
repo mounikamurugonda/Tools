@@ -23,6 +23,7 @@ const DirectPreview: React.FC<DirectPreviewProps> = ({ html, css, js, device, sc
     const libTags = libraries.map(lib => {
       if (lib === 'bootstrap') {
         return `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" data-preview-lib="bootstrap">
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>`;
       }
       if (lib === 'tailwind') {

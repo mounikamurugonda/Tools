@@ -78,13 +78,14 @@ export const trackCodeCastRecording = (duration?: number, aspectRatio?: string) 
 };
 
 // Track video downloads
-export const trackCodeCastDownload = (format: 'webm' | 'mp4', duration?: number) => {
+export const trackCodeCastDownload = (format: 'webm' | 'mp4', duration?: number, userId?: string) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'codecast_download', {
       event_category: 'CodeCast',
       event_label: 'Download',
       video_format: format,
       video_duration: duration,
+      user_id: userId,
     });
   }
 };
