@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Link from 'next/link';
 import { Loader2, Calendar, Code2, ArrowRight, Video, Keyboard, Share2, Check, Trash2, Eye } from 'lucide-react';
 import { SnippetPreview } from '../../components/SnippetPreview';
@@ -19,28 +20,46 @@ interface Snippet {
 }
 
 export default function SavedSnippetsPage() {
-    const [snippets, setSnippets] = useState<Snippet[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const queryClient = useQueryClient();
     const [copiedId, setCopiedId] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchSnippets = async () => {
-            try {
-                const res = await fetch('/api/code-cast/snippets');
-                const data = await res.json();
-                if (data.error) throw new Error(data.error);
-                setSnippets(data.snippets || []);
-            } catch (err) {
-                setError('Failed to load snippets');
-                console.error(err);
-            } finally {
-                setLoading(false);
-            }
-        };
+    const fetchSnippets = async () => {
+        const res = await fetch('/api/code-cast/snippets');
+        if (res.status === 401) {
+            throw new Error("Unauthorized - Please sign in to view saved snippets.");
+        }
+        const data = await res.json();
+        if (data.error) throw new Error(data.error);
+        return data.snippets as Snippet[];
+    };
 
-        fetchSnippets();
-    }, []);
+    const { data: snippets = [], isLoading: loading, error: queryError } = useQuery({
+        queryKey: ['savedSnippets'],
+        queryFn: fetchSnippets,
+    });
+
+    const error = queryError ? (queryError as Error).message : '';
+
+    const deleteMutation = useMutation({
+        mutationFn: async (id: string) => {
+            const res = await fetch(`/api/code-cast/snippet/${id}`, {
+                method: 'DELETE',
+            });
+            if (!res.ok) {
+                throw new Error('Failed to delete');
+            }
+            return id;
+        },
+        onSuccess: (id) => {
+            queryClient.setQueryData(['savedSnippets'], (old: Snippet[] | undefined) =>
+                old ? old.filter(s => s.id !== id) : []
+            );
+        },
+        onError: (err) => {
+            console.error('Error deleting snippet:', err);
+            alert('Error deleting snippet');
+        }
+    });
 
     const handleCopyLink = (e: React.MouseEvent, snippet: Snippet) => {
         e.preventDefault();
@@ -55,22 +74,7 @@ export default function SavedSnippetsPage() {
     const handleDelete = async (e: React.MouseEvent, id: string) => {
         e.preventDefault(); // Prevent link navigation if inside a link
         if (!confirm('Are you sure you want to delete this snippet?')) return;
-
-        try {
-            const res = await fetch(`/api/code-cast/snippet/${id}`, {
-                method: 'DELETE',
-            });
-
-            if (res.ok) {
-                setSnippets(prev => prev.filter(s => s.id !== id));
-            } else {
-                console.error('Failed to delete');
-                alert('Failed to delete snippet');
-            }
-        } catch (error) {
-            console.error('Error deleting snippet:', error);
-            alert('Error deleting snippet');
-        }
+        deleteMutation.mutate(id);
     };
 
     if (loading) {

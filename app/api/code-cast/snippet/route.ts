@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { randomBytes } from 'crypto';
 
 const generateShortId = () => {
@@ -21,6 +23,14 @@ export async function POST(request: Request) {
             );
         }
 
+        const session = await getServerSession(authOptions);
+        const userEmail = session?.user?.email;
+
+        // Note: We allow saving even if not logged in (anonymous), 
+        // but if logged in, we attach the email so it appears in their 'Saved' list.
+        // User requirements say "just show my email id login only the saved snippets",
+        // implying they want to see THEIR snippets.
+
         const { data, error } = await supabase
             .from('snippets')
             .insert([
@@ -33,6 +43,7 @@ export async function POST(request: Request) {
                     config: config || {},
                     short_id: generateShortId(),
                     is_public: !!is_public,
+                    user_email: userEmail || null,
                 },
             ])
             .select()
