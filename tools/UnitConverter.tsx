@@ -66,21 +66,19 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex">
           <button
             onClick={() => handleCategoryChange('length')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
-              category === 'length'
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'length'
                 ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
-            }`}
+              }`}
           >
             Length
           </button>
           <button
             onClick={() => handleCategoryChange('weight')}
-            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${
-              category === 'weight'
+            className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'weight'
                 ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
                 : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
-            }`}
+              }`}
           >
             Weight
           </button>
@@ -101,6 +99,27 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 value={{ value: fromUnit, label: fromUnit }}
                 onChange={option => option && setFromUnit(option.value)}
                 options={units.map(u => ({ value: u, label: u }))}
+                unstyled
+                classNames={{
+                  control: ({ isFocused }) =>
+                    `flex items-center justify-between px-4 py-3 rounded-xl border bg-white dark:bg-gray-900 transition-all ${isFocused
+                      ? 'border-blue-500 ring-2 ring-blue-500/20'
+                      : 'border-gray-200 dark:border-gray-700'
+                    }`,
+                  menu: () =>
+                    'mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden z-50',
+                  option: ({ isFocused, isSelected }) =>
+                    `px-4 py-2 text-sm cursor-pointer ${isSelected
+                      ? 'bg-blue-600 text-white'
+                      : isFocused
+                        ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+                        : 'text-gray-700 dark:text-gray-300'
+                    }`,
+                  singleValue: () => 'text-gray-900 dark:text-white text-base',
+                  placeholder: () => 'text-gray-400',
+                  input: () => 'text-gray-900 dark:text-white',
+                  menuList: () => 'max-h-[200px] overflow-y-auto p-1 custom-scrollbar',
+                }}
               />
             </div>
           </div>
@@ -108,7 +127,7 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="space-y-2">
             <Label>To</Label>
             <div className="space-y-4">
-              <div className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center min-h-[46px]">
+              <div className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-xl flex items-center min-h-[50px]">
                 <span className="text-lg font-bold text-blue-600 dark:text-blue-400 break-all">
                   {result}
                 </span>
@@ -117,6 +136,27 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 value={{ value: toUnit, label: toUnit }}
                 onChange={option => option && setToUnit(option.value)}
                 options={units.map(u => ({ value: u, label: u }))}
+                unstyled
+                classNames={{
+                  control: ({ isFocused }) =>
+                    `flex items-center justify-between px-4 py-3 rounded-xl border bg-white dark:bg-gray-900 transition-all ${isFocused
+                      ? 'border-blue-500 ring-2 ring-blue-500/20'
+                      : 'border-gray-200 dark:border-gray-700'
+                    }`,
+                  menu: () =>
+                    'mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden z-50',
+                  option: ({ isFocused, isSelected }) =>
+                    `px-4 py-2 text-sm cursor-pointer ${isSelected
+                      ? 'bg-blue-600 text-white'
+                      : isFocused
+                        ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
+                        : 'text-gray-700 dark:text-gray-300'
+                    }`,
+                  singleValue: () => 'text-gray-900 dark:text-white text-base',
+                  placeholder: () => 'text-gray-400',
+                  input: () => 'text-gray-900 dark:text-white',
+                  menuList: () => 'max-h-[200px] overflow-y-auto p-1 custom-scrollbar',
+                }}
               />
             </div>
           </div>

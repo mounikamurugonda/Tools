@@ -271,11 +271,7 @@ const Header: React.FC = () => {
               {/* Favorites Button (Desktop) */}
               <div className="relative group">
                 <button
-                  onClick={() => setIsFavoritesOpen(!isFavoritesOpen)}
-                  className={`p-2 rounded-full transition-colors relative ${isFavoritesOpen
-                    ? 'text-red-500 '
-                    : 'text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`}
+                  className="p-2 rounded-full transition-colors relative text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
                   aria-label="Favorites"
                 >
                   <Heart size={20} className={favorites.length > 0 ? "fill-red-500 text-red-500" : ""} />
@@ -286,16 +282,8 @@ const Header: React.FC = () => {
                   )}
                 </button>
 
-                {/* Favorites Dropdown */}
-                {isFavoritesOpen && (
-                  <div className="fixed inset-0 z-40" onClick={() => setIsFavoritesOpen(false)} />
-                )}
-
                 <div
-                  className={`absolute right-0 top-full mt-2 w-72 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-fade-in-up transition-all duration-200 ${isFavoritesOpen
-                    ? 'opacity-100 visible'
-                    : 'opacity-0 invisible group-hover:opacity-100 group-hover:visible'
-                    }`}
+                  className="absolute right-0 top-full mt-2 w-72 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-fade-in-up transition-all duration-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible"
                 >
                   <div className="p-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50">
                     <h3 className="font-semibold text-gray-900 dark:text-white text-sm">Your Favorites</h3>
@@ -315,7 +303,7 @@ const Header: React.FC = () => {
                         <Link
                           key={tool.id}
                           href={`/tools/${tool.id}`}
-                          onClick={() => setIsFavoritesOpen(false)}
+                          onClick={closeAllMenus}
                           className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors group"
                         >
                           <div className="w-8 h-8 flex items-center justify-center rounded-md bg-blue-50 dark:bg-blue-900/20 text-blue-500 group-hover:scale-110 transition-transform">
@@ -333,7 +321,7 @@ const Header: React.FC = () => {
                     <div className="p-2 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 text-center">
                       <Link
                         href="/tools"
-                        onClick={() => setIsFavoritesOpen(false)}
+                        onClick={closeAllMenus}
                         className="text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
                       >
                         Browse all tools

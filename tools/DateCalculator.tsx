@@ -131,15 +131,14 @@ const DateInput: React.FC<{
   onChange: (val: string) => void;
 }> = ({ label, value, onChange }) => (
   <div>
-    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
       {label}
     </label>
     <input
       type="date"
       value={value}
       onChange={e => onChange(e.target.value)}
-      className="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 dark:text-gray-200"
-      style={{ colorScheme: 'dark' }}
+      className="w-full bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 dark:text-white transition-all shadow-sm hover:border-blue-400 dark:hover:border-blue-500"
     />
   </div>
 );

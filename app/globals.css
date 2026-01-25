@@ -35,6 +35,7 @@
 }
 
 @layer base {
+
   html,
   body {
     margin: 0;
@@ -74,6 +75,7 @@
   .dark body {
     @apply bg-dark-background text-dark-text;
     background-image: radial-gradient(#334155 1px, transparent 1px);
+    color-scheme: dark;
   }
 
   /* Refined Scrollbar */
@@ -212,6 +214,7 @@ input[type='range']:hover::-moz-range-thumb {
 }
 
 @layer components {
+
   /* Brand Containers */
   .brand-container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
@@ -325,5 +328,24 @@ input[type='range']:hover::-moz-range-thumb {
 
   .glass-panel {
     @apply bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-white/20 dark:border-gray-700/30 shadow-xl;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400 dark:bg-gray-500;
   }
 }

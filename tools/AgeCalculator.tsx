@@ -51,7 +51,7 @@ const AgeCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
         </Card>
 
-        <Card className="bg-blue-600 border-none text-white p-8 text-center shadow-lg">
+        <div className="bg-blue-600 rounded-2xl text-white p-8 text-center shadow-lg mb-8">
           <p className="text-lg opacity-80 mb-2">You are</p>
           <div className="flex justify-center items-baseline gap-2 mb-4">
             <span className="text-6xl font-bold">{age.years}</span>
@@ -65,7 +65,7 @@ const AgeCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
               <span className="font-bold">{age.days}</span> days
             </span>
           </div>
-        </Card>
+        </div>
 
         <div className="grid grid-cols-2 gap-4">
           <Card className="p-4 text-center">
