@@ -20,6 +20,8 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
   const pathname = usePathname();
   const isLibraryPage = pathname?.includes('/library');
+  const isSavedPage = pathname?.includes('/saved');
+  const isScrollablePage = isLibraryPage || isSavedPage;
 
   // Warn user before leaving if there might be unsaved changes
   React.useEffect(() => {
@@ -56,10 +58,10 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
       {/* Content Wrapper: Sidebar + Main Content */}
       <div className="flex flex-1 h-full min-h-0 overflow-hidden">
         {/* Sidebar - Below Header on Left */}
-        {!isLibraryPage && <Sidebar />}
+        {!isScrollablePage && <Sidebar />}
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto md:overflow-hidden w-full flex flex-col items-center justify-center p-4 md:p-4 bg-gray-50 dark:bg-gray-950 relative transition-colors duration-300">
+        <main className={`flex-1 overflow-y-auto ${!isScrollablePage ? 'md:overflow-hidden' : ''} w-full flex flex-col ${!isScrollablePage ? 'items-center justify-center' : ''} p-4 md:p-4 bg-gray-50 dark:bg-gray-950 relative transition-colors duration-300`}>
           {children}
         </main>
       </div>

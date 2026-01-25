@@ -6,7 +6,7 @@ import ToolContainer from '@/components/ToolContainer';
 import { timezones } from '@/lib/timezones';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import Select from 'react-select';
+import CustomSelect from '@/components/ui/CustomSelect';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { ArrowLeftRight } from 'lucide-react';
@@ -171,7 +171,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           <div className="grid md:grid-cols-[1fr,auto,1fr] gap-6 items-center">
             <div className="space-y-4">
               <Label>From Time Zone</Label>
-              <Select
+              <CustomSelect
                 value={flattenedTimezones.find(z => z.value === fromTimeZone)}
                 onChange={opt => setFromTimeZone(opt?.value || 'UTC')}
                 options={getSelectOptions(timezones) as any}
@@ -197,7 +197,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
             <div className="space-y-4">
               <Label>To Time Zone</Label>
-              <Select
+              <CustomSelect
                 value={flattenedTimezones.find(z => z.value === toTimeZone)}
                 onChange={opt => setToTimeZone(opt?.value || 'UTC')}
                 options={getSelectOptions(timezones) as any}

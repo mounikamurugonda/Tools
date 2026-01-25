@@ -5,7 +5,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import Select from 'react-select';
+import CustomSelect from '@/components/ui/CustomSelect';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import { ArrowLeftRight, RefreshCw } from 'lucide-react';
@@ -200,7 +200,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
           className="text-lg font-mono"
           placeholder="0.00"
         />
-        <Select
+        <CustomSelect
           value={options.find(o => o.value === currency)}
           onChange={opt => opt && onCurrencyChange(opt.value)}
           options={options}

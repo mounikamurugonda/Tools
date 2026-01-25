@@ -5,7 +5,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import TextArea from '@/components/ui/TextArea';
-import Select from 'react-select';
+import CustomSelect from '@/components/ui/CustomSelect';
 import Slider from '@/components/ui/Slider';
 import Card from '@/components/ui/Card';
 import Label from '@/components/ui/Label';
@@ -68,7 +68,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="space-y-6">
               <div>
                 <Label className="mb-2">Select Voice</Label>
-                <Select
+                <CustomSelect
                   value={selectedVoice ? { value: selectedVoice, label: selectedVoice } : null}
                   onChange={option => {
                     if (option) setSelectedVoice(option.value as string);

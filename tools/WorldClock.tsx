@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Select, { OnChangeValue } from 'react-select';
+import CustomSelect from '@/components/ui/CustomSelect';
+import { OnChangeValue } from 'react-select';
 import type { ToolProps } from '@/types';
 import { timezones } from '@/lib/timezones';
 import ToolContainer from '@/components/ToolContainer';
@@ -107,12 +108,11 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
     <ToolContainer title="World Clock" details={details} toolId={toolId}>
       <div className="max-w-2xl mx-auto space-y-6">
         <div className="flex gap-2">
-          <Select<TimezoneOption>
+          <CustomSelect<TimezoneOption>
             options={TIMEZONE_OPTIONS}
             onChange={addTimezone}
             placeholder="-- Add time zone --"
             value={null}
-            styles={customStyles}
             className="flex-grow text-gray-800 dark:text-gray-200"
           />
         </div>

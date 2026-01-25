@@ -23,7 +23,7 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import Select from 'react-select';
+import CustomSelect from '@/components/ui/CustomSelect';
 import TextArea from '@/components/ui/TextArea';
 import FileUpload from '@/components/ui/FileUpload';
 
@@ -46,71 +46,71 @@ const outputFormats: {
   extension: string;
   color: string;
 }[] = [
-  {
-    value: 'xlsx',
-    label: 'Excel',
-    icon: <FileSpreadsheet size={20} />,
-    description: 'Spreadsheet',
-    extension: '.xlsx',
-    color: 'from-emerald-500 to-emerald-600',
-  },
-  {
-    value: 'csv',
-    label: 'CSV',
-    icon: <File size={20} />,
-    description: 'Text Format',
-    extension: '.csv',
-    color: 'from-blue-500 to-blue-600',
-  },
-  {
-    value: 'tsv',
-    label: 'TSV',
-    icon: <File size={20} />,
-    description: 'Tab-Separated',
-    extension: '.tsv',
-    color: 'from-lime-500 to-lime-600',
-  },
-  {
-    value: 'json',
-    label: 'JSON',
-    icon: <FileJson size={20} />,
-    description: 'Data Format',
-    extension: '.json',
-    color: 'from-amber-500 to-amber-600',
-  },
-  {
-    value: 'sql',
-    label: 'SQL',
-    icon: <Database size={20} />,
-    description: 'Database',
-    extension: '.sql',
-    color: 'from-purple-500 to-purple-600',
-  },
-  {
-    value: 'html',
-    label: 'HTML Table',
-    icon: <Code2 size={20} />,
-    description: 'Web Format',
-    extension: '.html',
-    color: 'from-red-500 to-red-600',
-  },
-  {
-    value: 'md',
-    label: 'Markdown',
-    icon: <File size={20} />,
-    description: 'Documentation',
-    extension: '.md',
-    color: 'from-slate-500 to-slate-600',
-  },
-  {
-    value: 'vcf',
-    label: 'vCard',
-    icon: <Users size={20} />,
-    description: 'Contacts',
-    extension: '.vcf',
-    color: 'from-pink-500 to-pink-600',
-  },
-];
+    {
+      value: 'xlsx',
+      label: 'Excel',
+      icon: <FileSpreadsheet size={20} />,
+      description: 'Spreadsheet',
+      extension: '.xlsx',
+      color: 'from-emerald-500 to-emerald-600',
+    },
+    {
+      value: 'csv',
+      label: 'CSV',
+      icon: <File size={20} />,
+      description: 'Text Format',
+      extension: '.csv',
+      color: 'from-blue-500 to-blue-600',
+    },
+    {
+      value: 'tsv',
+      label: 'TSV',
+      icon: <File size={20} />,
+      description: 'Tab-Separated',
+      extension: '.tsv',
+      color: 'from-lime-500 to-lime-600',
+    },
+    {
+      value: 'json',
+      label: 'JSON',
+      icon: <FileJson size={20} />,
+      description: 'Data Format',
+      extension: '.json',
+      color: 'from-amber-500 to-amber-600',
+    },
+    {
+      value: 'sql',
+      label: 'SQL',
+      icon: <Database size={20} />,
+      description: 'Database',
+      extension: '.sql',
+      color: 'from-purple-500 to-purple-600',
+    },
+    {
+      value: 'html',
+      label: 'HTML Table',
+      icon: <Code2 size={20} />,
+      description: 'Web Format',
+      extension: '.html',
+      color: 'from-red-500 to-red-600',
+    },
+    {
+      value: 'md',
+      label: 'Markdown',
+      icon: <File size={20} />,
+      description: 'Documentation',
+      extension: '.md',
+      color: 'from-slate-500 to-slate-600',
+    },
+    {
+      value: 'vcf',
+      label: 'vCard',
+      icon: <Users size={20} />,
+      description: 'Contacts',
+      extension: '.vcf',
+      color: 'from-pink-500 to-pink-600',
+    },
+  ];
 
 const parseCsv = (
   csvString: string,
@@ -570,11 +570,10 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                       <button
                         key={format.value}
                         onClick={() => setOutputFormat(format.value)}
-                        className={`p-4 rounded-xl transition-all duration-300 group relative ${
-                          outputFormat === format.value
+                        className={`p-4 rounded-xl transition-all duration-300 group relative ${outputFormat === format.value
                             ? `bg-gradient-to-br ${format.color} text-white shadow-lg scale-105`
                             : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600'
-                        }`}
+                          }`}
                       >
                         <div
                           className={`flex flex-col items-center gap-2 ${outputFormat === format.value ? 'text-white' : ''}`}
@@ -622,7 +621,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                     <div className="grid sm:grid-cols-2 gap-6">
                       <div>
                         <Label htmlFor="separator">Separator</Label>
-                        <Select
+                        <CustomSelect
                           id="separator"
                           value={{
                             value: csvToXlsxSeparator,
@@ -697,7 +696,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                     <div className="grid sm:grid-cols-2 gap-6">
                       <div>
                         <Label htmlFor="xlsx-separator">Output Separator</Label>
-                        <Select
+                        <CustomSelect
                           id="xlsx-separator"
                           value={{
                             value: xlsxToCsvSeparator,
@@ -731,7 +730,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
                       <div>
                         <Label htmlFor="quoteFields">Quote Fields</Label>
-                        <Select
+                        <CustomSelect
                           id="quoteFields"
                           value={{
                             value: quoteFields,

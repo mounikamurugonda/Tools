@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Input from '@/components/ui/Input';
-import Select from 'react-select';
+import CustomSelect from '@/components/ui/CustomSelect';
 import Label from '@/components/ui/Label';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
@@ -67,8 +67,8 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           <button
             onClick={() => handleCategoryChange('length')}
             className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'length'
-                ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+              ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
               }`}
           >
             Length
@@ -76,8 +76,8 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           <button
             onClick={() => handleCategoryChange('weight')}
             className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${category === 'weight'
-                ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+              ? 'bg-white dark:bg-gray-700 text-blue-600 shadow-sm'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
               }`}
           >
             Weight
@@ -95,31 +95,10 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 className="text-lg font-medium"
                 placeholder="Enter value"
               />
-              <Select
+              <CustomSelect
                 value={{ value: fromUnit, label: fromUnit }}
                 onChange={option => option && setFromUnit(option.value)}
                 options={units.map(u => ({ value: u, label: u }))}
-                unstyled
-                classNames={{
-                  control: ({ isFocused }) =>
-                    `flex items-center justify-between px-4 py-3 rounded-xl border bg-white dark:bg-gray-900 transition-all ${isFocused
-                      ? 'border-blue-500 ring-2 ring-blue-500/20'
-                      : 'border-gray-200 dark:border-gray-700'
-                    }`,
-                  menu: () =>
-                    'mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden z-50',
-                  option: ({ isFocused, isSelected }) =>
-                    `px-4 py-2 text-sm cursor-pointer ${isSelected
-                      ? 'bg-blue-600 text-white'
-                      : isFocused
-                        ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                        : 'text-gray-700 dark:text-gray-300'
-                    }`,
-                  singleValue: () => 'text-gray-900 dark:text-white text-base',
-                  placeholder: () => 'text-gray-400',
-                  input: () => 'text-gray-900 dark:text-white',
-                  menuList: () => 'max-h-[200px] overflow-y-auto p-1 custom-scrollbar',
-                }}
               />
             </div>
           </div>
@@ -132,31 +111,10 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                   {result}
                 </span>
               </div>
-              <Select
+              <CustomSelect
                 value={{ value: toUnit, label: toUnit }}
                 onChange={option => option && setToUnit(option.value)}
                 options={units.map(u => ({ value: u, label: u }))}
-                unstyled
-                classNames={{
-                  control: ({ isFocused }) =>
-                    `flex items-center justify-between px-4 py-3 rounded-xl border bg-white dark:bg-gray-900 transition-all ${isFocused
-                      ? 'border-blue-500 ring-2 ring-blue-500/20'
-                      : 'border-gray-200 dark:border-gray-700'
-                    }`,
-                  menu: () =>
-                    'mt-2 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-xl overflow-hidden z-50',
-                  option: ({ isFocused, isSelected }) =>
-                    `px-4 py-2 text-sm cursor-pointer ${isSelected
-                      ? 'bg-blue-600 text-white'
-                      : isFocused
-                        ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                        : 'text-gray-700 dark:text-gray-300'
-                    }`,
-                  singleValue: () => 'text-gray-900 dark:text-white text-base',
-                  placeholder: () => 'text-gray-400',
-                  input: () => 'text-gray-900 dark:text-white',
-                  menuList: () => 'max-h-[200px] overflow-y-auto p-1 custom-scrollbar',
-                }}
               />
             </div>
           </div>

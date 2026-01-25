@@ -7,7 +7,7 @@ import CopyButton from '@/components/CopyButton';
 import TextArea from '@/components/ui/TextArea';
 import Label from '@/components/ui/Label';
 import Button from '@/components/ui/Button';
-import Select from 'react-select';
+import CustomSelect from '@/components/ui/CustomSelect';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
 import { ArrowLeftRight, Trash2 } from 'lucide-react';
@@ -233,7 +233,7 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
               <div className="space-y-2">
                 <Label>Separator</Label>
-                <Select
+                <CustomSelect
                   value={{
                     value: separator,
                     label:
@@ -282,7 +282,7 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               {mode === 'csv-to-json' && (
                 <div className="space-y-2">
                   <Label>Output Format</Label>
-                  <Select
+                  <CustomSelect
                     value={{
                       value: outputFormat,
                       label: outputFormat === 'objects' ? 'List of Objects' : 'List of Arrays',
