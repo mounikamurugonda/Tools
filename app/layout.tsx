@@ -94,6 +94,8 @@ export const metadata: Metadata = {
   },
 };
 
+import QueryProvider from '@/components/QueryProvider';
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -145,18 +147,20 @@ export default function RootLayout({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <ThemeProvider>
-          <SessionProviderWrapper>
-            <SmoothScrolling>
-              <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
-                <Header />
-                <main className="flex-grow flex flex-col">{children}</main>
-                <BuyMeACoffeeSection />
-                <ConditionalFooter />
-              </div>
-            </SmoothScrolling>
-          </SessionProviderWrapper>
-        </ThemeProvider>
+        <QueryProvider>
+          <ThemeProvider>
+            <SessionProviderWrapper>
+              <SmoothScrolling>
+                <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
+                  <Header />
+                  <main className="flex-grow flex flex-col">{children}</main>
+                  <BuyMeACoffeeSection />
+                  <ConditionalFooter />
+                </div>
+              </SmoothScrolling>
+            </SessionProviderWrapper>
+          </ThemeProvider>
+        </QueryProvider>
       </body>
     </html>
   );

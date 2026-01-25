@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   PanelLeft,
   Play,
@@ -105,6 +106,75 @@ export const CodeCastHeader = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
 
+  const queryClient = useQueryClient();
+
+  // Save Mutation
+  const saveMutation = useMutation({
+    mutationFn: async ({ isShare, titleOverride }: { isShare: boolean; titleOverride?: string }) => {
+      // Access store state directly
+      const state = currentStore;
+      if (!state) throw new Error("Store not initialized");
+
+      const response = await fetch('/api/code-cast/snippet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: mode,
+          title: titleOverride || state.projectTitle || 'Untitled Snippet',
+          code: state.code,
+          config: state.config,
+          is_public: isPublic
+        })
+      });
+
+      const data = await response.json();
+      if (!data.success || !data.snippet) {
+        throw new Error(data.error || 'Failed to save snippet');
+      }
+      return data;
+    },
+    onSuccess: (data, variables) => {
+      const { isShare, titleOverride } = variables;
+
+      // Invalidate library queries to show new snippet if public
+      if (isPublic) {
+        queryClient.invalidateQueries({ queryKey: ['librarySnippets'] });
+      }
+
+      // Use short URL if available, otherwise fallback to long URL
+      const id = data.snippet.short_id || data.snippet.id;
+      // If we have short_id, we use the redirect route /s/[id]
+      // If not, we fall back to /product/code-cast/[mode]?snippet=[id]
+      const url = data.snippet.short_id
+        ? `https://utiltoolkits.com/s/${data.snippet.short_id}`
+        : `https://utiltoolkits.com/product/code-cast/${mode}?snippet=${data.snippet.id}`;
+
+      if (isShare) {
+        setShareUrl(url);
+        setIsShareModalOpen(true);
+      } else {
+        setSaveStatus('success');
+        showToast('Snippet saved successfully!', 'success');
+        // Optionally Update global project title if we want
+        // if (state.setProjectTitle) state.setProjectTitle(titleOverride);
+      }
+    },
+    onError: (error, variables) => {
+      const { isShare } = variables;
+      console.error('Save error:', error);
+      if (!isShare) {
+        setSaveStatus('error');
+        showToast('An error occurred while saving', 'error');
+      } else {
+        showToast('An error occurred while saving', 'error');
+      }
+    },
+    onSettled: (data, error, variables) => {
+      const { isShare } = variables;
+      if (isShare) setIsSaving(false);
+    }
+  });
+
   // Toast State
   const [toast, setToast] = useState<{ message: string, type: ToastType, isVisible: boolean }>({
     message: '', type: 'info', isVisible: false
@@ -122,6 +192,27 @@ export const CodeCastHeader = () => {
       setSaveStatus('idle');
     }
   }, [isSaveDropdownOpen, currentStore]);
+
+  // Animate mode controls
+  const handlePlayClick = useCallback(() => {
+    if (mode === 'animate') {
+      if (isPlaying) {
+        // Now handling Stop distinctly. This click might be legacy, but we'll update UI to separate Stop/Pause.
+        // If clicking the main toggle while playing, we used to Stop.
+        setIsPlaying(false);
+        setIsAnimationPaused(false); // Reset pause state
+        return;
+      }
+      // If current tab is empty or not a code tab, scan for start
+      const isCodeTab = activeTab === 'html' || activeTab === 'css' || activeTab === 'js';
+      if (!isCodeTab || !code[activeTab] || code[activeTab].trim() === '') {
+        const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
+        const firstNonEmpty = tabs.find(t => code[t] && code[t].trim().length > 0);
+        if (firstNonEmpty) setActiveTab(firstNonEmpty);
+      }
+      setIsPlaying(true);
+    }
+  }, [mode, isPlaying, setIsPlaying, setIsAnimationPaused, activeTab, code, setActiveTab]);
 
   // Keyboard Shortcuts
   React.useEffect(() => {
@@ -152,7 +243,7 @@ export const CodeCastHeader = () => {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [mode, isRecording, isMicEnabled, isPlaying]); // Added deps for closure correctness
+  }, [mode, isRecording, isMicEnabled, isPlaying, handlePlayClick, startRecording, stopRecording]); // Added deps for closure correctness
 
   const handleSave = async (isShare = false, titleOverride?: string) => {
     if (!currentStore || (mode !== 'animate' && mode !== 'type')) return;
@@ -165,59 +256,7 @@ export const CodeCastHeader = () => {
       setIsSaving(true);
     }
 
-    try {
-      // Access store state directly
-      const state = currentStore;
-
-      const response = await fetch('/api/code-cast/snippet', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: mode,
-          title: titleOverride || state.projectTitle || 'Untitled Snippet',
-          code: state.code,
-          config: state.config,
-          is_public: isPublic
-        })
-      });
-
-      const data = await response.json();
-
-      if (data.success && data.snippet) {
-        // Use short URL if available, otherwise fallback to long URL
-        const id = data.snippet.short_id || data.snippet.id;
-        // If we have short_id, we use the redirect route /s/[id]
-        // If not, we fall back to /product/code-cast/[mode]?snippet=[id]
-        const url = data.snippet.short_id
-          ? `https://utiltoolkits.com/s/${data.snippet.short_id}`
-          : `https://utiltoolkits.com/product/code-cast/${mode}?snippet=${data.snippet.id}`;
-
-        if (isShare) {
-          setShareUrl(url);
-          setIsShareModalOpen(true);
-        } else {
-          setSaveStatus('success');
-          showToast('Snippet saved successfully!', 'success');
-          // Optionally Update global project title if we want
-          // if (state.setProjectTitle) state.setProjectTitle(titleOverride);
-        }
-      } else {
-        if (!isShare) {
-          setSaveStatus('error');
-          showToast('Failed to save snippet', 'error');
-        }
-        else showToast('Failed to save snippet', 'error');
-      }
-    } catch (error) {
-      console.error('Save error:', error);
-      if (!isShare) {
-        setSaveStatus('error');
-        showToast('An error occurred while saving', 'error');
-      }
-      else showToast('An error occurred while saving', 'error');
-    } finally {
-      if (isShare) setIsSaving(false);
-    }
+    saveMutation.mutate({ isShare, titleOverride });
   };
 
   const formatTime = (seconds: number) => {
@@ -246,26 +285,7 @@ export const CodeCastHeader = () => {
     return <Smartphone size={16} strokeWidth={2} />;
   };
 
-  // Animate mode controls
-  const handlePlayClick = () => {
-    if (mode === 'animate') {
-      if (isPlaying) {
-        // Now handling Stop distinctly. This click might be legacy, but we'll update UI to separate Stop/Pause.
-        // If clicking the main toggle while playing, we used to Stop.
-        setIsPlaying(false);
-        setIsAnimationPaused(false); // Reset pause state
-        return;
-      }
-      // If current tab is empty or not a code tab, scan for start
-      const isCodeTab = activeTab === 'html' || activeTab === 'css' || activeTab === 'js';
-      if (!isCodeTab || !code[activeTab] || code[activeTab].trim() === '') {
-        const tabs: ('html' | 'css' | 'js')[] = ['html', 'css', 'js'];
-        const firstNonEmpty = tabs.find(t => code[t] && code[t].trim().length > 0);
-        if (firstNonEmpty) setActiveTab(firstNonEmpty);
-      }
-      setIsPlaying(true);
-    }
-  };
+
 
   const handleReset = () => {
     if (mode === 'animate') {

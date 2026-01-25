@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Input from '@/components/ui/Input';
@@ -17,38 +18,31 @@ interface Rates {
 }
 
 const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [rates, setRates] = useState<Rates | null>(null);
-  const [error, setError] = useState<string | null>(null);
   const [amount1, setAmount1] = useState('1');
   const [amount2, setAmount2] = useState('');
   const [currency1, setCurrency1] = useState('USD');
   const [currency2, setCurrency2] = useState('EUR');
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(API_URL)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(
-            'Failed to fetch exchange rates. The service may be temporarily unavailable.'
-          );
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data.result === 'success') {
-          setRates(data.rates);
-        } else {
-          throw new Error('Invalid response from the exchange rate API.');
-        }
-      })
-      .catch(err => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+  const fetchRates = async () => {
+    const response = await fetch(API_URL);
+    if (!response.ok) {
+      throw new Error(
+        'Failed to fetch exchange rates. The service may be temporarily unavailable.'
+      );
+    }
+    const data = await response.json();
+    if (data.result === 'success') {
+      return data.rates as Rates;
+    }
+    throw new Error('Invalid response from the exchange rate API.');
+  };
+
+  const { data: rates, error: queryError, isLoading } = useQuery({
+    queryKey: ['exchangeRates'],
+    queryFn: fetchRates,
+  });
+
+  const error = queryError ? (queryError as Error).message : null;
 
   const calculateConversion = useCallback(
     (amount: number, from: string, to: string, rateData: Rates) => {
