@@ -13,6 +13,8 @@ import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 import GoogleTagManager from '@/components/GoogleTagManager';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import GoogleAdSense from '@/components/GoogleAdSense';
+import Schema from '@/components/Schema';
+import { getNavigationSchema } from '@/lib/schema';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 
@@ -152,6 +154,7 @@ export default function RootLayout({
             <SessionProviderWrapper>
               <SmoothScrolling>
                 <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
+                  <Schema schema={getNavigationSchema()} />
                   <Header />
                   <main className="flex-grow flex flex-col">{children}</main>
                   <BuyMeACoffeeSection />

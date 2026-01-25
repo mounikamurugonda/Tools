@@ -28,12 +28,16 @@ export async function generateMetadata(
     };
   }
 
-  const title = tool.seoTitle || `${tool.name} - Free Online Tool | UtilToolkits`;
+  const title = tool.seoTitle || `${tool.name} - Free Online Tool`;
   const description =
     tool.seoDescription ||
     `${tool.description} Free browser-based ${tool.name.toLowerCase()} tool with no registration required. All processing happens locally for maximum privacy and speed.`;
 
+  // Explicitly inherit icons from parent to ensure favicon consistency
+  const parentIcons = (await parent).icons;
+
   return {
+    icons: parentIcons,
     title,
     description,
     keywords: tool.keywords

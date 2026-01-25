@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const enhancedDescription = `${content.introduction} Discover our collection of free ${category.toLowerCase()} tools for developers and designers. All tools run locally in your browser for maximum privacy and speed.`;
 
   return {
-    title: `${category} Tools - Free Online Utilities | UtilToolkits`,
+    title: `${category} Tools - Free Online Utilities`,
     description: enhancedDescription,
     keywords: `${category.toLowerCase()}, tools, utilities, developers, ${category.toLowerCase().replace(/\s+/g, ',')}, free online tools, browser tools, developer utilities, productivity tools`,
     authors: [{ name: 'UtilToolkits Team' }],
@@ -64,7 +64,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     openGraph: {
-      title: `${category} Tools - Free Online Utilities | UtilToolkits`,
+      title: `${category} Tools - Free Online Utilities`,
       description: enhancedDescription,
       type: 'website',
       url: `https://utiltoolkits.com/tools/category/${categoryName}`,

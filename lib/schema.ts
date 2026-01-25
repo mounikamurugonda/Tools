@@ -353,3 +353,53 @@ export const getCodeCastToolSchema = (type: 'animate' | 'type' | 'image') => {
     isAccessibleForFree: true,
   };
 };
+
+// Site Navigation Schema
+export const getNavigationSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: [
+    {
+      '@type': 'SiteNavigationElement',
+      position: 1,
+      name: 'Home',
+      description: 'Home page of UtilToolkits',
+      url: 'https://utiltoolkits.com',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 2,
+      name: 'Tools',
+      description: 'Directory of all developer tools',
+      url: 'https://utiltoolkits.com/tools',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 3,
+      name: 'CodeCast',
+      description: 'Create viral code animations and screenshots',
+      url: 'https://utiltoolkits.com/product/code-cast',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 4,
+      name: 'About',
+      description: 'About UtilToolkits',
+      url: 'https://utiltoolkits.com/about',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 5,
+      name: 'Terms',
+      description: 'Terms of Service',
+      url: 'https://utiltoolkits.com/terms',
+    },
+    {
+      '@type': 'SiteNavigationElement',
+      position: 6,
+      name: 'Privacy',
+      description: 'Privacy Policy',
+      url: 'https://utiltoolkits.com/privacy',
+    },
+  ],
+});
