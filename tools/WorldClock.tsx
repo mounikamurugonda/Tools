@@ -57,9 +57,10 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   }, [selectedTimezones]);
 
-  const addTimezone = (option: OnChangeValue<TimezoneOption, false>) => {
-    if (option && !selectedTimezones.includes(option.value)) {
-      setSelectedTimezones([...selectedTimezones, option.value]);
+  const addTimezone = (option: OnChangeValue<TimezoneOption, false> | OnChangeValue<TimezoneOption, true>) => {
+    const singleOption = option as TimezoneOption | null;
+    if (singleOption && !selectedTimezones.includes(singleOption.value)) {
+      setSelectedTimezones([...selectedTimezones, singleOption.value]);
     }
   };
 

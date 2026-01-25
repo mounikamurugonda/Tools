@@ -571,8 +571,8 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                         key={format.value}
                         onClick={() => setOutputFormat(format.value)}
                         className={`p-4 rounded-xl transition-all duration-300 group relative ${outputFormat === format.value
-                            ? `bg-gradient-to-br ${format.color} text-white shadow-lg scale-105`
-                            : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600'
+                          ? `bg-gradient-to-br ${format.color} text-white shadow-lg scale-105`
+                          : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600'
                           }`}
                       >
                         <div
@@ -634,7 +634,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                                 { value: 'custom', label: 'Custom' },
                               ].find(o => o.value === csvToXlsxSeparator)?.label || 'Custom',
                           }}
-                          onChange={option => setCsvToXlsxSeparator(option?.value as string)}
+                          onChange={option => setCsvToXlsxSeparator((option as { value: string; label: string })?.value || ',')}
                           options={[
                             { value: ',', label: 'Comma (,)' },
                             { value: ';', label: 'Semicolon (;)' },
@@ -709,7 +709,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                                 { value: 'custom', label: 'Custom' },
                               ].find(o => o.value === xlsxToCsvSeparator)?.label || 'Custom',
                           }}
-                          onChange={option => setXlsxToCsvSeparator(option?.value as string)}
+                          onChange={option => setXlsxToCsvSeparator((option as { value: string; label: string })?.value || ',')}
                           options={[
                             { value: ',', label: 'Comma (,)' },
                             { value: ';', label: 'Semicolon (;)' },
@@ -736,7 +736,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                             value: quoteFields,
                             label: quoteFields.charAt(0).toUpperCase() + quoteFields.slice(1),
                           }}
-                          onChange={option => setQuoteFields(option?.value as QuoteFields)}
+                          onChange={option => setQuoteFields((option as { value: QuoteFields; label: string })?.value || 'smart')}
                           options={[
                             { value: 'smart', label: 'Smart (Auto)' },
                             { value: 'always', label: 'Always Quote' },

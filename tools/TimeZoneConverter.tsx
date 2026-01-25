@@ -173,7 +173,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>From Time Zone</Label>
               <CustomSelect
                 value={flattenedTimezones.find(z => z.value === fromTimeZone)}
-                onChange={opt => setFromTimeZone(opt?.value || 'UTC')}
+                onChange={opt => setFromTimeZone((opt as { value: string; label: string })?.value || 'UTC')}
                 options={getSelectOptions(timezones) as any}
                 isSearchable
               />
@@ -199,7 +199,7 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               <Label>To Time Zone</Label>
               <CustomSelect
                 value={flattenedTimezones.find(z => z.value === toTimeZone)}
-                onChange={opt => setToTimeZone(opt?.value || 'UTC')}
+                onChange={opt => setToTimeZone((opt as { value: string; label: string })?.value || 'UTC')}
                 options={getSelectOptions(timezones) as any}
                 isSearchable
               />

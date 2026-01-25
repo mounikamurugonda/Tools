@@ -202,7 +202,7 @@ const CurrencyInput: React.FC<CurrencyInputProps> = ({
         />
         <CustomSelect
           value={options.find(o => o.value === currency)}
-          onChange={opt => opt && onCurrencyChange(opt.value)}
+          onChange={opt => (opt as { value: string; label: string }) && onCurrencyChange((opt as { value: string; label: string }).value)}
           options={options}
           className="w-full"
         />

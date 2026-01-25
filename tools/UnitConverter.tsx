@@ -97,7 +97,7 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               />
               <CustomSelect
                 value={{ value: fromUnit, label: fromUnit }}
-                onChange={option => option && setFromUnit(option.value)}
+                onChange={option => setFromUnit((option as { value: string; label: string })?.value || fromUnit)}
                 options={units.map(u => ({ value: u, label: u }))}
               />
             </div>
@@ -113,7 +113,7 @@ const UnitConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
               <CustomSelect
                 value={{ value: toUnit, label: toUnit }}
-                onChange={option => option && setToUnit(option.value)}
+                onChange={option => setToUnit((option as { value: string; label: string })?.value || toUnit)}
                 options={units.map(u => ({ value: u, label: u }))}
               />
             </div>

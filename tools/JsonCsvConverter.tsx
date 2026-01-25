@@ -244,7 +244,7 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                         { value: 'custom', label: 'Custom' },
                       ].find(o => o.value === separator)?.label || 'Custom',
                   }}
-                  onChange={option => setSeparator(option?.value as string)}
+                  onChange={option => setSeparator((option as { value: string; label: string })?.value || ',')}
                   options={[
                     { value: ',', label: 'Comma (,)' },
                     { value: ';', label: 'Semicolon (;)' },
@@ -287,7 +287,7 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                       value: outputFormat,
                       label: outputFormat === 'objects' ? 'List of Objects' : 'List of Arrays',
                     }}
-                    onChange={option => setOutputFormat(option?.value as any)}
+                    onChange={option => setOutputFormat((option as { value: 'objects' | 'arrays'; label: string })?.value || 'objects')}
                     options={[
                       { value: 'objects', label: 'List of Objects' },
                       { value: 'arrays', label: 'List of Arrays' },

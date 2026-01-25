@@ -71,7 +71,8 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
                 <CustomSelect
                   value={selectedVoice ? { value: selectedVoice, label: selectedVoice } : null}
                   onChange={option => {
-                    if (option) setSelectedVoice(option.value as string);
+                    const opt = option as { value: string; label: string } | null;
+                    if (opt) setSelectedVoice(opt.value);
                   }}
                   options={voices.map(v => ({ value: v.name, label: `${v.name} (${v.lang})` }))}
                   placeholder="Select a voice..."
