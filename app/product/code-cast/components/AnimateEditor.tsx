@@ -154,6 +154,14 @@ export const AnimateEditor: React.FC<AnimateEditorProps> = ({
                             contextmenu: true,
                             inlayHints: { enabled: 'off' },
                             stickyScroll: { enabled: false },
+
+                            // Disable smart features during animation to prevent double indentation/closing
+                            autoIndent: isPlaying ? 'none' : 'advanced',
+                            autoClosingBrackets: isPlaying ? 'never' : 'always',
+                            autoClosingQuotes: isPlaying ? 'never' : 'always',
+                            autoSurround: isPlaying ? 'never' : 'languageDefined',
+                            formatOnType: isPlaying ? false : true,
+                            formatOnPaste: isPlaying ? false : true,
                         }}
                     />
                 </div>

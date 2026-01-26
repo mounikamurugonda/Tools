@@ -3,7 +3,7 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
 import { CodeCastHeader } from '../components/CodeCastHeader';
-import { useSharedUIStore, useAnimateStore, useTypeStore, useImageStore } from '../store/useCodeCastStore';
+import { useSharedUIStore } from '../store/useCodeCastStore';
 import { RecordingProvider } from '../context/RecordingContext';
 import { usePathname } from 'next/navigation';
 
@@ -22,45 +22,6 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
   const isLibraryPage = pathname?.includes('/library');
   const isSavedPage = pathname?.includes('/saved');
   const isScrollablePage = isLibraryPage || isSavedPage;
-
-  // Determine current mode and relevant store
-  const mode = pathname?.split('/').pop();
-  const isEditorPage = ['animate', 'type', 'image'].includes(mode || '');
-
-  // Access stores
-  // We need to call hooks unconditionally, but we'll only use the relevant one
-  const animateCode = useAnimateStore((state) => state.code);
-  const typeCode = useTypeStore((state) => state.code);
-  const imageCode = useImageStore((state) => state.code);
-
-  const getHasContent = () => {
-    if (mode === 'animate') return animateCode.html || animateCode.css || animateCode.js;
-    if (mode === 'type') return typeCode.html || typeCode.css || typeCode.js;
-    if (mode === 'image') return imageCode.html || imageCode.css || imageCode.js; // Image store structure might differ? Header used .code
-    return false;
-  };
-
-  const hasContent = !!getHasContent();
-
-  // Warn user before leaving if there might be unsaved changes
-  React.useEffect(() => {
-    if (!isEditorPage) return;
-
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      // Only warn if there is actual content and we are on an editor page
-      if (hasContent) {
-        e.preventDefault();
-        e.returnValue = ''; // Required for specific browsers
-        return '';
-      }
-    };
-
-    window.addEventListener('beforeunload', handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, [isEditorPage, hasContent]);
 
   return (
     <div className="flex flex-col min-h-[calc(100vh-5rem)] md:h-[calc(100vh-5rem)] w-full bg-white dark:bg-gray-950 md:overflow-hidden transition-colors duration-300">

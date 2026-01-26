@@ -137,6 +137,21 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
         updateConfig('libraries', newLibs);
     };
 
+    // Force update options when isPlaying changes to ensure auto-formatting is disabled
+    React.useEffect(() => {
+        if (finalRef.current) {
+            finalRef.current.updateOptions({
+                autoIndent: isPlaying ? 'none' : 'advanced',
+                autoClosingBrackets: isPlaying ? 'never' : 'always',
+                autoClosingQuotes: isPlaying ? 'never' : 'always',
+                autoSurround: isPlaying ? 'never' : 'languageDefined',
+                formatOnType: isPlaying ? false : true,
+                formatOnPaste: isPlaying ? false : true,
+                readOnly: false, // Ensure we can write to it even if playing (we write programmatically)
+            });
+        }
+    }, [isPlaying, finalRef]);
+
     return (
         <div
             className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 min-h-0 max-h-full rounded-xl transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'} ${isPlaying ? 'pointer-events-none' : ''}`}
