@@ -185,7 +185,12 @@ export const useMultiTabAnimation = ({
             }
 
             // Capture target state
-            const target = { ...code };
+            // Normalize line endings to \n to prevent issues with \r\n causing double-typing or extra lines
+            const target = {
+                html: code.html.replace(/\r\n/g, '\n').replace(/\r/g, '\n'),
+                css: code.css.replace(/\r\n/g, '\n').replace(/\r/g, '\n'),
+                js: code.js.replace(/\r\n/g, '\n').replace(/\r/g, '\n'),
+            };
             fullBackupRef.current = target;
 
             // Clear code (unless we want to support resuming from stopped, but "Stop" usually implies reset)
