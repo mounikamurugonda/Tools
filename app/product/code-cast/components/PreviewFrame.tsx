@@ -51,6 +51,27 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
         <body>
           <div id="preview-root"></div>
           <script>
+            document.addEventListener('click', (e) => {
+              const link = e.target.closest('a');
+              if (link) {
+                const href = link.getAttribute('href');
+                
+                if (!href || href === '#') {
+                  e.preventDefault();
+                } else if (href.startsWith('#')) {
+                  // Manually handle hash navigation to ensure it works in iframe/srcDoc
+                  const targetId = href.substring(1);
+                  const target = document.getElementById(targetId);
+                  if (target) {
+                     e.preventDefault();
+                     target.scrollIntoView({ behavior: 'smooth' });
+                     // Optional: update hash without triggering reload/jump if needed
+                     // history.replaceState(null, null, href); 
+                  }
+                }
+              }
+            });
+
             window.addEventListener('message', (event) => {
               const { html, css, js } = event.data;
               

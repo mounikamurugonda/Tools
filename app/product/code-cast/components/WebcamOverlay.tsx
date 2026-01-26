@@ -72,6 +72,15 @@ export const WebcamOverlay: React.FC<WebcamOverlayProps> = ({ enabled, size = 16
         };
     };
 
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setIsDragging(true);
+        const touch = e.touches[0];
+        dragStartRef.current = {
+            x: touch.clientX - position.x,
+            y: touch.clientY - position.y
+        };
+    };
+
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             if (!isDragging) return;
@@ -85,14 +94,31 @@ export const WebcamOverlay: React.FC<WebcamOverlayProps> = ({ enabled, size = 16
             setIsDragging(false);
         };
 
+        const handleTouchMove = (e: TouchEvent) => {
+            if (!isDragging) return;
+            const touch = e.touches[0];
+            setPosition({
+                x: touch.clientX - dragStartRef.current.x,
+                y: touch.clientY - dragStartRef.current.y
+            });
+        };
+
+        const handleTouchEnd = () => {
+            setIsDragging(false);
+        };
+
         if (isDragging) {
             window.addEventListener('mousemove', handleMouseMove);
             window.addEventListener('mouseup', handleMouseUp);
+            window.addEventListener('touchmove', handleTouchMove);
+            window.addEventListener('touchend', handleTouchEnd);
         }
 
         return () => {
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mouseup', handleMouseUp);
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('touchend', handleTouchEnd);
         };
     }, [isDragging]);
 
@@ -110,6 +136,7 @@ export const WebcamOverlay: React.FC<WebcamOverlayProps> = ({ enabled, size = 16
                 left: position.x,
             }}
             onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
         >
             {/* Video Stream */}
             <video

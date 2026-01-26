@@ -1,7 +1,7 @@
 
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Editor from '@monaco-editor/react';
-import { Package, Check, Sparkles } from 'lucide-react';
+import { Package, Check, Sparkles, Copy } from 'lucide-react';
 import { FeatureGuard } from '@/components/FeatureGuard';
 import { AppConfig, CodeSnippet } from '../types';
 
@@ -137,6 +137,21 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
         updateConfig('libraries', newLibs);
     };
 
+    const [isCopied, setIsCopied] = useState(false);
+
+    const handleCopy = async () => {
+        const content = code[activeTab as keyof CodeSnippet];
+        if (content) {
+            try {
+                await navigator.clipboard.writeText(content);
+                setIsCopied(true);
+                setTimeout(() => setIsCopied(false), 2000);
+            } catch (err) {
+                console.error('Failed to copy code:', err);
+            }
+        }
+    };
+
     // Force update options when isPlaying changes to ensure auto-formatting is disabled
     React.useEffect(() => {
         if (finalRef.current) {
@@ -233,6 +248,25 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                             return button;
                         })}
                     </div>
+
+                    {/* Copy Button */}
+                    {activeTab !== 'libs' && (
+                        <button
+                            onClick={handleCopy}
+                            className={`
+                                flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-medium transition-all ml-2
+                                ${isLight
+                                    ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200/50'
+                                    : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+                                }
+                                ${isCopied ? (isLight ? 'text-green-600' : 'text-green-400') : ''}
+                            `}
+                            title="Copy code"
+                        >
+                            {isCopied ? <Check size={12} /> : <Copy size={12} />}
+                            <span className="hidden sm:inline">{isCopied ? 'Copied!' : 'Copy'}</span>
+                        </button>
+                    )}
                 </div>
 
                 {/* Content Area */}

@@ -76,7 +76,12 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       setRecordedVideoBlob(null);
 
       const displayStream = await navigator.mediaDevices.getDisplayMedia({
-        video: { displaySurface: 'browser' },
+        video: {
+          displaySurface: 'browser',
+          width: { ideal: 2560 },
+          height: { ideal: 1440 },
+          frameRate: { ideal: 60 }
+        },
         audio: true,
         preferCurrentTab: true,
       } as any);
@@ -144,7 +149,7 @@ export const RecordingProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
       console.log(`Using MIME type: ${mimeType}`);
 
-      const recorder = new MediaRecorder(combinedStream, { mimeType, videoBitsPerSecond: 3000000 });
+      const recorder = new MediaRecorder(combinedStream, { mimeType, videoBitsPerSecond: 15000000 });
       mediaRecorderRef.current = recorder;
       chunksRef.current = [];
 
