@@ -29,6 +29,8 @@ import {
   Loader2,
   Check,
   X,
+  Camera,
+  CameraOff
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -845,6 +847,21 @@ export const CodeCastHeader = () => {
           {
             (mode === 'type' || mode === 'animate') && (
               <div className="flex items-center gap-1.5">
+                {/* Webcam Toggle - Type Only */}
+                {mode === 'type' && (
+                  <TooltipWrapper label={config.webcamEnabled ? 'Disable Webcam' : 'Enable Webcam'}>
+                    <button
+                      onClick={() => setConfig((prev: any) => ({ ...prev, webcamEnabled: !prev.webcamEnabled }))}
+                      className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${config.webcamEnabled
+                        ? 'text-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                        : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                        }`}
+                    >
+                      {config.webcamEnabled ? <Camera size={20} /> : <CameraOff size={20} />}
+                    </button>
+                  </TooltipWrapper>
+                )}
+
                 <FeatureGuard actionName="use microphone">
                   <TooltipWrapper label={isMicEnabled ? 'Mic On' : 'Mic Off'}>
                     <button

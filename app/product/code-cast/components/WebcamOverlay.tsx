@@ -24,9 +24,9 @@ export const WebcamOverlay: React.FC<WebcamOverlayProps> = ({ enabled, size = 16
         const startCamera = async () => {
             setError(null);
             try {
-                // Request slightly higher res to look good at max size, or match constraints
+                // Request camera access
                 const mediaStream = await navigator.mediaDevices.getUserMedia({
-                    video: { width: 300, height: 300, facingMode: 'user' },
+                    video: true,
                     audio: false,
                 });
 
@@ -122,8 +122,17 @@ export const WebcamOverlay: React.FC<WebcamOverlayProps> = ({ enabled, size = 16
 
             {/* Placeholder / Error State */}
             {!stream && (
-                <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-400">
-                    {error ? <span className="text-[10px] text-center p-2 text-red-500">{error}</span> : <Camera size={24} />}
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-900 text-white p-4 text-center">
+                    {error ? (
+                        <>
+                            <Camera size={20} className="mb-1 text-red-400" />
+                            <span className="text-[10px] leading-tight font-medium text-red-200">
+                                {error}
+                            </span>
+                        </>
+                    ) : (
+                        <Camera size={24} className="text-gray-400" />
+                    )}
                 </div>
             )}
         </div>
