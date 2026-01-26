@@ -271,6 +271,42 @@ const Sidebar: React.FC = () => {
                     </div>
                   )}
 
+                  {/* Webcam Toggle - Type Mode Only */}
+                  {mode === 'type' && (
+                    <div className="space-y-2 mb-2">
+                      <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-900 p-2.5 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <span className="text-xs text-gray-900 dark:text-gray-300">Enable Webcam</span>
+                        <TooltipWrapper label={config.webcamEnabled ? 'Disable Webcam' : 'Enable Webcam Overlay'}>
+                          <button
+                            onClick={() => setConfig((p: AppConfig) => ({ ...p, webcamEnabled: !p.webcamEnabled }))}
+                            className={`w-10 h-5 rounded-full relative transition-colors ${config.webcamEnabled ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'}`}
+                          >
+                            <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${config.webcamEnabled ? 'left-6' : 'left-1'}`} />
+                          </button>
+                        </TooltipWrapper>
+                      </div>
+
+                      {/* Webcam Size Slider */}
+                      {config.webcamEnabled && (
+                        <div className="px-1 space-y-1">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[10px] uppercase tracking-wider font-bold text-gray-500">Overlay Size</span>
+                            <span className="text-xs font-mono text-gray-900 dark:text-white">{config.webcamSize || 160}px</span>
+                          </div>
+                          <input
+                            type="range"
+                            min="50"
+                            max="300"
+                            step="10"
+                            value={config.webcamSize || 160}
+                            onChange={e => setConfig((p: AppConfig) => ({ ...p, webcamSize: Number(e.target.value) }))}
+                            className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   <FeatureGuard actionName="customize appearance">
                     <div className="space-y-4">
                       {/* Background Selector */}

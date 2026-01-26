@@ -12,6 +12,7 @@ import { RecordingDownloadModal } from '../../components/RecordingDownloadModal'
 import { Mic, MicOff, Loader2 } from 'lucide-react';
 import { useMobileDefaultConfig } from '../../hooks/useMobileDefaultConfig';
 import { useSearchParams } from 'next/navigation';
+import { WebcamOverlay } from '../../components/WebcamOverlay';
 
 function TypePageContent() {
   const { code, updateCode, setCode, config, setConfig, activeTab, setActiveTab, projectTitle, setProjectTitle, shadowBlur, shadowSpread, updateConfig } =
@@ -104,9 +105,11 @@ function TypePageContent() {
             libraries={config.libraries}
           />
         </div>
+
+        {/* Webcam Overlay - Inside Canvas for recording support */}
+        <WebcamOverlay enabled={config.webcamEnabled} size={config.webcamSize} onClose={() => setConfig({ ...config, webcamEnabled: false })} />
       </CodeCastCanvas>
 
-      {/* Download Modal */}
       <RecordingDownloadModal
         isOpen={showDownloadModal}
         onClose={() => {

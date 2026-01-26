@@ -69,6 +69,8 @@ const DEFAULT_CONFIG: AppConfig = {
   wordWrap: true,
   libraries: [],
   isClassicView: false,
+  webcamEnabled: false,
+  webcamSize: 160,
 };
 
 // Factory function to create route-specific stores

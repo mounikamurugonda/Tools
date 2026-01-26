@@ -34,6 +34,8 @@ export interface AppConfig {
   wordWrap: boolean;
   libraries: string[];
   isClassicView?: boolean;
+  webcamEnabled: boolean;
+  webcamSize?: number;
 }
 
 export interface CodeSnippet {
