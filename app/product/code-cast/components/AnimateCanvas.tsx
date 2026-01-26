@@ -38,7 +38,7 @@ export const AnimateCanvas: React.FC<AnimateCanvasProps> = ({
             <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 ${['instagram-square', 'linkedin-post', 'tiktok-shorts'].includes(config.deviceFrame)
                 ? ''
                 : 'md:left-auto md:right-6 md:translate-x-0'
-                } flex items-center px-2 py-1 pointer-events-none z-20 opacity-30`}>
+                } flex items-center px-2 py-1 pointer-events-none z-20 opacity-50`}>
                 <span className="text-[10px] font-medium text-white tracking-wide mix-blend-plus-lighter">
                     CodeCast by <span className="underline">utiltoolkits.com</span>
                 </span>

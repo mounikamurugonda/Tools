@@ -68,6 +68,7 @@ const DEFAULT_CONFIG: AppConfig = {
   canvasPadding: 32,
   wordWrap: true,
   libraries: [],
+  isClassicView: false,
 };
 
 // Factory function to create route-specific stores

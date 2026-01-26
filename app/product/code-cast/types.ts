@@ -33,6 +33,7 @@ export interface AppConfig {
   canvasPadding: number;
   wordWrap: boolean;
   libraries: string[];
+  isClassicView?: boolean;
 }
 
 export interface CodeSnippet {

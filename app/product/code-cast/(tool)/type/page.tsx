@@ -89,7 +89,7 @@ function TypePageContent() {
 
         {/* Preview */}
         <div
-          className="flex-1 min-h-0 max-h-full rounded-xl overflow-hidden bg-white transition-shadow duration-300"
+          className={`flex-1 min-h-0 max-h-full ${config.isClassicView ? '' : 'rounded-xl'} overflow-hidden bg-white transition-shadow duration-300`}
           style={{
             order: layout.flexDirection === 'flex-col' ? 1 : 2,
             boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`

@@ -256,6 +256,21 @@ const Sidebar: React.FC = () => {
                     Appearance {!session && <span className="normal-case font-normal text-[10px] ml-1 opacity-70">(Login Required)</span>}
                   </label>
 
+                  {/* Classic View Toggle - Type Mode Only */}
+                  {mode === 'type' && (
+                    <div className="flex items-center justify-between bg-gray-50 dark:bg-gray-900 p-2.5 rounded-lg border border-gray-200 dark:border-gray-700 mb-2">
+                      <span className="text-xs text-gray-900 dark:text-gray-300">Classic View</span>
+                      <TooltipWrapper label={config.isClassicView ? 'Disable Classic View' : 'Enable Classic View (No gaps, no title, square corners)'}>
+                        <button
+                          onClick={() => setConfig((p: AppConfig) => ({ ...p, isClassicView: !p.isClassicView }))}
+                          className={`w-10 h-5 rounded-full relative transition-colors ${config.isClassicView ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'}`}
+                        >
+                          <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${config.isClassicView ? 'left-6' : 'left-1'}`} />
+                        </button>
+                      </TooltipWrapper>
+                    </div>
+                  )}
+
                   <FeatureGuard actionName="customize appearance">
                     <div className="space-y-4">
                       {/* Background Selector */}

@@ -154,13 +154,13 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
 
     return (
         <div
-            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 min-h-0 max-h-full rounded-xl transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'} ${isPlaying ? 'pointer-events-none' : ''}`}
+            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 min-h-0 max-h-full ${config.isClassicView ? '' : 'rounded-xl'} transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'} ${isPlaying ? 'pointer-events-none' : ''}`}
             style={{
                 order: layout.flexDirection === 'flex-col' ? 2 : 1,
                 boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
         >
-            <div className="flex flex-col h-full rounded-xl overflow-hidden">
+            <div className={`flex flex-col h-full ${config.isClassicView ? '' : 'rounded-xl'} overflow-hidden`}>
                 {/* Tabs Header */}
                 <div
                     className={`flex items-center gap-4 px-3 h-8 shrink-0 w-full ${isLight ? 'bg-gray-100 border-b border-gray-200' : 'bg-[#252525] border-b border-white/5'}`}
