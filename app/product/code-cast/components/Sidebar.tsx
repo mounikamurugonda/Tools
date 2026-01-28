@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { Settings, Volume2, MousePointer2, Eye, EyeOff, X, Bookmark, Upload, Music, Trash2 } from 'lucide-react';
+import { Settings, Volume2, MousePointer2, Eye, EyeOff, X, Bookmark, Upload, Music, Trash2, Sliders, PlayCircle, Repeat, Gauge } from 'lucide-react';
 import {
   useAnimateStore,
   useTypeStore,
@@ -44,6 +44,7 @@ const Sidebar: React.FC = () => {
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
   const [snippetCount, setSnippetCount] = useState<number | null>(null);
+  const [showAudioSettings, setShowAudioSettings] = useState(false);
 
   React.useEffect(() => {
     const fetchSnippetCount = async () => {
@@ -467,10 +468,23 @@ const Sidebar: React.FC = () => {
                       </div>
 
                       {/* Custom Audio Upload */}
-                      <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-800">
-                        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
-                          Background Music
-                        </span>
+                      <div className="space-y-3 pt-2 border-t border-gray-200 dark:border-gray-800">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                            Background Music
+                          </span>
+                          {/* Audio Settings Toggle */}
+                          {audioFile && (
+                            <TooltipWrapper label={showAudioSettings ? "Hide Audio Settings" : "Audio Settings"}>
+                              <button
+                                onClick={() => setShowAudioSettings(!showAudioSettings)}
+                                className={`p-1 rounded transition-colors ${showAudioSettings ? 'bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-400' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                              >
+                                <Sliders size={14} />
+                              </button>
+                            </TooltipWrapper>
+                          )}
+                        </div>
 
                         {!audioFile ? (
                           <div className="relative">
@@ -479,7 +493,10 @@ const Sidebar: React.FC = () => {
                               accept="audio/*"
                               onChange={(e) => {
                                 const file = e.target.files?.[0];
-                                if (file) setAudioFile(file);
+                                if (file) {
+                                  setAudioFile(file);
+                                  setShowAudioSettings(true); // Auto-open settings on upload
+                                }
                               }}
                               className="hidden"
                               id="audio-upload"
@@ -493,19 +510,126 @@ const Sidebar: React.FC = () => {
                             </label>
                           </div>
                         ) : (
-                          <div className="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg">
-                            <div className="flex items-center gap-2 overflow-hidden">
-                              <Music size={14} className="text-blue-500 shrink-0" />
-                              <span className="text-xs text-blue-700 dark:text-blue-300 truncate">
-                                {audioFile.name}
-                              </span>
+                          <div className="space-y-3">
+                            <div className="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg">
+                              <div className="flex items-center gap-2 overflow-hidden">
+                                <Music size={14} className="text-blue-500 shrink-0" />
+                                <span className="text-xs text-blue-700 dark:text-blue-300 truncate">
+                                  {audioFile.name}
+                                </span>
+                              </div>
+                              <button
+                                onClick={() => {
+                                  setAudioFile(null);
+                                  setShowAudioSettings(false);
+                                }}
+                                className="p-1 hover:bg-blue-200 dark:hover:bg-blue-800 rounded text-blue-600 dark:text-blue-400 transition-colors"
+                              >
+                                <Trash2 size={14} />
+                              </button>
                             </div>
-                            <button
-                              onClick={() => setAudioFile(null)}
-                              className="p-1 hover:bg-blue-200 dark:hover:bg-blue-800 rounded text-blue-600 dark:text-blue-400 transition-colors"
-                            >
-                              <Trash2 size={14} />
-                            </button>
+
+                            {/* Advanced Audio Settings Panel */}
+                            {showAudioSettings && (
+                              <div className="p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border border-gray-100 dark:border-gray-800 space-y-4 animate-in fade-in slide-in-from-top-2 duration-200">
+                                {/* Volume */}
+                                <div className="space-y-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[10px] items-center gap-1.5 flex text-gray-500 font-medium">
+                                      <Volume2 size={10} /> Volume
+                                    </span>
+                                    <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
+                                      {Math.round(config.audioVolume * 100)}%
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.05"
+                                    value={config.audioVolume}
+                                    onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioVolume: parseFloat(e.target.value) }))}
+                                    className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
+                                  />
+                                </div>
+
+                                {/* Start Time */}
+                                <div className="space-y-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[10px] items-center gap-1.5 flex text-gray-500 font-medium">
+                                      <PlayCircle size={10} /> Start Offset (sec)
+                                    </span>
+                                    <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
+                                      {config.audioStartTime}s
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="range"
+                                    min="0"
+                                    max="60"
+                                    step="0.5"
+                                    value={config.audioStartTime}
+                                    onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioStartTime: parseFloat(e.target.value) }))}
+                                    className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
+                                  />
+                                </div>
+
+                                {/* Fade Duration */}
+                                <div className="space-y-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[10px] items-center gap-1.5 flex text-gray-500 font-medium">
+                                      <Sliders size={10} /> Fade In/Out
+                                    </span>
+                                    <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
+                                      {config.audioFadeDuration}s
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="range"
+                                    min="0"
+                                    max="5"
+                                    step="0.5"
+                                    value={config.audioFadeDuration}
+                                    onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioFadeDuration: parseFloat(e.target.value) }))}
+                                    className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
+                                  />
+                                </div>
+
+                                {/* Playback Speed */}
+                                <div className="space-y-1">
+                                  <div className="flex items-center justify-between">
+                                    <span className="text-[10px] items-center gap-1.5 flex text-gray-500 font-medium">
+                                      <Gauge size={10} /> Speed
+                                    </span>
+                                    <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
+                                      {config.audioPlaybackRate}x
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="range"
+                                    min="0.5"
+                                    max="2.0"
+                                    step="0.1"
+                                    value={config.audioPlaybackRate}
+                                    onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioPlaybackRate: parseFloat(e.target.value) }))}
+                                    className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
+                                  />
+                                </div>
+
+                                {/* Loop Toggle */}
+                                <div className="flex items-center justify-between pt-1">
+                                  <span className="text-[10px] items-center gap-1.5 flex text-gray-500 font-medium">
+                                    <Repeat size={10} /> Loop Audio
+                                  </span>
+                                  <button
+                                    onClick={() => setConfig((p: AppConfig) => ({ ...p, audioLoop: !p.audioLoop }))}
+                                    className={`w-8 h-4 rounded-full relative transition-colors ${config.audioLoop ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'}`}
+                                  >
+                                    <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${config.audioLoop ? 'left-4.5' : 'left-0.5'}`} style={{ left: config.audioLoop ? '1.125rem' : '0.125rem' }} />
+                                  </button>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         )}
 

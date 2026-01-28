@@ -36,6 +36,13 @@ export interface AppConfig {
   isClassicView?: boolean;
   webcamEnabled: boolean;
   webcamSize?: number;
+
+  // Audio Settings
+  audioVolume: number;
+  audioStartTime: number;
+  audioFadeDuration: number;
+  audioLoop: boolean;
+  audioPlaybackRate: number;
 }
 
 export interface CodeSnippet {

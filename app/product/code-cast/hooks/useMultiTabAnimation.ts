@@ -76,8 +76,17 @@ export const useMultiTabAnimation = ({
         if (audioFile && typeof window !== 'undefined') {
             const url = URL.createObjectURL(audioFile);
             const audio = new Audio(url);
-            // Default to loop for background music during animation
-            audio.loop = true;
+            // Use config for loop (default true)
+            audio.loop = config.audioLoop !== undefined ? config.audioLoop : true;
+
+            // Set initial volume immediately
+            audio.volume = config.audioVolume !== undefined ? config.audioVolume : 0.5;
+
+            // Set initial playback rate
+            audio.playbackRate = config.audioPlaybackRate !== undefined ? config.audioPlaybackRate : 1.0;
+            // Preserves pitch on speed change (optional but usually better for music, set false if you want chipmunk effect)
+            audio.preservesPitch = true;
+
             bgAudioRef.current = audio;
 
             return () => {
@@ -91,7 +100,16 @@ export const useMultiTabAnimation = ({
                 bgAudioRef.current = null;
             }
         }
-    }, [audioFile]);
+    }, [audioFile]); // Only re-init if file changes. Config updates handled by separate effect.
+
+    // Dynamic Audio Updates (Volume/Speed/Loop) without stopping
+    useEffect(() => {
+        if (bgAudioRef.current) {
+            bgAudioRef.current.volume = config.audioVolume !== undefined ? config.audioVolume : 0.5;
+            bgAudioRef.current.playbackRate = config.audioPlaybackRate !== undefined ? config.audioPlaybackRate : 1.0;
+            bgAudioRef.current.loop = config.audioLoop !== undefined ? config.audioLoop : true;
+        }
+    }, [config.audioVolume, config.audioPlaybackRate, config.audioLoop]);
 
     const stopAnimation = useCallback(() => {
         if (animationTimerRef.current) {
@@ -210,7 +228,40 @@ export const useMultiTabAnimation = ({
         if (!wasPlaying && isPlaying) {
             // Prioritize BG Audio if present
             if (bgAudioRef.current) {
-                bgAudioRef.current.currentTime = 0;
+                bgAudioRef.current.currentTime = config.audioStartTime || 0;
+
+                // Handle Fade In
+                if (config.audioFadeDuration && config.audioFadeDuration > 0) {
+                    bgAudioRef.current.volume = 0;
+                    const targetVol = config.audioVolume !== undefined ? config.audioVolume : 0.5;
+
+                    // Simple Fade In
+                    const fadeTime = config.audioFadeDuration * 1000;
+                    const steps = 20;
+                    const stepTime = fadeTime / steps;
+                    const volStep = targetVol / steps;
+
+                    let currentStep = 0;
+                    const fadeInterval = setInterval(() => {
+                        if (!bgAudioRef.current) {
+                            clearInterval(fadeInterval);
+                            return;
+                        }
+                        currentStep++;
+                        const newVol = Math.min(volStep * currentStep, targetVol);
+                        bgAudioRef.current.volume = newVol;
+
+                        if (currentStep >= steps) {
+                            clearInterval(fadeInterval);
+                        }
+                    }, stepTime);
+                } else {
+                    bgAudioRef.current.volume = config.audioVolume !== undefined ? config.audioVolume : 0.5;
+                }
+
+                // Apply Playback Rate
+                bgAudioRef.current.playbackRate = config.audioPlaybackRate !== undefined ? config.audioPlaybackRate : 1.0;
+
                 bgAudioRef.current.play().catch(e => console.error("BG Audio play failed", e));
                 // Do NOT play keyboard sound
             }

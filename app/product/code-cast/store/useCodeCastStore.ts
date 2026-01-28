@@ -75,6 +75,11 @@ const DEFAULT_CONFIG: AppConfig = {
   isClassicView: false,
   webcamEnabled: false,
   webcamSize: 160,
+  audioVolume: 0.5,
+  audioStartTime: 0.0,
+  audioFadeDuration: 2.0,
+  audioLoop: true,
+  audioPlaybackRate: 1.0,
 };
 
 // Factory function to create route-specific stores
