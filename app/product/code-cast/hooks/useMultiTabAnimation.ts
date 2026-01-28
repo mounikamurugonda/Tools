@@ -23,6 +23,7 @@ interface UseMultiTabAnimationProps {
     isPaused: boolean;
     setIsPaused: (isPaused: boolean) => void;
     editorRef: React.MutableRefObject<any>;
+    audioFile?: File | null;
 }
 
 export const useMultiTabAnimation = ({
@@ -35,6 +36,7 @@ export const useMultiTabAnimation = ({
     isPaused,
     setIsPaused,
     editorRef,
+    audioFile,
 }: UseMultiTabAnimationProps) => {
     // Animation refs
     const animationTimerRef = useRef<number | null>(null);
@@ -43,6 +45,7 @@ export const useMultiTabAnimation = ({
     const isPlayingRef = useRef(isPlaying);
     const isPausedRef = useRef(isPaused);
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const bgAudioRef = useRef<HTMLAudioElement | null>(null);
 
     // State tracking refs (to support pause/resume)
     const sequenceIndexRef = useRef(0);
@@ -67,6 +70,28 @@ export const useMultiTabAnimation = ({
             }
         };
     }, []);
+
+    // Initialize bg audio
+    useEffect(() => {
+        if (audioFile && typeof window !== 'undefined') {
+            const url = URL.createObjectURL(audioFile);
+            const audio = new Audio(url);
+            // Default to loop for background music during animation
+            audio.loop = true;
+            bgAudioRef.current = audio;
+
+            return () => {
+                audio.pause();
+                URL.revokeObjectURL(url);
+                bgAudioRef.current = null;
+            };
+        } else {
+            if (bgAudioRef.current) {
+                bgAudioRef.current.pause();
+                bgAudioRef.current = null;
+            }
+        }
+    }, [audioFile]);
 
     const stopAnimation = useCallback(() => {
         if (animationTimerRef.current) {
@@ -156,6 +181,10 @@ export const useMultiTabAnimation = ({
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;
             }
+            if (bgAudioRef.current) {
+                bgAudioRef.current.pause();
+                bgAudioRef.current.currentTime = 0;
+            }
 
             // If playing on unmount, force stop and restore code to prevent data loss or stuck state
             if (isPlayingRef.current) {
@@ -179,7 +208,13 @@ export const useMultiTabAnimation = ({
 
         // CASE 1: Start Animation (from stopped state)
         if (!wasPlaying && isPlaying) {
-            if (config.soundEnabled && audioRef.current) {
+            // Prioritize BG Audio if present
+            if (bgAudioRef.current) {
+                bgAudioRef.current.currentTime = 0;
+                bgAudioRef.current.play().catch(e => console.error("BG Audio play failed", e));
+                // Do NOT play keyboard sound
+            }
+            else if (config.soundEnabled && audioRef.current) {
                 audioRef.current.currentTime = 0;
                 audioRef.current.play().catch(e => console.error("Audio play failed", e));
             }
@@ -208,7 +243,10 @@ export const useMultiTabAnimation = ({
         }
         // CASE 2: Resume Animation (from paused state)
         else if (wasPlaying && isPlaying && wasPaused && !isPaused) {
-            if (config.soundEnabled && audioRef.current) {
+            if (bgAudioRef.current) {
+                bgAudioRef.current.play().catch(e => console.error("BG Audio resume failed", e));
+            }
+            else if (config.soundEnabled && audioRef.current) {
                 audioRef.current.play().catch(e => console.error("Audio resume failed", e));
             }
             // Resume loop with existing refs
@@ -218,6 +256,9 @@ export const useMultiTabAnimation = ({
         else if (isPlaying && isPaused) {
             if (audioRef.current) {
                 audioRef.current.pause();
+            }
+            if (bgAudioRef.current) {
+                bgAudioRef.current.pause();
             }
             if (animationTimerRef.current) {
                 window.clearTimeout(animationTimerRef.current);
@@ -229,6 +270,10 @@ export const useMultiTabAnimation = ({
             if (audioRef.current) {
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;
+            }
+            if (bgAudioRef.current) {
+                bgAudioRef.current.pause();
+                bgAudioRef.current.currentTime = 0;
             }
             // Clear timer logic handled by cleanup/callback usually, but ensure here
             if (animationTimerRef.current) {

@@ -45,6 +45,10 @@ interface CodeCastState {
   isRecording: boolean;
   setIsRecording: (isRecording: boolean) => void;
 
+  // Audio State
+  audioFile: File | null;
+  setAudioFile: (file: File | null) => void;
+
   // Actions
   reset: () => void;
 }
@@ -121,6 +125,10 @@ const createCodeCastStore = (storageKey: string) => {
         isRecording: false,
         setIsRecording: (isRecording) => set({ isRecording }),
 
+        // Audio
+        audioFile: null,
+        setAudioFile: (file) => set({ audioFile: file }),
+
         // Reset
         reset: () =>
           set({
@@ -131,6 +139,7 @@ const createCodeCastStore = (storageKey: string) => {
             isPlaying: false,
             isPaused: false,
             isRecording: false,
+            audioFile: null,
             showEditor: true,
             showPreview: true,
           }),

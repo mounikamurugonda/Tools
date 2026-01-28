@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { Settings, Volume2, MousePointer2, Eye, EyeOff, X, Bookmark } from 'lucide-react';
+import { Settings, Volume2, MousePointer2, Eye, EyeOff, X, Bookmark, Upload, Music, Trash2 } from 'lucide-react';
 import {
   useAnimateStore,
   useTypeStore,
@@ -40,7 +40,7 @@ const Sidebar: React.FC = () => {
   const imageStore = useImageStore();
 
   const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, projectTitleColor, setProjectTitleColor, shadowBlur, setShadowBlur, shadowSpread, setShadowSpread } = currentStore;
+  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, projectTitleColor, setProjectTitleColor, shadowBlur, setShadowBlur, shadowSpread, setShadowSpread, audioFile, setAudioFile } = currentStore;
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
   const [snippetCount, setSnippetCount] = useState<number | null>(null);
@@ -424,44 +424,95 @@ const Sidebar: React.FC = () => {
 
                   {/* Audio Profile - Only show in Animate mode */}
                   {mode === 'animate' && (
-                    <div className="space-y-2">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-gray-600 dark:text-gray-400">Audio Profile</span>
-                        <TooltipWrapper label={config.soundEnabled ? 'Disable Typing Sounds' : 'Enable Typing Sounds'}>
-                          <button
-                            onClick={() =>
-                              setConfig((p: AppConfig) => ({ ...p, soundEnabled: !p.soundEnabled }))
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">Audio Profile</span>
+                          <TooltipWrapper label={config.soundEnabled ? 'Disable Typing Sounds' : 'Enable Typing Sounds'}>
+                            <button
+                              onClick={() =>
+                                setConfig((p: AppConfig) => ({ ...p, soundEnabled: !p.soundEnabled }))
+                              }
+                              className={`w-10 h-5 rounded-full relative transition-colors ${config.soundEnabled ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'}`}
+                            >
+                              <div
+                                className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${config.soundEnabled ? 'left-6' : 'left-1'}`}
+                              />
+                            </button>
+                          </TooltipWrapper>
+                        </div>
+
+                        <div
+                          className={`relative transition-opacity ${config.soundEnabled ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}
+                        >
+                          <select
+                            value={config.soundType}
+                            onChange={e =>
+                              setConfig((p: AppConfig) => ({
+                                ...p,
+                                soundType: e.target.value as SoundType,
+                              }))
                             }
-                            className={`w-10 h-5 rounded-full relative transition-colors ${config.soundEnabled ? 'bg-blue-500' : 'bg-gray-200 dark:bg-gray-700'}`}
+                            className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xs rounded-md border border-gray-200 dark:border-gray-700 px-2.5 py-2 outline-none focus:border-blue-500 appearance-none"
+                            disabled={!config.soundEnabled}
                           >
-                            <div
-                              className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${config.soundEnabled ? 'left-6' : 'left-1'}`}
-                            />
-                          </button>
-                        </TooltipWrapper>
+                            <option value="deep">Signature Deep</option>
+                            <option value="crisp">Signature Crisp</option>
+                          </select>
+                          <Volume2
+                            size={12}
+                            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+                          />
+                        </div>
                       </div>
 
-                      <div
-                        className={`relative transition-opacity ${config.soundEnabled ? 'opacity-100' : 'opacity-40 pointer-events-none'}`}
-                      >
-                        <select
-                          value={config.soundType}
-                          onChange={e =>
-                            setConfig((p: AppConfig) => ({
-                              ...p,
-                              soundType: e.target.value as SoundType,
-                            }))
-                          }
-                          className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xs rounded-md border border-gray-200 dark:border-gray-700 px-2.5 py-2 outline-none focus:border-blue-500 appearance-none"
-                          disabled={!config.soundEnabled}
-                        >
-                          <option value="deep">Signature Deep</option>
-                          <option value="crisp">Signature Crisp</option>
-                        </select>
-                        <Volume2
-                          size={12}
-                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
-                        />
+                      {/* Custom Audio Upload */}
+                      <div className="space-y-2 pt-2 border-t border-gray-200 dark:border-gray-800">
+                        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">
+                          Background Music
+                        </span>
+
+                        {!audioFile ? (
+                          <div className="relative">
+                            <input
+                              type="file"
+                              accept="audio/*"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) setAudioFile(file);
+                              }}
+                              className="hidden"
+                              id="audio-upload"
+                            />
+                            <label
+                              htmlFor="audio-upload"
+                              className="flex items-center justify-center gap-2 w-full p-3 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-700 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                            >
+                              <Upload size={14} className="text-gray-500" />
+                              <span className="text-xs text-gray-600 dark:text-gray-400">Upload MP3/WAV</span>
+                            </label>
+                          </div>
+                        ) : (
+                          <div className="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-lg">
+                            <div className="flex items-center gap-2 overflow-hidden">
+                              <Music size={14} className="text-blue-500 shrink-0" />
+                              <span className="text-xs text-blue-700 dark:text-blue-300 truncate">
+                                {audioFile.name}
+                              </span>
+                            </div>
+                            <button
+                              onClick={() => setAudioFile(null)}
+                              className="p-1 hover:bg-blue-200 dark:hover:bg-blue-800 rounded text-blue-600 dark:text-blue-400 transition-colors"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Helper Note */}
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed bg-gray-50 dark:bg-gray-900 p-2 rounded border border-gray-100 dark:border-gray-800">
+                          <span className="font-bold">Note:</span> You can also turn on the microphone from the header to record your voice directly instead of uploading a file.
+                        </div>
                       </div>
                     </div>
                   )}

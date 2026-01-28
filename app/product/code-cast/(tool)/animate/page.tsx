@@ -34,6 +34,7 @@ function AnimatePageContent() {
     setCode,
     setConfig,
     setProjectTitle,
+    audioFile,
   } = useAnimateStore();
 
   const searchParams = useSearchParams();
@@ -92,6 +93,7 @@ function AnimatePageContent() {
     isPaused,
     setIsPaused,
     editorRef,
+    audioFile,
   });
 
   // Show download modal when recording is complete
