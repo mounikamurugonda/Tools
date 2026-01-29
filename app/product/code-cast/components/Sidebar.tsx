@@ -44,7 +44,7 @@ const Sidebar: React.FC = () => {
   const imageStore = useImageStore();
 
   const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-  const { config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, projectTitleColor, setProjectTitleColor, shadowBlur, setShadowBlur, shadowSpread, setShadowSpread, audioFile, setAudioFile } = currentStore;
+  const { code, config, setConfig, projectTitle, setProjectTitle, showProjectInfo, setShowProjectInfo, projectTitleFontSize, setProjectTitleFontSize, projectTitleColor, setProjectTitleColor, shadowBlur, setShadowBlur, shadowSpread, setShadowSpread, audioFile, setAudioFile } = currentStore;
 
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
   const [snippetCount, setSnippetCount] = useState<number | null>(null);
@@ -432,6 +432,29 @@ const Sidebar: React.FC = () => {
                       }
                       className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
                     />
+                    {/* Duration Estimate */}
+                    <div className="flex justify-end pt-1">
+                      <span className="text-[10px] text-gray-400">
+                        Est. Duration: <span className="font-mono text-gray-600 dark:text-gray-300">
+                          {(() => {
+                            const totalChars = (code?.html?.length || 0) + (code?.css?.length || 0) + (code?.js?.length || 0);
+                            const activeTabs = [(code?.html || ''), (code?.css || ''), (code?.js || '')].filter(t => t.trim().length > 0).length;
+                            // 1000ms delay between tabs
+                            const switchOverhead = Math.max(0, activeTabs - 1) * 1000;
+                            // Add 12ms base overhead per character for realistic browser execution time
+                            const effectiveSpeed = config.typingSpeed + 12;
+                            const totalMs = (totalChars * effectiveSpeed) + switchOverhead;
+
+                            if (totalMs < 1000) return `${totalMs}ms`;
+                            const seconds = Math.floor(totalMs / 1000);
+                            if (seconds < 60) return `${seconds}s`;
+                            const m = Math.floor(seconds / 60);
+                            const s = seconds % 60;
+                            return `${m}m ${s}s`;
+                          })()}
+                        </span>
+                      </span>
+                    </div>
                   </div>
 
                   {/* Audio Profile - Only show in Animate mode */}

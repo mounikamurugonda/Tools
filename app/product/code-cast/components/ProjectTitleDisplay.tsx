@@ -23,7 +23,7 @@ export const ProjectTitleDisplay = () => {
         transition-all duration-300 ease-in-out
         pointer-events-none select-none relative
       `}
-            style={{ marginBottom: `${config?.canvasPadding ?? 16}px` }}
+            style={{ marginBottom: `${(config?.canvasPadding ?? 16) / 2}px` }}
         >
             <div className="max-w-[90%] md:max-w-2xl">
                 <h1
