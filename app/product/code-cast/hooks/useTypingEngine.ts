@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { SPEEDS } from '../constants';
 import { TypingSpeed, SoundType } from '../types';
 import { startTypingSound, stopTypingSound } from '../utils/sound';
 
@@ -91,12 +90,12 @@ export const useTypingEngine = ({
 
     // Delay Calculation
     let delay = 0;
-    if (speed === 'instant') {
+    if (speed <= 0) {
       delay = 0;
     } else {
-      const { min, max } = SPEEDS[speed];
-      delay = Math.floor(Math.random() * (max - min + 1)) + min;
+      delay = speed;
 
+      // Add natural pauses for punctuation
       if (fullText[cursorIndex] === '\n') delay += 300;
       if (['.', ';', '}', ')'].includes(fullText[cursorIndex])) delay += 150;
     }

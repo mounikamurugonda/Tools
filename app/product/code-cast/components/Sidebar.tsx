@@ -32,7 +32,11 @@ const TooltipWrapper = ({ children, label, className = '' }: { children: React.R
 const Sidebar: React.FC = () => {
   const { data: session } = useSession();
   const pathname = usePathname();
-  const mode = pathname?.split('/').pop();
+  const mode = pathname?.includes('/animate') ? 'animate' :
+    pathname?.includes('/type') ? 'type' :
+      pathname?.includes('/saved') ? 'saved' :
+        pathname?.includes('/library') ? 'library' :
+          'image'; // Default to image mode
 
   // Use the appropriate store based on the current route
   const animateStore = useAnimateStore();
@@ -404,23 +408,30 @@ const Sidebar: React.FC = () => {
                     Animation
                   </label>
 
-                  <div className="space-y-2">
-                    <span className="text-xs text-gray-600 dark:text-gray-400">Typing Speed</span>
-                    <select
-                      value={config.typingSpeed}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-600 dark:text-gray-400">Typing Speed</span>
+                      <span className="text-xs font-mono text-gray-900 dark:text-white">
+                        {config.typingSpeed}ms
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between text-[10px] text-gray-400 px-1 mb-1">
+                      <span>Slow</span>
+                      <span>Fast</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="200"
+                      value={200 - config.typingSpeed}
                       onChange={e =>
                         setConfig((p: AppConfig) => ({
                           ...p,
-                          typingSpeed: e.target.value as TypingSpeed,
+                          typingSpeed: 200 - Number(e.target.value),
                         }))
                       }
-                      className="w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-xs rounded-md border border-gray-200 dark:border-gray-700 px-2.5 py-2 outline-none focus:border-blue-500"
-                    >
-                      <option value="slow">Slow</option>
-                      <option value="normal">Normal</option>
-                      <option value="fast">Fast</option>
-                      <option value="instant">Instant</option>
-                    </select>
+                      className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
+                    />
                   </div>
 
                   {/* Audio Profile - Only show in Animate mode */}

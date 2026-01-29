@@ -17,7 +17,7 @@ export type DeviceFrame =
   | 'instagram-square'
   | 'tiktok-shorts';
 
-export type TypingSpeed = 'slow' | 'normal' | 'fast' | 'instant';
+export type TypingSpeed = number;
 export type SoundType = 'deep' | 'crisp';
 
 export interface AppConfig {

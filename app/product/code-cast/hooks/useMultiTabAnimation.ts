@@ -1,16 +1,7 @@
 import { useRef, useEffect, useCallback } from 'react';
 import type { CodeSnippet, AppConfig } from '../types';
 
-// Convert typing speed to milliseconds
-const getTypingSpeedMs = (speed: 'slow' | 'normal' | 'fast' | 'instant') => {
-    const speedMap = {
-        slow: 150,
-        normal: 100,
-        fast: 50,
-        instant: 20,
-    };
-    return speedMap[speed];
-};
+
 
 interface UseMultiTabAnimationProps {
     code: CodeSnippet;
@@ -50,6 +41,7 @@ export const useMultiTabAnimation = ({
     // State tracking refs (to support pause/resume)
     const sequenceIndexRef = useRef(0);
     const charIndexRef = useRef(0);
+    const lastUpdateRef = useRef(0); // For throttling
 
     // Sync typing speed ref with config
     useEffect(() => {
@@ -146,6 +138,9 @@ export const useMultiTabAnimation = ({
 
                 // If index exceeds length, we are done with this tab
                 if (charIndexRef.current >= fullText.length) {
+                    // Ensure final state is consistent before moving on
+                    updateCode(currentTabId, fullText);
+
                     sequenceIndexRef.current++;
                     charIndexRef.current = 0;
                     animationTimerRef.current = window.setTimeout(runLoop, 1000);
@@ -162,24 +157,28 @@ export const useMultiTabAnimation = ({
                 if (editorRef.current) {
                     // Use Monaco's native type command for smooth insertion and cursor movement
                     editorRef.current.trigger('keyboard', 'type', { text: charToType });
-
-                    // We DO need to ensure the view follows the cursor
                     editorRef.current.revealPosition(editorRef.current.getPosition());
 
-                    // Update store to keep Preview in sync - using editor value prevents race conditions
-                    // This "should" be safe because editor.getValue() matches the value prop
-                    updateCode(currentTabId, editorRef.current.getValue());
+                    // Throttled update to prevent React render storms
+                    // Only sync store state every 100ms or if it's the last character
+                    const now = Date.now();
+                    const isLastChar = charIndexRef.current === fullText.length - 1;
+
+                    if (isLastChar || now - lastUpdateRef.current > 100) {
+                        updateCode(currentTabId, editorRef.current.getValue());
+                        lastUpdateRef.current = now;
+                    }
                 } else {
-                    // Fallback if editor not ready (shouldn't happen in loop)
+                    // Fallback
                     updateCode(currentTabId, fullText.substring(0, charIndexRef.current + 1));
                 }
 
                 charIndexRef.current++;
-                animationTimerRef.current = window.setTimeout(typeChar, getTypingSpeedMs(typingSpeedRef.current));
+                animationTimerRef.current = window.setTimeout(typeChar, typingSpeedRef.current > 0 ? typingSpeedRef.current : 0);
             };
 
             // Start typing
-            animationTimerRef.current = window.setTimeout(typeChar, 150);
+            animationTimerRef.current = window.setTimeout(typeChar, typingSpeedRef.current > 0 ? typingSpeedRef.current : 0);
         };
 
         // Start the loop

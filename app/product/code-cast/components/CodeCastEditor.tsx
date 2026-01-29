@@ -2,7 +2,7 @@
 import React, { useRef, useState } from 'react';
 import Editor from '@monaco-editor/react';
 import { Package, Check, Sparkles, Copy } from 'lucide-react';
-import { FeatureGuard } from '@/components/FeatureGuard';
+import { FeatureGuard } from '../../../../components/FeatureGuard';
 import { AppConfig, CodeSnippet } from '../types';
 
 interface CodeCastEditorProps {
