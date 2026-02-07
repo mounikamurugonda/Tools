@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar from '@/components/Sidebar';
 import Footer from '@/components/Footer';
-import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
+
 
 export default function ToolsLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,7 +9,7 @@ export default function ToolsLayout({ children }: { children: React.ReactNode })
       <Sidebar />
       <main className="flex-1 w-full lg:pl-64">
         {children}
-        <BuyMeACoffeeSection forceShow={true} />
+
         <Footer />
       </main>
     </div>

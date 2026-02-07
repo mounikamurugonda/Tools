@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import Script from 'next/script';
 import ConditionalFooter from '@/components/ConditionalFooter';
-import BuyMeACoffeeSection from '@/components/BuyMeACoffeeSection';
+
 import React from 'react';
 import SmoothScrolling from '@/components/SmoothScrolling';
 import SessionProviderWrapper from '@/components/SessionProviderWrapper';
@@ -157,7 +157,7 @@ export default function RootLayout({
                   <Schema schema={getNavigationSchema()} />
                   <Header />
                   <main className="flex-grow flex flex-col">{children}</main>
-                  <BuyMeACoffeeSection />
+
                   <ConditionalFooter />
                 </div>
               </SmoothScrolling>
