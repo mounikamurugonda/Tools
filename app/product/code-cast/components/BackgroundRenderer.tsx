@@ -23,6 +23,19 @@ export const getContainerBackgroundClass = (background: string): string => {
             return 'bg-black';
         case 'purple-radial':
             return 'bg-[#020617]';
+        case 'vector-dots':
+            return 'bg-white';
+        case 'vector-blueprint':
+            return 'bg-[#1e3a8a]';
+        case 'abstract-waves':
+            return 'bg-[#0f172a]';
+        case 'hexati-pattern':
+            return 'bg-[#111827]';
+        case 'unsplash-desk':
+        case 'unsplash-code':
+        case 'unsplash-nature':
+        case 'unsplash-abstract':
+            return 'bg-gray-900';
         default:
             return background;
     }
@@ -146,6 +159,115 @@ export const BackgroundRenderer: React.FC<BackgroundRendererProps> = ({ backgrou
                         backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 2px, #f3f4f6 2px, #f3f4f6 4px)",
                     }}
                 />
+            );
+
+
+
+        case 'vector-dots':
+            return (
+                <div
+                    className="absolute inset-0 z-0 pointer-events-none"
+                    style={{
+                        backgroundImage: `radial-gradient(#94a3b8 1.5px, transparent 1.5px)`,
+                        backgroundSize: '20px 20px',
+                    }}
+                />
+            );
+
+        case 'vector-blueprint':
+            return (
+                <div
+                    className="absolute inset-0 z-0 pointer-events-none bg-[#1e3a8a]"
+                    style={{
+                        backgroundImage: `
+              linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+              linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+            `,
+                        backgroundSize: '100px 100px, 100px 100px, 20px 20px, 20px 20px',
+                    }}
+                />
+            );
+
+        case 'abstract-waves':
+            return (
+                <div
+                    className="absolute inset-0 z-0 pointer-events-none bg-[#0f172a]"
+                    style={{
+                        backgroundImage: `
+              radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+              radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.15) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(34, 211, 238, 0.15) 0px, transparent 50%),
+              radial-gradient(at 0% 100%, rgba(251, 191, 36, 0.15) 0px, transparent 50%)
+            `,
+                    }}
+                />
+            );
+
+        case 'hexati-pattern':
+            return (
+                <div
+                    className="absolute inset-0 z-0 pointer-events-none bg-[#111827]"
+                    style={{
+                        backgroundImage: `
+              radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,0.03) 21%, rgba(255,255,255,0.03) 34%, transparent 35%, transparent),
+              radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,0.03) 21%, rgba(255,255,255,0.03) 34%, transparent 35%, transparent)
+            `,
+                        backgroundSize: '60px 100px',
+                        backgroundPosition: '0 0, 30px 50px'
+                    }}
+                />
+            );
+
+
+
+        case 'unsplash-desk':
+            return (
+                <div className="absolute inset-0 z-0 select-none">
+                    <img
+                        src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop"
+                        alt="Background"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/40" />
+                </div>
+            );
+
+        case 'unsplash-code':
+            return (
+                <div className="absolute inset-0 z-0 select-none">
+                    <img
+                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
+                        alt="Background"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/60" />
+                </div>
+            );
+
+        case 'unsplash-nature':
+            return (
+                <div className="absolute inset-0 z-0 select-none">
+                    <img
+                        src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop"
+                        alt="Background"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/30" />
+                </div>
+            );
+
+        case 'unsplash-abstract':
+            return (
+                <div className="absolute inset-0 z-0 select-none">
+                    <img
+                        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
+                        alt="Background"
+                        className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-black/20" />
+                </div>
             );
 
         case 'circuit-board':

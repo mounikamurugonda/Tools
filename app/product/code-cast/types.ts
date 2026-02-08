@@ -8,7 +8,8 @@ export type Theme =
   | 'nord'
   | 'solarized-dark'
   | 'solarized-light'
-  | 'synthwave';
+  | 'synthwave'
+  | 'glass';
 
 export type DeviceFrame =
   | 'minimal'
@@ -43,6 +44,7 @@ export interface AppConfig {
   audioFadeDuration: number;
   audioLoop: boolean;
   audioPlaybackRate: number;
+  isGlassStyle?: boolean;
 }
 
 export interface CodeSnippet {

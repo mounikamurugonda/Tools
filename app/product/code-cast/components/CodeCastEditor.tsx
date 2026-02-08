@@ -4,6 +4,7 @@ import Editor from '@monaco-editor/react';
 import { Package, Check, Sparkles, Copy } from 'lucide-react';
 import { FeatureGuard } from '../../../../components/FeatureGuard';
 import { AppConfig, CodeSnippet } from '../types';
+import { glassContainerStyles } from '../glassTheme';
 
 interface CodeCastEditorProps {
     code: CodeSnippet;
@@ -16,8 +17,9 @@ interface CodeCastEditorProps {
     shadowBlur: number;
     shadowSpread: number;
     layout: any;
-    editorRef?: React.MutableRefObject<any>;
     updateConfig?: (key: keyof AppConfig, value: any) => void;
+    editorRef?: React.MutableRefObject<any>;
+    isRecording?: boolean;
 }
 
 // Local SVG Logos (Optimized)
@@ -115,6 +117,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
     layout,
     editorRef,
     updateConfig,
+    isRecording = false,
 }) => {
     // Internal ref if none provided
     const internalRef = useRef<any>(null);
@@ -167,19 +170,138 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
         }
     }, [isPlaying, finalRef]);
 
+    // Define glass theme
+    const handleEditorWillMount = (monaco: any) => {
+        // Dark Liquid Glass Theme (Whiter & Brighter Mix)
+        monaco.editor.defineTheme('glass-dark', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [
+                { token: 'comment', foreground: 'd4d4d4', fontStyle: 'italic' }, // Very light grey
+                { token: 'keyword', foreground: 'ff9ce6', fontStyle: 'bold' },    // Lighter Pink
+                { token: 'string', foreground: 'ffffd4' },      // Lighter Yellow
+                { token: 'number', foreground: 'ffe0b2' },      // Lighter Orange
+                { token: 'regexp', foreground: 'ffb3b3' },      // Lighter Red
+                { token: 'type', foreground: 'ccf5ff' },        // Lighter Cyan
+                { token: 'class', foreground: 'ccf5ff' },       // Lighter Cyan
+                { token: 'function', foreground: '99ffbb' },    // Lighter Green
+                { token: 'variable', foreground: 'ffffff' },    // Pure White
+                { token: 'operator', foreground: 'ff9ce6' },    // Lighter Pink
+                { token: 'identifier', foreground: 'ffffff' },  // Pure White
+                { token: 'tag', foreground: 'ff9ce6' },         // Lighter Pink
+                { token: 'attribute.name', foreground: '99ffbb' }, // Lighter Green
+                { token: 'attribute.value', foreground: 'ffffd4' }, // Lighter Yellow
+                { token: 'delimiter', foreground: 'ffffff' },   // Pure White
+                { token: 'delimiter.html', foreground: 'ffffff' }, // Pure White for brackets
+            ],
+            colors: {
+                'editor.background': '#00000000',
+                'editor.foreground': '#ffffff',
+                'editorCursor.foreground': '#ff9ce6',
+                'editor.selectionBackground': '#ffffff30',
+                'editor.lineHighlightBackground': '#ffffff10',
+                'editor.lineHighlightBorder': '#00000000', // No blue border
+                'editorLineNumber.foreground': '#d4d4d4',
+                'editorIndentGuide.background': '#ffffff20',
+                'editorIndentGuide.activeBackground': '#ffffff50',
+                'minimap.background': '#00000000',
+                'scrollbarSlider.background': '#ffffff20',
+                'scrollbarSlider.hoverBackground': '#ffffff30',
+                'scrollbarSlider.activeBackground': '#ffffff40',
+            }
+        });
+
+        // Light Liquid Glass Theme (Refined for Warmth)
+        monaco.editor.defineTheme('glass-light', {
+            base: 'vs',
+            inherit: true,
+            rules: [
+                { token: 'comment', foreground: '6a737d', fontStyle: 'italic' },
+                { token: 'keyword', foreground: 'd73a49', fontStyle: 'bold' },
+                { token: 'string', foreground: '032f62' },
+                { token: 'number', foreground: 'e36209' }, // Orange for numbers
+                { token: 'regexp', foreground: 'd73a49' },
+                { token: 'type', foreground: '6f42c1' },
+                { token: 'class', foreground: '6f42c1' },
+                { token: 'function', foreground: '005cc5' },
+                { token: 'variable', foreground: '424a53' }, // Charcoal instead of black
+                { token: 'operator', foreground: 'd73a49' },
+                { token: 'identifier', foreground: '424a53' }, // Charcoal
+                { token: 'tag', foreground: '22863a' },
+                { token: 'attribute.name', foreground: '6f42c1' },
+                { token: 'attribute.value', foreground: '032f62' },
+                { token: 'delimiter', foreground: '424a53' }, // Charcoal
+                { token: 'delimiter.html', foreground: '8b949e' }, // Lighter Grey for brackets
+            ],
+            colors: {
+                'editor.background': '#00000000',
+                'editor.foreground': '#424a53', // Charcoal base text
+                'editorCursor.foreground': '#d73a49',
+                'editor.selectionBackground': '#0366d615',
+                'editor.lineHighlightBackground': '#00000003',
+                'editor.lineHighlightBorder': '#00000000', // No blue border
+                'editorLineNumber.foreground': '#959da5',
+                'editorIndentGuide.background': '#d1d5da',
+                'editorIndentGuide.activeBackground': '#959da5',
+                'minimap.background': '#00000000',
+                'scrollbarSlider.background': '#00000005',
+                'scrollbarSlider.hoverBackground': '#00000010',
+                'scrollbarSlider.activeBackground': '#00000020',
+            }
+        });
+    };
+
+    // Effect to update theme when config changes
+    React.useEffect(() => {
+        if (finalRef.current) {
+            // We need to access the global monaco instance to set theme if we want to be sure
+            // But usually the Editor component's theme prop handles it. 
+            // However, sometimes it needs a nudge if the theme definition was lazy.
+            // Let's rely on the prop first, but we can also use window.monaco if needed.
+        }
+    }, [config.isGlassStyle, isLight]);
+
+    const getTheme = () => {
+        if (config.isGlassStyle) {
+            return 'glass-dark';
+        }
+        return isLight ? 'vs' : 'vs-dark';
+    };
+
     return (
         <div
-            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 min-h-0 max-h-full ${config.isClassicView ? '' : 'rounded-xl'} transition-shadow duration-300 ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'} ${isPlaying ? 'pointer-events-none' : ''}`}
+            className={`${layout.flexDirection === 'flex-col' ? 'flex-[1.5]' : 'flex-1'} min-w-0 min-h-0 max-h-full ${config.isClassicView ? '' : 'rounded-xl'} transition-all duration-300 ${config.isGlassStyle ? glassContainerStyles : isLight ? 'bg-white' : 'bg-[#1e1e1e]'} ${isPlaying ? 'pointer-events-none' : ''}`}
             style={{
                 order: layout.flexDirection === 'flex-col' ? 2 : 1,
-                boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
+                boxShadow: config.isGlassStyle ? undefined : `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
             }}
         >
+            {config.isGlassStyle && (
+                <style>{`
+                    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap');
+                    .monaco-editor, .monaco-editor-background, .monaco-editor .inputarea.ime-input {
+                        background-color: transparent !important;
+                    }
+                    .monaco-editor .margin {
+                        background-color: transparent !important;
+                    }
+                    .monaco-editor .view-lines {
+                        text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+                        font-family: 'Fredoka', sans-serif !important;
+                        font-weight: 400 !important;
+                        letter-spacing: 0.02em;
+                    }
+                    .monaco-editor .token {
+                        font-weight: 400 !important;
+                    }
+                `}</style>
+            )}
             <div className={`flex flex-col h-full ${config.isClassicView ? '' : 'rounded-xl'} overflow-hidden`}>
                 {/* Tabs Header */}
                 <div
-                    className={`flex items-center gap-4 px-3 h-8 shrink-0 w-full ${isLight ? 'bg-gray-100 border-b border-gray-200' : 'bg-[#252525] border-b border-white/5'}`}
+                    className={`flex items-center gap-4 px-3 h-8 shrink-0 w-full ${config.isGlassStyle ? 'bg-white/10 border-b border-white/20 backdrop-blur-md' : isLight ? 'bg-gray-100 border-b border-gray-200' : 'bg-[#252525] border-b border-white/5'}`}
                 >
+
                     {/* Window Controls (Traffic Lights) */}
                     <div className="flex items-center gap-1.5 shrink-0">
                         <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10"></div>
@@ -199,6 +321,13 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 ? AVAILABLE_LIBRARIES.find(l => l.id === selectedLibIds[0])
                                 : null;
 
+                            // Hide tabs during playback OR recording
+                            if (isPlaying || isRecording) {
+                                if (isLibs) return null;
+                                // Hide JS tab if empty during playback/recording
+                                if (tab.id === 'js' && (!code.js || !code.js.trim())) return null;
+                            }
+
                             const button = (
                                 <button
                                     key={tab.id}
@@ -208,12 +337,16 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                         flex items-center  md:gap-2 px-2  md:py-2 rounded-md text-[10px] font-medium transition-all
                                         ${isLibs ? 'ml-auto' : ''}
                                         ${isActive
-                                            ? isLight
-                                                ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
-                                                : 'bg-[#3c3c3c] text-white shadow-sm ring-1 ring-white/10'
-                                            : isLight
-                                                ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200/50'
-                                                : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+                                            ? config.isGlassStyle
+                                                ? 'bg-white/20 text-white shadow-sm ring-1 ring-white/10'
+                                                : isLight
+                                                    ? 'bg-white text-gray-900 shadow-sm ring-1 ring-black/5'
+                                                    : 'bg-[#3c3c3c] text-white shadow-sm ring-1 ring-white/10'
+                                            : config.isGlassStyle
+                                                ? 'text-white/60 hover:text-white hover:bg-white/10'
+                                                : isLight
+                                                    ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200/50'
+                                                    : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
                                         }
                                     `}
                                 >
@@ -250,14 +383,16 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                     </div>
 
                     {/* Copy Button */}
-                    {activeTab !== 'libs' && (
+                    {activeTab !== 'libs' && !isPlaying && !isRecording && (
                         <button
                             onClick={handleCopy}
                             className={`
                                 flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-medium transition-all ml-2
-                                ${isLight
-                                    ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200/50'
-                                    : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+                                ${config.isGlassStyle
+                                    ? 'text-white/60 hover:text-white hover:bg-white/10'
+                                    : isLight
+                                        ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200/50'
+                                        : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
                                 }
                                 ${isCopied ? (isLight ? 'text-green-600' : 'text-green-400') : ''}
                             `}
@@ -271,7 +406,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
 
                 {/* Content Area */}
                 <div
-                    className={`flex-1 relative overflow-auto ${isLight ? 'bg-white' : 'bg-[#1e1e1e]'}`}
+                    className={`flex-1 relative overflow-auto ${config.isGlassStyle ? 'bg-transparent' : isLight ? 'bg-white' : 'bg-[#1e1e1e]'}`}
                     style={activeTab !== 'libs' ? {
                         WebkitFontSmoothing: 'antialiased',
                         MozOsxFontSmoothing: 'grayscale',
@@ -373,10 +508,12 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                             width="100%"
                             language={getLanguage()}
                             value={code[activeTab]}
-                            onMount={(editor) => {
+                            onMount={(editor, monaco) => {
                                 finalRef.current = editor;
+                                handleEditorWillMount(monaco);
                             }}
-                            theme={isLight ? 'vs' : 'vs-dark'}
+                            beforeMount={handleEditorWillMount}
+                            theme={getTheme()}
                             onChange={(value) => {
                                 if (!isPlaying && value !== undefined) {
                                     updateCode(activeTab, value);

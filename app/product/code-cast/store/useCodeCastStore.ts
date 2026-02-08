@@ -80,6 +80,7 @@ const DEFAULT_CONFIG: AppConfig = {
   audioFadeDuration: 2.0,
   audioLoop: true,
   audioPlaybackRate: 1.0,
+  isGlassStyle: false,
 };
 
 // Factory function to create route-specific stores

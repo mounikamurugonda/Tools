@@ -124,14 +124,15 @@ function AnimatePageContent() {
           layout={layout}
           editorRef={editorRef}
           updateConfig={updateConfig}
+          isRecording={isRecording}
         />
 
         {/* Preview */}
         <div
-          className="flex-1 min-h-0 max-h-full rounded-xl overflow-hidden bg-white transition-shadow duration-300"
+          className={`flex-1 min-h-0 max-h-full rounded-xl overflow-hidden transition-all duration-300 ${config.isGlassStyle ? 'bg-transparent' : 'bg-white'}`}
           style={{
             order: layout.flexDirection === 'flex-col' ? 1 : 2,
-            boxShadow: `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
+            boxShadow: config.isGlassStyle ? undefined : `0 20px ${shadowBlur}px ${shadowSpread}px rgba(0, 0, 0, 0.3)`
           }}
         >
           <PreviewFrame
@@ -141,6 +142,7 @@ function AnimatePageContent() {
             device={config.deviceFrame}
             scale={1}
             libraries={config.libraries}
+            isGlassStyle={config.isGlassStyle}
           />
         </div>
       </AnimateCanvas>

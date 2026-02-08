@@ -11,6 +11,7 @@ interface BackgroundPreset {
   label: string;
   value: string; // CSS class(es)
   isDark: boolean; // true if text should be white, false if text should be dark
+  credit?: string; // Optional credit for the background source
 }
 
 export const BACKGROUND_PRESETS: BackgroundPreset[] = [
@@ -131,6 +132,60 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     label: 'Circuit Board',
     value: 'circuit-board',
     isDark: false,
+  },
+  // --- Vector Patterns ---
+  {
+    id: 'vector-dots',
+    label: 'Vector Dots',
+    value: 'vector-dots',
+    isDark: false,
+  },
+  {
+    id: 'vector-blueprint',
+    label: 'Blueprint',
+    value: 'vector-blueprint',
+    isDark: true,
+  },
+  {
+    id: 'abstract-waves',
+    label: 'Abstract Waves',
+    value: 'abstract-waves',
+    isDark: true,
+  },
+  {
+    id: 'hexati-pattern',
+    label: 'Hexati Pattern',
+    value: 'hexati-pattern',
+    isDark: true,
+  },
+  // --- Photographic (Unsplash) ---
+  {
+    id: 'unsplash-desk',
+    label: 'Modern Desk',
+    value: 'unsplash-desk',
+    isDark: true,
+    credit: 'Photo by Nubelson Fernandes on Unsplash',
+  },
+  {
+    id: 'unsplash-code',
+    label: 'Code Screen',
+    value: 'unsplash-code',
+    isDark: true,
+    credit: 'Photo by Safar Safarov on Unsplash',
+  },
+  {
+    id: 'unsplash-nature',
+    label: 'Misty Mountains',
+    value: 'unsplash-nature',
+    isDark: true,
+    credit: 'Photo by Eberhard Grossgasteiger on Unsplash',
+  },
+  {
+    id: 'unsplash-abstract',
+    label: 'Abstract Fluid',
+    value: 'unsplash-abstract',
+    isDark: true,
+    credit: 'Photo by Pawel Czerwinski on Unsplash',
   },
 ];
 

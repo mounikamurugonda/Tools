@@ -1,5 +1,6 @@
 import React, { useMemo, useRef, useEffect } from 'react';
 import { DeviceFrame } from '../types';
+import { glassContainerStyles } from '../glassTheme';
 
 interface PreviewFrameProps {
   html: string;
@@ -8,6 +9,7 @@ interface PreviewFrameProps {
   device: DeviceFrame;
   scale?: number;
   libraries?: string[];
+  isGlassStyle?: boolean;
 }
 
 const getLibraryTags = (libraries: string[]) => {
@@ -31,7 +33,7 @@ const getLibraryTags = (libraries: string[]) => {
   }).join('\n');
 };
 
-const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scale = 1, libraries = [] }) => {
+const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scale = 1, libraries = [], isGlassStyle = false }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // Use a static srcDoc to initialize the iframe once.
@@ -42,8 +44,30 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
         <head>
           <style>
             /* Reset & Defaults */
-            * { box-sizing: border-box; }
-            body { margin: 0; padding: 0px; font-family: sans-serif; overflow-x: hidden; transition: all 0.3s ease-in-out; background-color: white; min-height: 100vh; }
+            html { background: transparent; }
+            body { margin: 0; padding: 0px; font-family: sans-serif; overflow-x: hidden; transition: all 0.3s ease-in-out; background-color: ${isGlassStyle ? 'transparent' : 'white'}; color: ${isGlassStyle ? 'white' : 'inherit'}; min-height: 100vh; }
+            
+            /* Custom Scrollbar for Glass Mode */
+            ${isGlassStyle ? `
+              ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+              }
+              ::-webkit-scrollbar-track {
+                background: transparent;
+              }
+              ::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 10px;
+                transition: background 0.2s;
+              }
+              ::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.3);
+              }
+              ::-webkit-scrollbar-corner {
+                background: transparent;
+              }
+            ` : ''}
           </style>
           ${getLibraryTags(libraries)}
           <style id="preview-css"></style>
@@ -102,7 +126,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
         </body>
       </html>
     `;
-  }, [libraries]);
+  }, [libraries, isGlassStyle]);
 
   // Send updates to the iframe whenever props change
   useEffect(() => {
@@ -122,15 +146,11 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
   // The PreviewFrame now just fills the parent container.
   // The Parent (Canvas) determines the overall aspect ratio.
   const getFrameStyles = () => {
-    const base =
-      'shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full';
+    // Base container style
+    const base = 'shadow-xl relative overflow-hidden transition-all duration-500 w-full h-full rounded-xl flex flex-col';
 
-    if (device === 'browser') {
-      return `w-full h-full rounded-lg bg-transparent shadow-lg relative flex flex-col`;
-    }
-
-    // For mobile/minimal/social, we just return a clean rounded container that fills the split pane.
-    return `${base} rounded-xl`;
+    // Add specific glass/shadow effects
+    return `${base} ${isGlassStyle ? glassContainerStyles : 'bg-transparent shadow-lg'}`;
   };
 
   return (
@@ -139,23 +159,23 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
       style={{ transform: `scale(${scale})` }}
     >
       <div className={getFrameStyles()}>
-        {/* Browser Chrome Header (Only for Browser mode) */}
-        {device === 'browser' && (
-          <div className="h-8 bg-gray-100 border-b border-gray-200 flex items-center px-3 gap-1.5 rounded-t-lg shrink-0">
-            <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black/10"></div>
-            <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10"></div>
-            <div className="ml-4 flex-1 h-5 bg-white rounded border border-gray-200 text-[10px] text-gray-400 flex items-center px-2">
+        {/* Browser Chrome Header (Always Visible) */}
+        <div className={`h-8 flex items-center px-3 gap-1.5 shrink-0 ${isGlassStyle ? 'bg-white/10 border-b border-white/20 backdrop-blur-md' : 'bg-gray-100 border-b border-gray-200'}`}>
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10"></div>
+          <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black/10"></div>
+          <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10"></div>
+          {device === 'browser' && (
+            <div className={`ml-4 flex-1 h-5 rounded border text-[10px] flex items-center px-2 truncate ${isGlassStyle ? 'bg-white/10 border-white/10 text-white/50' : 'bg-white border-gray-200 text-gray-400'}`}>
               localhost:3000
             </div>
-          </div>
-        )}
+          )}
+        </div>
 
         <iframe
           ref={iframeRef}
           title="preview"
           srcDoc={srcDoc}
-          className={`w-full h-full border-0 ${device === 'browser' ? 'rounded-b-lg' : 'rounded-xl'}`}
+          className={`flex-1 w-full h-full border-0`}
           style={{ backgroundColor: 'transparent' }}
           sandbox="allow-scripts"
           onLoad={handleLoad}

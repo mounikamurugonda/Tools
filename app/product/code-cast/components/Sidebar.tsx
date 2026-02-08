@@ -319,7 +319,7 @@ const Sidebar: React.FC = () => {
                         <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Background</span>
                         <div className="grid grid-cols-5 gap-1.5">
                           {BACKGROUND_PRESETS.map(bg => (
-                            <TooltipWrapper key={bg.id} label={bg.label}>
+                            <TooltipWrapper key={bg.id} label={bg.credit ? `${bg.label} (${bg.credit})` : bg.label}>
                               <button
                                 onClick={() => setConfig((p: AppConfig) => ({ ...p, background: bg.value }))}
                                 className={`
@@ -378,7 +378,6 @@ const Sidebar: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Canvas Padding Slider */}
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
                           <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Padding</span>
@@ -398,9 +397,27 @@ const Sidebar: React.FC = () => {
                           className="w-full h-1.5 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb"
                         />
                       </div>
+
+                      {/* Glass Style Toggle (Integrated) */}
+                      <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-gray-900 dark:text-gray-300">Glass Effect</span>
+                          {!session && <span className="text-[9px] px-1 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 rounded font-medium">PRO</span>}
+                        </div>
+                        <button
+                          onClick={() => setConfig((p: AppConfig) => ({ ...p, isGlassStyle: !p.isGlassStyle }))}
+                          className={`w-8 h-4 rounded-full relative transition-colors ${config.isGlassStyle ? 'bg-purple-500' : 'bg-gray-200 dark:bg-gray-700'}`}
+                        >
+                          <div className={`absolute top-0.5 w-3 h-3 bg-white rounded-full transition-all ${config.isGlassStyle ? 'left-4.5' : 'left-0.5'}`} style={{ left: config.isGlassStyle ? '18px' : '2px' }} />
+                        </button>
+                      </div>
                     </div>
                   </FeatureGuard>
                 </div>
+
+                {/* Section: Editor Style */}
+
+
 
                 {/* Section: Animation - Only for Animate mode */}
                 <div className="space-y-4 pt-4 border-t border-gray-200 dark:border-gray-800">

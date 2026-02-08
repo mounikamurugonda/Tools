@@ -359,7 +359,7 @@ export const CodeCastHeader = () => {
     if (!activeTab || activeTab === 'libs' || !code[activeTab as keyof typeof code]) return;
 
     try {
-      const { default: beautify } = await import('js-beautify');
+      let formatted = '';
       const options = {
         indent_size: 2,
         space_in_empty_paren: true,
@@ -367,17 +367,18 @@ export const CodeCastHeader = () => {
         preserve_newlines: true,
       };
 
-      let formatted = '';
       if (activeTab === 'html') {
-        formatted = beautify.html(code.html, options);
+        // @ts-ignore
+        const { html_beautify } = await import('js-beautify/js/lib/beautify-html.js');
+        formatted = html_beautify(code.html, options);
       } else if (activeTab === 'css') {
-        formatted = beautify.css(code.css, options);
+        // @ts-ignore
+        const { css_beautify } = await import('js-beautify/js/lib/beautify-css.js');
+        formatted = css_beautify(code.css, options);
       } else if (activeTab === 'js') {
-        // The js formatter is exposed as 'js' on the default export based on my check,
-        // but sometimes it is 'js_beautify' or just the function itself.
-        // My check showed ['js', 'css', 'html', 'js_beautify'].
-        // So beautify.js should be correct.
-        formatted = beautify.js(code.js, options);
+        // @ts-ignore
+        const { js_beautify } = await import('js-beautify/js/lib/beautify.js');
+        formatted = js_beautify(code.js, options);
       }
 
       if (formatted && currentStore && currentStore.updateCode) {
