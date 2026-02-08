@@ -6,7 +6,7 @@ import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
-import { Copy, Check, Sparkles, Box, RotateCcw, Layers } from 'lucide-react';
+import { Copy, Check, Sparkles, Box, RotateCcw, Layers, Cloud } from 'lucide-react';
 
 // Preset configurations
 const PRESETS = {
@@ -22,10 +22,16 @@ const PRESETS = {
     { name: 'Subtle', shadowX: 3, shadowY: 3, shadowBlur: 6, intensity: 0.20, borderRadius: 20 },
     { name: 'Deep', shadowX: 10, shadowY: 10, shadowBlur: 20, intensity: 0.35, borderRadius: 24 },
   ],
+  claymorphism: [
+    { name: 'Soft Clay', background: '#ecf0f3', shadowDistance: 16, shadowBlur: 32, intensity: 0.4, borderRadius: 32 },
+    { name: 'Vibrant', background: '#f87171', shadowDistance: 12, shadowBlur: 24, intensity: 0.5, borderRadius: 30 },
+    { name: 'Dark Clay', background: '#374151', shadowDistance: 10, shadowBlur: 20, intensity: 0.3, borderRadius: 26 },
+    { name: 'Minimal', background: '#e0e7ff', shadowDistance: 8, shadowBlur: 16, intensity: 0.2, borderRadius: 24 },
+  ],
 };
 
 const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [style, setStyle] = useState<'glassmorphism' | 'neumorphism'>('glassmorphism');
+  const [style, setStyle] = useState<'glassmorphism' | 'neumorphism' | 'claymorphism'>('glassmorphism');
   const [copied, setCopied] = useState(false);
 
   // Glassmorphism states
@@ -53,6 +59,13 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [neuBorderRadius, setNeuBorderRadius] = useState(16);
   const [neuInset, setNeuInset] = useState(false);
   const [neuShape, setNeuShape] = useState<'flat' | 'concave' | 'convex'>('flat');
+
+  // Claymorphism specific states
+  const [clayBackground, setClayBackground] = useState('#ecf0f3');
+  const [clayShadowDistance, setClayShadowDistance] = useState(16);
+  const [clayShadowBlur, setClayShadowBlur] = useState(32);
+  const [clayIntensity, setClayIntensity] = useState(0.4);
+  const [clayBorderRadius, setClayBorderRadius] = useState(32);
 
   // Helper function to lighten/darken colors
   const adjustColor = useCallback((hex: string, percent: number) => {
@@ -110,7 +123,22 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     return `linear-gradient(145deg, ${lightColor}, ${darkColor})`;
   }, [neuBackground, neuShape, adjustColor]);
 
-  const glassmorphismStyles = useMemo(() => {
+  // Claymorphism shadow calculation
+  const clayShadows = useMemo(() => {
+    const outer = `${clayShadowDistance}px ${clayShadowDistance}px ${clayShadowDistance * 2}px rgba(163, 177, 198, 0.4)`; // Soft colored shadow
+    // Alternative simple outer shadow: 
+    const outerSimple = `${clayShadowDistance}px ${clayShadowDistance}px ${clayShadowBlur}px rgba(0, 0, 0, ${clayIntensity * 0.5})`;
+
+    // Inner highglight (top-left)
+    const innerLight = `inset ${clayShadowDistance}px ${clayShadowDistance}px ${clayShadowBlur}px rgba(255, 255, 255, ${clayIntensity})`;
+
+    // Inner shadow (bottom-right)
+    const innerDark = `inset -${clayShadowDistance}px -${clayShadowDistance}px ${clayShadowBlur}px rgba(0, 0, 0, ${clayIntensity * 0.1})`;
+
+    return { outer: outerSimple, innerLight, innerDark };
+  }, [clayShadowDistance, clayShadowBlur, clayIntensity]);
+
+  const elementStyles = useMemo(() => {
     if (style === 'glassmorphism') {
       return {
         background: `rgba(255, 255, 255, ${opacity})`,
@@ -120,17 +148,26 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         border: `${borderWidth}px solid ${borderColorWithOpacity}`,
         boxShadow: `${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColorWithOpacity}`,
       };
-    } else {
+    } else if (style === 'neumorphism') {
       return {
         background: neuGradient,
         borderRadius: `${neuBorderRadius}px`,
         boxShadow: `${neuDarkShadow}, ${neuLightShadow}`,
       };
+    } else {
+      // Claymorphism
+      return {
+        background: clayBackground,
+        borderRadius: `${clayBorderRadius}px`,
+        boxShadow: `${clayShadows.outer}, ${clayShadows.innerLight}, ${clayShadows.innerDark}`,
+        color: '#4b5563',
+      }
     }
   }, [
     style, opacity, blur, borderRadius, borderWidth, borderColorWithOpacity,
     shadowX, shadowY, shadowBlur, shadowSpread, shadowColorWithOpacity,
     neuGradient, neuBorderRadius, neuDarkShadow, neuLightShadow,
+    clayBackground, clayBorderRadius, clayShadows
   ]);
 
   const cssCode = useMemo(() => {
@@ -143,7 +180,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   border: ${borderWidth}px solid ${borderColorWithOpacity};
   box-shadow: ${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowSpread}px ${shadowColorWithOpacity};
 }`;
-    } else {
+    } else if (style === 'neumorphism') {
       const lightColor = adjustColor(neuBackground, shadowIntensityPercent);
       const darkColor = adjustColor(neuBackground, -shadowIntensityPercent);
       let bgValue = neuBackground;
@@ -163,12 +200,22 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   box-shadow: ${insetPrefix}${neuShadowX}px ${neuShadowY}px ${neuShadowBlur}px ${darkColor},
               ${insetPrefix}${-neuShadowX}px ${-neuShadowY}px ${neuShadowBlur}px ${lightColor};
 }`;
+    } else {
+      // Claymorphism CSS
+      return `.claymorphism {
+  background: ${clayBackground};
+  border-radius: ${clayBorderRadius}px;
+  box-shadow: ${clayShadows.outer},
+              ${clayShadows.innerLight},
+              ${clayShadows.innerDark};
+}`;
     }
   }, [
     style, opacity, blur, borderRadius, borderWidth, borderColorWithOpacity,
     shadowX, shadowY, shadowBlur, shadowSpread, shadowColorWithOpacity,
     neuBackground, neuBorderRadius, neuShadowX, neuShadowY, neuShadowBlur,
     neuInset, neuShape, adjustColor, shadowIntensityPercent,
+    clayBackground, clayBorderRadius, clayShadows
   ]);
 
   const copyToClipboard = useCallback(() => {
@@ -194,20 +241,31 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     setNeuInset(preset.inset || false);
   }, []);
 
+  const applyClayPreset = useCallback((preset: typeof PRESETS.claymorphism[0]) => {
+    setClayBackground(preset.background);
+    setClayShadowDistance(preset.shadowDistance);
+    setClayShadowBlur(preset.shadowBlur);
+    setClayIntensity(preset.intensity);
+    setClayBorderRadius(preset.borderRadius);
+  }, []);
+
   const resetToDefault = useCallback(() => {
     if (style === 'glassmorphism') {
       setOpacity(0.2); setBlur(10); setBorderRadius(16); setBorderWidth(1);
       setBorderOpacity(0.2); setShadowX(0); setShadowY(8); setShadowBlur(32);
       setShadowSpread(0); setShadowOpacity(0.1);
-    } else {
+    } else if (style === 'neumorphism') {
       setNeuBackground('#e0e5ec'); setNeuShadowX(6); setNeuShadowY(6);
       setNeuShadowBlur(12); setNeuIntensity(0.25); setNeuBorderRadius(16);
       setNeuInset(false); setNeuShape('flat');
+    } else {
+      setClayBackground('#ecf0f3'); setClayShadowDistance(16); setClayShadowBlur(32);
+      setClayIntensity(0.4); setClayBorderRadius(32);
     }
   }, [style]);
 
   return (
-    <ToolContainer title="Glassmorphism & Neumorphism Generator" details={details} toolId={toolId}>
+    <ToolContainer title="Glassmorphism, Neumorphism & Claymorphism" details={details} toolId={toolId}>
       <div className="grid lg:grid-cols-2 gap-8 items-start">
 
         {/* Left Side: Controls */}
@@ -223,7 +281,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
                   }`}
               >
-                Glassmorphism
+                Glass
               </button>
               <button
                 onClick={() => setStyle('neumorphism')}
@@ -232,7 +290,16 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
                   }`}
               >
-                Neumorphism
+                Neumorph
+              </button>
+              <button
+                onClick={() => setStyle('claymorphism')}
+                className={`flex-1 py-1.5 px-3 rounded-md text-sm font-medium transition-all ${style === 'claymorphism'
+                  ? 'bg-white dark:bg-gray-700 shadow text-pink-600 dark:text-pink-400'
+                  : 'text-gray-500 hover:text-gray-700 dark:text-gray-400'
+                  }`}
+              >
+                Claymorph
               </button>
             </div>
 
@@ -248,13 +315,19 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 </Button>
               </div>
               <div className="grid grid-cols-2 gap-2">
-                {(style === 'glassmorphism' ? PRESETS.glassmorphism : PRESETS.neumorphism).map((preset, i) => (
+                {(style === 'glassmorphism' ? PRESETS.glassmorphism : style === 'neumorphism' ? PRESETS.neumorphism : PRESETS.claymorphism).map((preset: any, i) => (
                   <button
                     key={i}
-                    onClick={() => style === 'glassmorphism' ? applyGlassPreset(preset as any) : applyNeuPreset(preset as any)}
+                    onClick={() => {
+                      if (style === 'glassmorphism') applyGlassPreset(preset);
+                      else if (style === 'neumorphism') applyNeuPreset(preset);
+                      else applyClayPreset(preset);
+                    }}
                     className={`px-3 py-2 text-xs font-medium rounded-lg border transition-all hover:scale-[1.02] hover:shadow-sm ${style === 'glassmorphism'
                         ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 text-blue-700 dark:text-blue-300'
-                        : 'bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30 text-purple-700 dark:text-purple-300'
+                        : style === 'neumorphism'
+                          ? 'bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30 text-purple-700 dark:text-purple-300'
+                          : 'bg-pink-50/50 dark:bg-pink-900/10 border-pink-100 dark:border-pink-900/30 text-pink-700 dark:text-pink-300'
                       }`}
                   >
                     {preset.name}
@@ -264,7 +337,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           </div>
 
-          {/* Main Controls - Height optimized with Grid */}
+          {/* Main Controls */}
           <div className="space-y-6">
             {style === 'glassmorphism' ? (
               <>
@@ -289,8 +362,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   </div>
                 </div>
               </>
-            ) : (
-              // Neumorphism Controls
+            ) : style === 'neumorphism' ? (
               <>
                 <div>
                   <Label className="mb-2 block">Background Color</Label>
@@ -331,6 +403,33 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   </div>
                 </div>
               </>
+            ) : (
+              // Claymorphism Controls
+              <>
+                <div>
+                  <Label className="mb-2 block">Clay Background Color</Label>
+                  <div className="flex gap-2">
+                    <ColorInput value={clayBackground} onChange={setClayBackground} />
+                  </div>
+                  <div className="flex gap-1.5 mt-2">
+                    {['#ecf0f3', '#f87171', '#374151', '#e0e7ff', '#fcd34d', '#34d399'].map(color => (
+                      <button
+                        key={color}
+                        onClick={() => setClayBackground(color)}
+                        className={`w-6 h-6 rounded-full border transition-all ${clayBackground === color ? 'border-pink-500 ring-1 ring-pink-300 transform scale-110' : 'border-gray-300 dark:border-gray-600'}`}
+                        style={{ background: color }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <ControlSlider label="Border Radius" value={clayBorderRadius} onChange={setClayBorderRadius} max={60} unit="px" />
+                  <ControlSlider label="Depth (Intensity)" value={clayIntensity} onChange={setClayIntensity} max={1} step={0.01} unit="%" displayMultiplier={100} />
+                  <ControlSlider label="Shadow Distance" value={clayShadowDistance} onChange={setClayShadowDistance} max={50} unit="px" />
+                  <ControlSlider label="Shadow Blur" value={clayShadowBlur} onChange={setClayShadowBlur} max={100} unit="px" />
+                </div>
+              </>
             )}
           </div>
 
@@ -349,9 +448,16 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                   background:
                     style === 'glassmorphism'
                       ? 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)'
-                      : neuBackground,
+                      : style === 'neumorphism'
+                        ? neuBackground
+                        : '#ffffff', // Claymorphism usually looks best on white or light background to see the floating effect
                 }}
               />
+
+              {style === 'claymorphism' && (
+                // Claymorphism often needs a different background to pop
+                <div className="absolute inset-0 bg-gray-50 dark:bg-gray-900 transition-colors" />
+              )}
 
               {/* Decorations */}
               {style === 'glassmorphism' && (
@@ -362,16 +468,29 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 </>
               )}
 
+              {style === 'claymorphism' && (
+                <>
+                  <div className="absolute top-10 right-10 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl" />
+                  <div className="absolute bottom-10 left-10 w-40 h-40 bg-pink-500/10 rounded-full blur-2xl" />
+                </>
+              )}
+
               {/* The Object */}
               <div
                 className="w-48 h-48 flex flex-col items-center justify-center text-center transition-all duration-300 select-none relative z-10"
                 style={{
-                  ...glassmorphismStyles,
-                  color: style === 'glassmorphism' ? 'white' : adjustColor(neuBackground, -50),
+                  ...elementStyles,
+                  color: style === 'glassmorphism' ? 'white' : style === 'claymorphism' ? (parseInt(clayBackground.replace('#', ''), 16) > 0xffffff / 2 ? '#374151' : 'white') : adjustColor(neuBackground, -50),
                 }}
               >
-                <span className="text-2xl mb-1">{style === 'glassmorphism' ? '✨' : '🎨'}</span>
-                <span className="font-semibold text-lg">{style === 'glassmorphism' ? 'Glass' : 'Neumorphic'}</span>
+                <div className="mb-2">
+                  {style === 'glassmorphism' && <Sparkles className="w-8 h-8 opacity-80" />}
+                  {style === 'neumorphism' && <Layers className="w-8 h-8 opacity-60" />}
+                  {style === 'claymorphism' && <Cloud className="w-8 h-8 opacity-80" />}
+                </div>
+                <span className="font-semibold text-lg">
+                  {style === 'glassmorphism' ? 'Glass' : style === 'neumorphism' ? 'Neumorphic' : 'Claymorphic'}
+                </span>
               </div>
             </div>
           </div>
