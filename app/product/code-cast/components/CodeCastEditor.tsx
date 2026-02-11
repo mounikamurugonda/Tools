@@ -167,6 +167,8 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                 formatOnType: isPlaying ? false : true,
                 formatOnPaste: isPlaying ? false : true,
                 readOnly: false, // Ensure we can write to it even if playing (we write programmatically)
+                domReadOnly: false, // Explicitly allow DOM editing for paste
+                contextmenu: !isPlaying,
             });
         }
     }, [isPlaying, finalRef]);
@@ -522,6 +524,8 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                             }}
                             options={{
                                 readOnly: false,
+                                domReadOnly: false, // Explicitly allow DOM editing for paste
+                                accessibilitySupport: 'auto', // Better mobile/clipboard support
                                 minimap: { enabled: false },
                                 fontSize: config.fontSize,
                                 wordWrap: config.wordWrap ? 'on' : 'off',
@@ -563,7 +567,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 folding: false,
                                 links: false,
                                 colorDecorators: false,
-                                contextmenu: false,
+                                contextmenu: !isPlaying,
                                 inlayHints: { enabled: 'off' },
 
                                 // Disable smart features during animation to prevent double indentation/closing
