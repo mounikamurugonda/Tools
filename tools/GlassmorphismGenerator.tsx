@@ -266,10 +266,10 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
   return (
     <ToolContainer title="Glassmorphism, Neumorphism & Claymorphism" details={details} toolId={toolId}>
-      <div className="grid lg:grid-cols-2 gap-8 items-start">
+      <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 items-start">
 
         {/* Left Side: Controls */}
-        <div className="space-y-8">
+        <div className="space-y-8 w-full">
 
           {/* Style Toggle */}
           <div>
@@ -324,10 +324,10 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                       else applyClayPreset(preset);
                     }}
                     className={`px-3 py-2 text-xs font-medium rounded-lg border transition-all hover:scale-[1.02] hover:shadow-sm ${style === 'glassmorphism'
-                        ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 text-blue-700 dark:text-blue-300'
-                        : style === 'neumorphism'
-                          ? 'bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30 text-purple-700 dark:text-purple-300'
-                          : 'bg-pink-50/50 dark:bg-pink-900/10 border-pink-100 dark:border-pink-900/30 text-pink-700 dark:text-pink-300'
+                      ? 'bg-blue-50/50 dark:bg-blue-900/10 border-blue-100 dark:border-blue-900/30 text-blue-700 dark:text-blue-300'
+                      : style === 'neumorphism'
+                        ? 'bg-purple-50/50 dark:bg-purple-900/10 border-purple-100 dark:border-purple-900/30 text-purple-700 dark:text-purple-300'
+                        : 'bg-pink-50/50 dark:bg-pink-900/10 border-pink-100 dark:border-pink-900/30 text-pink-700 dark:text-pink-300'
                       }`}
                   >
                     {preset.name}
@@ -436,7 +436,7 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         {/* Right Side: Preview & Code */}
-        <div className="space-y-6 sticky top-6">
+        <div className="space-y-6 sticky top-0 z-30 lg:top-24 bg-white/95 dark:bg-gray-900/95 backdrop-blur p-4 -mx-4 lg:mx-0 lg:p-0 rounded-b-2xl lg:rounded-none lg:bg-transparent lg:dark:bg-transparent shadow-md lg:shadow-none w-[calc(100%+2rem)] lg:w-full">
           {/* Preview */}
           <div className="space-y-2">
             <Label>Preview</Label>

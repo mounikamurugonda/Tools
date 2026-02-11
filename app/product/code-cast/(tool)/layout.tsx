@@ -24,7 +24,7 @@ function CodeCastLayoutContent({ children }: { children: React.ReactNode }) {
   const isScrollablePage = isLibraryPage || isSavedPage;
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-5rem)] md:h-[calc(100vh-5rem)] w-full bg-white dark:bg-gray-950 md:overflow-hidden transition-colors duration-300">
+    <div className="flex flex-col min-h-screen md:h-screen w-full bg-white dark:bg-gray-950 md:overflow-hidden transition-colors duration-300">
       {/* Header - Full Width at Top */}
       <CodeCastHeader />
 

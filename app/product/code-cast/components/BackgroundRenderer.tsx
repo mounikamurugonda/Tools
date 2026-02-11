@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { BACKGROUND_PRESETS } from '../constants';
 
 interface BackgroundRendererProps {
     background: string;
@@ -7,6 +8,9 @@ interface BackgroundRendererProps {
 
 // Helper to get base class for the container
 export const getContainerBackgroundClass = (background: string): string => {
+    const preset = BACKGROUND_PRESETS.find(p => p.id === background);
+    if (preset?.imageUrl) return 'bg-gray-900';
+
     switch (background) {
         case 'codecast-gradient':
             return 'bg-gradient-to-br from-blue-600 to-purple-600';
@@ -17,31 +21,40 @@ export const getContainerBackgroundClass = (background: string): string => {
         case 'rose-corner':
         case 'diagonal-stripes':
         case 'circuit-board':
+        case 'vector-dots':
             return 'bg-white';
         case 'tropical-dusk':
         case 'crimson-shadow':
             return 'bg-black';
         case 'purple-radial':
             return 'bg-[#020617]';
-        case 'vector-dots':
-            return 'bg-white';
         case 'vector-blueprint':
             return 'bg-[#1e3a8a]';
         case 'abstract-waves':
             return 'bg-[#0f172a]';
         case 'hexati-pattern':
             return 'bg-[#111827]';
-        case 'unsplash-desk':
-        case 'unsplash-code':
-        case 'unsplash-nature':
-        case 'unsplash-abstract':
-            return 'bg-gray-900';
         default:
             return background;
     }
 }
 
 export const BackgroundRenderer: React.FC<BackgroundRendererProps> = ({ background }) => {
+    const preset = BACKGROUND_PRESETS.find(p => p.id === background);
+
+    if (preset?.imageUrl) {
+        return (
+            <div className="absolute inset-0 z-0 select-none">
+                <img
+                    src={preset.imageUrl}
+                    alt={preset.label}
+                    className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-black/40" />
+            </div>
+        );
+    }
+
     switch (background) {
         case 'aurora-dream':
             return (
@@ -222,53 +235,7 @@ export const BackgroundRenderer: React.FC<BackgroundRendererProps> = ({ backgrou
 
 
 
-        case 'unsplash-desk':
-            return (
-                <div className="absolute inset-0 z-0 select-none">
-                    <img
-                        src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop"
-                        alt="Background"
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/40" />
-                </div>
-            );
 
-        case 'unsplash-code':
-            return (
-                <div className="absolute inset-0 z-0 select-none">
-                    <img
-                        src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop"
-                        alt="Background"
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/60" />
-                </div>
-            );
-
-        case 'unsplash-nature':
-            return (
-                <div className="absolute inset-0 z-0 select-none">
-                    <img
-                        src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop"
-                        alt="Background"
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/30" />
-                </div>
-            );
-
-        case 'unsplash-abstract':
-            return (
-                <div className="absolute inset-0 z-0 select-none">
-                    <img
-                        src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
-                        alt="Background"
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/20" />
-                </div>
-            );
 
         case 'circuit-board':
             return (

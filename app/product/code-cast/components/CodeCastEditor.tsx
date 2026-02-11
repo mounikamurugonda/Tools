@@ -123,6 +123,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
     const internalRef = useRef<any>(null);
     const finalRef = editorRef || internalRef;
 
+
     const isSocialMedia = ['instagram-square', 'linkedin-post', 'tiktok-shorts'].includes(config.deviceFrame);
 
     const getLanguage = () => {
@@ -562,7 +563,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 folding: false,
                                 links: false,
                                 colorDecorators: false,
-                                contextmenu: true,
+                                contextmenu: false,
                                 inlayHints: { enabled: 'off' },
 
                                 // Disable smart features during animation to prevent double indentation/closing

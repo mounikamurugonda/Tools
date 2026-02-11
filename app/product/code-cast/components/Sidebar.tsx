@@ -130,7 +130,7 @@ const Sidebar: React.FC = () => {
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-6 custom-scrollbar">
             {/* Navigation Section */}
             <div className="space-y-2">
               {session && (
@@ -317,28 +317,30 @@ const Sidebar: React.FC = () => {
                       {/* Background Selector */}
                       <div className="space-y-2">
                         <span className="text-xs text-gray-600 dark:text-gray-400">Canvas Background</span>
-                        <div className="grid grid-cols-5 gap-1.5">
-                          {BACKGROUND_PRESETS.map(bg => (
-                            <TooltipWrapper key={bg.id} label={bg.credit ? `${bg.label} (${bg.credit})` : bg.label}>
-                              <button
-                                onClick={() => setConfig((p: AppConfig) => ({ ...p, background: bg.value }))}
-                                className={`
-                       w-full block aspect-square rounded-lg border-2 transition-all relative overflow-hidden group
-                       ${config.background === bg.value ? 'border-blue-600 dark:border-blue-400 shadow-lg scale-105' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500'}
-                     `}
-                              >
-                                <div className={`w-full h-full relative ${getContainerBackgroundClass(bg.id) === bg.id ? bg.value : getContainerBackgroundClass(bg.id)}`}>
-                                  <BackgroundRenderer background={bg.id} />
-                                </div>
-
-                                {config.background === bg.value && (
-                                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 z-10">
-                                    <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
+                        <div className="max-h-60 overflow-y-auto custom-scrollbar pr-1">
+                          <div className="grid grid-cols-5 gap-1.5">
+                            {BACKGROUND_PRESETS.map(bg => (
+                              <TooltipWrapper key={bg.id} label={bg.credit ? `${bg.label} (${bg.credit})` : bg.label}>
+                                <button
+                                  onClick={() => setConfig((p: AppConfig) => ({ ...p, background: bg.value }))}
+                                  className={`
+                        w-full block aspect-square rounded-lg border-2 transition-all relative overflow-hidden group
+                        ${config.background === bg.value ? 'border-blue-600 dark:border-blue-400 shadow-lg scale-105' : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-500'}
+                      `}
+                                >
+                                  <div className={`w-full h-full relative ${getContainerBackgroundClass(bg.id) === bg.id ? bg.value : getContainerBackgroundClass(bg.id)}`}>
+                                    <BackgroundRenderer background={bg.id} />
                                   </div>
-                                )}
-                              </button>
-                            </TooltipWrapper>
-                          ))}
+
+                                  {config.background === bg.value && (
+                                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 z-10">
+                                      <div className="w-2 h-2 bg-white rounded-full shadow-sm" />
+                                    </div>
+                                  )}
+                                </button>
+                              </TooltipWrapper>
+                            ))}
+                          </div>
                         </div>
                       </div>
 

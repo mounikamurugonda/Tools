@@ -12,6 +12,7 @@ interface BackgroundPreset {
   value: string; // CSS class(es)
   isDark: boolean; // true if text should be white, false if text should be dark
   credit?: string; // Optional credit for the background source
+  imageUrl?: string; // Optional URL for image-based backgrounds
 }
 
 export const BACKGROUND_PRESETS: BackgroundPreset[] = [
@@ -165,6 +166,7 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     value: 'unsplash-desk',
     isDark: true,
     credit: 'Photo by Nubelson Fernandes on Unsplash',
+    imageUrl: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=2070&auto=format&fit=crop',
   },
   {
     id: 'unsplash-code',
@@ -172,6 +174,7 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     value: 'unsplash-code',
     isDark: true,
     credit: 'Photo by Safar Safarov on Unsplash',
+    imageUrl: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
   },
   {
     id: 'unsplash-nature',
@@ -179,6 +182,7 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     value: 'unsplash-nature',
     isDark: true,
     credit: 'Photo by Eberhard Grossgasteiger on Unsplash',
+    imageUrl: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop',
   },
   {
     id: 'unsplash-abstract',
@@ -186,6 +190,78 @@ export const BACKGROUND_PRESETS: BackgroundPreset[] = [
     value: 'unsplash-abstract',
     isDark: true,
     credit: 'Photo by Pawel Czerwinski on Unsplash',
+    imageUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop',
+  },
+  // --- Abstract Art (Flow/Lines/Shapes) ---
+  {
+    id: 'unsplash-neon-flow',
+    label: 'Neon Flow',
+    value: 'unsplash-neon-flow',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-spiral',
+    label: 'Golden Spiral',
+    value: 'unsplash-spiral',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-liquid-blue',
+    label: 'Liquid Blue',
+    value: 'unsplash-liquid-blue',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-mesh-grid',
+    label: 'Mesh Grid',
+    value: 'unsplash-mesh-grid',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-smoke-waves',
+    label: 'Smoke Waves',
+    value: 'unsplash-smoke-waves',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1541701494587-cb58502866ab?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-dark-geometry',
+    label: 'Dark Geometry',
+    value: 'unsplash-dark-geometry',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1614850523060-8da1d56ae167?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-abstract-lines',
+    label: 'Abstract Lines',
+    value: 'unsplash-abstract-lines',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-glass-shards',
+    label: 'Glass Shards',
+    value: 'unsplash-glass-shards',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-colorful-swirl',
+    label: 'Colorful Swirl',
+    value: 'unsplash-colorful-swirl',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2070&auto=format&fit=crop',
+  },
+  {
+    id: 'unsplash-digital-rain',
+    label: 'Digital Rain',
+    value: 'unsplash-digital-rain',
+    isDark: true,
+    imageUrl: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
   },
 ];
 

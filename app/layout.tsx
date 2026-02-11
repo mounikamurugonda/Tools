@@ -1,20 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/Header';
-import { ThemeProvider } from '@/components/ThemeProvider';
-import Script from 'next/script';
-import ConditionalFooter from '@/components/ConditionalFooter';
-
-import React from 'react';
-import SmoothScrolling from '@/components/SmoothScrolling';
-import SessionProviderWrapper from '@/components/SessionProviderWrapper';
-
+import RootLayoutWrapper from '@/components/RootLayoutWrapper';
 import GoogleTagManager from '@/components/GoogleTagManager';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import GoogleAdSense from '@/components/GoogleAdSense';
-import Schema from '@/components/Schema';
-import { getNavigationSchema } from '@/lib/schema';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap', variable: '--font-inter' });
 
@@ -96,6 +86,9 @@ export const metadata: Metadata = {
   },
 };
 
+import { ThemeProvider } from '@/components/ThemeProvider';
+import SmoothScrolling from '@/components/SmoothScrolling';
+import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 import QueryProvider from '@/components/QueryProvider';
 
 export default function RootLayout({
@@ -153,13 +146,7 @@ export default function RootLayout({
           <ThemeProvider>
             <SessionProviderWrapper>
               <SmoothScrolling>
-                <div className="min-h-screen w-full flex flex-col transition-colors duration-300 pt-20">
-                  <Schema schema={getNavigationSchema()} />
-                  <Header />
-                  <main className="flex-grow flex flex-col">{children}</main>
-
-                  <ConditionalFooter />
-                </div>
+                <RootLayoutWrapper>{children}</RootLayoutWrapper>
               </SmoothScrolling>
             </SessionProviderWrapper>
           </ThemeProvider>

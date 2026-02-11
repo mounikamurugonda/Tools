@@ -95,9 +95,32 @@ const Header: React.FC = () => {
     {} as Record<ToolCategory, typeof TOOLS>
   );
 
+  const [isVisible, setIsVisible] = useState(true);
+
+  React.useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    const handleScroll = () => {
+      setIsVisible(true);
+      clearTimeout(timeoutId);
+
+      if (window.innerWidth < 768 && window.scrollY > 100) {
+        timeoutId = setTimeout(() => {
+          setIsVisible(false);
+        }, 3000);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
     <>
-      <header className="fixed left-0 top-0 right-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 h-20 transition-colors duration-300">
+      <header className={`fixed left-0 top-0 right-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 h-20 transition-all duration-300 ${!isVisible ? '-translate-y-full md:translate-y-0' : 'translate-y-0'}`}>
         <div className="w-full px-4 sm:px-6   h-full flex items-center justify-between gap-4">
           {/* Logo Area */}
           <Link

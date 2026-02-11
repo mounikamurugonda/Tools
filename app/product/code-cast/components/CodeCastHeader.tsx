@@ -30,7 +30,8 @@ import {
   Check,
   X,
   Camera,
-  CameraOff
+  CameraOff,
+  MoreVertical
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -48,6 +49,8 @@ import { FeatureGuard } from '@/components/FeatureGuard';
 import { ShareModal } from './ShareModal';
 import { useSession } from 'next-auth/react';
 import { Toast, ToastType } from '@/components/ui/Toast';
+import LoginButton from '@/components/LoginButton';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 // Internal reusable Tooltip Wrapper
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -104,6 +107,7 @@ export const CodeCastHeader = () => {
   const [shareUrl, setShareUrl] = useState('');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isSaveDropdownOpen, setIsSaveDropdownOpen] = useState(false);
+  const [isMobileActionsOpen, setIsMobileActionsOpen] = useState(false);
   const [saveName, setSaveName] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
@@ -417,7 +421,7 @@ export const CodeCastHeader = () => {
   const filteredOptions = getFilteredFrameOptions();
 
   return (
-    <header className="shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <header className="sticky top-0 shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
       <Toast
         message={toast.message}
         type={toast.type}
@@ -469,6 +473,159 @@ export const CodeCastHeader = () => {
         {/* Right: Mode Controls + Device + Recording */}
         <div className="flex items-center gap-1.5 md:gap-2">
 
+          {/* -------------------------------------------------------------------------- */
+            /*                       MOBILE: "MORE" MENU TRIGGER                       */
+            /* -------------------------------------------------------------------------- */
+          }
+          <div className="md:hidden relative">
+            <button
+              onClick={() => setIsMobileActionsOpen(!isMobileActionsOpen)}
+              className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
+              <MoreVertical size={20} />
+            </button>
+
+            {/* Mobile Actions Dropdown */}
+            {isMobileActionsOpen && (
+              <>
+                <div className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm" onClick={() => setIsMobileActionsOpen(false)} />
+                <div className="absolute top-full right-0 mt-2 w-56 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xl z-50 py-1 overflow-hidden">
+
+                  {/* Section: Edit Actions */}
+                  <div className="px-3 py-2 text-[10px] uppercase font-bold text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-800/50">
+                    Edit
+                  </div>
+                  <button
+                    onClick={() => {
+                      handleFormat();
+                      setIsMobileActionsOpen(false);
+                    }}
+                    className="w-full px-4 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                  >
+                    <Sparkles size={16} />
+                    <span>Format Code</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (activeTab && currentStore && currentStore.updateCode) {
+                        currentStore.updateCode('html', '');
+                        currentStore.updateCode('css', '');
+                        currentStore.updateCode('js', '');
+                        showToast('All code cleared', 'info');
+                      } else if (currentStore && currentStore.setCode) {
+                        currentStore.setCode({ html: '', css: '', js: '' });
+                        showToast('All code cleared', 'info');
+                      }
+                      setIsMobileActionsOpen(false);
+                    }}
+                    className="w-full px-4 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                  >
+                    <Trash2 size={16} />
+                    <span>Clear Code</span>
+                  </button>
+
+
+                  <div className="h-px bg-gray-100 dark:bg-gray-800 my-1" />
+
+                  {/* Section: View Actions */}
+                  <div className="px-3 py-2 text-[10px] uppercase font-bold text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-800/50">
+                    View
+                  </div>
+                  <button
+                    onClick={() => {
+                      setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }));
+                      setIsMobileActionsOpen(false);
+                    }}
+                    className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 transition-colors ${config.wordWrap ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
+                  >
+                    <WrapText size={16} />
+                    <span>{config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }));
+                      setIsMobileActionsOpen(false);
+                    }}
+                    className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 transition-colors ${config.lineNumbers ? 'text-blue-600 bg-blue-50 dark:bg-blue-900/20' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
+                  >
+                    <ListOrdered size={16} />
+                    <span>{config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}</span>
+                  </button>
+
+                  <div className="h-px bg-gray-100 dark:bg-gray-800 my-1" />
+
+                  {/* Section: File Actions */}
+                  <div className="px-3 py-2 text-[10px] uppercase font-bold text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-800/50">
+                    File
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setIsMobileActionsOpen(false);
+                      setIsDownloadDropdownOpen(true); // Open the download modal separately or handle download here?
+                      // Let's just trigger PNG download for simplicity or open the existing dropdown?
+                      // Actually, maybe better to show download options inline here?
+                      // For now let's just show "Download PNG"
+                      handleExport('png');
+                    }}
+                    className="w-full px-4 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                  >
+                    <Download size={16} />
+                    <span>Download PNG</span>
+                  </button>
+
+                  {(mode === 'animate' || mode === 'type') && session && (
+                    <>
+                      <button
+                        onClick={() => {
+                          setIsMobileActionsOpen(false);
+                          setIsSaveDropdownOpen(true);
+                        }}
+                        className="w-full px-4 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      >
+                        <Save size={16} />
+                        <span>Save Snippet</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setIsMobileActionsOpen(false);
+                          handleSave(true);
+                        }}
+                        className="w-full px-4 py-2 text-left text-sm flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 transition-colors"
+                      >
+                        <Share2 size={16} />
+                        <span>Share Snippet</span>
+                      </button>
+                    </>
+                  )}
+
+                  <div className="h-px bg-gray-100 dark:bg-gray-800 my-1" />
+
+                  {/* Section: View/System */}
+                  <div className="px-3 py-2 text-[10px] uppercase font-bold text-gray-400 dark:text-gray-600 bg-gray-50 dark:bg-gray-800/50">
+                    System
+                  </div>
+                  <div className="px-4 py-2 flex items-center justify-between">
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Theme</span>
+                    <ThemeSwitcher />
+                  </div>
+                  <div className="px-4 py-2">
+                    {/* Login Button might be complex to embed, let's just keep it in header or render here? 
+                           The header renders it. Let's keep it in header for now, or move it here.
+                           The user said "everything looks randomly placed".
+                           Let's keeping Login in main header is better for visibility. 
+                       */}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* -------------------------------------------------------------------------- */
+            /*                    DESKTOP: EXISTING CONTROLS (Hidden on Mobile)          */
+            /* -------------------------------------------------------------------------- */
+          }
+
           {/* Format Code - hidden on mobile */}
           <div className="hidden md:block">
             <TooltipWrapper label="Format Code">
@@ -481,7 +638,7 @@ export const CodeCastHeader = () => {
             </TooltipWrapper>
           </div>
 
-          {/* Clear All Code - hidden on mobile */}
+          {/* Clear All Code - hidden on mobile (Moved to Menu) */}
           <div className="hidden md:block">
             <TooltipWrapper label="Clear All Code">
               <button
@@ -492,7 +649,6 @@ export const CodeCastHeader = () => {
                     currentStore.updateCode('js', '');
                     showToast('All code cleared', 'info');
                   } else if (currentStore && currentStore.setCode) {
-                    // Fallback if updateCode isn't directly exposed or for safety
                     currentStore.setCode({ html: '', css: '', js: '' });
                     showToast('All code cleared', 'info');
                   }
@@ -506,6 +662,7 @@ export const CodeCastHeader = () => {
 
           {/* Text Wrap Toggle - hidden on mobile */}
           <div className="hidden md:block">
+            {/* ... existing Text Wrap button ... */}
             <TooltipWrapper label={config.wordWrap ? 'Disable Text Wrap' : 'Enable Text Wrap'}>
               <button
                 onClick={() => setConfig((prev: any) => ({ ...prev, wordWrap: !prev.wordWrap }))}
@@ -521,6 +678,7 @@ export const CodeCastHeader = () => {
 
           {/* Line Numbers Toggle - hidden on mobile */}
           <div className="hidden md:block">
+            {/* ... existing Line Numbers button ... */}
             <TooltipWrapper label={config.lineNumbers ? 'Hide Line Numbers' : 'Show Line Numbers'}>
               <button
                 onClick={() => setConfig((prev: any) => ({ ...prev, lineNumbers: !prev.lineNumbers }))}
@@ -595,9 +753,9 @@ export const CodeCastHeader = () => {
             )
           }
 
-          {/* Download Dropdown - Animate & Type modes */}
+          {/* Download Dropdown - Animate & Type modes - Hidden on Mobile */}
           {(mode === 'animate' || mode === 'type') && (
-            <div className="relative mr-1.5 md:mr-2">
+            <div className="relative mr-1.5 md:mr-2 hidden md:block">
               <TooltipWrapper label="Download Options">
                 <button
                   onClick={() => setIsDownloadDropdownOpen(!isDownloadDropdownOpen)}
@@ -656,7 +814,7 @@ export const CodeCastHeader = () => {
           )}
 
           {/* Device Frame Dropdown */}
-          <div className="relative">
+          <div className="relative hidden md:block">
             <TooltipWrapper label="Select Device Frame">
               <button
                 onClick={() => setIsDeviceDropdownOpen(!isDeviceDropdownOpen)}
@@ -754,81 +912,19 @@ export const CodeCastHeader = () => {
             )
           }
 
-          {/* Save & Share Buttons - Animate & Type modes, Only for logged in users */}
+          {/* Save & Share Buttons - Hidden on Mobile (Moved to Menu) */}
           {(mode === 'animate' || mode === 'type') && session && (
-            <div className="flex items-center gap-1.5 md:gap-2 mr-1.5 md:mr-2 border-r border-gray-200 dark:border-gray-800 pr-2">
+            <div className="hidden md:flex items-center gap-1.5 md:gap-2 mr-1.5 md:mr-2 border-r border-gray-200 dark:border-gray-800 pr-2">
               <div className="relative">
                 <TooltipWrapper label="Save Snippet">
                   <button
-                    onClick={() => setIsSaveDropdownOpen(!isSaveDropdownOpen)}
-                    className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${isSaveDropdownOpen
-                      ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400'
-                      : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'} disabled:opacity-50`}
+                    onClick={() => setIsSaveDropdownOpen(true)}
+                    className="w-9 h-9 flex items-center justify-center rounded-md transition-colors text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 disabled:opacity-50"
                     aria-label="Save"
                   >
                     <Save size={18} />
                   </button>
                 </TooltipWrapper>
-
-                {isSaveDropdownOpen && (
-                  <>
-                    <div className="fixed inset-0 z-10" onClick={() => setIsSaveDropdownOpen(false)} />
-                    <div className="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 shadow-xl z-20 p-4">
-                      <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-sm font-bold text-gray-900 dark:text-white">Save Snippet</h3>
-                        <button onClick={() => setIsSaveDropdownOpen(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
-                          <X size={16} />
-                        </button>
-                      </div>
-
-                      {saveStatus === 'success' ? (
-                        <div className="flex flex-col items-center justify-center py-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
-                          <div className="w-8 h-8 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mb-2">
-                            <Check size={16} className="text-green-600 dark:text-green-400" />
-                          </div>
-                          <span className="text-sm font-semibold text-green-700 dark:text-green-300">Snippet Saved!</span>
-                        </div>
-                      ) : (
-                        <div className="space-y-3">
-                          <div>
-                            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1">Name</label>
-                            <input
-                              type="text"
-                              value={saveName}
-                              onChange={(e) => setSaveName(e.target.value)}
-                              className="w-full text-sm px-3 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500/50"
-                              placeholder="Enter snippet name..."
-                            />
-                            <div className="flex items-start gap-2 py-2 ">
-                              <input
-                                type="checkbox"
-                                id="public-snippet"
-                                checked={isPublic}
-                                onChange={(e) => setIsPublic(e.target.checked)}
-                                className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-                              />
-                              <label htmlFor="public-snippet" className="text-xs text-gray-600 dark:text-gray-300">
-
-                                Let others discover and watch your creative snippet.
-                              </label>
-                            </div>
-                          </div>
-                          <button
-                            onClick={() => handleSave(false, saveName)}
-                            disabled={saveStatus === 'saving'}
-                            className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 rounded-md transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
-                          >
-                            {saveStatus === 'saving' ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-                            <span>Save Snippet</span>
-                          </button>
-                          {saveStatus === 'error' && (
-                            <p className="text-xs text-red-500 text-center">Failed to save. Please try again.</p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </>
-                )}
               </div>
 
               <TooltipWrapper label="Share Snippet">
@@ -920,6 +1016,14 @@ export const CodeCastHeader = () => {
               </div>
             )
           }
+
+          {/* Theme & Login */}
+          <div className="flex items-center gap-1 pl-1 ml-1 border-l border-gray-200 dark:border-gray-800">
+            <div className="hidden md:block">
+              <ThemeSwitcher />
+            </div>
+            <LoginButton />
+          </div>
         </div>
       </div>
 
@@ -944,6 +1048,82 @@ export const CodeCastHeader = () => {
           })}
         </div>
       </div>
+
+      {/* Save Modal */}
+      {
+        isSaveDropdownOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-xl border border-gray-200 dark:border-gray-800 w-full max-w-sm overflow-hidden animate-in fade-in zoom-in duration-200">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-800">
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white">Save Snippet</h3>
+                <button
+                  onClick={() => setIsSaveDropdownOpen(false)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 p-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <X size={16} />
+                </button>
+              </div>
+
+              <div className="p-4">
+                {saveStatus === 'success' ? (
+                  <div className="flex flex-col items-center justify-center py-6 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-100 dark:border-green-800">
+                    <div className="w-10 h-10 bg-green-100 dark:bg-green-800 rounded-full flex items-center justify-center mb-3">
+                      <Check size={20} className="text-green-600 dark:text-green-400" />
+                    </div>
+                    <span className="font-semibold text-green-700 dark:text-green-300">Snippet Saved!</span>
+                    <button
+                      onClick={() => setIsSaveDropdownOpen(false)}
+                      className="mt-4 text-xs text-green-700 dark:text-green-400 hover:underline"
+                    >
+                      Close
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5">Snippet Name</label>
+                      <input
+                        type="text"
+                        value={saveName}
+                        onChange={(e) => setSaveName(e.target.value)}
+                        className="w-full px-3 py-2 text-sm bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-md focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-colors"
+                        placeholder="My Awesome Snippet"
+                        autoFocus
+                      />
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-md border border-gray-100 dark:border-gray-800">
+                      <input
+                        type="checkbox"
+                        id="public-snippet"
+                        checked={isPublic}
+                        onChange={(e) => setIsPublic(e.target.checked)}
+                        className="mt-0.5 w-4 h-4 text-blue-600 rounded focus:ring-blue-500 border-gray-300 dark:border-gray-600"
+                      />
+                      <label htmlFor="public-snippet" className="text-xs text-gray-600 dark:text-gray-300 cursor-pointer">
+                        <span className="font-semibold block mb-0.5 text-gray-700 dark:text-gray-200">Make Public</span>
+                        Let others discover and watch your creative snippet in the library.
+                      </label>
+                    </div>
+
+                    <button
+                      onClick={() => handleSave(false, saveName)}
+                      disabled={saveStatus === 'saving' || !saveName.trim()}
+                      className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2.5 rounded-lg transition-colors disabled:opacity-70 disabled:cursor-not-allowed shadow-sm shadow-blue-600/20"
+                    >
+                      {saveStatus === 'saving' ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+                      <span>Save Snippet</span>
+                    </button>
+                    {saveStatus === 'error' && (
+                      <p className="text-xs text-red-500 text-center">Failed to save. Please try again.</p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )
+      }
       <ShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
