@@ -142,6 +142,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
     };
 
     const [isCopied, setIsCopied] = useState(false);
+    const [isPasted, setIsPasted] = useState(false);
 
     const handleCopy = async () => {
         const content = code[activeTab as keyof CodeSnippet];
@@ -156,6 +157,19 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
         }
     };
 
+    const handlePaste = async () => {
+        try {
+            const text = await navigator.clipboard.readText();
+            if (text && activeTab !== 'libs') {
+                updateCode(activeTab, text);
+                setIsPasted(true);
+                setTimeout(() => setIsPasted(false), 2000);
+            }
+        } catch (err) {
+            console.error('Failed to paste code:', err);
+        }
+    };
+
     // Force update options when isPlaying changes to ensure auto-formatting is disabled
     React.useEffect(() => {
         if (finalRef.current) {
@@ -166,9 +180,9 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                 autoSurround: isPlaying ? 'never' : 'languageDefined',
                 formatOnType: isPlaying ? false : true,
                 formatOnPaste: isPlaying ? false : true,
-                readOnly: false, // Ensure we can write to it even if playing (we write programmatically)
-                domReadOnly: false, // Explicitly allow DOM editing for paste
-                contextmenu: !isPlaying,
+                readOnly: false,
+                domReadOnly: false,
+                contextmenu: false,
             });
         }
     }, [isPlaying, finalRef]);
@@ -390,7 +404,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                         <button
                             onClick={handleCopy}
                             className={`
-                                flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-medium transition-all ml-2
+                                ml-auto flex items-center px-2 py-1 rounded text-[10px] font-medium transition-all
                                 ${config.isGlassStyle
                                     ? 'text-white/60 hover:text-white hover:bg-white/10'
                                     : isLight
@@ -402,7 +416,38 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                             title="Copy code"
                         >
                             {isCopied ? <Check size={12} /> : <Copy size={12} />}
-                            <span className="hidden sm:inline">{isCopied ? 'Copied!' : 'Copy'}</span>
+                        </button>
+                    )}
+
+                    {/* Paste Button */}
+                    {activeTab !== 'libs' && !isPlaying && !isRecording && (
+                        <button
+                            onClick={handlePaste}
+                            className={`
+                                flex items-center gap-1.5 px-2 py-1 rounded text-[10px] font-medium transition-all
+                                ${config.isGlassStyle
+                                    ? 'text-white/60 hover:text-white hover:bg-white/10'
+                                    : isLight
+                                        ? 'text-gray-500 hover:text-gray-900 hover:bg-gray-200/50'
+                                        : 'text-gray-400 hover:text-gray-200 hover:bg-white/5'
+                                }
+                                ${isPasted ? (isLight ? 'text-green-600' : 'text-green-400') : ''}
+                            `}
+                            title="Paste code"
+                        >
+                            <svg
+                                width="12"
+                                height="12"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                                <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
+                            </svg>
                         </button>
                     )}
                 </div>
@@ -567,7 +612,7 @@ export const CodeCastEditor: React.FC<CodeCastEditorProps> = ({
                                 folding: false,
                                 links: false,
                                 colorDecorators: false,
-                                contextmenu: !isPlaying,
+                                contextmenu: false,
                                 inlayHints: { enabled: 'off' },
 
                                 // Disable smart features during animation to prevent double indentation/closing

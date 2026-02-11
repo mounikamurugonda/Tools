@@ -31,7 +31,8 @@ import {
   X,
   Camera,
   CameraOff,
-  MoreVertical
+  MoreVertical,
+  AudioLines
 } from 'lucide-react';
 import {
   useAnimateStore,
@@ -47,6 +48,7 @@ import { useRecording } from '../context/RecordingContext';
 import * as htmlToImage from 'html-to-image';
 import { FeatureGuard } from '@/components/FeatureGuard';
 import { ShareModal } from './ShareModal';
+import { VoiceModal } from './VoiceModal';
 import { useSession } from 'next-auth/react';
 import { Toast, ToastType } from '@/components/ui/Toast';
 import LoginButton from '@/components/LoginButton';
@@ -111,6 +113,12 @@ export const CodeCastHeader = () => {
   const [saveName, setSaveName] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'success' | 'error'>('idle');
+
+  // Voice/TTS State
+  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
+  const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
+  const [speechText, setSpeechText] = useState('');
+  const [isSpeaking, setIsSpeaking] = useState(false);
 
   const queryClient = useQueryClient();
 
@@ -198,6 +206,31 @@ export const CodeCastHeader = () => {
       setSaveStatus('idle');
     }
   }, [isSaveDropdownOpen, currentStore]);
+
+  // Voice/TTS Handlers
+  const handleVoiceSave = (voice: SpeechSynthesisVoice | null, text: string) => {
+    setSelectedVoice(voice);
+    setSpeechText(text);
+  };
+
+  const startSpeech = useCallback(() => {
+    if (speechText && selectedVoice && !isSpeaking) {
+      window.speechSynthesis.cancel(); // Clear any existing speech
+      const utterance = new SpeechSynthesisUtterance(speechText);
+      utterance.voice = selectedVoice;
+      utterance.onstart = () => setIsSpeaking(true);
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      window.speechSynthesis.speak(utterance);
+    }
+  }, [speechText, selectedVoice, isSpeaking]);
+
+  // Effect to start speech when recording starts
+  React.useEffect(() => {
+    if (isRecording && !isPaused && speechText && selectedVoice) {
+      startSpeech();
+    }
+  }, [isRecording, isPaused, speechText, selectedVoice, startSpeech]);
 
   // Animate mode controls
   const handlePlayClick = useCallback(() => {
@@ -421,7 +454,7 @@ export const CodeCastHeader = () => {
   const filteredOptions = getFilteredFrameOptions();
 
   return (
-    <header className="sticky top-0 shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <header className="shrink-0 z-30 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
       <Toast
         message={toast.message}
         type={toast.type}
@@ -429,7 +462,7 @@ export const CodeCastHeader = () => {
         onClose={() => setToast(prev => ({ ...prev, isVisible: false }))}
       />
       {/* Row 1: Main controls */}
-      <div className="h-14 flex items-center justify-between px-4">
+      <div className="sticky top-0 bg-white dark:bg-gray-950 z-30 md:relative h-14 flex items-center justify-between px-4">
         {/* Left: Sidebar + Brand + Mode Switcher (desktop only) */}
         <div className="flex items-center gap-3">
           {/* Brand */}
@@ -959,6 +992,20 @@ export const CodeCastHeader = () => {
                   </TooltipWrapper>
                 )}
 
+                {/* Voice/TTS Button */}
+                <TooltipWrapper label="Voice Settings">
+                  <button
+                    onClick={() => setIsVoiceModalOpen(true)}
+                    className={`w-9 h-9 flex items-center justify-center rounded-md transition-colors ${speechText && selectedVoice
+                      ? 'text-purple-600 bg-purple-50 dark:bg-purple-900/20'
+                      : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                      }`}
+                  >
+                    <AudioLines size={20} />
+                  </button>
+                </TooltipWrapper>
+
+
                 <FeatureGuard actionName="use microphone">
                   <TooltipWrapper label={isMicEnabled ? 'Mic On' : 'Mic Off'}>
                     <button
@@ -1128,6 +1175,13 @@ export const CodeCastHeader = () => {
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
         url={shareUrl}
+      />
+      <VoiceModal
+        isOpen={isVoiceModalOpen}
+        onClose={() => setIsVoiceModalOpen(false)}
+        onSave={handleVoiceSave}
+        initialVoice={selectedVoice}
+        initialText={speechText}
       />
     </header >
   );
