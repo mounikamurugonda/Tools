@@ -42,10 +42,20 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
       <!DOCTYPE html>
       <html>
         <head>
+          ${getLibraryTags(libraries)}
           <style>
             /* Reset & Defaults */
-            html { background: transparent; }
-            body { margin: 0; padding: 0px; font-family: sans-serif; overflow-x: hidden; transition: all 0.3s ease-in-out; background-color: ${isGlassStyle ? 'transparent' : 'white'}; color: ${isGlassStyle ? 'white' : 'inherit'}; min-height: 100vh; }
+            html { background: transparent !important; }
+            body { 
+              margin: 0; 
+              padding: 0px; 
+              font-family: sans-serif; 
+              overflow-x: hidden; 
+              transition: all 0.3s ease-in-out; 
+              background-color: ${isGlassStyle ? 'transparent' : 'white'} !important; 
+              color: ${isGlassStyle ? 'white' : 'inherit'} !important; 
+              min-height: 100vh; 
+            }
             
             /* Custom Scrollbar for Glass Mode */
             ${isGlassStyle ? `
@@ -69,7 +79,6 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
               }
             ` : ''}
           </style>
-          ${getLibraryTags(libraries)}
           <style id="preview-css"></style>
         </head>
         <body>
@@ -159,17 +168,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
       style={{ transform: `scale(${scale})` }}
     >
       <div className={getFrameStyles()}>
-        {/* Browser Chrome Header (Always Visible) */}
-        <div className={`h-8 flex items-center px-3 gap-1.5 shrink-0 ${isGlassStyle ? 'bg-white/10 border-b border-white/20 backdrop-blur-md' : 'bg-gray-100 border-b border-gray-200'}`}>
-          <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-black/10"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E] border border-black/10"></div>
-          <div className="w-2.5 h-2.5 rounded-full bg-[#27C93F] border border-black/10"></div>
-          {device === 'browser' && (
-            <div className={`ml-4 flex-1 h-5 rounded border text-[10px] flex items-center px-2 truncate ${isGlassStyle ? 'bg-white/10 border-white/10 text-white/50' : 'bg-white border-gray-200 text-gray-400'}`}>
-              localhost:3000
-            </div>
-          )}
-        </div>
+
 
         <iframe
           ref={iframeRef}

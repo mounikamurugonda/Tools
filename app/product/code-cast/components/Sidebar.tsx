@@ -65,10 +65,6 @@ const Sidebar: React.FC = () => {
 
     // Initial fetch
     fetchSnippetCount();
-
-    // Poll every 5 seconds to keep count updated since we don't have a global snippets store yet
-    const interval = setInterval(fetchSnippetCount, 5000);
-    return () => clearInterval(interval);
   }, []);
 
   React.useEffect(() => {

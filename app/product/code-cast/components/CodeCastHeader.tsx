@@ -405,16 +405,16 @@ export const CodeCastHeader = () => {
       };
 
       if (activeTab === 'html') {
-        // @ts-ignore
-        const { html_beautify } = await import('js-beautify/js/lib/beautify-html.js');
+        const beautifyModule = await import('js-beautify');
+        const html_beautify = beautifyModule.html || (beautifyModule.default as any).html;
         formatted = html_beautify(code.html, options);
       } else if (activeTab === 'css') {
-        // @ts-ignore
-        const { css_beautify } = await import('js-beautify/js/lib/beautify-css.js');
+        const beautifyModule = await import('js-beautify');
+        const css_beautify = beautifyModule.css || (beautifyModule.default as any).css;
         formatted = css_beautify(code.css, options);
       } else if (activeTab === 'js') {
-        // @ts-ignore
-        const { js_beautify } = await import('js-beautify/js/lib/beautify.js');
+        const beautifyModule = await import('js-beautify');
+        const js_beautify = beautifyModule.js || (beautifyModule.default as any).js;
         formatted = js_beautify(code.js, options);
       }
 
