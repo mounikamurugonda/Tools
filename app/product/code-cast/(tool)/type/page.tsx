@@ -120,6 +120,7 @@ function TypePageContent() {
         }}
         onDownload={downloadRecording}
         recordingTime={recordingTime}
+        code={code}
       />
     </div>
   );

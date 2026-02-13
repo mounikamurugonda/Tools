@@ -1,13 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
-import ToolContainer from '@/components/ToolContainer';
-import CopyButton from '@/components/CopyButton';
-import TextArea from '@/components/ui/TextArea';
-import Label from '@/components/ui/Label';
+import ConverterLayout from '@/components/ConverterLayout';
 import Button from '@/components/ui/Button';
-import { ArrowLeftRight, Trash2 } from 'lucide-react';
+import { ArrowLeftRight } from 'lucide-react';
 
 type ConversionMode = 'json-to-yaml' | 'yaml-to-json';
 
@@ -17,35 +14,37 @@ const JsonYamlConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
 
+  // Keep existing logic
   const jsonToYaml = (jsonStr: string) => {
-    const obj = JSON.parse(jsonStr);
+    try {
+      const obj = JSON.parse(jsonStr);
+      // Simple recursive stringifier
+      const toYaml = (data: any, indent = 0): string => {
+        const space = '  '.repeat(indent);
+        if (data === null) return 'null';
+        if (typeof data !== 'object') return String(data);
 
-    // Simple recursive stringifier
-    const toYaml = (data: any, indent = 0): string => {
-      const space = '  '.repeat(indent);
-      if (data === null) return 'null';
-      if (typeof data !== 'object') return String(data);
+        if (Array.isArray(data)) {
+          return data
+            .map(
+              item =>
+                `${space}- ${typeof item === 'object' ? '\n' + toYaml(item, indent + 1) : String(item)}`
+            )
+            .join('\n');
+        }
 
-      if (Array.isArray(data)) {
-        return data
-          .map(
-            item =>
-              `${space}- ${typeof item === 'object' ? '\n' + toYaml(item, indent + 1) : String(item)}`
-          )
+        return Object.entries(data)
+          .map(([key, value]) => {
+            if (typeof value === 'object' && value !== null) {
+              return `${space}${key}:\n${toYaml(value, indent + 1)}`;
+            }
+            return `${space}${key}: ${value}`;
+          })
           .join('\n');
-      }
+      };
 
-      return Object.entries(data)
-        .map(([key, value]) => {
-          if (typeof value === 'object' && value !== null) {
-            return `${space}${key}:\n${toYaml(value, indent + 1)}`;
-          }
-          return `${space}${key}: ${value}`;
-        })
-        .join('\n');
-    };
-
-    return toYaml(obj);
+      return toYaml(obj);
+    } catch (e) { throw e; }
   };
 
   const yamlToJson = (yamlStr: string) => {
@@ -74,88 +73,65 @@ const JsonYamlConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       if (mode === 'json-to-yaml') {
         result = jsonToYaml(input);
       } else {
-        const obj = yamlToJson(input);
+        const obj = yamlToJson(input); // This is basic custom parser
         result = JSON.stringify(obj, null, 2);
       }
       setOutput(result);
     } catch (e) {
-      setError(
-        'Conversion failed. Input format might be invalid or too complex for this basic parser.'
-      );
-      setOutput('');
+      // Don't clear output on intermediate error?
+      // setError('Conversion failed.'); 
+      // setOutput('');
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      handleConvert();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [input, mode]);
 
   const swapMode = () => {
     const newMode = mode === 'json-to-yaml' ? 'yaml-to-json' : 'json-to-yaml';
     setMode(newMode);
-    if (output && !error) {
-      setInput(output);
-      setOutput('');
-    } else {
-      if (newMode === 'json-to-yaml') setInput('{"name": "John", "age": 30}');
-      else setInput('name: John\nage: 30');
-      setOutput('');
-    }
+    setInput(output); // simple swap logic
+    // Auto-convert will trigger on new input
   };
 
+  const headerOptions = (
+    <div className="flex items-center gap-4 p-4 border-b border-gray-200 dark:border-gray-800">
+      <Button onClick={swapMode} variant="secondary" className="w-full sm:w-auto" title="Swap Mode">
+        <ArrowLeftRight className="w-4 h-4 mr-2" />
+        Swap: {mode === 'json-to-yaml' ? 'JSON → YAML' : 'YAML → JSON'}
+      </Button>
+    </div>
+  );
+
   return (
-    <ToolContainer title="JSON <> YAML Converter" details={details} toolId={toolId}>
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <Button onClick={swapMode} variant="outline" className="w-full sm:w-auto">
-            <ArrowLeftRight className="w-4 h-4 mr-2" />
-            {mode === 'json-to-yaml' ? 'Switch to YAML to JSON' : 'Switch to JSON to YAML'}
-          </Button>
-
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Button onClick={handleConvert} variant="primary" className="flex-1 sm:flex-none">
-              Convert
-            </Button>
-            <Button onClick={() => setInput('')} variant="ghost">
-              <Trash2 className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label>{mode === 'json-to-yaml' ? 'JSON Input' : 'YAML Input'}</Label>
-            <div className="relative">
-              <TextArea
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                className="h-96 resize-none font-mono text-sm"
-                placeholder="Enter data here..."
-              />
-              {input && (
-                <div className="absolute top-2 right-2">
-                  <CopyButton textToCopy={input} />
-                </div>
-              )}
-            </div>
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-          </div>
-
-          <div className="space-y-2">
-            <Label>{mode === 'json-to-yaml' ? 'YAML Output' : 'JSON Output'}</Label>
-            <div className="relative">
-              <TextArea
-                value={output}
-                readOnly
-                className="h-96 resize-none font-mono text-sm bg-gray-50 dark:bg-gray-900"
-                placeholder="Result..."
-              />
-              {output && (
-                <div className="absolute top-2 right-2">
-                  <CopyButton textToCopy={output} />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </ToolContainer>
+    <ConverterLayout
+      title="JSON <> YAML Converter"
+      details={details}
+      toolId={toolId}
+      options={headerOptions}
+      actions={null}
+      editorInput={{
+        value: input,
+        onChange: setInput,
+        language: mode === 'json-to-yaml' ? 'json' : 'yaml',
+        label: mode === 'json-to-yaml' ? 'JSON Input' : 'YAML Input',
+        fileUpload: true,
+        acceptFileTypes: mode === 'json-to-yaml' ? '.json,.txt' : '.yaml,.yml,.txt',
+        placeholder: `Paste ${mode === 'json-to-yaml' ? 'JSON' : 'YAML'} here...`,
+        clearable: true,
+      }}
+      editorOutput={{
+        value: output,
+        language: mode === 'json-to-yaml' ? 'yaml' : 'json',
+        label: mode === 'json-to-yaml' ? 'YAML Output' : 'JSON Output',
+        readOnly: true,
+        placeholder: 'Result will appear here...',
+      }}
+    />
   );
 };
 

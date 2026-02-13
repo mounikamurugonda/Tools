@@ -588,7 +588,7 @@ const Sidebar: React.FC = () => {
                                       <Volume2 size={10} /> Volume
                                     </span>
                                     <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
-                                      {Math.round(config.audioVolume * 100)}%
+                                      {Math.round((config.audioVolume ?? 0.5) * 100)}%
                                     </span>
                                   </div>
                                   <input
@@ -596,7 +596,7 @@ const Sidebar: React.FC = () => {
                                     min="0"
                                     max="1"
                                     step="0.05"
-                                    value={config.audioVolume}
+                                    value={config.audioVolume ?? 0.5}
                                     onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioVolume: parseFloat(e.target.value) }))}
                                     className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
                                   />
@@ -609,7 +609,7 @@ const Sidebar: React.FC = () => {
                                       <PlayCircle size={10} /> Start Offset (sec)
                                     </span>
                                     <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
-                                      {config.audioStartTime}s
+                                      {config.audioStartTime ?? 0}s
                                     </span>
                                   </div>
                                   <input
@@ -617,7 +617,7 @@ const Sidebar: React.FC = () => {
                                     min="0"
                                     max="60"
                                     step="0.5"
-                                    value={config.audioStartTime}
+                                    value={config.audioStartTime ?? 0}
                                     onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioStartTime: parseFloat(e.target.value) }))}
                                     className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
                                   />
@@ -630,7 +630,7 @@ const Sidebar: React.FC = () => {
                                       <Sliders size={10} /> Fade In/Out
                                     </span>
                                     <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
-                                      {config.audioFadeDuration}s
+                                      {config.audioFadeDuration ?? 0}s
                                     </span>
                                   </div>
                                   <input
@@ -638,7 +638,7 @@ const Sidebar: React.FC = () => {
                                     min="0"
                                     max="5"
                                     step="0.5"
-                                    value={config.audioFadeDuration}
+                                    value={config.audioFadeDuration ?? 0}
                                     onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioFadeDuration: parseFloat(e.target.value) }))}
                                     className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
                                   />
@@ -651,7 +651,7 @@ const Sidebar: React.FC = () => {
                                       <Gauge size={10} /> Speed
                                     </span>
                                     <span className="text-[10px] font-mono text-gray-700 dark:text-gray-300">
-                                      {config.audioPlaybackRate}x
+                                      {config.audioPlaybackRate ?? 1.0}x
                                     </span>
                                   </div>
                                   <input
@@ -659,7 +659,7 @@ const Sidebar: React.FC = () => {
                                     min="0.5"
                                     max="2.0"
                                     step="0.1"
-                                    value={config.audioPlaybackRate}
+                                    value={config.audioPlaybackRate ?? 1.0}
                                     onChange={(e) => setConfig((p: AppConfig) => ({ ...p, audioPlaybackRate: parseFloat(e.target.value) }))}
                                     className="w-full h-1 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer slider-thumb-sm"
                                   />

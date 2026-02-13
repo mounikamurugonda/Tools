@@ -88,7 +88,7 @@ export const CodeCastHeader = () => {
   const imageStore = useImageStore();
 
   const currentStore = mode === 'animate' ? animateStore : mode === 'type' ? typeStore : imageStore;
-  const { config, setConfig, isPlaying, setIsPlaying, isPaused: isAnimationPaused, setIsPaused: setIsAnimationPaused, code, setActiveTab, activeTab } =
+  const { config, setConfig, isPlaying, setIsPlaying, isPaused: isAnimationPaused, setIsPaused: setIsAnimationPaused, code, setActiveTab, activeTab, audioFile } =
     currentStore as any;
 
   // Image Store Specific Props
@@ -214,6 +214,11 @@ export const CodeCastHeader = () => {
   };
 
   const startSpeech = useCallback(() => {
+    if (audioFile) {
+      showToast('Voiceover disabled because background music is active', 'info');
+      return;
+    }
+
     if (speechText && selectedVoice && !isSpeaking) {
       window.speechSynthesis.cancel(); // Clear any existing speech
       const utterance = new SpeechSynthesisUtterance(speechText);
@@ -223,14 +228,14 @@ export const CodeCastHeader = () => {
       utterance.onerror = () => setIsSpeaking(false);
       window.speechSynthesis.speak(utterance);
     }
-  }, [speechText, selectedVoice, isSpeaking]);
+  }, [speechText, selectedVoice, isSpeaking, audioFile]);
 
   // Effect to start speech when recording starts
   React.useEffect(() => {
-    if (isRecording && !isPaused && speechText && selectedVoice) {
+    if (isRecording && !isPaused && speechText && selectedVoice && !audioFile) {
       startSpeech();
     }
-  }, [isRecording, isPaused, speechText, selectedVoice, startSpeech]);
+  }, [isRecording, isPaused, speechText, selectedVoice, startSpeech, audioFile]);
 
   // Animate mode controls
   const handlePlayClick = useCallback(() => {

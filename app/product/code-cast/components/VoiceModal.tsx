@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { X, AudioLines } from 'lucide-react';
+import { X, AudioLines, Sparkles, Loader2 } from 'lucide-react';
+import { useAnimateStore, useTypeStore } from '../store/useCodeCastStore';
+import { usePathname } from 'next/navigation';
+import { generateVoiceoverScript } from '../utils/sarvamAI';
 
 interface VoiceModalProps {
     isOpen: boolean;
@@ -19,13 +22,23 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
     const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(initialVoice);
     const [speechText, setSpeechText] = useState(initialText);
+    const [isGenerating, setIsGenerating] = useState(false);
+    const pathname = usePathname();
+
+    // Determine current store to get code
+    const animateStore = useAnimateStore();
+    const typeStore = useTypeStore();
+    const mode = pathname?.includes('/animate') ? 'animate' : 'type';
+    const currentStore = mode === 'animate' ? animateStore : typeStore;
 
     useEffect(() => {
         const loadVoices = () => {
+            // ... existing loadVoices logic
             const availableVoices = window.speechSynthesis.getVoices();
             setVoices(availableVoices);
             if (!selectedVoice && availableVoices.length > 0) {
-                setSelectedVoice(availableVoices[0]);
+                const defaultVoice = availableVoices.find(v => v.default) || availableVoices[0];
+                setSelectedVoice(defaultVoice);
             }
         };
 
@@ -36,6 +49,14 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
             window.speechSynthesis.onvoiceschanged = null;
         };
     }, []);
+
+    // Update speechText if initialText changes when reopening
+    useEffect(() => {
+        if (isOpen) {
+            setSpeechText(initialText);
+        }
+    }, [isOpen, initialText]);
+
 
     const handleSave = () => {
         onSave(selectedVoice, speechText);
@@ -48,6 +69,24 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
             const utterance = new SpeechSynthesisUtterance(speechText);
             utterance.voice = selectedVoice;
             window.speechSynthesis.speak(utterance);
+        }
+    };
+
+    const handleGenerateVoiceover = async () => {
+        if (!currentStore.code.html && !currentStore.code.css) {
+            alert("Please add some HTML or CSS code first.");
+            return;
+        }
+
+        setIsGenerating(true);
+        try {
+            const script = await generateVoiceoverScript(currentStore.code.html, currentStore.code.css);
+            setSpeechText(script);
+        } catch (error) {
+            console.error("Failed to generate voiceover", error);
+            alert("Failed to generate voiceover. Please check your API key.");
+        } finally {
+            setIsGenerating(false);
         }
     };
 
@@ -95,9 +134,24 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
 
                     {/* Speech Text */}
                     <div>
-                        <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400 mb-1.5">
-                            Speech Text
-                        </label>
+                        <div className="flex items-center justify-between mb-1.5">
+                            <label className="block text-xs font-semibold text-gray-500 dark:text-gray-400">
+                                Speech Text
+                            </label>
+
+                            <button
+                                onClick={handleGenerateVoiceover}
+                                disabled={isGenerating}
+                                className="flex items-center gap-1.5 text-[10px] font-bold text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors disabled:opacity-50"
+                            >
+                                {isGenerating ? (
+                                    <Loader2 size={12} className="animate-spin" />
+                                ) : (
+                                    <Sparkles size={12} />
+                                )}
+                                <span>Generate with AI</span>
+                            </button>
+                        </div>
                         <textarea
                             value={speechText}
                             onChange={(e) => setSpeechText(e.target.value)}
@@ -129,3 +183,4 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
         </div>
     );
 };
+

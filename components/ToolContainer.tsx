@@ -19,6 +19,8 @@ interface ToolContainerProps {
   details: ToolDetails;
   toolId?: string;
   headerContent?: React.ReactNode;
+  suppressRecommendations?: boolean;
+  variant?: 'card' | 'transparent';
 }
 
 const ToolContainer: React.FC<ToolContainerProps> = ({
@@ -27,6 +29,8 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
   details,
   toolId,
   headerContent,
+  suppressRecommendations,
+  variant = 'card',
 }) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { favorites, isFavorite, toggleFavorite } = useFavoritesStore();
@@ -70,10 +74,13 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
     ? TOOLS.filter(tool => tool.category === currentToolCategory && tool.id !== toolId)
     : [];
 
+  /* Recommended Tools */
+  const showRecommendations = !suppressRecommendations && recommendedTools.length > 0;
+
   return (
-    <div className="animate-fade-in space-y-4">
+    <div className="animate-fade-in space-y-2">
       {/* Header */}
-      <div className="flex justify-between items-center pb-4 border-b border-gray-200 dark:border-gray-800 gap-4">
+      <div className="flex justify-between items-center  ">
         <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400">
           {title}
         </h1>
@@ -97,7 +104,10 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
       </div>
 
       {/* Main Tool Area */}
-      <div className="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in-up relative z-20">
+      <div className={variant === 'transparent'
+        ? "animate-fade-in-up relative z-20"
+        : "bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 animate-fade-in-up relative z-20"
+      }>
         {children}
       </div>
 
@@ -118,7 +128,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
       )}
 
       {/* Recommended Tools */}
-      {recommendedTools.length > 0 && (
+      {showRecommendations && (
         <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 animate-fade-in delay-300">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">

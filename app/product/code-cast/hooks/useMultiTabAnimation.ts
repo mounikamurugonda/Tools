@@ -15,6 +15,7 @@ interface UseMultiTabAnimationProps {
     setIsPaused: (isPaused: boolean) => void;
     editorRef: React.MutableRefObject<any>;
     audioFile?: File | null;
+    isRecording: boolean; // Added isRecording prop
 }
 
 export const useMultiTabAnimation = ({
@@ -28,6 +29,7 @@ export const useMultiTabAnimation = ({
     setIsPaused,
     editorRef,
     audioFile,
+    isRecording, // Destructure isRecording
 }: UseMultiTabAnimationProps) => {
     // Animation refs
     const animationTimerRef = useRef<number | null>(null);
@@ -37,20 +39,21 @@ export const useMultiTabAnimation = ({
     const isPausedRef = useRef(isPaused);
     const audioRef = useRef<HTMLAudioElement | null>(null);
     const bgAudioRef = useRef<HTMLAudioElement | null>(null);
+    const isRecordingRef = useRef(isRecording);
 
     // State tracking refs (to support pause/resume)
     const sequenceIndexRef = useRef(0);
     const charIndexRef = useRef(0);
     const lastUpdateRef = useRef(0); // For throttling
 
-    // Sync typing speed ref with config
+    // Sync refs
     useEffect(() => {
         typingSpeedRef.current = config.typingSpeed;
-    }, [config.typingSpeed]);
+        isRecordingRef.current = isRecording;
+    }, [config.typingSpeed, isRecording]);
 
-    // Initialize audio
+    // Initialize audio (Typing Sound) - Unchanged
     useEffect(() => {
-        // Only create audio if we are in browser environment
         if (typeof window !== 'undefined') {
             audioRef.current = new Audio('/keyboard-typing.mp3');
             audioRef.current.loop = true;
@@ -63,22 +66,15 @@ export const useMultiTabAnimation = ({
         };
     }, []);
 
-    // Initialize bg audio
+    // Initialize bg audio - Unchanged
     useEffect(() => {
         if (audioFile && typeof window !== 'undefined') {
             const url = URL.createObjectURL(audioFile);
             const audio = new Audio(url);
-            // Use config for loop (default true)
             audio.loop = config.audioLoop !== undefined ? config.audioLoop : true;
-
-            // Set initial volume immediately
             audio.volume = config.audioVolume !== undefined ? config.audioVolume : 0.5;
-
-            // Set initial playback rate
             audio.playbackRate = config.audioPlaybackRate !== undefined ? config.audioPlaybackRate : 1.0;
-            // Preserves pitch on speed change (optional but usually better for music, set false if you want chipmunk effect)
             audio.preservesPitch = true;
-
             bgAudioRef.current = audio;
 
             return () => {
@@ -92,9 +88,9 @@ export const useMultiTabAnimation = ({
                 bgAudioRef.current = null;
             }
         }
-    }, [audioFile]); // Only re-init if file changes. Config updates handled by separate effect.
+    }, [audioFile]);
 
-    // Dynamic Audio Updates (Volume/Speed/Loop) without stopping
+    // Dynamic Audio Updates - Unchanged
     useEffect(() => {
         if (bgAudioRef.current) {
             bgAudioRef.current.volume = config.audioVolume !== undefined ? config.audioVolume : 0.5;
@@ -102,6 +98,67 @@ export const useMultiTabAnimation = ({
             bgAudioRef.current.loop = config.audioLoop !== undefined ? config.audioLoop : true;
         }
     }, [config.audioVolume, config.audioPlaybackRate, config.audioLoop]);
+
+    // NEW: Handle Background Music Playback (Synced with Recording)
+    useEffect(() => {
+        if (!bgAudioRef.current) return;
+
+        if (isRecording && !isPaused) {
+            // START / RESUME Music
+            if (bgAudioRef.current.paused) {
+                // If starting fresh (currentTime is 0), apply start time and fade
+                if (bgAudioRef.current.currentTime === 0 || bgAudioRef.current.currentTime === config.audioStartTime) {
+                    bgAudioRef.current.currentTime = config.audioStartTime || 0;
+
+                    // Handle Fade In
+                    if (config.audioFadeDuration && config.audioFadeDuration > 0) {
+                        bgAudioRef.current.volume = 0;
+                        const targetVol = config.audioVolume !== undefined ? config.audioVolume : 0.5;
+                        const fadeTime = config.audioFadeDuration * 1000;
+                        const steps = 20;
+                        const stepTime = fadeTime / steps;
+                        const volStep = targetVol / steps;
+
+                        let currentStep = 0;
+                        const fadeInterval = setInterval(() => {
+                            if (!bgAudioRef.current) {
+                                clearInterval(fadeInterval);
+                                return;
+                            }
+                            currentStep++;
+                            const newVol = Math.min(volStep * currentStep, targetVol);
+                            bgAudioRef.current.volume = newVol;
+
+                            if (currentStep >= steps) {
+                                clearInterval(fadeInterval);
+                            }
+                        }, stepTime);
+                    } else {
+                        bgAudioRef.current.volume = config.audioVolume !== undefined ? config.audioVolume : 0.5;
+                    }
+                }
+
+                bgAudioRef.current.play().catch(e => console.error("BG Audio play failed", e));
+            }
+        } else {
+            // PAUSE / STOP Music
+            if (!bgAudioRef.current.paused) {
+                bgAudioRef.current.pause();
+            }
+            if (!isRecording) {
+                // Reset if recording stopped
+                bgAudioRef.current.currentTime = config.audioStartTime || 0;
+            }
+        }
+    }, [isRecording, isPaused, config.audioStartTime, config.audioFadeDuration, config.audioVolume]);
+
+    // Handle Animation Loop & Typing Sound (Synced with isPlaying)
+    // Removed BG Audio logic from here
+    // Updated Typing Sound logic to be mutually exclusive with BG Audio if desired,
+    // BUT User said "if background is uploaded make sure voice over is not playing".
+    // "Voice over" likely means TTS. User didn't say "don't play typing sound".
+    // However, usually typing sound + music is fine.
+    // I will keep typing sound enabled for animation unless configured otherwise.
 
     const stopAnimation = useCallback(() => {
         if (animationTimerRef.current) {
@@ -164,7 +221,7 @@ export const useMultiTabAnimation = ({
                     const now = Date.now();
                     const isLastChar = charIndexRef.current === fullText.length - 1;
 
-                    if (isLastChar || now - lastUpdateRef.current > 100) {
+                    if (isLastChar || now - lastUpdateRef.current > 250) {
                         updateCode(currentTabId, editorRef.current.getValue());
                         lastUpdateRef.current = now;
                     }
@@ -185,36 +242,6 @@ export const useMultiTabAnimation = ({
         runLoop();
     }, [stopAnimation, setActiveTab, updateCode, editorRef]);
 
-    // Robust cleanup on unmount or when stopping
-    useEffect(() => {
-        return () => {
-            // Stop timer
-            if (animationTimerRef.current) {
-                window.clearTimeout(animationTimerRef.current);
-            }
-
-            // Stop audio
-            if (audioRef.current) {
-                audioRef.current.pause();
-                audioRef.current.currentTime = 0;
-            }
-            if (bgAudioRef.current) {
-                bgAudioRef.current.pause();
-                bgAudioRef.current.currentTime = 0;
-            }
-
-            // If playing on unmount, force stop and restore code to prevent data loss or stuck state
-            if (isPlayingRef.current) {
-                // If we were just paused, restore anyway on unmount
-                setIsPlaying(false);
-                const backup = fullBackupRef.current;
-                updateCode('html', backup.html);
-                updateCode('css', backup.css);
-                updateCode('js', backup.js);
-            }
-        };
-    }, [setIsPlaying, updateCode]);
-
     // Trigger animation when isPlaying or isPaused changes
     useEffect(() => {
         const wasPlaying = isPlayingRef.current;
@@ -223,64 +250,25 @@ export const useMultiTabAnimation = ({
         isPlayingRef.current = isPlaying;
         isPausedRef.current = isPaused;
 
-        // CASE 1: Start Animation (from stopped state)
+        // CASE 1: Start Animation
         if (!wasPlaying && isPlaying) {
-            // Prioritize BG Audio if present
-            if (bgAudioRef.current) {
-                bgAudioRef.current.currentTime = config.audioStartTime || 0;
+            // Typing Sound
+            // NEW: Don't play typing sound if background music or voiceover is active
+            const isBgMusicActive = isRecording && !!bgAudioRef.current;
+            const isSpeaking = typeof window !== 'undefined' && window.speechSynthesis.speaking;
 
-                // Handle Fade In
-                if (config.audioFadeDuration && config.audioFadeDuration > 0) {
-                    bgAudioRef.current.volume = 0;
-                    const targetVol = config.audioVolume !== undefined ? config.audioVolume : 0.5;
-
-                    // Simple Fade In
-                    const fadeTime = config.audioFadeDuration * 1000;
-                    const steps = 20;
-                    const stepTime = fadeTime / steps;
-                    const volStep = targetVol / steps;
-
-                    let currentStep = 0;
-                    const fadeInterval = setInterval(() => {
-                        if (!bgAudioRef.current) {
-                            clearInterval(fadeInterval);
-                            return;
-                        }
-                        currentStep++;
-                        const newVol = Math.min(volStep * currentStep, targetVol);
-                        bgAudioRef.current.volume = newVol;
-
-                        if (currentStep >= steps) {
-                            clearInterval(fadeInterval);
-                        }
-                    }, stepTime);
-                } else {
-                    bgAudioRef.current.volume = config.audioVolume !== undefined ? config.audioVolume : 0.5;
-                }
-
-                // Apply Playback Rate
-                bgAudioRef.current.playbackRate = config.audioPlaybackRate !== undefined ? config.audioPlaybackRate : 1.0;
-
-                bgAudioRef.current.play().catch(e => console.error("BG Audio play failed", e));
-                // Do NOT play keyboard sound
-            }
-            else if (config.soundEnabled && audioRef.current) {
+            if (config.soundEnabled && audioRef.current && !isBgMusicActive && !isSpeaking) {
                 audioRef.current.currentTime = 0;
                 audioRef.current.play().catch(e => console.error("Audio play failed", e));
             }
 
             // Capture target state
-            // Normalize line endings to \n to prevent issues with \r\n causing double-typing or extra lines
             const target = {
                 html: code.html.replace(/\r\n/g, '\n').replace(/\r/g, '\n'),
                 css: code.css.replace(/\r\n/g, '\n').replace(/\r/g, '\n'),
                 js: code.js.replace(/\r\n/g, '\n').replace(/\r/g, '\n'),
             };
             fullBackupRef.current = target;
-
-            // Clear code (unless we want to support resuming from stopped, but "Stop" usually implies reset)
-            // Current requirement: "continue from where it was stopped" -> implies Pause.
-            // "Stop" resets. "Pause" holds.
 
             updateCode('html', '');
             updateCode('css', '');
@@ -291,24 +279,20 @@ export const useMultiTabAnimation = ({
 
             startAnimationLoop(target);
         }
-        // CASE 2: Resume Animation (from paused state)
+        // CASE 2: Resume Animation
         else if (wasPlaying && isPlaying && wasPaused && !isPaused) {
-            if (bgAudioRef.current) {
-                bgAudioRef.current.play().catch(e => console.error("BG Audio resume failed", e));
-            }
-            else if (config.soundEnabled && audioRef.current) {
+            const isBgMusicActive = isRecording && !!bgAudioRef.current;
+            const isSpeaking = typeof window !== 'undefined' && window.speechSynthesis.speaking;
+
+            if (config.soundEnabled && audioRef.current && !isBgMusicActive && !isSpeaking) {
                 audioRef.current.play().catch(e => console.error("Audio resume failed", e));
             }
-            // Resume loop with existing refs
             startAnimationLoop(fullBackupRef.current);
         }
         // CASE 3: Pause Animation
         else if (isPlaying && isPaused) {
             if (audioRef.current) {
                 audioRef.current.pause();
-            }
-            if (bgAudioRef.current) {
-                bgAudioRef.current.pause();
             }
             if (animationTimerRef.current) {
                 window.clearTimeout(animationTimerRef.current);
@@ -321,11 +305,6 @@ export const useMultiTabAnimation = ({
                 audioRef.current.pause();
                 audioRef.current.currentTime = 0;
             }
-            if (bgAudioRef.current) {
-                bgAudioRef.current.pause();
-                bgAudioRef.current.currentTime = 0;
-            }
-            // Clear timer logic handled by cleanup/callback usually, but ensure here
             if (animationTimerRef.current) {
                 window.clearTimeout(animationTimerRef.current);
                 animationTimerRef.current = null;
@@ -336,16 +315,8 @@ export const useMultiTabAnimation = ({
             updateCode('css', fullBackupRef.current.css);
             updateCode('js', fullBackupRef.current.js);
         }
-    }, [isPlaying, isPaused, config.soundEnabled, stopAnimation, updateCode, setActiveTab, code, startAnimationLoop]); // Added isPaused and startAnimationLoop
-    // Actually, 'code' changing *while* playing shouldn't restart. 
-    // But we need to capture `code` at the *moment* isPlaying becomes true.
-    // The effect runs when isPlaying changes. At that moment, `code` is the valid code.
+    }, [isPlaying, isPaused, config.soundEnabled, stopAnimation, updateCode, setActiveTab, code, startAnimationLoop, isRecording]);
 
-    // NOTE: If 'code' is in dependencies, any update (e.g. typing) would re-trigger this effect.
-    // But we have `if (!wasPlaying && isPlaying)`. 
-    // If `isPlaying` is true and `code` updates, `wasPlaying` is true, so it hits the `else if`.
-    // `wasPlaying && !isPlaying` would be false (true && false).
-    // So standard updates won't trigger restart or stop. Safe.
 
     const handleAnimate = useCallback(() => {
         if (isPlaying) {

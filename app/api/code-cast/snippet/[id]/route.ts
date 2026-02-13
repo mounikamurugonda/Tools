@@ -29,6 +29,7 @@ export async function GET(
         return NextResponse.json({
             snippet: {
                 id: data.id,
+                short_id: data.short_id,
                 type: data.type,
                 title: data.title,
                 code: {

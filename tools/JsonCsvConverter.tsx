@@ -2,15 +2,14 @@
 
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
-import ToolContainer from '@/components/ToolContainer';
+import ConverterLayout from '@/components/ConverterLayout';
 import CopyButton from '@/components/CopyButton';
-import TextArea from '@/components/ui/TextArea';
+import MonacoLiteEditor from '@/components/MonacoLiteEditor';
 import Label from '@/components/ui/Label';
 import Button from '@/components/ui/Button';
 import CustomSelect from '@/components/ui/CustomSelect';
-import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
-import { ArrowLeftRight, Trash2 } from 'lucide-react';
+import { ArrowLeftRight, Trash2, Settings2 } from 'lucide-react';
 
 type ConversionMode = 'json-to-csv' | 'csv-to-json';
 
@@ -35,8 +34,6 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [showOptions, setShowOptions] = useState(false);
 
   const getEffectiveSeparator = () => (separator === 'custom' ? customSeparator : separator);
-
-  // --- Logic Conversion ---
 
   const jsonToCsv = (jsonStr: string) => {
     const json = JSON.parse(jsonStr);
@@ -143,17 +140,12 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   const swapMode = () => {
-    // Attempt to swap input/output if valid
     const newMode = mode === 'json-to-csv' ? 'csv-to-json' : 'json-to-csv';
     setMode(newMode);
-
-    // Swap content logic: If we have a valid output, make it input
     if (output && !error) {
       setInput(output);
       setOutput('');
-      // If we swapped content, we might want to auto-convert, but let's wait for user action
     } else {
-      // Reset defaults
       if (newMode === 'json-to-csv') {
         setInput('[\n  {\n    "name": "Alice, Smith",\n    "age": 30\n  }\n]');
       } else {
@@ -163,143 +155,134 @@ const JsonCsvConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   };
 
-  return (
-    <ToolContainer title="JSON <> CSV Converter" details={details} toolId={toolId}>
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <Button onClick={swapMode} variant="outline" className="w-full sm:w-auto">
-            <ArrowLeftRight className="w-4 h-4 mr-2" />
-            {mode === 'json-to-csv' ? 'Switch to CSV to JSON' : 'Switch to JSON to CSV'}
-          </Button>
-
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Button onClick={handleConvert} variant="primary" className="flex-1 sm:flex-none">
-              Convert
-            </Button>
-            <Button onClick={() => setInput('')} variant="ghost">
-              <Trash2 className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label>{mode === 'json-to-csv' ? 'JSON Input' : 'CSV Input'}</Label>
-            <div className="relative">
-              <TextArea
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                className="h-96 resize-none font-mono text-sm"
-                placeholder="Enter data here..."
-              />
-              {input && (
-                <div className="absolute top-2 right-2">
-                  <CopyButton textToCopy={input} />
-                </div>
-              )}
-            </div>
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-          </div>
-
-          <div className="space-y-2">
-            <Label>{mode === 'json-to-csv' ? 'CSV Output' : 'JSON Output'}</Label>
-            <div className="relative">
-              <TextArea
-                value={output}
-                readOnly
-                className="h-96 resize-none font-mono text-sm bg-gray-50 dark:bg-gray-900"
-                placeholder="Result..."
-              />
-              {output && (
-                <div className="absolute top-2 right-2">
-                  <CopyButton textToCopy={output} />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <Card
-          title={
-            <button
-              onClick={() => setShowOptions(!showOptions)}
-              className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors w-full text-left"
-            >
-              <span>{showOptions ? 'Hide' : 'Show'} Options</span>
-            </button>
-          }
+  const inputSection = (
+    <div className="h-full flex flex-col space-y-2">
+      <div className="flex justify-between items-center">
+        <Label>{mode === 'json-to-csv' ? 'JSON Input' : 'CSV Input'}</Label>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-6 gap-1.5 text-xs text-muted-foreground"
+          onClick={() => setShowOptions(!showOptions)}
         >
-          {showOptions && (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-              <div className="space-y-2">
-                <Label>Separator</Label>
+          <Settings2 className="w-3.5 h-3.5" /> Options
+        </Button>
+      </div>
+
+      {showOptions && (
+        <div className="bg-muted/30 p-3 rounded-md mb-2 space-y-3 text-sm animate-fade-in-up">
+          <div className="space-y-1">
+            <Label className="text-xs">Separator</Label>
+            <div className="flex gap-2">
+              <div className="flex-1">
                 <CustomSelect
                   value={{
                     value: separator,
-                    label:
-                      [
-                        { value: ',', label: 'Comma (,)' },
-                        { value: ';', label: 'Semicolon (;)' },
-                        { value: '\\t', label: 'Tab' },
-                        { value: 'custom', label: 'Custom' },
-                      ].find(o => o.value === separator)?.label || 'Custom',
+                    label: [{ value: ',', label: 'Comma (,)' }, { value: ';', label: 'Semicolon (;)' }, { value: '\\t', label: 'Tab' }, { value: 'custom', label: 'Custom' }].find(o => o.value === separator)?.label || 'Custom',
                   }}
                   onChange={option => setSeparator((option as { value: string; label: string })?.value || ',')}
-                  options={[
-                    { value: ',', label: 'Comma (,)' },
-                    { value: ';', label: 'Semicolon (;)' },
-                    { value: '\\t', label: 'Tab' },
-                    { value: 'custom', label: 'Custom' },
-                  ]}
+                  options={[{ value: ',', label: 'Comma (,)' }, { value: ';', label: 'Semicolon (;)' }, { value: '\\t', label: 'Tab' }, { value: 'custom', label: 'Custom' }]}
                 />
-                {separator === 'custom' && (
-                  <Input
-                    value={customSeparator}
-                    onChange={e => setCustomSeparator(e.target.value)}
-                    placeholder="Custom Separator"
-                    className="mt-2"
-                  />
-                )}
               </div>
+            </div>
+            {separator === 'custom' && (
+              <Input
+                value={customSeparator}
+                onChange={e => setCustomSeparator(e.target.value)}
+                placeholder="Char"
+                className="mt-1 h-8 text-sm"
+              />
+            )}
+          </div>
 
-              {mode === 'json-to-csv' && (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pt-8">
-                    <input
-                      type="checkbox"
-                      id="includeHeaders"
-                      checked={includeHeaders}
-                      onChange={e => setIncludeHeaders(e.target.checked)}
-                      className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                    />
-                    <Label htmlFor="includeHeaders" className="mb-0 cursor-pointer">
-                      Include Headers
-                    </Label>
-                  </div>
-                </div>
-              )}
-
-              {mode === 'csv-to-json' && (
-                <div className="space-y-2">
-                  <Label>Output Format</Label>
-                  <CustomSelect
-                    value={{
-                      value: outputFormat,
-                      label: outputFormat === 'objects' ? 'List of Objects' : 'List of Arrays',
-                    }}
-                    onChange={option => setOutputFormat((option as { value: 'objects' | 'arrays'; label: string })?.value || 'objects')}
-                    options={[
-                      { value: 'objects', label: 'List of Objects' },
-                      { value: 'arrays', label: 'List of Arrays' },
-                    ]}
-                  />
-                </div>
-              )}
+          {mode === 'json-to-csv' && (
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="includeHeaders"
+                checked={includeHeaders}
+                onChange={e => setIncludeHeaders(e.target.checked)}
+                className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <Label htmlFor="includeHeaders" className="mb-0 cursor-pointer">Include Headers</Label>
             </div>
           )}
-        </Card>
+
+          {mode === 'csv-to-json' && (
+            <div className="space-y-1">
+              <Label className="text-xs">Format</Label>
+              <CustomSelect
+                value={{
+                  value: outputFormat,
+                  label: outputFormat === 'objects' ? 'List of Objects' : 'List of Arrays',
+                }}
+                onChange={option => setOutputFormat((option as { value: 'objects' | 'arrays'; label: string })?.value || 'objects')}
+                options={[{ value: 'objects', label: 'List of Objects' }, { value: 'arrays', label: 'List of Arrays' }]}
+              />
+            </div>
+          )}
+        </div>
+      )}
+
+      <div className="relative flex-1">
+        <MonacoLiteEditor
+          language={mode === 'json-to-csv' ? 'json' : 'plaintext'}
+          value={input}
+          onChange={val => setInput(val || '')}
+          className="w-full h-full rounded-md overflow-hidden border border-transparent"
+        />
+        {input && (
+          <div className="absolute top-4 right-6 z-10">
+            <CopyButton textToCopy={input} />
+          </div>
+        )}
       </div>
-    </ToolContainer>
+      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
+    </div>
+  );
+
+  const outputSection = (
+    <div className="h-full flex flex-col space-y-2">
+      <Label>{mode === 'json-to-csv' ? 'CSV Output' : 'JSON Output'}</Label>
+      <div className="relative flex-1">
+        <MonacoLiteEditor
+          language={mode === 'json-to-csv' ? 'plaintext' : 'json'}
+          value={output}
+          readOnly
+          className="w-full h-full rounded-md overflow-hidden border border-transparent"
+        />
+        {output && (
+          <div className="absolute top-4 right-6 z-10">
+            <CopyButton textToCopy={output} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const actionSection = (
+    <div className="flex flex-col gap-3 w-full lg:w-40">
+      <Button onClick={handleConvert} className="w-full">
+        Convert
+      </Button>
+      <Button onClick={swapMode} variant="secondary" className="w-full" title="Swap Mode">
+        <ArrowLeftRight className="w-4 h-4 mr-2" /> Swap
+      </Button>
+      <Button onClick={() => { setInput(''); setOutput(''); }} variant="ghost" className="w-full">
+        <Trash2 className="w-4 h-4 mr-2" /> Clear
+      </Button>
+    </div>
+  );
+
+  return (
+    <ConverterLayout
+      title="JSON <> CSV Converter"
+      details={details}
+      toolId={toolId}
+      inputComponent={inputSection}
+      outputComponent={outputSection}
+      actions={actionSection}
+    />
   );
 };
 

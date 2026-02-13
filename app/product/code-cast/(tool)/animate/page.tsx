@@ -39,6 +39,7 @@ function AnimatePageContent() {
 
   const searchParams = useSearchParams();
   const snippetId = searchParams.get('snippet');
+  const [shortId, setShortId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!snippetId) return;
@@ -57,6 +58,7 @@ function AnimatePageContent() {
           }
           if (data.snippet.config) setConfig(data.snippet.config);
           if (data.snippet.title) setProjectTitle(data.snippet.title);
+          if (data.snippet.short_id) setShortId(data.snippet.short_id);
         }
       } catch (e) {
         console.error("Failed to load snippet", e);
@@ -94,6 +96,7 @@ function AnimatePageContent() {
     setIsPaused,
     editorRef,
     audioFile,
+    isRecording,
   });
 
   // Show download modal when recording is complete
@@ -106,6 +109,10 @@ function AnimatePageContent() {
   // Layout calculations - memoized to update when device changes
   const layout = useMemo(() => getCanvasLayout(config.deviceFrame), [config.deviceFrame]);
   const isLight = config.theme === 'light' || config.theme === 'github' || config.theme === 'solarized-light';
+
+  const shareUrl = shortId
+    ? `https://utiltoolkits.com/s/${shortId}`
+    : (snippetId ? `https://utiltoolkits.com/product/code-cast/animate?snippet=${snippetId}` : undefined);
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -156,6 +163,8 @@ function AnimatePageContent() {
         }}
         onDownload={downloadRecording}
         recordingTime={recordingTime}
+        code={code}
+        shareUrl={shareUrl}
       />
     </div>
   );

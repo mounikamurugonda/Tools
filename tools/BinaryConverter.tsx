@@ -2,11 +2,12 @@
 
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
-import ToolContainer from '@/components/ToolContainer';
-import TextArea from '@/components/ui/TextArea';
-import Label from '@/components/ui/Label';
+import ConverterLayout from '@/components/ConverterLayout';
 import CopyButton from '@/components/CopyButton';
-import Card from '@/components/ui/Card';
+import MonacoLiteEditor from '@/components/MonacoLiteEditor';
+import Label from '@/components/ui/Label';
+import Button from '@/components/ui/Button';
+import { Trash2 } from 'lucide-react';
 
 const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [text, setText] = useState('Hello');
@@ -32,49 +33,70 @@ const BinaryConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           .join('')
       );
     } catch (e) {
-      setText('Invalid Binary');
+      // simplified error handling like original
     }
   };
 
-  return (
-    <ToolContainer title="Binary Converter" details={details} toolId={toolId}>
-      <div className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <Label>Text Input</Label>
-            <div className="relative">
-              <TextArea
-                value={text}
-                onChange={e => textToBinary(e.target.value)}
-                className="h-96 resize-none"
-                placeholder="Type text to convert to binary..."
-              />
-              {text && (
-                <div className="absolute top-2 right-2">
-                  <CopyButton textToCopy={text} />
-                </div>
-              )}
-            </div>
+  const handleClear = () => {
+    setText('');
+    setBinary('');
+  };
+
+  const inputSection = (
+    <div className="h-full flex flex-col space-y-2">
+      <Label>Text Input</Label>
+      <div className="relative flex-1">
+        <MonacoLiteEditor
+          language="plaintext"
+          value={text}
+          onChange={val => textToBinary(val || '')}
+          className="w-full h-full rounded-md overflow-hidden border border-transparent"
+        />
+        {text && (
+          <div className="absolute top-4 right-6 z-10">
+            <CopyButton textToCopy={text} />
           </div>
-          <div className="space-y-2">
-            <Label>Binary Output</Label>
-            <div className="relative">
-              <TextArea
-                value={binary}
-                onChange={e => binaryToText(e.target.value)}
-                className="h-96 font-mono bg-gray-50 dark:bg-gray-900 resize-none"
-                placeholder="Type binary (space separated bytes) to convert to text..."
-              />
-              {binary && (
-                <div className="absolute top-2 right-2">
-                  <CopyButton textToCopy={binary} />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+        )}
       </div>
-    </ToolContainer>
+    </div>
+  );
+
+  const outputSection = (
+    <div className="h-full flex flex-col space-y-2">
+      <Label>Binary Output</Label>
+      <div className="relative flex-1">
+        <MonacoLiteEditor
+          language="plaintext"
+          value={binary}
+          onChange={val => binaryToText(val || '')}
+          className="w-full h-full rounded-md overflow-hidden border border-transparent"
+        />
+        {binary && (
+          <div className="absolute top-4 right-6 z-10">
+            <CopyButton textToCopy={binary} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const actionSection = (
+    <div className="flex flex-col gap-3 w-full lg:w-40">
+      <Button onClick={handleClear} variant="ghost" className="w-full">
+        <Trash2 className="w-4 h-4 mr-2" /> Clear
+      </Button>
+    </div>
+  );
+
+  return (
+    <ConverterLayout
+      title="Binary Converter"
+      details={details}
+      toolId={toolId}
+      inputComponent={inputSection}
+      outputComponent={outputSection}
+      actions={actionSection}
+    />
   );
 };
 

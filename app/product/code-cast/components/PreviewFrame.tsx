@@ -35,6 +35,7 @@ const getLibraryTags = (libraries: string[]) => {
 
 const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scale = 1, libraries = [], isGlassStyle = false }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const lastUpdateRef = useRef(0); // For throttling updates
 
   // Use a static srcDoc to initialize the iframe once.
   const srcDoc = useMemo(() => {
@@ -45,7 +46,7 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
           ${getLibraryTags(libraries)}
           <style>
             /* Reset & Defaults */
-            html { background: transparent !important; }
+            // html { background: transparent !important; }
             body { 
               margin: 0; 
               padding: 0px; 
@@ -137,11 +138,24 @@ const PreviewFrame: React.FC<PreviewFrameProps> = ({ html, css, js, device, scal
     `;
   }, [libraries, isGlassStyle]);
 
-  // Send updates to the iframe whenever props change
+  // Send updates to the iframe whenever props change (Throttled)
   useEffect(() => {
-    const iframe = iframeRef.current;
-    if (iframe && iframe.contentWindow) {
-      iframe.contentWindow.postMessage({ html, css, js }, '*');
+    const now = Date.now();
+    const timeSinceLast = now - lastUpdateRef.current;
+
+    const update = () => {
+      const iframe = iframeRef.current;
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.postMessage({ html, css, js }, '*');
+        lastUpdateRef.current = Date.now();
+      }
+    };
+
+    if (timeSinceLast >= 300) {
+      update();
+    } else {
+      const timeoutId = setTimeout(update, 300 - timeSinceLast);
+      return () => clearTimeout(timeoutId);
     }
   }, [html, css, js]);
 

@@ -2,82 +2,76 @@
 
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
-import ToolContainer from '@/components/ToolContainer';
-import CopyButton from '@/components/CopyButton';
-import TextArea from '@/components/ui/TextArea';
+import ConverterLayout from '@/components/ConverterLayout';
 import Button from '@/components/ui/Button';
-import Card from '@/components/ui/Card';
+import { Trash2, ArrowRight } from 'lucide-react';
+import * as prettier from 'prettier/standalone';
+import parserXml from '@prettier/plugin-xml';
+
+// ... imports
 
 const XmlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [input, setInput] = useState(
-    '<root><child id="1">Hello</child><child id="2">World</child></root>'
-  );
+  const [input, setInput] = useState('<root><child>text</child></root>');
   const [output, setOutput] = useState('');
+  const [error, setError] = useState('');
 
-  const formatXml = () => {
-    let formatted = '';
-    let pad = 0;
-    const xml = input.replace(/>\s*</g, '><'); // Remove existing whitespace between tags
-
-    xml.split(/(<[^>]+>)/).forEach(node => {
-      if (!node) return;
-      let indent = 0;
-      if (node.match(/^<\w/) && !node.match(/<.*\/>/)) {
-        // Start tag
-        indent = 1;
-      } else if (node.match(/^<\/\w/)) {
-        // End tag
-        if (pad !== 0) pad -= 1;
-      } else if (node.match(/^<\w[^>]*\/>/)) {
-        // Self closing
-        indent = 0;
-      } else if (node.match(/^<\?|<!/)) {
-        // Declarations
-        indent = 0;
-      } else {
-        // Text node
-        indent = 0;
+  const handleFormat = async () => {
+    try {
+      if (!input.trim()) {
+        setOutput('');
+        return;
       }
-
-      const padding = new Array(pad * 2).fill(' ').join('');
-      formatted += padding + node + '\n';
-      pad += indent;
-    });
-
-    setOutput(formatted.trim());
+      const formatted = await prettier.format(input, {
+        parser: 'xml',
+        plugins: [parserXml],
+        tabWidth: 2,
+        xmlSelfClosingSpace: true,
+      });
+      setOutput(formatted);
+      setError('');
+    } catch (e) {
+      console.error(e);
+      setError('Invalid XML');
+    }
   };
 
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      handleFormat();
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [input]);
+
   return (
-    <ToolContainer title="XML Formatter" details={details} toolId={toolId}>
-      <div className="space-y-6">
-        <div className="grid md:grid-cols-2 gap-6 h-[60vh] min-h-[500px]">
-          <Card title="Input XML" className="h-full">
-            <TextArea
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              className="h-[calc(100%-2rem)] font-mono text-sm resize-none border-0 focus:ring-0 p-0"
-              placeholder="Paste XML here..."
-            />
-          </Card>
-
-          <Card title="Formatted XML" className="h-full">
-            <div className="relative h-full flex flex-col">
-              <TextArea
-                readOnly
-                value={output}
-                className="flex-1 font-mono text-sm resize-none border-0 focus:ring-0 p-0 text-blue-600 dark:text-blue-400"
-                placeholder="Formatted XML will appear here..."
-              />
-              {output && <CopyButton textToCopy={output} className="absolute top-0 right-0" />}
-            </div>
-          </Card>
-        </div>
-
-        <Button onClick={formatXml} fullWidth size="lg" variant="primary">
-          Format XML
-        </Button>
-      </div>
-    </ToolContainer>
+    <ConverterLayout
+      title="XML Formatter"
+      details={details}
+      toolId={toolId}
+      actions={
+        error ? (
+          <div className="text-red-500 text-xs text-center p-2 bg-red-50 rounded border border-red-100 dark:bg-red-900/20 dark:border-red-900/50">
+            {error}
+          </div>
+        ) : null
+      }
+      editorInput={{
+        value: input,
+        onChange: setInput,
+        language: 'xml',
+        label: 'Input XML',
+        fileUpload: true,
+        acceptFileTypes: '.xml,.txt',
+        placeholder: 'Paste XML here...',
+        clearable: true,
+      }}
+      editorOutput={{
+        value: output,
+        language: 'xml',
+        label: 'Formatted XML',
+        readOnly: true,
+        placeholder: 'Formatted XML will appear here...',
+      }}
+    />
   );
 };
 

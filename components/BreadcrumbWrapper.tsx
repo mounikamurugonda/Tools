@@ -14,9 +14,7 @@ const BreadcrumbWrapper = () => {
   }
 
   return (
-    <div className="py-2">
-      <Breadcrumb items={breadcrumbItems} />
-    </div>
+    <Breadcrumb items={breadcrumbItems} />
   );
 };
 

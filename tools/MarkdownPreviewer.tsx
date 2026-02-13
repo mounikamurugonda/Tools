@@ -2,12 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import type { ToolProps } from '@/types';
-import ToolContainer from '@/components/ToolContainer';
+import ConverterLayout from '@/components/ConverterLayout';
 import { marked } from 'marked';
 import CopyButton from '@/components/CopyButton';
-import TextArea from '@/components/ui/TextArea';
+import MonacoLiteEditor from '@/components/MonacoLiteEditor';
 import Label from '@/components/ui/Label';
-import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import { Trash2 } from 'lucide-react';
 
 const MarkdownPreviewer: React.FC<ToolProps> = ({ details, toolId }) => {
   const [markdown, setMarkdown] = useState(`# Hello, Markdown!
@@ -29,48 +30,65 @@ const MarkdownPreviewer: React.FC<ToolProps> = ({ details, toolId }) => {
     render();
   }, [markdown]);
 
-  return (
-    <ToolContainer title="Markdown Previewer" details={details} toolId={toolId}>
-      <div className="grid md:grid-cols-2 gap-6 h-[70vh]">
-        <div className="flex flex-col space-y-2 h-full">
-          <Label htmlFor="markdown-input">Markdown Input</Label>
-          <div className="relative flex-1">
-            <TextArea
-              id="markdown-input"
-              value={markdown}
-              onChange={e => setMarkdown(e.target.value)}
-              placeholder="Enter Markdown here..."
-              className="w-full h-full font-mono resize-none"
-              aria-label="Markdown Input"
-            />
-            {markdown && (
-              <div className="absolute top-2 right-2">
-                <CopyButton textToCopy={markdown} />
-              </div>
-            )}
+  const inputSection = (
+    <div className="h-full flex flex-col space-y-2">
+      <Label htmlFor="markdown-input">Markdown Input</Label>
+      <div className="relative flex-1">
+        <MonacoLiteEditor
+          language="markdown"
+          value={markdown}
+          onChange={val => setMarkdown(val || '')}
+          className="w-full h-full rounded-md overflow-hidden border border-transparent"
+        />
+        {markdown && (
+          <div className="absolute top-4 right-4 z-10">
+            <CopyButton textToCopy={markdown} />
           </div>
-        </div>
-
-        <div className="flex flex-col space-y-2 h-full">
-          <Label>Preview</Label>
-          <Card className="flex-1 p-0 overflow-hidden bg-gray-50 dark:bg-gray-900 border-gray-200 dark:border-gray-700">
-            <div className="relative h-full">
-              <div
-                id="markdown-output"
-                className="w-full h-full overflow-auto p-6 prose dark:prose-invert prose-sm max-w-none"
-                dangerouslySetInnerHTML={{ __html: renderedHtml }}
-                aria-label="Markdown Preview"
-              />
-              {renderedHtml && (
-                <div className="absolute top-2 right-2">
-                  <CopyButton textToCopy={renderedHtml} />
-                </div>
-              )}
-            </div>
-          </Card>
-        </div>
+        )}
       </div>
-    </ToolContainer>
+    </div>
+  );
+
+  const outputSection = (
+    <div className="h-full flex flex-col space-y-2">
+      <Label>Preview</Label>
+      <div className="relative flex-1 bg-gray-50 dark:bg-gray-900 overflow-hidden rounded-md">
+        <div
+          id="markdown-output"
+          className="w-full h-full overflow-auto p-6 prose dark:prose-invert prose-sm max-w-none"
+          dangerouslySetInnerHTML={{ __html: renderedHtml }}
+          aria-label="Markdown Preview"
+        />
+        {renderedHtml && (
+          <div className="absolute top-4 right-4 z-10">
+            <CopyButton textToCopy={renderedHtml} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+
+  const actionSection = (
+    <div className="flex flex-col gap-3 w-full lg:w-40">
+      <Button
+        onClick={() => setMarkdown('')}
+        variant="ghost"
+        className="w-full"
+      >
+        <Trash2 className="w-4 h-4 mr-2" /> Clear
+      </Button>
+    </div>
+  );
+
+  return (
+    <ConverterLayout
+      title="Markdown Previewer"
+      details={details}
+      toolId={toolId}
+      inputComponent={inputSection}
+      outputComponent={outputSection}
+      actions={actionSection}
+    />
   );
 };
 
