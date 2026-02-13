@@ -10,7 +10,7 @@ const API_ENDPOINT = 'https://api.sarvam.ai/v1/chat/completions';
 //         const storedKey = localStorage.getItem('sarvam_api_key');
 //         if (storedKey) return storedKey;
 //     }
-//     return process.env.NEXT_PUBLIC_SARVAM_API_KEY;
+//     return process.env.SARVAM_API_KEY;
 // };
 
 // export const setApiKey = (key: string) => {
@@ -25,7 +25,7 @@ export const sendChatRequest = async (
     messages: Message[],
     temperature: number = 0.5
 ): Promise<string> => {
-    const apiKey = process.env.NEXT_PUBLIC_SARVAM_API_KEY;
+    const apiKey = process.env.SARVAM_API_KEY;
 
     if (!apiKey) {
         throw new Error('API Key is missing. Please configure it in the app settings or .env file.');
