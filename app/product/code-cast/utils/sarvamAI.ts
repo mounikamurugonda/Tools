@@ -7,7 +7,7 @@ export const sendChatRequest = async (
     messages: Message[],
     temperature: number = 0.5
 ): Promise<string> => {
-    const apiKey = process.env.tools_SARVAM_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_SARVAM_API_KEY;
 
     if (!apiKey) {
         throw new Error('API Key is missing. Please configure it in the app settings or .env file.');
