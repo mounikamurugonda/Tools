@@ -3,29 +3,11 @@ import { Message, Role, SarvamRequest, SarvamResponse } from '../types/sarvam';
 
 const API_ENDPOINT = 'https://api.sarvam.ai/v1/chat/completions';
 
-// export const getApiKey = (): string | undefined => {
-//     // In a real app, you should use an environment variable or a secure backend proxy
-//     // For this demo, we check localStorage or fallback to env
-//     if (typeof window !== 'undefined') {
-//         const storedKey = localStorage.getItem('sarvam_api_key');
-//         if (storedKey) return storedKey;
-//     }
-//     return process.env.SARVAM_API_KEY;
-// };
-
-// export const setApiKey = (key: string) => {
-//     if (key) {
-//         localStorage.setItem('sarvam_api_key', key);
-//     } else {
-//         localStorage.removeItem('sarvam_api_key');
-//     }
-// };
-
 export const sendChatRequest = async (
     messages: Message[],
     temperature: number = 0.5
 ): Promise<string> => {
-    const apiKey = process.env.SARVAM_API_KEY;
+    const apiKey = process.env.tools_SARVAM_API_KEY;
 
     if (!apiKey) {
         throw new Error('API Key is missing. Please configure it in the app settings or .env file.');
