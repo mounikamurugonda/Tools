@@ -6,8 +6,8 @@ import ToolContainer from '@/components/ToolContainer';
 import { DiffEditor, useMonaco } from '@monaco-editor/react';
 import { useTheme } from '@/components/ThemeProvider';
 import Button from '@/components/ui/Button';
-import Label from '@/components/ui/Label';
-import Select from '@/components/ui/Select';
+
+
 import {
   Upload,
   ArrowRightLeft,
@@ -18,20 +18,7 @@ import {
   Type,
 } from 'lucide-react';
 
-// Detection map for file extensions
-const EXTENSION_TO_LANGUAGE: { [key: string]: string } = {
-  js: 'javascript', jsx: 'javascript', ts: 'typescript', tsx: 'typescript',
-  json: 'json', html: 'html', css: 'css', scss: 'scss', less: 'less',
-  md: 'markdown', xml: 'xml', sql: 'sql', py: 'python', java: 'java',
-  c: 'c', cpp: 'cpp', cs: 'csharp', go: 'go', rs: 'rust',
-  yaml: 'yaml', yml: 'yaml', ini: 'ini', lua: 'lua', rb: 'ruby',
-  php: 'php', sh: 'shell',
-};
 
-const LANGUAGES = [
-  'javascript', 'typescript', 'json', 'html', 'css', 'markdown', 'xml', 'sql',
-  'python', 'java', 'c', 'cpp', 'csharp', 'go', 'rust', 'yaml', 'bash', 'plaintext'
-];
 
 const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
   const { theme } = useTheme();
@@ -45,7 +32,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
     ''
   );
 
-  const [language, setLanguage] = useState('javascript');
+
   const [renderSideBySide, setRenderSideBySide] = useState(true);
   const [ignoreTrimWhitespace, setIgnoreTrimWhitespace] = useState(false);
   const [wordWrap, setWordWrap] = useState<'on' | 'off'>('on');
@@ -72,17 +59,12 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
     editor.getModifiedEditor().addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => { });
   };
 
-  const detectLanguageFromFileName = (fileName: string) => {
-    const extension = fileName.split('.').pop()?.toLowerCase();
-    if (extension && EXTENSION_TO_LANGUAGE[extension]) {
-      setLanguage(EXTENSION_TO_LANGUAGE[extension]);
-    }
-  };
+
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isOriginal: boolean) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    detectLanguageFromFileName(file.name);
+
     const reader = new FileReader();
     reader.onload = event => {
       const text = event.target?.result as string;
@@ -110,13 +92,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full p-4 border-b">
       {/* Language & Toggles */}
       <div className="flex items-center gap-2 flex-1">
-        <Select
-          value={language}
-          onChange={e => setLanguage(e.target.value)}
-          className="w-32 h-8 text-xs bg-white dark:bg-gray-800"
-        >
-          {LANGUAGES.map(l => <option key={l} value={l}>{l}</option>)}
-        </Select>
+
 
         <div className="flex bg-muted/20 p-1 rounded-md gap-1">
           <Button
@@ -225,7 +201,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="flex-1 relative">
           <DiffEditor
             height="100%"
-            language={language}
+            language="plaintext"
             original={originalText}
             modified={modifiedText}
             onMount={handleEditorDidMount}
