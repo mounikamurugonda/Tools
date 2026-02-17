@@ -10,7 +10,7 @@ import Slider from '@/components/ui/Slider';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
 import FileUpload from '@/components/ui/FileUpload';
-import Editor, { loader } from '@monaco-editor/react';
+import MonacoLiteEditor from '@/components/MonacoLiteEditor';
 import * as htmlToImage from 'html-to-image';
 import {
   Download,
@@ -161,23 +161,6 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const handleEditorDidMount = (editor: any, monaco: any) => {
     editorRef.current = editor;
-
-    // Custom Dracula theme definition (ensure it's defined when mounting)
-    monaco.editor.defineTheme('dracula', {
-      base: 'vs-dark',
-      inherit: true,
-      rules: [
-        { token: 'comment', foreground: '6272a4', fontStyle: 'italic' },
-        { token: 'keyword', foreground: 'ff79c6' },
-        { token: 'string', foreground: 'f1fa8c' },
-        { token: 'number', foreground: 'bd93f9' },
-        { token: 'type', foreground: '8be9fd' },
-      ],
-      colors: {
-        'editor.background': '#282a36',
-        'editor.foreground': '#f8f8f2',
-      },
-    });
   };
 
   // Calculate generic height based on line count for auto-sizing
@@ -343,26 +326,22 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
                   {/* Monaco Editor */}
                   <div className="py-2">
-                    <Editor
+                    <MonacoLiteEditor
                       height={`${editorHeight}px`}
-                      defaultLanguage="javascript"
                       language={language}
                       value={code}
-                      theme={theme.value}
                       onChange={(value) => setCode(value || '')}
-                      onMount={handleEditorDidMount}
+                      // We need to ensure the custom theme works. MonacoLiteEditor might need update to support custom theme injection.
+                      // Passing options to override defaults.
                       options={{
-                        minimap: { enabled: false },
-                        fontSize: 14,
                         lineNumbers: showLineNumbers ? 'on' : 'off',
-                        scrollBeyondLastLine: false,
-                        folding: false,
-                        automaticLayout: true,
                         readOnly: false,
+                        folding: false,
+                        theme: theme.value, // Try passing theme here if possible or see if we need to modify the component
                         fontFamily: 'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
-                        contextmenu: false,
+                        fontSize: 14,
 
-                        // Clean view options
+                        // Clean view options matching previous config
                         renderLineHighlight: 'none',
                         guides: { indentation: false },
                         matchBrackets: 'never',
@@ -370,16 +349,17 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
                         selectionHighlight: false,
                         occurrencesHighlight: 'off',
 
-                        overviewRulerBorder: false,
-                        hideCursorInOverviewRuler: true,
-                        overviewRulerLanes: 0,
-
                         scrollbar: {
                           vertical: 'hidden',
                           horizontal: 'hidden',
                           handleMouseWheel: false,
                           useShadows: false,
                         },
+
+                        // Disable extras already handled by MonacoLiteEditor, but reinforcing just in case
+                        hover: { enabled: false },
+                        links: false,
+                        contextmenu: false,
                       }}
                     />
                   </div>

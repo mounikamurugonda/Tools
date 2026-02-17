@@ -13,6 +13,8 @@ export interface MonacoLiteEditorProps {
     className?: string;
     options?: any; // Using any for simplicity with editor options
     placeholder?: string; // Not natively supported but keeps prop interface compatible if needed
+    theme?: string;
+    onMount?: OnMount;
 }
 
 const MonacoLiteEditor: React.FC<MonacoLiteEditorProps> = ({
@@ -23,9 +25,11 @@ const MonacoLiteEditor: React.FC<MonacoLiteEditorProps> = ({
     height = '100%',
     className,
     options = {},
+    theme: themeProp,
+    onMount,
 }) => {
     const { theme } = useTheme();
-    const monacoTheme = theme === 'dark' ? 'vs-dark' : 'light';
+    const monacoTheme = themeProp || (theme === 'dark' ? 'vs-dark' : 'light');
 
     const defaultOptions = {
         minimap: { enabled: false },
@@ -65,8 +69,29 @@ const MonacoLiteEditor: React.FC<MonacoLiteEditorProps> = ({
     };
 
     const handleEditorDidMount: OnMount = (editor, monaco) => {
+        // Define Dracula theme globally for MonacoLiteEditor usage
+        monaco.editor.defineTheme('dracula', {
+            base: 'vs-dark',
+            inherit: true,
+            rules: [
+                { token: 'comment', foreground: '6272a4', fontStyle: 'italic' },
+                { token: 'keyword', foreground: 'ff79c6' },
+                { token: 'string', foreground: 'f1fa8c' },
+                { token: 'number', foreground: 'bd93f9' },
+                { token: 'type', foreground: '8be9fd' },
+            ],
+            colors: {
+                'editor.background': '#282a36',
+                'editor.foreground': '#f8f8f2',
+            },
+        });
+
         // Disable Ctrl+Space (Trigger Suggest)
         editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => { });
+
+        if (onMount) {
+            onMount(editor, monaco);
+        }
     };
 
     return (

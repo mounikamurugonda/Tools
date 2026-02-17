@@ -46,17 +46,24 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
   const handleEditorDidMount = (editor: any, monaco: any) => {
     diffEditorRef.current = editor;
 
-    editor.getOriginalEditor().onDidChangeModelContent(() => {
-      setOriginalText(editor.getOriginalEditor().getValue());
-    });
-
-    editor.getModifiedEditor().onDidChangeModelContent(() => {
-      setModifiedText(editor.getModifiedEditor().getValue());
-    });
+    // Use refs instead of state listeners for typing.
+    // This prevents re-renders on every keystroke that reset cursor position.
+    // We only update state on explicit actions (Swap, Upload, etc.) after reading from the editor.
 
     // Disable Ctrl+Space
     editor.getOriginalEditor().addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => { });
     editor.getModifiedEditor().addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => { });
+  };
+
+  const syncEditorState = () => {
+    if (diffEditorRef.current) {
+      const currentOriginal = diffEditorRef.current.getOriginalEditor().getValue();
+      const currentModified = diffEditorRef.current.getModifiedEditor().getValue();
+      setOriginalText(currentOriginal);
+      setModifiedText(currentModified);
+      return { original: currentOriginal, modified: currentModified };
+    }
+    return { original: originalText, modified: modifiedText };
   };
 
 
@@ -65,20 +72,30 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    // Sync current values first to ensure we don't lose typed changes in the OTHER editor
+    const { original, modified } = syncEditorState();
+
     const reader = new FileReader();
     reader.onload = event => {
       const text = event.target?.result as string;
-      if (isOriginal) setOriginalText(text);
-      else setModifiedText(text);
+      if (isOriginal) {
+        setOriginalText(text);
+        // Ensure modified is kept as is (though state would be updated by syncEditorState)
+        setModifiedText(modified);
+      } else {
+        setModifiedText(text);
+        // Ensure original is kept as is
+        setOriginalText(original);
+      }
     };
     reader.readAsText(file);
     e.target.value = '';
   };
 
   const swapContent = () => {
-    const temp = originalText;
-    setOriginalText(modifiedText);
-    setModifiedText(temp);
+    const { original, modified } = syncEditorState();
+    setOriginalText(modified);
+    setModifiedText(original);
   };
 
   const clearAll = () => {
@@ -98,7 +115,10 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
           <Button
             variant={renderSideBySide ? 'secondary' : 'ghost'}
             size="sm"
-            onClick={() => setRenderSideBySide(true)}
+            onClick={() => {
+              syncEditorState();
+              setRenderSideBySide(true);
+            }}
             title="Split View"
             className="h-7 w-7 !p-0"
           >
@@ -107,7 +127,10 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
           <Button
             variant={!renderSideBySide ? 'secondary' : 'ghost'}
             size="sm"
-            onClick={() => setRenderSideBySide(false)}
+            onClick={() => {
+              syncEditorState();
+              setRenderSideBySide(false);
+            }}
             title="Inline View"
             className="h-7 w-7 !p-0"
           >
@@ -118,7 +141,10 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
           <Button
             variant={wordWrap === 'on' ? 'secondary' : 'ghost'}
             size="sm"
-            onClick={() => setWordWrap(prev => (prev === 'on' ? 'off' : 'on'))}
+            onClick={() => {
+              syncEditorState();
+              setWordWrap(prev => (prev === 'on' ? 'off' : 'on'));
+            }}
             title="Toggle Word Wrap"
             className="h-7 w-7 !p-0"
           >
@@ -127,7 +153,10 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
           <Button
             variant={ignoreTrimWhitespace ? 'secondary' : 'ghost'}
             size="sm"
-            onClick={() => setIgnoreTrimWhitespace(prev => !prev)}
+            onClick={() => {
+              syncEditorState();
+              setIgnoreTrimWhitespace(prev => !prev);
+            }}
             title="Ignore Whitespace"
             className="h-7 w-7 !p-0"
           >
@@ -222,6 +251,11 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
               quickSuggestions: { other: false, comments: false, strings: false },
               parameterHints: { enabled: false },
               suggestOnTriggerCharacters: false,
+              autoIndent: 'none',
+              formatOnType: false,
+              formatOnPaste: false,
+              matchBrackets: 'never',
+              autoClosingBrackets: 'never',
             }}
           />
         </div>
