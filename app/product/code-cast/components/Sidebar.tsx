@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { Settings, Volume2, MousePointer2, Eye, EyeOff, X, Bookmark, Upload, Music, Trash2, Sliders, PlayCircle, Repeat, Gauge } from 'lucide-react';
+import { Settings, Volume2, MousePointer2, Eye, EyeOff, X, Bookmark, Upload, Music, Trash2, Sliders, PlayCircle, Repeat, Gauge, Sparkles } from 'lucide-react';
 import {
   useAnimateStore,
   useTypeStore,
@@ -14,6 +14,7 @@ import { usePathname } from 'next/navigation';
 import { FeatureGuard } from '@/components/FeatureGuard';
 import { BackgroundRenderer, getContainerBackgroundClass } from './BackgroundRenderer';
 import Link from 'next/link';
+import { AIChatBox } from './AIChatBox';
 
 // Internal reusable Tooltip Wrapper (Copied from CodeCastHeader for consistency)
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -49,6 +50,7 @@ const Sidebar: React.FC = () => {
   const { isSidebarOpen, setSidebarOpen } = useSharedUIStore();
   const [snippetCount, setSnippetCount] = useState<number | null>(null);
   const [showAudioSettings, setShowAudioSettings] = useState(false);
+  const [activeTab, setActiveTab] = useState<'settings' | 'ai'>('settings');
 
   React.useEffect(() => {
     const fetchSnippetCount = async () => {
@@ -127,20 +129,21 @@ const Sidebar: React.FC = () => {
 
           {/* Content */}
           <div className="flex-1 overflow-y-auto overflow-x-hidden p-6 space-y-6 custom-scrollbar">
-            {/* Navigation Section */}
-            <div className="space-y-2">
+            <div className="space-y-2 mb-4">
               {session && (
                 <Link
                   href="/product/code-cast/saved"
                   onClick={() => { if (window.innerWidth < 768) setSidebarOpen(false); }}
-                  className={`flex items-center gap-3 w-full p-3 rounded-lg transition-colors border ${pathname?.includes('/saved')
-                    ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800'
-                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-900 border-transparent hover:border-gray-200 dark:hover:border-gray-800'}`}
+                  className={`flex items-center justify-between w-full px-3 py-1.5 rounded-md border text-xs font-semibold transition-all shadow-sm ${pathname?.includes('/saved')
+                    ? 'bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-900/30 dark:to-purple-900/30 border-indigo-200/50 dark:border-indigo-800/50 text-indigo-700 dark:text-indigo-300'
+                    : 'bg-white dark:bg-[#1e1e1e] border-gray-200 dark:border-gray-800/50 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-white/5'}`}
                 >
-                  <Bookmark size={18} />
-                  <span className="text-sm font-bold flex-1">Saved Snippets</span>
+                  <div className="flex items-center gap-2">
+                    <Bookmark size={12} className={pathname?.includes('/saved') ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400'} />
+                    <span>Saved Snippets</span>
+                  </div>
                   {snippetCount !== null && snippetCount > 0 && (
-                    <span className="bg-indigo-200 dark:bg-indigo-800 text-indigo-800 dark:text-indigo-200 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded ${pathname?.includes('/saved') ? 'bg-indigo-100 dark:bg-indigo-800/50 text-indigo-800 dark:text-indigo-200' : 'bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400'}`}>
                       {snippetCount}
                     </span>
                   )}
@@ -148,8 +151,46 @@ const Sidebar: React.FC = () => {
               )}
             </div>
 
-            {/* Tool Specific Settings - Hide on Saved Page and Library Page */}
+            {/* Tabs for Sidebar */}
             {mode !== 'saved' && mode !== 'library' && (
+              <div className="flex items-center gap-2 mb-4 p-1 bg-gray-100 dark:bg-gray-800/50 rounded-lg">
+                <button
+                  onClick={() => setActiveTab('settings')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md text-xs font-semibold transition-all ${activeTab === 'settings'
+                    ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-white shadow-sm'
+                    : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
+                    }`}
+                >
+                  <Settings size={14} />
+                  Settings
+                </button>
+                {/* <button
+                  onClick={() => setActiveTab('ai')}
+                  className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-md text-xs font-semibold transition-all ${activeTab === 'ai'
+                    ? 'bg-purple-600 text-white shadow-sm ring-1 ring-purple-600/50'
+                    : 'text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400'
+                    }`}
+                >
+                  <Sparkles size={14} className={activeTab === 'ai' ? 'animate-pulse' : ''} />
+                  Ask AI
+                </button> */}
+              </div>
+            )}
+
+            {/* Ask AI Tab Content */}
+            {activeTab === 'ai' && mode !== 'saved' && mode !== 'library' && (
+              <div className="h-full flex flex-col">
+                <AIChatBox
+                  updateCode={currentStore.updateCode}
+                  onClose={() => setActiveTab('settings')}
+                  isLight={config.theme === 'light' || config.theme === 'github' || config.theme === 'solarized-light'}
+                  inline={true}
+                />
+              </div>
+            )}
+
+            {/* Tool Specific Settings - Hide on Saved Page and Library Page */}
+            {mode !== 'saved' && mode !== 'library' && activeTab === 'settings' && (
               <>
                 {/* Section: Project Info */}
                 <div className="space-y-3">
@@ -427,7 +468,7 @@ const Sidebar: React.FC = () => {
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-gray-600 dark:text-gray-400">Typing Speed</span>
                       <span className="text-xs font-mono text-gray-900 dark:text-white">
-                        {config.typingSpeed}ms
+                        {config.typingSpeed || 50}ms
                       </span>
                     </div>
                     <div className="flex items-center justify-between text-[10px] text-gray-400 px-1 mb-1">
@@ -438,7 +479,7 @@ const Sidebar: React.FC = () => {
                       type="range"
                       min="0"
                       max="200"
-                      value={200 - config.typingSpeed}
+                      value={Number(200 - (config.typingSpeed || 50))}
                       onChange={e =>
                         setConfig((p: AppConfig) => ({
                           ...p,
@@ -711,7 +752,7 @@ const Sidebar: React.FC = () => {
             )}
           </div>
         </div>
-      </div >
+      </div>
     </>
   );
 };

@@ -132,8 +132,16 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Search Bar - Centered */}
-          <div className="hidden md:block flex-1 max-w-xl px-4">
-            <SearchBar />
+          <div className="hidden md:flex flex-1 max-w-xl px-4 items-center gap-3">
+            <div className="flex-1 min-w-0">
+              <SearchBar />
+            </div>
+            <Link
+              href="/request-tool"
+              className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg transition-colors shadow-sm whitespace-nowrap shrink-0"
+            >
+              Request a Tool
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -202,8 +210,8 @@ const Header: React.FC = () => {
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>
                 Blog
               </NavLink>
-              <NavLink href="/#faq" onClick={closeAllMenus} pathname={pathname}>
-                FAQ
+              <NavLink href="/tools/truth-scan" onClick={closeAllMenus} pathname={pathname}>
+                TruthScan
               </NavLink>
 
               <div className="relative group/codecast">
@@ -279,12 +287,6 @@ const Header: React.FC = () => {
 
 
               </div>
-              <Link
-                href="/request-tool"
-                className="hidden lg:block px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 rounded-lg transition-colors shadow-sm"
-              >
-                Request a Tool
-              </Link>
             </nav>
 
             <div className="h-6 w-px bg-gray-200 dark:bg-gray-700 mx-2"></div>
@@ -373,160 +375,162 @@ const Header: React.FC = () => {
             </button>
           </div>
         </div>
-      </header>
+      </header >
 
       {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
-        <div className="fixed inset-0 z-[60] md:hidden">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm animate-fade-in"
-            onClick={closeAllMenus}
-          />
+      {
+        isMenuOpen && (
+          <div className="fixed inset-0 z-[60] md:hidden">
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/20 dark:bg-black/50 backdrop-blur-sm animate-fade-in"
+              onClick={closeAllMenus}
+            />
 
-          {/* Menu Content */}
-          <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white dark:bg-gray-900 shadow-2xl animate-slide-in-right flex flex-col h-full">
-            <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-800 shrink-0">
-              <Link href="/" onClick={closeAllMenus} className="cursor-pointer">
-                <Logo />
-              </Link>
-              <button
-                onClick={() => setIsMenuOpen(false)}
-                className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                aria-label="Close menu"
-              >
-                <CloseIcon className="w-6 h-6" />
-              </button>
-            </div>
-
-            <div className="p-4 border-b border-gray-200 dark:border-gray-800 shrink-0">
-              <SearchBar />
-            </div>
-
-            {/* Mobile Favorites Link */}
-            {session && (
-              <div className="px-4 pt-4">
+            {/* Menu Content */}
+            <div className="absolute right-0 top-0 bottom-0 w-[85%] max-w-sm bg-white dark:bg-gray-900 shadow-2xl animate-slide-in-right flex flex-col h-full">
+              <div className="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-800 shrink-0">
+                <Link href="/" onClick={closeAllMenus} className="cursor-pointer">
+                  <Logo />
+                </Link>
                 <button
-                  onClick={() => {
-                    setIsFavoritesOpen(true); // Re-use the desktop dropdown logic or just navigate? 
-                    // For mobile menu, maybe better to just list them inline or standard nav link?
-                    // Let's add an inline section.
-                    setIsMenuOpen(false);
-                    setIsFavoritesOpen(true); // Reuse the dropdown logic which is fixed position
-                  }}
-                  className="flex items-center gap-3 w-full p-3 bg-red-50 dark:bg-red-900/20 rounded-xl text-red-600 dark:text-red-400"
+                  onClick={() => setIsMenuOpen(false)}
+                  className="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  aria-label="Close menu"
                 >
-                  <Heart size={20} className="fill-current" />
-                  <span className="font-bold">Your Favorites ({favorites.length})</span>
+                  <CloseIcon className="w-6 h-6" />
                 </button>
               </div>
-            )}
 
-            <nav className="flex-1 overflow-y-auto p-4 space-y-2">
-              {/* Request a Tool Button */}
-              <Link
-                href="/request-tool"
-                onClick={closeAllMenus}
-                className="block px-4 py-3 text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all active:scale-95 mb-4"
-              >
-                Request a Tool
-              </Link>
-
-              <Link
-                href="/product/code-cast"
-                onClick={closeAllMenus}
-                className={`flex items-center gap-3 px-4 py-3 text-lg font-medium rounded-xl transition-all active:scale-95 ${pathname.startsWith('/product/code-cast')
-                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                  }`}
-              >
-                <div className="flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-sm">
-                  <Terminal size={12} strokeWidth={2.5} />
-                </div>
-                CodeCast
-              </Link>
-
-              <Link
-                href="/"
-                onClick={closeAllMenus}
-                className={`block px-4 py-3 text-lg font-medium rounded-xl transition-all active:scale-95 ${pathname === '/'
-                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                  }`}
-              >
-                Home
-              </Link>
-              <Link
-                href="/#faq"
-                onClick={closeAllMenus}
-                className="block px-4 py-3 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-all active:scale-95"
-              >
-                FAQ
-              </Link>
-
-              {/* Categories Section */}
-              <div className="pt-2">
-                <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                  Tools & Categories
-                </div>
-                <div className="space-y-1 mt-2">
-                  {CATEGORY_ORDER.map(category => {
-                    const CategoryIcon = CATEGORY_ICONS[category];
-                    const isOpen = openCategory === category;
-
-                    return (
-                      <div key={category} className="rounded-xl overflow-hidden">
-                        <button
-                          onClick={() => toggleCategory(category)}
-                          className={`w-full flex items-center justify-between px-4 py-3 transition-colors ${isOpen
-                            ? 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white'
-                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                            }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <CategoryIcon className="w-5 h-5 text-blue-500" />
-                            <span className="text-base font-medium">{category}</span>
-                          </div>
-                          <svg
-                            className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </button>
-
-                        {isOpen && (
-                          <div className="bg-gray-50/50 dark:bg-gray-800/30 px-3 py-2 space-y-1">
-                            {toolsByCategory[category]?.map(tool => {
-                              const isToolActive = pathname === `/tools/${tool.id}`;
-                              return (
-                                <Link
-                                  key={tool.id}
-                                  href={`/tools/${tool.id}`}
-                                  onClick={closeAllMenus}
-                                  className={`flex items-center gap-3 px-3 py-2 pl-10 rounded-lg text-sm transition-colors ${isToolActive
-                                    ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-900/20'
-                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50'
-                                    }`}
-                                >
-                                  <span className="truncate">{tool.name}</span>
-                                </Link>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
+              <div className="p-4 border-b border-gray-200 dark:border-gray-800 shrink-0">
+                <SearchBar />
               </div>
-            </nav>
+
+              {/* Mobile Favorites Link */}
+              {session && (
+                <div className="px-4 pt-4">
+                  <button
+                    onClick={() => {
+                      setIsFavoritesOpen(true); // Re-use the desktop dropdown logic or just navigate? 
+                      // For mobile menu, maybe better to just list them inline or standard nav link?
+                      // Let's add an inline section.
+                      setIsMenuOpen(false);
+                      setIsFavoritesOpen(true); // Reuse the dropdown logic which is fixed position
+                    }}
+                    className="flex items-center gap-3 w-full p-3 bg-red-50 dark:bg-red-900/20 rounded-xl text-red-600 dark:text-red-400"
+                  >
+                    <Heart size={20} className="fill-current" />
+                    <span className="font-bold">Your Favorites ({favorites.length})</span>
+                  </button>
+                </div>
+              )}
+
+              <nav className="flex-1 overflow-y-auto p-4 space-y-2">
+                {/* Request a Tool Button */}
+                <Link
+                  href="/request-tool"
+                  onClick={closeAllMenus}
+                  className="block px-4 py-3 text-center text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all active:scale-95 mb-4"
+                >
+                  Request a Tool
+                </Link>
+
+                <Link
+                  href="/product/code-cast"
+                  onClick={closeAllMenus}
+                  className={`flex items-center gap-3 px-4 py-3 text-lg font-medium rounded-xl transition-all active:scale-95 ${pathname.startsWith('/product/code-cast')
+                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    }`}
+                >
+                  <div className="flex items-center justify-center w-6 h-6 rounded-md bg-gradient-to-br from-blue-600 to-purple-600 text-white shadow-sm">
+                    <Terminal size={12} strokeWidth={2.5} />
+                  </div>
+                  CodeCast
+                </Link>
+
+                <Link
+                  href="/"
+                  onClick={closeAllMenus}
+                  className={`block px-4 py-3 text-lg font-medium rounded-xl transition-all active:scale-95 ${pathname === '/'
+                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                    }`}
+                >
+                  Home
+                </Link>
+                <Link
+                  href="/tools/truth-scan"
+                  onClick={closeAllMenus}
+                  className="block px-4 py-3 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-all active:scale-95"
+                >
+                  TruthScan
+                </Link>
+
+                {/* Categories Section */}
+                <div className="pt-2">
+                  <div className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                    Tools & Categories
+                  </div>
+                  <div className="space-y-1 mt-2">
+                    {CATEGORY_ORDER.map(category => {
+                      const CategoryIcon = CATEGORY_ICONS[category];
+                      const isOpen = openCategory === category;
+
+                      return (
+                        <div key={category} className="rounded-xl overflow-hidden">
+                          <button
+                            onClick={() => toggleCategory(category)}
+                            className={`w-full flex items-center justify-between px-4 py-3 transition-colors ${isOpen
+                              ? 'bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white'
+                              : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
+                              }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <CategoryIcon className="w-5 h-5 text-blue-500" />
+                              <span className="text-base font-medium">{category}</span>
+                            </div>
+                            <svg
+                              className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                              strokeWidth={2}
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                            </svg>
+                          </button>
+
+                          {isOpen && (
+                            <div className="bg-gray-50/50 dark:bg-gray-800/30 px-3 py-2 space-y-1">
+                              {toolsByCategory[category]?.map(tool => {
+                                const isToolActive = pathname === `/tools/${tool.id}`;
+                                return (
+                                  <Link
+                                    key={tool.id}
+                                    href={`/tools/${tool.id}`}
+                                    onClick={closeAllMenus}
+                                    className={`flex items-center gap-3 px-3 py-2 pl-10 rounded-lg text-sm transition-colors ${isToolActive
+                                      ? 'text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-900/20'
+                                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/50'
+                                      }`}
+                                  >
+                                    <span className="truncate">{tool.name}</span>
+                                  </Link>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </nav>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </>
   );
 };

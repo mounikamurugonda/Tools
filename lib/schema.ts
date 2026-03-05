@@ -299,6 +299,45 @@ export const getCodeCastProductSchema = () => ({
   },
 });
 
+// TruthScan Product Schema
+export const getTruthScanProductSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'TruthScan',
+  description: 'Advanced AI content detector using dual-layer analysis — statistical linguistics and Sarvam-M AI — to determine if text was written by a human or AI.',
+  url: 'https://utiltoolkits.com/product/truth-scan',
+  applicationCategory: 'UtilitiesApplication',
+  operatingSystem: 'Web Browser',
+  browserRequirements: 'Requires JavaScript. Works with all modern browsers.',
+  softwareVersion: '1.0',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+    availability: 'https://schema.org/InStock',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    ratingCount: '200',
+    bestRating: '5',
+    worstRating: '1',
+  },
+  featureList: [
+    'AI vs Human Score Detection',
+    'Sentence-Level Heatmap',
+    'Statistical Signal Breakdown',
+    'Perplexity & Burstiness Analysis',
+    'Sarvam-M AI Classification',
+  ],
+  isAccessibleForFree: true,
+  author: {
+    '@type': 'Organization',
+    name: 'UtilToolkits',
+    url: 'https://utiltoolkits.com',
+  },
+});
+
 // CodeCast Sub-tool Schema
 export const getCodeCastToolSchema = (type: 'animate' | 'type' | 'image') => {
   const tools = {

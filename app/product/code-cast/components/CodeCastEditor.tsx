@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 import Editor from '@monaco-editor/react';
-import { Package, Check, Sparkles, Copy } from 'lucide-react';
+import { Package, Check, Sparkles, Copy, Wand2 } from 'lucide-react';
 import { FeatureGuard } from '../../../../components/FeatureGuard';
 import { AppConfig, CodeSnippet } from '../types';
 import { glassContainerStyles } from '../glassTheme';

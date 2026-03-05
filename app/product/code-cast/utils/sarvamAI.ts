@@ -164,3 +164,63 @@ Generate SEO metadata.`,
         };
     }
 };
+
+export interface CodeSnippetResponse {
+    html: string;
+    css: string;
+    js: string;
+}
+
+export const generateCodeSnippet = async (
+    prompt: string
+): Promise<CodeSnippetResponse> => {
+    const systemMessage: Message = {
+        role: Role.SYSTEM,
+        content: `You are a world-class creative UI engineer building stunning tutorial demos. Output code using EXACTLY this format with these delimiter markers - nothing else:
+===HTML_START===
+(html body content here - elements only, no <html>/<body>/<style>/<script> tags)
+===HTML_END===
+===CSS_START===
+(css here)
+===CSS_END===
+===JS_START===
+(javascript here, or leave blank)
+===JS_END===
+
+STYLE RULES - MANDATORY:
+- Default dark glassmorphism: dark bg(#0a0a0f), frosted panels(rgba(255,255,255,0.05)), vibrant accents(purple #a855f7, blue #3b82f6, pink #ec4899, cyan #06b6d4)
+- Rich @keyframes: at least 4-5 unique named animations (float, shimmer, pulse-glow, morph, spin-gradient etc.)
+- CSS custom properties for all colors/sizes. Pseudo-elements ::before/::after for VFX/particles.
+- Layered box-shadow with color glow. backdrop-filter blur. transform 3D effects.
+- Staggered entrance animations (animation-delay increments). Hover microinteractions on everything clickable.
+- Minimum 80+ lines of CSS. Think Dribbble/CodePen award-winning quality.
+JS RULES: Use requestAnimationFrame for smooth effects, mouse-tracking for parallax/tilt, particle systems if appropriate. Keep concise but impactful.`,
+    };
+
+    const userMessage: Message = {
+        role: Role.USER,
+        content: `Create an advanced, visually stunning implementation of: ${prompt}. Make it exceptional - rich animations, VFX, and premium feel.`,
+    };
+
+    const response = await sendChatRequest([systemMessage, userMessage], 0.8);
+
+    // Delimiter-based extraction - immune to JSON escaping issues
+    const extract = (start: string, end: string): string => {
+        const si = response.indexOf(start);
+        const ei = response.indexOf(end);
+        if (si === -1 || ei === -1 || ei <= si) return '';
+        return response.slice(si + start.length, ei).trim();
+    };
+
+    const html = extract('===HTML_START===', '===HTML_END===');
+    const css = extract('===CSS_START===', '===CSS_END===');
+    const js = extract('===JS_START===', '===JS_END===');
+
+    if (!html && !css && !js) {
+        console.error('No delimiters found in response. Raw:', response);
+        throw new Error('The AI response was not in the expected format. Please try again.');
+    }
+
+    return { html, css, js };
+};
+
