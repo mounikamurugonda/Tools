@@ -6,7 +6,7 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import Label from '@/components/ui/Label';
 import Slider from '@/components/ui/Slider';
-import { StatusBadge, StepRow, EngineFeatures, ErrorCard, float32ToWav } from './KokoroTTS';
+import { StatusBadge, StepRow, EngineFeatures, ErrorCard, float32ToWav, EngineRef } from './KokoroTTS';
 
 // SpeechT5 (Microsoft) via @huggingface/transformers.
 // ALL loading and synthesis runs in a Web Worker — main thread never blocks.
@@ -31,24 +31,30 @@ const STEPS: SherpaStep[] = [
     { id: 'init', label: 'Starting Up', status: 'pending' },
 ];
 
-interface SherpaOnnxTTSProps { text: string }
+interface SherpaOnnxTTSProps {
+    text: string;
+    isActive: boolean;
+    onSelect: () => void;
+    onStateChange: (status: EngineStatus, isSynth: boolean) => void;
+    onAudioReady: (url: string) => void;
+}
 
-const SherpaOnnxTTS: React.FC<SherpaOnnxTTSProps> = ({ text }) => {
+const SherpaOnnxTTS = React.forwardRef<EngineRef, SherpaOnnxTTSProps>(({ text, isActive, onSelect, onStateChange, onAudioReady }, ref) => {
     const [status, setStatus] = useState<EngineStatus>('idle');
     const [steps, setSteps] = useState<SherpaStep[]>(STEPS);
     const [dlPct, setDlPct] = useState(0);
     const [dlLabel, setDlLabel] = useState('');
     const [error, setError] = useState('');
-    const [speakerIdx, setSpeakerIdx] = useState(0);
-    const [speed, setSpeed] = useState(1.0);
-    const [audioUrl, setAudioUrl] = useState<string | null>(null);
+    const [speakerIdx, setSpeakerIdx] = useState<number | null>(null);
     const [isSynth, setIsSynth] = useState(false);
 
     const workerRef = useRef<Worker | null>(null);
     const isLoaded = useRef(false);
-    const audioRef = useRef<HTMLAudioElement | null>(null);
     const synthResolve = useRef<((v: { audio: Float32Array; sampling_rate: number }) => void) | null>(null);
     const synthReject = useRef<((r: unknown) => void) | null>(null);
+
+    // Bubble state
+    useEffect(() => { onStateChange(status, isSynth); }, [status, isSynth, onStateChange]);
 
     const upd = (id: string, patch: Partial<SherpaStep>) =>
         setSteps(prev => prev.map(s => s.id === id ? { ...s, ...patch } : s));
@@ -131,152 +137,98 @@ const SherpaOnnxTTS: React.FC<SherpaOnnxTTSProps> = ({ text }) => {
     // Auto-load on mount (tab click triggers this)
     useEffect(() => { loadEngine(); }, [loadEngine]);
 
-    // ── Speak (entirely off main thread) ──────────────────────────────────
-    const speak = async () => {
-        if (status === 'speaking' && !isSynth) {
-            audioRef.current?.pause();
-            setStatus('ready');
-            return;
-        }
-        if (!text.trim() || status !== 'ready') return;
+    // ── Expose API to Parent ──────────────────────────────────────────────
+    React.useImperativeHandle(ref, () => ({
+        synthesize: async (globalSpeed: number) => {
+            if (status !== 'ready' || !text.trim() || isSynth || speakerIdx === null) return;
 
-        setStatus('speaking'); setIsSynth(true);
-        if (audioUrl) { URL.revokeObjectURL(audioUrl); setAudioUrl(null); }
+            setStatus('speaking'); setIsSynth(true);
 
-        try {
-            const result = await new Promise<{ audio: Float32Array; sampling_rate: number }>((res, rej) => {
-                synthResolve.current = res;
-                synthReject.current = rej;
-                workerRef.current!.postMessage({
-                    type: 'synthesize',
-                    payload: {
-                        text,
-                        speed,
-                        useSpeakerEmbeddings: true,
-                    },
+            try {
+                const result = await new Promise<{ audio: Float32Array; sampling_rate: number }>((res, rej) => {
+                    synthResolve.current = res;
+                    synthReject.current = rej;
+                    workerRef.current!.postMessage({
+                        type: 'synthesize',
+                        payload: {
+                            text,
+                            speed: globalSpeed,
+                            useSpeakerEmbeddings: true, // required for this model
+                        },
+                    });
                 });
-            });
 
-            const wav = float32ToWav(result.audio, result.sampling_rate);
-            const blob = new Blob([wav], { type: 'audio/wav' });
-            const url = URL.createObjectURL(blob);
-            setAudioUrl(url);
-
-            const el = new Audio(url);
-            audioRef.current = el;
-            el.onended = () => setStatus('ready');
-            el.onerror = () => setStatus('ready');
-            el.play().catch((e: Error) => { if (e.name !== 'AbortError') setStatus('ready'); });
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Synthesis failed');
+                const wav = float32ToWav(result.audio, result.sampling_rate);
+                const blob = new Blob([wav], { type: 'audio/wav' });
+                const url = URL.createObjectURL(blob);
+                onAudioReady(url);
+                setStatus('ready');
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Synthesis failed');
+                setStatus('ready');
+            } finally {
+                setIsSynth(false);
+            }
+        },
+        stop: () => {
             setStatus('ready');
-        } finally {
             setIsSynth(false);
         }
-    };
-
-    const isEngineReady = status === 'ready' || status === 'speaking';
+    }));
 
     return (
-        <div className="space-y-5">
-            <div className="flex items-center gap-3 flex-wrap">
-                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-orange-100 dark:bg-orange-900/30 border border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300">
-                    <Cpu className="w-3.5 h-3.5" /> Super Fast · Battery Friendly · Private
-                </span>
-                <StatusBadge status={isSynth ? 'speaking' : status} color="orange" />
-            </div>
-
+        <div className="space-y-4">
             {/* Speaker style — always visible */}
-            <Card title="Speaker Style">
-                <div className="grid grid-cols-2 gap-2">
-                    {SPEAKER_STYLES.map(s => (
-                        <button key={s.value} onClick={() => setSpeakerIdx(s.value)} disabled={isSynth}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${speakerIdx === s.value
-                                ? 'bg-orange-500 text-white border-orange-500 shadow-md'
-                                : 'bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-600'
-                                }`}>
-                            {s.label}
-                        </button>
-                    ))}
-                </div>
-            </Card>
+            <div onClick={onSelect} className="cursor-pointer">
+                <Card title="Sherpa-ONNX (Speaker Style)"
+                    className={`transition-all duration-300 ${isActive ? 'ring-2 ring-orange-500 shadow-xl dark:ring-orange-400 bg-orange-50/30 dark:bg-orange-900/10' : 'hover:border-orange-300 dark:hover:border-orange-700/50'}`}>
+                    <div className="grid grid-cols-2 gap-2">
+                        {SPEAKER_STYLES.map(s => (
+                            <button key={s.value} onClick={(e) => { e.stopPropagation(); setSpeakerIdx(s.value); onSelect(); }} disabled={isSynth}
+                                className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${speakerIdx === s.value
+                                    ? 'bg-orange-500 text-white border-orange-500 shadow-md'
+                                    : 'bg-white dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-600'
+                                    }`}>
+                                {s.label}
+                            </button>
+                        ))}
+                    </div>
 
-            <Slider label="Speed" min={0.5} max={2} step={0.05} value={speed}
-                onChange={e => setSpeed(Number(e.target.value))} valueDisplay={`${speed.toFixed(2)}x`} />
-
-            {status === 'idle' && (
-                <EngineFeatures features={[
-                    { icon: '🚀', label: 'Ultra-Fast', sub: 'Instant responses' },
-                    { icon: '🔋', label: 'Efficient', sub: 'Battery friendly' },
-                    { icon: '🔒', label: '100% Private', sub: 'Runs perfectly locally' },
-                ]} />
-            )}
-
-            {status === 'loading' && (
-                <Card title="Loading Voice Engine">
-                    <div className="space-y-4">
-                        {steps.map((s, i) => <StepRow key={s.id} step={s} index={i} color="orange" />)}
-                        <div className="space-y-1.5">
-                            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                                <span className="truncate max-w-[70%]">{dlLabel || 'Initialising worker…'}</span>
-                                <span className="font-mono font-bold text-orange-600">{dlPct}%</span>
-                            </div>
-                            <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                                <div className="h-full bg-gradient-to-r from-orange-500 to-amber-500 rounded-full transition-all duration-300"
-                                    style={{ width: `${dlPct}%` }} />
+                    {status === 'loading' && (
+                        <div className="mt-4 pt-4 border-t border-orange-100 dark:border-orange-800/50 space-y-3">
+                            <div className="space-y-1.5">
+                                <div className="flex justify-between text-xs font-semibold text-orange-700 dark:text-orange-300">
+                                    <span>{dlLabel || 'Downloading Engine...'}</span>
+                                    <span>{dlPct}%</span>
+                                </div>
+                                <div className="h-2 w-full bg-orange-200 dark:bg-orange-900/40 rounded-full overflow-hidden">
+                                    <div className="h-full bg-orange-600 transition-all duration-300" style={{ width: `${Math.max(0, dlPct)}%` }} />
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
+
+                    {status === 'error' && (
+                        <ErrorCard message={error} onRetry={() => { setStatus('idle'); isLoaded.current = false; workerRef.current?.terminate(); workerRef.current = null; }} />
+                    )}
+
+                    {isSynth && (
+                        <Card>
+                            <div className="flex items-center gap-3">
+                                <Loader2 className="w-5 h-5 text-orange-500 animate-spin shrink-0" />
+                                <div>
+                                    <p className="text-sm font-medium text-gray-900 dark:text-white">Generating Audio…</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Your device is synthesizing the voice. This happens entirely offline.</p>
+                                </div>
+                            </div>
+                        </Card>
+                    )}
                 </Card>
-            )}
-
-            {status === 'error' && (
-                <ErrorCard message={error} onRetry={() => { setStatus('idle'); isLoaded.current = false; workerRef.current?.terminate(); workerRef.current = null; }} />
-            )}
-
-            {isSynth && (
-                <Card>
-                    <div className="flex items-center gap-3">
-                        <Loader2 className="w-5 h-5 text-orange-500 animate-spin shrink-0" />
-                        <div>
-                            <p className="text-sm font-medium text-gray-900 dark:text-white">Generating Audio…</p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Your device is synthesizing the voice. This happens entirely offline.</p>
-                        </div>
-                    </div>
-                </Card>
-            )}
-
-            {audioUrl && isEngineReady && !isSynth && (
-                <Card>
-                    <div className="flex items-center justify-between mb-2">
-                        <Label>Generated Audio</Label>
-                        <a href={audioUrl} download="sherpa-tts.wav"
-                            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors border border-orange-200 dark:border-orange-700">
-                            <Download className="w-3.5 h-3.5" /> Download WAV
-                        </a>
-                    </div>
-                    <audio key={audioUrl} controls className="w-full rounded-xl" src={audioUrl} />
-                </Card>
-            )}
-
-            {error && isEngineReady && (
-                <p className="text-xs text-red-500 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 px-4 py-3 rounded-xl">{error}</p>
-            )}
-
-            <Button onClick={speak} size="lg" className="w-full border-0"
-                variant={status === 'speaking' && !isSynth ? 'danger' : 'primary'}
-                disabled={status === 'loading' || isSynth || !text.trim() || !isEngineReady}
-                style={!(status === 'speaking' && !isSynth) ? { background: 'linear-gradient(to right,#f97316,#f59e0b)' } : {}}>
-                {isSynth
-                    ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Generating Audio…</>
-                    : status === 'speaking'
-                        ? <><Square className="w-5 h-5 mr-2 fill-current" />Stop</>
-                        : status === 'loading'
-                            ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Loading Engine…</>
-                            : <><Play className="w-5 h-5 mr-2 fill-current" />Generate Speech</>}
-            </Button>
+            </div>
         </div>
     );
-};
+});
+
+SherpaOnnxTTS.displayName = 'SherpaOnnxTTS';
 
 export default SherpaOnnxTTS;

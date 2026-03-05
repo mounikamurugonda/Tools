@@ -1,17 +1,16 @@
 'use client';
 
-import React, { useState, lazy, Suspense } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import TextArea from '@/components/ui/TextArea';
 import Card from '@/components/ui/Card';
 import Label from '@/components/ui/Label';
-import { Loader2, Zap, Mic, Cpu, Info } from 'lucide-react';
+import { Loader2, Zap, Mic, Cpu, Info, Square, Play } from 'lucide-react';
 
-// ─── Lazy-load each engine (code-split, only loads when tab is selected) ──────
-const KokoroTTS = lazy(() => import('./tts/KokoroTTS'));
-const PiperTTS = lazy(() => import('./tts/PiperTTS'));
-const SherpaOnnxTTS = lazy(() => import('./tts/SherpaOnnxTTS'));
+import KokoroTTS, { EngineRef } from './tts/KokoroTTS';
+import PiperTTS from './tts/PiperTTS';
+import SherpaOnnxTTS from './tts/SherpaOnnxTTS';
 
 // ─── Engine definitions ───────────────────────────────────────────────────────
 
@@ -120,19 +119,42 @@ const EngineFallback = () => (
 // ─── Main component ───────────────────────────────────────────────────────────
 
 const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
-  const [activeEngine, setActiveEngine] = useState<EngineId>('kokoro');
   const [text, setText] = useState(
     'Hello! This is a demonstration of on-device text-to-speech running entirely in your browser.'
   );
-  // Track which engines have been mounted (so they don't re-init on tab switch)
-  const [mountedEngines, setMountedEngines] = useState<Set<EngineId>>(new Set(['kokoro']));
 
-  const handleTabChange = (id: EngineId) => {
-    setActiveEngine(id);
-    setMountedEngines(prev => new Set([...prev, id]));
+  const [activeEngine, setActiveEngine] = useState<EngineId | null>(null);
+  const [globalSpeed, setGlobalSpeed] = useState(1.0);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [globalStatus, setGlobalStatus] = useState<string>('idle');
+  const [isSynth, setIsSynth] = useState(false);
+
+  const kokoroRef = useRef<EngineRef>(null);
+  const piperRef = useRef<EngineRef>(null);
+  const sherpaRef = useRef<EngineRef>(null);
+
+  const handleGenerate = () => {
+    setAudioUrl(null);
+    if (activeEngine === 'kokoro') kokoroRef.current?.synthesize(globalSpeed);
+    else if (activeEngine === 'piper') piperRef.current?.synthesize(globalSpeed);
+    else if (activeEngine === 'sherpa') sherpaRef.current?.synthesize(globalSpeed);
   };
 
-  const currentEngine = ENGINES.find(e => e.id === activeEngine)!;
+  const handleStop = () => {
+    if (activeEngine === 'kokoro') kokoroRef.current?.stop();
+    else if (activeEngine === 'piper') piperRef.current?.stop();
+    else if (activeEngine === 'sherpa') sherpaRef.current?.stop();
+  };
+
+  const handleStateChange = (newStatus: string, newIsSynth: boolean, engine: EngineId) => {
+    // Only update global state if the event is coming from the active engine
+    if (engine === activeEngine) {
+      setGlobalStatus(newStatus);
+      setIsSynth(newIsSynth);
+    }
+  };
+
+  const isReady = globalStatus === 'ready' || globalStatus === 'speaking';
 
   return (
     <ToolContainer title="Text to Speech" details={details} toolId={toolId}>
@@ -146,63 +168,6 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
             Models are downloaded on demand and cached automatically.
             Nothing plays or processes in the background until you click a button.
           </p>
-        </div>
-
-        {/* ── Engine selector tabs ──────────────────────────────────────── */}
-        <div className="grid grid-cols-3 gap-3">
-          {ENGINES.map(engine => {
-            const isActive = activeEngine === engine.id;
-            return (
-              <button
-                key={engine.id}
-                onClick={() => handleTabChange(engine.id)}
-                className={`relative p-4 rounded-2xl border-2 text-left transition-all duration-300 group ${isActive
-                  ? `${engine.color.activeBg} ${engine.color.activeBorder} ${engine.color.activeText} shadow-xl ${engine.color.glow}`
-                  : `${engine.color.inactiveBg} border-gray-200 dark:border-gray-700 ${engine.color.inactiveText} hover:border-gray-300 dark:hover:border-gray-600`
-                  }`}
-              >
-                {/* Badge */}
-                <span className={`inline-block text-[10px] font-bold px-2 py-0.5 rounded-full mb-2 ${isActive
-                  ? 'bg-white/20 text-white'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
-                  }`}>
-                  {engine.badge}
-                </span>
-
-                <div className={`flex items-center gap-2 mb-1 ${isActive ? 'text-white' : engine.color.icon}`}>
-                  {engine.icon}
-                  <span className="font-bold text-sm sm:text-base">{engine.name}</span>
-                </div>
-
-                <p className={`text-xs leading-snug hidden sm:block ${isActive ? 'text-white/80' : 'text-gray-500 dark:text-gray-400'
-                  }`}>
-                  {engine.tagline}
-                </p>
-
-                {/* Active indicator bar */}
-                {isActive && (
-                  <span className="absolute bottom-0 left-4 right-4 h-0.5 bg-white/40 rounded-full" />
-                )}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* ── Comparison row (compact) ──────────────────────────────────── */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-          {currentEngine.strengths.map(s => (
-            <div
-              key={s.label}
-              className="px-3 py-2 rounded-xl bg-gray-50 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700"
-            >
-              <p className="text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500 font-semibold">
-                {s.label}
-              </p>
-              <p className="text-xs font-semibold text-gray-800 dark:text-gray-200 mt-0.5">
-                {s.value}
-              </p>
-            </div>
-          ))}
         </div>
 
         {/* ── Main content grid ─────────────────────────────────────────── */}
@@ -230,79 +195,88 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
             </Card>
           </div>
 
-          {/* Engine panel (right column) */}
-          <div className="md:col-span-3">
-            {/* Kokoro */}
-            <div className={activeEngine === 'kokoro' ? 'block' : 'hidden'}>
-              {mountedEngines.has('kokoro') && (
-                <Suspense fallback={<EngineFallback />}>
-                  <KokoroTTS text={text} />
-                </Suspense>
-              )}
-            </div>
-
-            {/* Piper */}
-            <div className={activeEngine === 'piper' ? 'block' : 'hidden'}>
-              {mountedEngines.has('piper') && (
-                <Suspense fallback={<EngineFallback />}>
-                  <PiperTTS text={text} />
-                </Suspense>
-              )}
-            </div>
-
-            {/* Sherpa-ONNX */}
-            <div className={activeEngine === 'sherpa' ? 'block' : 'hidden'}>
-              {mountedEngines.has('sherpa') && (
-                <Suspense fallback={<EngineFallback />}>
-                  <SherpaOnnxTTS text={text} />
-                </Suspense>
-              )}
-            </div>
+          {/* Engine panels (right column) */}
+          <div className="md:col-span-3 space-y-4">
+            <KokoroTTS
+              ref={kokoroRef}
+              text={text}
+              isActive={activeEngine === 'kokoro'}
+              onSelect={() => setActiveEngine('kokoro')}
+              onStateChange={(s, synth) => handleStateChange(s, synth, 'kokoro')}
+              onAudioReady={setAudioUrl}
+            />
+            <PiperTTS
+              ref={piperRef}
+              text={text}
+              isActive={activeEngine === 'piper'}
+              onSelect={() => setActiveEngine('piper')}
+              onStateChange={(s, synth) => handleStateChange(s, synth, 'piper')}
+              onAudioReady={setAudioUrl}
+            />
+            <SherpaOnnxTTS
+              ref={sherpaRef}
+              text={text}
+              isActive={activeEngine === 'sherpa'}
+              onSelect={() => setActiveEngine('sherpa')}
+              onStateChange={(s, synth) => handleStateChange(s, synth, 'sherpa')}
+              onAudioReady={setAudioUrl}
+            />
           </div>
         </div>
 
-        {/* ── Comparison table ─────────────────────────────────────────── */}
-        <details className="group">
-          <summary className="cursor-pointer text-sm font-semibold text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors list-none flex items-center gap-2 py-2">
-            <span className="text-gray-400 group-open:rotate-90 transition-transform inline-block">▶</span>
-            Compare all engines
-          </summary>
-          <div className="mt-3 overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr className="border-b-2 border-gray-200 dark:border-gray-700">
-                  <th className="text-left py-2 pr-4 text-gray-500 dark:text-gray-400 font-semibold text-xs uppercase tracking-wider">Feature</th>
-                  {ENGINES.map(e => (
-                    <th key={e.id} className="text-left py-2 px-3 font-semibold text-gray-900 dark:text-white">
-                      {e.name}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
-                {[
-                  { label: 'Voice Quality', vals: ['Best natural', 'Most diverse (900+)', 'Good, optimised'] },
-                  { label: 'Speed', vals: ['Very Fast (WebGPU)', 'Moderate (WASM)', 'Extremely Fast'] },
-                  { label: 'Ease of Use', vals: ['Very easy', 'Moderate', 'Technical'] },
-                  { label: 'Model Size', vals: ['~82 MB (cached)', '~45 MB per voice', '~20-30 MB'] },
-                  { label: 'Framework', vals: ['Transformers.js', 'ONNX Runtime Web', 'ONNX Runtime Web'] },
-                  { label: 'Offline After Load', vals: ['✓ Yes', '✓ Yes', '✓ Yes'] },
-                ].map(row => (
-                  <tr key={row.label}>
-                    <td className="py-2.5 pr-4 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider whitespace-nowrap">
-                      {row.label}
-                    </td>
-                    {row.vals.map((val, i) => (
-                      <td key={i} className="py-2.5 px-3 text-gray-700 dark:text-gray-300 text-sm">
-                        {val}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        {/* ── Global Controls ─────────────────────────────────────────────────── */}
+        <Card className="flex flex-col md:flex-row items-center gap-6 p-6 mt-8">
+          <div className="w-full md:w-1/3 space-y-2">
+            <div className="flex justify-between items-center text-sm font-medium text-gray-700 dark:text-gray-300">
+              <Label className="mb-0">Speed</Label>
+              <span className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md">{globalSpeed.toFixed(2)}x</span>
+            </div>
+            <input
+              type="range"
+              min={0.5} max={2} step={0.05}
+              value={globalSpeed}
+              onChange={e => setGlobalSpeed(Number(e.target.value))}
+              className="w-full accent-blue-600 cursor-pointer h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none"
+            />
           </div>
-        </details>
+
+          <div className="w-full md:w-1/3 flex gap-2">
+            <button
+              onClick={globalStatus === 'speaking' && !isSynth ? handleStop : handleGenerate}
+              disabled={globalStatus === 'loading' || isSynth || !text.trim() || !isReady || !activeEngine}
+              className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-semibold transition-all duration-300
+                    ${isSynth || globalStatus === 'loading' || !text.trim() || !isReady || !activeEngine ? 'bg-gray-400 cursor-not-allowed opacity-70'
+                  : globalStatus === 'speaking' && !isSynth ? 'bg-red-500 hover:bg-red-600 shadow-red-500/20 shadow-lg'
+                    : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/20 shadow-lg hover:-translate-y-0.5'}`}
+            >
+              {isSynth ? <><Loader2 className="w-5 h-5 animate-spin" /> Generating Audio…</>
+                : globalStatus === 'speaking' ? <><Square className="w-5 h-5 fill-current" /> Stop Audio</>
+                  : globalStatus === 'loading' ? <><Loader2 className="w-5 h-5 animate-spin" /> Engine Loading</>
+                    : <><Play className="w-5 h-5 fill-current" /> Generate Speech</>}
+            </button>
+
+            {audioUrl && (
+              <a href={audioUrl} download={`${activeEngine || 'tts'}-audio.wav`}
+                className="flex items-center justify-center aspect-square shrink-0 rounded-xl bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors border border-orange-200 dark:border-orange-700"
+                title="Download Audio"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
+              </a>
+            )}
+          </div>
+
+          <div className="w-full md:w-1/3">
+            {audioUrl ? (
+              <audio key={audioUrl} controls autoPlay className="w-full h-12" src={audioUrl} />
+            ) : (
+              <div className="w-full h-12 rounded-xl bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm italic">
+                No audio generated yet
+              </div>
+            )}
+          </div>
+        </Card>
+
+
       </div>
     </ToolContainer>
   );

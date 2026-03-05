@@ -39,24 +39,35 @@ const STEPS: LoadStep[] = [
     { id: 'init', label: 'Initialising pipeline', status: 'pending' },
 ];
 
-interface KokoroTTSProps { text: string }
+export interface EngineRef {
+    synthesize: (globalSpeed: number) => Promise<void>;
+    stop: () => void;
+}
 
-const KokoroTTS: React.FC<KokoroTTSProps> = ({ text }) => {
+interface KokoroTTSProps {
+    text: string;
+    isActive: boolean;
+    onSelect: () => void;
+    onStateChange: (status: EngineStatus, isSynth: boolean) => void;
+    onAudioReady: (url: string) => void;
+}
+
+const KokoroTTS = React.forwardRef<EngineRef, KokoroTTSProps>(({ text, isActive, onSelect, onStateChange, onAudioReady }, ref) => {
     const [status, setStatus] = useState<EngineStatus>('idle');
     const [steps, setSteps] = useState<LoadStep[]>(STEPS);
     const [dlPct, setDlPct] = useState(0);
     const [dlLabel, setDlLabel] = useState('');
     const [error, setError] = useState('');
-    const [voiceId, setVoiceId] = useState('af_heart');
-    const [speed, setSpeed] = useState(1.0);
-    const [audioUrl, setAudioUrl] = useState<string | null>(null);
+    const [voiceId, setVoiceId] = useState<string | null>(null);
     const [isSynth, setIsSynth] = useState(false);
 
     const workerRef = useRef<Worker | null>(null);
     const isLoaded = useRef(false);
-    const audioRef = useRef<HTMLAudioElement | null>(null);
     const synthResolve = useRef<((v: { audio: Float32Array; sampling_rate: number }) => void) | null>(null);
     const synthReject = useRef<((r: unknown) => void) | null>(null);
+
+    // Bubble state
+    useEffect(() => { onStateChange(status, isSynth); }, [status, isSynth, onStateChange]);
 
     const upd = (id: string, patch: Partial<LoadStep>) =>
         setSteps(prev => prev.map(s => s.id === id ? { ...s, ...patch } : s));
@@ -129,152 +140,110 @@ const KokoroTTS: React.FC<KokoroTTSProps> = ({ text }) => {
     // Auto-load on tab mount
     useEffect(() => { loadEngine(); }, [loadEngine]);
 
-    // ── Speak ─────────────────────────────────────────────────────────────
-    const speak = async () => {
-        if (status === 'speaking' && !isSynth) {
-            audioRef.current?.pause();
-            setStatus('ready');
-            return;
-        }
-        if (!text.trim() || status !== 'ready') return;
+    // ── Expose API to Parent ──────────────────────────────────────────────
+    React.useImperativeHandle(ref, () => ({
+        synthesize: async (globalSpeed: number) => {
+            if (status !== 'ready' || !text.trim() || isSynth || !voiceId) return;
 
-        setStatus('speaking'); setIsSynth(true);
-        if (audioUrl) { URL.revokeObjectURL(audioUrl); setAudioUrl(null); }
+            setStatus('speaking'); setIsSynth(true);
 
-        try {
-            const result = await new Promise<{ audio: Float32Array; sampling_rate: number }>((res, rej) => {
-                synthResolve.current = res;
-                synthReject.current = rej;
-                workerRef.current!.postMessage({
-                    type: 'synthesize',
-                    payload: { text, speed, voice: voiceId },
+            try {
+                const result = await new Promise<{ audio: Float32Array; sampling_rate: number }>((res, rej) => {
+                    synthResolve.current = res;
+                    synthReject.current = rej;
+                    workerRef.current!.postMessage({
+                        type: 'synthesize',
+                        payload: { text, speed: globalSpeed, voice: voiceId },
+                    });
                 });
-            });
 
-            const wav = float32ToWav(result.audio, result.sampling_rate);
-            const blob = new Blob([wav], { type: 'audio/wav' });
-            const url = URL.createObjectURL(blob);
-            setAudioUrl(url);
-
-            const el = new Audio(url);
-            audioRef.current = el;
-            el.onended = () => setStatus('ready');
-            el.onerror = () => setStatus('ready');
-            el.play().catch((e: Error) => { if (e.name !== 'AbortError') setStatus('ready'); });
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'Synthesis failed');
+                const wav = float32ToWav(result.audio, result.sampling_rate);
+                const blob = new Blob([wav], { type: 'audio/wav' });
+                const url = URL.createObjectURL(blob);
+                onAudioReady(url);
+                setStatus('ready');
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Synthesis failed');
+                setStatus('ready');
+            } finally {
+                setIsSynth(false);
+            }
+        },
+        stop: () => {
+            // Can't strictly interrupt JS worker processing easily without terminating,
+            // but we can at least signal ready if it was speaking.
             setStatus('ready');
-        } finally {
             setIsSynth(false);
         }
-    };
+    }));
 
     const isReady = status === 'ready' || status === 'speaking';
 
     return (
-        <div className="space-y-5">
-            <div className="flex items-center gap-3 flex-wrap">
-                <span className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-purple-100 dark:bg-purple-900/30 border border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300">
-                    <Zap className="w-3.5 h-3.5" /> High Quality · Offline Capable · Privacy First
-                </span>
-                <StatusBadge status={isSynth ? 'speaking' : status} color="purple" />
-            </div>
-
+        <div className="space-y-4">
             {/* Voice selection — always visible */}
-            <Card title="Voice (Kokoro Built-In)">
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
-                    Downloads the AI voice model (~80MB) once to your device. It runs entirely offline for maximum privacy.
-                </p>
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
-                    {VOICES.map(v => (
-                        <button key={v.id} onClick={() => setVoiceId(v.id)} disabled={isSynth}
-                            className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${voiceId === v.id
-                                ? 'bg-purple-600 text-white border-purple-600 shadow-md'
-                                : 'bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-600'
-                                }`}>
-                            {v.label}
-                        </button>
-                    ))}
-                </div>
-            </Card>
+            <div onClick={onSelect} className="cursor-pointer">
+                <Card title="Kokoro Built-In (Highest Quality)"
+                    className={`transition-all duration-300 ${isActive ? 'ring-2 ring-purple-500 shadow-xl dark:ring-purple-400 bg-purple-50/30 dark:bg-purple-900/10' : 'hover:border-purple-300 dark:hover:border-purple-700/50'}`}>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                        Downloads the AI voice model (~80MB) once to your device. It runs entirely offline for maximum privacy.
+                    </p>
+                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+                        {VOICES.map(v => (
+                            <button key={v.id} onClick={(e) => { e.stopPropagation(); setVoiceId(v.id); onSelect(); }} disabled={isSynth}
+                                className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${voiceId === v.id
+                                    ? 'bg-purple-600 text-white border-purple-600 shadow-md'
+                                    : 'bg-white dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-600'
+                                    }`}>
+                                {v.label}
+                            </button>
+                        ))}
+                    </div>
 
-            <Slider label="Speed" min={0.5} max={2} step={0.1} value={speed}
-                onChange={e => setSpeed(Number(e.target.value))} valueDisplay={`${speed.toFixed(1)}x`} />
-
-            {status === 'idle' && (
-                <EngineFeatures features={[
-                    { icon: '🎤', label: '10 Voices', sub: 'High Fidelity' },
-                    { icon: '🔒', label: '100% Private', sub: 'No cloud processing' },
-                    { icon: '⚡', label: 'Fast & Free', sub: 'Runs on your device' },
-                ]} />
-            )}
-
-            {status === 'loading' && (
-                <Card title="Loading Voice Engine">
-                    <div className="space-y-4">
-                        {steps.map((s, i) => <StepRow key={s.id} step={s} index={i} color="purple" />)}
-                        <div className="space-y-1.5">
-                            <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
-                                <span className="truncate max-w-[70%]">{dlLabel || 'Checking cache…'}</span>
-                                <span className="font-mono font-bold text-purple-600">{dlPct}%</span>
+                    {status === 'loading' && (
+                        <Card title="Loading Voice Engine">
+                            <div className="space-y-4">
+                                {steps.map((s, i) => <StepRow key={s.id} step={s} index={i} color="purple" />)}
+                                <div className="space-y-1.5">
+                                    <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+                                        <span className="truncate max-w-[70%]">{dlLabel || 'Checking cache…'}</span>
+                                        <span className="font-mono font-bold text-purple-600">{dlPct}%</span>
+                                    </div>
+                                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                                        <div className="h-full bg-gradient-to-r from-purple-500 to-violet-600 rounded-full transition-all duration-300"
+                                            style={{ width: `${dlPct}%` }} />
+                                    </div>
+                                </div>
                             </div>
-                            <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                                <div className="h-full bg-gradient-to-r from-purple-500 to-violet-600 rounded-full transition-all duration-300"
-                                    style={{ width: `${dlPct}%` }} />
+                        </Card>
+                    )}
+
+                    {status === 'error' && (
+                        <ErrorCard message={error} onRetry={() => {
+                            setStatus('idle'); isLoaded.current = false;
+                            workerRef.current?.terminate(); workerRef.current = null;
+                            loadEngine();
+                        }} />
+                    )}
+
+                    {isSynth && (
+                        <Card>
+                            <div className="flex items-center gap-3">
+                                <Loader2 className="w-5 h-5 text-purple-500 animate-spin shrink-0" />
+                                <div>
+                                    <p className="text-sm font-medium text-gray-900 dark:text-white">Generating Audio…</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Please wait ~10-20 seconds on the first run. Subsequent runs will be faster.</p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        </Card>
+                    )}
                 </Card>
-            )}
-
-            {status === 'error' && (
-                <ErrorCard message={error} onRetry={() => {
-                    setStatus('idle'); isLoaded.current = false;
-                    workerRef.current?.terminate(); workerRef.current = null;
-                    loadEngine();
-                }} />
-            )}
-
-            {isSynth && (
-                <Card>
-                    <div className="flex items-center gap-3">
-                        <Loader2 className="w-5 h-5 text-purple-500 animate-spin shrink-0" />
-                        <div>
-                            <p className="text-sm font-medium text-gray-900 dark:text-white">Generating Audio…</p>
-                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Please wait ~10-20 seconds on the first run. Subsequent runs will be faster.</p>
-                        </div>
-                    </div>
-                </Card>
-            )}
-
-            {audioUrl && isReady && !isSynth && (
-                <Card>
-                    <div className="flex items-center justify-between mb-2">
-                        <Label>Generated Audio</Label>
-                        <a href={audioUrl} download="kokoro-audio.wav"
-                            className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors border border-purple-200 dark:border-purple-700">
-                            <Download className="w-3.5 h-3.5" /> Download WAV
-                        </a>
-                    </div>
-                    <audio key={audioUrl} controls className="w-full rounded-xl" src={audioUrl} />
-                </Card>
-            )}
-
-            <Button onClick={speak} size="lg" className="w-full border-0"
-                variant={status === 'speaking' && !isSynth ? 'danger' : 'primary'}
-                disabled={status === 'loading' || isSynth || !text.trim() || !isReady}
-                style={!(status === 'speaking' && !isSynth) ? { background: 'linear-gradient(to right,#9333ea,#7c3aed)' } : {}}>
-                {isSynth
-                    ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Processing in Worker…</>
-                    : status === 'speaking'
-                        ? <><Square className="w-5 h-5 mr-2 fill-current" />Stop</>
-                        : status === 'loading'
-                            ? <><Loader2 className="w-5 h-5 mr-2 animate-spin" />Loading model…</>
-                            : <><Play className="w-5 h-5 mr-2 fill-current" />Generate Speech</>}
-            </Button>
+            </div>
         </div>
     );
-};
+});
+
+KokoroTTS.displayName = 'KokoroTTS';
 
 // ── Shared exports (used by PiperTTS and SherpaOnnxTTS) ──────────────────────
 
