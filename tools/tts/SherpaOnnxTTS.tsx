@@ -182,10 +182,10 @@ const SherpaOnnxTTS = React.forwardRef<EngineRef, SherpaOnnxTTSProps>(({ text, i
             <div onClick={onSelect} className="cursor-pointer">
                 <Card title="Sherpa-ONNX (Speaker Style)"
                     className={`transition-all duration-300 ${isActive ? 'ring-2 ring-orange-500 shadow-xl dark:ring-orange-400 bg-orange-50/30 dark:bg-orange-900/10' : 'hover:border-orange-300 dark:hover:border-orange-700/50'}`}>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div data-lenis-prevent className="grid grid-cols-2 gap-2 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar">
                         {SPEAKER_STYLES.map(s => (
                             <button key={s.value} onClick={(e) => { e.stopPropagation(); setSpeakerIdx(s.value); onSelect(); }} disabled={isSynth}
-                                className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${speakerIdx === s.value
+                                className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${isActive && speakerIdx === s.value
                                     ? 'bg-orange-500 text-white border-orange-500 shadow-md'
                                     : 'bg-white dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-orange-400 dark:hover:border-orange-600'
                                     }`}>

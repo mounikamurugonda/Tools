@@ -178,7 +178,7 @@ const PiperTTS = React.forwardRef<EngineRef, PiperTTSProps>(({ text, isActive, o
                         <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                             Piper uses a distinct ~140MB AI model for <b>each</b> language. Switching languages unloads the current model and loads the new one into memory. If previously downloaded, it loads instantly from your device cache without the internet.
                         </p>
-                        <div className="grid grid-cols-2 gap-2">
+                        <div data-lenis-prevent className="grid grid-cols-2 gap-2 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar">
                             {LANGUAGES.map(l => (
                                 <button
                                     key={l.value}
@@ -191,7 +191,7 @@ const PiperTTS = React.forwardRef<EngineRef, PiperTTSProps>(({ text, isActive, o
                                         onSelect();
                                     }}
                                     disabled={isSynth}
-                                    className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${lang === l.value
+                                    className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${isActive && lang === l.value
                                         ? 'bg-emerald-600 text-white border-emerald-600 shadow-md'
                                         : 'bg-white dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-emerald-400 dark:hover:border-emerald-600'
                                         }`}

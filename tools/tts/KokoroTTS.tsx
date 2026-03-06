@@ -13,18 +13,33 @@ import Slider from '@/components/ui/Slider';
 type EngineStatus = 'idle' | 'loading' | 'ready' | 'error' | 'speaking';
 export type { EngineStatus };
 
-// 10 voices from Kokoro v1.0
+// Official voices from Kokoro v1.0
 const VOICES = [
     { id: 'af_heart', label: '❤️ af_heart — US Female' },
     { id: 'af_bella', label: '🔥 af_bella — US Female' },
     { id: 'af_nicole', label: '🎧 af_nicole — US Female' },
     { id: 'af_sarah', label: '🌸 af_sarah — US Female' },
     { id: 'af_sky', label: '☁️ af_sky — US Female' },
+    { id: 'af_jessica', label: '👱‍♀️ af_jessica — US Female' },
+    { id: 'af_kore', label: '👑 af_kore — US Female' },
+    { id: 'af_aoife', label: '☘️ af_aoife — US Female' },
+    { id: 'af_nova', label: '🚀 af_nova — US Female' },
+    { id: 'af_river', label: '🌊 af_river — US Female' },
     { id: 'am_michael', label: '🎙️ am_michael — US Male' },
     { id: 'am_puck', label: '⚾ am_puck — US Male' },
     { id: 'am_adam', label: '👔 am_adam — US Male' },
+    { id: 'am_eric', label: '👨‍🏫 am_eric — US Male' },
+    { id: 'am_liam', label: '🎸 am_liam — US Male' },
+    { id: 'am_fenrir', label: '🐺 am_fenrir — US Male' },
+    { id: 'am_onyx', label: '🌑 am_onyx — US Male' },
     { id: 'bf_emma', label: '🇬🇧 bf_emma — UK Female' },
+    { id: 'bf_alice', label: '🇬🇧 bf_alice — UK Female' },
+    { id: 'bf_aria', label: '🇬🇧 bf_aria — UK Female' },
+    { id: 'bf_isabella', label: '🇬🇧 bf_isabella — UK Female' },
+    { id: 'bf_lily', label: '🇬🇧 bf_lily — UK Female' },
     { id: 'bm_george', label: '🇬🇧 bm_george — UK Male' },
+    { id: 'bm_lewis', label: '🇬🇧 bm_lewis — UK Male' },
+    { id: 'bm_daniel', label: '🇬🇧 bm_daniel — UK Male' },
 ];
 
 export interface LoadStep {
@@ -188,10 +203,10 @@ const KokoroTTS = React.forwardRef<EngineRef, KokoroTTSProps>(({ text, isActive,
                     <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                         Downloads the AI voice model (~80MB) once to your device. It runs entirely offline for maximum privacy.
                     </p>
-                    <div className="grid grid-cols-2 lg:grid-cols-3 gap-2">
+                    <div data-lenis-prevent className="grid grid-cols-2 lg:grid-cols-3 gap-2 max-h-[160px] overflow-y-auto pr-2 custom-scrollbar">
                         {VOICES.map(v => (
                             <button key={v.id} onClick={(e) => { e.stopPropagation(); setVoiceId(v.id); onSelect(); }} disabled={isSynth}
-                                className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${voiceId === v.id
+                                className={`px-3 py-2 rounded-xl text-xs font-medium text-left transition-all border ${isActive && voiceId === v.id
                                     ? 'bg-purple-600 text-white border-purple-600 shadow-md'
                                     : 'bg-white dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-600'
                                     }`}>
