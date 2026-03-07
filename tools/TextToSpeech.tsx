@@ -159,9 +159,9 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
     lastAudioUrlRef.current = null;
 
     // Trigger synthesis
-    if (activeEngine === 'kokoro') kokoroRef.current?.synthesize(globalSpeed);
-    else if (activeEngine === 'piper') piperRef.current?.synthesize(globalSpeed);
-    else if (activeEngine === 'sherpa') sherpaRef.current?.synthesize(globalSpeed);
+    if (activeEngine === 'kokoro') kokoroRef.current?.synthesize(globalSpeed, fileText);
+    else if (activeEngine === 'piper') piperRef.current?.synthesize(globalSpeed, fileText);
+    else if (activeEngine === 'sherpa') sherpaRef.current?.synthesize(globalSpeed, fileText);
 
     // Wait for audioUrl to change or error to happen
     return new Promise((resolve, reject) => {

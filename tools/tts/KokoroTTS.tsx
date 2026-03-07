@@ -55,7 +55,7 @@ const STEPS: LoadStep[] = [
 ];
 
 export interface EngineRef {
-    synthesize: (globalSpeed: number) => Promise<void>;
+    synthesize: (globalSpeed: number, overrideText?: string) => Promise<void>;
     stop: () => void;
 }
 
@@ -157,8 +157,9 @@ const KokoroTTS = React.forwardRef<EngineRef, KokoroTTSProps>(({ text, isActive,
 
     // ── Expose API to Parent ──────────────────────────────────────────────
     React.useImperativeHandle(ref, () => ({
-        synthesize: async (globalSpeed: number) => {
-            if (status !== 'ready' || !text.trim() || isSynth || !voiceId) return;
+        synthesize: async (globalSpeed: number, overrideText?: string) => {
+            const synthText = overrideText || text;
+            if (status !== 'ready' || !synthText.trim() || isSynth || !voiceId) return;
 
             setStatus('speaking'); setIsSynth(true);
 
@@ -168,7 +169,7 @@ const KokoroTTS = React.forwardRef<EngineRef, KokoroTTSProps>(({ text, isActive,
                     synthReject.current = rej;
                     workerRef.current!.postMessage({
                         type: 'synthesize',
-                        payload: { text, speed: globalSpeed, voice: voiceId },
+                        payload: { text: synthText, speed: globalSpeed, voice: voiceId },
                     });
                 });
 

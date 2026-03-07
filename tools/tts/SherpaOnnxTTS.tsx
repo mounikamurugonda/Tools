@@ -139,8 +139,9 @@ const SherpaOnnxTTS = React.forwardRef<EngineRef, SherpaOnnxTTSProps>(({ text, i
 
     // ── Expose API to Parent ──────────────────────────────────────────────
     React.useImperativeHandle(ref, () => ({
-        synthesize: async (globalSpeed: number) => {
-            if (status !== 'ready' || !text.trim() || isSynth || speakerIdx === null) return;
+        synthesize: async (globalSpeed: number, overrideText?: string) => {
+            const synthText = overrideText || text;
+            if (status !== 'ready' || !synthText.trim() || isSynth || speakerIdx === null) return;
 
             setStatus('speaking'); setIsSynth(true);
 
@@ -151,7 +152,7 @@ const SherpaOnnxTTS = React.forwardRef<EngineRef, SherpaOnnxTTSProps>(({ text, i
                     workerRef.current!.postMessage({
                         type: 'synthesize',
                         payload: {
-                            text,
+                            text: synthText,
                             speed: globalSpeed,
                             useSpeakerEmbeddings: true, // required for this model
                         },

@@ -136,8 +136,9 @@ const PiperTTS = React.forwardRef<EngineRef, PiperTTSProps>(({ text, isActive, o
     // ── Expose API to Parent ──────────────────────────────────────────────
     // ── Expose API to Parent ──────────────────────────────────────────────
     React.useImperativeHandle(ref, () => ({
-        synthesize: async (globalSpeed: number) => {
-            if (status !== 'ready' || !text.trim() || isSynth || !lang) return;
+        synthesize: async (globalSpeed: number, overrideText?: string) => {
+            const synthText = overrideText || text;
+            if (status !== 'ready' || !synthText.trim() || isSynth || !lang) return;
 
             setStatus('speaking'); setIsSynth(true);
 
@@ -148,7 +149,7 @@ const PiperTTS = React.forwardRef<EngineRef, PiperTTSProps>(({ text, isActive, o
                     // Pass lang so the worker knows which initialized model to use
                     workerRef.current?.postMessage({
                         type: 'synthesize',
-                        payload: { text, speed: globalSpeed, lang }
+                        payload: { text: synthText, speed: globalSpeed, lang }
                     });
                 });
 
