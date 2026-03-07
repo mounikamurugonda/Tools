@@ -229,8 +229,8 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="Text to Speech" details={details} toolId={toolId}>
       <Tabs value={mode} onValueChange={(v: string) => setMode(v as 'single' | 'batch')} className="w-full">
-        <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-6">
-          <div className="flex items-start gap-3 p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 flex-1">
+        <div className="mb-6">
+          <div className="flex items-start gap-3 p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800">
             <Info className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
             <p className="text-xs text-blue-700 dark:text-blue-300">
               All engines run <strong>100% in your browser</strong> — no audio leaves your device.
@@ -238,18 +238,6 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
               Nothing plays or processes in the background until you click a button.
             </p>
           </div>
-          <TabsList className="shrink-0 self-start md:self-auto">
-            <TabsTrigger value="single" className="px-6">Single Script</TabsTrigger>
-            <TabsTrigger value="batch" className="px-6 relative">
-              Batch Process
-              {job && job.items.length > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                </span>
-              )}
-            </TabsTrigger>
-          </TabsList>
         </div>
 
         {/* ── Main content grid ─────────────────────────────────────────── */}
@@ -257,6 +245,19 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
 
           {/* LEFT COLUMN: Input / Batch UI */}
           <div className="md:col-span-2 flex flex-col gap-4">
+
+            <TabsList className="grid w-full grid-cols-2 p-1 bg-gray-100 dark:bg-gray-800 rounded-xl">
+              <TabsTrigger value="single" className="py-2.5">Single Script</TabsTrigger>
+              <TabsTrigger value="batch" className="relative py-2.5">
+                Batch Process
+                {job && job.items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 flex h-3 w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
+                  </span>
+                )}
+              </TabsTrigger>
+            </TabsList>
 
             <TabsContent value="single" className="m-0 h-full mt-0">
               <Card title="Text Input" className="h-[420px] flex flex-col">
@@ -276,6 +277,58 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
                       Clear
                     </button>
                   </div>
+                </div>
+              </Card>
+
+              {/* ── Single Mode Controls ─────────────────────────────────────────────────── */}
+              <Card className="flex flex-col gap-6 p-6">
+                <div className="w-full space-y-2">
+                  <div className="flex justify-between items-center text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <Label className="mb-0">Speed</Label>
+                    <span className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md">{globalSpeed.toFixed(2)}x</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={0.5} max={2} step={0.05}
+                    value={globalSpeed}
+                    onChange={e => setGlobalSpeed(Number(e.target.value))}
+                    className="w-full accent-blue-600 cursor-pointer h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none"
+                  />
+                </div>
+
+                <div className="w-full flex gap-2">
+                  <button
+                    onClick={globalStatus === 'speaking' && !isSynth ? handleStop : handleGenerate}
+                    disabled={globalStatus === 'loading' || isSynth || !text.trim() || !isReady || !activeEngine}
+                    className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-semibold transition-all duration-300
+                                  ${isSynth || globalStatus === 'loading' || !text.trim() || !isReady || !activeEngine ? 'bg-gray-400 cursor-not-allowed opacity-70'
+                        : globalStatus === 'speaking' && !isSynth ? 'bg-red-500 hover:bg-red-600 shadow-red-500/20 shadow-lg'
+                          : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/20 shadow-lg hover:-translate-y-0.5'}`}
+                  >
+                    {isSynth ? <><Loader2 className="w-5 h-5 animate-spin" /> Generating Audio…</>
+                      : globalStatus === 'speaking' ? <><Square className="w-5 h-5 fill-current" /> Stop Audio</>
+                        : globalStatus === 'loading' ? <><Loader2 className="w-5 h-5 animate-spin" /> Engine Loading</>
+                          : <><Play className="w-5 h-5 fill-current" /> Generate Speech</>}
+                  </button>
+
+                  {audioUrl && (
+                    <a href={audioUrl} download={`${activeEngine || 'tts'}-audio.wav`}
+                      className="flex items-center justify-center aspect-square shrink-0 rounded-xl bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors border border-orange-200 dark:border-orange-700"
+                      title="Download Audio"
+                    >
+                      <Download className="w-5 h-5" />
+                    </a>
+                  )}
+                </div>
+
+                <div className="w-full">
+                  {audioUrl ? (
+                    <audio key={audioUrl} controls autoPlay className="w-full h-12" src={audioUrl} />
+                  ) : (
+                    <div className="w-full h-12 rounded-xl bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm italic">
+                      No audio generated yet
+                    </div>
+                  )}
                 </div>
               </Card>
             </TabsContent>
@@ -389,6 +442,45 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
                   </div>
                 </Card>
               )}
+
+              {/* ── Batch Mode Controls ─────────────────────────────────────────────────── */}
+              <Card className="flex flex-col gap-6 p-6">
+                <div className="w-full space-y-2">
+                  <div className="flex justify-between items-center text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <Label className="mb-0">Speed</Label>
+                    <span className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md">{globalSpeed.toFixed(2)}x</span>
+                  </div>
+                  <input
+                    type="range"
+                    min={0.5} max={2} step={0.05}
+                    value={globalSpeed}
+                    onChange={e => setGlobalSpeed(Number(e.target.value))}
+                    className="w-full accent-blue-600 cursor-pointer h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none"
+                  />
+                </div>
+
+                <div className="w-full flex gap-2">
+                  <button
+                    onClick={toggleProcessing}
+                    disabled={globalStatus === 'loading' || !isReady || !activeEngine || !job || job.items.length === 0 || job.items.every((i: any) => i.status === 'done')}
+                    className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-semibold transition-all duration-300
+                                ${!activeEngine || globalStatus === 'loading' || !job || job.items.length === 0 || job.items.every((i: any) => i.status === 'done') ? 'bg-gray-400 cursor-not-allowed opacity-70'
+                        : isProcessing ? 'bg-red-500 hover:bg-red-600 shadow-red-500/20 shadow-lg'
+                          : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/20 shadow-lg hover:-translate-y-0.5'}`}
+                  >
+                    {isProcessing ? <><Square className="w-5 h-5 fill-current" /> Stop Batch</>
+                      : globalStatus === 'loading' ? <><Loader2 className="w-5 h-5 animate-spin" /> Engine Loading</>
+                        : job?.items.some((i: any) => i.status === 'done') && job?.items.some((i: any) => i.status === 'pending') ? <><Play className="w-5 h-5 fill-current" /> Resume Batch</>
+                          : <><Play className="w-5 h-5 fill-current" /> Start Batch Generate</>}
+                  </button>
+                </div>
+
+                <div className="w-full">
+                  <div className="w-full h-12 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400 font-medium text-sm">
+                    {job ? `${job.items.filter((i: any) => i.status === 'done').length} / ${job.items.length} Files Generated` : '0 / 0 Files Generated'}
+                  </div>
+                </div>
+              </Card>
             </TabsContent>
           </div>
 
@@ -421,81 +513,7 @@ const TextToSpeech: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
         </div>
 
-        {/* ── Global Controls ─────────────────────────────────────────────────── */}
-        <Card className="flex flex-col md:flex-row items-center gap-6 p-6 mt-8">
-          <div className="w-full md:w-1/3 space-y-2">
-            <div className="flex justify-between items-center text-sm font-medium text-gray-700 dark:text-gray-300">
-              <Label className="mb-0">Speed</Label>
-              <span className="bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-md">{globalSpeed.toFixed(2)}x</span>
-            </div>
-            <input
-              type="range"
-              min={0.5} max={2} step={0.05}
-              value={globalSpeed}
-              onChange={e => setGlobalSpeed(Number(e.target.value))}
-              className="w-full accent-blue-600 cursor-pointer h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none"
-            />
-          </div>
 
-          <div className="w-full md:w-1/3 flex gap-2">
-            {mode === 'single' ? (
-              <>
-                <button
-                  onClick={globalStatus === 'speaking' && !isSynth ? handleStop : handleGenerate}
-                  disabled={globalStatus === 'loading' || isSynth || !text.trim() || !isReady || !activeEngine}
-                  className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-semibold transition-all duration-300
-                                ${isSynth || globalStatus === 'loading' || !text.trim() || !isReady || !activeEngine ? 'bg-gray-400 cursor-not-allowed opacity-70'
-                      : globalStatus === 'speaking' && !isSynth ? 'bg-red-500 hover:bg-red-600 shadow-red-500/20 shadow-lg'
-                        : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/20 shadow-lg hover:-translate-y-0.5'}`}
-                >
-                  {isSynth ? <><Loader2 className="w-5 h-5 animate-spin" /> Generating Audio…</>
-                    : globalStatus === 'speaking' ? <><Square className="w-5 h-5 fill-current" /> Stop Audio</>
-                      : globalStatus === 'loading' ? <><Loader2 className="w-5 h-5 animate-spin" /> Engine Loading</>
-                        : <><Play className="w-5 h-5 fill-current" /> Generate Speech</>}
-                </button>
-
-                {audioUrl && (
-                  <a href={audioUrl} download={`${activeEngine || 'tts'}-audio.wav`}
-                    className="flex items-center justify-center aspect-square shrink-0 rounded-xl bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors border border-orange-200 dark:border-orange-700"
-                    title="Download Audio"
-                  >
-                    <Download className="w-5 h-5" />
-                  </a>
-                )}
-              </>
-            ) : (
-              <button
-                onClick={toggleProcessing}
-                disabled={globalStatus === 'loading' || !isReady || !activeEngine || !job || job.items.length === 0 || job.items.every((i: any) => i.status === 'done')}
-                className={`w-full flex items-center justify-center gap-2 py-3 px-6 rounded-xl text-white font-semibold transition-all duration-300
-                            ${!activeEngine || globalStatus === 'loading' || !job || job.items.length === 0 || job.items.every((i: any) => i.status === 'done') ? 'bg-gray-400 cursor-not-allowed opacity-70'
-                    : isProcessing ? 'bg-red-500 hover:bg-red-600 shadow-red-500/20 shadow-lg'
-                      : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/20 shadow-lg hover:-translate-y-0.5'}`}
-              >
-                {isProcessing ? <><Square className="w-5 h-5 fill-current" /> Stop Batch</>
-                  : globalStatus === 'loading' ? <><Loader2 className="w-5 h-5 animate-spin" /> Engine Loading</>
-                    : job?.items.some((i: any) => i.status === 'done') && job?.items.some((i: any) => i.status === 'pending') ? <><Play className="w-5 h-5 fill-current" /> Resume Batch</>
-                      : <><Play className="w-5 h-5 fill-current" /> Start Batch Generate</>}
-              </button>
-            )}
-          </div>
-
-          <div className="w-full md:w-1/3">
-            {mode === 'single' ? (
-              audioUrl ? (
-                <audio key={audioUrl} controls autoPlay className="w-full h-12" src={audioUrl} />
-              ) : (
-                <div className="w-full h-12 rounded-xl bg-gray-100 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm italic">
-                  No audio generated yet
-                </div>
-              )
-            ) : (
-              <div className="w-full h-12 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-blue-400 font-medium text-sm">
-                {job ? `${job.items.filter((i: any) => i.status === 'done').length} / ${job.items.length} Files Generated` : '0 / 0 Files Generated'}
-              </div>
-            )}
-          </div>
-        </Card>
       </Tabs>
     </ToolContainer>
   );
