@@ -31,11 +31,13 @@ export interface HumanizeResponse {
     totalChanged: number;
 }
 
+import { SentenceScore } from '../../../product/ai-content-detector/types';
+
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const text: string = typeof body?.text === 'string' ? body.text.trim() : '';
-        const sentenceScores: Array<{ text: string; aiProbability: number }> = body?.sentenceScores || [];
+        const sentenceScores: SentenceScore[] = body?.sentenceScores || [];
 
         if (!text || sentenceScores.length === 0) {
             return NextResponse.json({ error: 'Text and sentence scores are required.' }, { status: 400 });

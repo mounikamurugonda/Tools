@@ -66,7 +66,7 @@ export default function TruthScanLanding({ onStart }: TruthScanLandingProps) {
                 </p>
                 <div className="flex gap-4 justify-center flex-wrap">
                     <button onClick={onStart} className="brand-button-primary text-base px-8 py-3 shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 transition-all">
-                        🔍 Try TruthScan Free
+                        🔍 Try AI Detector Free
                     </button>
                     <a href="#how" className="brand-button-secondary text-base px-8 py-3">
                         How It Works ↓
@@ -206,7 +206,7 @@ export default function TruthScanLanding({ onStart }: TruthScanLandingProps) {
             <section className="max-w-4xl mx-auto px-6 py-20">
                 <div className="text-center mb-12">
                     <span className="brand-kicker">Use Cases</span>
-                    <h2 className="brand-heading-2 mt-1">Who Uses TruthScan?</h2>
+                    <h2 className="brand-heading-2 mt-1">Who Uses the AI Content Detector?</h2>
                 </div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     {USE_CASES.map(uc => (
@@ -248,7 +248,7 @@ export default function TruthScanLanding({ onStart }: TruthScanLandingProps) {
                 <h2 className="text-3xl sm:text-4xl font-extrabold mb-4 text-light-text dark:text-dark-text">Start Detecting for Free</h2>
                 <p className="brand-subheading mb-8">No account. No upload. Instant results.</p>
                 <button onClick={onStart} className="brand-button-primary text-base px-10 py-4 rounded-xl shadow-lg hover:shadow-accent/30 hover:-translate-y-1 transition-all">
-                    🔍 Open TruthScan →
+                    🔍 Open AI Detector →
                 </button>
             </section>
         </div>

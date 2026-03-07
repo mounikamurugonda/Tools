@@ -331,7 +331,7 @@ export default function TruthScanTool() {
         setHumanizeError('');
 
         try {
-            const res = await fetch('/api/truth-scan/detect', {
+            const res = await fetch('/api/ai-content-detector/detect', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ text }),
@@ -368,8 +368,8 @@ export default function TruthScanTool() {
             <div className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md sticky top-20 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <a href="/product/truth-scan" className="text-sm text-gray-500 dark:text-gray-400 hover:text-accent dark:hover:text-accent transition-colors">
-                            ← TruthScan
+                        <a href="/product/ai-content-detector" className="text-sm text-gray-500 dark:text-gray-400 hover:text-accent dark:hover:text-accent transition-colors">
+                            ← AI Content Detector
                         </a>
                         <span className="text-gray-300 dark:text-gray-600">|</span>
                         <span className="text-sm font-semibold text-light-text dark:text-dark-text">AI Detector</span>
@@ -539,7 +539,7 @@ export default function TruthScanTool() {
                                                     setHumanizeLoading(true);
                                                     setHumanizeError('');
                                                     try {
-                                                        const res = await fetch('/api/truth-scan/humanize', {
+                                                        const res = await fetch('/api/ai-content-detector/humanize', {
                                                             method: 'POST',
                                                             headers: { 'Content-Type': 'application/json' },
                                                             body: JSON.stringify({ text, sentenceScores: result.sentenceScores }),

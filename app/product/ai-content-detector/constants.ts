@@ -103,15 +103,15 @@ export const HOW_IT_WORKS = [
 
 export const FAQS = [
     {
-        q: 'How accurate is TruthScan?',
-        a: 'TruthScan uses two layers — statistical linguistics and Sarvam-M LLM judgment — giving high accuracy on clearly AI or clearly human text. Texts in the 40–60% zone are flagged as "Uncertain" rather than making overconfident calls.',
+        q: 'How accurate is the AI Content Detector?',
+        a: 'The AI Content Detector uses two layers — statistical linguistics and Sarvam-M LLM judgment — giving high accuracy on clearly AI or clearly human text. Texts in the 40–60% zone are flagged as "Uncertain" rather than making overconfident calls.',
     },
     {
         q: 'What detection signals do you measure?',
         a: 'We measure perplexity (word predictability), burstiness (sentence length variation), sentence variance, vocabulary richness, average sentence length, and phrase repetition. Each signal is computed on your text locally before the AI step.',
     },
     {
-        q: 'Can paraphrasing tools fool TruthScan?',
+        q: 'Can paraphrasing tools fool the AI Content Detector?',
         a: 'Paraphrasing reduces the signal strength, which is why our Uncertain zone exists. If content has been heavily paraphrased, we\'ll say "Uncertain" rather than a false "Human" verdict.',
     },
     {

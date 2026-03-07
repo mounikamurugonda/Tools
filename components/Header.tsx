@@ -210,8 +210,8 @@ const Header: React.FC = () => {
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>
                 Blog
               </NavLink>
-              <NavLink href="/tools/truth-scan" onClick={closeAllMenus} pathname={pathname}>
-                TruthScan
+              <NavLink href="/product/ai-content-detector" onClick={closeAllMenus} pathname={pathname}>
+                AI Content Detector
               </NavLink>
 
               <div className="relative group/codecast">
@@ -460,11 +460,11 @@ const Header: React.FC = () => {
                   Home
                 </Link>
                 <Link
-                  href="/tools/truth-scan"
+                  href="/product/ai-content-detector"
                   onClick={closeAllMenus}
                   className="block px-4 py-3 text-lg font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-all active:scale-95"
                 >
-                  TruthScan
+                  AI Content Detector
                 </Link>
 
                 {/* Categories Section */}

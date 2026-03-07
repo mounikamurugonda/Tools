@@ -303,9 +303,9 @@ export const getCodeCastProductSchema = () => ({
 export const getTruthScanProductSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
-  name: 'TruthScan',
+  name: 'AI Content Detector',
   description: 'Advanced AI content detector using dual-layer analysis — statistical linguistics and Sarvam-M AI — to determine if text was written by a human or AI.',
-  url: 'https://utiltoolkits.com/product/truth-scan',
+  url: 'https://utiltoolkits.com/product/ai-content-detector',
   applicationCategory: 'UtilitiesApplication',
   operatingSystem: 'Web Browser',
   browserRequirements: 'Requires JavaScript. Works with all modern browsers.',

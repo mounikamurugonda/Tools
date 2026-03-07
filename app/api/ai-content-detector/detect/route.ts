@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { DetectionResult, SentenceScore, StatisticalSignals, DetectionVerdict, ConfidenceLevel } from '../../../product/truth-scan/types';
+import { DetectionResult, SentenceScore, StatisticalSignals, DetectionVerdict, ConfidenceLevel } from '../../../product/ai-content-detector/types';
 
 const SARVAM_API = 'https://api.sarvam.ai/v1/chat/completions';
 const MIN_CHARS = 50;

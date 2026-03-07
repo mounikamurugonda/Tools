@@ -108,13 +108,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/product/truth-scan`,
+      url: `${baseUrl}/product/ai-content-detector`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/product/truth-scan/detect`,
+      url: `${baseUrl}/product/ai-content-detector/detect`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
