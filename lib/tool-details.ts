@@ -1322,48 +1322,6 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
     ],
   },
-  'text-to-speech': {
-    introduction:
-      "Let your browser speak. Convert any text into spoken audio using your device's built-in voices. Great for accessibility testing, proofreading, or just giving your eyes a break.",
-    howToUse: [
-      'Type or paste your text.',
-      'Select a voice (language/accent).',
-      'Adjust speed and pitch.',
-      "Click 'Speak'.",
-    ],
-    features: [
-      "Native Voices: Uses your OS's high-quality voices.",
-      'Multi-Language: Supports all installed languages.',
-      'Speed Control: Listen fast or slow.',
-      'Privacy: No audio data is sent to the cloud.',
-    ],
-    privacy: PRIVACY_STATEMENT,
-    explanation:
-      "This tool uses the Web Speech API to access the text-to-speech engine built into your computer or phone. It's the same technology that powers screen readers, giving you a way to 'hear' your content.",
-    usageExamples: [
-      'Proofreading your own writing (ears catch mistakes eyes miss).',
-      'Accessibility testing for screen readers.',
-      'Listening to an article while cooking.',
-    ],
-    underlyingConcept:
-      "It uses `window.speechSynthesis`. The browser asks the OS for available voices, and then sends the text to the OS's synthesis engine to play back audio.",
-    faqs: [
-      {
-        question: 'Why do the voices sound like my computer?',
-        answer:
-          "Because they ARE your computer! This tool uses your system's built-in voices, which is why it works offline and is free.",
-      },
-      {
-        question: 'Can I save the audio?',
-        answer:
-          "Not directly. The browser generates the audio in real-time. You'd need a system audio recorder to capture it.",
-      },
-      {
-        question: 'Why are some languages missing?',
-        answer: 'It depends on what language packs you have installed on your operating system.',
-      },
-    ],
-  },
   'roman-numeral-converter': {
     introduction:
       'From Rome with love. Convert numbers to Roman numerals (like MMXXIV) and back again. Perfect for copyright dates, tattoos, or deciphering super bowl logos.',
