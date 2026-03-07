@@ -4031,4 +4031,49 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
     ],
   },
+  'text-to-speech': {
+    introduction:
+      'Transform your text into extraordinarily realistic, natural-sounding speech directly in your browser. Our 100% free, local AI Text to Speech (TTS) tool leverages advanced neural engines like Kokoro, Piper, and Sherpa-ONNX to generate high-quality audio without sending your private text to the cloud. Perfect for creating voiceovers, listening to articles, or batch-processing large scripts.',
+    howToUse: [
+      'Select your preferred AI engine (Kokoro offers the highest quality, while Piper and Sherpa provide extensive language support).',
+      'Choose a voice model from the available options.',
+      'Type or paste your text into the input box.',
+      'Adjust the playback speed if necessary, and click "Generate Voice" to listen.',
+      'Use the "Batch Process" tab to synthesize multiple texts simultaneously and download them all as a ZIP file.',
+    ],
+    features: [
+      '100% Client-Side Processing: Your text is synthesized entirely on your device, ensuring absolute privacy.',
+      'Multiple AI Engines: Access state-of-the-art models including Kokoro-JS, Piper, and Sherpa-ONNX.',
+      'Batch Processing Mode: Queue up multiple scripts and generate audio for all of them in one click.',
+      'Downloadable Audio: Save generated speech as high-quality WAV files.',
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      'Cloud-based TTS APIs can be expensive and pose privacy risks. This tool utilizes WebAssembly (Wasm) and Web Workers to run sophisticated machine learning models directly within your web browser. By downloading the models locally (which happens automatically and caches for future use), it turns your device into an AI voice generation studio.',
+    usageExamples: [
+      'Generating high-quality voiceovers for YouTube videos or TikToks.',
+      'Listening to long articles, emails, or study notes while multitasking.',
+      'Creating dialogue audio for video game characters using batch processing.',
+      'Evaluating different open-source TTS engines without installing Python or command-line tools.',
+    ],
+    underlyingConcept:
+      'We use transformers and ONNX runtime to execute neural text-to-speech architectures locally. Depending on the engine, text is first converted to phonemes, which are then passed through acoustic models (to generate a mel-spectrogram or latent representation) and neural vocoders to synthesize the final digital audio waveform.',
+    faqs: [
+      {
+        question: 'Why does it take a moment to load the first time?',
+        answer:
+          'Because the tool runs entirely locally for privacy, your browser must download the AI model files (ranging from 15MB to 100MB) the first time you use a specific voice. These are securely cached, making subsequent generations nearly instantaneous.',
+      },
+      {
+        question: 'Is there a character limit?',
+        answer:
+          'Unlike paid cloud APIs, there is no hard character limit, but processing extremely long texts all at once may strain your device\'s memory. For lengthy documents, we recommend using the Batch Process feature to split the text into smaller chunks.',
+      },
+      {
+        question: 'Can I use the generated audio commercially?',
+        answer:
+          'Generally, yes. The engines (Kokoro, Piper, Sherpa) and their default voice models use open-source licenses that permit commercial use. However, you should double-check the specific license of the voice model if you are using it for a major commercial project.',
+      },
+    ],
+  },
 };
