@@ -53,6 +53,9 @@ import { useSession } from 'next-auth/react';
 import { Toast, ToastType } from '@/components/ui/Toast';
 import LoginButton from '@/components/LoginButton';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
+import * as beautifyImport from 'js-beautify';
+// js-beautify is CJS — the beautify functions live on the default export (module.exports)
+const beautify = (beautifyImport as any).default ?? beautifyImport;
 
 // Internal reusable Tooltip Wrapper
 const TooltipWrapper = ({ children, label, className = '' }: { children: React.ReactNode; label: string; className?: string }) => {
@@ -397,11 +400,10 @@ export const CodeCastHeader = () => {
   };
 
   // Code Formatting
-  const handleFormat = async () => {
+  const handleFormat = () => {
     if (!activeTab || activeTab === 'libs' || !code[activeTab as keyof typeof code]) return;
 
     try {
-      let formatted = '';
       const options = {
         indent_size: 2,
         space_in_empty_paren: true,
@@ -409,18 +411,13 @@ export const CodeCastHeader = () => {
         preserve_newlines: true,
       };
 
+      let formatted = '';
       if (activeTab === 'html') {
-        const beautifyModule = await import('js-beautify');
-        const html_beautify = beautifyModule.html || (beautifyModule.default as any).html;
-        formatted = html_beautify(code.html, options);
+        formatted = beautify.html(code.html, options);
       } else if (activeTab === 'css') {
-        const beautifyModule = await import('js-beautify');
-        const css_beautify = beautifyModule.css || (beautifyModule.default as any).css;
-        formatted = css_beautify(code.css, options);
+        formatted = beautify.css(code.css, options);
       } else if (activeTab === 'js') {
-        const beautifyModule = await import('js-beautify');
-        const js_beautify = beautifyModule.js || (beautifyModule.default as any).js;
-        formatted = js_beautify(code.js, options);
+        formatted = beautify.js(code.js, options);
       }
 
       if (formatted && currentStore && currentStore.updateCode) {
