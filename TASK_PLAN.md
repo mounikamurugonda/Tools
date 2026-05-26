@@ -80,6 +80,11 @@ Source of truth: tools in `constants.tsx` with `category: ToolCategory.TEXT`.
 
 Largest category. Most likely AdSense-friendly (developer search intent).
 
+- [x] json-formatter — pretty/minify toggle, indent (2/4/tab), sort-keys deep, error line+col display, size before→after with delta %, save .json, useToast.
+- [x] base64-converter — **fix: now Unicode-safe** (TextEncoder/TextDecoder; previously btoa would throw on emojis), URL-safe (base64url) toggle, fixed Swap to actually flip mode, error surfacing.
+- [x] url-encoder — `encodeURIComponent` vs `encodeURI` scope toggle (correctly preserves URI reserved chars), "+ = space" toggle for form-data, fixed Swap.
+- [x] uuid-generator — batch 1-1000, v4 + v7 (time-ordered, draft RFC 9562), 4 formats (standard/UPPER/no-hyphens/{braces}), copy-all + download .txt, toast.
+- [x] hash-generator — shows all 4 algorithms (SHA-1/256/384/512) simultaneously with individual copy buttons; **new file-hashing mode** up to 500MB; aria-live on hash output.
 - [ ] json-to-typescript
 - [ ] code-to-image
 - [ ] sql-formatter
@@ -90,7 +95,7 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 - [ ] binary-converter
 - [ ] string-escaper
 - [ ] json-yaml-converter
-- [ ] (fill in remaining ~14)
+- [ ] (15 more — fill in as swept)
 
 **Cross-cutting for CODING:** Monaco-based editors must be lazy. Format/minify pairs should share input pane. Add "load sample" button for instant demo.
 
