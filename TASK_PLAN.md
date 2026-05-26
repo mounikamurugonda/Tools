@@ -69,10 +69,10 @@ Source of truth: tools in `constants.tsx` with `category: ToolCategory.TEXT`.
 - [x] duplicate-remover — full rewrite: options (case-sensitive, trim, drop blanks, keep first/last, sort none/asc/desc with locale-aware numeric collator), file upload up to 50MB, **Web Worker for inputs >500KB**, toast feedback, total/unique/removed stats, copy + download .txt.
 - [x] hashtag-extractor — full rewrite: hashtags **+ mentions** modes (Unicode-aware via `\p{L}\p{N}_`), frequency ranking with ×N badges, case-insensitive toggle, strip-symbol toggle, click-a-chip-to-copy, 3 output formats (space / csv / lines), CSV download with counts, file upload, clear button.
 - [x] comma-separator — targeted polish: fixed "Commma" typo in delimiter list, added file upload (.txt/.csv), useToast on copy, replaced legacy `CopyButton` with inline button, and **added a full TOOL_DETAILS entry** (was the script's only missing-detail error).
-- [ ] fancy-font-generator
-- [ ] readability-score-calculator
-- [ ] keyword-density-analyzer
-- [ ] comma-separator
+- [x] fancy-font-generator — expanded from 6 to 13 Unicode font styles (Bold, Italic, Bold-Italic, Script, Fraktur, Double-Struck, Monospace, Sans-serif, Bubble, Small Caps, Upside-down, Strikethrough, Wide), live filter input, click-any-style-to-copy with toast, full digit support where the block contains them, replaces raw `<textarea>` with primitive.
+- [x] readability-score-calculator — added 4 more metrics (Gunning Fog, SMOG, Coleman–Liau, ARI), complex-word count, longest-sentence highlight, file upload, copy + download .md report, refined Flesch ranges. Existing FRE + F-K Grade kept.
+- [x] keyword-density-analyzer — full rewrite. File upload, Unicode-aware tokenizer (\p{L}\p{N}), sort by count/density/alpha, total + filtered + unique stats footer, click-any-row-to-copy keyword, CSV export with all 3 n-gram lengths in one file, replaces raw `<textarea>` with primitive.
+- ~~comma-separator~~ done in previous batch.
 
 **Cross-cutting for TEXT:** all text tools must accept paste + `.txt`/`.md` upload + drag-drop. Word/char/line stats footer if applicable. Worker offload above 1MB.
 
@@ -182,6 +182,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-26 — TEXT sweep COMPLETE (14 + 1 merged)
+All 14 remaining TEXT tools shipped with file upload, toast feedback, large-dataset support (Web Worker where applicable), enriched options/exports, and a11y improvements. `character-counter` consolidated into `word-counter` with 301 redirect. `comma-separator`'s missing TOOL_DETAILS entry filled. tool-details FAQ-counter script bug fixed. Next: CODING sweep (~24 tools).
 
 ### 2026-05-26 — TEXT sweep started
 - case-converter: full §6 pass. Added file upload, 3 new modes (camel/snake/kebab), live stats, download, clear, toast feedback, aria-live/aria-pressed.
