@@ -12,10 +12,18 @@ These are repo-wide fixes. They unblock every later category.
 - [ ] **Design-system audit.** Inventory `components/ui/*`. Add any missing primitives that 3+ tools need (e.g., `Accordion`, `EmptyState`, `ProgressBar`, `CodeBlock`). Document each in the file header.
 - [ ] **Theme token sweep.** Grep for hard-coded hex colors and `bg-white` / `bg-black` in `tools/` and `components/`. Replace with `light-*` / `dark-*` tokens from `tailwind.config.ts`.
 - [x] **`FileUpload` capability matrix.** Consolidated `components/FileUpload.tsx` + `components/ui/FileUpload.tsx` into a single primitive. Now supports: click-to-pick, drag-drop, clipboard paste (Ctrl/Cmd+V), multi-file via `multiple`+`onFilesSelect`, MIME validation, `maxSizeMB`, selected-file chip with remove, `useId` so multiple instances on a page no longer collide, focus-visible ring + Enter/Space keyboard activation, `onError` callback. Migrated 4 callers (`WatermarkAdder`, `MemeGenerator`, `ImageToBase64`, `ImageConverter`). Deleted `components/FileUpload.tsx`. TS clean.
-- [ ] **Toast pattern.** Standardize success/error/info toasts. One helper in `lib/` so tools don't reinvent.
+- [x] **Toast pattern.** Added `components/ui/ToastProvider.tsx` exposing `<ToastProvider>` + `useToast()` hook (`.success`, `.error`, `.info`, `.show`, `.dismiss`). Stacks multiple toasts, auto-dismiss with per-type defaults, ARIA live region. Mounted in `app/layout.tsx`. Use during category sweeps: `const toast = useToast(); toast.success('Copied!')`.
 - [ ] **Lazy-load wrapper.** Single `dynamic()` pattern documented in `AI_PROMPT.md` for heavy tools (ffmpeg, monaco, transformers).
 - [ ] **Web Worker harness.** Add a small `lib/worker-runner.ts` for offloading CPU work (text dedupe at 100MB, hash on big files, etc.).
-- [ ] **`ToolDetails` completeness check.** Script `scripts/check-tool-details.ts` that fails CI if any tool in `constants.tsx` lacks a `lib/tool-details.ts` entry.
+- [x] **`ToolDetails` completeness check.** `scripts/check-tool-details.mjs` (zero-dep Node script). Regex-parses `constants.tsx` + `lib/tool-details.ts` and verifies SEO meta + TOOL_DETAILS fields + FAQ count. Exposed via `npm run check:tool-details`. Current state: 5 errors + 3 warnings — see below; fix during category sweeps.
+
+**Tool-detail gaps surfaced (fix during category sweeps):**
+- `screen-info` — missing `seoTitle`, `seoDescription` in `TOOLS`
+- `comma-separator` — no entry in `TOOL_DETAILS`
+- `markdown-previewer` — only 2 FAQs (need ≥3)
+- `todo-list` — only 2 FAQs (need ≥3)
+- `gif-maker` — 0 `usageExamples`
+- `csv-to-json`, `json-to-csv` — orphan TOOL_DETAILS entries (no matching tool registered)
 - [ ] **SEO smoke test.** Playwright spec that visits every tool URL and asserts: `<title>`, meta description, OG, JSON-LD present.
 - [ ] **Lighthouse baseline.** Capture current Performance / SEO / Accessibility / Best Practices scores for 5 representative tools. Record below. Re-measure at end of each phase.
 - [ ] **Bundle audit.** `next build` → analyze. Identify routes >300KB JS. Note offenders here.

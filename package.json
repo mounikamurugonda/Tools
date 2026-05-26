@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "knip": "knip",
+    "check:tool-details": "node scripts/check-tool-details.mjs",
     "test": "playwright test",
     "test:e2e": "playwright test e2e/link-validation.spec.ts"
   },

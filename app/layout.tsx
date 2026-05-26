@@ -90,6 +90,7 @@ import { ThemeProvider } from '@/components/ThemeProvider';
 import SmoothScrolling from '@/components/SmoothScrolling';
 import SessionProviderWrapper from '@/components/SessionProviderWrapper';
 import QueryProvider from '@/components/QueryProvider';
+import { ToastProvider } from '@/components/ui/ToastProvider';
 
 export default function RootLayout({
   children,
@@ -145,9 +146,11 @@ export default function RootLayout({
         <QueryProvider>
           <ThemeProvider>
             <SessionProviderWrapper>
-              <SmoothScrolling>
-                <RootLayoutWrapper>{children}</RootLayoutWrapper>
-              </SmoothScrolling>
+              <ToastProvider>
+                <SmoothScrolling>
+                  <RootLayoutWrapper>{children}</RootLayoutWrapper>
+                </SmoothScrolling>
+              </ToastProvider>
             </SessionProviderWrapper>
           </ThemeProvider>
         </QueryProvider>
