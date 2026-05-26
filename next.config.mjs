@@ -12,6 +12,12 @@ const nextConfig = {
             },
         ],
     },
+    async redirects() {
+        return [
+            // Consolidated into /tools/word-counter (gained byte-size / SMS / Twitter / meta-desc gauges).
+            { source: '/tools/character-counter', destination: '/tools/word-counter', permanent: true },
+        ];
+    },
     async headers() {
         return [
             {

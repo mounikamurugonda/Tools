@@ -7,7 +7,6 @@ const TOOL_IDS = [
   'word-counter',
   'lorem-ipsum-generator',
   'text-reverser',
-  'character-counter',
   'slug-generator',
   'keyword-density-analyzer',
   'readability-score',

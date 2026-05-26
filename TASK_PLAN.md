@@ -51,7 +51,13 @@ For each tool, run the **§6 checklist from `AI_PROMPT.md`**. Add a sub-bullet p
 
 Source of truth: tools in `constants.tsx` with `category: ToolCategory.TEXT`.
 
-- [x] case-converter — added file upload (.txt/.md/.csv up to 10MB), camelCase/snake_case/kebab-case modes, live stats footer (chars/words/lines), download .txt, clear, useToast copy feedback, aria-live output, aria-pressed mode buttons, live re-conversion as input changes when a mode is active. Removed unused `useEffect` import. Commit `<fill on push>`.
+- [x] case-converter — file upload, +camel/snake/kebab modes, stats footer, download, clear, toast.
+- [x] word-counter — file upload, +chars-no-space/paragraphs/reading+speaking time, Twitter/SMS/meta/title length-limit gauges.
+- [x] character-counter — **merged into word-counter** with 301 redirect in `next.config.mjs`; constants/TOOL_DETAILS/tools file removed; word-counter keywords extended with byte/Twitter/SMS/meta-desc terms.
+- [x] lorem-ipsum-generator — paragraphs/sentences/words modes, max 1000 words, "start with Lorem ipsum…" toggle, plain/`<p>`/`<br>` HTML wrap, regenerate button, char+word footer, toast copy, download.
+- [x] text-reverser — 4 modes (chars/words/lines/word-order), surrogate-pair-aware (emojis don't break), file upload, copy+download+clear toolbar, toast, aria-live output.
+- [x] text-cleaner — 11 cleaning ops (collapse spaces, trim, blank-line removal, line breaks, HTML strip, dedupe, sort, smart quotes, diacritics, emoji, punctuation), file upload up to 50MB, **runs cleanText() in a Web Worker via `createInlineWorker` when input >500KB** so the UI doesn't jank, before/after stats with delta %, "apply to input" to chain operations, toast feedback.
+- [x] slug-generator — Single + Batch tabs, batch file upload (.txt/.csv up to 5MB), separator picker (-/_/./*/*), max-length, lowercase, diacritics removal, stop-word removal, copy-all + download-all for batch, aria-live live preview.
 - [x] word-counter — added file upload (up to 20MB), characters-without-spaces, paragraphs, reading time (225 wpm), speaking time (130 wpm), platform length-limit gauges (Twitter 280 / SMS 160 / meta desc 160 / title 60) with color-changing progress bars + aria-progressbar. Added copy/download/clear toolbar with toast feedback. aria-live on stats region.
 - [ ] character-counter
 - [ ] lorem-ipsum-generator

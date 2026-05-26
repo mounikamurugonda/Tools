@@ -2019,56 +2019,6 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     underlyingConcept:
       'The tool uses computational linguistics to tokenize and segment text. Words are identified by delimiters, sentences by punctuation patterns, and paragraphs by line breaks. This mirrors the methods used in NLP frameworks, providing insights into text density, structure, and readability.',
   },
-  'character-counter': {
-    introduction:
-      'Stay within the limits. Our Character Counter is a precision tool for anyone who writes for digital platforms. It instantly calculates characters (with and without spaces) and total byte size, making it perfect for crafting social media posts, SMS messages, or API payloads. Ensure your text fits every time, without the guesswork.',
-
-    explanation:
-      'This tool counts every character in real-time. For byte size, it encodes your text in UTF-8 to measure the exact storage space required, which is crucial for handling multi-byte characters like emojis and international symbols.',
-
-    usageExamples: [
-      'Crafting the perfect tweet that fits within the 280-character limit.',
-      "Ensuring an SMS message doesn't get split into multiple texts.",
-      "Verifying that an API payload won't exceed data limits.",
-      "Checking that a title or caption meets a platform's character requirements.",
-    ],
-
-    underlyingConcept:
-      'Character counting is more than just counting letters. With UTF-8 encoding, standard ASCII characters use 1 byte, but special characters like emojis can use up to 4 bytes. This tool distinguishes between visual characters and their actual byte size, giving developers and writers the precise information they need.',
-
-    howToUse: [
-      'Paste or type your text into the input area.',
-      'Instantly see the counts for characters (with and without spaces) and the UTF-8 byte size.',
-      'The counts will update in real-time as you edit.',
-    ],
-
-    features: [
-      'Instant Character Counts: See counts with and without spaces as you type.',
-      'Accurate Byte Size: Calculates the UTF-8 byte size for technical precision.',
-      'Full Unicode Support: Correctly counts all characters, including emojis and symbols.',
-      'Real-Time Feedback: Watch the numbers update instantly as you write.',
-      'Essential for Digital Content: Perfect for social media, SMS, and development.',
-    ],
-
-    faqs: [
-      {
-        question: 'Why is the byte size different from the character count?',
-        answer:
-          'Because special characters like emojis (👍) or accented letters (é) require more than one byte of storage in UTF-8 encoding.',
-      },
-      {
-        question: 'Does it count spaces?',
-        answer:
-          'Yes, it provides counts both with and without spaces so you have all the information you need.',
-      },
-      {
-        question: 'Is it accurate for all languages?',
-        answer: 'Yes, it fully supports Unicode, ensuring every language is counted correctly.',
-      },
-    ],
-
-    privacy: PRIVACY_STATEMENT,
-  },
   'lorem-ipsum-generator': {
     introduction:
       "Focus on design, not content. Our Lorem Ipsum Generator instantly creates professional placeholder text for your projects. Whether you're a designer crafting a website, a developer building a UI, or a strategist creating a wireframe, this tool provides the perfect filler text to make your layouts look complete. Generate paragraphs, sentences, or words to fit any design.",
