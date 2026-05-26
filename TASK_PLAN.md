@@ -18,12 +18,12 @@ These are repo-wide fixes. They unblock every later category.
 - [x] **`ToolDetails` completeness check.** `scripts/check-tool-details.mjs` (zero-dep Node script). Regex-parses `constants.tsx` + `lib/tool-details.ts` and verifies SEO meta + TOOL_DETAILS fields + FAQ count. Exposed via `npm run check:tool-details`. Current state: 5 errors + 3 warnings — see below; fix during category sweeps.
 
 **Tool-detail gaps surfaced (fix during category sweeps):**
-- `screen-info` — missing `seoTitle`, `seoDescription` in `TOOLS`
-- `comma-separator` — no entry in `TOOL_DETAILS`
-- `markdown-previewer` — only 2 FAQs (need ≥3)
-- `todo-list` — only 2 FAQs (need ≥3)
-- `gif-maker` — 0 `usageExamples`
-- `csv-to-json`, `json-to-csv` — orphan TOOL_DETAILS entries (no matching tool registered)
+- ~~`comma-separator` — no entry in `TOOL_DETAILS`~~ ✅ fixed during TEXT sweep
+- ~~`markdown-previewer` — only 2 FAQs~~ ✅ was a script regex bug (false positive); script fix landed alongside markdown-previewer commit
+- `screen-info` — missing `seoTitle`, `seoDescription` in `TOOLS` (MISC sweep)
+- `todo-list` — only 2 FAQs (need ≥3) (PRODUCTIVITY sweep)
+- `gif-maker` — 0 `usageExamples` (VIDEO sweep)
+- `csv-to-json`, `json-to-csv` — orphan TOOL_DETAILS entries (no matching tool registered) — investigate during CODING sweep
 - [x] **SEO smoke test.** `e2e/seo-smoke.spec.ts` visits one representative tool per category + 7 static pages and asserts: non-empty `<title>` (not the not-found fallback), `<meta name="description">`, `og:title/description/image`, `twitter:card`, `<link rel="canonical">`, and at least one parseable JSON-LD block. Runs via `npm test`. Sampled rather than exhaustive to keep CI fast — `link-validation.spec.ts` already covers all 95 routes.
 - [ ] **Lighthouse baseline.** Capture current Performance / SEO / Accessibility / Best Practices scores for 5 representative tools. Record below. Re-measure at end of each phase. **User action: run `npm run build && npm start` then Lighthouse on the URLs in the table below.**
 - [ ] **Bundle audit.** `next build` → analyze. Identify routes >300KB JS. Note offenders here. **User action: run `npm run build` and paste output.**
@@ -64,10 +64,11 @@ Source of truth: tools in `constants.tsx` with `category: ToolCategory.TEXT`.
 - [ ] text-reverser
 - [ ] text-cleaner
 - [ ] slug-generator
-- [ ] markdown-table-generator
-- [ ] markdown-previewer
-- [ ] duplicate-remover
-- [ ] hashtag-extractor
+- [x] markdown-table-generator — full rewrite: CSV/TSV file upload + paste-from-clipboard import, per-column alignment toggle (left/center/right via header click → cycles `:--- / :---: / ---:`), aligned source formatting (padded for human-readability), add/remove row & column buttons, max 500 rows × 20 cols, download .md, toast feedback, aria-live output.
+- [x] markdown-previewer — added file upload (.md/.markdown/.txt up to 5MB), copy+download for both Markdown and rendered HTML, "Sample" button to restore starter, useToast feedback. (3rd FAQ was already present — check-script had a regex bug that this batch also fixed.)
+- [x] duplicate-remover — full rewrite: options (case-sensitive, trim, drop blanks, keep first/last, sort none/asc/desc with locale-aware numeric collator), file upload up to 50MB, **Web Worker for inputs >500KB**, toast feedback, total/unique/removed stats, copy + download .txt.
+- [x] hashtag-extractor — full rewrite: hashtags **+ mentions** modes (Unicode-aware via `\p{L}\p{N}_`), frequency ranking with ×N badges, case-insensitive toggle, strip-symbol toggle, click-a-chip-to-copy, 3 output formats (space / csv / lines), CSV download with counts, file upload, clear button.
+- [x] comma-separator — targeted polish: fixed "Commma" typo in delimiter list, added file upload (.txt/.csv), useToast on copy, replaced legacy `CopyButton` with inline button, and **added a full TOOL_DETAILS entry** (was the script's only missing-detail error).
 - [ ] fancy-font-generator
 - [ ] readability-score-calculator
 - [ ] keyword-density-analyzer

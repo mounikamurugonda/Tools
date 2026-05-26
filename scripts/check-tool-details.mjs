@@ -166,16 +166,38 @@ function parseDetails(src) {
   return details;
 }
 
+/** Extract the body between `name: [` and the matching `]`, respecting bracket depth. */
+function extractArrayBody(entryBody, name) {
+  const re = new RegExp(`\\b${name}\\s*:\\s*\\[`);
+  const m = entryBody.match(re);
+  if (!m || m.index == null) return null;
+  let i = m.index + m[0].length;
+  let depth = 1;
+  let inString = null; // ' " or `
+  while (i < entryBody.length && depth > 0) {
+    const c = entryBody[i];
+    const prev = entryBody[i - 1];
+    if (inString) {
+      if (c === inString && prev !== '\\') inString = null;
+    } else {
+      if (c === "'" || c === '"' || c === '`') inString = c;
+      else if (c === '[') depth++;
+      else if (c === ']') depth--;
+    }
+    i++;
+  }
+  return entryBody.slice(m.index + m[0].length, i - 1);
+}
+
 function analyzeDetailEntry(entryBody) {
   const has = name => new RegExp(`\\b${name}\\s*:`).test(entryBody);
   const arrayLen = name => {
-    const m = entryBody.match(new RegExp(`\\b${name}\\s*:\\s*\\[([\\s\\S]*?)\\]`));
-    if (!m) return 0;
-    // Count string literals OR object literals (for faqs)
+    const body = extractArrayBody(entryBody, name);
+    if (body == null) return 0;
     if (name === 'faqs') {
-      return (m[1].match(/question\s*:/g) ?? []).length;
+      return (body.match(/\bquestion\s*:/g) ?? []).length;
     }
-    return (m[1].match(/['"`][^'"`]+['"`]/g) ?? []).length;
+    return (body.match(/['"`][^'"`]+['"`]/g) ?? []).length;
   };
   return {
     present: true,
