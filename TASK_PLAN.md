@@ -85,11 +85,11 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 - [x] url-encoder — `encodeURIComponent` vs `encodeURI` scope toggle (correctly preserves URI reserved chars), "+ = space" toggle for form-data, fixed Swap.
 - [x] uuid-generator — batch 1-1000, v4 + v7 (time-ordered, draft RFC 9562), 4 formats (standard/UPPER/no-hyphens/{braces}), copy-all + download .txt, toast.
 - [x] hash-generator — shows all 4 algorithms (SHA-1/256/384/512) simultaneously with individual copy buttons; **new file-hashing mode** up to 500MB; aria-live on hash output.
-- [ ] json-to-typescript
-- [ ] code-to-image
-- [ ] sql-formatter
-- [ ] cron-generator
-- [ ] meta-tag-generator
+- [x] json-to-typescript — rewrote generator: union-type detection for mixed arrays, `interface | type` toggle, configurable indent (2/4/tab), `null → optional` toggle, optional `export` keyword, configurable root name, smart pascal/singular for nested + item types, identifier-safe quoting, decl + line count footer, `.ts` download, structured error with line/col.
+- [x] code-to-image — added Language `<Select>` (was unreachable from UI), JPEG export button alongside PNG/SVG, replaced `alert()` with toast feedback for export + clipboard + auto-detect, extended file-extension auto-detect (sql/rs/go/sh/java), uses shared `useToast`.
+- [x] sql-formatter — 15 dialects (MySQL/Postgres/SQLite/T-SQL/PL-SQL/BigQuery/Snowflake/Redshift/Spark/Hive/DB2/TiDB/Trino/MariaDB/Standard), keyword-case picker (UPPER/lower/preserve), indent picker (2/4/tab incl. tab vs space), pretty↔minify toggle with custom minifier that strips comments + collapses whitespace, before→after byte stats with delta %, `.sql` download, inline error card.
+- [x] cron-generator — full rewrite: real validating parser for `*` / `n` / `a-b` / `a,b,c` / `*/n` / `a-b/n` across all 5 fields, plain-English description of every parsed expression, **Next 5 runs** computed via per-minute iteration up to 1 year, 10 common presets (every-N-min, daily, weekly, weekdays, monthly, yearly) with pressed-state pills, POSIX DOM/DOW union semantics, copy with toast.
+- [x] meta-tag-generator — added Open Graph + Twitter Card + canonical + robots blocks (the TOOL_DETAILS promised them; previous code only emitted basic name=meta), Twitter handle field, OG type + Twitter card selects, HTML-escapes user input, **live Google SERP preview + Twitter card preview** with image fallback, copy + download as `.html`, length-limit color thresholds.
 - [ ] chmod-calculator
 - [ ] xml-formatter
 - [ ] binary-converter
@@ -187,6 +187,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-26 — CODING batch 2 (json-to-typescript, code-to-image, sql-formatter, cron-generator, meta-tag-generator)
+5 more CODING tools shipped, full §6 audit each, one commit per tool. Highlights: json-to-typescript now emits union types for heterogeneous arrays and supports `interface | type` + `?`-on-null; sql-formatter gained 15 dialects + keyword-case + minify; cron-generator rewritten with a real validating parser, plain-English description, and next-5-runs; meta-tag-generator now actually produces the OG + Twitter cards promised in its TOOL_DETAILS, with live Google SERP + Twitter card previews; code-to-image got a missing language picker + JPEG export + toast (replaced raw `alert()`). 10/24 CODING tools done. Next batch starts with chmod-calculator.
 
 ### 2026-05-26 — TEXT sweep COMPLETE (14 + 1 merged)
 All 14 remaining TEXT tools shipped with file upload, toast feedback, large-dataset support (Web Worker where applicable), enriched options/exports, and a11y improvements. `character-counter` consolidated into `word-counter` with 301 redirect. `comma-separator`'s missing TOOL_DETAILS entry filled. tool-details FAQ-counter script bug fixed. Next: CODING sweep (~24 tools).
