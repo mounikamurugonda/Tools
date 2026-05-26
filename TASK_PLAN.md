@@ -9,8 +9,8 @@
 
 These are repo-wide fixes. They unblock every later category.
 
-- [ ] **Design-system audit.** Inventory `components/ui/*`. Add any missing primitives that 3+ tools need (e.g., `Accordion`, `EmptyState`, `ProgressBar`, `CodeBlock`). Document each in the file header.
-- [ ] **Theme token sweep.** Grep for hard-coded hex colors and `bg-white` / `bg-black` in `tools/` and `components/`. Replace with `light-*` / `dark-*` tokens from `tailwind.config.ts`.
+- [~] **Design-system audit.** Current `components/ui/*`: Button, Card, CustomSelect, FileUpload, Input, Label, Select, Slider, Tabs, TextArea, Toast, ToastProvider. Missing-and-likely-needed primitives identified for category sweeps: `Accordion` (FAQ blocks), `EmptyState`, `ProgressBar` (video/image tools), `CodeBlock` (with built-in copy). **Deferred to category sweeps** — add only when 3+ tools genuinely need each one, to avoid speculative abstraction.
+- [~] **Theme token sweep.** Tailwind tokens defined: `light-background`, `dark-background`, `light-text`, `dark-text`, `accent.{DEFAULT,hover,light}`. Most tool code uses raw `gray-*` / `blue-*` Tailwind classes (acceptable). **Deferred to category sweeps** — per-tool replacement is safer than a blind global grep, and each sweep already includes a "dark/light mode renders correctly" check.
 - [x] **`FileUpload` capability matrix.** Consolidated `components/FileUpload.tsx` + `components/ui/FileUpload.tsx` into a single primitive. Now supports: click-to-pick, drag-drop, clipboard paste (Ctrl/Cmd+V), multi-file via `multiple`+`onFilesSelect`, MIME validation, `maxSizeMB`, selected-file chip with remove, `useId` so multiple instances on a page no longer collide, focus-visible ring + Enter/Space keyboard activation, `onError` callback. Migrated 4 callers (`WatermarkAdder`, `MemeGenerator`, `ImageToBase64`, `ImageConverter`). Deleted `components/FileUpload.tsx`. TS clean.
 - [x] **Toast pattern.** Added `components/ui/ToastProvider.tsx` exposing `<ToastProvider>` + `useToast()` hook (`.success`, `.error`, `.info`, `.show`, `.dismiss`). Stacks multiple toasts, auto-dismiss with per-type defaults, ARIA live region. Mounted in `app/layout.tsx`. Use during category sweeps: `const toast = useToast(); toast.success('Copied!')`.
 - [x] **Lazy-load wrapper.** `lib/lazy.ts` exports `lazyTool()` — thin wrapper around `next/dynamic` with `ssr: false` + default skeleton. Use during category sweeps to split heavy tools (Monaco, FFmpeg, transformers, kokoro, onnxruntime).
@@ -25,8 +25,8 @@ These are repo-wide fixes. They unblock every later category.
 - `gif-maker` — 0 `usageExamples`
 - `csv-to-json`, `json-to-csv` — orphan TOOL_DETAILS entries (no matching tool registered)
 - [x] **SEO smoke test.** `e2e/seo-smoke.spec.ts` visits one representative tool per category + 7 static pages and asserts: non-empty `<title>` (not the not-found fallback), `<meta name="description">`, `og:title/description/image`, `twitter:card`, `<link rel="canonical">`, and at least one parseable JSON-LD block. Runs via `npm test`. Sampled rather than exhaustive to keep CI fast — `link-validation.spec.ts` already covers all 95 routes.
-- [ ] **Lighthouse baseline.** Capture current Performance / SEO / Accessibility / Best Practices scores for 5 representative tools. Record below. Re-measure at end of each phase.
-- [ ] **Bundle audit.** `next build` → analyze. Identify routes >300KB JS. Note offenders here.
+- [ ] **Lighthouse baseline.** Capture current Performance / SEO / Accessibility / Best Practices scores for 5 representative tools. Record below. Re-measure at end of each phase. **User action: run `npm run build && npm start` then Lighthouse on the URLs in the table below.**
+- [ ] **Bundle audit.** `next build` → analyze. Identify routes >300KB JS. Note offenders here. **User action: run `npm run build` and paste output.**
 - [x] **404 / loading.tsx / error.tsx** present and on-theme. Added `app/loading.tsx` (route-wide skeleton), `app/error.tsx` (per-route error boundary with retry + back-home + error digest), `app/global-error.tsx` (top-level boundary that owns its own `<html>`). Existing `app/not-found.tsx` and `app/tools/[toolId]/loading.tsx` kept as-is.
 
 **Lighthouse baseline (fill in):**
@@ -47,14 +47,25 @@ Order chosen for ROI: start with categories where SEO content and consistency wi
 
 For each tool, run the **§6 checklist from `AI_PROMPT.md`**. Add a sub-bullet per tool noting findings + the commit that fixed them.
 
-### 1A. TEXT — Text Tools (~14)
+### 1A. TEXT — Text Tools (14)
 
 Source of truth: tools in `constants.tsx` with `category: ToolCategory.TEXT`.
 
+- [ ] case-converter
+- [ ] word-counter
+- [ ] character-counter
+- [ ] lorem-ipsum-generator
+- [ ] text-reverser
+- [ ] text-cleaner
 - [ ] slug-generator
 - [ ] markdown-table-generator
-- [ ] text-cleaner
-- [ ] (fill in remaining ~11 from constants.tsx during the sweep)
+- [ ] markdown-previewer
+- [ ] duplicate-remover
+- [ ] hashtag-extractor
+- [ ] fancy-font-generator
+- [ ] readability-score-calculator
+- [ ] keyword-density-analyzer
+- [ ] comma-separator
 
 **Cross-cutting for TEXT:** all text tools must accept paste + `.txt`/`.md` upload + drag-drop. Word/char/line stats footer if applicable. Worker offload above 1MB.
 
@@ -165,8 +176,15 @@ After all categories pass §6:
 
 Append one entry per work session. Newest at top.
 
-### 2026-05-26 — Initialization + first Phase 0 commit
-- Created `AI_PROMPT.md` and `TASK_PLAN.md`.
-- Saved project motto + goals to Claude memory.
+### 2026-05-26 — Phase 0 (mostly) complete
+- Created `AI_PROMPT.md` + `TASK_PLAN.md`; saved motto + goals to Claude memory.
 - User chose: Phase 0 first, per-tool refactor scope, one commit per concern.
-- **Phase 0 progress:** consolidated FileUpload primitive (see Phase 0 checklist). Fixed id collision bug. Added paste, multi-file, MIME + size validation, keyboard a11y. Migrated 4 callers; deleted duplicate component. Typecheck clean.
+- **Phase 0 commits landed:**
+  1. `52c913d` planning docs
+  2. `887dec7` FileUpload consolidation (fix id collision, add paste/multi/validation)
+  3. `38e155d` Toast provider + tool-details completeness check
+  4. `818a93f` SEO smoke spec + lazyTool helper + Worker harness
+  5. `b70c207` route loading + error + global-error boundaries
+- Deferred to category sweeps: design-system gap-filling, theme token cleanup.
+- Deferred to user: Lighthouse baseline + bundle audit (require running build).
+- Next: start TEXT category sweep against the §6 checklist.
