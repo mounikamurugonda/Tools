@@ -4,16 +4,17 @@ import React, { useState, useEffect } from 'react';
 import { useDebounce } from '@/hooks/useDebounce';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import CopyButton from '@/components/CopyButton';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Select from '@/components/ui/Select';
 import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
-import { Settings, RefreshCw, ArrowRightLeft, Trash2, ArrowRight } from 'lucide-react';
+import FileUpload from '@/components/ui/FileUpload';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Settings, Trash2 } from 'lucide-react';
 
 const DELIMITERS = [
-  { label: 'Commma (,)', value: ',' },
+  { label: 'Comma (,)', value: ',' },
   { label: 'New Line (\\n)', value: '\n' },
   { label: 'Space ( )', value: ' ' },
   { label: 'Tab (\\t)', value: '\t' },
@@ -37,6 +38,27 @@ const WRAPPERS = [
 const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const toast = useToast();
+
+  const handleFile = async (file: File) => {
+    try {
+      const text = await file.text();
+      setInput(text);
+      toast.success(`Loaded ${file.name}`);
+    } catch {
+      toast.error('Could not read file');
+    }
+  };
+
+  const handleCopy = async () => {
+    if (!output) return;
+    try {
+      await navigator.clipboard.writeText(output);
+      toast.success('Copied');
+    } catch {
+      toast.error('Copy failed');
+    }
+  };
 
   // Settings
   const [inputDelimiter, setInputDelimiter] = useState('auto');
@@ -229,7 +251,17 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
             : 0}{' '}
           items
         </span>
-        <CopyButton textToCopy={output} className="h-6 w-6" />
+        <button
+          type="button"
+          onClick={handleCopy}
+          disabled={!output}
+          className="p-1.5 rounded-md text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-40"
+          aria-label="Copy result"
+          title="Copy result"
+        >
+          <span className="sr-only">Copy</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+        </button>
       </div>
     </div>
   );
@@ -242,6 +274,14 @@ const CommaSeparator: React.FC<ToolProps> = ({ details, toolId }) => {
       headerContent={OptionsButton}
     >
       <div className="space-y-6">
+        <FileUpload
+          onFileSelect={handleFile}
+          accept=".txt,.csv,text/plain,text/csv"
+          maxSizeMB={20}
+          title="Drop a .txt or .csv"
+          description="or paste your list below"
+        />
+
         {/* Collapsible Configuration */}
         {showOptions && (
           <Card

@@ -4,6 +4,58 @@ const PRIVACY_STATEMENT =
   'All calculations and data processing for this tool are performed locally in your browser. UtilToolkits does not send any of your data to an external server, ensuring your information remains private and secure.';
 
 export const TOOL_DETAILS: Record<string, ToolDetails> = {
+  'comma-separator': {
+    introduction:
+      'Turn any column, list, or messy string of values into clean, comma-separated text — or split a CSV row back into a list. The Comma Separator is built for developers, marketers, and data analysts who constantly bridge spreadsheet columns, SQL `IN (...)` clauses, and config files. Auto-detects the input delimiter, lets you wrap each item in quotes or brackets, and handles deduping, sorting, and trimming in one pass.',
+    howToUse: [
+      'Paste a list or upload a `.txt` / `.csv` file.',
+      'Pick (or auto-detect) the input separator — newline, comma, tab, semicolon, pipe, colon, or any custom string.',
+      'Choose an output separator and optionally wrap every item in quotes, brackets, parens, or a custom string. Add a prefix/suffix if needed.',
+      'Toggle the filters: trim whitespace, drop empty items, remove duplicates, sort A→Z or Z→A.',
+      'Copy the result or download it as a `.txt`.',
+    ],
+    features: [
+      'Auto-detect input delimiter so messy paste-ins just work.',
+      'Many output delimiters: comma, newline, space, tab, semicolon, pipe, colon, or custom.',
+      'Wrap items in single/double quotes, backticks, brackets, parens, braces, or a custom left/right pair — perfect for SQL `IN (...)` or array literals.',
+      'Optional prefix and suffix applied to every item.',
+      'Dedupe, drop-empty, trim-whitespace, and locale-aware sort (numeric-friendly).',
+      'Live conversion: every change reflects instantly with no Convert button needed.',
+    ],
+    privacy: PRIVACY_STATEMENT,
+    explanation:
+      'Under the hood the tool tokenizes your input on the chosen delimiter (auto-mode counts candidate occurrences and picks the most common), runs the filter pipeline (trim → drop-empty → dedupe → sort), then re-joins each item with the chosen wrapper, prefix, and suffix glued by the output delimiter. All work runs locally in your browser using `Array.split`, `Set`, and `Intl.Collator`, so no data ever leaves your machine.',
+    usageExamples: [
+      'Convert an Excel column into a SQL `WHERE id IN (1, 2, 3)` clause with single quotes around each value.',
+      'Turn a CSV row back into a multi-line shopping list.',
+      'Build a JavaScript string array literal from a flat list of values.',
+      'Dedupe and alphabetize a tag list before pasting it into a CMS.',
+    ],
+    underlyingConcept:
+      'Comma-separation looks trivial but the messy reality (mixed delimiters, stray whitespace, accidental duplicates, locale-dependent sort order) is what makes a dedicated tool useful. Auto-detection picks the delimiter with the highest in-string count; the locale-aware collator ensures `Item 2` sorts before `Item 10` rather than after.',
+    faqs: [
+      {
+        question: 'Can I split on a custom delimiter like `||`?',
+        answer:
+          'Yes — pick "Custom" in the input or output delimiter dropdown and type any string. It accepts multi-character separators.',
+      },
+      {
+        question: 'How do I wrap each item in single quotes for SQL?',
+        answer:
+          'Set the wrapper to "Single Quotes (\\\')" and the output separator to "Comma (,)". You\'ll get `\\\'a\\\', \\\'b\\\', \\\'c\\\'` ready to paste into an `IN (...)` clause.',
+      },
+      {
+        question: 'Is sorting case-sensitive?',
+        answer:
+          'No. We use an `Intl.Collator` with `sensitivity: "base"` and `numeric: true`, so it ignores case and sorts numbers naturally (Item 2 before Item 10).',
+      },
+      {
+        question: 'Does my data leave my browser?',
+        answer:
+          'No. Everything runs locally in your browser via standard JS — there is no server round-trip.',
+      },
+    ],
+  },
   'json-to-typescript': {
     introduction:
       'Instantly convert your JSON objects into accurate TypeScript interfaces. This tool saves you time by automatically generating type definitions, helping you catch errors early and speed up your development workflow. No more manual typing—just paste and go.',
