@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
 import Card from '@/components/ui/Card';
 import TextArea from '@/components/ui/TextArea';
 import CopyButton from '@/components/CopyButton';
@@ -49,7 +49,7 @@ const ImageToBase64: React.FC<ToolProps> = ({ details, toolId }) => {
         <Card title="Upload Image">
           <div className="space-y-4">
             <Label>Select an image file</Label>
-            <FileUpload accept="image/*" onChange={handleFileChange} maxSize={10} />
+            <FileUpload accept="image/*" onChange={handleFileChange} maxSizeMB={10} />
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
         </Card>

@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Slider from '@/components/ui/Slider';
@@ -185,7 +185,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                 accept="image/*"
                 onChange={handleMainImageChange}
                 description="The image to be watermarked"
-                maxSize={50}
+                maxSizeMB={50}
               />
             </div>
             <div className="space-y-2">
@@ -194,7 +194,7 @@ const WatermarkAdder: React.FC<ToolProps> = ({ details, toolId }) => {
                 accept="image/*"
                 onChange={handleWatermarkImageChange}
                 description="The watermark image"
-                maxSize={10}
+                maxSizeMB={10}
               />
             </div>
           </Card>

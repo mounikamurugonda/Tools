@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import FileUpload from '@/components/FileUpload';
+import FileUpload from '@/components/ui/FileUpload';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
@@ -93,7 +93,7 @@ const MemeGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <FileUpload
                 accept="image/*"
                 onChange={handleImageUpload}
-                maxSize={10}
+                maxSizeMB={10}
                 className="h-32"
               />
             </div>
