@@ -52,7 +52,7 @@ For each tool, run the **§6 checklist from `AI_PROMPT.md`**. Add a sub-bullet p
 Source of truth: tools in `constants.tsx` with `category: ToolCategory.TEXT`.
 
 - [x] case-converter — added file upload (.txt/.md/.csv up to 10MB), camelCase/snake_case/kebab-case modes, live stats footer (chars/words/lines), download .txt, clear, useToast copy feedback, aria-live output, aria-pressed mode buttons, live re-conversion as input changes when a mode is active. Removed unused `useEffect` import. Commit `<fill on push>`.
-- [ ] word-counter
+- [x] word-counter — added file upload (up to 20MB), characters-without-spaces, paragraphs, reading time (225 wpm), speaking time (130 wpm), platform length-limit gauges (Twitter 280 / SMS 160 / meta desc 160 / title 60) with color-changing progress bars + aria-progressbar. Added copy/download/clear toolbar with toast feedback. aria-live on stats region.
 - [ ] character-counter
 - [ ] lorem-ipsum-generator
 - [ ] text-reverser
@@ -177,7 +177,8 @@ After all categories pass §6:
 Append one entry per work session. Newest at top.
 
 ### 2026-05-26 — TEXT sweep started
-- case-converter: full §6 pass. Added file upload, 3 new modes (camel/snake/kebab), live stats, download, clear, toast feedback, aria-live/aria-pressed. Commit `<pending>`.
+- case-converter: full §6 pass. Added file upload, 3 new modes (camel/snake/kebab), live stats, download, clear, toast feedback, aria-live/aria-pressed.
+- word-counter: full §6 pass. Added file upload, chars-without-spaces, paragraphs, reading/speaking time, Twitter/SMS/meta-desc/title length-limit gauges with color thresholds and aria-progressbar.
 
 ### 2026-05-26 — Phase 0 (mostly) complete
 - Created `AI_PROMPT.md` + `TASK_PLAN.md`; saved motto + goals to Claude memory.
