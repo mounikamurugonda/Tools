@@ -13,8 +13,8 @@ These are repo-wide fixes. They unblock every later category.
 - [ ] **Theme token sweep.** Grep for hard-coded hex colors and `bg-white` / `bg-black` in `tools/` and `components/`. Replace with `light-*` / `dark-*` tokens from `tailwind.config.ts`.
 - [x] **`FileUpload` capability matrix.** Consolidated `components/FileUpload.tsx` + `components/ui/FileUpload.tsx` into a single primitive. Now supports: click-to-pick, drag-drop, clipboard paste (Ctrl/Cmd+V), multi-file via `multiple`+`onFilesSelect`, MIME validation, `maxSizeMB`, selected-file chip with remove, `useId` so multiple instances on a page no longer collide, focus-visible ring + Enter/Space keyboard activation, `onError` callback. Migrated 4 callers (`WatermarkAdder`, `MemeGenerator`, `ImageToBase64`, `ImageConverter`). Deleted `components/FileUpload.tsx`. TS clean.
 - [x] **Toast pattern.** Added `components/ui/ToastProvider.tsx` exposing `<ToastProvider>` + `useToast()` hook (`.success`, `.error`, `.info`, `.show`, `.dismiss`). Stacks multiple toasts, auto-dismiss with per-type defaults, ARIA live region. Mounted in `app/layout.tsx`. Use during category sweeps: `const toast = useToast(); toast.success('Copied!')`.
-- [ ] **Lazy-load wrapper.** Single `dynamic()` pattern documented in `AI_PROMPT.md` for heavy tools (ffmpeg, monaco, transformers).
-- [ ] **Web Worker harness.** Add a small `lib/worker-runner.ts` for offloading CPU work (text dedupe at 100MB, hash on big files, etc.).
+- [x] **Lazy-load wrapper.** `lib/lazy.ts` exports `lazyTool()` — thin wrapper around `next/dynamic` with `ssr: false` + default skeleton. Use during category sweeps to split heavy tools (Monaco, FFmpeg, transformers, kokoro, onnxruntime).
+- [x] **Web Worker harness.** `lib/worker-runner.ts` exports `createInlineWorker(fn)` — turns a self-contained function into a one-shot off-thread runner with main-thread fallback when Worker is unavailable. Use during TEXT/CODING sweeps for dedupe, hashing, big regex.
 - [x] **`ToolDetails` completeness check.** `scripts/check-tool-details.mjs` (zero-dep Node script). Regex-parses `constants.tsx` + `lib/tool-details.ts` and verifies SEO meta + TOOL_DETAILS fields + FAQ count. Exposed via `npm run check:tool-details`. Current state: 5 errors + 3 warnings — see below; fix during category sweeps.
 
 **Tool-detail gaps surfaced (fix during category sweeps):**
@@ -24,7 +24,7 @@ These are repo-wide fixes. They unblock every later category.
 - `todo-list` — only 2 FAQs (need ≥3)
 - `gif-maker` — 0 `usageExamples`
 - `csv-to-json`, `json-to-csv` — orphan TOOL_DETAILS entries (no matching tool registered)
-- [ ] **SEO smoke test.** Playwright spec that visits every tool URL and asserts: `<title>`, meta description, OG, JSON-LD present.
+- [x] **SEO smoke test.** `e2e/seo-smoke.spec.ts` visits one representative tool per category + 7 static pages and asserts: non-empty `<title>` (not the not-found fallback), `<meta name="description">`, `og:title/description/image`, `twitter:card`, `<link rel="canonical">`, and at least one parseable JSON-LD block. Runs via `npm test`. Sampled rather than exhaustive to keep CI fast — `link-validation.spec.ts` already covers all 95 routes.
 - [ ] **Lighthouse baseline.** Capture current Performance / SEO / Accessibility / Best Practices scores for 5 representative tools. Record below. Re-measure at end of each phase.
 - [ ] **Bundle audit.** `next build` → analyze. Identify routes >300KB JS. Note offenders here.
 - [ ] **404 / loading.tsx / error.tsx** present and on-theme for every route group.
