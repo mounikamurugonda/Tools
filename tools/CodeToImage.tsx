@@ -11,6 +11,7 @@ import Label from '@/components/ui/Label';
 import Input from '@/components/ui/Input';
 import FileUpload from '@/components/ui/FileUpload';
 import MonacoLiteEditor from '@/components/MonacoLiteEditor';
+import { useToast } from '@/components/ui/ToastProvider';
 import * as htmlToImage from 'html-to-image';
 import {
   Download,
@@ -92,6 +93,7 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
 
   const exportRef = useRef<HTMLDivElement>(null);
   const editorRef = useRef<any>(null);
+  const toast = useToast();
 
   const handleExport = async (format: 'png' | 'jpeg' | 'svg' | 'copy') => {
     if (!exportRef.current) return;
@@ -116,25 +118,22 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
       } else if (format === 'svg') {
         dataUrl = await htmlToImage.toSvg(exportRef.current, options);
       } else if (format === 'copy') {
-        const blob = await htmlToImage.toPng(exportRef.current, {
-          ...options,
-          type: 'image/png',
-        });
-        const response = await fetch(blob);
-        const blobData = await response.blob();
-        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blobData })]);
+        const dataUrlPng = await htmlToImage.toPng(exportRef.current, options);
+        const blob = await (await fetch(dataUrlPng)).blob();
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        toast.success('Image copied to clipboard');
         setIsExporting(false);
-        alert('Image copied to clipboard!');
         return;
       }
 
       const link = document.createElement('a');
-      link.download = `snippet-${new Date().getTime()}.${format}`;
+      link.download = `snippet-${new Date().getTime()}.${format === 'jpeg' ? 'jpg' : format}`;
       link.href = dataUrl;
       link.click();
+      toast.success(`Saved as ${format.toUpperCase()}`);
     } catch (err) {
       console.error('Export failed', err);
-      alert('Failed to export image.');
+      toast.error(err instanceof Error ? err.message : 'Failed to export image');
     } finally {
       setIsExporting(false);
     }
@@ -147,13 +146,24 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
       if (typeof text === 'string') {
         setCode(text);
         setInputMode('text');
-        // Simple auto-detect attempt
-        if (file.name.endsWith('.ts') || file.name.endsWith('.tsx')) setLanguage('typescript');
-        else if (file.name.endsWith('.js') || file.name.endsWith('.jsx')) setLanguage('javascript');
-        else if (file.name.endsWith('.css')) setLanguage('css');
-        else if (file.name.endsWith('.html')) setLanguage('html');
-        else if (file.name.endsWith('.py')) setLanguage('python');
-        else if (file.name.endsWith('.json')) setLanguage('json');
+        let detected: string | null = null;
+        if (file.name.endsWith('.ts') || file.name.endsWith('.tsx')) detected = 'typescript';
+        else if (file.name.endsWith('.js') || file.name.endsWith('.jsx')) detected = 'javascript';
+        else if (file.name.endsWith('.css')) detected = 'css';
+        else if (file.name.endsWith('.html')) detected = 'html';
+        else if (file.name.endsWith('.py')) detected = 'python';
+        else if (file.name.endsWith('.json')) detected = 'json';
+        else if (file.name.endsWith('.sql')) detected = 'sql';
+        else if (file.name.endsWith('.rs')) detected = 'rust';
+        else if (file.name.endsWith('.go')) detected = 'go';
+        else if (file.name.endsWith('.sh')) detected = 'shell';
+        else if (file.name.endsWith('.java')) detected = 'java';
+        if (detected) {
+          setLanguage(detected);
+          toast.info(`Loaded ${file.name} (${detected})`);
+        } else {
+          toast.info(`Loaded ${file.name}`);
+        }
       }
     };
     reader.readAsText(file);
@@ -263,6 +273,14 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           </Card>
 
           <Card title="Editor" className="space-y-4">
+            <div className="space-y-2">
+              <Label>Language</Label>
+              <Select value={language} onChange={e => setLanguage(e.target.value)} className="!py-2 text-sm">
+                {LANGUAGES.map(l => (
+                  <option key={l.value} value={l.value}>{l.name}</option>
+                ))}
+              </Select>
+            </div>
 
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -382,12 +400,15 @@ const CodeToImage: React.FC<ToolProps> = ({ details, toolId }) => {
           <Card className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 items-end">
             <div className="flex flex-col gap-2 col-span-2 md:col-span-1">
               <Label className="text-xs">Download</Label>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-3 gap-2">
                 <Button onClick={() => handleExport('png')} disabled={isExporting} variant="primary" size="sm" className="w-full">
-                  <Download size={16} className="mr-2" /> PNG
+                  <Download size={16} className="mr-1" /> PNG
+                </Button>
+                <Button onClick={() => handleExport('jpeg')} disabled={isExporting} variant="secondary" size="sm" className="w-full">
+                  <Download size={16} className="mr-1" /> JPG
                 </Button>
                 <Button onClick={() => handleExport('svg')} disabled={isExporting} variant="secondary" size="sm" className="w-full">
-                  <Download size={16} className="mr-2" /> SVG
+                  <Download size={16} className="mr-1" /> SVG
                 </Button>
               </div>
             </div>
