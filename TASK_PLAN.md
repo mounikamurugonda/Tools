@@ -51,7 +51,7 @@ For each tool, run the **§6 checklist from `AI_PROMPT.md`**. Add a sub-bullet p
 
 Source of truth: tools in `constants.tsx` with `category: ToolCategory.TEXT`.
 
-- [ ] case-converter
+- [x] case-converter — added file upload (.txt/.md/.csv up to 10MB), camelCase/snake_case/kebab-case modes, live stats footer (chars/words/lines), download .txt, clear, useToast copy feedback, aria-live output, aria-pressed mode buttons, live re-conversion as input changes when a mode is active. Removed unused `useEffect` import. Commit `<fill on push>`.
 - [ ] word-counter
 - [ ] character-counter
 - [ ] lorem-ipsum-generator
@@ -175,6 +175,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-26 — TEXT sweep started
+- case-converter: full §6 pass. Added file upload, 3 new modes (camel/snake/kebab), live stats, download, clear, toast feedback, aria-live/aria-pressed. Commit `<pending>`.
 
 ### 2026-05-26 — Phase 0 (mostly) complete
 - Created `AI_PROMPT.md` + `TASK_PLAN.md`; saved motto + goals to Claude memory.
