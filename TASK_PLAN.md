@@ -27,7 +27,7 @@ These are repo-wide fixes. They unblock every later category.
 - [x] **SEO smoke test.** `e2e/seo-smoke.spec.ts` visits one representative tool per category + 7 static pages and asserts: non-empty `<title>` (not the not-found fallback), `<meta name="description">`, `og:title/description/image`, `twitter:card`, `<link rel="canonical">`, and at least one parseable JSON-LD block. Runs via `npm test`. Sampled rather than exhaustive to keep CI fast — `link-validation.spec.ts` already covers all 95 routes.
 - [ ] **Lighthouse baseline.** Capture current Performance / SEO / Accessibility / Best Practices scores for 5 representative tools. Record below. Re-measure at end of each phase.
 - [ ] **Bundle audit.** `next build` → analyze. Identify routes >300KB JS. Note offenders here.
-- [ ] **404 / loading.tsx / error.tsx** present and on-theme for every route group.
+- [x] **404 / loading.tsx / error.tsx** present and on-theme. Added `app/loading.tsx` (route-wide skeleton), `app/error.tsx` (per-route error boundary with retry + back-home + error digest), `app/global-error.tsx` (top-level boundary that owns its own `<html>`). Existing `app/not-found.tsx` and `app/tools/[toolId]/loading.tsx` kept as-is.
 
 **Lighthouse baseline (fill in):**
 
