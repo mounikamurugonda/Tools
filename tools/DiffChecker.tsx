@@ -1,13 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import { DiffEditor, useMonaco } from '@monaco-editor/react';
+import type { editor as MonacoEditor } from 'monaco-editor';
 import { useTheme } from '@/components/ThemeProvider';
-import Button from '@/components/ui/Button';
-
-
+import { useToast } from '@/components/ui/ToastProvider';
 import {
   Upload,
   ArrowRightLeft,
@@ -16,26 +15,31 @@ import {
   Rows,
   WrapText,
   Type,
+  Copy,
+  ArrowDownToLine,
 } from 'lucide-react';
 
+const MAX_FILE_MB = 10;
 
+interface DiffStats {
+  added: number;
+  removed: number;
+  changes: number;
+}
 
 const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
   const { theme } = useTheme();
   const monaco = useMonaco();
-  const diffEditorRef = useRef<any>(null);
+  const diffEditorRef = useRef<MonacoEditor.IStandaloneDiffEditor | null>(null);
+  const toast = useToast();
 
-  const [originalText, setOriginalText] = useState(
-    ''
-  );
-  const [modifiedText, setModifiedText] = useState(
-    ''
-  );
-
+  const [originalText, setOriginalText] = useState('');
+  const [modifiedText, setModifiedText] = useState('');
 
   const [renderSideBySide, setRenderSideBySide] = useState(true);
   const [ignoreTrimWhitespace, setIgnoreTrimWhitespace] = useState(false);
   const [wordWrap, setWordWrap] = useState<'on' | 'off'>('on');
+  const [stats, setStats] = useState<DiffStats>({ added: 0, removed: 0, changes: 0 });
 
   useEffect(() => {
     if (monaco) {
@@ -43,19 +47,45 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   }, [theme, monaco]);
 
-  const handleEditorDidMount = (editor: any, monaco: any) => {
+  const recomputeStats = useCallback((diffEditor: MonacoEditor.IStandaloneDiffEditor) => {
+    const changes = diffEditor.getLineChanges();
+    if (!changes) {
+      setStats({ added: 0, removed: 0, changes: 0 });
+      return;
+    }
+    let added = 0;
+    let removed = 0;
+    for (const c of changes) {
+      if (c.modifiedEndLineNumber >= c.modifiedStartLineNumber) {
+        added += c.modifiedEndLineNumber - c.modifiedStartLineNumber + 1;
+      }
+      if (c.originalEndLineNumber >= c.originalStartLineNumber) {
+        removed += c.originalEndLineNumber - c.originalStartLineNumber + 1;
+      }
+    }
+    setStats({ added, removed, changes: changes.length });
+  }, []);
+
+  const handleEditorDidMount = (
+    editor: MonacoEditor.IStandaloneDiffEditor,
+    monacoNs: typeof import('monaco-editor')
+  ) => {
     diffEditorRef.current = editor;
 
-    // Use refs instead of state listeners for typing.
-    // This prevents re-renders on every keystroke that reset cursor position.
-    // We only update state on explicit actions (Swap, Upload, etc.) after reading from the editor.
+    editor.getOriginalEditor().addCommand(
+      monacoNs.KeyMod.CtrlCmd | monacoNs.KeyCode.Space,
+      () => undefined
+    );
+    editor.getModifiedEditor().addCommand(
+      monacoNs.KeyMod.CtrlCmd | monacoNs.KeyCode.Space,
+      () => undefined
+    );
 
-    // Disable Ctrl+Space
-    editor.getOriginalEditor().addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => { });
-    editor.getModifiedEditor().addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.Space, () => { });
+    editor.onDidUpdateDiff(() => recomputeStats(editor));
+    recomputeStats(editor);
   };
 
-  const syncEditorState = () => {
+  const syncEditorState = useCallback((): { original: string; modified: string } => {
     if (diffEditorRef.current) {
       const currentOriginal = diffEditorRef.current.getOriginalEditor().getValue();
       const currentModified = diffEditorRef.current.getModifiedEditor().getValue();
@@ -64,116 +94,217 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
       return { original: currentOriginal, modified: currentModified };
     }
     return { original: originalText, modified: modifiedText };
-  };
-
-
+  }, [originalText, modifiedText]);
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>, isOriginal: boolean) => {
     const file = e.target.files?.[0];
+    e.target.value = '';
     if (!file) return;
 
-    // Sync current values first to ensure we don't lose typed changes in the OTHER editor
+    if (file.size > MAX_FILE_MB * 1024 * 1024) {
+      toast.error(`File too large (max ${MAX_FILE_MB}MB)`);
+      return;
+    }
+
     const { original, modified } = syncEditorState();
 
     const reader = new FileReader();
     reader.onload = event => {
-      const text = event.target?.result as string;
+      const text = (event.target?.result as string) ?? '';
       if (isOriginal) {
         setOriginalText(text);
-        // Ensure modified is kept as is (though state would be updated by syncEditorState)
         setModifiedText(modified);
       } else {
         setModifiedText(text);
-        // Ensure original is kept as is
         setOriginalText(original);
       }
+      toast.success(`Loaded ${file.name}`);
     };
+    reader.onerror = () => toast.error('Failed to read file');
     reader.readAsText(file);
-    e.target.value = '';
   };
 
   const swapContent = () => {
     const { original, modified } = syncEditorState();
+    if (!original && !modified) return;
     setOriginalText(modified);
     setModifiedText(original);
+    toast.info('Swapped panes');
   };
 
   const clearAll = () => {
-    if (confirm('Are you sure you want to clear both editors?')) {
-      setOriginalText('');
-      setModifiedText('');
+    const { original, modified } = syncEditorState();
+    if (!original && !modified) return;
+    setOriginalText('');
+    setModifiedText('');
+    toast.info('Cleared both panes');
+  };
+
+  const copyPane = async (isOriginal: boolean) => {
+    const { original, modified } = syncEditorState();
+    const text = isOriginal ? original : modified;
+    if (!text) {
+      toast.info('Nothing to copy');
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success('Copied to clipboard');
+    } catch {
+      toast.error('Copy failed');
     }
   };
 
+  const downloadPane = (isOriginal: boolean) => {
+    const { original, modified } = syncEditorState();
+    const text = isOriginal ? original : modified;
+    if (!text) {
+      toast.info('Nothing to download');
+      return;
+    }
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = isOriginal ? 'original.txt' : 'modified.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const pillGroup =
+    'inline-flex rounded-lg border border-gray-200 dark:border-gray-700 p-0.5 bg-white dark:bg-gray-900';
+  const pillActive = 'bg-blue-600 text-white';
+  const pillIdle = 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800';
+  const pillBase = 'inline-flex items-center justify-center w-8 h-7 rounded-md text-xs transition-colors';
+
   const headerOptions = (
-    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full p-4 border-b">
-      {/* Language & Toggles */}
-      <div className="flex items-center gap-2 flex-1">
-
-
-        <div className="flex bg-muted/20 p-1 rounded-md gap-1">
-          <Button
-            variant={renderSideBySide ? 'secondary' : 'ghost'}
-            size="sm"
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full p-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex flex-wrap items-center gap-2 flex-1">
+        <div className={pillGroup} role="group" aria-label="View mode">
+          <button
+            type="button"
             onClick={() => {
               syncEditorState();
               setRenderSideBySide(true);
             }}
-            title="Split View"
-            className="h-7 w-7 !p-0"
+            aria-pressed={renderSideBySide}
+            className={`${pillBase} ${renderSideBySide ? pillActive : pillIdle}`}
+            title="Split view"
           >
             <Columns className="w-4 h-4" />
-          </Button>
-          <Button
-            variant={!renderSideBySide ? 'secondary' : 'ghost'}
-            size="sm"
+          </button>
+          <button
+            type="button"
             onClick={() => {
               syncEditorState();
               setRenderSideBySide(false);
             }}
-            title="Inline View"
-            className="h-7 w-7 !p-0"
+            aria-pressed={!renderSideBySide}
+            className={`${pillBase} ${!renderSideBySide ? pillActive : pillIdle}`}
+            title="Inline view"
           >
             <Rows className="w-4 h-4" />
-          </Button>
+          </button>
         </div>
-        <div className="flex bg-muted/20 p-1 rounded-md gap-1 ml-2">
-          <Button
-            variant={wordWrap === 'on' ? 'secondary' : 'ghost'}
-            size="sm"
+
+        <div className={pillGroup} role="group" aria-label="Editor options">
+          <button
+            type="button"
             onClick={() => {
               syncEditorState();
               setWordWrap(prev => (prev === 'on' ? 'off' : 'on'));
             }}
-            title="Toggle Word Wrap"
-            className="h-7 w-7 !p-0"
+            aria-pressed={wordWrap === 'on'}
+            className={`${pillBase} ${wordWrap === 'on' ? pillActive : pillIdle}`}
+            title="Word wrap"
           >
             <WrapText className="w-4 h-4" />
-          </Button>
-          <Button
-            variant={ignoreTrimWhitespace ? 'secondary' : 'ghost'}
-            size="sm"
+          </button>
+          <button
+            type="button"
             onClick={() => {
               syncEditorState();
               setIgnoreTrimWhitespace(prev => !prev);
             }}
-            title="Ignore Whitespace"
-            className="h-7 w-7 !p-0"
+            aria-pressed={ignoreTrimWhitespace}
+            className={`${pillBase} ${ignoreTrimWhitespace ? pillActive : pillIdle}`}
+            title="Ignore leading/trailing whitespace"
           >
             <Type className="w-4 h-4" />
-          </Button>
+          </button>
+        </div>
+
+        <div
+          className="ml-1 inline-flex items-center gap-2 text-xs font-mono tabular-nums"
+          aria-live="polite"
+        >
+          <span className="text-green-700 dark:text-green-400" title="Lines added">
+            +{stats.added}
+          </span>
+          <span className="text-red-700 dark:text-red-400" title="Lines removed">
+            -{stats.removed}
+          </span>
+          <span className="text-gray-500 dark:text-gray-400" title="Change blocks">
+            ({stats.changes} {stats.changes === 1 ? 'block' : 'blocks'})
+          </span>
         </div>
       </div>
 
-      {/* Global Actions */}
-      <div className="flex items-center gap-2">
-        <Button onClick={swapContent} variant="ghost" size="sm" className="h-8" title="Swap">
-          <ArrowRightLeft className="w-4 h-4" />
-        </Button>
-        <Button onClick={clearAll} variant="ghost" size="sm" className="h-8 text-red-500 hover:text-red-600 hover:bg-red-50" title="Clear All">
-          <Trash2 className="w-4 h-4" />
-        </Button>
+      <div className="flex items-center gap-1">
+        <button
+          type="button"
+          onClick={swapContent}
+          className="inline-flex items-center gap-1.5 h-8 px-2.5 text-xs rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          title="Swap original and modified"
+        >
+          <ArrowRightLeft className="w-3.5 h-3.5" />
+          Swap
+        </button>
+        <button
+          type="button"
+          onClick={clearAll}
+          className="inline-flex items-center gap-1.5 h-8 px-2.5 text-xs rounded-md border border-red-200 dark:border-red-900/60 bg-white dark:bg-gray-900 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+          title="Clear both panes"
+        >
+          <Trash2 className="w-3.5 h-3.5" />
+          Clear
+        </button>
       </div>
+    </div>
+  );
+
+  const paneActions = (isOriginal: boolean) => (
+    <div className="flex items-center gap-1">
+      <label
+        className="cursor-pointer inline-flex items-center justify-center w-7 h-7 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+        title={`Upload ${isOriginal ? 'original' : 'modified'} (max ${MAX_FILE_MB}MB)`}
+      >
+        <Upload className="w-3.5 h-3.5" />
+        <input
+          type="file"
+          accept=".txt,.md,.json,.csv,.xml,.html,.css,.js,.ts,.tsx,.jsx,.py,.rb,.go,.rs,.java,.sql,.yml,.yaml,text/*"
+          className="hidden"
+          onChange={e => handleFileUpload(e, isOriginal)}
+        />
+      </label>
+      <button
+        type="button"
+        onClick={() => copyPane(isOriginal)}
+        className="inline-flex items-center justify-center w-7 h-7 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+        title="Copy pane content"
+      >
+        <Copy className="w-3.5 h-3.5" />
+      </button>
+      <button
+        type="button"
+        onClick={() => downloadPane(isOriginal)}
+        className="inline-flex items-center justify-center w-7 h-7 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
+        title="Download as .txt"
+      >
+        <ArrowDownToLine className="w-3.5 h-3.5" />
+      </button>
     </div>
   );
 
@@ -185,48 +316,42 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
       headerContent={headerOptions}
       variant="transparent"
     >
-      <div className="h-[calc(100vh-210px)] flex flex-col border border-border rounded-lg overflow-hidden bg-background">
-        {/* Pane Headers with Upload Icons */}
-        <div className="flex border-b border-border bg-muted/10 h-10 divide-x divide-border">
+      <div className="h-[calc(100vh-260px)] min-h-[420px] flex flex-col border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-900">
+        <div className="flex border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/60 h-10 divide-x divide-gray-200 dark:divide-gray-700">
           {renderSideBySide ? (
             <>
-              <div className="flex-1 flex justify-between items-center px-4">
-                <span className="text-xs font-semibold uppercase text-muted-foreground flex items-center gap-2">
+              <div className="flex-1 flex justify-between items-center px-3">
+                <span className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
                   Original
                 </span>
-                <label className="cursor-pointer inline-flex items-center justify-center p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Upload Original">
-                  <Upload className="w-4 h-4" />
-                  <input type="file" className="hidden" onChange={e => handleFileUpload(e, true)} />
-                </label>
+                {paneActions(true)}
               </div>
-              <div className="flex-1 flex justify-between items-center px-4">
-                <span className="text-xs font-semibold uppercase text-muted-foreground flex items-center gap-2">
+              <div className="flex-1 flex justify-between items-center px-3">
+                <span className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
                   Modified
                 </span>
-                <label className="cursor-pointer inline-flex items-center justify-center p-1.5 rounded-md hover:bg-muted text-muted-foreground hover:text-foreground transition-colors" title="Upload Modified">
-                  <Upload className="w-4 h-4" />
-                  <input type="file" className="hidden" onChange={e => handleFileUpload(e, false)} />
-                </label>
+                {paneActions(false)}
               </div>
             </>
           ) : (
-            <div className="flex-1 flex justify-between items-center px-4 bg-muted/20">
-              <span className="text-xs font-semibold uppercase text-muted-foreground">Diff View (Inline)</span>
-              <div className="flex gap-2">
-                <label className="cursor-pointer inline-flex items-center justify-center h-7 px-2 rounded-md hover:bg-background text-xs border border-transparent hover:border-border transition-colors" title="Upload Original">
-                  <Upload className="w-3.5 h-3.5 mr-1.5" /> Original
-                  <input type="file" className="hidden" onChange={e => handleFileUpload(e, true)} />
-                </label>
-                <label className="cursor-pointer inline-flex items-center justify-center h-7 px-2 rounded-md hover:bg-background text-xs border border-transparent hover:border-border transition-colors" title="Upload Modified">
-                  <Upload className="w-3.5 h-3.5 mr-1.5" /> Modified
-                  <input type="file" className="hidden" onChange={e => handleFileUpload(e, false)} />
-                </label>
+            <div className="flex-1 flex justify-between items-center px-3">
+              <span className="text-[11px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                Inline diff
+              </span>
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1">
+                  <span className="text-[10px] uppercase text-gray-400">Original</span>
+                  {paneActions(true)}
+                </div>
+                <div className="flex items-center gap-1">
+                  <span className="text-[10px] uppercase text-gray-400">Modified</span>
+                  {paneActions(false)}
+                </div>
               </div>
             </div>
           )}
         </div>
 
-        {/* Diff Editor */}
         <div className="flex-1 relative">
           <DiffEditor
             height="100%"
@@ -235,12 +360,17 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
             modified={modifiedText}
             onMount={handleEditorDidMount}
             theme={theme === 'dark' ? 'vs-dark' : 'light'}
+            loading={
+              <div className="h-full w-full flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm">
+                Loading diff editor…
+              </div>
+            }
             options={{
-              renderSideBySide: renderSideBySide,
+              renderSideBySide,
               originalEditable: true,
               readOnly: false,
-              wordWrap: wordWrap,
-              ignoreTrimWhitespace: ignoreTrimWhitespace,
+              wordWrap,
+              ignoreTrimWhitespace,
               minimap: { enabled: false },
               scrollBeyondLastLine: false,
               automaticLayout: true,
