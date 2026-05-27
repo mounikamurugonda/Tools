@@ -201,7 +201,7 @@ const CronParser: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
         </Card>
 
-        <div className="relative p-6 bg-gray-50 dark:bg-gray-900 rounded-xl text-center border border-gray-200 dark:border-gray-800">
+        <div className="relative p-6 bg-gray-50 dark:bg-gray-900 rounded-xl text-center border border-gray-200 dark:border-gray-700">
           <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">Cron Expression</p>
           <code className="block text-2xl md:text-3xl font-mono font-bold text-blue-600 dark:text-blue-400 break-all" aria-live="polite">
             {expression}

@@ -231,7 +231,7 @@ const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <Card title="Generated HTML" className="p-0 overflow-hidden">
-          <div className="flex items-center justify-end gap-2 px-4 py-2 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/40">
+          <div className="flex items-center justify-end gap-2 px-4 py-2 border-b border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
             <Button onClick={copy} size="sm" variant="outline" disabled={!output}>
               <Copy size={14} className="mr-1" /> Copy
             </Button>
@@ -239,7 +239,7 @@ const MetaTagGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Download size={14} className="mr-1" /> Download
             </Button>
           </div>
-          <pre className="text-xs sm:text-sm font-mono p-4 overflow-auto bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-200 whitespace-pre min-h-[200px]">{output}</pre>
+          <pre className="text-xs sm:text-sm font-mono p-4 overflow-auto bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 whitespace-pre min-h-[200px] border-t-0">{output}</pre>
         </Card>
       </div>
     </ToolContainer>
