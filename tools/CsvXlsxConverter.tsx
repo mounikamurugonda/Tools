@@ -1,11 +1,9 @@
 'use client';
 
 import type React from 'react';
-import { useState, useCallback, useEffect } from 'react';
-import { Readable } from 'stream';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import type ExcelJS from 'exceljs';
 import {
-  UploadCloud,
   File,
   Settings,
   RefreshCw,
@@ -16,6 +14,8 @@ import {
   Users,
   X,
   CheckCircle2,
+  Copy,
+  Download,
 } from 'lucide-react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
@@ -26,6 +26,7 @@ import Label from '@/components/ui/Label';
 import CustomSelect from '@/components/ui/CustomSelect';
 import TextArea from '@/components/ui/TextArea';
 import FileUpload from '@/components/ui/FileUpload';
+import { useToast } from '@/components/ui/ToastProvider';
 
 type OutputFormat = 'xlsx' | 'csv' | 'sql' | 'html' | 'json' | 'md' | 'vcf' | 'tsv';
 type QuoteFields = 'smart' | 'always' | 'never';
@@ -46,139 +47,218 @@ const outputFormats: {
   extension: string;
   color: string;
 }[] = [
-    {
-      value: 'xlsx',
-      label: 'Excel',
-      icon: <FileSpreadsheet size={20} />,
-      description: 'Spreadsheet',
-      extension: '.xlsx',
-      color: 'from-emerald-500 to-emerald-600',
-    },
-    {
-      value: 'csv',
-      label: 'CSV',
-      icon: <File size={20} />,
-      description: 'Text Format',
-      extension: '.csv',
-      color: 'from-blue-500 to-blue-600',
-    },
-    {
-      value: 'tsv',
-      label: 'TSV',
-      icon: <File size={20} />,
-      description: 'Tab-Separated',
-      extension: '.tsv',
-      color: 'from-lime-500 to-lime-600',
-    },
-    {
-      value: 'json',
-      label: 'JSON',
-      icon: <FileJson size={20} />,
-      description: 'Data Format',
-      extension: '.json',
-      color: 'from-amber-500 to-amber-600',
-    },
-    {
-      value: 'sql',
-      label: 'SQL',
-      icon: <Database size={20} />,
-      description: 'Database',
-      extension: '.sql',
-      color: 'from-purple-500 to-purple-600',
-    },
-    {
-      value: 'html',
-      label: 'HTML Table',
-      icon: <Code2 size={20} />,
-      description: 'Web Format',
-      extension: '.html',
-      color: 'from-red-500 to-red-600',
-    },
-    {
-      value: 'md',
-      label: 'Markdown',
-      icon: <File size={20} />,
-      description: 'Documentation',
-      extension: '.md',
-      color: 'from-slate-500 to-slate-600',
-    },
-    {
-      value: 'vcf',
-      label: 'vCard',
-      icon: <Users size={20} />,
-      description: 'Contacts',
-      extension: '.vcf',
-      color: 'from-pink-500 to-pink-600',
-    },
-  ];
+  {
+    value: 'xlsx',
+    label: 'Excel',
+    icon: <FileSpreadsheet size={20} />,
+    description: 'Spreadsheet',
+    extension: '.xlsx',
+    color: 'from-emerald-500 to-emerald-600',
+  },
+  {
+    value: 'csv',
+    label: 'CSV',
+    icon: <File size={20} />,
+    description: 'Text Format',
+    extension: '.csv',
+    color: 'from-blue-500 to-blue-600',
+  },
+  {
+    value: 'tsv',
+    label: 'TSV',
+    icon: <File size={20} />,
+    description: 'Tab-Separated',
+    extension: '.tsv',
+    color: 'from-lime-500 to-lime-600',
+  },
+  {
+    value: 'json',
+    label: 'JSON',
+    icon: <FileJson size={20} />,
+    description: 'Data Format',
+    extension: '.json',
+    color: 'from-amber-500 to-amber-600',
+  },
+  {
+    value: 'sql',
+    label: 'SQL',
+    icon: <Database size={20} />,
+    description: 'Database',
+    extension: '.sql',
+    color: 'from-purple-500 to-purple-600',
+  },
+  {
+    value: 'html',
+    label: 'HTML Table',
+    icon: <Code2 size={20} />,
+    description: 'Web Format',
+    extension: '.html',
+    color: 'from-red-500 to-red-600',
+  },
+  {
+    value: 'md',
+    label: 'Markdown',
+    icon: <File size={20} />,
+    description: 'Documentation',
+    extension: '.md',
+    color: 'from-slate-500 to-slate-600',
+  },
+  {
+    value: 'vcf',
+    label: 'vCard',
+    icon: <Users size={20} />,
+    description: 'Contacts',
+    extension: '.vcf',
+    color: 'from-pink-500 to-pink-600',
+  },
+];
 
-const parseCsv = (
+// RFC 4180 state-machine parser. Handles quoted fields, embedded separators,
+// embedded newlines, and doubled-quote escapes.
+function parseCsvRfc4180(input: string, sep: string): string[][] {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = '';
+  let inQuotes = false;
+  let i = 0;
+  while (i < input.length) {
+    const ch = input[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (input[i + 1] === '"') {
+          field += '"';
+          i += 2;
+          continue;
+        }
+        inQuotes = false;
+        i++;
+        continue;
+      }
+      field += ch;
+      i++;
+      continue;
+    }
+    if (ch === '"') {
+      inQuotes = true;
+      i++;
+      continue;
+    }
+    if (ch === sep) {
+      row.push(field);
+      field = '';
+      i++;
+      continue;
+    }
+    if (ch === '\r') {
+      i++;
+      continue;
+    }
+    if (ch === '\n') {
+      row.push(field);
+      rows.push(row);
+      row = [];
+      field = '';
+      i++;
+      continue;
+    }
+    field += ch;
+    i++;
+  }
+  if (field.length > 0 || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+  return rows;
+}
+
+function splitHeadersAndRows(
   csvString: string,
-  separator: string
-): { headers: string[]; rows: string[][] } => {
-  const lines = csvString.trim().split('\n');
-  const headers = lines[0].split(separator).map(h => h.trim());
-  const rows = lines.slice(1).map(line => line.split(separator).map(cell => cell.trim()));
+  separator: string,
+  hasHeaders: boolean
+): { headers: string[]; rows: string[][] } {
+  const parsed = parseCsvRfc4180(csvString, separator);
+  if (parsed.length === 0) return { headers: [], rows: [] };
+  if (!hasHeaders) {
+    const width = Math.max(...parsed.map(r => r.length));
+    const headers = Array.from({ length: width }, (_, i) => `column_${i + 1}`);
+    return { headers, rows: parsed };
+  }
+  const [headers, ...rows] = parsed;
   return { headers, rows };
-};
+}
 
-const convertToJson = (csvString: string, separator: string): string => {
-  const { headers, rows } = parseCsv(csvString, separator);
+const convertToJson = (csvString: string, separator: string, hasHeaders: boolean): string => {
+  const { headers, rows } = splitHeadersAndRows(csvString, separator, hasHeaders);
   const data = rows.map(row => {
-    const obj: any = {};
+    const obj: Record<string, string> = {};
     headers.forEach((header, index) => {
-      obj[header] = row[index] || '';
+      obj[header] = row[index] ?? '';
     });
     return obj;
   });
   return JSON.stringify(data, null, 2);
 };
 
-const convertToSql = (csvString: string, separator: string, tableName: string): string => {
-  const { headers, rows } = parseCsv(csvString, separator);
-  const createTable = `CREATE TABLE \`${tableName}\` (\n${headers.map(h => `  \`${h}\` VARCHAR(255)`).join(',\n')}\n);\n\n`;
+const convertToSql = (
+  csvString: string,
+  separator: string,
+  tableName: string,
+  hasHeaders: boolean
+): string => {
+  const { headers, rows } = splitHeadersAndRows(csvString, separator, hasHeaders);
+  const safeTable = tableName.replace(/`/g, '');
+  const createTable = `CREATE TABLE \`${safeTable}\` (\n${headers
+    .map(h => `  \`${h.replace(/`/g, '')}\` VARCHAR(255)`)
+    .join(',\n')}\n);\n\n`;
   const inserts = rows
     .map(row => {
-      const values = row.map(cell => `'${cell.replace(/'/g, "''")}'`).join(', ');
-      return `INSERT INTO \`${tableName}\` (${headers.map(h => `\`${h}\``).join(', ')}) VALUES (${values});`;
+      const values = row.map(cell => `'${(cell ?? '').replace(/'/g, "''")}'`).join(', ');
+      return `INSERT INTO \`${safeTable}\` (${headers.map(h => `\`${h.replace(/`/g, '')}\``).join(', ')}) VALUES (${values});`;
     })
     .join('\n');
   return createTable + inserts;
 };
 
-const convertToHtml = (csvString: string, separator: string): string => {
-  const { headers, rows } = parseCsv(csvString, separator);
-  const escapeHtml = (text: string) =>
-    text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
+const escapeHtml = (text: string): string =>
+  text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
+const convertToHtml = (csvString: string, separator: string, hasHeaders: boolean): string => {
+  const { headers, rows } = splitHeadersAndRows(csvString, separator, hasHeaders);
   const head = `<thead>\n  <tr>\n${headers.map(h => `    <th>${escapeHtml(h)}</th>`).join('\n')}\n  </tr>\n</thead>`;
-  const body = `<tbody>\n${rows.map(row => `  <tr>\n${row.map(cell => `    <td>${escapeHtml(cell)}</td>`).join('\n')}\n  </tr>`).join('\n')}\n</tbody>`;
-  return `<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    table { border-collapse: collapse; width: 100%; }\n    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n    th { background-color: #f2f2f2; }\n  </style>\n</head>\n<body>\n<table>\n${head}\n${body}\n</table>\n</body>\n</html>`;
+  const body = `<tbody>\n${rows
+    .map(
+      row =>
+        `  <tr>\n${row.map(cell => `    <td>${escapeHtml(cell ?? '')}</td>`).join('\n')}\n  </tr>`
+    )
+    .join('\n')}\n</tbody>`;
+  return `<!DOCTYPE html>\n<html>\n<head>\n  <meta charset="utf-8">\n  <style>\n    table { border-collapse: collapse; width: 100%; font-family: sans-serif; }\n    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }\n    th { background-color: #f2f2f2; }\n  </style>\n</head>\n<body>\n<table>\n${head}\n${body}\n</table>\n</body>\n</html>`;
 };
 
-const convertToMarkdown = (csvString: string, separator: string): string => {
-  const { headers, rows } = parseCsv(csvString, separator);
-  const headerLine = `| ${headers.join(' | ')} |`;
+const convertToMarkdown = (csvString: string, separator: string, hasHeaders: boolean): string => {
+  const { headers, rows } = splitHeadersAndRows(csvString, separator, hasHeaders);
+  const escapePipe = (s: string) => (s ?? '').replace(/\|/g, '\\|').replace(/\n/g, ' ');
+  const headerLine = `| ${headers.map(escapePipe).join(' | ')} |`;
   const separatorLine = `| ${headers.map(() => '---').join(' | ')} |`;
-  const bodyLines = rows.map(row => `| ${row.join(' | ')} |`).join('\n');
+  const bodyLines = rows.map(row => `| ${row.map(escapePipe).join(' | ')} |`).join('\n');
   return [headerLine, separatorLine, bodyLines].join('\n');
 };
 
-const convertToVcf = (csvString: string, separator: string): string => {
-  const { headers, rows } = parseCsv(csvString, separator);
-  const nameHeader = headers.find(h => /name/i.test(h)) || headers[0];
-  const emailHeader = headers.find(h => /email/i.test(h)) || headers[1];
-  const phoneHeader = headers.find(h => /phone/i.test(h)) || headers[2];
+const convertToVcf = (csvString: string, separator: string, hasHeaders: boolean): string => {
+  const { headers, rows } = splitHeadersAndRows(csvString, separator, hasHeaders);
+  const nameIdx = headers.findIndex(h => /name/i.test(h));
+  const emailIdx = headers.findIndex(h => /email/i.test(h));
+  const phoneIdx = headers.findIndex(h => /phone|tel|mobile/i.test(h));
 
   return rows
     .map(row => {
-      const name = row[headers.indexOf(nameHeader)] || '';
-      const email = row[headers.indexOf(emailHeader)] || '';
-      const phone = row[headers.indexOf(phoneHeader)] || '';
+      const name = row[nameIdx >= 0 ? nameIdx : 0] ?? '';
+      const email = emailIdx >= 0 ? row[emailIdx] ?? '' : '';
+      const phone = phoneIdx >= 0 ? row[phoneIdx] ?? '' : '';
       return [
         'BEGIN:VCARD',
         'VERSION:3.0',
@@ -194,29 +274,43 @@ const convertToVcf = (csvString: string, separator: string): string => {
     .join('\n');
 };
 
-const convertToTsv = (csvString: string, separator: string): string => {
-  const { headers, rows } = parseCsv(csvString, separator);
-  const headerLine = headers.join('\t');
-  const bodyLines = rows.map(row => row.join('\t')).join('\n');
-  return [headerLine, bodyLines].join('\n');
+const convertToDelimited = (
+  csvString: string,
+  separator: string,
+  outSep: string,
+  hasHeaders: boolean
+): string => {
+  const { headers, rows } = splitHeadersAndRows(csvString, separator, hasHeaders);
+  const allRows = hasHeaders ? [headers, ...rows] : rows;
+  return allRows
+    .map(r =>
+      r
+        .map(c => {
+          const s = c ?? '';
+          if (s.includes(outSep) || s.includes('"') || /[\r\n]/.test(s)) {
+            return `"${s.replace(/"/g, '""')}"`;
+          }
+          return s;
+        })
+        .join(outSep)
+    )
+    .join('\n');
 };
 
 const convertSheetToCsv = (worksheet: ExcelJS.Worksheet, options: ConvertOptions): string => {
-  const data: any[][] = [];
-  worksheet.eachRow({ includeEmpty: true }, (row, rowNumber) => {
-    const rowValues = row.values as any[];
+  const data: unknown[][] = [];
+  worksheet.eachRow({ includeEmpty: true }, row => {
+    const rowValues = row.values as unknown[];
     data.push(rowValues.slice(1));
   });
 
   if (!options.includeHeaders && data.length > 0) {
     data.shift();
   }
-
   if (data.length === 0) return '';
 
-  const escapeCell = (cell: any): string => {
+  const escapeCell = (cell: unknown): string => {
     const str = String(cell === null || cell === undefined ? '' : cell);
-
     let finalStr = str;
     if (options.replaceLineBreaks) {
       finalStr = finalStr.replace(/(\r\n|\n|\r)/gm, options.lineBreakReplacement);
@@ -240,6 +334,7 @@ const convertSheetToCsv = (worksheet: ExcelJS.Worksheet, options: ConvertOptions
 };
 
 const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [error, setError] = useState('');
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [conversionType, setConversionType] = useState<'csv-to-xlsx' | 'xlsx-to-csv' | null>(null);
@@ -267,6 +362,23 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const [replaceLineBreaks, setReplaceLineBreaks] = useState(true);
   const [lineBreakReplacement, setLineBreakReplacement] = useState(' ');
 
+  const effectiveCsvToXlsxSep = useMemo(
+    () => (csvToXlsxSeparator === 'custom' ? csvToXlsxCustomSeparator : csvToXlsxSeparator === '\\t' ? '\t' : csvToXlsxSeparator),
+    [csvToXlsxSeparator, csvToXlsxCustomSeparator]
+  );
+  const effectiveXlsxToCsvSep = useMemo(
+    () => (xlsxToCsvSeparator === 'custom' ? xlsxToCsvCustomSeparator : xlsxToCsvSeparator === '\\t' ? '\t' : xlsxToCsvSeparator),
+    [xlsxToCsvSeparator, xlsxToCsvCustomSeparator]
+  );
+
+  const reportError = useCallback(
+    (msg: string) => {
+      setError(msg);
+      toast.error(msg);
+    },
+    [toast]
+  );
+
   const handleConvertAndDownload = async () => {
     try {
       setIsProcessing(true);
@@ -274,84 +386,126 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
 
       const sourceCsv = conversionType === 'xlsx-to-csv' ? csvOutput : csvInput;
       if (!sourceCsv.trim()) {
-        setError('Input data is empty or not yet processed. Please wait or check your input.');
+        reportError('Input data is empty.');
         return;
       }
 
-      let separator: string;
-      if (conversionType === 'xlsx-to-csv') {
-        separator = xlsxToCsvSeparator === 'custom' ? xlsxToCsvCustomSeparator : xlsxToCsvSeparator;
-      } else {
-        separator = csvToXlsxSeparator === 'custom' ? csvToXlsxCustomSeparator : csvToXlsxSeparator;
-      }
+      const separator =
+        conversionType === 'xlsx-to-csv' ? effectiveXlsxToCsvSep : effectiveCsvToXlsxSep;
 
-      if (!separator && outputFormat !== 'csv' && outputFormat !== 'xlsx') {
-        setError('Separator must be defined for this conversion.');
+      if (!separator) {
+        reportError('Separator must be defined for this conversion.');
         return;
       }
 
       let blob: Blob;
       const selectedFormat = outputFormats.find(f => f.value === outputFormat);
-      const fileName =
-        (isPasted ? 'converted' : uploadedFile?.name.split('.')[0] || 'converted') +
-        selectedFormat?.extension;
+      const baseName = isPasted
+        ? 'converted'
+        : uploadedFile?.name.split('.').slice(0, -1).join('.') || 'converted';
+      const fileName = baseName + (selectedFormat?.extension ?? '');
 
       switch (outputFormat) {
-        case 'xlsx':
-          const ExcelJS = await import('exceljs');
-          const newWorkbook = new ExcelJS.Workbook();
-          const stream = new Readable();
-          stream.push(sourceCsv);
-          stream.push(null);
-          const worksheet = await newWorkbook.csv.read(stream, {
-            parserOptions: { delimiter: separator, headers: hasHeaders },
-          });
-          worksheet.name = sheetName.trim() || 'Sheet1';
+        case 'xlsx': {
+          const ExcelJSMod = await import('exceljs');
+          const newWorkbook = new ExcelJSMod.Workbook();
+          const ws = newWorkbook.addWorksheet(sheetName.trim() || 'Sheet1');
+          const parsedRows = parseCsvRfc4180(sourceCsv, separator);
+          parsedRows.forEach(r => ws.addRow(r));
+          if (hasHeaders && ws.getRow(1)) {
+            ws.getRow(1).font = { bold: true };
+          }
           const buffer = await newWorkbook.xlsx.writeBuffer();
           blob = new Blob([buffer], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           });
           break;
-        case 'csv':
+        }
+        case 'csv': {
           blob = new Blob([sourceCsv], { type: 'text/csv;charset=utf-8;' });
           break;
-        case 'json':
-          const json = convertToJson(sourceCsv, separator);
-          blob = new Blob([json], { type: 'application/json' });
+        }
+        case 'tsv': {
+          blob = new Blob([convertToDelimited(sourceCsv, separator, '\t', hasHeaders)], {
+            type: 'text/tab-separated-values',
+          });
           break;
-        case 'sql':
-          const sql = convertToSql(sourceCsv, separator, sqlTableName);
-          blob = new Blob([sql], { type: 'application/sql' });
+        }
+        case 'json': {
+          blob = new Blob([convertToJson(sourceCsv, separator, hasHeaders)], {
+            type: 'application/json',
+          });
           break;
-        case 'html':
-          const html = convertToHtml(sourceCsv, separator);
-          blob = new Blob([html], { type: 'text/html' });
+        }
+        case 'sql': {
+          blob = new Blob([convertToSql(sourceCsv, separator, sqlTableName, hasHeaders)], {
+            type: 'application/sql',
+          });
           break;
-        case 'md':
-          const md = convertToMarkdown(sourceCsv, separator);
-          blob = new Blob([md], { type: 'text/markdown' });
+        }
+        case 'html': {
+          blob = new Blob([convertToHtml(sourceCsv, separator, hasHeaders)], { type: 'text/html' });
           break;
-        case 'vcf':
-          const vcf = convertToVcf(sourceCsv, separator);
-          blob = new Blob([vcf], { type: 'text/vcard' });
+        }
+        case 'md': {
+          blob = new Blob([convertToMarkdown(sourceCsv, separator, hasHeaders)], {
+            type: 'text/markdown',
+          });
           break;
-        case 'tsv':
-          const tsv = convertToTsv(sourceCsv, separator);
-          blob = new Blob([tsv], { type: 'text/tab-separated-values' });
+        }
+        case 'vcf': {
+          blob = new Blob([convertToVcf(sourceCsv, separator, hasHeaders)], { type: 'text/vcard' });
           break;
-
+        }
         default:
           throw new Error('Invalid output format selected');
       }
       downloadBlob(blob, fileName);
+      toast.success(`Downloaded ${fileName}`);
     } catch (e) {
-      if (e instanceof Error) {
-        setError(e.message);
-      } else {
-        setError('An error occurred during conversion.');
-      }
+      reportError(e instanceof Error ? e.message : 'An error occurred during conversion.');
     } finally {
       setIsProcessing(false);
+    }
+  };
+
+  const copyTextOutput = async () => {
+    if (outputFormat === 'xlsx') {
+      toast.info('Excel output is binary — use Download.');
+      return;
+    }
+    try {
+      const sourceCsv = conversionType === 'xlsx-to-csv' ? csvOutput : csvInput;
+      const separator =
+        conversionType === 'xlsx-to-csv' ? effectiveXlsxToCsvSep : effectiveCsvToXlsxSep;
+      let text = '';
+      switch (outputFormat) {
+        case 'csv':
+          text = sourceCsv;
+          break;
+        case 'tsv':
+          text = convertToDelimited(sourceCsv, separator, '\t', hasHeaders);
+          break;
+        case 'json':
+          text = convertToJson(sourceCsv, separator, hasHeaders);
+          break;
+        case 'sql':
+          text = convertToSql(sourceCsv, separator, sqlTableName, hasHeaders);
+          break;
+        case 'html':
+          text = convertToHtml(sourceCsv, separator, hasHeaders);
+          break;
+        case 'md':
+          text = convertToMarkdown(sourceCsv, separator, hasHeaders);
+          break;
+        case 'vcf':
+          text = convertToVcf(sourceCsv, separator, hasHeaders);
+          break;
+      }
+      await navigator.clipboard.writeText(text);
+      toast.success('Copied to clipboard');
+    } catch {
+      toast.error('Copy failed');
     }
   };
 
@@ -380,46 +534,50 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     setShowOptions(false);
   };
 
-  const handleFileUpload = useCallback(async (file: File) => {
-    resetState();
-    setInputMode('upload');
-    setUploadedFile(file);
+  const handleFileUpload = useCallback(
+    async (file: File) => {
+      resetState();
+      setInputMode('upload');
+      setUploadedFile(file);
 
-    const fileExtension = file.name.split('.').pop()?.toLowerCase();
-    const reader = new FileReader();
+      const fileExtension = file.name.split('.').pop()?.toLowerCase();
+      const reader = new FileReader();
 
-    if (['xlsx', 'xls'].includes(fileExtension || '')) {
-      setConversionType('xlsx-to-csv');
-      setOutputFormat('csv');
-      reader.onload = async event => {
-        try {
-          const data = event.target?.result;
-          const ExcelJS = await import('exceljs');
-          const wb = new ExcelJS.Workbook();
-          await wb.xlsx.load(data as ArrayBuffer);
-          setWorkbook(wb);
-          const names = wb.worksheets.map(ws => ws.name);
-          setSheetNames(names);
-          if (names.length > 0) {
-            setSelectedSheet(names[0]);
+      if (['xlsx', 'xls'].includes(fileExtension || '')) {
+        setConversionType('xlsx-to-csv');
+        setOutputFormat('csv');
+        reader.onload = async event => {
+          try {
+            const data = event.target?.result;
+            const ExcelJSMod = await import('exceljs');
+            const wb = new ExcelJSMod.Workbook();
+            await wb.xlsx.load(data as ArrayBuffer);
+            setWorkbook(wb);
+            const names = wb.worksheets.map(ws => ws.name);
+            setSheetNames(names);
+            if (names.length > 0) setSelectedSheet(names[0]);
+            toast.success(`Loaded ${file.name} (${names.length} sheet${names.length === 1 ? '' : 's'})`);
+          } catch (err) {
+            reportError(err instanceof Error ? err.message : 'Failed to read XLSX file.');
           }
-        } catch (err) {
-          setError(err instanceof Error ? err.message : 'Failed to read XLSX file.');
-        }
-      };
-      reader.readAsArrayBuffer(file);
-    } else if (['csv', 'txt'].includes(fileExtension || '')) {
-      setConversionType('csv-to-xlsx');
-      reader.onload = event => {
-        const text = event.target?.result as string;
-        setCsvInput(text);
-      };
-      reader.readAsText(file);
-    } else {
-      setError('Unsupported file type. Please upload a .csv, .txt, .xlsx, or .xls file.');
-      setUploadedFile(null);
-    }
-  }, []);
+        };
+        reader.readAsArrayBuffer(file);
+      } else if (['csv', 'tsv', 'txt'].includes(fileExtension || '')) {
+        setConversionType('csv-to-xlsx');
+        if (fileExtension === 'tsv') setCsvToXlsxSeparator('\\t');
+        reader.onload = event => {
+          const text = event.target?.result as string;
+          setCsvInput(text);
+          toast.success(`Loaded ${file.name}`);
+        };
+        reader.readAsText(file);
+      } else {
+        reportError('Unsupported file type. Please upload a .csv, .tsv, .txt, .xlsx, or .xls file.');
+        setUploadedFile(null);
+      }
+    },
+    [reportError, toast]
+  );
 
   const handlePaste = (pastedText: string) => {
     resetState();
@@ -432,20 +590,18 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   useEffect(() => {
     if (conversionType === 'xlsx-to-csv' && workbook && selectedSheet) {
       try {
-        const effectiveSeparator =
-          xlsxToCsvSeparator === 'custom' ? xlsxToCsvCustomSeparator : xlsxToCsvSeparator;
-        if (xlsxToCsvSeparator === 'custom' && !effectiveSeparator) {
+        if (xlsxToCsvSeparator === 'custom' && !xlsxToCsvCustomSeparator) {
           setCsvOutput('');
           return;
         }
         const worksheet = workbook.getWorksheet(selectedSheet);
         if (!worksheet) {
-          setError(`Sheet "${selectedSheet}" could not be found.`);
+          reportError(`Sheet "${selectedSheet}" could not be found.`);
           setCsvOutput('');
           return;
         }
         const csv = convertSheetToCsv(worksheet, {
-          separator: effectiveSeparator,
+          separator: effectiveXlsxToCsvSep,
           includeHeaders,
           quoteFields,
           replaceLineBreaks,
@@ -454,8 +610,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
         setCsvOutput(csv);
         setError('');
       } catch (err) {
-        const message = err instanceof Error ? err.message : 'An error occurred during conversion.';
-        setError(message);
+        reportError(err instanceof Error ? err.message : 'An error occurred during conversion.');
         setCsvOutput('');
       }
     } else if (conversionType === 'csv-to-xlsx') {
@@ -467,51 +622,71 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     selectedSheet,
     xlsxToCsvSeparator,
     xlsxToCsvCustomSeparator,
+    effectiveXlsxToCsvSep,
     includeHeaders,
     quoteFields,
     replaceLineBreaks,
     lineBreakReplacement,
     conversionType,
     uploadedFile,
+    isPasted,
+    reportError,
   ]);
+
+  const sepOptions = [
+    { value: ',', label: 'Comma (,)' },
+    { value: ';', label: 'Semicolon (;)' },
+    { value: '\\t', label: 'Tab' },
+    { value: '|', label: 'Pipe (|)' },
+    { value: 'custom', label: 'Custom' },
+  ];
 
   return (
     <ToolContainer title="Data Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
         {!(uploadedFile || isPasted) ? (
-          // STATE 1: INPUT SELECTION
           <Card title="Start Conversion" className="p-6">
             <div className="space-y-6">
               <div className="flex justify-center border-b border-gray-200 dark:border-gray-700">
-                <Button
+                <button
+                  type="button"
                   onClick={() => setInputMode('upload')}
-                  variant={inputMode === 'upload' ? 'ghost' : 'ghost'}
-                  className={`rounded-none border-b-2 ${inputMode === 'upload' ? 'border-blue-500 text-blue-600' : 'border-transparent'}`}
+                  className={`px-4 py-2 text-sm border-b-2 transition-colors ${
+                    inputMode === 'upload'
+                      ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                      : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
+                  }`}
                 >
                   Upload File
-                </Button>
-                <Button
+                </button>
+                <button
+                  type="button"
                   onClick={() => setInputMode('paste')}
-                  variant={inputMode === 'paste' ? 'ghost' : 'ghost'}
-                  className={`rounded-none border-b-2 ${inputMode === 'paste' ? 'border-blue-500 text-blue-600' : 'border-transparent'}`}
+                  className={`px-4 py-2 text-sm border-b-2 transition-colors ${
+                    inputMode === 'paste'
+                      ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                      : 'border-transparent text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
+                  }`}
                 >
                   Paste Data
-                </Button>
+                </button>
               </div>
 
               {inputMode === 'upload' ? (
                 <FileUpload
                   onFileSelect={handleFileUpload}
-                  accept=".csv, .txt, .xlsx, .xls"
+                  onError={msg => reportError(msg)}
+                  accept=".csv,.tsv,.txt,.xlsx,.xls"
+                  maxSizeMB={50}
                   title="Drag & drop your file here"
-                  description="Supported formats: CSV, TXT, XLSX, XLS"
+                  description="Supported: CSV, TSV, TXT, XLSX, XLS (max 50MB)"
                 />
               ) : (
                 <div className="space-y-4">
                   <TextArea
                     value={csvInput}
                     onChange={e => setCsvInput(e.target.value)}
-                    placeholder="Paste your CSV or data here..."
+                    placeholder="Paste your CSV or delimited data here..."
                     className="h-64 font-mono text-sm"
                   />
                   <div className="flex justify-end">
@@ -527,7 +702,10 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               )}
 
               {error && (
-                <div className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl">
+                <div
+                  role="alert"
+                  className="flex items-start gap-3 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl"
+                >
                   <X className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5 flex-shrink-0" />
                   <p className="text-red-700 dark:text-red-300 text-sm">{error}</p>
                 </div>
@@ -535,29 +713,45 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           </Card>
         ) : (
-          // STATE 2: CONVERSION & DOWNLOAD
           <div className="space-y-8">
-            {/* File Info */}
             <Card>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="h-12 w-12 bg-blue-100 dark:bg-blue-950 rounded-xl flex items-center justify-center">
+              <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div className="flex items-center gap-4 min-w-0">
+                  <div className="h-12 w-12 bg-blue-100 dark:bg-blue-950 rounded-xl flex items-center justify-center flex-shrink-0">
                     <File className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">Input</p>
-                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate max-w-xs">
+                    <p className="text-lg font-semibold text-gray-900 dark:text-gray-100 truncate">
                       {isPasted ? 'Pasted Data' : uploadedFile?.name}
                     </p>
+                    {conversionType === 'xlsx-to-csv' && sheetNames.length > 0 && (
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                        {sheetNames.length} sheet{sheetNames.length === 1 ? '' : 's'}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <Button onClick={resetState} variant="outline">
                   <RefreshCw className="mr-2 h-4 w-4" /> Reset
                 </Button>
               </div>
+
+              {conversionType === 'xlsx-to-csv' && sheetNames.length > 1 && (
+                <div className="mt-4">
+                  <Label htmlFor="sheet-picker">Active Sheet</Label>
+                  <CustomSelect
+                    id="sheet-picker"
+                    value={{ value: selectedSheet, label: selectedSheet }}
+                    onChange={option =>
+                      setSelectedSheet((option as { value: string; label: string })?.value || '')
+                    }
+                    options={sheetNames.map(n => ({ value: n, label: n }))}
+                  />
+                </div>
+              )}
             </Card>
 
-            {/* Output Format Selection */}
             {(conversionType === 'csv-to-xlsx' || conversionType === 'xlsx-to-csv') && (
               <div>
                 <Label className="mb-4 text-base">Select Output Format</Label>
@@ -569,15 +763,16 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                     .map(format => (
                       <button
                         key={format.value}
+                        type="button"
                         onClick={() => setOutputFormat(format.value)}
-                        className={`p-4 rounded-xl transition-all duration-300 group relative ${outputFormat === format.value
-                          ? `bg-gradient-to-br ${format.color} text-white shadow-lg scale-105`
-                          : 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-slate-300 dark:hover:border-slate-600'
-                          }`}
+                        aria-pressed={outputFormat === format.value}
+                        className={`p-4 rounded-xl transition-all duration-300 group relative ${
+                          outputFormat === format.value
+                            ? `bg-gradient-to-br ${format.color} text-white shadow-lg`
+                            : 'bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 hover:border-gray-300 dark:hover:border-gray-600'
+                        }`}
                       >
-                        <div
-                          className={`flex flex-col items-center gap-2 ${outputFormat === format.value ? 'text-white' : ''}`}
-                        >
+                        <div className="flex flex-col items-center gap-2">
                           <div
                             className={
                               outputFormat === format.value
@@ -593,9 +788,7 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                           <span className="text-xs opacity-75">{format.description}</span>
                         </div>
                         {outputFormat === format.value && (
-                          <div className="absolute inset-0 rounded-xl pointer-events-none">
-                            <CheckCircle2 className="h-5 w-5 absolute top-1 right-1 text-white" />
-                          </div>
+                          <CheckCircle2 className="h-5 w-5 absolute top-1 right-1 text-white" />
                         )}
                       </button>
                     ))}
@@ -603,10 +796,10 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
             )}
 
-            {/* Advanced Options */}
             <Card
               title={
                 <button
+                  type="button"
                   onClick={() => setShowOptions(!showOptions)}
                   className="flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                 >
@@ -620,28 +813,21 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                   {conversionType === 'csv-to-xlsx' && (
                     <div className="grid sm:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="separator">Separator</Label>
+                        <Label htmlFor="separator">Input Separator</Label>
                         <CustomSelect
                           id="separator"
                           value={{
                             value: csvToXlsxSeparator,
                             label:
-                              [
-                                { value: ',', label: 'Comma (,)' },
-                                { value: ';', label: 'Semicolon (;)' },
-                                { value: '\\t', label: 'Tab' },
-                                { value: '|', label: 'Pipe (|)' },
-                                { value: 'custom', label: 'Custom' },
-                              ].find(o => o.value === csvToXlsxSeparator)?.label || 'Custom',
+                              sepOptions.find(o => o.value === csvToXlsxSeparator)?.label ||
+                              'Custom',
                           }}
-                          onChange={option => setCsvToXlsxSeparator((option as { value: string; label: string })?.value || ',')}
-                          options={[
-                            { value: ',', label: 'Comma (,)' },
-                            { value: ';', label: 'Semicolon (;)' },
-                            { value: '\\t', label: 'Tab' },
-                            { value: '|', label: 'Pipe (|)' },
-                            { value: 'custom', label: 'Custom' },
-                          ]}
+                          onChange={option =>
+                            setCsvToXlsxSeparator(
+                              (option as { value: string; label: string })?.value || ','
+                            )
+                          }
+                          options={sepOptions}
                         />
                         {csvToXlsxSeparator === 'custom' && (
                           <Input
@@ -701,22 +887,15 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                           value={{
                             value: xlsxToCsvSeparator,
                             label:
-                              [
-                                { value: ',', label: 'Comma (,)' },
-                                { value: ';', label: 'Semicolon (;)' },
-                                { value: '\\t', label: 'Tab' },
-                                { value: '|', label: 'Pipe (|)' },
-                                { value: 'custom', label: 'Custom' },
-                              ].find(o => o.value === xlsxToCsvSeparator)?.label || 'Custom',
+                              sepOptions.find(o => o.value === xlsxToCsvSeparator)?.label ||
+                              'Custom',
                           }}
-                          onChange={option => setXlsxToCsvSeparator((option as { value: string; label: string })?.value || ',')}
-                          options={[
-                            { value: ',', label: 'Comma (,)' },
-                            { value: ';', label: 'Semicolon (;)' },
-                            { value: '\\t', label: 'Tab' },
-                            { value: '|', label: 'Pipe (|)' },
-                            { value: 'custom', label: 'Custom' },
-                          ]}
+                          onChange={option =>
+                            setXlsxToCsvSeparator(
+                              (option as { value: string; label: string })?.value || ','
+                            )
+                          }
+                          options={sepOptions}
                         />
                         {xlsxToCsvSeparator === 'custom' && (
                           <Input
@@ -736,7 +915,11 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                             value: quoteFields,
                             label: quoteFields.charAt(0).toUpperCase() + quoteFields.slice(1),
                           }}
-                          onChange={option => setQuoteFields((option as { value: QuoteFields; label: string })?.value || 'smart')}
+                          onChange={option =>
+                            setQuoteFields(
+                              (option as { value: QuoteFields; label: string })?.value || 'smart'
+                            )
+                          }
                           options={[
                             { value: 'smart', label: 'Smart (Auto)' },
                             { value: 'always', label: 'Always Quote' },
@@ -757,32 +940,78 @@ const CsvXlsxConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                           Include Headers
                         </Label>
                       </div>
+
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="checkbox"
+                          checked={replaceLineBreaks}
+                          onChange={e => setReplaceLineBreaks(e.target.checked)}
+                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          id="replaceLineBreaks"
+                        />
+                        <Label htmlFor="replaceLineBreaks" className="mb-0 cursor-pointer">
+                          Replace cell line-breaks
+                        </Label>
+                      </div>
+
+                      {replaceLineBreaks && (
+                        <div>
+                          <Label htmlFor="lineBreakReplacement">Line-break replacement</Label>
+                          <Input
+                            id="lineBreakReplacement"
+                            value={lineBreakReplacement}
+                            onChange={e => setLineBreakReplacement(e.target.value)}
+                            placeholder="(space)"
+                          />
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
               )}
             </Card>
 
-            {/* Action Button */}
-            <div className="text-center">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Button
                 onClick={handleConvertAndDownload}
                 disabled={isProcessing}
                 size="lg"
-                className="w-full md:w-auto min-w-[300px]"
+                className="w-full sm:w-auto sm:min-w-[260px]"
                 variant="primary"
               >
                 {isProcessing ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2" />
                     Processing...
                   </>
                 ) : (
-                  `Convert to ${outputFormats.find(f => f.value === outputFormat)?.label}`
+                  <>
+                    <Download className="mr-2 h-4 w-4" />
+                    Download {outputFormats.find(f => f.value === outputFormat)?.label}
+                  </>
                 )}
               </Button>
-              {error && <p className="mt-4 text-red-500 text-sm">{error}</p>}
+              {outputFormat !== 'xlsx' && (
+                <Button
+                  onClick={copyTextOutput}
+                  disabled={isProcessing}
+                  variant="outline"
+                  size="lg"
+                >
+                  <Copy className="mr-2 h-4 w-4" />
+                  Copy
+                </Button>
+              )}
             </div>
+            {error && (
+              <div
+                role="alert"
+                className="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-xl text-sm text-red-700 dark:text-red-300"
+              >
+                <X className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                {error}
+              </div>
+            )}
           </div>
         )}
       </div>
