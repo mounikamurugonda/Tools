@@ -90,12 +90,12 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 - [x] sql-formatter — 15 dialects (MySQL/Postgres/SQLite/T-SQL/PL-SQL/BigQuery/Snowflake/Redshift/Spark/Hive/DB2/TiDB/Trino/MariaDB/Standard), keyword-case picker (UPPER/lower/preserve), indent picker (2/4/tab incl. tab vs space), pretty↔minify toggle with custom minifier that strips comments + collapses whitespace, before→after byte stats with delta %, `.sql` download, inline error card.
 - [x] cron-generator — full rewrite: real validating parser for `*` / `n` / `a-b` / `a,b,c` / `*/n` / `a-b/n` across all 5 fields, plain-English description of every parsed expression, **Next 5 runs** computed via per-minute iteration up to 1 year, 10 common presets (every-N-min, daily, weekly, weekdays, monthly, yearly) with pressed-state pills, POSIX DOM/DOW union semantics, copy with toast.
 - [x] meta-tag-generator — added Open Graph + Twitter Card + canonical + robots blocks (the TOOL_DETAILS promised them; previous code only emitted basic name=meta), Twitter handle field, OG type + Twitter card selects, HTML-escapes user input, **live Google SERP preview + Twitter card preview** with image fallback, copy + download as `.html`, length-limit color thresholds.
-- [ ] chmod-calculator
-- [ ] xml-formatter
-- [ ] binary-converter
-- [ ] string-escaper
-- [ ] json-yaml-converter
-- [ ] (15 more — fill in as swept)
+- [x] chmod-calculator — full rewrite: per-role checkboxes with live r/w/x breakdown + per-role octal digit, side-by-side hero cards (octal + symbolic) with copy buttons, terminal-styled `chmod NNN filename` command box with configurable filename + copy, 6 common presets (755/644/700/600/777/444) with `aria-pressed` chips, paste-an-octal-to-set workflow via preset apply.
+- [x] xml-formatter — added pretty↔minify toggle with custom comment-stripping minifier, indent picker (2/4/tab), **DOMParser-based validation** that surfaces real parser errors (was just "Invalid XML"), before→after byte stats with delta %, `.xml` download, expanded accept list to `.xml/.xsd/.xsl/.svg/.txt`.
+- [x] binary-converter — **UTF-8 round-trip** via `TextEncoder`/`TextDecoder` (previous `charCodeAt` broke on any non-ASCII incl. emoji), 4 bases (binary/octal/decimal/hex) with per-base widths, encode↔decode toggle, swap button, per-byte validation with position-aware error message, sample input now includes an emoji to prove Unicode works.
+- [x] string-escaper — expanded from 4 to **7 flavors** (JSON/JS/HTML/XML/URL/CSV/Regex), each with both `escape` AND `unescape` (was one-way only), CSV uses RFC 4180 quoting, HTML/XML unescape handles numeric + hex entities + named entities, regex unescape strips backslash on the standard 12 meta-chars, swap button, validation error surfacing.
+- [x] json-yaml-converter — **replaced the broken flat custom parser** (was treating every `:`-separated line as a top-level string property and dropping nesting entirely) with `js-yaml` (added as direct dep — was a transitive dep of eslint/knip only), indent picker (2/4), sort-keys toggle, swap button that flips the mode, `.yaml`/`.json` download with correct MIME, line-count footer.
+- [ ] (14 more — fill in as swept)
 
 **Cross-cutting for CODING:** Monaco-based editors must be lazy. Format/minify pairs should share input pane. Add "load sample" button for instant demo.
 
@@ -187,6 +187,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-27 — CODING batch 3 (chmod-calculator, xml-formatter, binary-converter, string-escaper, json-yaml-converter)
+5 more CODING tools shipped, full §6 audit each, one commit per tool. Highlights: chmod-calculator now has per-role digit breakdown + terminal command box + presets; xml-formatter validates via DOMParser (real error messages, not "Invalid XML") and supports minify + indent; binary-converter now Unicode-safe via TextEncoder/TextDecoder (was ASCII-only — emoji silently corrupted) and supports binary/octal/decimal/hex; string-escaper jumped from 4 one-way modes to 7 bi-directional flavors (JSON/JS/HTML/XML/URL/CSV/Regex) with proper round-tripping; json-yaml-converter fixed the showstopper — replaced a hand-rolled "flat" parser that dropped nesting entirely with real js-yaml. Also tightened sibling UI tokens in MetaTagGenerator (was `dark:bg-gray-950`) + CronParser. 15/24 CODING tools done. Next batch: htm-entity, json-csv-converter, jwt-debugger, keycode-info, regex-tester.
 
 ### 2026-05-26 — CODING batch 2 (json-to-typescript, code-to-image, sql-formatter, cron-generator, meta-tag-generator)
 5 more CODING tools shipped, full §6 audit each, one commit per tool. Highlights: json-to-typescript now emits union types for heterogeneous arrays and supports `interface | type` + `?`-on-null; sql-formatter gained 15 dialects + keyword-case + minify; cron-generator rewritten with a real validating parser, plain-English description, and next-5-runs; meta-tag-generator now actually produces the OG + Twitter cards promised in its TOOL_DETAILS, with live Google SERP + Twitter card previews; code-to-image got a missing language picker + JPEG export + toast (replaced raw `alert()`). 10/24 CODING tools done. Next batch starts with chmod-calculator.
