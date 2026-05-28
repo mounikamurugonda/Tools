@@ -5,7 +5,8 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
-import { Copy, Plus, Trash2, Layers } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Copy, Plus, Trash2 } from 'lucide-react';
 
 interface ShadowLayer {
   id: string;
@@ -19,6 +20,7 @@ interface ShadowLayer {
 }
 
 const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [shadows, setShadows] = useState<ShadowLayer[]>([
     {
       id: '1',
@@ -84,9 +86,15 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   };
 
   const finalBoxShadow = shadows.map(getShadowString).join(', ');
+  const tailwindShadow = `shadow-[${finalBoxShadow.replace(/,\s+/g, ',').replace(/\s+/g, '_')}]`;
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`box-shadow: ${finalBoxShadow};`);
+  const copy = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`Copied ${label}`);
+    } catch {
+      toast.error('Copy failed');
+    }
   };
 
   const handlePadChange = (clientX: number, clientY: number) => {
@@ -396,11 +404,16 @@ const BoxShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
           {/* Code Section */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-2">
               <Label>Generated Code</Label>
-              <Button size="sm" variant="ghost" onClick={copyToClipboard} className="h-6 text-xs text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-2">
-                <Copy className="w-3 h-3 mr-1.5" /> Copy Code
-              </Button>
+              <div className="flex items-center gap-1">
+                <Button size="sm" variant="ghost" onClick={() => copy(`box-shadow: ${finalBoxShadow};`, 'CSS')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> CSS
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => copy(tailwindShadow, 'Tailwind')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> Tailwind
+                </Button>
+              </div>
             </div>
             <div className="relative group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
               <pre className="p-4 text-gray-800 dark:text-gray-200 text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
