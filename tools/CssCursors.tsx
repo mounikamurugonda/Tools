@@ -5,6 +5,7 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
+import { useToast } from '@/components/ui/ToastProvider';
 import {
   MousePointer2,
   Hand,
@@ -94,10 +95,16 @@ const CURSOR_CATEGORIES = [
 ];
 
 const CssCursors: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [selectedCursor, setSelectedCursor] = useState(CURSOR_CATEGORIES[0].items[0]);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`cursor: ${selectedCursor.name};`);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(`cursor: ${selectedCursor.name};`);
+      toast.success('Copied CSS');
+    } catch {
+      toast.error('Copy failed');
+    }
   };
 
   return (
