@@ -108,14 +108,14 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 
 ### 1C. CSS — CSS Tools (9)
 
-- [ ] css-triangle-generator
+- [x] css-triangle-generator — added 4 diagonal directions (8 total), swapped custom range inputs for shared `Slider` primitive, toast on copy (was silent), copy-as-rule with `.triangle{}` wrapper.
 - [ ] css-cursors
 - [ ] css-borders
 - [ ] css-patterns
-- [ ] box-shadow-generator
-- [ ] css-gradient-generator
-- [ ] border-radius-generator
-- [ ] text-shadow-generator
+- [x] box-shadow-generator — toast on copy (was silent), added Copy-Tailwind (`shadow-[…]`) alongside Copy-CSS. 2D drag pad + multi-layer already solid.
+- [x] css-gradient-generator — toast on copy (was silent), added Copy-Tailwind (`bg-[…]` arbitrary value) alongside Copy-CSS.
+- [x] border-radius-generator — toast on copy (was silent), added Copy-Tailwind (`rounded-[…]`) alongside Copy-CSS.
+- [x] text-shadow-generator — toast on copy (was silent), added Copy-Tailwind (`[text-shadow:…]`) alongside Copy-CSS.
 - [ ] glassmorphism-generator
 
 **Cross-cutting for CSS:** every generator needs a live preview. "Copy CSS" + "Copy Tailwind" buttons where possible. Use sibling toggle-pill pattern for unit/mode switches; no off-theme colors.
