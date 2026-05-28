@@ -8,7 +8,8 @@ import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
 import Select from '@/components/ui/Select';
-import { Copy, RefreshCw } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Copy, Shuffle } from 'lucide-react';
 
 type PaletteType = 'monochromatic' | 'analogous' | 'complementary' | 'triadic';
 
@@ -72,6 +73,7 @@ const PALETTE_OPTIONS = [
 ];
 
 const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [baseColor, setBaseColor] = useState('#3b82f6');
   const [paletteType, setPaletteType] = useState<PaletteType>('monochromatic');
 
@@ -112,8 +114,30 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     return newPalette.slice(0, 5);
   }, [baseColor, paletteType]);
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`Copied ${text}`);
+    } catch {
+      toast.error('Copy failed');
+    }
+  };
+
+  const copyAllAsCss = async () => {
+    const css = `:root {\n${palette.map((c, i) => `  --color-${i + 1}: ${c};`).join('\n')}\n}`;
+    try {
+      await navigator.clipboard.writeText(css);
+      toast.success('Copied palette as CSS variables');
+    } catch {
+      toast.error('Copy failed');
+    }
+  };
+
+  const randomize = () => {
+    const hex = `#${Math.floor(Math.random() * 0xffffff)
+      .toString(16)
+      .padStart(6, '0')}`;
+    setBaseColor(hex);
   };
 
   return (
@@ -152,6 +176,16 @@ const ColorPaletteGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 ))}
               </Select>
             </div>
+          </div>
+          <div className="flex flex-wrap gap-2 mt-4">
+            <Button variant="outline" size="sm" onClick={randomize}>
+              <Shuffle className="w-4 h-4 mr-2" />
+              Random base
+            </Button>
+            <Button variant="outline" size="sm" onClick={copyAllAsCss}>
+              <Copy className="w-4 h-4 mr-2" />
+              Copy all as CSS vars
+            </Button>
           </div>
         </Card>
 
