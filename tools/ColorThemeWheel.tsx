@@ -9,7 +9,8 @@ import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
-import { Copy, Check, AlertTriangle, Upload, X } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Copy, Check, Upload, X } from 'lucide-react';
 
 // Color utilities (HSL <-> RGB/HEX)
 function clamp(n: number, min: number, max: number) {
@@ -207,6 +208,7 @@ const SCHEME_OPTIONS = [
 ];
 
 const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   // Base HSL
   const [h, setH] = useState(217);
   const [s, setS] = useState(0.9);
@@ -392,8 +394,11 @@ const ColorThemeWheel: React.FC<ToolProps> = ({ details, toolId }) => {
     try {
       await navigator.clipboard.writeText(text);
       setCopied(id || text);
+      toast.success('Copied');
       setTimeout(() => setCopied(null), 1500);
-    } catch { }
+    } catch {
+      toast.error('Copy failed');
+    }
   };
 
   // Gradient CSS
