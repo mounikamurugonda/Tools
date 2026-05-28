@@ -109,14 +109,14 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 ### 1C. CSS — CSS Tools (9)
 
 - [x] css-triangle-generator — added 4 diagonal directions (8 total), swapped custom range inputs for shared `Slider` primitive, toast on copy (was silent), copy-as-rule with `.triangle{}` wrapper.
-- [ ] css-cursors
-- [ ] css-borders
-- [ ] css-patterns
+- [x] css-cursors — toast on copy (was silent). Full cursor gallery + interactive hover preview already solid.
+- [x] css-borders — **upgraded thin static gallery to a real builder**: width/radius/color controls, live preview, CSS + Tailwind copy with toast (was a silent click-to-copy `border: 1px black` regardless of selection).
+- [x] css-patterns — toast on copy (was silent), dropped unused imports.
 - [x] box-shadow-generator — toast on copy (was silent), added Copy-Tailwind (`shadow-[…]`) alongside Copy-CSS. 2D drag pad + multi-layer already solid.
 - [x] css-gradient-generator — toast on copy (was silent), added Copy-Tailwind (`bg-[…]` arbitrary value) alongside Copy-CSS.
 - [x] border-radius-generator — toast on copy (was silent), added Copy-Tailwind (`rounded-[…]`) alongside Copy-CSS.
 - [x] text-shadow-generator — toast on copy (was silent), added Copy-Tailwind (`[text-shadow:…]`) alongside Copy-CSS.
-- [ ] glassmorphism-generator
+- [x] glassmorphism-generator — toast on copy alongside existing check-icon feedback. Glass/neu/clay modes + presets + reset already solid.
 
 **Cross-cutting for CSS:** every generator needs a live preview. "Copy CSS" + "Copy Tailwind" buttons where possible. Use sibling toggle-pill pattern for unit/mode switches; no off-theme colors.
 
@@ -240,6 +240,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-28 — CSS sweep COMPLETE (9 tools) + remaining-category plan
+Fleshed out the rest of the plan first: pulled real tool ids per category from `constants.tsx` (94 total confirmed; CSS/COLOR/MATH/PRODUCTIVITY/FUN/IMAGE/VIDEO/MISC = 57 remaining) and folded in the Phase 0 SEO gaps. Then swept **all 9 CSS tools, one commit each.** Cross-cutting wins: every generator now gives **toast feedback on copy** (all were silently writing to clipboard) and the value-output tools (gradient, box-shadow, text-shadow, border-radius, borders) gained a **Copy-Tailwind** button (arbitrary-value classes) next to Copy-CSS. Real upgrades: **css-borders** was a thin static swatch gallery that copied `border: 1px black` regardless of what you clicked — rebuilt as a proper width/style/radius/color builder with live preview; **css-triangle-generator** added 4 diagonal directions + migrated to the shared `Slider` primitive. Box-shadow's 2D drag pad, glassmorphism's glass/neu/clay presets, and the cursor gallery were already solid and left intact. CSS category COMPLETE. Next: COLOR (4 tools).
 
 ### 2026-05-27 — CODING batch 5 — FINAL (diff-checker, csv-xlsx-converter, password-generator + orphan cleanup)
 Closes out the CODING sweep: **24/24 tools done.** Real fixes this batch: **csv-xlsx-converter's CSV parser was a naive `split(sep)`** that corrupted any quoted field with a comma/newline — replaced with an RFC 4180 state machine, plus it was **missing a multi-sheet picker** entirely (multi-sheet xlsx files were stuck on sheet 1) and pulled in `node:stream` `Readable` on the client (removed — xlsx now built via `addRow`). **password-generator had modulo bias** (`value % charset.length`) — replaced with rejection sampling, and now guarantees one char per selected class + an entropy strength meter + batch 1–50. **diff-checker** gained live +/−/block stats, per-pane copy/download/upload, and toast feedback (was a silent `confirm()`); migrated off muted CSS-var tokens to sibling toggle-pill pattern. **Orphan cleanup:** deleted the dead `csv-to-json` + `json-to-csv` TOOL_DETAILS and 301-redirected both URLs to the bi-directional `json-csv-converter`. `check:tool-details` now shows zero CODING issues (remaining 3 belong to MISC/PRODUCTIVITY/VIDEO sweeps). **CODING category COMPLETE.**
