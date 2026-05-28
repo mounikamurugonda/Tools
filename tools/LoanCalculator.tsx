@@ -7,8 +7,20 @@ import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Label from '@/components/ui/Label';
 import Card from '@/components/ui/Card';
+import Button from '@/components/ui/Button';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Download } from 'lucide-react';
+
+interface ScheduleRow {
+  month: number;
+  payment: number;
+  principal: number;
+  interest: number;
+  balance: number;
+}
 
 const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [loanAmount, setLoanAmount] = useState('250000');
   const [interestRate, setInterestRate] = useState('5');
   const [loanTerm, setLoanTerm] = useState('30');
@@ -38,24 +50,13 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
     const i = annualRate / 100 / 12;
     const n = termInYears * 12;
 
-    if (i === 0) {
-      // Interest-free loan
-      const M = P / n;
-      return {
-        monthlyPayment: M,
-        totalInterest: 0,
-        totalPayment: P,
-        schedule: [],
-      }; // Schedule generation for 0% is simple, but let's omit for now.
-    }
-
-    const M = (P * (i * Math.pow(1 + i, n))) / (Math.pow(1 + i, n) - 1);
+    const M = i === 0 ? P / n : (P * (i * Math.pow(1 + i, n))) / (Math.pow(1 + i, n) - 1);
     const totalPayment = M * n;
     const totalInterest = totalPayment - P;
 
-    // Generate amortization schedule
+    // Generate amortization schedule (works for 0% too).
     let balance = P;
-    const scheduleData = [];
+    const scheduleData: ScheduleRow[] = [];
     for (let j = 1; j <= n; j++) {
       const interestPaid = balance * i;
       const principalPaid = M - interestPaid;
@@ -82,6 +83,25 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
       style: 'currency',
       currency: 'USD',
     }).format(value);
+  };
+
+  const downloadCsv = () => {
+    if (!schedule.length) return;
+    const header = 'Month,Payment,Principal,Interest,Balance';
+    const rows = schedule.map(
+      r =>
+        `${r.month},${r.payment.toFixed(2)},${r.principal.toFixed(2)},${r.interest.toFixed(2)},${r.balance.toFixed(2)}`
+    );
+    const blob = new Blob([[header, ...rows].join('\n')], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'amortization-schedule.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success('Downloaded schedule');
   };
 
   return (
@@ -160,7 +180,17 @@ const LoanCalculator: React.FC<ToolProps> = ({ details, toolId }) => {
         </div>
 
         <div className="lg:col-span-2">
-          <Card title="Amortization Schedule" className="h-full">
+          <Card
+            title={
+              <div className="flex items-center justify-between w-full">
+                <span>Amortization Schedule</span>
+                <Button size="sm" variant="ghost" onClick={downloadCsv} disabled={!schedule.length}>
+                  <Download className="w-4 h-4 mr-1.5" /> CSV
+                </Button>
+              </div>
+            }
+            className="h-full"
+          >
             <div className="overflow-auto max-h-[600px] -mx-6">
               <table className="w-full text-sm text-left">
                 <thead className="text-xs text-gray-700 dark:text-gray-400 uppercase bg-gray-50 dark:bg-gray-800/50 sticky top-0 backdrop-blur-sm z-10">
