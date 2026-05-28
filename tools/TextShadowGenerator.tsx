@@ -5,9 +5,11 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
+import { useToast } from '@/components/ui/ToastProvider';
 import { Copy } from 'lucide-react';
 
 const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [hOffset, setHOffset] = useState(2);
   const [vOffset, setVOffset] = useState(2);
   const [blur, setBlur] = useState(4);
@@ -25,9 +27,15 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   }, [color, opacity]);
 
   const textShadowValue = `${hOffset}px ${vOffset}px ${blur}px ${colorWithOpacity}`;
+  const tailwindValue = `[text-shadow:${textShadowValue.replace(/\s+/g, '_')}]`;
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`text-shadow: ${textShadowValue};`);
+  const copy = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`Copied ${label}`);
+    } catch {
+      toast.error('Copy failed');
+    }
   };
 
   return (
@@ -89,11 +97,16 @@ const TextShadowGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
           {/* Code Output */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-2">
               <Label>CSS Output</Label>
-              <Button size="sm" variant="ghost" onClick={copyToClipboard} className="h-6 text-xs text-blue-600 hover:bg-blue-50 px-2">
-                <Copy className="w-3 h-3 mr-1.5" /> Copy Code
-              </Button>
+              <div className="flex items-center gap-1">
+                <Button size="sm" variant="ghost" onClick={() => copy(`text-shadow: ${textShadowValue};`, 'CSS')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> CSS
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => copy(tailwindValue, 'Tailwind')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> Tailwind
+                </Button>
+              </div>
             </div>
             <div className="relative group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
               <pre className="p-4 text-gray-800 dark:text-gray-200 text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
