@@ -122,10 +122,10 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 
 ### 1D. COLOR — Color Tools (4)
 
-- [ ] contrast-checker
-- [ ] color-palette-generator
-- [ ] color-theme-wheel
-- [ ] css-color-code-converter
+- [x] contrast-checker — **added AAA ratings** (was AA-only) for normal + large text in a 4-up grid; **robust hex parsing** (3- or 6-digit, no NaN on partial input — preview falls back gracefully); swap button; invalid-input alert.
+- [x] color-palette-generator — toast on copy (was silent); random-base-color button; copy-all-as-CSS-variables.
+- [x] color-theme-wheel — toast feedback on copy + copy-errors (was a silent catch). Wheel drag, image colour extraction, per-swatch WCAG contrast, UI preview, and CSS/SCSS/Tailwind/JSON/URL exports were already excellent — left intact.
+- [x] css-color-code-converter — toast on copy (was a silent catch); **native color picker overlaid on the preview swatch** (there was no visual picker, only text fields); **EyeDropper API button** (graceful "not supported" toast on unsupported browsers). HEX/RGB/HSL round-trip + keyword resolver already solid.
 
 **Cross-cutting for COLOR:** support hex/rgb/hsl round-trip, copy-to-clipboard with toast, WCAG ratios where relevant, eyedropper (EyeDropper API) where supported.
 
@@ -240,6 +240,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-28 — COLOR sweep COMPLETE (4 tools) + build-blocker discovery
+All 4 COLOR tools swept, one commit each. **contrast-checker** got the most work: was AA-only and computed NaN on partial hex input — now does AA+AAA for normal+large in a 4-up grid with robust 3/6-digit parsing and a swap button. **css-color-code-converter** gained a native color picker on the swatch (previously no visual picker at all) + an EyeDropper API button. palette-generator got random-base + copy-all-as-CSS-vars. color-theme-wheel was already excellent (wheel/image-extract/exports/share) so just got copy toast. **Build-blocker found:** `next build` (Turbopack) panics with `os error 225 — the file contains a virus or potentially unwanted software` on `app/request-tool/page.tsx` + `components/ContactForm.tsx`. **This is Windows Defender quarantining those two files — it's the root cause of the "something keeps re-deleting them" mystery from the CODING sweep.** `tsc --noEmit` is clean (those two files aside). USER ACTION NEEDED: add a Defender exclusion for the repo (or inspect what in those two files trips the heuristic) before a production build can pass. Next: MATH (9 tools).
 
 ### 2026-05-28 — CSS sweep COMPLETE (9 tools) + remaining-category plan
 Fleshed out the rest of the plan first: pulled real tool ids per category from `constants.tsx` (94 total confirmed; CSS/COLOR/MATH/PRODUCTIVITY/FUN/IMAGE/VIDEO/MISC = 57 remaining) and folded in the Phase 0 SEO gaps. Then swept **all 9 CSS tools, one commit each.** Cross-cutting wins: every generator now gives **toast feedback on copy** (all were silently writing to clipboard) and the value-output tools (gradient, box-shadow, text-shadow, border-radius, borders) gained a **Copy-Tailwind** button (arbitrary-value classes) next to Copy-CSS. Real upgrades: **css-borders** was a thin static swatch gallery that copied `border: 1px black` regardless of what you clicked — rebuilt as a proper width/style/radius/color builder with live preview; **css-triangle-generator** added 4 diagonal directions + migrated to the shared `Slider` primitive. Box-shadow's 2D drag pad, glassmorphism's glass/neu/clay presets, and the cursor gallery were already solid and left intact. CSS category COMPLETE. Next: COLOR (4 tools).
