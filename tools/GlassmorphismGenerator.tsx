@@ -5,8 +5,8 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
-import Input from '@/components/ui/Input';
-import { Copy, Check, Sparkles, Box, RotateCcw, Layers, Cloud } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Copy, Check, Sparkles, RotateCcw, Layers, Cloud } from 'lucide-react';
 
 // Preset configurations
 const PRESETS = {
@@ -31,6 +31,7 @@ const PRESETS = {
 };
 
 const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [style, setStyle] = useState<'glassmorphism' | 'neumorphism' | 'claymorphism'>('glassmorphism');
   const [copied, setCopied] = useState(false);
 
@@ -218,11 +219,16 @@ const GlassmorphismGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     clayBackground, clayBorderRadius, clayShadows
   ]);
 
-  const copyToClipboard = useCallback(() => {
-    navigator.clipboard.writeText(cssCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  }, [cssCode]);
+  const copyToClipboard = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(cssCode);
+      setCopied(true);
+      toast.success('Copied CSS');
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      toast.error('Copy failed');
+    }
+  }, [cssCode, toast]);
 
   const applyGlassPreset = useCallback((preset: typeof PRESETS.glassmorphism[0]) => {
     setOpacity(preset.opacity);
