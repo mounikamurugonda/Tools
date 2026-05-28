@@ -5,9 +5,11 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
+import { useToast } from '@/components/ui/ToastProvider';
 import { Copy, Link2, Link2Off } from 'lucide-react';
 
 const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [topLeft, setTopLeft] = useState(10);
   const [topRight, setTopRight] = useState(10);
   const [bottomLeft, setBottomLeft] = useState(10);
@@ -22,8 +24,15 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     return `${topLeft}${unit} ${topRight}${unit} ${bottomRight}${unit} ${bottomLeft}${unit}`;
   }, [topLeft, topRight, bottomLeft, bottomRight, unit, linkCorners]);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`border-radius: ${borderRadiusValue};`);
+  const tailwindValue = `rounded-[${borderRadiusValue.replace(/\s+/g, '_')}]`;
+
+  const copy = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`Copied ${label}`);
+    } catch {
+      toast.error('Copy failed');
+    }
   };
 
   const handleLinkedChange = (val: number) => {
@@ -150,11 +159,16 @@ const BorderRadiusGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
           </div>
 
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-2">
               <Label>Generated Code</Label>
-              <Button size="sm" variant="ghost" onClick={copyToClipboard} className="h-6 text-xs text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-2">
-                <Copy className="w-3 h-3 mr-1.5" /> Copy Code
-              </Button>
+              <div className="flex items-center gap-1">
+                <Button size="sm" variant="ghost" onClick={() => copy(`border-radius: ${borderRadiusValue};`, 'CSS')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> CSS
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => copy(tailwindValue, 'Tailwind')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> Tailwind
+                </Button>
+              </div>
             </div>
             <div className="relative group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
               <pre className="p-4 text-gray-800 dark:text-gray-200 text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
