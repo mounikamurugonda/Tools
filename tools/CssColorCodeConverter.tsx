@@ -8,7 +8,8 @@ import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
 import Slider from '@/components/ui/Slider';
-import { Copy, RefreshCw } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Copy, RefreshCw, Pipette } from 'lucide-react';
 
 // Utility functions for color parsing and conversion
 function clamp(n: number, min = 0, max = 1) {
@@ -175,6 +176,7 @@ function resolveCssColorKeyword(
 }
 
 const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   // base state is RGBA
   const [rgba, setRgba] = useState<{
     r: number;
@@ -255,20 +257,55 @@ const CssColorCodeConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-    } catch {}
+      toast.success(`Copied ${text}`);
+    } catch {
+      toast.error('Copy failed');
+    }
+  };
+
+  const pickEyedropper = async () => {
+    const EyeDropperCtor = (window as unknown as { EyeDropper?: new () => { open: () => Promise<{ sRGBHex: string }> } }).EyeDropper;
+    if (!EyeDropperCtor) {
+      toast.info('EyeDropper is not supported in this browser');
+      return;
+    }
+    try {
+      const result = await new EyeDropperCtor().open();
+      const parsed = hexToRgba(result.sRGBHex);
+      if (parsed) setRgba({ r: parsed.r, g: parsed.g, b: parsed.b, a: parsed.a / 255 });
+    } catch {
+      /* user cancelled */
+    }
   };
 
   return (
     <ToolContainer title="CSS Color Code Converter" details={details} toolId={toolId}>
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-800/50">
-            <div
-              className="w-40 h-40 rounded-full border-4 border-white dark:border-gray-700 shadow-xl transition-colors duration-300"
-              style={{
-                backgroundColor: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`,
-              }}
-            />
+          <Card className="flex flex-col items-center justify-center gap-4 p-8 bg-gray-50 dark:bg-gray-800/50">
+            <div className="relative w-40 h-40">
+              <div
+                className="w-40 h-40 rounded-full border-4 border-white dark:border-gray-700 shadow-xl transition-colors duration-300"
+                style={{
+                  backgroundColor: `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`,
+                }}
+              />
+              <input
+                type="color"
+                value={derived.hex.slice(0, 7)}
+                onChange={e => {
+                  const parsed = hexToRgba(e.target.value);
+                  if (parsed) setRgba(prev => ({ r: parsed.r, g: parsed.g, b: parsed.b, a: prev.a }));
+                }}
+                className="absolute inset-0 w-full h-full rounded-full opacity-0 cursor-pointer"
+                aria-label="Pick a color"
+                title="Click to pick a color"
+              />
+            </div>
+            <Button variant="secondary" size="sm" onClick={pickEyedropper}>
+              <Pipette className="w-4 h-4 mr-2" />
+              Eyedropper
+            </Button>
           </Card>
 
           <Card className="md:col-span-2 space-y-6">
