@@ -5,7 +5,8 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
-import { Plus, Trash2, Copy, RefreshCw, GripVertical } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Plus, Trash2, Copy, GripVertical } from 'lucide-react';
 
 interface ColorStop {
   id: number;
@@ -25,6 +26,7 @@ const PRESETS = [
 ];
 
 const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [colors, setColors] = useState<ColorStop[]>([
     { id: 1, color: '#3b82f6', position: 0 },
     { id: 2, color: '#8b5cf6', position: 100 },
@@ -66,8 +68,18 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
     setColors(presetColors.map((c, i) => ({ ...c, id: Date.now() + i })));
   };
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(`background: ${gradientValue};`);
+  const tailwindValue = useMemo(
+    () => `bg-[${gradientValue.replace(/\s+/g, '_')}]`,
+    [gradientValue]
+  );
+
+  const copy = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`Copied ${label}`);
+    } catch {
+      toast.error('Copy failed');
+    }
   };
 
   return (
@@ -229,11 +241,16 @@ const CssGradientGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
 
           {/* Code Output */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center gap-2">
               <Label>CSS Output</Label>
-              <Button size="sm" variant="ghost" onClick={copyToClipboard} className="h-6 text-xs text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-2">
-                <Copy className="w-3 h-3 mr-1.5" /> Copy
-              </Button>
+              <div className="flex items-center gap-1">
+                <Button size="sm" variant="ghost" onClick={() => copy(`background: ${gradientValue};`, 'CSS')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> CSS
+                </Button>
+                <Button size="sm" variant="ghost" onClick={() => copy(tailwindValue, 'Tailwind')} className="h-7 text-xs px-2">
+                  <Copy className="w-3 h-3 mr-1.5" /> Tailwind
+                </Button>
+              </div>
             </div>
             <div className="relative group overflow-hidden rounded-lg border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
               <pre className="p-4 text-gray-800 dark:text-gray-200 text-sm font-mono overflow-x-auto whitespace-pre-wrap break-all">
