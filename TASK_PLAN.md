@@ -131,15 +131,15 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 
 ### 1E. MATH — Calculator Tools (9)
 
-- [ ] percentage-calculator
-- [ ] roman-numeral-converter
-- [ ] age-calculator
-- [ ] random-number-generator
-- [ ] loan-calculator
-- [ ] date-calculator
-- [ ] unit-converter
-- [ ] bmi-calculator
-- [ ] currency-converter
+- [x] percentage-calculator — added a 3rd mode (percentage change X→Y), divide-by-zero guards + inline alerts, copy-result buttons, locale number formatting.
+- [x] roman-numeral-converter — **validates 1–3999 + canonical form** (round-trips re-encode to reject IIII / out-of-range / non-roman letters), error messages, copy buttons. Was happily returning garbage for invalid input.
+- [x] age-calculator — guard DOB-after-target, **next-birthday countdown** + total weeks/hours, fixed total-days off-by-one (ceil→floor), dropped `text-muted-foreground` tokens.
+- [x] random-number-generator — **unbiased crypto sampling** (rejection) instead of `Math.random` % range, **unique-values mode** (partial Fisher–Yates with feasibility check), min>max guard, count clamp 1–1000, copy results.
+- [x] loan-calculator — **generate amortization schedule for 0% loans too** (was explicitly skipped), CSV export of the full schedule, toast. Schedule/summary math already correct.
+- [x] date-calculator — Y/M/D breakdown + include-end-day toggle for duration mode, **unit picker (days/weeks/months/years)** for add/subtract (was days-only), NaN guards, copy, migrated raw inputs to UI primitives.
+- [x] unit-converter — **expanded from 2 to 8 categories** (added temperature with proper offset math, area, volume, speed, digital storage, time), swap button, copy result.
+- [x] bmi-calculator — added a **BMI scale bar with marker** + healthy-weight range for the entered height, empty-state hint, replaced ad-hoc `secondary`/`border` tokens with gray, sibling pill toggle.
+- [x] currency-converter — show the **1:X unit rate**, manual refresh button + last-updated timestamp, 1-hour `staleTime` cache (no refetch-on-focus). Live API + React Query already solid.
 
 **Cross-cutting for MATH:** validate numeric input (no NaN output), show formula/working where useful, copy result. currency-converter needs a rates source — confirm whether it's live (API) or static before touching.
 
@@ -240,6 +240,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-28 — MATH sweep COMPLETE (9 tools)
+All 9 MATH tools swept, one commit each, in two batches. Real correctness fixes this round: **roman-numeral-converter** accepted any garbage and returned wrong numbers — now validates 1–3999 and checks canonical form by re-encoding; **random-number-generator** used biased `Math.random() % range` — replaced with rejection-sampled `crypto.getRandomValues` and added a unique-values (no-dupes) mode; **age-calculator** had a total-days off-by-one (ceil) and no guard for DOB-after-target; **percentage-calculator** and others had unguarded divide-by-zero. Feature expansions: **unit-converter** went from 2 → 8 categories (incl. temperature with offset math); **loan-calculator** now builds the amortization schedule for 0% loans and exports CSV; **date-calculator** gained a unit picker + Y/M/D breakdown; **bmi-calculator** got a scale bar + healthy-weight range; **currency-converter** shows the unit rate + refresh + 1h cache. tsc clean (build still blocked by the Defender quarantine below). **54/94 tools done.** Next: PRODUCTIVITY (8 tools — includes the screen-info + todo-list Phase 0 SEO fixes).
 
 ### 2026-05-28 — COLOR sweep COMPLETE (4 tools) + build-blocker discovery
 All 4 COLOR tools swept, one commit each. **contrast-checker** got the most work: was AA-only and computed NaN on partial hex input — now does AA+AAA for normal+large in a 4-up grid with robust 3/6-digit parsing and a swap button. **css-color-code-converter** gained a native color picker on the swatch (previously no visual picker at all) + an EyeDropper API button. palette-generator got random-base + copy-all-as-CSS-vars. color-theme-wheel was already excellent (wheel/image-extract/exports/share) so just got copy toast. **Build-blocker found:** `next build` (Turbopack) panics with `os error 225 — the file contains a virus or potentially unwanted software` on `app/request-tool/page.tsx` + `components/ContactForm.tsx`. **This is Windows Defender quarantining those two files — it's the root cause of the "something keeps re-deleting them" mystery from the CODING sweep.** `tsc --noEmit` is clean (those two files aside). USER ACTION NEEDED: add a Defender exclusion for the repo (or inspect what in those two files trips the heuristic) before a production build can pass. Next: MATH (9 tools).
