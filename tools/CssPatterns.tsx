@@ -5,8 +5,8 @@ import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
 import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
-import Input from '@/components/ui/Input';
-import { Copy, Grid, Diamond, Circle, Square } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Copy, Grid, Circle, Square } from 'lucide-react';
 
 const PATTERNS = [
   {
@@ -32,6 +32,7 @@ const PATTERNS = [
 ];
 
 const CssPatterns: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [selected, setSelected] = useState(0);
   const [color, setColor] = useState('#3b82f6');
   const [bgColor, setBgColor] = useState('#ffffff');
@@ -63,8 +64,13 @@ const CssPatterns: React.FC<ToolProps> = ({ details, toolId }) => {
 background-image: ${getPatternCss()};
 background-size: ${size}px ${size}px;${activePattern.name === 'Checks' ? `\nbackground-position: 0 0, ${size / 2}px ${size / 2}px;` : ''}`;
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(cssCode);
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(cssCode);
+      toast.success('Copied CSS');
+    } catch {
+      toast.error('Copy failed');
+    }
   };
 
   return (
