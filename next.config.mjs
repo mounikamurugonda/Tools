@@ -16,6 +16,9 @@ const nextConfig = {
         return [
             // Consolidated into /tools/word-counter (gained byte-size / SMS / Twitter / meta-desc gauges).
             { source: '/tools/character-counter', destination: '/tools/word-counter', permanent: true },
+            // Consolidated into bi-directional /tools/json-csv-converter (handles both directions).
+            { source: '/tools/csv-to-json', destination: '/tools/json-csv-converter', permanent: true },
+            { source: '/tools/json-to-csv', destination: '/tools/json-csv-converter', permanent: true },
         ];
     },
     async headers() {
