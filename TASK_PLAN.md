@@ -106,52 +106,98 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 
 **Cross-cutting for CODING:** Monaco-based editors must be lazy. Format/minify pairs should share input pane. Add "load sample" button for instant demo.
 
-### 1C. CSS — CSS Tools (~8)
+### 1C. CSS — CSS Tools (9)
 
 - [ ] css-triangle-generator
-- [ ] (fill in remaining ~7)
+- [ ] css-cursors
+- [ ] css-borders
+- [ ] css-patterns
+- [ ] box-shadow-generator
+- [ ] css-gradient-generator
+- [ ] border-radius-generator
+- [ ] text-shadow-generator
+- [ ] glassmorphism-generator
 
-**Cross-cutting for CSS:** every generator needs a live preview using shared `<PreviewCard/>`. "Copy CSS" + "Copy Tailwind" buttons where possible.
+**Cross-cutting for CSS:** every generator needs a live preview. "Copy CSS" + "Copy Tailwind" buttons where possible. Use sibling toggle-pill pattern for unit/mode switches; no off-theme colors.
 
-### 1D. COLOR — Color Tools (~4)
+### 1D. COLOR — Color Tools (4)
 
 - [ ] contrast-checker
-- [ ] (fill in remaining ~3)
+- [ ] color-palette-generator
+- [ ] color-theme-wheel
+- [ ] css-color-code-converter
 
-### 1E. MATH — Calculator Tools (~9)
+**Cross-cutting for COLOR:** support hex/rgb/hsl round-trip, copy-to-clipboard with toast, WCAG ratios where relevant, eyedropper (EyeDropper API) where supported.
+
+### 1E. MATH — Calculator Tools (9)
 
 - [ ] percentage-calculator
-- [ ] (fill in remaining ~8)
+- [ ] roman-numeral-converter
+- [ ] age-calculator
+- [ ] random-number-generator
+- [ ] loan-calculator
+- [ ] date-calculator
+- [ ] unit-converter
+- [ ] bmi-calculator
+- [ ] currency-converter
 
-### 1F. PRODUCTIVITY — Productivity Tools (~8)
+**Cross-cutting for MATH:** validate numeric input (no NaN output), show formula/working where useful, copy result. currency-converter needs a rates source — confirm whether it's live (API) or static before touching.
+
+### 1F. PRODUCTIVITY — Productivity Tools (8)
 
 - [ ] utm-builder
-- [ ] (fill in remaining ~7)
+- [ ] screen-info — **also fix: missing seoTitle + seoDescription in TOOLS** (flagged in Phase 0)
+- [ ] device-resolutions
+- [ ] timezone-converter
+- [ ] todo-list — **also fix: only 2 FAQs, need ≥3** (flagged in Phase 0)
+- [ ] pomodoro-timer
+- [ ] world-clock
+- [ ] timers-and-stopwatch
 
-### 1G. FUN — Fun Tools (~4)
+**Cross-cutting for PRODUCTIVITY:** timer tools must survive tab-backgrounding (use timestamps, not setInterval counts); persist state to localStorage where it makes sense; toast on completion.
+
+### 1G. FUN — Fun Tools (4)
 
 - [ ] morse-converter
 - [ ] list-randomizer
-- [ ] (fill in remaining ~2)
+- [ ] text-to-speech — heavy (kokoro/transformers) — must lazy-load
+- [ ] meme-generator — canvas/image upload — already migrated to shared FileUpload in Phase 0
 
-### 1H. IMAGE — Image Tools (~13)
+### 1H. IMAGE — Image Tools (14)
 
 - [ ] aspect-ratio-calculator
 - [ ] svg-to-data-uri
-- [ ] (fill in remaining ~11)
+- [ ] youtube-thumbnail
+- [ ] image-filters
+- [ ] svg-blob-generator
+- [ ] svg-wave-generator
+- [ ] lorem-image-generator
+- [ ] image-to-base64 — already migrated to shared FileUpload in Phase 0
+- [ ] base64-to-image
+- [ ] watermark-adder — already migrated to shared FileUpload in Phase 0
+- [ ] image-resizer
+- [ ] image-converter — already migrated to shared FileUpload in Phase 0
+- [ ] image-compressor
+- [ ] qr-code-generator
 
 **Cross-cutting for IMAGE:** all image tools share an upload pattern (FileUpload + drag-drop + paste-from-clipboard). Output: download + copy data-URI. Size limit warning at 20MB.
 
-### 1I. VIDEO — Video Tools (~7)
+### 1I. VIDEO — Video Tools (7)
 
-- [ ] (fill in all 7)
+- [ ] video-compressor
+- [ ] video-to-audio-converter
+- [ ] gif-maker — **also fix: 0 usageExamples** (flagged in Phase 0)
+- [ ] trim-video
+- [ ] format-converter
+- [ ] video-thumbnail-extractor
+- [ ] video-mute
 
 **Cross-cutting for VIDEO:** ffmpeg.wasm loads ONCE per session. Show a single "Loading FFmpeg core (~30MB)" progress bar. Consider routing all video tools through a shared `useFFmpeg()` hook so the WASM module is cached.
 
-### 1J. MISC — Other Tools (~2)
+### 1J. MISC — Other Tools (2)
 
 - [ ] password-strength
-- [ ] (fill in remaining 1)
+- [ ] signature-pad — canvas drawing, export PNG/SVG
 
 ---
 
