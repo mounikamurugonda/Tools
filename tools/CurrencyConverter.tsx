@@ -37,9 +37,18 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     throw new Error('Invalid response from the exchange rate API.');
   };
 
-  const { data: rates, error: queryError, isLoading } = useQuery({
+  const {
+    data: rates,
+    error: queryError,
+    isLoading,
+    isFetching,
+    refetch,
+    dataUpdatedAt,
+  } = useQuery({
     queryKey: ['exchangeRates'],
     queryFn: fetchRates,
+    staleTime: 1000 * 60 * 60, // rates change slowly — cache for an hour
+    refetchOnWindowFocus: false,
   });
 
   const error = queryError ? (queryError as Error).message : null;
@@ -122,6 +131,8 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
   }
 
   const currencyOptions = Object.keys(rates).map(r => ({ value: r, label: r }));
+  const unitRate = rates[currency1] && rates[currency2] ? rates[currency2] / rates[currency1] : null;
+  const updatedLabel = dataUpdatedAt ? new Date(dataUpdatedAt).toLocaleString() : '';
 
   return (
     <ToolContainer title="Currency Converter" details={details} toolId={toolId}>
@@ -157,9 +168,24 @@ const CurrencyConverter: React.FC<ToolProps> = ({ details, toolId }) => {
           />
         </div>
 
+        {unitRate !== null && (
+          <div className="text-center">
+            <p className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              1 {currency1} = {unitRate.toLocaleString(undefined, { maximumFractionDigits: 6 })} {currency2}
+            </p>
+          </div>
+        )}
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+          <Button variant="outline" size="sm" onClick={() => refetch()} disabled={isFetching}>
+            <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${isFetching ? 'animate-spin' : ''}`} />
+            Refresh rates
+          </Button>
+          {updatedLabel && <span>Updated {updatedLabel}</span>}
+        </div>
+
         <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
-          Rates are updated periodically via Open Exchange Rates API. Provided for informational
-          purposes only.
+          Rates via the Open Exchange Rates API. Provided for informational purposes only.
         </p>
       </Card>
     </ToolContainer>
