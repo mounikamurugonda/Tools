@@ -249,6 +249,57 @@ export const getToolSchema = (tool: any, details?: any) => ({
 });
 
 // Breadcrumb schema
+// Blog article schema (schema.org/Article)
+export const getArticleSchema = (blog: {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  updatedDate?: string;
+  author: string;
+  category: string;
+  image?: string;
+  keywords?: string[];
+}) => {
+  const url = `https://utiltoolkits.com/blogs/${blog.id}`;
+  const image = blog.image
+    ? blog.image.startsWith('http')
+      ? blog.image
+      : `https://utiltoolkits.com${blog.image}`
+    : 'https://utiltoolkits.com/og-image.png';
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: blog.title,
+    description: blog.description,
+    image: [image],
+    datePublished: new Date(blog.date).toISOString(),
+    dateModified: new Date(blog.updatedDate || blog.date).toISOString(),
+    author: {
+      '@type': 'Organization',
+      name: blog.author,
+      url: 'https://utiltoolkits.com',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'UtilToolkits',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://utiltoolkits.com/og-image.png',
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    articleSection: blog.category,
+    keywords: blog.keywords?.join(', '),
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+  };
+};
+
 export const getBreadcrumbSchema = (items: Array<{ name: string; url: string }>) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',

@@ -70,4 +70,8 @@ export interface Blog {
   authorImage?: string;
   relatedPosts?: string[];
   relatedTools?: string[];
+  seoTitle?: string;
+  seoDescription?: string;
+  keywords?: string[];
+  updatedDate?: string;
 }

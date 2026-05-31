@@ -5,7 +5,83 @@ import Link from 'next/link';
 import Image from 'next/image';
 import ShareButton from '@/components/ShareButton';
 import BreadcrumbWrapper from '@/components/BreadcrumbWrapper';
+import Schema from '@/components/Schema';
+import { getArticleSchema, getBreadcrumbSchema } from '@/lib/schema';
 import { TOOLS } from '@/constants';
+import type { Metadata, ResolvingMetadata } from 'next';
+
+type Props = { params: Promise<{ blogId: string }> };
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { blogId } = await params;
+  const blog = blogs.find(b => b.id === blogId);
+
+  if (!blog) {
+    return {
+      title: 'Blog Post Not Found | UtilToolkits',
+      description:
+        'The requested article could not be found. Browse our free developer-tool guides and tutorials.',
+    };
+  }
+
+  const title = blog.seoTitle || `${blog.title} | UtilToolkits Blog`;
+  const description = blog.seoDescription || blog.description;
+  const url = `https://utiltoolkits.com/blogs/${blog.id}`;
+  const image = blog.image
+    ? blog.image.startsWith('http')
+      ? blog.image
+      : `https://utiltoolkits.com${blog.image}`
+    : 'https://utiltoolkits.com/og-image.png';
+
+  const parentIcons = (await parent).icons;
+
+  return {
+    icons: parentIcons,
+    title,
+    description,
+    keywords:
+      blog.keywords && blog.keywords.length > 0
+        ? [...blog.keywords, blog.category.toLowerCase(), 'developer tools', 'free online tools']
+        : `${blog.category.toLowerCase()}, developer tools, online tools, tutorial, guide`,
+    authors: [{ name: blog.author }],
+    creator: blog.author,
+    publisher: 'UtilToolkits',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    alternates: { canonical: `/blogs/${blog.id}` },
+    openGraph: {
+      title,
+      description,
+      type: 'article',
+      url,
+      siteName: 'UtilToolkits',
+      publishedTime: new Date(blog.date).toISOString(),
+      modifiedTime: new Date(blog.updatedDate || blog.date).toISOString(),
+      authors: [blog.author],
+      section: blog.category,
+      images: [{ url: image, width: 1200, height: 630, alt: blog.title }],
+      locale: 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [image],
+      creator: '@utiltoolkits',
+    },
+  };
+}
 
 export async function generateStaticParams() {
   return blogs.map(blog => ({
@@ -13,7 +89,7 @@ export async function generateStaticParams() {
   }));
 }
 
-const BlogPage = async ({ params }: { params: Promise<{ blogId: string }> }) => {
+const BlogPage = async ({ params }: Props) => {
   const { blogId } = await params;
   const blog = blogs.find(blog => blog.id === blogId);
 
@@ -27,6 +103,14 @@ const BlogPage = async ({ params }: { params: Promise<{ blogId: string }> }) => 
 
   return (
     <div className="brand-container">
+      <Schema schema={getArticleSchema(blog)} />
+      <Schema
+        schema={getBreadcrumbSchema([
+          { name: 'Home', url: 'https://utiltoolkits.com' },
+          { name: 'Blogs', url: 'https://utiltoolkits.com/blogs' },
+          { name: blog.title, url: `https://utiltoolkits.com/blogs/${blog.id}` },
+        ])}
+      />
       <BreadcrumbWrapper />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
