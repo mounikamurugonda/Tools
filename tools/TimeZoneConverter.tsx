@@ -9,9 +9,52 @@ import Label from '@/components/ui/Label';
 import CustomSelect from '@/components/ui/CustomSelect';
 import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
-import { ArrowLeftRight } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { ArrowLeftRight, Copy } from 'lucide-react';
+
+/** Offset (ms) of a time zone from UTC at a given instant. Positive = ahead of UTC. */
+function getZoneOffset(timeZone: string, date: Date): number {
+  const dtf = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    hour12: false,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
+  const parts = dtf.formatToParts(date).reduce<Record<string, number>>((acc, p) => {
+    if (p.type !== 'literal') acc[p.type] = Number(p.value);
+    return acc;
+  }, {});
+  const asUTC = Date.UTC(
+    parts.year,
+    parts.month - 1,
+    parts.day,
+    parts.hour === 24 ? 0 : parts.hour,
+    parts.minute,
+    parts.second
+  );
+  return asUTC - date.getTime();
+}
+
+/** Resolve a wall-clock time stated in `timeZone` to the correct absolute UTC instant. */
+function zonedWallTimeToUtc(
+  y: number,
+  mo: number,
+  d: number,
+  h: number,
+  mi: number,
+  timeZone: string
+): Date {
+  const utcGuess = Date.UTC(y, mo - 1, d, h, mi);
+  const offset = getZoneOffset(timeZone, new Date(utcGuess));
+  return new Date(utcGuess - offset);
+}
 
 const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   // Get user's current timezone as default
   const userTimeZone = useMemo(() => {
     try {
@@ -73,36 +116,33 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     if (!date || !time) return { date: '', time: '', day: '' };
 
     try {
-      // Construct a date object from the input, specifying the fromTimeZone
-      const dateInFromZone = new Date(`${date}T${time}:00`);
+      // The user enters a *wall-clock* date+time that belongs to `fromTimeZone`.
+      // We must resolve it to the correct absolute UTC instant before rendering
+      // it in `toTimeZone`. Naively doing `new Date('YYYY-MM-DDTHH:mm')` parses
+      // the string in the *browser's* local zone, which silently ignores the
+      // From selector — that was the bug.
+      const [y, mo, d] = date.split('-').map(Number);
+      const [h, mi] = time.split(':').map(Number);
+      const instant = zonedWallTimeToUtc(y, mo, d, h, mi, fromTimeZone);
 
-      const targetFormatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: toTimeZone,
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: true,
-      });
+      if (isNaN(instant.getTime())) {
+        return { date: 'Invalid Date', time: '', day: '' };
+      }
 
-      const formatted = targetFormatter.format(dateInFromZone);
       return {
-        formattedString: formatted,
-        date: dateInFromZone.toLocaleDateString(undefined, {
+        date: instant.toLocaleDateString(undefined, {
           timeZone: toTimeZone,
           month: 'long',
           day: 'numeric',
           year: 'numeric',
         }),
-        time: dateInFromZone.toLocaleTimeString(undefined, {
+        time: instant.toLocaleTimeString(undefined, {
           timeZone: toTimeZone,
           hour: '2-digit',
           minute: '2-digit',
           hour12: true,
         }),
-        day: dateInFromZone.toLocaleDateString(undefined, {
+        day: instant.toLocaleDateString(undefined, {
           timeZone: toTimeZone,
           weekday: 'long',
         }),
@@ -210,6 +250,21 @@ const TimeZoneConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   {result.day}, {result.date}
                 </p>
+                {result.time && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-2 mx-auto gap-1.5"
+                    onClick={() => {
+                      navigator.clipboard
+                        .writeText(`${result.time} — ${result.day}, ${result.date}`)
+                        .then(() => toast.success('Converted time copied'))
+                        .catch(() => toast.error('Failed to copy'));
+                    }}
+                  >
+                    <Copy className="w-4 h-4" /> Copy
+                  </Button>
+                )}
               </div>
             </div>
           </div>
