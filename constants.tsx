@@ -593,9 +593,19 @@ export const TOOLS: Tool[] = [
     id: 'screen-info',
     name: 'Screen Resolution Info',
     description: 'View your current screen and viewport dimensions.',
+    seoTitle: 'Screen Resolution Info 🖥️ | My Screen & Viewport Size',
+    seoDescription:
+      'Instantly detect your screen resolution, browser viewport size, device pixel ratio, color depth, and orientation. Free "what is my screen resolution" checker — copy all values as JSON.',
     icon: <ScreenIcon />,
     category: ToolCategory.PRODUCTIVITY,
-    keywords: ['screen resolution', 'viewport size', 'screen info', 'display info'],
+    keywords: [
+      'what is my screen resolution',
+      'screen resolution checker',
+      'viewport size',
+      'device pixel ratio',
+      'browser window size',
+      'display info',
+    ],
   },
   {
     id: 'text-to-speech',
