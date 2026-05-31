@@ -45,17 +45,17 @@ Rewrite all 32 blogs in `lib/blogs.ts` for SEO + practical usefulness + strong i
 - [x] `pdf-management-guide` → pdf-merger/splitter/compressor
 
 ## Tier 3 — Medium-volume practical topics
-- [ ] `create-stunning-css-gradients` → css-gradient-generator
-- [ ] `markdown-tables-made-easy` → markdown-table-generator
-- [ ] `qr-codes-marketing-guide` → qr-code-generator
-- [ ] `unix-timestamp-debugging` → unix-timestamp-converter
-- [ ] `image-to-base64-guide` → image-to-base64
-- [ ] `image-resizing-web-guide` → image-resizer
-- [ ] `understanding-loan-amortization` → loan-calculator
-- [ ] `timezone-management-remote-work` → timezone-converter
-- [ ] `code-diff-checking-guide` → diff-checker
-- [ ] `text-to-speech-guide` → text-to-speech
-- [ ] `color-theory-web-design` → color-palette-generator
+- [x] `create-stunning-css-gradients` → css-gradient-generator
+- [x] `markdown-tables-made-easy` → markdown-table-generator
+- [x] `qr-codes-marketing-guide` → qr-code-generator
+- [x] `unix-timestamp-debugging` → unix-timestamp-converter
+- [x] `image-to-base64-guide` → image-to-base64
+- [x] `image-resizing-web-guide` → image-resizer
+- [x] `understanding-loan-amortization` → loan-calculator
+- [x] `timezone-management-remote-work` → timezone-converter
+- [x] `code-diff-checking-guide` → diff-checker
+- [x] `text-to-speech-guide` → text-to-speech
+- [x] `color-theory-web-design` → color-palette-generator
 
 ## Tier 4 — Long-tail / lower priority
 - [ ] `daily-unit-conversions-guide` → unit-converter
