@@ -1,9 +1,13 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import ToolContainer from '@/components/ToolContainer';
-import CopyButton from '@/components/CopyButton';
+import Input from '@/components/ui/Input';
+import Label from '@/components/ui/Label';
+import Button from '@/components/ui/Button';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Copy } from 'lucide-react';
 
 const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
   const [url, setUrl] = useState('');
@@ -12,97 +16,155 @@ const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
   const [campaign, setCampaign] = useState('');
   const [term, setTerm] = useState('');
   const [content, setContent] = useState('');
-  const [result, setResult] = useState('');
+  const [lowercase, setLowercase] = useState(true);
+  const toast = useToast();
 
-  useEffect(() => {
-    if (!url) {
-      setResult('');
-      return;
-    }
+  const { result, error } = useMemo(() => {
+    if (!url.trim()) return { result: '', error: '' };
+    let normalized = url.trim();
+    // Be forgiving: assume https:// when no scheme is present.
+    if (!/^https?:\/\//i.test(normalized)) normalized = `https://${normalized}`;
     try {
-      const builtUrl = new URL(url);
-      if (source) builtUrl.searchParams.set('utm_source', source);
-      if (medium) builtUrl.searchParams.set('utm_medium', medium);
-      if (campaign) builtUrl.searchParams.set('utm_campaign', campaign);
-      if (term) builtUrl.searchParams.set('utm_term', term);
-      if (content) builtUrl.searchParams.set('utm_content', content);
-      setResult(builtUrl.toString());
-    } catch (e) {
-      setResult('Invalid URL');
+      const built = new URL(normalized);
+      const norm = (v: string) => (lowercase ? v.trim().toLowerCase() : v.trim());
+      if (source) built.searchParams.set('utm_source', norm(source));
+      if (medium) built.searchParams.set('utm_medium', norm(medium));
+      if (campaign) built.searchParams.set('utm_campaign', norm(campaign));
+      if (term) built.searchParams.set('utm_term', norm(term));
+      if (content) built.searchParams.set('utm_content', norm(content));
+      return { result: built.toString(), error: '' };
+    } catch {
+      return { result: '', error: 'Enter a valid website URL (e.g. https://example.com).' };
     }
-  }, [url, source, medium, campaign, term, content]);
+  }, [url, source, medium, campaign, term, content, lowercase]);
+
+  const missingRequired = url.trim() && (!source || !medium);
+
+  const handleCopy = () => {
+    if (!result) return;
+    navigator.clipboard
+      .writeText(result)
+      .then(() => toast.success('Campaign URL copied'))
+      .catch(() => toast.error('Failed to copy'));
+  };
+
+  const handleReset = () => {
+    setUrl('');
+    setSource('');
+    setMedium('');
+    setCampaign('');
+    setTerm('');
+    setContent('');
+  };
 
   return (
     <ToolContainer title="UTM Builder" details={details} toolId={toolId}>
-      <div className="space-y-4">
+      <div className="space-y-4 max-w-3xl mx-auto">
         <div>
-          <label className="block text-sm font-medium mb-1">Website URL *</label>
-          <input
+          <Label htmlFor="utm-url">Website URL *</Label>
+          <Input
+            id="utm-url"
             value={url}
             onChange={e => setUrl(e.target.value)}
-            className="brand-input"
             placeholder="https://example.com"
+            error={!!error}
           />
+          {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
         </div>
+
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Campaign Source *</label>
-            <input
+            <Label htmlFor="utm-source">Campaign Source *</Label>
+            <Input
+              id="utm-source"
               value={source}
               onChange={e => setSource(e.target.value)}
-              className="brand-input"
               placeholder="google, newsletter"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Campaign Medium *</label>
-            <input
+            <Label htmlFor="utm-medium">Campaign Medium *</Label>
+            <Input
+              id="utm-medium"
               value={medium}
               onChange={e => setMedium(e.target.value)}
-              className="brand-input"
               placeholder="cpc, banner, email"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Campaign Name</label>
-            <input
+            <Label htmlFor="utm-campaign">Campaign Name</Label>
+            <Input
+              id="utm-campaign"
               value={campaign}
               onChange={e => setCampaign(e.target.value)}
-              className="brand-input"
               placeholder="spring_sale"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">Campaign Term</label>
-            <input
+            <Label htmlFor="utm-term">Campaign Term</Label>
+            <Input
+              id="utm-term"
               value={term}
               onChange={e => setTerm(e.target.value)}
-              className="brand-input"
               placeholder="running+shoes"
             />
           </div>
           <div className="md:col-span-2">
-            <label className="block text-sm font-medium mb-1">Campaign Content</label>
-            <input
+            <Label htmlFor="utm-content">Campaign Content</Label>
+            <Input
+              id="utm-content"
               value={content}
               onChange={e => setContent(e.target.value)}
-              className="brand-input"
               placeholder="logolink, textlink"
             />
           </div>
         </div>
 
+        <label className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 cursor-pointer">
+          <input
+            type="checkbox"
+            checked={lowercase}
+            onChange={e => setLowercase(e.target.checked)}
+            className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 text-blue-600 focus:ring-blue-500"
+          />
+          Force lowercase parameters (recommended — keeps analytics data clean)
+        </label>
+
+        {missingRequired && !error && (
+          <p className="text-sm text-amber-600 dark:text-amber-400">
+            Tip: Source and Medium are recommended for Google Analytics to attribute traffic
+            correctly.
+          </p>
+        )}
+
         <div className="relative mt-6">
-          <label className="block text-sm font-medium mb-1">Generated URL</label>
+          <Label htmlFor="utm-result">Generated URL</Label>
           <textarea
+            id="utm-result"
             data-lenis-prevent
             readOnly
             value={result}
-            className="w-full h-24 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded p-3 font-mono text-sm break-all"
+            placeholder="Your campaign URL will appear here…"
+            className="w-full h-24 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-3 pr-12 font-mono text-sm break-all text-gray-900 dark:text-white"
           />
-          {result && result !== 'Invalid URL' && (
-            <CopyButton textToCopy={result} className="absolute top-8 right-2" />
+          {result && (
+            <button
+              onClick={handleCopy}
+              aria-label="Copy generated URL"
+              className="absolute top-10 right-2 p-2 rounded-lg text-gray-500 hover:text-blue-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+            >
+              <Copy className="w-4 h-4" />
+            </button>
           )}
+        </div>
+
+        <div className="flex gap-3">
+          <Button onClick={handleCopy} disabled={!result}>
+            Copy URL
+          </Button>
+          <Button variant="secondary" onClick={handleReset}>
+            Reset
+          </Button>
         </div>
       </div>
     </ToolContainer>
