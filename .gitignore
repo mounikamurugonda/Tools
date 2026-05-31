@@ -32,3 +32,6 @@ next-env.d.ts
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Claude Code local memory/session data
+.claude/projects/
