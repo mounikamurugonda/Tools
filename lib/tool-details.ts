@@ -3504,6 +3504,16 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
         question: 'Can I sync this with other devices?',
         answer: 'No, the data is stored locally on this specific device and browser.',
       },
+      {
+        question: 'How do I clear all completed tasks at once?',
+        answer:
+          "Use the 'Clear completed' button in the toolbar. It removes every checked task in one click while leaving your active tasks untouched.",
+      },
+      {
+        question: 'Is there a limit to how many tasks I can add?',
+        answer:
+          'There is no hard limit. The list is stored in your browser, so it comfortably handles hundreds of tasks, though very large lists depend on your device’s available storage.',
+      },
     ],
     privacy: PRIVACY_STATEMENT,
   },
