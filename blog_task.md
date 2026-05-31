@@ -58,13 +58,36 @@ Rewrite all 32 blogs in `lib/blogs.ts` for SEO + practical usefulness + strong i
 - [x] `color-theory-web-design` → color-palette-generator
 
 ## Tier 4 — Long-tail / lower priority
-- [ ] `daily-unit-conversions-guide` → unit-converter
-- [ ] `text-cleaning-automation` → text-cleaner
-- [ ] `randomizing-lists-fairness` → list-randomizer
-- [ ] `string-escaping-security` → string-escaper
-- [ ] `html-entities-guide` → html-entity
-- [ ] `cleaning-data-duplicates` → duplicate-remover
-- [ ] `text-case-formatting-guide` → case-converter
+- [x] `daily-unit-conversions-guide` → unit-converter
+- [x] `text-cleaning-automation` → text-cleaner
+- [x] `randomizing-lists-fairness` → list-randomizer
+- [x] `string-escaping-security` → string-escaper
+- [x] `html-entities-guide` → html-entity
+- [x] `cleaning-data-duplicates` → duplicate-remover
+- [x] `text-case-formatting-guide` → case-converter
+
+---
+
+## ✅ ALL 32 BLOGS COMPLETE (2026-05-31)
+
+Done. Every blog now has:
+- SEO-tuned `seoTitle` + `seoDescription` + 6–10 `keywords` + `updatedDate`
+- TL;DR with front-loaded internal CTAs
+- Problem section, how-to steps, code/data examples
+- Privacy paragraph (UtilToolkits differentiation)
+- 3–6 FAQs (eligible for Google "People also ask")
+- Tool CTA list at end
+
+Per-blog metadata infra is live (`app/blogs/[blogId]/page.tsx`):
+- `generateMetadata` → title, description, canonical, OG (article type), Twitter
+- `<Schema>` → schema.org/Article + BreadcrumbList JSON-LD
+- Sitemap already includes all blog routes
+
+### Next steps (post-rewrite, optional)
+- [ ] Generate per-blog OG images (`/public/og-<blog-id>.png`) — currently all use the default `/og-image.png`. The `generateMetadata` already references `blog.image` if you set it on the blog object.
+- [ ] Submit `sitemap.xml` to Google Search Console once deployed; request indexing for top 5 blogs.
+- [ ] Add internal links to blogs from related tool pages (`/tools/json-formatter` should link to `/blogs/guide-json-formatter-validator`) — currently one-directional.
+- [ ] Set up Search Console performance tracking to measure CTR improvements over the first 90 days post-publish.
 
 ## After every batch
 - Check off the completed items above

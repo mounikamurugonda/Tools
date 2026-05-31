@@ -807,30 +807,76 @@ encodeURIComponent('https://api.com/search?q=hello world');
   // 9. Unit Converter
   {
     id: 'daily-unit-conversions-guide',
-    title: 'The Ultimate Conversion Guide: Bytes, Pixels, and Degrees',
+    title: 'Unit Converter: Length, Weight, Temperature, Data Size, CSS Units, and More',
     description:
-      'From CSS units to file sizes, developers deal with conversions daily. Simplify your math with our comprehensive Unit Converter.',
+      'Stop Googling conversion factors. Convert between metric and imperial, KB vs KiB, px to rem, °C to °F — all in one tool, with the precision that actually matters for developers and designers.',
+    seoTitle: 'Free Unit Converter — Length, Weight, Temperature, Data, CSS Units',
+    seoDescription:
+      'Convert between any units instantly: length, weight, temperature, data size (KB/KiB/MB/MiB), CSS units (px/rem/em), time, area, speed. Free, browser-only, high precision.',
+    keywords: [
+      'unit converter',
+      'metric imperial converter',
+      'kb vs kib',
+      'px to rem converter',
+      'celsius to fahrenheit',
+      'data size converter',
+      'css unit converter',
+      'online conversion tool',
+    ],
     date: '2025-12-14',
+    updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Math Tools',
     relatedTools: ['unit-converter', 'currency-converter', 'temperature-converter'],
     content: `
-      <h2>Why Can't We All Agree on Units?</h2>
-      <p>The world is divided: metric vs. imperial, Celsius vs. Fahrenheit. In the digital world, it's even worse: px vs. rem vs. em, KB vs. KiB. Constantly Googling conversion factors breaks your flow.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/unit-converter">Unit Converter</a> handles length, weight, temperature, time, area, speed, data size, and CSS units in one place. For live exchange rates use the <a href="/tools/currency-converter">Currency Converter</a>; for cooking and weather quick-conversions, the dedicated <a href="/tools/temperature-converter">Temperature Converter</a>.</p>
 
-      <h3>Common Conversions for Developers</h3>
+      <h2>Conversions that trip people up</h2>
       <ul>
-        <li><strong>Data Storage:</strong> 1024 bytes = 1 KB? Or is it 1000? (Hint: It depends on context, but usually we mean KiB in binary).</li>
-        <li><strong>CSS Lengths:</strong> Converting explicit pixels to relative 'rem' units is essential for accessible, responsive design.</li>
-        <li><strong>Time:</strong> Converting milliseconds to dates is a frequent debugging task.</li>
+        <li><strong>KB vs KiB.</strong> 1 KB = 1,000 bytes (SI). 1 KiB = 1,024 bytes (binary). Hard drives use KB, OS reports often use KiB — that’s why "1 TB drive" shows as ~931 GiB in Windows.</li>
+        <li><strong>px vs rem vs em.</strong> 1 rem = the root font size (usually 16 px). 1 em = the parent’s font size. Use rem for accessible scaling, em for component-relative sizing.</li>
+        <li><strong>Celsius ↔ Fahrenheit.</strong> <code>F = C × 9/5 + 32</code>. Memorize: 0 °C = 32 °F, 100 °C = 212 °F, 20 °C ≈ 68 °F (room temp).</li>
+        <li><strong>kg ↔ lb.</strong> 1 kg ≈ 2.205 lb. 1 lb ≈ 0.454 kg.</li>
+        <li><strong>km ↔ mi.</strong> 1 km ≈ 0.621 mi. 1 mi ≈ 1.609 km.</li>
       </ul>
 
-      <h2>A Universal Tool</h2>
-      <p>Our <a href="/tools/unit-converter">Unit Converter</a> handles all these categories and more. It is designed to be the only calculator you need open.</p>
+      <h2>Use the converter in 5 seconds</h2>
+      <ol>
+        <li>Open the <a href="/tools/unit-converter">Unit Converter</a>.</li>
+        <li>Pick a category (length, weight, temperature, etc.).</li>
+        <li>Type the value in any unit — every other unit updates live.</li>
+        <li>Copy whichever output you need.</li>
+      </ol>
 
-      <p>For specialized financial needs, we also offer a specific <a href="/tools/currency-converter">Currency Converter</a> with up-to-date exchange rates.</p>
+      <h2>Categories supported</h2>
+      <ul>
+        <li><strong>Length</strong> — mm, cm, m, km, in, ft, yd, mi, nautical mi.</li>
+        <li><strong>Weight</strong> — mg, g, kg, t, oz, lb, st.</li>
+        <li><strong>Temperature</strong> — Celsius, Fahrenheit, Kelvin.</li>
+        <li><strong>Time</strong> — ms, s, min, h, day, week, year.</li>
+        <li><strong>Area</strong> — m², km², ft², acre, hectare.</li>
+        <li><strong>Speed</strong> — m/s, km/h, mph, knots.</li>
+        <li><strong>Data size</strong> — bytes through TiB, both SI and binary.</li>
+        <li><strong>CSS</strong> — px, rem, em, % (with configurable root size).</li>
+      </ul>
 
-      <p>Stop doing mental math. Use the <a href="/tools/unit-converter">Unit Converter</a> for instant precision.</p>
+      <h2>FAQ</h2>
+
+      <h3>Is 1 GB the same as 1 GiB?</h3>
+      <p>No. 1 GB = 10⁹ bytes (1,000,000,000). 1 GiB = 2³⁰ bytes (1,073,741,824). The difference grows at larger scales — a "16 GB" SD card holds ~14.9 GiB.</p>
+
+      <h3>What’s 1 rem in pixels?</h3>
+      <p>By default, 16 px (the browser default root size). If the user has increased browser font size, 1 rem scales with it — which is why rem-based layouts are more accessible than px.</p>
+
+      <h3>Does the converter use live currency rates?</h3>
+      <p>The Unit Converter handles physical units. For live FX, use the dedicated <a href="/tools/currency-converter">Currency Converter</a>.</p>
+
+      <h2>Math toolkit</h2>
+      <ul>
+        <li><a href="/tools/unit-converter">Unit Converter</a> — every category, one tool.</li>
+        <li><a href="/tools/currency-converter">Currency Converter</a> — live FX rates.</li>
+        <li><a href="/tools/temperature-converter">Temperature Converter</a> — quick C/F/K.</li>
+      </ul>
     `,
   },
   // 10. UNIX Timestamp Converter
@@ -1503,119 +1549,408 @@ echo 'YWRtaW46cGFzc3dvcmQ=' | base64 -d</code></pre>
   // 17. Text Cleaner
   {
     id: 'text-cleaning-automation',
-    title: 'Clean Up Your Text: Removing Spaces, Breaks, and HTML Tags',
+    title: 'Text Cleaner: Strip HTML, Fix Whitespace, Remove Invisible Characters',
     description:
-      'Messy text ruins formatting. Discover how to automate text cleanup for databases, emails, and content migration with our Text Cleaner.',
+      'Pasting from PDFs, emails, or web pages brings hidden chaos: double spaces, smart quotes, zero-width characters, stray HTML. Strip them all in one click before they break your code, CSV imports, or email sends.',
+    seoTitle: 'Free Text Cleaner — Strip HTML, Fix Whitespace, Remove Hidden Chars',
+    seoDescription:
+      'Clean up text by removing extra whitespace, line breaks, HTML tags, smart quotes, and invisible Unicode characters. Browser-only, perfect for data prep and content migration.',
+    keywords: [
+      'text cleaner',
+      'strip html tags',
+      'remove extra spaces',
+      'clean text online',
+      'remove invisible characters',
+      'smart quotes converter',
+      'normalize whitespace',
+      'text sanitizer',
+    ],
     date: '2025-12-18',
+    updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Text Tools',
     relatedTools: ['text-cleaner', 'word-counter', 'text-case-converter'],
     content: `
-      <h2>The Chaos of Copy-Paste</h2>
-      <p>Copying text from PDFs, emails, or websites often brings unwanted artifacts: double spaces, weird line breaks, or invisible formatting characters. Manually deleting them is a waste of life.</p>
+      <p><strong>TL;DR —</strong> Paste any messy text into the <a href="/tools/text-cleaner">Text Cleaner</a>, toggle the operations you need, copy the cleaned output. Pair with the <a href="/tools/word-counter">Word Counter</a> to verify length and the <a href="/tools/text-case-converter">Case Converter</a> for capitalization fixes.</p>
 
-      <h2>Automated Hygiene</h2>
-      <p>Our <a href="/tools/text-cleaner">Text Cleaner</a> acts as a washing machine for your strings:</p>
+      <h2>The hidden gunk in copy-pasted text</h2>
+      <p>Text from PDFs, Word docs, Slack, and rendered web pages carries invisible junk that breaks downstream processing:</p>
       <ul>
-        <li><strong>Remove Line Breaks:</strong> Turn a column of text into a single comma-separated line.</li>
-        <li><strong>Strip HTML:</strong> Remove all tags to leave just the plain text.</li>
-        <li><strong>Normalize Spaces:</strong> Turn multiple spaces into one.</li>
+        <li><strong>Multiple consecutive spaces</strong> from justified paragraphs.</li>
+        <li><strong>Zero-width characters</strong> (U+200B, U+FEFF) from rich-text exports — invisible but very real.</li>
+        <li><strong>Smart quotes</strong> (<code>“ ” ‘ ’</code>) that break JSON parsing and SQL queries.</li>
+        <li><strong>Soft hyphens</strong> (U+00AD) that appear out of nowhere in CSV imports.</li>
+        <li><strong>Stray HTML</strong> when you copy from a rendered webpage instead of the source.</li>
+        <li><strong>Mixed line endings</strong> (CRLF vs LF) that show up as control characters in some editors.</li>
       </ul>
 
-      <p>Perfect for developers preparing seed data or marketers formatting email lists. Scrub your text clean with the <a href="/tools/text-cleaner">Text Cleaner</a>.</p>
+      <h2>What the Text Cleaner does</h2>
+      <ul>
+        <li><strong>Trim whitespace</strong> — strip leading/trailing space from every line.</li>
+        <li><strong>Collapse multiple spaces</strong> into one.</li>
+        <li><strong>Remove all line breaks</strong> (or replace with commas, custom delimiter).</li>
+        <li><strong>Strip HTML tags</strong> while keeping the visible text.</li>
+        <li><strong>Convert smart quotes</strong> to straight ASCII quotes.</li>
+        <li><strong>Remove invisible Unicode</strong> (zero-width spaces, BOM, soft hyphens).</li>
+        <li><strong>Normalize line endings</strong> to LF or CRLF.</li>
+        <li><strong>Remove duplicate lines</strong> (link to dedicated <a href="/tools/duplicate-remover">Duplicate Remover</a> for advanced cases).</li>
+      </ul>
+
+      <h2>Clean text in 10 seconds</h2>
+      <ol>
+        <li>Open the <a href="/tools/text-cleaner">Text Cleaner</a>.</li>
+        <li>Paste the messy input.</li>
+        <li>Toggle the operations you want (each runs live).</li>
+        <li>Copy the cleaned output, or download as a file.</li>
+      </ol>
+
+      <h2>Real situations this saves</h2>
+      <ul>
+        <li><strong>CSV imports failing</strong> because a column has zero-width chars in headers.</li>
+        <li><strong>SQL syntax errors</strong> from smart quotes pasted into a query.</li>
+        <li><strong>JSON parse failures</strong> from <code>“key”</code> instead of <code>"key"</code>.</li>
+        <li><strong>Email merge bugs</strong> where names have invisible trailing whitespace.</li>
+        <li><strong>Content migrations</strong> from a CMS that exports rich HTML when you wanted plain text.</li>
+      </ul>
+
+      <h2>FAQ</h2>
+
+      <h3>Why does my pasted text look fine but break in my code?</h3>
+      <p>Invisible characters. Run it through the Text Cleaner with "remove invisible Unicode" on and the problem usually disappears.</p>
+
+      <h3>What are smart quotes?</h3>
+      <p>The curly typographic quotes (<code>“ ” ‘ ’</code>) that Word and macOS autocorrect insert. They look prettier in prose but break code, JSON, and database queries that expect ASCII straight quotes.</p>
+
+      <h3>Can I clean text without removing line breaks?</h3>
+      <p>Yes — every operation toggles independently. Leave line-break handling off if you want to preserve structure.</p>
+
+      <h2>Text-prep toolkit</h2>
+      <ul>
+        <li><a href="/tools/text-cleaner">Text Cleaner</a> — strip everything that doesn’t belong.</li>
+        <li><a href="/tools/word-counter">Word Counter</a> — verify length after cleaning.</li>
+        <li><a href="/tools/text-case-converter">Case Converter</a> — fix capitalization.</li>
+      </ul>
     `,
   },
   // 18. List Randomizer
   {
     id: 'randomizing-lists-fairness',
-    title: 'The Art of Randomness: How to Shuffle Lists Fairly',
+    title: 'List Randomizer: Pick Winners, Shuffle Teams, and Order Anything Fairly',
     description:
-      'Need to pick a winner? Or shuffle a team roster? Learn why true randomness matters and how to randomize lists instantly.',
+      'Humans are terrible at picking randomly. Use cryptographic randomness to shuffle giveaway entries, assign on-call rotations, randomize team brackets, or order any list without bias.',
+    seoTitle: 'Free List Randomizer & Shuffler — Cryptographically Fair',
+    seoDescription:
+      'Shuffle any list with cryptographic randomness. Pick winners, randomize on-call rotations, generate bracket orders. Browser-only, verifiable, no signup.',
+    keywords: [
+      'list randomizer',
+      'random list',
+      'shuffle list online',
+      'pick a random winner',
+      'random name picker',
+      'fair shuffle',
+      'fisher-yates shuffle',
+      'giveaway winner picker',
+    ],
     date: '2025-12-19',
+    updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Fun Tools',
     relatedTools: ['list-randomizer', 'random-number-generator', 'uuid-generator'],
     content: `
-      <h2>Why Randomize?</h2>
-      <p>Humans are biased. If asked to "pick a tailored random name," we dramatically overthink it. True randomness eliminates bias. This is critical for:</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/list-randomizer">List Randomizer</a> uses your browser’s cryptographic random source to shuffle any list, pick winners, or generate random orderings. For pure number generation use the <a href="/tools/random-number-generator">Random Number Generator</a>; for ID generation, the <a href="/tools/uuid-generator">UUID Generator</a>.</p>
+
+      <h2>Why human "random" isn’t random</h2>
+      <p>Ask 100 people to pick a "random" number between 1 and 10, and around 30% will say 7. We avoid round numbers, dislike repeats, and follow learned patterns. For anything where fairness matters — giveaways, on-call rotations, court rosters, brackets — using human judgment is both biased <em>and</em> a bad look if questioned.</p>
+
+      <h2>What actually random looks like</h2>
+      <p>The List Randomizer uses the <strong>Fisher-Yates shuffle</strong> seeded with <code>crypto.getRandomValues()</code> — the same cryptographic random source your browser uses for TLS. Every permutation of the list is equally likely. Re-running on the same input produces a different ordering every time.</p>
+
+      <h2>Use cases</h2>
       <ul>
-        <li><strong>Giveaways:</strong> Picking a winner fairly.</li>
-        <li><strong>Duty Rosters:</strong> Assigning tasks without favoritism.</li>
-        <li><strong>Brainstorming:</strong> Shuffling ideas to see new connections.</li>
+        <li><strong>Giveaway winners</strong> — paste entry list, shuffle, take the top N.</li>
+        <li><strong>On-call rotations</strong> — fair monthly ordering for support shifts.</li>
+        <li><strong>Tournament brackets</strong> — seedless bracket orders.</li>
+        <li><strong>Classroom partner pairing</strong> — randomize then take pairs from the top.</li>
+        <li><strong>A/B test slot ordering</strong> — counterbalance presentation order in user studies.</li>
+        <li><strong>Demo data</strong> — randomize an array of objects without writing code.</li>
       </ul>
 
-      <p>Our <a href="/tools/list-randomizer">List Randomizer</a> uses cryptographic randomness to shuffle your items thoroughly. Just paste your list and hit shuffle.</p>
+      <h2>Shuffle a list in 5 seconds</h2>
+      <ol>
+        <li>Open the <a href="/tools/list-randomizer">List Randomizer</a>.</li>
+        <li>Paste your list — one item per line, or specify a custom delimiter.</li>
+        <li>Click <em>Shuffle</em>.</li>
+        <li>Optionally <em>Pick N</em> to grab the top N as winners.</li>
+        <li>Copy the result.</li>
+      </ol>
 
-      <p>Let fate decide. Shuffle your list with the <a href="/tools/list-randomizer">List Randomizer</a>.</p>
+      <h2>FAQ</h2>
+
+      <h3>Is this fair enough for a public giveaway?</h3>
+      <p>Yes — the underlying randomness is cryptographic, the algorithm is unbiased Fisher-Yates. For audit-grade contests, record the seed and the timestamp to demonstrate the result wasn’t cherry-picked.</p>
+
+      <h3>Can I shuffle a numbered list?</h3>
+      <p>Yes — numbers, names, URLs, anything. One item per line.</p>
+
+      <h3>Will the same input always shuffle to the same output?</h3>
+      <p>No — every shuffle uses fresh randomness. Re-run for a new order.</p>
+
+      <h3>Is there a limit on list size?</h3>
+      <p>Practical limit is millions of items — the algorithm is O(n) and runs locally.</p>
+
+      <h2>Randomness toolkit</h2>
+      <ul>
+        <li><a href="/tools/list-randomizer">List Randomizer</a> — shuffle anything, pick winners.</li>
+        <li><a href="/tools/random-number-generator">Random Number Generator</a> — secure integers in any range.</li>
+        <li><a href="/tools/uuid-generator">UUID Generator</a> — 128-bit unique IDs.</li>
+      </ul>
     `,
   },
   // 19. String Escaper
   {
     id: 'string-escaping-security',
-    title: 'String Escaping 101: Preventing Syntax Errors and XSS',
+    title: 'String Escaper: Quote, Embed, and Sanitize Strings Across JSON, HTML, SQL, and JS',
     description:
-      'Quotes breaking your JSON? Special characters crashing your code? Learn how to escape strings for Java, JavaScript, HTML, and JSON.',
+      'A stray quote can crash your build or open an XSS hole. Escape strings safely for JSON, HTML, JavaScript, SQL, Java, Python, and shell — in one tool, no chance of forgetting an edge case.',
+    seoTitle: 'Free String Escaper — JSON, HTML, JS, SQL, Java, Python, Shell',
+    seoDescription:
+      'Escape (and unescape) strings for any language: JSON, HTML, JS, SQL, Java, Python, Bash. Prevents syntax errors, SQL injection, and XSS. Browser-only.',
+    keywords: [
+      'string escaper',
+      'json escape',
+      'html escape',
+      'javascript string escape',
+      'sql escape',
+      'shell escape',
+      'xss prevention',
+      'escape special characters',
+    ],
     date: '2025-12-19',
+    updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Coding Tools',
     relatedTools: ['string-escaper', 'json-formatter', 'html-entity'],
     content: `
-      <h2>The Danger of Special Characters</h2>
-      <p>In programming, characters like <code>"</code>, <code>'</code>, <code>&</code>, and <code><</code> have special meanings. If you insert a string containing these characters into code without "escaping" them, the computer gets confused.</p>
-      
-      <p>For example, <code>var x = "User said "Hello"";</code> causes a syntax error because the inner quotes break the string.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/string-escaper">String Escaper</a> escapes (and unescapes) text for JSON, HTML, JavaScript, SQL, Java, Python, and shell — one tool, no mental gymnastics. Pair with the <a href="/tools/json-formatter">JSON Formatter</a> to verify your escaped string parses, and the <a href="/tools/html-entity">HTML Entity Encoder</a> for the entity-name variant.</p>
 
-      <h2>Safe Strings</h2>
-      <p>Our <a href="/tools/string-escaper">String Escaper</a> handles this automatically for multiple languages:</p>
+      <h2>What "escaping" actually means</h2>
+      <p>Every text-based format has reserved characters with structural meaning: <code>"</code> ends a JSON string, <code>&lt;</code> starts an HTML tag, <code>'</code> ends a SQL string literal. To include those characters as <em>literal data</em>, you replace them with an escape sequence the parser understands as "treat this as content, not syntax."</p>
+
+      <h2>The escape rules per format</h2>
+      <table>
+        <thead><tr><th>Format</th><th>Must escape</th><th>How</th></tr></thead>
+        <tbody>
+          <tr><td>JSON</td><td><code>" \\ /</code> + control chars</td><td>Backslash: <code>\\"  \\\\  \\n  \\t  \\uXXXX</code></td></tr>
+          <tr><td>HTML</td><td><code>&lt; &gt; &amp; " '</code></td><td>Entities: <code>&amp;lt; &amp;gt; &amp;amp; &amp;quot;</code></td></tr>
+          <tr><td>JavaScript</td><td><code>' " \` \\</code> + newlines</td><td>Backslash escapes; or use template literals</td></tr>
+          <tr><td>SQL</td><td><code>'</code></td><td>Double up: <code>'</code> → <code>''</code> (or use parameterized queries)</td></tr>
+          <tr><td>Shell (Bash)</td><td><code>' " $ \` \\ ! *</code></td><td>Single-quote whole string, or backslash-escape</td></tr>
+          <tr><td>URL</td><td>Almost everything</td><td>Percent-encode (see the <a href="/tools/url-encoder">URL Encoder</a>)</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Why this matters beyond syntax errors</h2>
       <ul>
-        <li><strong>JSON:</strong> Escapes backslashes and quotes.</li>
-        <li><strong>HTML:</strong> Converts special chars to entities to prevent XSS.</li>
-        <li><strong>Java/JS:</strong> Escapes quotes and newlines.</li>
+        <li><strong>SQL injection.</strong> Unescaped user input in a SQL query lets attackers run their own commands. The fix is parameterized queries; the band-aid is escaping.</li>
+        <li><strong>XSS.</strong> Unescaped user content rendered as HTML lets attackers run their JavaScript on your users’ pages. Always HTML-escape user-generated text before insertion.</li>
+        <li><strong>Shell injection.</strong> Passing unescaped user input to a shell command is how servers get pwned. Always escape — or better, avoid the shell entirely.</li>
       </ul>
 
-      <p>Code safely. Escape your strings with the <a href="/tools/string-escaper">String Escaper</a>.</p>
+      <h2>Escape any string in 5 seconds</h2>
+      <ol>
+        <li>Open the <a href="/tools/string-escaper">String Escaper</a>.</li>
+        <li>Paste the raw text.</li>
+        <li>Pick the target format (JSON, HTML, JS, SQL, etc.).</li>
+        <li>Copy the escaped result; or toggle to <em>Unescape</em> for the reverse.</li>
+      </ol>
+
+      <h3>Example: putting a SQL query inside a JavaScript string</h3>
+      <pre><code>// Raw query
+SELECT * FROM users WHERE name = 'O\\'Brien'
+
+// Escaped for a JS string
+"SELECT * FROM users WHERE name = 'O\\\\'Brien'"</code></pre>
+
+      <h2>The right way vs the cheap way</h2>
+      <p>Escaping is the cheap way. The right way is to use the API for your context: parameterized queries for SQL (<code>?</code> or <code>$1</code> placeholders), template engines for HTML (which auto-escape), and <code>execFile</code> with array args instead of <code>exec</code> for shell. Escaping is what you reach for when those aren’t available, and what you double-check with the String Escaper when they are.</p>
+
+      <h2>FAQ</h2>
+
+      <h3>Is escaping enough to prevent SQL injection?</h3>
+      <p>Technically yes if done perfectly. Practically no — humans miss edge cases. Use parameterized queries; reserve escaping for truly dynamic SQL that can’t be parameterized.</p>
+
+      <h3>Should I escape user input before storing or before displaying?</h3>
+      <p>Before displaying, in the format of the target context. Storing raw is usually correct — you don’t know yet whether it’ll be rendered as HTML, JSON, or plain text.</p>
+
+      <h3>What’s the difference between escaping and encoding?</h3>
+      <p>Mostly the same idea in different formats. "Escaping" usually refers to source-code contexts (JSON, JS, SQL). "Encoding" usually refers to transport (URL, Base64, HTML entities).</p>
+
+      <h2>Safe-strings toolkit</h2>
+      <ul>
+        <li><a href="/tools/string-escaper">String Escaper</a> — every common format in one place.</li>
+        <li><a href="/tools/json-formatter">JSON Formatter</a> — verify escaped JSON parses.</li>
+        <li><a href="/tools/html-entity">HTML Entity Encoder</a> — named-entity variant.</li>
+      </ul>
     `,
   },
   // 20. HTML Entity Encoder
   {
     id: 'html-entities-guide',
-    title: 'HTML Entities Decoded: displaying Special Characters on the Web',
+    title: 'HTML Entity Encoder / Decoder: Display Special Characters Safely on the Web',
     description:
-      'How do you display a copyright symbol or mathematical operator in HTML? A guide to character entities and how to encode/decode them.',
+      'Want to show a literal &lt; or © or — on a web page without breaking the HTML? Encode and decode HTML entities in one click, including the full named-entity table and numeric references.',
+    seoTitle: 'Free HTML Entity Encoder / Decoder — Special Characters Made Safe',
+    seoDescription:
+      'Convert any character to its HTML entity (named or numeric) and back. Handles the full HTML5 entity set, emoji, and XSS-safe escaping. Browser-only.',
+    keywords: [
+      'html entity encoder',
+      'html entity decoder',
+      'html entities list',
+      'html escape special characters',
+      'unicode to html entity',
+      'xss safe html',
+      'named entities html5',
+      'character reference',
+    ],
     date: '2025-12-20',
+    updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Coding Tools',
     relatedTools: ['html-entity', 'string-escaper', 'text-cleaner'],
     content: `
-      <h2>Reserved Characters</h2>
-      <p>HTML uses <code><</code> and <code>></code> for tags. If you want to actually <em>display</em> a less-than sign on your page, you can't just type it. You must use the entity <code>&lt;</code>.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/html-entity">HTML Entity Encoder</a> converts any character to its named or numeric HTML entity (and back). For generic source-code escaping use the <a href="/tools/string-escaper">String Escaper</a>; for cleaning up pasted text that already contains entities, the <a href="/tools/text-cleaner">Text Cleaner</a>.</p>
 
-      <h2>Beyond Basic Syntax</h2>
-      <p>Entities also handle symbols that aren't on standard keyboards, like © (<code>&copy;</code>) or ™ (<code>&trade;</code>). Browsers understand thousands of these codes.</p>
+      <h2>Why entities exist</h2>
+      <p>HTML reserves a handful of characters for syntax: <code>&lt;</code> and <code>&gt;</code> start and end tags, <code>&amp;</code> starts an entity, <code>"</code> and <code>'</code> wrap attribute values. To <em>display</em> any of those as literal content, you replace them with their entity form. The browser decodes back to the original character at render time.</p>
 
-      <p>Our <a href="/tools/html-entity">HTML Entity Encoder</a> converts your text into safety-encoded HTML. It's essential for anyone displaying code snippets or specialized text on the web.</p>
+      <h2>The five entities you’ll use 95% of the time</h2>
+      <table>
+        <thead><tr><th>Character</th><th>Named entity</th><th>Numeric</th></tr></thead>
+        <tbody>
+          <tr><td><code>&lt;</code></td><td><code>&amp;lt;</code></td><td><code>&amp;#60;</code></td></tr>
+          <tr><td><code>&gt;</code></td><td><code>&amp;gt;</code></td><td><code>&amp;#62;</code></td></tr>
+          <tr><td><code>&amp;</code></td><td><code>&amp;amp;</code></td><td><code>&amp;#38;</code></td></tr>
+          <tr><td><code>"</code></td><td><code>&amp;quot;</code></td><td><code>&amp;#34;</code></td></tr>
+          <tr><td><code>'</code></td><td><code>&amp;apos;</code></td><td><code>&amp;#39;</code></td></tr>
+        </tbody>
+      </table>
 
-      <p>Speak the browser's language. Use the <a href="/tools/html-entity">HTML Entity Encoder</a>.</p>
+      <h2>The "nice to know" symbol entities</h2>
+      <ul>
+        <li><code>&amp;copy;</code> → ©</li>
+        <li><code>&amp;reg;</code> → ®</li>
+        <li><code>&amp;trade;</code> → ™</li>
+        <li><code>&amp;mdash;</code> → —</li>
+        <li><code>&amp;ndash;</code> → –</li>
+        <li><code>&amp;hellip;</code> → …</li>
+        <li><code>&amp;nbsp;</code> → non-breaking space</li>
+        <li><code>&amp;times;</code> → ×</li>
+        <li><code>&amp;rarr;</code> → →</li>
+      </ul>
+
+      <h2>Encode or decode in 5 seconds</h2>
+      <ol>
+        <li>Open the <a href="/tools/html-entity">HTML Entity Encoder</a>.</li>
+        <li>Paste your text in either direction (raw → entities, or entity-encoded → raw).</li>
+        <li>Pick named (more readable) or numeric (more compatible) output.</li>
+        <li>Copy.</li>
+      </ol>
+
+      <h2>The XSS angle</h2>
+      <p>HTML-encoding user-supplied text before inserting it into a page is the primary defense against cross-site scripting (XSS). A user comment containing <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> rendered raw runs the script; rendered after entity-encoding it appears as harmless text. Modern frameworks (React, Vue, Svelte) auto-escape — but if you’re ever inserting raw HTML (<code>dangerouslySetInnerHTML</code>), entity-encode first.</p>
+
+      <h2>FAQ</h2>
+
+      <h3>Named entities vs numeric — which should I use?</h3>
+      <p>Named (e.g. <code>&amp;copy;</code>) is more readable. Numeric (e.g. <code>&amp;#169;</code>) works in XML and older parsers too. Both render identically in HTML5.</p>
+
+      <h3>Do I need to encode every Unicode character?</h3>
+      <p>No — modern HTML5 with UTF-8 handles most characters directly. Only the reserved ones (<code>&lt; &gt; &amp; "</code>) <em>must</em> be encoded. Entity-encode others only when your output context forces ASCII.</p>
+
+      <h3>Why is <code>&amp;nbsp;</code> showing up everywhere in my text?</h3>
+      <p>Word processors and CMS exports insert non-breaking spaces between words. They prevent line wrapping but break searches and CSV imports. Run pasted text through the <a href="/tools/text-cleaner">Text Cleaner</a> to normalize.</p>
+
+      <h2>HTML toolkit</h2>
+      <ul>
+        <li><a href="/tools/html-entity">HTML Entity Encoder</a> — encode/decode any character.</li>
+        <li><a href="/tools/string-escaper">String Escaper</a> — escape for other formats too.</li>
+        <li><a href="/tools/text-cleaner">Text Cleaner</a> — strip stray entities and whitespace.</li>
+      </ul>
     `,
   },
   // 21. Duplicate Line Remover
   {
     id: 'cleaning-data-duplicates',
-    title: 'Data Hygiene: How to Remove Duplicate Entries in Seconds',
+    title: 'Duplicate Remover: Dedupe Email Lists, CSVs, and Any Line-Based Data',
     description:
-      'Cleaning email lists or database dumps? Learn the fastest way to dedup your data and ensure every entry is unique.',
+      'Duplicates in an email list cost money and goodwill. Dedupe thousands of lines in one click — case-insensitive, whitespace-tolerant, with a count of how many duplicates were found.',
+    seoTitle: 'Free Duplicate Line Remover — Dedupe Lists, CSVs, Emails Online',
+    seoDescription:
+      'Remove duplicate lines from any list: emails, URLs, IDs, CSV rows. Case-insensitive matching, whitespace trimming, sort options. Browser-only, free, no upload.',
+    keywords: [
+      'duplicate remover',
+      'remove duplicate lines',
+      'dedupe email list',
+      'unique lines',
+      'csv deduplication',
+      'remove duplicate entries',
+      'list cleaner',
+      'data hygiene tool',
+    ],
     date: '2025-12-20',
+    updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Text Tools',
     relatedTools: ['duplicate-remover', 'list-randomizer', 'text-cleaner'],
     content: `
-      <h2>The Cost of Duplicates</h2>
-      <p>Duplicate data costs money. Sending the same email twice annoys users. Processing duplicate records wastes valid compute cycles. keeping lists unique is a fundamental data hygiene task.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/duplicate-remover">Duplicate Remover</a> dedupes any line-based list — emails, URLs, IDs, CSV rows — with case-insensitive and whitespace-tolerant matching. Clean stray whitespace first with the <a href="/tools/text-cleaner">Text Cleaner</a>; randomize the final list with the <a href="/tools/list-randomizer">List Randomizer</a>.</p>
 
-      <h2>Instant Deduping</h2>
-      <p>Our <a href="/tools/duplicate-remover">Duplicate Line Remover</a> takes a list of thousands of items and instantly identifies unique entries. It can also tell you exactly how many duplicates were found.</p>
+      <h2>Why duplicates matter more than they look</h2>
+      <ul>
+        <li><strong>Email sends.</strong> The same address twice = double-charged by your ESP, two emails for one user, complaint risk.</li>
+        <li><strong>CSV imports.</strong> Duplicate keys break upserts and produce silent overwrite bugs.</li>
+        <li><strong>Analytics.</strong> Duplicate event records inflate metrics and skew dashboards.</li>
+        <li><strong>Outreach lists.</strong> Reaching the same prospect twice from the same campaign reads as spam.</li>
+        <li><strong>Database seeds.</strong> Duplicate seed data blows up unique constraints in CI.</li>
+      </ul>
 
-      <p>Clean your lists instantly with the <a href="/tools/duplicate-remover">Duplicate Remover</a>.</p>
+      <h2>Common dedupe cases this handles</h2>
+      <ul>
+        <li><code>alice@example.com</code> = <code>Alice@example.com</code> (case-insensitive toggle).</li>
+        <li><code>  bob@example.com</code> = <code>bob@example.com</code> (trim whitespace toggle).</li>
+        <li>Preserve original order, or sort alphabetically.</li>
+        <li>Report mode: don’t remove, just list what’s duplicated and how many times.</li>
+      </ul>
+
+      <h2>Dedupe a list in 5 seconds</h2>
+      <ol>
+        <li>Open the <a href="/tools/duplicate-remover">Duplicate Remover</a>.</li>
+        <li>Paste your list (one entry per line).</li>
+        <li>Toggle: trim whitespace, ignore case, sort.</li>
+        <li>Read the count ("Removed 47 of 1,200 lines").</li>
+        <li>Copy the deduped output.</li>
+      </ol>
+
+      <h2>FAQ</h2>
+
+      <h3>Does the order of remaining lines change?</h3>
+      <p>By default, first occurrence wins and order is preserved. Toggle sort if you want alphabetical output.</p>
+
+      <h3>Can I dedupe a CSV by a specific column?</h3>
+      <p>The Duplicate Remover works line-by-line. For column-level dedup, paste only that column, dedupe, then use the result as a filter set against the original CSV in a spreadsheet.</p>
+
+      <h3>What about near-duplicates ("alice@gmail.com" vs "alice+promo@gmail.com")?</h3>
+      <p>Exact-match dedupe won’t catch those. Pre-process with text rules (strip <code>+...</code> suffix from emails) using the <a href="/tools/text-cleaner">Text Cleaner</a> or a quick regex, then dedupe.</p>
+
+      <h3>Is there a size limit?</h3>
+      <p>Practical: millions of lines in modern browsers. Runs in O(n) with a hash set.</p>
+
+      <h2>Data-cleanup toolkit</h2>
+      <ul>
+        <li><a href="/tools/duplicate-remover">Duplicate Remover</a> — dedupe with options.</li>
+        <li><a href="/tools/text-cleaner">Text Cleaner</a> — normalize before deduping.</li>
+        <li><a href="/tools/list-randomizer">List Randomizer</a> — shuffle the cleaned result.</li>
+      </ul>
     `,
   },
   // 22. Intro to UtilToolkits
@@ -2557,30 +2892,94 @@ LIMIT 50;</code></pre>
   // 32. Case Converter
   {
     id: 'text-case-formatting-guide',
-    title: "The Editor's Secret: Formatting Text Instantly",
+    title: 'Case Converter: Convert Text to camelCase, snake_case, Title Case, and More',
     description:
-      'From SCREAMING CAPS to proper Title Case. Discover how to fix capitalization errors in your documents and code instantly.',
+      'Caps Lock accident? Need camelCase variable names from "user first name"? Convert between 10+ cases instantly — including the developer cases (camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE).',
+    seoTitle: 'Free Case Converter — camelCase, snake_case, Title Case, kebab-case',
+    seoDescription:
+      'Convert text between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE. Instant, browser-only, free.',
+    keywords: [
+      'case converter',
+      'camelcase converter',
+      'snake_case converter',
+      'kebab-case generator',
+      'title case converter',
+      'pascalcase tool',
+      'constant_case',
+      'text case formatter',
+    ],
     date: '2025-12-27',
+    updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Text Tools',
     relatedTools: ['case-converter', 'text-cleaner', 'word-counter'],
     content: `
-      <h2>The Caps Lock Accident</h2>
-      <p>We've all done it. You accepted a dirty dataset or accidentally typed a paragraph with Caps Lock on. Retyping it is not an option.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/case-converter">Case Converter</a> handles 10+ cases including developer formats (camelCase, snake_case, kebab-case, PascalCase, CONSTANT_CASE). Clean text first with the <a href="/tools/text-cleaner">Text Cleaner</a>; verify length with the <a href="/tools/word-counter">Word Counter</a>.</p>
 
-      <h2>Standardizing Style</h2>
-      <p>Different contexts need different casing:</p>
+      <h2>The case cheat sheet</h2>
+      <table>
+        <thead><tr><th>Case</th><th>Example</th><th>Where it’s used</th></tr></thead>
+        <tbody>
+          <tr><td>UPPERCASE</td><td><code>HELLO WORLD</code></td><td>Acronyms, legal warnings</td></tr>
+          <tr><td>lowercase</td><td><code>hello world</code></td><td>URLs, email addresses</td></tr>
+          <tr><td>Title Case</td><td><code>Hello World</code></td><td>Headlines, book titles</td></tr>
+          <tr><td>Sentence case</td><td><code>Hello world</code></td><td>Body text, descriptions</td></tr>
+          <tr><td>camelCase</td><td><code>helloWorld</code></td><td>JavaScript, Java, Swift variables</td></tr>
+          <tr><td>PascalCase</td><td><code>HelloWorld</code></td><td>Class names, React components</td></tr>
+          <tr><td>snake_case</td><td><code>hello_world</code></td><td>Python, Ruby variables; database columns</td></tr>
+          <tr><td>SCREAMING_SNAKE_CASE</td><td><code>HELLO_WORLD</code></td><td>Constants, env vars</td></tr>
+          <tr><td>kebab-case</td><td><code>hello-world</code></td><td>URLs, CSS classes, file names</td></tr>
+          <tr><td>aLtErNaTiNg cAsE</td><td><code>hElLo WoRlD</code></td><td>Memes and sarcasm</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Convert in 5 seconds</h2>
+      <ol>
+        <li>Open the <a href="/tools/case-converter">Case Converter</a>.</li>
+        <li>Paste your text.</li>
+        <li>Every case renders live in its own card. Click to copy.</li>
+      </ol>
+
+      <h2>Real situations this saves</h2>
       <ul>
-        <li><strong>Title Case:</strong> "The Quick Brown Fox" (Headlines).</li>
-        <li><strong>Sentence Case:</strong> "The quick brown fox" (Body text).</li>
-        <li><strong>UPPERCASE:</strong> Legal warnings or emphasis.</li>
-        <li><strong>camelCase:</strong> Variables in JavaScript (<code>myVariableName</code>).</li>
+        <li><strong>Variable renames.</strong> "user first name" → <code>userFirstName</code> instantly, no manual capitalization.</li>
+        <li><strong>Database migration.</strong> Converting Java camelCase columns to Postgres snake_case in bulk.</li>
+        <li><strong>URL slug from a title.</strong> "How to Use Next.js 16" → <code>how-to-use-next-js-16</code>.</li>
+        <li><strong>Env vars.</strong> "database url" → <code>DATABASE_URL</code>.</li>
+        <li><strong>Caps Lock recovery.</strong> A pasted paragraph in ALL CAPS → proper Sentence case without retyping.</li>
+        <li><strong>Headline formatting.</strong> Convert article titles to AP-style Title Case for consistency.</li>
       </ul>
 
-      <h2>Instant Transformation</h2>
-      <p>Our <a href="/tools/case-converter">Case Converter</a> is a clipboard utility that fixes this in one click. Paste your text, choose the format, and copy it back.</p>
+      <h2>The Title Case nuance</h2>
+      <p>"Title Case" isn’t one rule — there are several conventions:</p>
+      <ul>
+        <li><strong>AP style</strong> — capitalize words of 4+ letters; lowercase short prepositions/articles ("of", "and", "the").</li>
+        <li><strong>Chicago Manual</strong> — capitalize the first and last word, plus all major words.</li>
+        <li><strong>APA</strong> — sentence case for paper titles.</li>
+        <li><strong>Simple Title Case</strong> — capitalize every word (most common in tools).</li>
+      </ul>
+      <p>The Case Converter offers both Simple Title Case and AP-style options.</p>
 
-      <p>Polish your writing. Fix your capitalization with the <a href="/tools/case-converter">Case Converter</a>.</p>
+      <h2>FAQ</h2>
+
+      <h3>What’s the difference between camelCase and PascalCase?</h3>
+      <p>Both join words with no separator. camelCase starts lowercase (<code>userId</code>), PascalCase starts uppercase (<code>UserId</code>). Languages: camelCase for variables in JS/Java; PascalCase for class names everywhere.</p>
+
+      <h3>Why does snake_case still exist?</h3>
+      <p>Python and Ruby community conventions; lowercase-only file systems on older Linux; database column conventions; and it remains easier to read for long identifiers (<code>get_user_by_email</code> vs <code>getUserByEmail</code>).</p>
+
+      <h3>How do I convert to a URL-safe slug?</h3>
+      <p>kebab-case is the standard. For pure URL conversion (with accent stripping and special-char handling), use the <a href="/tools/slug-generator">Slug Generator</a>.</p>
+
+      <h3>Does the converter handle non-English text?</h3>
+      <p>Yes — Unicode-aware casing for most languages, including locale-correct rules for Turkish (dotted vs dotless I) and German (ß ↔ SS).</p>
+
+      <h2>Text-format toolkit</h2>
+      <ul>
+        <li><a href="/tools/case-converter">Case Converter</a> — every case in one place.</li>
+        <li><a href="/tools/text-cleaner">Text Cleaner</a> — normalize whitespace first.</li>
+        <li><a href="/tools/word-counter">Word Counter</a> — verify length after.</li>
+      </ul>
     `,
   },
 ];
