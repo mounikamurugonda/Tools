@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button';
 import Label from '@/components/ui/Label';
 import Card from '@/components/ui/Card';
 import Slider from '@/components/ui/Slider';
+import { useToast } from '@/components/ui/ToastProvider';
 
 interface CompressionSettings {
   quality: number;
@@ -20,6 +21,7 @@ interface CompressionSettings {
 }
 
 const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [originalImage, setOriginalImage] = useState<File | null>(null);
   const [originalImageSrc, setOriginalImageSrc] = useState<string>('');
   const [compressedImageSrc, setCompressedImageSrc] = useState<string>('');
@@ -157,25 +159,36 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
           mimeType = 'image/jpeg';
       }
 
-      const compressedDataUrl = canvas.toDataURL(mimeType, quality);
-      setCompressedImageSrc(compressedDataUrl);
-      setCompressedDimensions({ width: newWidth, height: newHeight });
-
-      // Calculate compressed size
-      const base64Length = compressedDataUrl.length;
-      const padding = compressedDataUrl.split(',')[0].split(';')[1]?.includes('base64') ? 2 : 0;
-      const sizeInBytes = Math.round((base64Length * 3) / 4) - padding;
-      setCompressedSize(sizeInBytes);
-    } catch (error) {
-      console.error('Error compressing image:', error);
+      await new Promise<void>(resolve => {
+        canvas.toBlob(
+          blob => {
+            if (!blob) {
+              toast.error('Could not encode image');
+              resolve();
+              return;
+            }
+            setCompressedSize(blob.size);
+            setCompressedDimensions({ width: newWidth, height: newHeight });
+            const reader = new FileReader();
+            reader.onload = () => {
+              setCompressedImageSrc(reader.result as string);
+              resolve();
+            };
+            reader.readAsDataURL(blob);
+          },
+          mimeType,
+          settings.outputFormat === 'png' ? undefined : quality
+        );
+      });
+    } catch {
+      toast.error('Compression failed');
     } finally {
       setIsProcessing(false);
     }
-  }, [originalImageSrc, originalDimensions, settings]);
+  }, [originalImageSrc, originalDimensions, settings, toast]);
 
   const downloadCompressedImage = () => {
     if (!compressedImageSrc) return;
-
     const link = document.createElement('a');
     link.href = compressedImageSrc;
     const extension = settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
@@ -183,6 +196,7 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    toast.success('Image downloaded');
   };
 
   const resetAll = () => {
@@ -391,8 +405,16 @@ const ImageCompressor: React.FC<ToolProps> = ({ details, toolId }) => {
                         </span>
                       </p>
                     )}
-                    <p className="text-green-600 dark:text-green-400 font-medium">
-                      Size Reduction: {getCompressionRatio()}%
+                    <p
+                      className={
+                        getCompressionRatio() >= 0
+                          ? 'text-green-600 dark:text-green-400 font-medium'
+                          : 'text-amber-600 dark:text-amber-400 font-medium'
+                      }
+                    >
+                      {getCompressionRatio() >= 0
+                        ? `Size Reduction: ${getCompressionRatio()}%`
+                        : `Size Increased: ${Math.abs(getCompressionRatio())}% (recompressing a lossy source can grow the file — try lower quality or WebP)`}
                     </p>
                   </div>
                 </div>
