@@ -158,10 +158,10 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 
 ### 1G. FUN — Fun Tools (4)
 
-- [ ] morse-converter
-- [ ] list-randomizer
-- [ ] text-to-speech — heavy (kokoro/transformers) — must lazy-load
-- [ ] meme-generator — canvas/image upload — already migrated to shared FileUpload in Phase 0
+- [x] morse-converter — **added Morse audio playback** (600Hz CW tone with standard dot/dash/letter/word-gap timing, Play/Stop) — the SEO copy promised "listen to the audio" but none existed; enabled `.txt` file upload; extended the map with punctuation (`. , ? ! / ( ) : ; = + - _ " $ @`); toast + AudioContext cleanup on unmount.
+- [x] list-randomizer — separated input/output panes (was mutating the textarea in place — you lost your original list on every shuffle); added **Pick Winners mode** (choose N); unbiased `crypto.getRandomValues` Fisher–Yates (rejection-sampled) instead of `Math.random`; options (trim / drop blanks / dedupe / numbered); copy + download .txt; live count; empty state.
+- [x] text-to-speech — **audited, left intact.** Already correctly lazy: route-split via `ToolLoader` (`dynamic`, `ssr:false`) and the three engines load `@huggingface/transformers` / `kokoro-js` **inside Web Workers** — nothing runs until a button is clicked (confirmed by the in-app banner). Rich SEO + full FAQs already present. No change needed per "don't bulk-rewrite."
+- [x] meme-generator — preserve native resolution (cap longest side at 1080px instead of hard-downscaling every upload to 500px wide); **word-wrap top/bottom captions** to canvas width with multi-line layout (long text used to overflow off the edges); font-size slider; copy-to-clipboard (`ClipboardItem`); error toasts on bad file/read/load. (Was already on shared FileUpload from Phase 0.)
 
 ### 1H. IMAGE — Image Tools (14)
 
@@ -240,6 +240,9 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-31 — FUN sweep COMPLETE (4 tools)
+All 4 FUN tools done in the same session as PRODUCTIVITY. **morse-converter** got the biggest functional gap closed: its SEO description promised "listen to the audio" but there was no audio at all — added Web Audio Morse playback with proper CW timing (dot=1 unit, dash=3, letter gap=3, word gap=7) + a Play/Stop button, plus `.txt` upload and a fuller punctuation map. **list-randomizer** was mutating its own input textarea in place (every shuffle destroyed your original list) — split into input/output panes, added a Pick-Winners mode, and swapped `Math.random` for rejection-sampled `crypto.getRandomValues` Fisher–Yates, with trim/dedupe/numbering options + copy/download. **meme-generator** downscaled every upload to a fixed 500px and let long captions run off the canvas — now preserves resolution (≤1080px) and word-wraps both captions, with a font-size slider + copy-to-clipboard. **text-to-speech** was audited and left intact: it's already correctly lazy (route-split + heavy libs confined to Web Workers, nothing runs until clicked) with rich SEO. `tsc` clean, `next build` green (180 pages), `check:tool-details` passes (only the known gif-maker VIDEO warning). **66/94 tools done.** Next: IMAGE (14 tools — 3 already on shared FileUpload from Phase 0).
 
 ### 2026-05-31 — PRODUCTIVITY sweep COMPLETE (8 tools) + build-blocker cleared
 **Build blocker resolved first:** the Defender `Trojan:HTML/FakeLogin.AK` false-positive on `app/request-tool/page.tsx` + `components/ContactForm.tsx` (legit React contact form whose compiled HTML trips a phishing-login heuristic) was unblocked via a user-run Defender folder exclusion; files restored, working tree clean. With that gone, `next build` reached type-checking for the first time and surfaced 2 pre-existing react-select generic errors (TimeZoneConverter `value`, WorldClock `addTimezone`) — fixed. **Final state: `tsc --noEmit` clean, `next build` green (180 pages), `check:tool-details` passes (only the known gif-maker VIDEO-sweep warning remains).** Also untracked `.claude/projects` + `build.log` that had leaked into commits.
