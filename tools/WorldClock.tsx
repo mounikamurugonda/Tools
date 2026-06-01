@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import CustomSelect from '@/components/ui/CustomSelect';
-import { OnChangeValue } from 'react-select';
 import type { ToolProps } from '@/types';
 import { timezones } from '@/lib/timezones';
 import ToolContainer from '@/components/ToolContainer';
@@ -61,7 +60,7 @@ const WorldClock: React.FC<ToolProps> = ({ details, toolId }) => {
     }
   }, [selectedTimezones]);
 
-  const addTimezone = (option: OnChangeValue<TimezoneOption, false> | OnChangeValue<TimezoneOption, true>) => {
+  const addTimezone = (option: unknown) => {
     const singleOption = option as TimezoneOption | null;
     if (singleOption && !selectedTimezones.includes(singleOption.value)) {
       setSelectedTimezones([...selectedTimezones, singleOption.value]);
