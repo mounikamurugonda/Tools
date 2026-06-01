@@ -9,15 +9,11 @@ import Button from '@/components/ui/Button';
 import Slider from '@/components/ui/Slider';
 import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import {
-  Download,
-  RotateCcw,
-  Settings,
-  Maximize2,
-  Minimize2,
-  Image as ImageIcon,
-  Check,
-} from 'lucide-react';
+import Select from '@/components/ui/Select';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Download, RotateCcw, Check } from 'lucide-react';
+
+type Format = 'auto' | 'image/png' | 'image/jpeg' | 'image/webp';
 
 interface ResizeSettings {
   mode: 'percentage' | 'dimensions';
@@ -26,12 +22,16 @@ interface ResizeSettings {
   height: number;
   keepAspectRatio: boolean;
   quality: number;
+  format: Format;
 }
 
 const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [originalImage, setOriginalImage] = useState<File | null>(null);
   const [originalImageSrc, setOriginalImageSrc] = useState<string>('');
   const [resizedImageSrc, setResizedImageSrc] = useState<string>('');
+  const [resizedBytes, setResizedBytes] = useState<number>(0);
+  const [resolvedMime, setResolvedMime] = useState<string>('image/jpeg');
   const [originalDimensions, setOriginalDimensions] = useState<{
     width: number;
     height: number;
@@ -47,6 +47,7 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
     height: 600,
     keepAspectRatio: true,
     quality: 0.9,
+    format: 'auto',
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -132,26 +133,52 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
       // Draw resized image
       ctx.drawImage(img, 0, 0, newWidth, newHeight);
 
-      // Convert to data URL
-      const resizedDataUrl = canvas.toDataURL('image/jpeg', settings.quality);
-      setResizedImageSrc(resizedDataUrl);
+      const mime =
+        settings.format === 'auto'
+          ? originalImage?.type === 'image/png' || originalImage?.type === 'image/webp'
+            ? originalImage.type
+            : 'image/jpeg'
+          : settings.format;
+      setResolvedMime(mime);
+      await new Promise<void>(resolve => {
+        canvas.toBlob(
+          blob => {
+            if (!blob) {
+              toast.error('Could not encode image');
+              resolve();
+              return;
+            }
+            setResizedBytes(blob.size);
+            const reader = new FileReader();
+            reader.onload = () => {
+              setResizedImageSrc(reader.result as string);
+              resolve();
+            };
+            reader.readAsDataURL(blob);
+          },
+          mime,
+          mime === 'image/png' ? undefined : settings.quality
+        );
+      });
       setResizedDimensions({ width: newWidth, height: newHeight });
-    } catch (error) {
-      console.error('Error resizing image:', error);
+    } catch {
+      toast.error('Resize failed');
     } finally {
       setIsProcessing(false);
     }
-  }, [originalImageSrc, originalDimensions, settings]);
+  }, [originalImageSrc, originalDimensions, settings, originalImage, toast]);
 
   const downloadResizedImage = () => {
     if (!resizedImageSrc) return;
-
+    const ext = resolvedMime.split('/')[1] || 'jpg';
+    const baseName = (originalImage?.name || 'image').replace(/\.[^.]+$/, '');
     const link = document.createElement('a');
     link.href = resizedImageSrc;
-    link.download = `resized_${originalImage?.name || 'image'}.jpg`;
+    link.download = `resized_${baseName}.${ext === 'jpeg' ? 'jpg' : ext}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    toast.success('Image downloaded');
   };
 
   const resetAll = () => {
@@ -280,17 +307,37 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                     </label>
                   </div>
 
-                  {/* Quality */}
+                  {/* Format */}
+                  <div>
+                    <Label className="mb-2">Output format</Label>
+                    <Select
+                      value={settings.format}
+                      onChange={e =>
+                        setSettings(prev => ({ ...prev, format: e.target.value as Format }))
+                      }
+                    >
+                      <option value="auto">Auto (match source)</option>
+                      <option value="image/jpeg">JPEG</option>
+                      <option value="image/png">PNG</option>
+                      <option value="image/webp">WebP</option>
+                    </Select>
+                  </div>
+
+                  {/* Quality — ignored for PNG */}
                   <Slider
                     label="Quality"
                     min={0.1}
                     max={1}
-                    step={0.1}
+                    step={0.05}
                     value={settings.quality}
                     onChange={e =>
                       setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))
                     }
-                    valueDisplay={`${Math.round(settings.quality * 100)}%`}
+                    valueDisplay={
+                      resolvedMime === 'image/png'
+                        ? 'PNG · lossless'
+                        : `${Math.round(settings.quality * 100)}%`
+                    }
                   />
 
                   <div className="pt-4 border-t border-gray-100 dark:border-gray-800">
@@ -326,15 +373,31 @@ const ImageResizer: React.FC<ToolProps> = ({ details, toolId }) => {
                         <p className="font-mono">
                           {resizedDimensions.width} × {resizedDimensions.height} px
                         </p>
-                        <p className="text-gray-600 dark:text-gray-400">
-                          {originalDimensions
-                            ? Math.round(
-                                ((resizedDimensions.width * resizedDimensions.height) /
-                                  (originalDimensions.width * originalDimensions.height)) *
-                                  100
-                              )
-                            : 0}
-                          % of original
+                        {resizedBytes > 0 && (
+                          <p className="text-gray-600 dark:text-gray-400">
+                            {formatFileSize(resizedBytes)}
+                            {originalImage?.size ? (
+                              <span
+                                className={
+                                  resizedBytes < originalImage.size
+                                    ? 'ml-1 text-green-600 dark:text-green-400'
+                                    : 'ml-1 text-amber-600 dark:text-amber-400'
+                                }
+                              >
+                                (
+                                {resizedBytes < originalImage.size ? '−' : '+'}
+                                {Math.abs(
+                                  Math.round(
+                                    ((resizedBytes - originalImage.size) / originalImage.size) * 100
+                                  )
+                                )}
+                                %)
+                              </span>
+                            ) : null}
+                          </p>
+                        )}
+                        <p className="text-gray-500 dark:text-gray-400 text-xs">
+                          Format: {resolvedMime.replace('image/', '').toUpperCase()}
                         </p>
                       </div>
                     )}
