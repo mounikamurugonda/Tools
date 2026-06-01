@@ -8,24 +8,32 @@ import Card from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Select from '@/components/ui/Select';
 import Slider from '@/components/ui/Slider';
+import Input from '@/components/ui/Input';
 import Label from '@/components/ui/Label';
-import { Download, RotateCcw, Settings, FileImage, ArrowRight } from 'lucide-react';
+import { useToast } from '@/components/ui/ToastProvider';
+import { Download, RotateCcw, FileImage, ArrowRight } from 'lucide-react';
+
+type OutputFormat = 'jpeg' | 'png' | 'webp' | 'avif';
 
 interface ConversionSettings {
-  outputFormat: 'jpeg' | 'png' | 'webp' | 'bmp';
+  outputFormat: OutputFormat;
   quality: number;
   removeTransparency: boolean;
+  bgColor: string;
 }
 
 const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
+  const toast = useToast();
   const [originalImage, setOriginalImage] = useState<File | null>(null);
   const [originalImageSrc, setOriginalImageSrc] = useState<string>('');
   const [convertedImageSrc, setConvertedImageSrc] = useState<string>('');
+  const [convertedBytes, setConvertedBytes] = useState(0);
   const [originalFormat, setOriginalFormat] = useState<string>('');
   const [settings, setSettings] = useState<ConversionSettings>({
     outputFormat: 'jpeg',
     quality: 0.9,
     removeTransparency: false,
+    bgColor: '#ffffff',
   });
   const [isProcessing, setIsProcessing] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -84,52 +92,56 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
       canvas.width = img.width;
       canvas.height = img.height;
 
-      // Handle transparency removal for JPEG
-      if (settings.outputFormat === 'jpeg' && settings.removeTransparency) {
-        ctx.fillStyle = '#FFFFFF';
+      // JPEG and AVIF cannot represent transparency — paint background first.
+      const needsBg =
+        (settings.outputFormat === 'jpeg' && settings.removeTransparency) ||
+        settings.outputFormat === 'jpeg' ||
+        (settings.outputFormat === 'avif' && settings.removeTransparency);
+      if (needsBg) {
+        ctx.fillStyle = settings.bgColor;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Draw image
       ctx.drawImage(img, 0, 0);
 
-      // Convert to data URL based on format
-      let mimeType: string;
-      let dataUrl: string;
-
-      switch (settings.outputFormat) {
-        case 'jpeg':
-          mimeType = 'image/jpeg';
-          dataUrl = canvas.toDataURL(mimeType, settings.quality);
-          break;
-        case 'png':
-          mimeType = 'image/png';
-          dataUrl = canvas.toDataURL(mimeType);
-          break;
-        case 'webp':
-          mimeType = 'image/webp';
-          dataUrl = canvas.toDataURL(mimeType, settings.quality);
-          break;
-        case 'bmp':
-          mimeType = 'image/bmp';
-          dataUrl = canvas.toDataURL(mimeType);
-          break;
-        default:
-          mimeType = 'image/jpeg';
-          dataUrl = canvas.toDataURL(mimeType, settings.quality);
-      }
-
-      setConvertedImageSrc(dataUrl);
-    } catch (error) {
-      console.error('Error converting image:', error);
+      const mimeType = `image/${settings.outputFormat}`;
+      await new Promise<void>(resolve => {
+        canvas.toBlob(
+          blob => {
+            if (!blob) {
+              toast.error(
+                `${settings.outputFormat.toUpperCase()} encoding is not supported in this browser`
+              );
+              resolve();
+              return;
+            }
+            // Browsers without AVIF support sometimes return PNG silently. Check.
+            if (blob.type !== mimeType) {
+              toast.error(
+                `${settings.outputFormat.toUpperCase()} not supported — got ${blob.type.replace('image/', '').toUpperCase()} instead`
+              );
+            }
+            setConvertedBytes(blob.size);
+            const reader = new FileReader();
+            reader.onload = () => {
+              setConvertedImageSrc(reader.result as string);
+              resolve();
+            };
+            reader.readAsDataURL(blob);
+          },
+          mimeType,
+          settings.outputFormat === 'png' ? undefined : settings.quality
+        );
+      });
+    } catch {
+      toast.error('Conversion failed');
     } finally {
       setIsProcessing(false);
     }
-  }, [originalImageSrc, settings]);
+  }, [originalImageSrc, settings, toast]);
 
   const downloadConvertedImage = () => {
     if (!convertedImageSrc) return;
-
     const link = document.createElement('a');
     link.href = convertedImageSrc;
     const extension = settings.outputFormat === 'jpeg' ? 'jpg' : settings.outputFormat;
@@ -137,6 +149,7 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    toast.success('Image downloaded');
   };
 
   const resetAll = () => {
@@ -187,23 +200,23 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                         onChange={e => {
                           setSettings(prev => ({
                             ...prev,
-                            outputFormat: e.target.value as ConversionSettings['outputFormat'],
+                            outputFormat: e.target.value as OutputFormat,
                           }));
                         }}
                       >
                         <option value="jpeg">JPEG</option>
                         <option value="png">PNG</option>
                         <option value="webp">WebP</option>
-                        <option value="bmp">BMP</option>
+                        <option value="avif">AVIF (modern, smaller)</option>
                       </Select>
                     </div>
 
-                    {(settings.outputFormat === 'jpeg' || settings.outputFormat === 'webp') && (
+                    {settings.outputFormat !== 'png' && (
                       <Slider
                         label="Quality"
                         min={0.1}
                         max={1}
-                        step={0.1}
+                        step={0.05}
                         value={settings.quality}
                         onChange={e =>
                           setSettings(prev => ({ ...prev, quality: parseFloat(e.target.value) }))
@@ -212,23 +225,29 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                       />
                     )}
 
-                    {settings.outputFormat === 'jpeg' && (
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          id="removeTransparency"
-                          checked={settings.removeTransparency}
-                          onChange={e =>
-                            setSettings(prev => ({
-                              ...prev,
-                              removeTransparency: e.target.checked,
-                            }))
-                          }
-                          className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
-                        />
-                        <Label htmlFor="removeTransparency" className="mb-0 text-sm font-normal">
-                          Remove transparency
+                    {(settings.outputFormat === 'jpeg' || settings.outputFormat === 'avif') && (
+                      <div>
+                        <Label className="text-xs text-gray-500 mb-1 block">
+                          Background (JPEG/AVIF have no alpha)
                         </Label>
+                        <div className="flex gap-2">
+                          <Input
+                            type="color"
+                            value={settings.bgColor}
+                            onChange={e =>
+                              setSettings(prev => ({ ...prev, bgColor: e.target.value }))
+                            }
+                            className="w-12 h-9 p-1 cursor-pointer"
+                          />
+                          <Input
+                            type="text"
+                            value={settings.bgColor}
+                            onChange={e =>
+                              setSettings(prev => ({ ...prev, bgColor: e.target.value }))
+                            }
+                            className="flex-1 font-mono text-sm"
+                          />
+                        </div>
                       </div>
                     )}
                   </>
@@ -251,6 +270,34 @@ const ImageConverter: React.FC<ToolProps> = ({ details, toolId }) => {
                       {formatFileSize(originalImage.size)}
                     </span>
                   </div>
+                  {convertedBytes > 0 && (
+                    <>
+                      <div className="flex justify-between pt-2 border-t border-gray-100 dark:border-gray-800">
+                        <span>Output:</span>
+                        <span className="font-medium text-gray-900 dark:text-gray-200">
+                          {formatFileSize(convertedBytes)}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Change:</span>
+                        <span
+                          className={`font-medium ${
+                            convertedBytes < originalImage.size
+                              ? 'text-green-600 dark:text-green-400'
+                              : 'text-amber-600 dark:text-amber-400'
+                          }`}
+                        >
+                          {convertedBytes < originalImage.size ? '−' : '+'}
+                          {Math.abs(
+                            Math.round(
+                              ((convertedBytes - originalImage.size) / originalImage.size) * 100
+                            )
+                          )}
+                          %
+                        </span>
+                      </div>
+                    </>
+                  )}
                 </div>
               </Card>
             )}
