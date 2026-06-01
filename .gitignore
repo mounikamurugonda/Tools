@@ -35,3 +35,6 @@ next-env.d.ts
 
 # Claude Code local memory/session data
 .claude/projects/
+
+# build output log
+build.log
