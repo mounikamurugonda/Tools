@@ -145,14 +145,14 @@ Largest category. Most likely AdSense-friendly (developer search intent).
 
 ### 1F. PRODUCTIVITY — Productivity Tools (8)
 
-- [ ] utm-builder
-- [ ] screen-info — **also fix: missing seoTitle + seoDescription in TOOLS** (flagged in Phase 0)
-- [ ] device-resolutions
-- [ ] timezone-converter
-- [ ] todo-list — **also fix: only 2 FAQs, need ≥3** (flagged in Phase 0)
-- [ ] pomodoro-timer
-- [ ] world-clock
-- [ ] timers-and-stopwatch
+- [x] utm-builder — migrated to ui Input/Label/Button (was raw `brand-input` + legacy `CopyButton`); auto-prefix `https://` when scheme omitted; inline error for bad URLs (was rendering literal "Invalid URL" as a result); force-lowercase toggle for clean GA data; recommended-fields hint; reset; copy with toast.
+- [x] screen-info — **fixed Phase 0 SEO gap** (added `seoTitle`/`seoDescription` + search-intent keywords). Component: dropped `any`, added Touch Support + Platform metrics, "Copy all as JSON", loading state, orientation-change listener.
+- [x] device-resolutions — ui/Input search; Phone/Tablet/Laptop/Desktop filter pills; shows visitor's live viewport + highlights matching row "(you)"; Physical-Pixels column (logical×ratio); per-row copy with toast; refreshed device list (iPhone 15, Pixel 8, QHD, Surface…); empty state.
+- [x] timezone-converter — **real bug fix:** result was built with `new Date('YYYY-MM-DDTHH:mm')`, which parses input in the *browser's* zone — so the From selector was ignored. Now resolves the From wall-time to the correct UTC instant via a zone-offset helper before rendering in To. Copy-with-toast on result.
+- [x] todo-list — **fixed Phase 0 gap** (added 2 FAQs → ≥3). Rewrote with ui Input/Button; empty state; active/completed counts (aria-live); clear-completed with toast; accessible filter tabs + checkbox labels; guard localStorage write until after initial load (was clobbering saved tasks with `[]` on first paint).
+- [x] pomodoro-timer — **timestamp-based countdown** (absolute deadline, not `setInterval` decrement) so it survives tab-backgrounding (cross-cutting rule); Short/Long Break modes (long break every 4 sessions) + completed-session counter; desktop notification per phase; guarded AudioContext; ui/Button + accessible tabs.
+- [x] world-clock — removed dead `customStyles` object (off-theme `hsl(var(--*))` tokens never passed to CustomSelect); 12h/24h toggle (aria-pressed); per-zone copy with toast; empty state; lucide trash icon; dropped unused `OnChangeValue` import.
+- [x] timers-and-stopwatch — **timestamp-based** countdown (absolute deadline) and stopwatch (absolute start) so both survive tab-backgrounding (cross-cutting rule); audible beep on finish (notifications miss backgrounded tabs); per-lap split times; ui/Button; accessible mode tabs + inputs; lap list only renders when non-empty.
 
 **Cross-cutting for PRODUCTIVITY:** timer tools must survive tab-backgrounding (use timestamps, not setInterval counts); persist state to localStorage where it makes sense; toast on completion.
 
@@ -240,6 +240,11 @@ After all categories pass §6:
 ## Session log
 
 Append one entry per work session. Newest at top.
+
+### 2026-05-31 — PRODUCTIVITY sweep COMPLETE (8 tools) + build-blocker cleared
+**Build blocker resolved first:** the Defender `Trojan:HTML/FakeLogin.AK` false-positive on `app/request-tool/page.tsx` + `components/ContactForm.tsx` (legit React contact form whose compiled HTML trips a phishing-login heuristic) was unblocked via a user-run Defender folder exclusion; files restored, working tree clean. With that gone, `next build` reached type-checking for the first time and surfaced 2 pre-existing react-select generic errors (TimeZoneConverter `value`, WorldClock `addTimezone`) — fixed. **Final state: `tsc --noEmit` clean, `next build` green (180 pages), `check:tool-details` passes (only the known gif-maker VIDEO-sweep warning remains).** Also untracked `.claude/projects` + `build.log` that had leaked into commits.
+
+All 8 PRODUCTIVITY tools swept, one commit each. Real correctness fixes this round: **timezone-converter** ignored the From selector entirely — it parsed the wall-clock input in the browser's local zone (`new Date('…')`) instead of the chosen source zone; now resolves to the correct UTC instant via a zone-offset helper. **pomodoro-timer** and **timers-and-stopwatch** both counted with `setInterval` decrements, which drift and freeze when the tab is backgrounded — rewrote both to derive remaining/elapsed time from an absolute deadline/start timestamp (the explicit PRODUCTIVITY cross-cutting rule), plus audible beep so backgrounded tabs still alert. **todo-list** had a latent bug where the save-effect ran before the load-effect, clobbering saved tasks with `[]` on first paint — guarded with a `loaded` flag. Phase 0 SEO gaps closed: **screen-info** got its missing `seoTitle`/`seoDescription`; **todo-list** went from 2 → 4 FAQs. Feature/consistency wins: pomodoro long-break cycle + session counter, world-clock 12/24h toggle (and deleted a dead off-theme `customStyles` block), device-resolutions category filter + live "(you)" viewport row + physical-pixel column, utm-builder validation + lowercase toggle, and toast feedback + ui-primitive migration across the board. **62/94 tools done.** Next: FUN (4 tools — morse, list-randomizer, text-to-speech [heavy, lazy-load], meme-generator).
 
 ### 2026-05-28 — MATH sweep COMPLETE (9 tools)
 All 9 MATH tools swept, one commit each, in two batches. Real correctness fixes this round: **roman-numeral-converter** accepted any garbage and returned wrong numbers — now validates 1–3999 and checks canonical form by re-encoding; **random-number-generator** used biased `Math.random() % range` — replaced with rejection-sampled `crypto.getRandomValues` and added a unique-values (no-dupes) mode; **age-calculator** had a total-days off-by-one (ceil) and no guard for DOB-after-target; **percentage-calculator** and others had unguarded divide-by-zero. Feature expansions: **unit-converter** went from 2 → 8 categories (incl. temperature with offset math); **loan-calculator** now builds the amortization schedule for 0% loans and exports CSV; **date-calculator** gained a unit picker + Y/M/D breakdown; **bmi-calculator** got a scale bar + healthy-weight range; **currency-converter** shows the unit rate + refresh + 1h cache. tsc clean (build still blocked by the Defender quarantine below). **54/94 tools done.** Next: PRODUCTIVITY (8 tools — includes the screen-info + todo-list Phase 0 SEO fixes).
