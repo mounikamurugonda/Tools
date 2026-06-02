@@ -31,7 +31,7 @@ Root causes (in order of impact):
 
 ### Phase 1 — Stop the bleeding (sitemap hygiene)
 
-- [ ] **F1.1 Identify the 10 × 404 URLs.** Pull the exact URL list from GSC → Pages → "Not found (404)" → export. Save the list under `docs/seo/404-urls-2026-06.txt`. (0 of 10 identified from code — initial guess of code-cast subroutes was wrong; those routes exist via a `(tool)` route group. All 10 need the GSC export.)
+- [x] **F1.1 Identify + fix the 10 × 404 URLs.** ✅ 2026-06-01 — User provided GSC export (saved to [docs/seo/404-urls-2026-06.txt](docs/seo/404-urls-2026-06.txt)). All 10 were stale old URLs crawled Dec 2025–Jan 2026. Added 301/308 redirects in [next.config.mjs](next.config.mjs): renamed tool (`/tools/random-number` → `-generator`), invalid category slugs (`miscellaneous-tools` → `/tools/category/other`; `converter`/`generator`/`analyzer` → `/tools`), and the removed `/tips` feature (`/tips/:path*` → `/blogs`). All 10 verified → 308 to a 200 target.
 - [x] **F1.2 Audit `TOOLS` constant vs actual routes.** ✅ 2026-06-01 — All 94 TOOLS entries resolve through dynamic `app/tools/[toolId]/page.tsx` (notFound for misses, generateStaticParams from TOOLS). No stale ids found.
 - [x] **F1.3 Audit `productRoutes` hard-coded list.** ✅ 2026-06-01 — CORRECTION: code-cast subroutes live under the Next.js route group `app/product/code-cast/(tool)/...` (parens don't appear in URL), so `/animate`, `/image`, `/type`, `/library`, `/saved` are all real. Initial audit missed the route group and incorrectly removed `/animate` and `/image`; both restored, and the other 4 subroutes (`/type`, `/library`, `/saved`, `/videos`) added to the sitemap (they were silently missing before). Only `/product/ai-content-detector/detect` was correctly removed (page emits `robots:{index:false}` → sitemap/noindex contradiction; likely the 1 soft-404). See [app/sitemap.ts](app/sitemap.ts).
 - [x] **F1.4 Audit blog ids.** ✅ 2026-06-01 — Blog routes use dynamic `app/blogs/[blogId]/page.tsx`, all `blogs` array ids handled by the route.
@@ -110,6 +110,10 @@ Log readings here on each session:
 ```
 
 ## Session log
+
+### 2026-06-01 (round 6) — 404 redirects (closes F1.1)
+- User supplied the 10 GSC 404 URLs. All stale. Added permanent redirects in next.config.mjs; saved the list to docs/seo/404-urls-2026-06.txt.
+- Verified all 10 → 308 → 200 target. Restarted dev server (next.config not hot-reloaded).
 
 ### 2026-06-01 (round 5) — tool → blog cross-linking
 - New `RelatedGuides` server component on tool pages: "Guides & tutorials" linking blogs that reference the tool. Relevance-ranked (title-match 5000 > primary-topic 1000 > focus bonus > recency). Verified ordering puts dedicated guides first.
