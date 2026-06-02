@@ -613,7 +613,7 @@ export const TOOLS: Tool[] = [
     description: 'Convert text to spoken audio in your browser using local AI.',
     seoTitle: 'Free Text to Speech Converter 🗣️ | AI Voice Generator Online',
     seoDescription:
-      'Convert text to lifelike, natural-sounding speech instantly. 100% free, browser-based AI Text to Speech (TTS) tool with batch processing. No signup required. Features Kokoro, Piper, and Sherpa ONNX engines.',
+      'Convert text to lifelike speech instantly. Free, browser-based AI TTS with batch processing and Kokoro, Piper, and Sherpa ONNX engines. No signup.',
     icon: <MicIcon />,
     category: ToolCategory.FUN,
     keywords: [
@@ -805,9 +805,9 @@ export const TOOLS: Tool[] = [
     name: 'Loan Calculator',
     description:
       'Calculate accurate monthly payments, interest costs, and a complete amortization schedule for any type of loan.',
-    seoTitle: 'Free Loan Calculator 💰 | Estimate Monthly Payments & Amortization',
+    seoTitle: 'Free Loan Calculator — Monthly Payments & Amortization',
     seoDescription:
-      'Take control of your finances. Our free Loan Calculator helps you estimate monthly payments, total interest, and see a full amortization schedule for any loan. Plan for mortgages, car loans, and more. Fast, accurate, and 100% private.',
+      'Estimate monthly payments, total interest, and a full amortization schedule for mortgages, car loans, and more. Fast, accurate, and 100% private.',
 
     icon: <LoanCalculatorIcon />,
     category: ToolCategory.MATH,
@@ -829,9 +829,9 @@ export const TOOLS: Tool[] = [
     name: 'Time Zone Converter',
     description:
       'Instantly convert any date and time between global time zones with precise, real-time accuracy.',
-    seoTitle: 'Time Zone Converter 🌍 | Instantly Convert Time Between Cities Worldwide',
+    seoTitle: 'Time Zone Converter — Convert Time Between Cities',
     seoDescription:
-      'Never get the time wrong again. Our free Time Zone Converter makes it easy to convert time between any cities in the world. Perfect for scheduling meetings, planning travel, and staying in sync with global teams.',
+      'Convert time between any cities in the world. Perfect for scheduling meetings, planning travel, and staying in sync with global teams.',
     icon: <TimeZoneConverterIcon />,
     category: ToolCategory.PRODUCTIVITY,
 
@@ -894,7 +894,7 @@ export const TOOLS: Tool[] = [
       'Instantly count words, characters, sentences, and paragraphs with our advanced, real-time Word Counter tool.',
     seoTitle: 'Free Online Word Counter 🔢 | Real-Time Word & Character Count',
     seoDescription:
-      'Hit your writing goals with our free online Word Counter. Get instant, accurate counts for words, characters, sentences, and paragraphs, plus an estimated reading time. Perfect for writers, students, and SEOs.',
+      'Instant, accurate counts for words, characters, sentences, and paragraphs, plus estimated reading time. For writers, students, and SEOs.',
     icon: <WordCounterIcon />,
     category: ToolCategory.TEXT,
     keywords: [

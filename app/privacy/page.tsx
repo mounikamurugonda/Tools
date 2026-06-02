@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: 'UtilToolkits',
     images: [
       {
-        url: 'https://utiltoolkits.com/og-privacy.png',
+        url: 'https://utiltoolkits.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'UtilToolkits Privacy Policy',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: 'Privacy Policy - UtilToolkits Data Protection',
     description:
       'Read the UtilToolkits privacy policy to understand how we handle data. Our tools are client-side, ensuring your information remains private and secure.',
-    images: ['https://utiltoolkits.com/og-privacy.png'],
+    images: ['https://utiltoolkits.com/og-image.png'],
     creator: '@utiltoolkits',
   },
   alternates: {

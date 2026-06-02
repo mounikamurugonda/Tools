@@ -1,0 +1,15 @@
+GSC "Not found (404)" export — 2026-06-01
+Format: <old URL>  <last crawled>  ->  <301/308 redirect target added in next.config.mjs>
+
+https://utiltoolkits.com/tools/category/miscellaneous-tools   15 Jan 2026   -> /tools/category/other
+https://utiltoolkits.com/tips/category/design                 23 Dec 2025   -> /blogs
+https://utiltoolkits.com/tips/category/coding                 21 Dec 2025   -> /blogs
+https://utiltoolkits.com/tools/category/converter             21 Dec 2025   -> /tools
+https://utiltoolkits.com/tools/category/generator             11 Dec 2025   -> /tools
+https://utiltoolkits.com/tips/category/workflow               11 Dec 2025   -> /blogs
+https://utiltoolkits.com/tips/category/tools                   9 Dec 2025   -> /blogs
+https://utiltoolkits.com/tips/category/productivity            9 Dec 2025   -> /blogs
+https://utiltoolkits.com/tools/category/analyzer               9 Dec 2025   -> /tools
+https://utiltoolkits.com/tools/random-number                   9 Dec 2025   -> /tools/random-number-generator
+
+All redirects verified locally (308 permanent) and targets confirmed HTTP 200.

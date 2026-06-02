@@ -173,7 +173,13 @@ export const getCategoryPageSchema = (category: string, tools: any[]) => ({
   },
 });
 
-// Individual tool schema
+// Individual tool schema.
+// NOTE: aggregateRating and review-style fields removed — they were hardcoded
+// fake values (4.8 / 1250 for every tool), which violates Google's structured
+// data spam policy and can trigger manual actions or indexing suppression.
+// Only add aggregateRating back if/when real review data exists.
+// Screenshot and GitHub sameAs URLs removed — they pointed to nonexistent
+// /screenshots/ and github.com/utiltoolkits/{id} resources (94 broken refs).
 export const getToolSchema = (tool: any, details?: any) => ({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -183,9 +189,6 @@ export const getToolSchema = (tool: any, details?: any) => ({
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Web Browser',
   browserRequirements: 'Requires JavaScript. Works with all modern browsers.',
-  softwareVersion: '2.0',
-  datePublished: '2024-01-01',
-  dateModified: new Date().getFullYear() + '-01-01',
   author: {
     '@type': 'Organization',
     name: 'UtilToolkits',
@@ -205,48 +208,62 @@ export const getToolSchema = (tool: any, details?: any) => ({
     priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
   },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    ratingCount: '1250',
-    bestRating: '5',
-    worstRating: '1',
-  },
-  featureList: tool.details?.features || [
+  featureList: details?.features || [
     'Browser-based processing',
     'No registration required',
     'Privacy-focused',
     'Mobile responsive',
     'Copy to clipboard functionality',
   ],
-  screenshot: `https://utiltoolkits.com/screenshots/${tool.id}.png`,
   mainEntityOfPage: {
     '@type': 'WebPage',
     '@id': `https://utiltoolkits.com/tools/${tool.id}`,
   },
-  sameAs: [`https://github.com/utiltoolkits/${tool.id}`],
   keywords: tool.keywords
     ? tool.keywords.join(', ')
     : `${tool.name.toLowerCase()}, ${tool.category.toLowerCase()}, developer tools, online tools, free utilities`,
   inLanguage: 'en-US',
   isAccessibleForFree: true,
-  license: 'https://opensource.org/licenses/MIT',
-  ...(details?.faqs && details.faqs.length > 0
-    ? {
-      mainEntity: {
-        '@type': 'FAQPage',
-        mainEntity: details.faqs.map((faq: any) => ({
-          '@type': 'Question',
-          name: faq.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: faq.answer,
-          },
-        })),
-      },
-    }
-    : {}),
 });
+
+// FAQPage schema — emitted as a SEPARATE top-level JSON-LD block, not nested
+// inside SoftwareApplication (which Google won't parse as FAQ).
+export const getFaqSchema = (details?: { faqs?: Array<{ question: string; answer: string }> }) => {
+  if (!details?.faqs || details.faqs.length === 0) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: details.faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+};
+
+// HowTo schema — exposes per-tool step-by-step instructions to Google so it
+// can render a "How to" rich result. Pulls from tool-details.howToUse.
+export const getHowToSchema = (
+  tool: { name: string; id: string },
+  details?: { howToUse?: string[] }
+) => {
+  if (!details?.howToUse || details.howToUse.length === 0) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `How to use the ${tool.name}`,
+    description: `Step-by-step guide for using the ${tool.name} on utiltoolkits.com.`,
+    step: details.howToUse.map((stepText, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: `Step ${index + 1}`,
+      text: stepText,
+    })),
+  };
+};
 
 // Breadcrumb schema
 // Blog article schema (schema.org/Article)
@@ -312,6 +329,7 @@ export const getBreadcrumbSchema = (items: Array<{ name: string; url: string }>)
 });
 
 // CodeCast Product Schema
+// aggregateRating removed — was hardcoded fake data (Google spam-policy risk).
 export const getCodeCastProductSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -321,19 +339,11 @@ export const getCodeCastProductSchema = () => ({
   applicationCategory: 'MultimediaApplication',
   operatingSystem: 'Web Browser',
   browserRequirements: 'Requires JavaScript. Works with all modern browsers.',
-  softwareVersion: '2.0',
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    ratingCount: '500',
-    bestRating: '5',
-    worstRating: '1',
   },
   featureList: [
     'Code to Video Animation',
@@ -351,6 +361,7 @@ export const getCodeCastProductSchema = () => ({
 });
 
 // TruthScan Product Schema
+// aggregateRating removed — was hardcoded fake data (Google spam-policy risk).
 export const getTruthScanProductSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
@@ -360,19 +371,11 @@ export const getTruthScanProductSchema = () => ({
   applicationCategory: 'UtilitiesApplication',
   operatingSystem: 'Web Browser',
   browserRequirements: 'Requires JavaScript. Works with all modern browsers.',
-  softwareVersion: '1.0',
   offers: {
     '@type': 'Offer',
     price: '0',
     priceCurrency: 'USD',
     availability: 'https://schema.org/InStock',
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    ratingCount: '200',
-    bestRating: '5',
-    worstRating: '1',
   },
   featureList: [
     'AI vs Human Score Detection',
@@ -427,13 +430,7 @@ export const getCodeCastToolSchema = (type: 'animate' | 'type' | 'image') => {
       price: '0',
       priceCurrency: 'USD',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.9',
-      ratingCount: '350',
-      bestRating: '5',
-      worstRating: '1',
-    },
+    // aggregateRating removed — was hardcoded fake data (Google spam-policy risk).
     featureList: tool.featureList,
     author: {
       '@type': 'Organization',

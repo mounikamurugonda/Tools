@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: 'UtilToolkits',
     images: [
       {
-        url: 'https://utiltoolkits.com/og-credits.png',
+        url: 'https://utiltoolkits.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'UtilToolkits Credits & Acknowledgments',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: 'Credits & Acknowledgments | UtilToolkits',
     description:
       'Acknowledgements and credits for open-source libraries, icons, and frameworks used across UtilToolkits.',
-    images: ['https://utiltoolkits.com/og-credits.png'],
+    images: ['https://utiltoolkits.com/og-image.png'],
     creator: '@utiltoolkits',
   },
   alternates: {

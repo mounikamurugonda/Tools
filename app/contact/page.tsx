@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: 'UtilToolkits',
     images: [
       {
-        url: 'https://utiltoolkits.com/og-contact.png',
+        url: 'https://utiltoolkits.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Contact UtilToolkits',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     title: 'Contact UtilToolkits - Get in Touch',
     description:
       'Get in touch with UtilToolkits. Send your questions, feedback, or suggestions for new developer tools.',
-    images: ['https://utiltoolkits.com/og-contact.png'],
+    images: ['https://utiltoolkits.com/og-image.png'],
     creator: '@utiltoolkits',
   },
   alternates: {
