@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: 'UtilToolkits',
     images: [
       {
-        url: 'https://utiltoolkits.com/og-terms.png',
+        url: 'https://utiltoolkits.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'UtilToolkits Terms of Service',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: 'Terms of Service - UtilToolkits Legal Terms',
     description:
       'Please read the Terms of Service for UtilToolkits. By using our website, you agree to these terms, which govern your access to and use of our free developer tools.',
-    images: ['https://utiltoolkits.com/og-terms.png'],
+    images: ['https://utiltoolkits.com/og-image.png'],
     creator: '@utiltoolkits',
   },
   alternates: {

@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: 'UtilToolkits',
     images: [
       {
-        url: 'https://utiltoolkits.com/og-about.png',
+        url: 'https://utiltoolkits.com/og-image.png',
         width: 1200,
         height: 630,
         alt: 'About UtilToolkits - My Mission',
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: 'About UtilToolkits - My Mission & Vision',
     description:
       'Discover UtilToolkits: My passionate mission to build the ultimate one-stop hub for every browser-based tool.',
-    images: ['https://utiltoolkits.com/og-about.png'],
+    images: ['https://utiltoolkits.com/og-image.png'],
     creator: '@utiltoolkits',
   },
   alternates: {

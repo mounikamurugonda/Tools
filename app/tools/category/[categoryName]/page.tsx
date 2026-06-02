@@ -69,21 +69,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'website',
       url: `https://utiltoolkits.com/tools/category/${categoryName}`,
       siteName: 'UtilToolkits',
-      images: [
-        {
-          url: `https://utiltoolkits.com/og-${categoryName}.png`,
-          width: 1200,
-          height: 630,
-          alt: `${category} Tools - Free Online Utilities`,
-        },
-      ],
+      // Image auto-injected by ./opengraph-image.tsx
       locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
       title: `${category} Tools - Free Online Utilities`,
       description: enhancedDescription,
-      images: [`https://utiltoolkits.com/og-${categoryName}.png`],
+      // Image inherits from openGraph.images
       creator: '@utiltoolkits',
     },
     alternates: {

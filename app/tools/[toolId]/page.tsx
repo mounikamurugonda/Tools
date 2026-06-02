@@ -1,12 +1,14 @@
 import { TOOLS, getToolDetails } from '@/constants';
 import ToolLoader from '@/components/ToolLoader';
-import { getToolSchema, getBreadcrumbSchema } from '@/lib/schema';
+import { getToolSchema, getBreadcrumbSchema, getFaqSchema, getHowToSchema } from '@/lib/schema';
 import Schema from '@/components/Schema';
 import AnalyticsWrapper from '@/components/AnalyticsWrapper';
 import { notFound } from 'next/navigation';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { TIPS } from '@/lib/tips';
 import TipCard from '@/components/TipCard';
+import RelatedTools from '@/components/RelatedTools';
+import RelatedGuides from '@/components/RelatedGuides';
 import type { ToolData } from '@/types';
 
 type Props = {
@@ -74,21 +76,14 @@ export async function generateMetadata(
       type: 'website',
       url: `https://utiltoolkits.com/tools/${tool.id}`,
       siteName: 'UtilToolkits',
-      images: [
-        {
-          url: `https://utiltoolkits.com/og-${tool.id}.png`,
-          width: 1200,
-          height: 630,
-          alt: `${tool.name} - Free Online Tool`,
-        },
-      ],
+      // Image is auto-injected by app/tools/[toolId]/opengraph-image.tsx
       locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
       title: `${tool.name} - Free Online Tool`,
       description,
-      images: [`https://utiltoolkits.com/og-${tool.id}.png`],
+      // Image inherits from openGraph.images (Next.js convention)
       creator: '@utiltoolkits',
     },
     other: {
@@ -129,7 +124,9 @@ export default async function ToolPage({ params }: { params: Promise<{ toolId: s
 
   return (
     <AnalyticsWrapper pageType="tool" toolName={tool.name}>
-      {/* Schema Markup */}
+      {/* Schema Markup — emitted as separate top-level JSON-LD blocks so each
+          @type (SoftwareApplication, FAQPage, HowTo, BreadcrumbList) is
+          independently parseable by Google's rich-results pipeline. */}
       <Schema schema={getToolSchema(tool, toolDetails)} />
       <Schema
         schema={getBreadcrumbSchema([
@@ -138,9 +135,19 @@ export default async function ToolPage({ params }: { params: Promise<{ toolId: s
           { name: tool.name, url: `https://utiltoolkits.com/tools/${tool.id}` },
         ])}
       />
+      {(() => {
+        const faq = getFaqSchema(toolDetails);
+        return faq ? <Schema schema={faq} /> : null;
+      })()}
+      {(() => {
+        const howTo = getHowToSchema(tool, toolDetails);
+        return howTo ? <Schema schema={howTo} /> : null;
+      })()}
 
       <div className="w-full max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8">
         <ToolLoader toolId={tool.id} details={toolDetails} tool={toolData} />
+        <RelatedGuides toolId={tool.id} />
+        <RelatedTools currentToolId={tool.id} category={tool.category} />
         <TipCard tip={randomTip} />
       </div>
     </AnalyticsWrapper>
