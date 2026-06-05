@@ -2,14 +2,47 @@
 
 import { ReactNode, useEffect } from 'react';
 import Lenis from 'lenis';
-
 import { usePathname } from 'next/navigation';
+
+/**
+ * Returns true for any element that has its own scrollable overflow — telling
+ * Lenis to leave native scroll behaviour alone for that node.
+ *
+ * This replaces the old per-component `data-lenis-prevent` workaround.
+ * Every <textarea>, overflow-auto div, custom select list, modal body, etc.
+ * is handled automatically without touching individual components.
+ *
+ * Elements that already carry `data-lenis-prevent` still work as before
+ * (belt-and-suspenders), but are no longer required.
+ */
+function isScrollable(node: Element): boolean {
+  // Explicit opt-out — always respected
+  if (node.hasAttribute('data-lenis-prevent')) return true;
+
+  const style = window.getComputedStyle(node);
+  const overflowY = style.overflowY;
+  const overflowX = style.overflowX;
+  const overflow  = style.overflow;
+
+  const scrollableValue = (v: string) => v === 'scroll' || v === 'auto';
+
+  if (!scrollableValue(overflowY) && !scrollableValue(overflowX) && !scrollableValue(overflow)) {
+    return false;
+  }
+
+  // Only prevent when the element actually has scrollable content — avoids
+  // false positives on elements that are overflow:auto but don't overflow.
+  const hasVerticalScroll   = node.scrollHeight > node.clientHeight;
+  const hasHorizontalScroll = node.scrollWidth  > node.clientWidth;
+
+  return hasVerticalScroll || hasHorizontalScroll;
+}
 
 const SmoothScrolling = ({ children }: { children: ReactNode }) => {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Disable smooth scrolling for CodeCast route to allow native internal scrolling
+    // CodeCast has its own scroll layout — skip Lenis entirely there
     if (pathname?.startsWith('/product/code-cast')) {
       return;
     }
@@ -21,6 +54,9 @@ const SmoothScrolling = ({ children }: { children: ReactNode }) => {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       touchMultiplier: 2,
+      // Auto-prevent on any element that can scroll natively.
+      // No more manual data-lenis-prevent on textareas, modals, dropdowns, etc.
+      prevent: isScrollable,
     });
 
     let rafId: number;
@@ -31,8 +67,6 @@ const SmoothScrolling = ({ children }: { children: ReactNode }) => {
     }
 
     rafId = requestAnimationFrame(raf);
-
-    // Apply lenis class to html for handling scrollbars etc if needed
     document.documentElement.classList.add('lenis');
 
     return () => {

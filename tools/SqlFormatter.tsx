@@ -7,6 +7,8 @@ import Button from '@/components/ui/Button';
 import Select from '@/components/ui/Select';
 import { useToast } from '@/components/ui/ToastProvider';
 import { ArrowDownToLine, Minimize2, Sparkles } from 'lucide-react';
+import { AIActionButton } from '@/components/AIActionButton';
+import { explainSQL } from '@/lib/sarvamAI';
 import { format } from 'sql-formatter';
 
 type Mode = 'pretty' | 'minify';
@@ -189,6 +191,7 @@ const SqlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   );
 
   return (
+    <div>
     <ConverterLayout
       title="SQL Formatter"
       details={details}
@@ -212,6 +215,23 @@ const SqlFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
         placeholder: error ? 'Fix the SQL above to see formatted output' : 'Formatted SQL will appear here...',
       }}
     />
+
+    {/* AI: Explain SQL — sits below the converter, full-width */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 pb-8">
+      <div className="bg-white dark:bg-gray-800/60 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
+          AI: Explain SQL in Plain English
+        </p>
+        <AIActionButton
+          label="Explain this SQL"
+          actionName="explain SQL queries"
+          onAction={() => explainSQL(input)}
+          disabled={!input.trim()}
+          hint="AI will describe what this query does in plain English"
+        />
+      </div>
+    </div>
+    </div>
   );
 };
 

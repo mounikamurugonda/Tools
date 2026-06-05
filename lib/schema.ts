@@ -5,9 +5,9 @@ import { TIPS } from '@/lib/tips';
 export const getWebsiteSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'UtilToolkits - Your Free Online Developer Toolbox',
+  name: 'UtilToolkits — Free Browser Tools for Developers & AI Workflows',
   description:
-    'Your comprehensive free online developer toolbox with 90+ browser-based utilities. Includes JSON formatter, Base64 encoder, password generator, image tools, and more. All tools run locally for maximum speed and privacy.',
+    '100+ free browser-based tools for developers and AI workflows. AI token counter, prompt builder, JSON formatter, CSV converter, image tools, and more. All processing is local — no upload, no tracking, no cost.',
   url: 'https://utiltoolkits.com',
   potentialAction: {
     '@type': 'SearchAction',
@@ -34,9 +34,9 @@ export const getWebsiteSchema = () => ({
 export const getOrganizationSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'UtilToolkits - Your Free Online Developer Toolbox',
+  name: 'UtilToolkits',
   description:
-    'A comprehensive collection of free, browser-based developer tools and utilities for developers, designers, and productivity enthusiasts.',
+    'Free browser-based developer and AI workflow tools. 100+ utilities for JSON formatting, CSV conversion, token counting, prompt building, image editing, and more — all running locally in your browser.',
   url: 'https://utiltoolkits.com',
   logo: 'https://utiltoolkits.com/og-image.png',
   foundingDate: '2024',
@@ -50,9 +50,12 @@ export const getOrganizationSchema = () => ({
   knowsAbout: [
     'Web Development',
     'Developer Tools',
+    'AI Tools',
+    'Prompt Engineering',
     'Online Utilities',
     'Browser-based Applications',
     'Productivity Tools',
+    'AI Workflow Optimization',
   ],
 });
 

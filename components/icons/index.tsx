@@ -1,6 +1,16 @@
 import React from 'react';
 import {
   // Category Icons
+  Bot,
+  Brain,
+  Sparkles,
+  Wand2,
+  MessageSquare,
+  Cpu,
+  FileJson,
+  Table2,
+  Layers,
+  Gauge,
   Type,
   Code,
   Image as ImageL,
@@ -624,4 +634,39 @@ export const AsciiIcon: React.FC<{ className?: string }> = ({ className }) => (
 
 export const SeparatorIcon: React.FC<{ className?: string }> = ({ className }) => (
   <List {...iconProps} {...(className && { className })} />
+);
+
+// AI Category & Tool Icons
+export const AiCategoryIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Bot {...categoryIconProps} {...(className && { className })} />
+);
+export const AiTokenCounterIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Cpu {...iconProps} {...(className && { className })} />
+);
+export const AiPromptBuilderIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Wand2 {...iconProps} {...(className && { className })} />
+);
+export const JsonToPromptIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <FileJson {...iconProps} {...(className && { className })} />
+);
+export const CsvToPromptIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Table2 {...iconProps} {...(className && { className })} />
+);
+export const SystemPromptIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <MessageSquare {...iconProps} {...(className && { className })} />
+);
+export const ContextWindowIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Gauge {...iconProps} {...(className && { className })} />
+);
+export const AiModelComparatorIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Layers {...iconProps} {...(className && { className })} />
+);
+export const PromptLibraryIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Brain {...iconProps} {...(className && { className })} />
+);
+export const AiTextSummarizerIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Sparkles {...iconProps} {...(className && { className })} />
+);
+export const AiOutputFormatterIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <Bot {...iconProps} {...(className && { className })} />
 );

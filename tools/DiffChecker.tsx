@@ -18,6 +18,8 @@ import {
   Copy,
   ArrowDownToLine,
 } from 'lucide-react';
+import { AIActionButton } from '@/components/AIActionButton';
+import { explainDiff } from '@/lib/sarvamAI';
 
 const MAX_FILE_MB = 10;
 
@@ -387,6 +389,24 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
               matchBrackets: 'never',
               autoClosingBrackets: 'never',
             }}
+          />
+        </div>
+      </div>
+
+      {/* AI: Explain Changes */}
+      <div className="mt-4 px-4 pb-4">
+        <div className="bg-white dark:bg-gray-800/60 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+          <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
+            AI Analysis
+          </p>
+          <AIActionButton
+            label="Explain Changes"
+            actionName="explain diff changes"
+            onAction={() => {
+              const { original, modified } = syncEditorState();
+              return explainDiff(original, modified);
+            }}
+            hint="AI will describe what changed between the two versions"
           />
         </div>
       </div>

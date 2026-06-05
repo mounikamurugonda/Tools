@@ -6,6 +6,8 @@ import ConverterLayout from '@/components/ConverterLayout';
 import Button from '@/components/ui/Button';
 import { useToast } from '@/components/ui/ToastProvider';
 import { ArrowDownToLine, Braces, Minimize2, SortAsc } from 'lucide-react';
+import { AIActionButton } from '@/components/AIActionButton';
+import { describeJSON } from '@/lib/sarvamAI';
 
 type Mode = 'pretty' | 'minify';
 type Indent = 2 | 4 | '\t';
@@ -182,6 +184,7 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
   );
 
   return (
+    <div>
     <ConverterLayout
       title="JSON Formatter"
       details={details}
@@ -205,6 +208,23 @@ const JsonFormatter: React.FC<ToolProps> = ({ details, toolId }) => {
         placeholder: error ? `Fix error above to see formatted JSON` : 'Formatted JSON will appear here...',
       }}
     />
+
+    {/* AI: Describe JSON */}
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 pb-8">
+      <div className="bg-white dark:bg-gray-800/60 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+        <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
+          AI: Describe this JSON
+        </p>
+        <AIActionButton
+          label="Describe JSON"
+          actionName="describe JSON structures"
+          onAction={() => describeJSON(input)}
+          disabled={!input.trim()}
+          hint="AI explains what this JSON structure represents and its purpose"
+        />
+      </div>
+    </div>
+    </div>
   );
 };
 

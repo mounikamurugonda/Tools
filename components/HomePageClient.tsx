@@ -31,21 +31,19 @@ const HomePageClient: React.FC = () => {
           {/* Decorative background elements */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[600px] lg:h-[600px] bg-blue-500/10 dark:bg-blue-500/5 rounded-full blur-3xl -z-10 animate-pulse-slow pointer-events-none" />
 
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800 rounded-full text-blue-700 dark:text-blue-400 text-xs font-semibold mb-6 animate-fade-in">
+            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
+            New: AI Tools Category — Token Counter, Prompt Builder & more
+          </div>
+
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight animate-slide-in-right px-4">
-            Welcome to <span className="brand-gradient-text">UtilToolkits</span>
+            Stop wasting AI tokens<br className="hidden sm:block" /> on <span className="brand-gradient-text">tasks tools can do</span>
           </h1>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-300 mt-4 sm:mt-6 max-w-3xl mx-auto animate-slide-in-left delay-100 px-4">
-            The ultimate collection of{' '}
-            <strong className="text-gray-900 dark:text-white">
-              {toolCount}+ free online developer tools
-            </strong>
-            .
+            <strong className="text-gray-900 dark:text-white">{toolCount}+ free browser tools</strong> for formatting, converting, and processing data — so your AI credits go toward actual thinking.
           </p>
           <p className="text-sm sm:text-base md:text-lg text-gray-500 dark:text-gray-400 mt-4 max-w-2xl mx-auto animate-slide-in-left delay-200 px-4 leading-relaxed">
-            I built UtilToolkits to solve a consistent frustration: finding reliable, fast, and
-            private developer tools without the bloat. What started as a personal project is now a
-            comprehensive suite running entirely in your browser. No servers, no tracking—just
-            practical utilities that work instantly.
+            File conversions. Diff checks. Token counting. JSON formatting. CSV transforms. These are not AI problems — they are tool problems. UtilToolkits handles the mechanical work so your prompts stay focused on what AI is actually good at.
           </p>
 
           <div className="mt-8 sm:mt-12 max-w-2xl mx-auto animate-fade-in-up delay-200 relative z-50">
@@ -78,29 +76,33 @@ const HomePageClient: React.FC = () => {
         <section className="mb-16 sm:mb-20 lg:mb-24 animate-fade-in delay-400">
           <div className="text-center mb-8 sm:mb-10 lg:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 px-4">
-              Why Developers Love UtilToolkits
+              The right tool for the job beats a prompt every time
             </h2>
             <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto px-4">
-              Join thousands of developers who trust UtilToolkits for their daily workflow.
+              ChatGPT is brilliant at reasoning. It is overkill for reformatting a CSV. UtilToolkits handles the mechanical work — instantly, privately, and for free.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {[
               {
+                emoji: '🔒',
                 title: '100% Private',
-                desc: 'All processing happens in your browser. Your data never leaves your device.',
+                desc: 'Every tool runs in your browser. Your data never reaches a server — no leaks, no logging, no risk.',
               },
               {
-                title: 'Lightning Fast',
-                desc: 'No server delays. Instant results with client-side processing.',
+                emoji: '⚡',
+                title: 'Instant, No Limits',
+                desc: 'Client-side processing means no upload queues, no file size restrictions (for most tools), no waiting.',
               },
               {
-                title: 'Always Free',
-                desc: 'No hidden costs, no premium tiers. All tools are completely free.',
+                emoji: '🆓',
+                title: 'Completely Free',
+                desc: 'No credit card, no free tier ceilings, no premium features hidden behind a paywall. Ever.',
               },
               {
-                title: 'No Registration',
-                desc: 'Start using tools immediately. No accounts or sign-ups required.',
+                emoji: '🤖',
+                title: 'Built for AI Workflows',
+                desc: 'Token counters, prompt builders, JSON-to-prompt converters — tools that make your AI work smarter.',
               },
             ].map((feature, idx) => (
               <div
@@ -108,6 +110,7 @@ const HomePageClient: React.FC = () => {
                 className="text-center p-6 sm:p-8 rounded-xl sm:rounded-2xl brand-card hover:-translate-y-2 transition-transform duration-300"
                 style={{ transitionDelay: `${idx * 100}ms` }}
               >
+                <div className="text-3xl mb-3">{feature.emoji}</div>
                 <h3 className="font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 text-base sm:text-lg">
                   {feature.title}
                 </h3>

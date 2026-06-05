@@ -1,6 +1,7 @@
 import type React from 'react';
 
 export enum ToolCategory {
+  AI = 'AI Tools',
   TEXT = 'Text Tools',
   IMAGE = 'Image Tools',
   CSS = 'CSS Tools',

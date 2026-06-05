@@ -10,6 +10,8 @@ import Label from '@/components/ui/Label';
 import Button from '@/components/ui/Button';
 import { useToast } from '@/components/ui/ToastProvider';
 import { AlertCircle, Copy } from 'lucide-react';
+import { AIActionButton } from '@/components/AIActionButton';
+import { generateRegex } from '@/lib/sarvamAI';
 
 type Mode = 'match' | 'replace';
 
@@ -34,6 +36,7 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
   );
   const [mode, setMode] = useState<Mode>('match');
   const [replacement, setReplacement] = useState('<a href="mailto:$&">$&</a>');
+  const [aiDesc, setAiDesc] = useState('');
   const toast = useToast();
 
   const flags = useMemo(() => Array.from(flagSet).join(''), [flagSet]);
@@ -157,6 +160,32 @@ const RegexTester: React.FC<ToolProps> = ({ details, toolId }) => {
             </div>
           )}
         </Card>
+
+        {/* AI: Generate Regex from description */}
+        <div className="bg-violet-50/50 dark:bg-violet-900/10 border border-violet-200 dark:border-violet-800/40 rounded-xl p-4">
+          <p className="text-xs font-semibold text-violet-700 dark:text-violet-400 mb-2 flex items-center gap-1.5">
+            ✨ Generate Regex from Description
+          </p>
+          <div className="flex gap-2 items-start">
+            <input
+              value={aiDesc}
+              onChange={e => setAiDesc(e.target.value)}
+              placeholder="e.g. match any email address with a .com or .org domain"
+              className="flex-1 px-3 py-2 text-sm rounded-lg border border-violet-200 dark:border-violet-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-400"
+            />
+            <AIActionButton
+              label="Generate"
+              actionName="generate regex"
+              onAction={async () => {
+                const result = await generateRegex(aiDesc);
+                setPattern(result.trim());
+                return `Pattern set to: /${result.trim()}/`;
+              }}
+              disabled={!aiDesc.trim()}
+              className="shrink-0"
+            />
+          </div>
+        </div>
 
         <div className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 p-0.5 bg-white dark:bg-gray-900">
           {(['match', 'replace'] as Mode[]).map(m => (

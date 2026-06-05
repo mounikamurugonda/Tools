@@ -35,14 +35,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const toolRoutes = TOOLS.map(tool => {
-    const popularTools = [
+    const highPriorityTools = [
+      // AI tools — new category, gets highest priority for indexing
+      'ai-token-counter',
+      'ai-prompt-builder',
+      'ai-model-comparator',
+      'prompt-template-library',
+      'context-window-calculator',
+      'csv-to-prompt',
+      'json-to-prompt',
+      // Evergreen popular tools
       'json-formatter',
       'base64-converter',
       'password-generator',
       'image-compressor',
       'uuid-generator',
     ];
-    const priority = popularTools.includes(tool.id) ? 0.8 : 0.7;
+    const priority = highPriorityTools.includes(tool.id) ? 0.9 : 0.7;
 
     return {
       url: `${baseUrl}/tools/${tool.id}`,
@@ -59,12 +68,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  const highPriorityBlogs = [
+    'stop-wasting-ai-tokens-on-file-converters',
+    'best-ai-tools-browser-2026',
+    'large-dataset-ai-tools-guide',
+  ];
+
   const blogRoutes = blogs.map(blog => ({
     url: `${baseUrl}/blogs/${blog.id}`,
-    // Blogs have real updatedDate/date — use it. Falls back to date, then build.
     lastModified: new Date(blog.updatedDate || blog.date || BUILD_DATE),
     changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    priority: highPriorityBlogs.includes(blog.id) ? 0.85 : 0.7,
   }));
 
   const blogCategories = Array.from(new Set(blogs.map(blog => blog.category)));

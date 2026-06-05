@@ -13,37 +13,42 @@ const FAQs: FAQ[] = [
   {
     question: 'Is UtilToolkits free to use?',
     answer:
-      'Yes, all tools on UtilToolkits are completely free to use. There are no hidden fees, premium tiers, or subscription models.',
+      'Yes, every tool on UtilToolkits is completely free — no hidden fees, no premium tiers, no subscription. The AI Tools category (token counter, prompt builder, model comparator, etc.) is also fully free with no API key required.',
   },
   {
-    question: 'Does it work without an internet connection?',
+    question: 'Why should I use these tools instead of just asking ChatGPT or Claude?',
     answer:
-      'Most of our tools are designed to run client-side in your browser. Once the page is loaded, many utilities can function without an active internet connection, though some specific features may require connectivity.',
+      'AI models are powerful but expensive for mechanical tasks. Formatting JSON, converting CSV, counting tokens, or diffing two files costs real AI tokens when you use a chatbot — and these tasks don\'t require intelligence, just algorithms. Our browser tools do the same work in milliseconds at zero cost, and your data never leaves your device.',
+  },
+  {
+    question: 'What AI tools are available?',
+    answer:
+      'The AI Tools category includes an AI Token Counter (counts tokens for GPT-4o, Claude, Gemini, and more), AI Prompt Builder (structured prompt engineering), CSV to AI Prompt, JSON to AI Prompt, System Prompt Generator, Context Window Calculator, AI Model Comparator, Prompt Template Library, AI Text Chunker, and AI Output Formatter. All are free and browser-based.',
   },
   {
     question: 'Is my data secure?',
     answer:
-      'Absolutely. We prioritize your privacy. Since our tools run locally in your browser, your data (like images you convert or text you format) is processed on your device and is never sent to our servers.',
+      'Yes. All processing happens locally in your browser — no data is ever sent to our servers. This is especially important for the AI tools: your prompts, documents, and datasets never leave your device. You can verify this in your browser\'s DevTools Network tab.',
+  },
+  {
+    question: 'Do these tools handle large files?',
+    answer:
+      'Yes, most tools are designed for large data. The CSV to AI Prompt tool handles files up to 50 MB. The JSON Formatter handles files up to ~10 MB. The AI Text Chunker can process any size document (memory-permitting). The Token Counter and Context Window Calculator handle arbitrarily large text.',
+  },
+  {
+    question: 'Does it work without an internet connection?',
+    answer:
+      'Once the page is loaded, most tools work offline — they run entirely in your browser. The AI tools (token counter, prompt builder, etc.) are all offline-capable since they don\'t call any external APIs.',
   },
   {
     question: 'Do I need to create an account?',
     answer:
-      'No account registration is required. You can start using any tool immediately without signing up or providing any personal information.',
+      'No account or sign-up is required. Open any tool and start using it immediately.',
   },
   {
     question: 'Can I request a new tool?',
     answer:
-      'Yes! We love feedback. If you have an idea for a tool that would make your workflow easier, please use our request form or contact us. We regularly update our suite based on developer needs.',
-  },
-  {
-    question: 'Does it work on mobile devices?',
-    answer:
-      'Yes, UtilToolkits is fully responsive and optimized for mobile devices, tablets, and desktops, so you can work from anywhere.',
-  },
-  {
-    question: 'Are the results accurate?',
-    answer:
-      'We strive for 100% accuracy. Our tools are built using standard algorithms and libraries. However, for critical tasks, we always recommend double-checking important results.',
+      'Yes! We prioritize requests from developers and AI practitioners. Use the request form or contact page to suggest a tool. We\'ve added tools based on community requests many times.',
   },
   {
     question: 'How can I support the project?',

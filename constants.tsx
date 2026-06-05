@@ -2,6 +2,17 @@
 import { Tool, ToolCategory } from './types';
 import { TOOL_DETAILS } from '@/lib/tool-details';
 import {
+  AiCategoryIcon,
+  AiTokenCounterIcon,
+  AiPromptBuilderIcon,
+  JsonToPromptIcon,
+  CsvToPromptIcon,
+  SystemPromptIcon,
+  ContextWindowIcon,
+  AiModelComparatorIcon,
+  PromptLibraryIcon,
+  AiTextSummarizerIcon,
+  AiOutputFormatterIcon,
   CaseIcon,
   CounterIcon,
   LoremIpsumIcon,
@@ -118,7 +129,128 @@ const PRIVACY_STATEMENT =
   'All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.';
 
 export const TOOLS: Tool[] = [
-  // ... existing tools
+  // ── AI Tools ──────────────────────────────────────────────────────────────
+  {
+    id: 'ai-token-counter',
+    name: 'AI Token Counter',
+    description: 'Count tokens for GPT-4, Claude, Gemini and more. Paste any text or entire documents to see exact token usage before sending to an AI model.',
+    seoTitle: 'AI Token Counter — Count Tokens for GPT-4, Claude & Gemini Free',
+    seoDescription: 'Free browser-based token counter for every major AI model. Paste unlimited text, see token count, character count, and cost estimate for OpenAI, Anthropic, and Google models — no upload, no API key needed.',
+    icon: <AiTokenCounterIcon />,
+    category: ToolCategory.AI,
+    featured: true,
+    keywords: ['token counter', 'ai token counter', 'gpt token counter', 'claude token counter', 'gemini tokens', 'tiktoken online', 'openai tokens', 'llm token count', 'token estimator'],
+    tags: ['ai', 'tokens', 'gpt', 'claude', 'gemini', 'llm'],
+  },
+  {
+    id: 'ai-prompt-builder',
+    name: 'AI Prompt Builder',
+    description: 'Build structured, high-quality prompts for ChatGPT, Claude, and Gemini. Define role, context, task, format, and constraints in a guided form.',
+    seoTitle: 'AI Prompt Builder — Build Better Prompts for ChatGPT & Claude',
+    seoDescription: 'Free prompt engineering tool. Compose structured prompts with role, context, task, output format, and constraints. Export ready-to-paste prompts for any LLM — no account needed.',
+    icon: <AiPromptBuilderIcon />,
+    category: ToolCategory.AI,
+    featured: true,
+    keywords: ['prompt builder', 'ai prompt generator', 'chatgpt prompt', 'prompt engineering', 'claude prompt', 'llm prompt template', 'prompt framework'],
+    tags: ['ai', 'prompt', 'chatgpt', 'claude', 'prompt engineering'],
+  },
+  {
+    id: 'json-to-prompt',
+    name: 'JSON to AI Prompt',
+    description: 'Convert large JSON datasets into clean, token-efficient AI prompts. Perfect for feeding structured data to ChatGPT, Claude, or Gemini without wasting context.',
+    seoTitle: 'JSON to AI Prompt Converter — Convert JSON Data for ChatGPT & Claude',
+    seoDescription: 'Free tool to convert JSON objects and arrays into natural-language AI prompts. Handles large datasets, lets you choose verbosity level, and produces copy-ready output — runs in your browser.',
+    icon: <JsonToPromptIcon />,
+    category: ToolCategory.AI,
+    featured: false,
+    keywords: ['json to prompt', 'json to chatgpt', 'json ai converter', 'convert json to text', 'json to natural language', 'ai data formatter'],
+    tags: ['ai', 'json', 'prompt', 'data conversion'],
+  },
+  {
+    id: 'csv-to-prompt',
+    name: 'CSV to AI Prompt',
+    description: 'Transform CSV files and large tabular datasets into AI-ready prompts. Control which columns to include, row limits, and output format to stay within token budgets.',
+    seoTitle: 'CSV to AI Prompt — Convert Spreadsheet Data for ChatGPT & Claude',
+    seoDescription: 'Instantly convert CSV or spreadsheet data to a structured AI prompt. Choose columns, set row limits, and get a clean copy-ready prompt for any LLM. Handles files up to 50 MB — fully browser-based.',
+    icon: <CsvToPromptIcon />,
+    category: ToolCategory.AI,
+    featured: false,
+    keywords: ['csv to prompt', 'csv to chatgpt', 'csv ai converter', 'spreadsheet to ai', 'tabular data to llm', 'csv to text', 'large dataset ai'],
+    tags: ['ai', 'csv', 'prompt', 'data', 'spreadsheet'],
+  },
+  {
+    id: 'ai-system-prompt-generator',
+    name: 'System Prompt Generator',
+    description: 'Generate professional system prompts for AI assistants, chatbots, and agents. Choose persona, tone, domain, and constraints to produce a production-ready system prompt instantly.',
+    seoTitle: 'AI System Prompt Generator — Create System Prompts for ChatGPT & Claude',
+    seoDescription: 'Free system prompt generator for AI assistants and chatbots. Select persona, domain, restrictions, and output style to get a ready-to-use system prompt for OpenAI, Anthropic, or any LLM.',
+    icon: <SystemPromptIcon />,
+    category: ToolCategory.AI,
+    featured: false,
+    keywords: ['system prompt generator', 'ai system prompt', 'chatbot system prompt', 'openai system prompt', 'claude system prompt', 'ai persona builder', 'custom ai assistant'],
+    tags: ['ai', 'system prompt', 'chatbot', 'persona'],
+  },
+  {
+    id: 'context-window-calculator',
+    name: 'Context Window Calculator',
+    description: 'Calculate whether your text fits within any AI model\'s context window. Compare token usage across GPT-4o, Claude 3.5, Gemini 1.5 Pro, Llama 3, and more.',
+    seoTitle: 'Context Window Calculator — Check Token Limits for GPT-4, Claude & Gemini',
+    seoDescription: 'Free context window calculator for all major AI models. See how much of your document fits within GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, and Llama 3 context windows — with visual usage bars.',
+    icon: <ContextWindowIcon />,
+    category: ToolCategory.AI,
+    featured: false,
+    keywords: ['context window calculator', 'token limit checker', 'gpt-4 context window', 'claude context window', 'llm context length', 'ai model limits', 'token budget'],
+    tags: ['ai', 'context window', 'tokens', 'gpt-4', 'claude'],
+  },
+  {
+    id: 'ai-model-comparator',
+    name: 'AI Model Comparator',
+    description: 'Compare GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, Llama 3, Mistral, and more side-by-side. Context window, pricing, strengths, speed, and best use cases.',
+    seoTitle: 'AI Model Comparator — Compare GPT-4, Claude, Gemini & Llama Side by Side',
+    seoDescription: 'Free AI model comparison tool. Compare context window, token pricing, strengths, and best use cases for GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, Llama 3, and Mistral — updated 2026.',
+    icon: <AiModelComparatorIcon />,
+    category: ToolCategory.AI,
+    featured: true,
+    keywords: ['ai model comparison', 'gpt-4 vs claude', 'claude vs gemini', 'llm comparison', 'best ai model', 'openai vs anthropic', 'ai model pricing', 'chatgpt alternatives'],
+    tags: ['ai', 'comparison', 'gpt-4', 'claude', 'gemini', 'llama'],
+  },
+  {
+    id: 'prompt-template-library',
+    name: 'Prompt Template Library',
+    description: 'Browse 100+ curated, battle-tested AI prompt templates for coding, writing, data analysis, marketing, SEO, and more. Customize and copy in one click.',
+    seoTitle: 'AI Prompt Template Library — 100+ Free Prompts for ChatGPT & Claude',
+    seoDescription: 'Free library of 100+ prompt templates for ChatGPT, Claude, and Gemini. Covers coding, content writing, data analysis, SEO, emails, debugging, and more. Copy, customize, and paste instantly.',
+    icon: <PromptLibraryIcon />,
+    category: ToolCategory.AI,
+    featured: true,
+    keywords: ['prompt templates', 'ai prompts library', 'chatgpt prompts', 'claude prompts', 'prompt examples', 'best ai prompts', 'copy ai prompts', 'productivity prompts'],
+    tags: ['ai', 'prompts', 'templates', 'chatgpt', 'productivity'],
+  },
+  {
+    id: 'ai-text-summarizer',
+    name: 'AI Text Chunker & Summarizer',
+    description: 'Split large documents, PDFs, or articles into AI-ready chunks that fit any model\'s context window. Smart chunking by paragraph, token count, or word limit.',
+    seoTitle: 'AI Text Chunker — Split Large Documents for ChatGPT & Claude',
+    seoDescription: 'Free browser tool to split large text documents into token-sized chunks for AI models. Upload text up to 10 MB, choose chunk size by tokens or words, and process without any server upload.',
+    icon: <AiTextSummarizerIcon />,
+    category: ToolCategory.AI,
+    featured: false,
+    keywords: ['ai text chunker', 'text splitter', 'document chunker', 'split for chatgpt', 'large document ai', 'token chunker', 'context window splitter'],
+    tags: ['ai', 'text chunker', 'large documents', 'tokens'],
+  },
+  {
+    id: 'ai-output-formatter',
+    name: 'AI Output Formatter',
+    description: 'Clean, format, and structure raw AI output. Convert AI-generated JSON, Markdown, or plain text into perfectly formatted, copy-ready content.',
+    seoTitle: 'AI Output Formatter — Clean & Format ChatGPT and Claude Responses',
+    seoDescription: 'Free tool to format and clean raw AI output. Fix JSON, render Markdown, strip hallucination artifacts, and reformat lists and tables from ChatGPT, Claude, or Gemini responses.',
+    icon: <AiOutputFormatterIcon />,
+    category: ToolCategory.AI,
+    featured: false,
+    keywords: ['ai output formatter', 'format chatgpt output', 'ai response formatter', 'clean ai text', 'ai json formatter', 'ai markdown formatter', 'fix ai output'],
+    tags: ['ai', 'formatter', 'output', 'json', 'markdown'],
+  },
+  // ── Original tools follow ───────────────────────────────────────────────
   {
     id: 'json-to-typescript',
     name: 'JSON to TypeScript',
@@ -1816,6 +1948,7 @@ export const TOOLS: Tool[] = [
 ];
 
 export const CATEGORY_ORDER: ToolCategory[] = [
+  ToolCategory.AI,
   ToolCategory.TEXT,
   ToolCategory.IMAGE,
   ToolCategory.CSS,
@@ -1829,6 +1962,7 @@ export const CATEGORY_ORDER: ToolCategory[] = [
 ];
 
 export const CATEGORY_URL_MAP: Record<ToolCategory, string> = {
+  [ToolCategory.AI]: 'ai',
   [ToolCategory.TEXT]: 'text',
   [ToolCategory.IMAGE]: 'image',
   [ToolCategory.CSS]: 'css',
@@ -1852,6 +1986,7 @@ export const URL_TO_CATEGORY_MAP: Record<string, ToolCategory> = Object.entries(
 );
 
 export const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<{ className?: string }>> = {
+  [ToolCategory.AI]: AiCategoryIcon,
   [ToolCategory.TEXT]: TextCategoryIcon,
   [ToolCategory.IMAGE]: ImageCategoryIcon,
   [ToolCategory.CSS]: CssCategoryIcon,
@@ -1865,6 +2000,7 @@ export const CATEGORY_ICONS: Record<ToolCategory, React.ComponentType<{ classNam
 };
 
 export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
+  [ToolCategory.AI]: 'Token counters, prompt builders, and AI workflow tools — handle large datasets without wasting AI credits.',
   [ToolCategory.TEXT]: 'Manipulate text, count words, and more.',
   [ToolCategory.IMAGE]: 'Edit, convert, and optimize images.',
   [ToolCategory.CSS]: 'Generate CSS code for your projects.',
@@ -1878,6 +2014,9 @@ export const CATEGORY_DESCRIPTIONS: Record<ToolCategory, string> = {
 };
 
 export const CATEGORY_CONTENT: Record<ToolCategory, { introduction: string }> = {
+  [ToolCategory.AI]: {
+    introduction: 'Free browser-based AI workflow tools — count tokens, build prompts, convert datasets, and compare models. Everything runs locally so your data never leaves your device.',
+  },
   [ToolCategory.TEXT]: {
     introduction: 'A collection of tools for text manipulation.',
   },
@@ -1903,6 +2042,18 @@ export const CATEGORY_CONTENT: Record<ToolCategory, { introduction: string }> = 
 };
 
 export const TOOL_COMPONENT_MAP: Record<string, string> = {
+  // AI Tools
+  'ai-token-counter': 'AiTokenCounter',
+  'ai-prompt-builder': 'AiPromptBuilder',
+  'json-to-prompt': 'JsonToPrompt',
+  'csv-to-prompt': 'CsvToPrompt',
+  'ai-system-prompt-generator': 'AiSystemPromptGenerator',
+  'context-window-calculator': 'ContextWindowCalculator',
+  'ai-model-comparator': 'AiModelComparator',
+  'prompt-template-library': 'PromptTemplateLibrary',
+  'ai-text-summarizer': 'AiTextSummarizer',
+  'ai-output-formatter': 'AiOutputFormatter',
+  // Text & other tools
   'comma-separator': 'CommaSeparator',
   'case-converter': 'CaseConverter',
   'word-counter': 'WordCounter',
@@ -2009,7 +2160,6 @@ export function getToolDetails(toolId: string) {
     return details;
   }
 
-  // Fallback if details are not found
   return {
     introduction: '',
     howToUse: [],
