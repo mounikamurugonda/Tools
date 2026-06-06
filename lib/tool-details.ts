@@ -3073,7 +3073,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'video-compressor': {
-    introduction: 'Compress video files easily.',
+    introduction:
+      'Large video files slow down uploads, eat through storage, and make sharing a pain. The Video Compressor solves all three in one click — drop in your footage, choose a compression level, and download a smaller file that still looks great. Whether you\'re trimming a clip for email, prepping content for social media, or freeing up space on your device, this tool handles it entirely in your browser so your files never leave your computer.',
     howToUse: ['Upload video', 'Click compress', 'Download'],
     features: [
       'Reduce video file size without significant quality loss.',
@@ -3110,7 +3111,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'video-to-audio-converter': {
-    introduction: 'Convert video to audio.',
+    introduction:
+      'Sometimes you only need the sound. Pull the audio track out of any video file and save it as a standalone MP3 — no desktop software, no subscriptions, no uploads to a server. It\'s ideal for extracting a podcast from a recorded call, saving a music performance as an audio file, or turning a lecture video into something you can listen to on the go. The entire conversion runs inside your browser using FFmpeg compiled to WebAssembly, so it\'s both fast and completely private.',
     howToUse: ['Upload video', 'Convert', 'Download MP3'],
     features: [
       'Extract audio tracks from video files as MP3.',
@@ -3147,7 +3149,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'gif-maker': {
-    introduction: 'Create GIFs from video.',
+    introduction:
+      'Turn any video moment into a looping, shareable GIF in seconds. Whether it\'s a funny reaction clip, a product demo, or a highlight from a recording, the GIF Maker lets you trim the exact segment you want, dial in the frame rate, and download a high-quality animated GIF — all without installing software or uploading your video to an external server. GIFs are universally supported in chats, emails, presentations, and social media, making them the fastest way to share a moving moment.',
     howToUse: ['Upload video', 'Create GIF', 'Download'],
     features: [
       'Convert video clips into animated GIFs.',
@@ -3155,9 +3158,16 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       'High-quality GIF output.',
     ],
     privacy: PRIVACY_STATEMENT,
-    explanation: '',
-    usageExamples: [],
-    underlyingConcept: '',
+    explanation:
+      'The tool uses FFmpeg (compiled to WebAssembly) to decode your video, extract the selected frames at the chosen frame rate, and encode them into the GIF format entirely in your browser. A palette optimisation step is applied to keep colours accurate despite GIF\'s 256-colour limit.',
+    usageExamples: [
+      'Creating reaction GIFs from video recordings for use in team chats or social media.',
+      'Turning a short product demo clip into a GIF for a landing page or README.',
+      'Extracting a memorable moment from a presentation or tutorial for easy sharing.',
+      'Making animated stickers from short personal video clips.',
+    ],
+    underlyingConcept:
+      'GIF uses a palette-based colour model (maximum 256 colours per frame) and lossless LZW compression on each frame. The key to a good-looking GIF is generating an optimal colour palette from the video frames before encoding. Frame rate and resolution are the two biggest levers for controlling file size.',
     faqs: [
       {
         question: 'How do I make a GIF from a video?',
@@ -3214,7 +3224,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'format-converter': {
-    introduction: 'Convert video formats.',
+    introduction:
+      'Different platforms, devices, and editing tools all prefer different video formats — MP4 plays everywhere, MOV is the standard out of iPhones, AVI and WEBM have their own use cases. The Video Format Converter lets you change any video to the format you need in seconds, without re-uploading to a cloud service or installing heavy desktop software. Everything runs locally in your browser via WebAssembly-powered FFmpeg, so even large files stay private and conversions start immediately.',
     howToUse: ['Upload video', 'Select format', 'Convert'],
     features: [
       'Convert videos between different formats like MP4, AVI, MOV.',
@@ -3251,7 +3262,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'video-thumbnail-extractor': {
-    introduction: 'Extract thumbnails from video.',
+    introduction:
+      'A video thumbnail is the first thing viewers see — on YouTube, social media, or any video platform, the right thumbnail can double your click-through rate. The Video Thumbnail Extractor lets you pause any video at the exact frame you want, then save it as a high-resolution PNG in seconds. No screen-recording tricks, no video editors, no uploads. It works entirely in your browser, so even large files load and export instantly without ever touching a server.',
     howToUse: ['Upload video', 'Set time', 'Extract'],
     features: [
       'Extract image thumbnails from specific timestamps in a video.',
@@ -3325,7 +3337,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'watermark-adder': {
-    introduction: 'Add watermark to images.',
+    introduction:
+      'Protect your photos, artwork, and brand assets before they go online. The Watermark Adder lets you overlay a custom image or text onto any photo — adjusting position, opacity, and size to match your style. Whether you\'re a photographer watermarking client proofs, a designer protecting portfolio work, or a business branding product images, the tool gives you full control and delivers a clean download instantly. All processing happens client-side, so your original files never leave your device.',
     howToUse: ['Upload image', 'Upload watermark', 'Apply'],
     features: [
       'Add image or text watermarks to your photos.',
@@ -3362,7 +3375,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'image-resizer': {
-    introduction: 'Resize images.',
+    introduction:
+      'Every platform has different image size requirements — Twitter headers, Instagram posts, email attachments, website banners. The Image Resizer lets you scale any photo to exact pixel dimensions or a percentage of its original size, with an option to lock the aspect ratio so nothing looks stretched. It works entirely in your browser, handles JPG, PNG, and WEBP, and produces a clean download ready to use anywhere — no sign-up, no file size limits imposed by a server.',
     howToUse: ['Upload image', 'Set size', 'Download'],
     features: [
       'Resize images by dimensions or percentage.',
@@ -3399,7 +3413,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'image-converter': {
-    introduction: 'Convert image formats.',
+    introduction:
+      'PNG, JPG, WEBP — every image format has trade-offs between file size, quality, and compatibility. The Image Converter lets you switch between them in one step: upload your file, pick a target format, and download. Converting to WEBP can cut your web images by 30% compared to JPG with no visible quality loss. Converting to PNG preserves transparency that JPG would destroy. The whole process runs in your browser, so there\'s nothing to install and your images stay on your device.',
     howToUse: ['Upload image', 'Select format', 'Convert'],
     features: [
       'Convert images between formats like PNG, JPG, WEBP.',
@@ -3518,7 +3533,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     privacy: PRIVACY_STATEMENT,
   },
   'password-generator': {
-    introduction: 'Generate strong passwords.',
+    introduction:
+      'Weak passwords are the single most common cause of account breaches. The Password Generator creates cryptographically random passwords up to any length you choose, mixing uppercase letters, lowercase letters, numbers, and symbols in whatever combination you need. Unlike browser-suggested passwords, you can tailor complexity to match a site\'s specific requirements — minimum length, required character types, and so on. Everything runs in your browser with no data sent anywhere, so the password never touches a server.',
     howToUse: ['Set length', 'Click generate'],
     features: [
       'Generate strong, secure passwords.',
@@ -3555,7 +3571,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'qr-code-generator': {
-    introduction: 'Generate QR codes.',
+    introduction:
+      'QR codes are everywhere — menus, business cards, event posters, packaging — because they let anyone jump from printed material straight to a URL, contact, or message with one camera tap. The QR Code Generator turns any URL, text, Wi-Fi credential, or contact into a clean, scannable QR code you can download as a PNG and drop anywhere. Customize the size and color to match your brand, and generate as many codes as you need for free, right in your browser.',
     howToUse: ['Enter text', 'Download QR code'],
     features: [
       'Generate QR codes from text or URLs.',
@@ -3592,7 +3609,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'date-calculator': {
-    introduction: 'Calculate date differences.',
+    introduction:
+      'How many days until a deadline? How long ago was a past event? What date will it be 90 days from now? The Date Calculator handles all of these in seconds — find the difference between two dates in years, months, and days, or add and subtract intervals to land on an exact future or past date. It accounts for leap years and varying month lengths automatically, making it useful for contract deadlines, project planning, travel scheduling, and any time precision matters.',
     howToUse: ['Select dates', 'See result'],
     features: [
       'Calculate the difference between two dates.',
@@ -3629,7 +3647,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'pomodoro-timer': {
-    introduction: 'Focus with the Pomodoro Timer.',
+    introduction:
+      'The Pomodoro Technique is one of the most research-backed productivity methods around: work in focused 25-minute blocks, take a 5-minute break, repeat. The structure prevents both procrastination and burnout by making tasks feel finite and protecting recovery time between them. This Pomodoro Timer lets you customize the work and break lengths, sounds an alert when each interval ends, and tracks your session count — all without ads, distractions, or app installs. Open it in a tab and stay in flow.',
     howToUse: ['Start timer', 'Work', 'Take break'],
     features: [
       'A timer to help you focus using the Pomodoro Technique.',
@@ -3666,7 +3685,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'meme-generator': {
-    introduction: 'Create memes.',
+    introduction:
+      'Memes are the internet\'s native language — and making a good one takes the right template and the right caption. The Meme Generator gives you a library of popular formats, lets you add top and bottom text with classic Impact-style styling, and produces a download-ready JPG in seconds. No Photoshop, no watermarks, no account. Whether you\'re creating content for a community, roasting a friend in a group chat, or putting together something for a presentation, the whole process takes under a minute.',
     howToUse: ['Select template', 'Add text', 'Download'],
     features: [
       'Create your own memes with popular templates.',
@@ -3703,7 +3723,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'unit-converter': {
-    introduction: 'Convert units.',
+    introduction:
+      'Switching between metric and imperial, cooking in a foreign recipe, checking a data transfer rate, converting fuel efficiency numbers — unit conversions come up constantly and manual math is error-prone. The Unit Converter handles length, weight, temperature, volume, data, speed, and more in one place. Type in a value, select your units, and get the result instantly. No ads, no slow page loads — it\'s a clean, fast utility that covers the conversions you actually run into.',
     howToUse: ['Select units', 'Enter value', 'See result'],
     features: [
       'Convert between different units of measurement.',
@@ -3776,7 +3797,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'currency-converter': {
-    introduction: 'Convert currencies.',
+    introduction:
+      'Whether you\'re budgeting for international travel, shopping from an overseas store, invoicing a client in a different country, or just trying to make sense of foreign prices, the Currency Converter gives you live exchange rates across 150+ currencies in one fast lookup. Pick your source and target currencies, enter an amount, and see the result instantly — updated from real market data so you\'re never working from a stale rate buried in a search result.',
     howToUse: ['Select currencies', 'Enter amount', 'See result'],
     features: [
       'Convert between different currencies.',
@@ -3812,7 +3834,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'world-clock': {
-    introduction: 'Check world times.',
+    introduction:
+      'Remote teams, global clients, friends scattered across continents — keeping track of time zones is a daily challenge when you work or communicate across borders. The World Clock lets you search any city, see its current local time, and build a personal dashboard of multiple locations you check regularly. It handles Daylight Saving Time automatically for every zone, so the times are always accurate without any mental arithmetic on your end.',
     howToUse: ['Search for city', 'See time'],
     features: [
       'Check the time in different cities around the world.',
@@ -3848,7 +3871,8 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
     ],
   },
   'timers-and-stopwatch': {
-    introduction: 'Use a timer or stopwatch.',
+    introduction:
+      'Sometimes you just need a clean timer without distractions. This Timers and Stopwatch tool combines a precise countdown timer and a lap-capable stopwatch in one simple interface. Set a countdown for cooking, meetings, workouts, or study sessions — or flip to stopwatch mode to measure elapsed time with lap splits. It uses high-precision browser timing so there\'s no drift over long sessions, and everything works offline once the page has loaded.',
     howToUse: ['Start', 'Stop', 'Reset'],
     features: [
       'A simple timer and stopwatch.',
