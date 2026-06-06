@@ -6,6 +6,9 @@ import type { ToolProps, ToolData } from '@/types';
 import { TOOL_COMPONENT_MAP } from '@/constants';
 import { ToolSkeleton } from '@/components/SkeletonLoader';
 import BreadcrumbWrapper from './BreadcrumbWrapper';
+import ToolDescription from './ToolDescription';
+import ToolCredits from './ToolCredits';
+import { SITE_CREDITS, TOOL_CREDITS } from '@/lib/credits';
 
 interface ToolLoaderProps {
   toolId: string;
@@ -37,11 +40,19 @@ const ToolLoader: React.FC<ToolLoaderProps> = ({ toolId, details, tool, children
     loading: () => <ToolSkeleton />,
   }) as React.ComponentType<ToolProps>;
 
+  const creditItems = [...(toolId ? TOOL_CREDITS[toolId] || [] : []), ...SITE_CREDITS];
+
   return (
     <Suspense fallback={<ToolSkeleton />}>
       {/* {children} */}
       <BreadcrumbWrapper />
       <DynamicToolComponent details={details} toolId={toolId} tool={tool} />
+      {details && (
+        <div className="animate-fade-in delay-500">
+          <ToolDescription details={details} />
+          <ToolCredits items={creditItems} />
+        </div>
+      )}
     </Suspense>
   );
 };

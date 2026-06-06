@@ -3989,4 +3989,427 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       },
     ],
   },
+
+  // ── AI Tools ─────────────────────────────────────────────────────────────
+  'ai-token-counter': {
+    introduction:
+      'Every AI model has a context window — a hard limit on how many tokens it can process at once. Exceed it and your request gets cut off or errors out. The AI Token Counter shows you exactly how many tokens your text will consume across GPT-4o, Claude, Gemini, Llama, and Mistral simultaneously, with a visual progress bar and live cost estimate for each. Paste any amount of text — prompts, documents, code, data — and plan your token budget before hitting send.',
+    howToUse: [
+      'Paste your text, upload a file (.txt, .md, .json, .csv, .py, etc.), or paste from clipboard.',
+      'View the instant token, character, word, and line count summary.',
+      'Check the Context Window Usage table to see how your text fits each model.',
+      'Use the estimated input cost column to compare model pricing before sending.',
+    ],
+    explanation:
+      'The tool estimates token count using a cl100k_base approximation (the tokenizer used by OpenAI models), which gives ±5% accuracy for English text. It divides the input into approximate token units based on average word and character ratios, then checks each model\'s published context window limit to generate the progress bars and cost estimates.',
+    usageExamples: [
+      'Checking whether a long document fits within Claude\'s 200,000-token context window before uploading.',
+      'Estimating the API cost of sending a large system prompt + data payload to GPT-4o.',
+      'Comparing which model is cheapest for a specific prompt length before switching providers.',
+      'Verifying a prompt template stays under a target token budget as you iterate on it.',
+    ],
+    features: [
+      'Multi-model comparison: check token usage against 10+ models in one view.',
+      'Live cost estimates: input pricing per model based on current published rates.',
+      'File upload support: analyze .txt, .md, .json, .csv, .py, .js, .ts, .html, .xml files.',
+      'Character, word, and line counts alongside token estimates.',
+      '100% browser-based: no text leaves your device.',
+    ],
+    underlyingConcept:
+      'LLMs don\'t process words — they process tokens, which are chunks of text (typically 3-4 characters for English). A tokenizer splits input into these chunks before processing. Different models use different tokenizers (cl100k_base for GPT, SentencePiece for Claude), so token counts vary slightly between providers. The context window is the total number of tokens a model can "see" at once, covering both the input and its output.',
+    faqs: [
+      {
+        question: 'How accurate are the token estimates?',
+        answer:
+          'The tool uses a cl100k_base approximation that gives ±5% accuracy for standard English text. For exact counts, use the official tokenizer libraries (tiktoken for OpenAI, the Anthropic SDK tokenizer for Claude).',
+      },
+      {
+        question: 'Why do different models show different token counts for the same text?',
+        answer:
+          'Each model family uses a slightly different tokenizer, which splits text differently. This tool shows an approximation; actual counts may vary ±5% depending on the model.',
+      },
+      {
+        question: 'Are the cost estimates accurate?',
+        answer:
+          'Cost estimates are based on publicly listed input token pricing at the time the tool was last updated. Always verify current pricing on the provider\'s pricing page before making decisions.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'ai-prompt-builder': {
+    introduction:
+      'Vague prompts get vague results. The AI Prompt Builder guides you through the six components of a well-structured prompt — Role, Context, Task, Input Data, Output Format, and Constraints — and assembles them into a single, ready-to-paste prompt for any LLM. Whether you\'re new to prompt engineering or just want a consistent structure for complex requests, the builder prevents the most common mistakes (no context, no format instructions, no constraints) and outputs a prompt you can copy directly into ChatGPT, Claude, or Gemini.',
+    howToUse: [
+      'Toggle the sections you want to include (Role, Context, Task, Input Data, Output Format, Constraints, Examples).',
+      'Fill in each active section with your specific details.',
+      'Watch the assembled prompt update in real time in the preview panel.',
+      'Click Copy to paste the final prompt directly into any AI model.',
+    ],
+    explanation:
+      'The builder concatenates each enabled section\'s content with clear section labels, producing a structured prompt that gives the AI model all the context it needs. Sections are optional — enable only what\'s relevant for your use case. The output is plain text formatted for direct use in any LLM interface or API call.',
+    usageExamples: [
+      'Building a reusable prompt template for a weekly reporting task, with a consistent role and output format.',
+      'Constructing a code review prompt with explicit constraints (no refactoring suggestions, focus only on security).',
+      'Creating a data transformation prompt that includes a sample input/output pair as an example.',
+      'Writing a customer support persona prompt with tone, restrictions, and escalation rules defined.',
+    ],
+    features: [
+      'Six structured sections covering all key prompt components.',
+      'Real-time prompt preview that updates as you type.',
+      'Toggle sections on/off — only include what you need.',
+      'One-click copy for pasting directly into ChatGPT, Claude, or any LLM.',
+      'Prompt tips panel with engineering best practices.',
+    ],
+    underlyingConcept:
+      'Prompt engineering is the practice of designing inputs to AI models to reliably get the desired output. Research consistently shows that prompts with explicit role definitions, context, and constraints outperform unstructured requests. The "Role-Context-Task-Format-Constraints" framework is one of the most widely used structures because it maps directly to how LLMs were fine-tuned to follow instructions.',
+    faqs: [
+      {
+        question: 'Do I need to fill in every section?',
+        answer:
+          'No — toggle on only the sections relevant to your task. For simple requests, just a Task section may be enough. For complex workflows, adding Role, Context, and Constraints significantly improves output quality.',
+      },
+      {
+        question: 'Can I save my prompts?',
+        answer:
+          'Currently the tool doesn\'t persist prompts between sessions. We recommend copying your assembled prompt and saving it in a notes app or document for reuse.',
+      },
+      {
+        question: 'Does this work for image generation models too?',
+        answer:
+          'The builder is designed for text-based LLMs. For image generation (Midjourney, DALL-E, Stable Diffusion), prompt structure is quite different and the builder\'s format may not apply directly.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'json-to-prompt': {
+    introduction:
+      'Feeding raw JSON directly into an AI model is wasteful — the curly braces, quotes, and nesting cost tokens without adding meaning. The JSON to AI Prompt converter transforms your JSON objects and arrays into clean, natural-language descriptions that LLMs process more efficiently. Paste any JSON structure, choose how much detail you want, and get a token-optimized prompt ready to copy. Ideal for anyone working with API responses, configuration files, or structured data who wants to extract insights via AI without burning their context window.',
+    howToUse: [
+      'Paste your JSON into the input panel.',
+      'Choose a verbosity level (concise, standard, or detailed).',
+      'Preview the generated natural-language prompt on the right.',
+      'Copy the output and paste it into your AI model with your actual question.',
+    ],
+    explanation:
+      'The converter parses your JSON and recursively describes its structure in plain English — object fields become labeled values, arrays become enumerated lists, and nested structures are flattened into readable prose. The verbosity setting controls how much structural metadata is preserved vs. simplified.',
+    usageExamples: [
+      'Converting an API response from a weather service into a prompt to ask Claude for a travel recommendation.',
+      'Transforming a product catalogue JSON into an AI-readable format for price comparison analysis.',
+      'Feeding a user object (name, preferences, history) to ChatGPT for personalized response generation.',
+      'Preparing a config file for an AI to explain or audit its settings in plain language.',
+    ],
+    features: [
+      'Handles nested objects, arrays, and mixed types.',
+      'Three verbosity levels: concise, standard, detailed.',
+      'Token count preview so you know how much context your JSON is using.',
+      'One-click copy of the generated prompt.',
+      '100% browser-based — no JSON data is uploaded anywhere.',
+    ],
+    underlyingConcept:
+      'LLMs are trained predominantly on natural language text, not JSON syntax. While they can parse JSON, they are measurably more accurate when data is presented in prose form — fewer tokens wasted on punctuation, better alignment with training distribution. Token-efficient prompts also reduce API costs and are less likely to exceed context windows with large datasets.',
+    faqs: [
+      {
+        question: 'Is there a file size limit?',
+        answer:
+          'The tool processes JSON in your browser, so the practical limit is your device\'s available memory. For very large files (>1 MB), consider filtering your JSON to only the relevant fields before converting.',
+      },
+      {
+        question: 'Can I upload a .json file instead of pasting?',
+        answer:
+          'Yes — use the file upload option to load a .json file directly from your device.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'csv-to-prompt': {
+    introduction:
+      'Spreadsheet data and AI models are a natural pair — but pasting a raw CSV into ChatGPT is inefficient and often exceeds context limits. The CSV to AI Prompt converter transforms your spreadsheet data into a structured, token-efficient prompt that LLMs can work with effectively. Choose which columns to include, set a row limit, pick an output format (table, list, or description), and get a clean, copy-ready prompt in seconds. Works entirely in your browser for files up to 50 MB.',
+    howToUse: [
+      'Upload a CSV file or paste CSV content directly.',
+      'Select which columns to include in the output.',
+      'Set a row limit if your data is large.',
+      'Choose an output format (table, JSON-style, or natural language list).',
+      'Copy the generated prompt and paste it into your AI model with your question.',
+    ],
+    explanation:
+      'The tool parses your CSV using the browser\'s built-in text processing, lets you filter to relevant columns and rows, then formats the selected data into a structure optimized for LLM consumption. Different output formats suit different tasks — table format works well for data analysis, list format for item-by-item processing, description format for narrative summarization.',
+    usageExamples: [
+      'Sending a subset of customer feedback rows to Claude for sentiment analysis.',
+      'Feeding product inventory data to ChatGPT to generate reorder recommendations.',
+      'Converting a survey results CSV into an AI-ready format for trend identification.',
+      'Preparing sales data for GPT-4 to generate an executive summary.',
+    ],
+    features: [
+      'Column selector — include only the fields relevant to your AI task.',
+      'Row limit control to stay within context windows.',
+      'Three output formats: table, list, and natural language description.',
+      'Handles files up to 50 MB entirely in the browser.',
+      'Token count estimate before you copy.',
+    ],
+    underlyingConcept:
+      'CSVs contain far more data than most AI tasks need. Selecting relevant columns before converting reduces token usage by 60–80% on typical datasets. Row limits prevent context overflow. The output format matters too — tables are token-heavy but preserve structure, while natural language descriptions are compact but lose granularity. Matching format to task is the key to efficient AI data work.',
+    faqs: [
+      {
+        question: 'What\'s the maximum file size supported?',
+        answer:
+          'The tool handles CSV files up to 50 MB in the browser. For larger files, pre-filter your data to the relevant rows/columns using a spreadsheet tool before uploading.',
+      },
+      {
+        question: 'Does it support Excel files (.xlsx)?',
+        answer:
+          'Currently the tool accepts CSV format. To use an Excel file, save it as CSV first from Excel or Google Sheets (File → Download → CSV).',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'ai-system-prompt-generator': {
+    introduction:
+      'A system prompt is the invisible foundation of every AI assistant interaction — it defines the persona, rules, tone, and boundaries before the user says a word. A poorly written system prompt leads to inconsistent, off-brand, or unsafe AI behavior. The System Prompt Generator lets you select a persona type, domain, communication style, restrictions, and output format, then produces a production-ready system prompt you can drop directly into your API call, custom GPT, or AI chatbot configuration. No prompt engineering experience needed.',
+    howToUse: [
+      'Choose the assistant\'s persona type (e.g. customer support agent, coding assistant, data analyst).',
+      'Select the domain or topic area the assistant should focus on.',
+      'Set the tone and communication style.',
+      'Add any restrictions or things the assistant should never do.',
+      'Click Generate and copy the ready-to-use system prompt.',
+    ],
+    explanation:
+      'The generator combines your selections into a structured system prompt following the OpenAI and Anthropic best-practice formats. It includes a persona definition, behavioral guidelines, scope restrictions, and output style instructions — the four components that matter most for consistent AI assistant behavior.',
+    usageExamples: [
+      'Creating a customer support system prompt for a SaaS product that stays on-topic and escalates edge cases.',
+      'Building a coding assistant persona for an internal tool that only discusses the company\'s tech stack.',
+      'Generating a content writing assistant prompt with brand voice guidelines and word count targets.',
+      'Setting up a tutoring assistant that explains concepts at a specific grade level.',
+    ],
+    features: [
+      'Persona library covering 20+ common assistant types.',
+      'Domain and topic focus settings.',
+      'Tone selector: formal, casual, technical, empathetic, and more.',
+      'Restriction builder for safety and scope boundaries.',
+      'Output format control (markdown, plain text, JSON responses).',
+    ],
+    underlyingConcept:
+      'System prompts work by establishing a persistent context before any user interaction. LLMs treat system prompt instructions with higher priority than user messages during fine-tuning. A well-structured system prompt with clear persona, scope, restrictions, and format instructions consistently outperforms ad-hoc prompting because it pre-loads the model\'s attention toward the right behavioral patterns.',
+    faqs: [
+      {
+        question: 'Where do I paste the generated system prompt?',
+        answer:
+          'In the OpenAI Playground or API: the "system" role message. In Claude API: the "system" parameter. In custom GPTs: the "Instructions" field. In most chatbot builders: the "System Instructions" or "Persona" configuration field.',
+      },
+      {
+        question: 'Can I edit the generated prompt?',
+        answer:
+          'Yes — the output is plain editable text. Treat the generated prompt as a starting point and customize it for your specific use case.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'context-window-calculator': {
+    introduction:
+      'Hitting a context window limit mid-conversation is one of the most frustrating problems when working with AI models. The Context Window Calculator shows you exactly how much of your document or text fits within each major model\'s context window — GPT-4o (128K), Claude 3.5 Sonnet (200K), Gemini 1.5 Pro (1M), and more — before you send anything. Paste your text, see the visual usage bars, and know immediately which models can handle your payload and which will truncate it.',
+    howToUse: [
+      'Paste your text or upload a file.',
+      'View the context window usage percentage for each supported model.',
+      'Green bars = fits comfortably. Yellow/orange = approaching the limit. Red = exceeds the window.',
+      'Select the model that gives you the most headroom for your use case.',
+    ],
+    explanation:
+      'The calculator estimates token count using a cl100k_base approximation and then computes the percentage of each model\'s context window that your text occupies. Visual progress bars make it instantly clear which models can handle the input and how much room remains for the model\'s output.',
+    usageExamples: [
+      'Checking whether a 200-page PDF\'s text will fit in Gemini 1.5 Pro\'s 1M token window before uploading.',
+      'Comparing whether a long conversation history still fits within GPT-4o when you need to continue a thread.',
+      'Verifying a large codebase snapshot fits within Claude\'s context window for a code review task.',
+      'Planning how many rows of a dataset can be included in a single AI API call.',
+    ],
+    features: [
+      'Visual usage bars for 10+ major AI models.',
+      'Supports text paste and file upload (.txt, .md, .json, .csv, .js, .py, etc.).',
+      'Color-coded status: comfortable (green), approaching limit (yellow/orange), exceeded (red).',
+      'Estimated input cost alongside context window usage.',
+      'All calculations run locally — no data uploaded.',
+    ],
+    underlyingConcept:
+      'Context window size determines the maximum amount of text an LLM can process in a single call — including both your input (system prompt + user message + conversation history) and the model\'s response. Different models have dramatically different limits: GPT-3.5 Turbo tops out at 16K tokens while Gemini 1.5 Pro handles 1 million. Knowing your text\'s token footprint before calling an API prevents expensive truncation errors.',
+    faqs: [
+      {
+        question: 'Does the context window include the model\'s response?',
+        answer:
+          'Yes — the total context window is shared between your input tokens and the model\'s output tokens. If your input uses 90% of the window, the model only has 10% of the window left for its response, which can cut off long answers.',
+      },
+      {
+        question: 'Why are token counts different from word counts?',
+        answer:
+          'Tokens are not words — they\'re character chunks used by the tokenizer. On average, 1 token ≈ 0.75 words in English, but code, JSON, and non-English text tokenize differently and use more tokens per word.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'ai-model-comparator': {
+    introduction:
+      'GPT-4o, Claude 3.5 Sonnet, Gemini 1.5 Pro, Llama 3, Mistral — the AI landscape changes fast and choosing the right model for a task isn\'t obvious. The AI Model Comparator gives you a clean, side-by-side breakdown of context window size, input/output pricing, key strengths, response speed, and ideal use cases for every major LLM. Whether you\'re deciding which model to build on, comparing costs for a high-volume API use case, or just trying to understand the differences, this reference is updated regularly and free to use.',
+    howToUse: [
+      'Browse the model comparison table for an overview of all models.',
+      'Filter by provider (OpenAI, Anthropic, Google, Meta, Mistral) or use case.',
+      'Compare specific models side-by-side for the attributes that matter to you.',
+      'Use the pricing columns to calculate estimated costs for your expected token volume.',
+    ],
+    explanation:
+      'The comparator pulls structured data covering context window limits, published API pricing (input and output token rates), known strengths, and recommended use cases for each model. Data is sourced from official provider documentation and updated periodically.',
+    usageExamples: [
+      'Deciding whether to use GPT-4o or Claude 3.5 Sonnet for a document analysis pipeline based on context window and cost.',
+      'Finding the cheapest model that meets a minimum context window requirement for a batch processing job.',
+      'Comparing Gemini 1.5 Flash vs GPT-4o mini for a high-volume summarization use case.',
+      'Evaluating open-weight models (Llama 3) against closed API models for a self-hosted deployment.',
+    ],
+    features: [
+      'Side-by-side comparison of 10+ major models.',
+      'Context window, pricing, speed, and strengths in one view.',
+      'Filter by provider or capability.',
+      'Regularly updated with current model data.',
+      'No login, no paywalls — always free.',
+    ],
+    underlyingConcept:
+      'LLM selection involves trade-offs between context window (how much input the model handles), quality (benchmark scores and real-world output quality), speed (tokens per second), cost (per-token API pricing), and availability (open-weight vs. API-only). No single model wins on all dimensions — the right choice depends on task type, volume, latency requirements, and budget.',
+    faqs: [
+      {
+        question: 'How often is the model data updated?',
+        answer:
+          'The comparator data is updated periodically as providers release new models or change pricing. For the most current pricing, always verify on the provider\'s official pricing page before committing to production usage.',
+      },
+      {
+        question: 'Are the benchmark scores included?',
+        answer:
+          'The comparator focuses on practical specs (pricing, context window, use cases) rather than academic benchmarks, which can be misleading for real-world tasks.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'prompt-template-library': {
+    introduction:
+      'Starting a prompt from scratch every time is slow and inconsistent. The AI Prompt Template Library gives you 100+ ready-to-use, copy-and-paste prompt templates across the most common use cases — coding, content writing, data analysis, SEO, email writing, debugging, and more. Each template is written to follow prompt engineering best practices, with placeholders you can fill in. Whether you\'re using ChatGPT, Claude, Gemini, or any other LLM, these templates save you the trial-and-error of finding what works.',
+    howToUse: [
+      'Browse by category (Coding, Writing, Data, SEO, Business, etc.) or search for a specific task.',
+      'Click any template to expand it and see the full prompt.',
+      'Click Copy to paste it directly into your AI model.',
+      'Replace the placeholder text (shown in [brackets]) with your specific details.',
+    ],
+    explanation:
+      'Each template is pre-structured with the key components of an effective prompt — role, context, task, and format instructions. The placeholders guide you to fill in the parts that vary while keeping the proven structural patterns intact.',
+    usageExamples: [
+      'Using the "Code Review" template to ask Claude to review a pull request with specific focus areas.',
+      'Using the "Blog Post" template to generate a structured draft with SEO-optimized headings.',
+      'Using the "Data Analysis" template to feed a CSV summary to ChatGPT for business insights.',
+      'Using the "Email Reply" template to draft professional responses to difficult customer messages.',
+    ],
+    features: [
+      '100+ templates across 10+ categories.',
+      'One-click copy for any template.',
+      'Browse by category or search by keyword.',
+      'Templates designed for ChatGPT, Claude, Gemini, and all major LLMs.',
+      'Regularly expanded with new templates.',
+    ],
+    underlyingConcept:
+      'Prompt templates work because LLMs are sensitive to how tasks are framed. The same underlying request can produce dramatically different quality outputs depending on the structure and specificity of the prompt. Templates encode the structural patterns that consistently produce good results, letting you focus on filling in your specific content rather than figuring out the framing from scratch.',
+    faqs: [
+      {
+        question: 'Do these templates work with any AI model?',
+        answer:
+          'Yes — the templates use natural language instructions that work across ChatGPT, Claude, Gemini, Llama, Mistral, and any other instruction-following LLM. Some templates note if they\'re particularly well-suited to a specific model.',
+      },
+      {
+        question: 'Can I suggest new templates?',
+        answer:
+          'Yes — use the "Request a Tool" link at the top of the site to suggest new templates or categories you\'d like to see added.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'ai-text-summarizer': {
+    introduction:
+      'Large documents — research papers, legal contracts, long transcripts, entire codebases — exceed the context windows of even the most capable AI models. The AI Text Chunker splits any text into token-sized chunks that fit within your chosen model\'s context window, with optional overlap between chunks so you don\'t lose context at boundaries. Upload a file up to 10 MB, set the chunk size in tokens or words, and download all chunks ready for batch processing through your AI model of choice.',
+    howToUse: [
+      'Paste text or upload a file (up to 10 MB).',
+      'Set the target chunk size in tokens (or words).',
+      'Set the overlap size to preserve context at chunk boundaries.',
+      'Preview the chunks and copy them individually, or download all as a ZIP.',
+    ],
+    explanation:
+      'The tool splits text at natural boundaries (paragraph breaks, sentence ends) where possible, targeting your specified token count per chunk. The overlap setting duplicates the last N tokens of each chunk at the start of the next, ensuring that sentences or ideas spanning a boundary aren\'t lost when processing chunks independently.',
+    usageExamples: [
+      'Chunking a 100-page legal contract into Claude-sized pieces for clause-by-clause analysis.',
+      'Splitting a long research paper into overlapping chunks for a RAG (Retrieval-Augmented Generation) pipeline.',
+      'Processing a large codebase file-by-file for automated code review.',
+      'Dividing a long transcript into segments for sequential summarization.',
+    ],
+    features: [
+      'Token-based and word-based chunking modes.',
+      'Configurable overlap to preserve cross-chunk context.',
+      'Natural boundary detection — splits at paragraphs and sentences where possible.',
+      'File upload up to 10 MB — no server upload required.',
+      'Download all chunks as individual text files in a ZIP.',
+    ],
+    underlyingConcept:
+      'When a document exceeds a model\'s context window, you must process it in pieces. Naive chunking (splitting at fixed character positions) often cuts mid-sentence. Natural boundary chunking preserves readability. Overlap ensures that information spanning two chunks — a sentence that starts in chunk N and ends in chunk N+1 — is visible to both processing passes, reducing boundary-related information loss.',
+    faqs: [
+      {
+        question: 'What overlap size should I use?',
+        answer:
+          'A 10-15% overlap of your chunk size is a good starting point — e.g. 100–150 token overlap for 1000-token chunks. Larger overlaps preserve more cross-chunk context at the cost of more total tokens processed.',
+      },
+      {
+        question: 'Does the tool support PDF files?',
+        answer:
+          'Currently the tool accepts plain text files (.txt, .md). For PDFs, copy the text content first or use a PDF-to-text converter before uploading.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
+
+  'ai-output-formatter': {
+    introduction:
+      'AI models sometimes return messy output — malformed JSON, inconsistent markdown, extra explanation text wrapped around a code block, or strange artifacts from hallucination. The AI Output Formatter cleans and structures raw AI responses so they\'re actually usable. Paste ChatGPT, Claude, or Gemini output and choose a cleanup mode: fix broken JSON, render markdown as HTML, strip unwanted commentary from code outputs, or reformat lists and tables into clean structures. Saves the copy-paste-fix cycle that slows down AI-assisted workflows.',
+    howToUse: [
+      'Paste raw AI model output into the input panel.',
+      'Select the formatting operation (Fix JSON, Render Markdown, Strip Artifacts, Reformat Table, etc.).',
+      'Preview the cleaned output.',
+      'Copy the formatted result.',
+    ],
+    explanation:
+      'Each formatting mode applies targeted transformations to common AI output patterns. JSON fixer repairs trailing commas, missing quotes, and extra text surrounding JSON blocks. Markdown renderer converts the output to HTML. Artifact stripper removes common hallucination patterns (unfinished tags, repeated phrases, meta-commentary like "Here is the requested output:"). Table formatter normalizes inconsistent spacing in markdown tables.',
+    usageExamples: [
+      'Fixing truncated JSON from a GPT-4 function call response before parsing it in code.',
+      'Stripping "Sure! Here is..." preamble from Claude responses before using the content in production.',
+      'Rendering a markdown-formatted document response as clean HTML for display.',
+      'Normalizing a GPT-generated markdown table with inconsistent column widths.',
+    ],
+    features: [
+      'JSON fixer: repairs common malformed JSON patterns.',
+      'Markdown renderer: converts to clean HTML output.',
+      'Artifact stripper: removes meta-commentary and AI preambles.',
+      'Table formatter: normalizes markdown table alignment.',
+      'All processing is local — AI output never leaves your browser.',
+    ],
+    underlyingConcept:
+      'LLMs generate text probabilistically and are not guaranteed to produce syntactically valid structured output (JSON, XML, CSV) even when instructed to. Common failure modes include trailing commas in JSON, inconsistent quote types, explanatory text before/after code blocks, and incomplete generation. Post-processing formatters fill this reliability gap when strict output validation is needed.',
+    faqs: [
+      {
+        question: 'Can this fix completely broken JSON from an AI model?',
+        answer:
+          'The JSON fixer handles the most common issues: trailing commas, single quotes instead of double quotes, and extra text wrapping a JSON block. Severely malformed JSON (missing braces, deep structural issues) may require manual correction.',
+      },
+      {
+        question: 'Does the Markdown renderer support GitHub Flavored Markdown?',
+        answer:
+          'Yes — the renderer supports GFM including tables, task lists, strikethrough, and fenced code blocks with syntax highlighting.',
+      },
+    ],
+    privacy: PRIVACY_STATEMENT,
+  },
 };

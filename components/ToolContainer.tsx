@@ -1,12 +1,8 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
-import type { Tool, ToolDetails } from '@/types';
-import ToolDescription from './ToolDescription';
+import React, { useEffect, useState } from 'react';
+import type { ToolDetails } from '@/types'; // kept for prop interface compatibility
 import ShareButton from './ShareButton';
-import ToolCredits from './ToolCredits';
-import { SITE_CREDITS, TOOL_CREDITS } from '@/lib/credits';
-import ToolCard from './ToolCard'; // Import ToolCard for recommended tools
 import Link from 'next/link';
 import { TOOLS } from '@/constants';
 import { Heart } from 'lucide-react';
@@ -16,29 +12,27 @@ import { useSession } from 'next-auth/react';
 interface ToolContainerProps {
   title: string;
   children: React.ReactNode;
-  details: ToolDetails;
+  details?: ToolDetails; // kept for API compatibility — rendering moved to ToolLoader
   toolId?: string;
   headerContent?: React.ReactNode;
-  suppressRecommendations?: boolean;
+  suppressRecommendations?: boolean; // kept for API compatibility, no longer used
   variant?: 'card' | 'transparent';
 }
 
 const ToolContainer: React.FC<ToolContainerProps> = ({
   title,
   children,
-  details,
+  details: _details,
   toolId,
   headerContent,
-  suppressRecommendations,
+  suppressRecommendations: _suppressRecommendations,
   variant = 'card',
 }) => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const { favorites, isFavorite, toggleFavorite } = useFavoritesStore();
   const { data: session } = useSession();
   const [isFav, setIsFav] = useState(false);
 
   const currentTool = toolId ? TOOLS.find(tool => tool.id === toolId) : undefined;
-  const currentToolCategory = currentTool ? currentTool.category : undefined;
 
   // Sync with favorites store - depend on favorites array so it updates when changed
   useEffect(() => {
@@ -60,22 +54,6 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
       toggleFavorite(toolId);
     }
   };
-
-  const scroll = (scrollOffset: number) => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: scrollOffset,
-        behavior: 'smooth',
-      });
-    }
-  };
-
-  const recommendedTools = currentToolCategory
-    ? TOOLS.filter(tool => tool.category === currentToolCategory && tool.id !== toolId)
-    : [];
-
-  /* Recommended Tools */
-  const showRecommendations = !suppressRecommendations && recommendedTools.length > 0;
 
   return (
     <div className="animate-fade-in space-y-2">
@@ -127,74 +105,7 @@ const ToolContainer: React.FC<ToolContainerProps> = ({
         </div>
       )}
 
-      {/* Recommended Tools */}
-      {showRecommendations && (
-        <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-2xl border border-gray-200 dark:border-gray-700 animate-fade-in delay-300">
-          <div className="flex justify-between items-center mb-6">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-              More {currentToolCategory}
-            </h3>
-            <div className="flex space-x-2">
-              <button
-                onClick={() => scroll(-300)}
-                className="p-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-gray-600 dark:text-gray-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <button
-                onClick={() => scroll(300)}
-                className="p-2 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 text-gray-600 dark:text-gray-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div
-            ref={scrollContainerRef}
-            className="flex overflow-x-auto space-x-4 pb-4 scrollbar-hide snap-x"
-          >
-            {recommendedTools.map(tool => (
-              <div key={tool.id} className="flex-none w-72 snap-start">
-                <Link href={`/tools/${tool.id}`} className="block h-full">
-                  <ToolCard tool={tool as unknown as Tool} isCompact />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
-      {/* Description & Credits */}
-      <div className="animate-fade-in delay-500">
-        <ToolDescription details={details} />
-        <ToolCredits items={[...(toolId ? TOOL_CREDITS[toolId] || [] : []), ...SITE_CREDITS]} />
-      </div>
     </div>
   );
 };
