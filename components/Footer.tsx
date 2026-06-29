@@ -5,6 +5,8 @@ import { TOOLS, CATEGORY_ORDER, CATEGORY_URL_MAP } from '@/constants';
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
+  // Per-category tool counts — used to expose a compact site map to Google
+  // for crawl depth, and to give human visitors a quick overview.
   const categoryEntries = CATEGORY_ORDER.map(category => ({
     category,
     label: category.replace(/\s+Tools$/i, ''),
@@ -16,6 +18,7 @@ const Footer = () => {
     <footer className="bg-light-background dark:bg-dark-background border-t border-gray-200 dark:border-gray-700 mt-auto">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="py-8 sm:py-10">
+          {/* Site map — exposes every category to crawlers and to the user. */}
           <nav
             aria-label="Browse tools by category"
             className="grid grid-cols-2 gap-x-6 gap-y-2 border-b border-gray-200 pb-8 sm:grid-cols-3 md:grid-cols-5 dark:border-gray-700"
@@ -33,14 +36,17 @@ const Footer = () => {
                 <span className="text-xs text-gray-500 dark:text-gray-400">({count})</span>
               </Link>
             ))}
-            <Link href="/tools" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-400">
-              All tools &rarr;
+            <Link
+              href="/tools"
+              className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
+            >
+              All tools →
             </Link>
-            <Link href="/collections" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-400">
-              Collections &rarr;
-            </Link>
-            <Link href="/blogs" className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-400">
-              Blog &rarr;
+            <Link
+              href="/blogs"
+              className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-400"
+            >
+              Blog →
             </Link>
           </nav>
 
@@ -53,10 +59,30 @@ const Footer = () => {
             </div>
 
             <nav className="flex flex-wrap justify-center md:justify-end items-center gap-x-4 sm:gap-x-6 gap-y-2">
-              <Link href="/about" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1">About</Link>
-              <Link href="/contact" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1">Contact</Link>
-              <Link href="/privacy" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1">Privacy</Link>
-              <Link href="/terms" className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1">Terms</Link>
+              <Link
+                href="/about"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1"
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1"
+              >
+                Contact
+              </Link>
+              <Link
+                href="/privacy"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1"
+              >
+                Privacy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-sm text-light-text dark:text-dark-text hover:text-accent transition-colors py-2 px-1"
+              >
+                Terms
+              </Link>
             </nav>
           </div>
         </div>

@@ -64,30 +64,6 @@ const HomePageClient: React.FC = () => {
           </div>
         </div>
 
-        {/* Social Proof Stats Bar */}
-        <div className="mb-12 sm:mb-16 animate-fade-in delay-300">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-3xl mx-auto px-4">
-            {[
-              { value: `${toolCount}+`, label: 'Free Tools' },
-              { value: '100%', label: 'Browser Processing' },
-              { value: '0', label: 'Data Uploaded' },
-              { value: 'No', label: 'Sign-up Required' },
-            ].map((stat) => (
-              <div
-                key={stat.label}
-                className="text-center py-4 px-2 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700"
-              >
-                <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">
-                  {stat.value}
-                </div>
-                <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Explore Tools Section */}
         <ExploreToolsSection />
 
@@ -223,4 +199,40 @@ const HomePageClient: React.FC = () => {
               const description = CATEGORY_DESCRIPTIONS[category];
               const tool: Tool = {
                 id: CATEGORY_URL_MAP[category] ?? 'default-id', // ensure id exists
-                name: ca
+                name: category as ToolCategory,
+                description,
+                icon: <CategoryIcon className="w-6 h-6 sm:w-8 sm:h-8 text-blue-500" />,
+                category: category as ToolCategory,
+                component: () => null, // placeholder component for now
+                details: {} as ToolDetails,
+                featured: false,
+                keywords: [],
+                tags: [],
+              };
+
+              return (
+                <div
+                  key={category}
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <Link
+                    href={`/tools/category/${CATEGORY_URL_MAP[category]}`}
+                    className="block h-full"
+                  >
+                    <ToolCard tool={tool} />
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <FaqSection />
+      </div>
+    </main>
+  );
+};
+
+export default HomePageClient;
