@@ -42,7 +42,7 @@ const BlogsPage = () => {
               <p className="brand-text-muted mb-2">
                 {blog.date} | {blog.category}
               </p>
-              <h2 className="brand-heading-3 mb-2">{blog.title}</h2>
+              <Link href={`/blogs/${blog.id}`} className="brand-heading-3 mb-2 hover:underline block">{blog.title}</Link>
               <p className="brand-text-body mb-4">{blog.description}</p>
               <Link href={`/blogs/${blog.id}`} className="brand-text-link">
                 Read more &rarr;

@@ -17,11 +17,31 @@ import {
   Type,
   Copy,
   ArrowDownToLine,
+  FoldVertical,
 } from 'lucide-react';
 import { AIActionButton } from '@/components/AIActionButton';
 import { explainDiff } from '@/lib/sarvamAI';
 
 const MAX_FILE_MB = 10;
+
+const LANGUAGES = [
+  'plaintext',
+  'json',
+  'javascript',
+  'typescript',
+  'html',
+  'css',
+  'python',
+  'sql',
+  'yaml',
+  'xml',
+  'markdown',
+  'java',
+  'go',
+  'rust',
+  'shell',
+] as const;
+type DiffLanguage = (typeof LANGUAGES)[number];
 
 interface DiffStats {
   added: number;
@@ -41,6 +61,8 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
   const [renderSideBySide, setRenderSideBySide] = useState(true);
   const [ignoreTrimWhitespace, setIgnoreTrimWhitespace] = useState(false);
   const [wordWrap, setWordWrap] = useState<'on' | 'off'>('on');
+  const [language, setLanguage] = useState<DiffLanguage>('plaintext');
+  const [hideUnchanged, setHideUnchanged] = useState(false);
   const [stats, setStats] = useState<DiffStats>({ added: 0, removed: 0, changes: 0 });
 
   useEffect(() => {
@@ -236,7 +258,36 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
           >
             <Type className="w-4 h-4" />
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              syncEditorState();
+              setHideUnchanged(prev => !prev);
+            }}
+            aria-pressed={hideUnchanged}
+            className={`${pillBase} ${hideUnchanged ? pillActive : pillIdle}`}
+            title="Collapse unchanged regions"
+          >
+            <FoldVertical className="w-4 h-4" />
+          </button>
         </div>
+
+        <select
+          value={language}
+          onChange={e => {
+            syncEditorState();
+            setLanguage(e.target.value as DiffLanguage);
+          }}
+          aria-label="Syntax highlighting language"
+          title="Syntax highlighting"
+          className="h-8 px-2 text-xs rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-700 dark:text-gray-200"
+        >
+          {LANGUAGES.map(l => (
+            <option key={l} value={l}>
+              {l}
+            </option>
+          ))}
+        </select>
 
         <div
           className="ml-1 inline-flex items-center gap-2 text-xs font-mono tabular-nums"
@@ -357,7 +408,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
         <div className="flex-1 relative">
           <DiffEditor
             height="100%"
-            language="plaintext"
+            language={language}
             original={originalText}
             modified={modifiedText}
             onMount={handleEditorDidMount}
@@ -373,6 +424,7 @@ const DiffChecker: React.FC<ToolProps> = ({ details, toolId }) => {
               readOnly: false,
               wordWrap,
               ignoreTrimWhitespace,
+              hideUnchangedRegions: { enabled: hideUnchanged },
               minimap: { enabled: false },
               scrollBeyondLastLine: false,
               automaticLayout: true,

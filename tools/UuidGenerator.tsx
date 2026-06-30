@@ -13,6 +13,19 @@ import { Copy, Download, RefreshCw } from 'lucide-react';
 
 type Format = 'standard' | 'uppercase' | 'no-hyphens' | 'braces';
 type Version = 'v4' | 'v7';
+type ExportFmt = 'txt' | 'json' | 'csv';
+
+function serialize(items: string[], fmt: ExportFmt): string {
+  switch (fmt) {
+    case 'json':
+      return JSON.stringify(items, null, 2);
+    case 'csv':
+      return 'index,uuid\n' + items.map((u, i) => `${i + 1},${u}`).join('\n');
+    case 'txt':
+    default:
+      return items.join('\n');
+  }
+}
 
 // Minimal v7 implementation (time-ordered UUID, draft RFC 9562). v4 from crypto.randomUUID.
 function uuidV4(): string {
@@ -62,6 +75,7 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const [count, setCount] = useState(10);
   const [version, setVersion] = useState<Version>('v4');
   const [fmt, setFmt] = useState<Format>('standard');
+  const [exportFmt, setExportFmt] = useState<ExportFmt>('txt');
   const [list, setList] = useState<string[]>(() => Array.from({ length: 10 }, uuidV4));
   const toast = useToast();
 
@@ -88,24 +102,29 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
   const copyAll = useCallback(async () => {
     if (formatted.length === 0) return;
     try {
-      await navigator.clipboard.writeText(formatted.join('\n'));
-      toast.success(`${formatted.length} UUIDs copied`);
+      await navigator.clipboard.writeText(serialize(formatted, exportFmt));
+      toast.success(`${formatted.length} UUIDs copied as ${exportFmt.toUpperCase()}`);
     } catch {
       toast.error('Copy failed');
     }
-  }, [formatted, toast]);
+  }, [formatted, exportFmt, toast]);
 
   const download = useCallback(() => {
-    const blob = new Blob([formatted.join('\n')], { type: 'text/plain;charset=utf-8' });
+    const mimeByFmt: Record<ExportFmt, string> = {
+      txt: 'text/plain;charset=utf-8',
+      json: 'application/json;charset=utf-8',
+      csv: 'text/csv;charset=utf-8',
+    };
+    const blob = new Blob([serialize(formatted, exportFmt)], { type: mimeByFmt[exportFmt] });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `uuids-${version}.txt`;
+    a.download = `uuids-${version}.${exportFmt}`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-  }, [formatted, version]);
+  }, [formatted, exportFmt, version]);
 
   return (
     <ToolContainer title="UUID Generator" details={details} toolId={toolId}>
@@ -173,7 +192,7 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               </div>
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2 items-center">
             <Button onClick={generate}>
               <RefreshCw className="w-4 h-4 mr-2" /> Generate
             </Button>
@@ -181,8 +200,30 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
               <Copy className="w-4 h-4 mr-1" /> Copy all
             </Button>
             <Button variant="outline" size="sm" onClick={download} disabled={formatted.length === 0}>
-              <Download className="w-4 h-4 mr-1" /> Download .txt
+              <Download className="w-4 h-4 mr-1" /> Download .{exportFmt}
             </Button>
+            <div
+              className="inline-flex rounded-lg border border-gray-200 dark:border-gray-700 p-0.5 bg-white dark:bg-gray-900"
+              role="group"
+              aria-label="Export format"
+            >
+              {(['txt', 'json', 'csv'] as ExportFmt[]).map(f => (
+                <button
+                  key={f}
+                  type="button"
+                  onClick={() => setExportFmt(f)}
+                  aria-pressed={exportFmt === f}
+                  className={`px-2 py-1 text-[11px] font-mono uppercase rounded ${
+                    exportFmt === f
+                      ? 'bg-blue-600 text-white'
+                      : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  }`}
+                  title={`Export as ${f.toUpperCase()}`}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
           </div>
         </Card>
 
@@ -204,9 +245,7 @@ const UuidGenerator: React.FC<ToolProps> = ({ details, toolId }) => {
                 </button>
               </div>
             ) : (
-              <p className="text-gray-500 dark:text-gray-400 italic text-center">
-                No UUIDs yet.
-              </p>
+              <p className="text-gray-500 dark:text-gray-400 italic text-center">No UUIDs yet.</p>
             )}
           </Card>
         ) : (

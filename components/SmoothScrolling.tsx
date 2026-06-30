@@ -19,6 +19,10 @@ function isScrollable(node: Element): boolean {
   // Explicit opt-out — always respected
   if (node.hasAttribute('data-lenis-prevent')) return true;
 
+  // Always let textareas handle their own scroll natively, regardless of
+  // current content height — they may receive content dynamically.
+  if (node.nodeName === 'TEXTAREA') return true;
+
   const style = window.getComputedStyle(node);
   const overflowY = style.overflowY;
   const overflowX = style.overflowX;

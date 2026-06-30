@@ -28,7 +28,7 @@ const CategoryPage = async ({ params }: { params: Promise<{ categoryName: string
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredBlogs.map((blog: Blog) => (
           <div key={blog.id} className="brand-card p-6">
-            <h2 className="brand-heading-3 mb-2">{blog.title}</h2>
+            <Link href={`/blogs/${blog.id}`} className="brand-heading-3 mb-2 hover:underline block">{blog.title}</Link>
             <p className="brand-text-body mb-4">{blog.description}</p>
             <Link href={`/blogs/${blog.id}`} className="brand-text-link">
               Read more

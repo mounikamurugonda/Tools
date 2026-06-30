@@ -207,6 +207,9 @@ const Header: React.FC = () => {
                 </div>
               </div>
 
+              <NavLink href="/collections" onClick={closeAllMenus} pathname={pathname}>
+                Collections
+              </NavLink>
               <NavLink href="/blogs" onClick={closeAllMenus} pathname={pathname}>
                 Blog
               </NavLink>

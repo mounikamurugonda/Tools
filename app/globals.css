@@ -78,6 +78,12 @@
     color-scheme: dark;
   }
 
+  /* Global textarea scroll fix — ensures native scroll always works inside
+     textareas regardless of parent overflow or Lenis smooth-scroll interception */
+  textarea {
+    overflow: auto;
+  }
+
   /* Refined Scrollbar */
   ::-webkit-scrollbar {
     width: 8px;

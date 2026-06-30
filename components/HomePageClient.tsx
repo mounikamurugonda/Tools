@@ -64,6 +64,30 @@ const HomePageClient: React.FC = () => {
           </div>
         </div>
 
+        {/* Social Proof Stats Bar */}
+        <div className="mb-12 sm:mb-16 animate-fade-in delay-300">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-3xl mx-auto px-4">
+            {[
+              { value: `${toolCount}+`, label: 'Free Tools' },
+              { value: '100%', label: 'Browser Processing' },
+              { value: '0', label: 'Data Uploaded' },
+              { value: 'No', label: 'Sign-up Required' },
+            ].map((stat) => (
+              <div
+                key={stat.label}
+                className="text-center py-4 px-2 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700"
+              >
+                <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400">
+                  {stat.value}
+                </div>
+                <div className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1 font-medium">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* Explore Tools Section */}
         <ExploreToolsSection />
 

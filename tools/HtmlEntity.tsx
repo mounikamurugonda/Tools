@@ -5,7 +5,7 @@ import type { ToolProps } from '@/types';
 import ConverterLayout from '@/components/ConverterLayout';
 import Button from '@/components/ui/Button';
 import { useToast } from '@/components/ui/ToastProvider';
-import { ArrowLeftRight } from 'lucide-react';
+import { ArrowLeftRight, Download } from 'lucide-react';
 
 type Mode = 'encode' | 'decode';
 type EncodeScheme = 'named' | 'decimal' | 'hex';
@@ -16,7 +16,7 @@ const NAMED: Record<string, string> = {
   '>': '&gt;',
   '"': '&quot;',
   "'": '&#39;',
-  ' ': '&nbsp;',
+  ' ': '&nbsp;',
   '©': '&copy;',
   '®': '&reg;',
   '™': '&trade;',
@@ -66,7 +66,7 @@ function encode(input: string, scheme: EncodeScheme, all: boolean): string {
 const NAMED_REVERSE = (() => {
   // Common HTML5 named entities — enough for the inverse of NAMED plus a few extras users will paste.
   const map: Record<string, string> = {
-    amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
+    amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ',
     copy: '©', reg: '®', trade: '™', euro: '€', pound: '£', yen: '¥', cent: '¢',
     sect: '§', para: '¶', plusmn: '±', times: '×', divide: '÷', deg: '°', micro: 'µ',
     ndash: '–', mdash: '—', hellip: '…', lsquo: '‘', rsquo: '’', ldquo: '“', rdquo: '”',
@@ -76,7 +76,9 @@ const NAMED_REVERSE = (() => {
   return map;
 })();
 
-function decode(input: string): string {
+// Regex-based decode covering numeric refs + a curated named subset.
+// Used as the SSR fallback when no DOM is available.
+function decodeRegex(input: string): string {
   return input.replace(/&(#x[0-9a-fA-F]+|#[0-9]+|[a-zA-Z][a-zA-Z0-9]+);/g, (match, name: string) => {
     if (name.startsWith('#x') || name.startsWith('#X')) {
       const cp = parseInt(name.slice(2), 16);
@@ -88,6 +90,18 @@ function decode(input: string): string {
     }
     return NAMED_REVERSE[name] ?? match;
   });
+}
+
+function decode(input: string): string {
+  // In the browser, a detached <textarea> decodes the FULL HTML5 named-entity
+  // set plus every numeric reference. It is RCDATA, so tags stay literal and no
+  // scripts run — it is purely a string decode, never inserted into the page.
+  if (typeof document !== 'undefined') {
+    const ta = document.createElement('textarea');
+    ta.innerHTML = input;
+    return ta.value;
+  }
+  return decodeRegex(input);
 }
 
 const HtmlEntity: React.FC<ToolProps> = ({ details, toolId }) => {
@@ -111,6 +125,19 @@ const HtmlEntity: React.FC<ToolProps> = ({ details, toolId }) => {
     setInput(output);
     toast.info(`Switched to ${mode === 'encode' ? 'decode' : 'encode'}`);
   }, [mode, output, toast]);
+
+  const download = useCallback(() => {
+    if (!output) return;
+    const blob = new Blob([output], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = mode === 'encode' ? 'encoded.txt' : 'decoded.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, [output, mode]);
 
   const actions = (
     <div className="flex flex-col gap-3 w-full lg:w-44">
@@ -163,6 +190,9 @@ const HtmlEntity: React.FC<ToolProps> = ({ details, toolId }) => {
       )}
       <Button onClick={swap} variant="outline" size="sm" disabled={!output}>
         <ArrowLeftRight className="w-4 h-4 mr-1.5" /> Swap
+      </Button>
+      <Button onClick={download} variant="outline" size="sm" disabled={!output}>
+        <Download className="w-4 h-4 mr-1.5" /> Download
       </Button>
       <div className="text-[10px] text-center text-gray-500 dark:text-gray-400 tabular-nums">
         {output ? `${input.length} → ${output.length} chars` : ''}
