@@ -19,6 +19,8 @@ const nextConfig = {
             // Consolidated into bi-directional /tools/json-csv-converter (handles both directions).
             { source: '/tools/csv-to-json', destination: '/tools/json-csv-converter', permanent: true },
             { source: '/tools/json-to-csv', destination: '/tools/json-csv-converter', permanent: true },
+            // Consolidated into bi-directional /tools/image-to-base64 (now handles encode + decode).
+            { source: '/tools/base64-to-image', destination: '/tools/image-to-base64', permanent: true },
 
             // --- Clear GSC 404s (old URLs Google crawled Dec 2025–Jan 2026) ---
             // Renamed tool id.
@@ -43,13 +45,4 @@ const nextConfig = {
                         value: 'require-corp',
                     },
                     {
-                        key: 'Cross-Origin-Opener-Policy',
-                        value: 'same-origin',
-                    },
-                ],
-            },
-        ];
-    },
-};
-
-export default nextConfig;
+           

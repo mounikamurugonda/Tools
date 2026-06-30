@@ -6,9 +6,29 @@ import ToolCard from './ToolCard';
 import Link from 'next/link';
 import { ChevronRightIcon } from './icons';
 
+// Flagship tools — ordered by real Google Search Console performance (clicks).
+// Surfacing the proven traffic-drivers high on the homepage strengthens internal
+// linking to the pages that actually rank, which lifts their CTR and authority.
+const FLAGSHIP_TOOL_IDS = [
+  'morse-converter',
+  'trim-video',
+  'markdown-table-generator',
+  'code-to-image',
+  'password-strength',
+  'hashtag-extractor',
+  'video-mute',
+  'svg-to-data-uri',
+];
+
 const MostViewedTools: React.FC = () => {
-  // Show popular tools that are not featured
-  const popularTools = TOOLS.filter(tool => !tool.featured).slice(0, 6);
+  // Resolve flagship ids to tools, preserving the performance-ranked order and
+  // skipping any id that no longer exists. Fall back to the first tools only if
+  // none of the flagships resolve (keeps the section from ever rendering empty).
+  const byId = new Map(TOOLS.map(tool => [tool.id, tool]));
+  const flagship = FLAGSHIP_TOOL_IDS.map(id => byId.get(id)).filter(
+    (tool): tool is (typeof TOOLS)[number] => Boolean(tool)
+  );
+  const popularTools = (flagship.length > 0 ? flagship : TOOLS).slice(0, 6);
 
   if (popularTools.length === 0) {
     return null;

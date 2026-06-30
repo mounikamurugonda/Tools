@@ -9,6 +9,17 @@ import Button from '@/components/ui/Button';
 import { useToast } from '@/components/ui/ToastProvider';
 import { Copy } from 'lucide-react';
 
+// One-click channel presets fill in the conventional source/medium pair for each
+// marketing channel, the single biggest source of inconsistent UTM tagging.
+const PRESETS: { label: string; source: string; medium: string }[] = [
+  { label: 'Google Ads', source: 'google', medium: 'cpc' },
+  { label: 'Facebook', source: 'facebook', medium: 'paid_social' },
+  { label: 'Instagram', source: 'instagram', medium: 'paid_social' },
+  { label: 'LinkedIn', source: 'linkedin', medium: 'paid_social' },
+  { label: 'Email', source: 'newsletter', medium: 'email' },
+  { label: 'Organic Social', source: 'twitter', medium: 'social' },
+];
+
 const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
   const [url, setUrl] = useState('');
   const [source, setSource] = useState('');
@@ -18,6 +29,12 @@ const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
   const [content, setContent] = useState('');
   const [lowercase, setLowercase] = useState(true);
   const toast = useToast();
+
+  const applyPreset = (p: { label: string; source: string; medium: string }) => {
+    setSource(p.source);
+    setMedium(p.medium);
+    toast.success(`${p.label} preset applied`);
+  };
 
   const { result, error } = useMemo(() => {
     if (!url.trim()) return { result: '', error: '' };
@@ -60,6 +77,25 @@ const UtmBuilder: React.FC<ToolProps> = ({ details, toolId }) => {
   return (
     <ToolContainer title="UTM Builder" details={details} toolId={toolId}>
       <div className="space-y-4 max-w-3xl mx-auto">
+        <div>
+          <span className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Quick presets
+          </span>
+          <div className="flex flex-wrap gap-2">
+            {PRESETS.map(p => (
+              <button
+                key={p.label}
+                type="button"
+                onClick={() => applyPreset(p)}
+                className="px-3 py-1.5 text-xs font-medium rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                title={`Set source=${p.source}, medium=${p.medium}`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <div>
           <Label htmlFor="utm-url">Website URL *</Label>
           <Input

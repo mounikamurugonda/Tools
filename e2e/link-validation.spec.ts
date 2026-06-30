@@ -15,7 +15,6 @@ const TOOL_IDS = [
   'hashtag-extractor',
   'duplicate-remover',
   // Image Tools
-  'base64-to-image',
   'image-to-base64',
   'qr-code-generator',
   'image-resizer',

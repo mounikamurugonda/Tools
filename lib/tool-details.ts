@@ -405,18 +405,21 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
   },
   'utm-builder': {
     introduction:
-      "Track your marketing campaigns like a pro. The UTM Builder makes it easy to add tracking parameters to your URLs, so you know exactly where your traffic is coming from. Whether it's a newsletter, a Facebook ad, or a tweet, generate clean, tagged links that play perfectly with Google Analytics.",
+      "Track your marketing campaigns like a pro. The UTM Builder adds standardized tracking parameters (utm_source, utm_medium, utm_campaign, utm_term, utm_content) to any landing-page URL, so Google Analytics 4 can tell you exactly where each visitor came from. Whether it's a newsletter, a Google or Facebook ad, or a tweet, generate clean, consistently-tagged links in seconds. One-click presets fill in the right source/medium combos for the channels you use most, and the optional lowercase toggle keeps your analytics from splitting one campaign across 'Email', 'email', and 'EMAIL'.",
     howToUse: [
-      'Paste your landing page URL.',
-      "Enter the source (e.g., 'google'), medium (e.g., 'cpc'), and campaign name.",
-      'The tool validates your input and builds the URL automatically.',
-      "Click 'Copy' to grab the long URL, or use a shortener if you prefer.",
+      'Paste your landing page URL (no scheme needed — we assume https://).',
+      'Pick a preset (Google Ads, Facebook, Newsletter…) or fill in source and medium yourself.',
+      'Add a campaign name, plus optional term and content values for finer segmentation.',
+      'Leave "Force lowercase" on so analytics treats your tags consistently.',
+      "Click Copy to grab the finished URL, ready to paste into your ad platform or email.",
     ],
     features: [
-      'Google Analytics Ready: Parameters comply with GA4 standards.',
-      'Real-Time Validation: Alerts you if you miss required fields.',
-      'Clean UI: no confusing jargon, just simple fields.',
-      'One-Click Copy: generated URLs are ready to paste into your ads or emails.',
+      'One-click channel presets: Google Ads, Facebook, Instagram, LinkedIn, email newsletters, and more.',
+      'GA4-ready output: builds standard utm_* query parameters Google Analytics understands automatically.',
+      'Force-lowercase option: prevents duplicate campaign rows from inconsistent casing.',
+      'Live validation: flags an invalid URL and reminds you when source or medium is missing.',
+      'One-click copy: tagged URLs are ready to paste into ads, emails, or a link shortener.',
+      '100% local: URLs are assembled in your browser — nothing is sent to a server.',
     ],
     privacy: PRIVACY_STATEMENT,
     explanation:
@@ -431,19 +434,34 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       "The tool constructs a query string. It appends a `?` to your URL, followed by key-value pairs separated by `&`. It handles the URL encoding (replacing spaces with `%20`) so your link doesn't break when clicked.",
     faqs: [
       {
-        question: 'Do these affect my SEO?',
+        question: 'What are the five UTM parameters?',
         answer:
-          "No, search engines generally ignore UTM parameters when indexing content. However, it's good practice to use a 'canonical' tag on your page to be safe.",
+          'utm_source (where the traffic comes from, e.g. google), utm_medium (the channel type, e.g. cpc or email), utm_campaign (the campaign name, e.g. spring_sale), utm_term (paid-search keywords), and utm_content (to A/B test specific links or buttons). Source, medium, and campaign are the three you should always set.',
       },
       {
-        question: 'Are these case-sensitive?',
+        question: 'Do UTM parameters hurt my SEO?',
         answer:
-          "Yes! 'Email' and 'email' will show up as two different sources in Google Analytics. We recommend using all lowercase to keep your data clean.",
+          "No. Search engines generally ignore UTM parameters when ranking content. To be safe, make sure the tagged page declares a canonical URL pointing to the clean (un-tagged) version so the parameters don't create duplicate-content issues.",
       },
       {
-        question: 'What are the most important parameters?',
+        question: 'Why should I force lowercase?',
         answer:
-          "Source (where it's from), Medium (how it got there), and Campaign (why it's there) are the big three you should always use.",
+          "UTM values are case-sensitive in Google Analytics, so 'Email', 'email', and 'EMAIL' become three separate sources and fragment your reporting. The lowercase toggle normalizes every value so each campaign rolls up into one clean row.",
+      },
+      {
+        question: 'What source and medium should I use for common channels?',
+        answer:
+          'Google Ads: source=google, medium=cpc. Facebook ads: source=facebook, medium=paid_social. Email newsletter: source=newsletter, medium=email. Organic social post: source=twitter (or the network), medium=social. The built-in presets fill these in for you.',
+      },
+      {
+        question: 'Does this work with GA4?',
+        answer:
+          'Yes. GA4 reads the same standard utm_* query parameters as Universal Analytics, so URLs built here are attributed correctly in GA4 Traffic acquisition reports.',
+      },
+      {
+        question: 'Is my campaign data private?',
+        answer:
+          'Completely. The URL is assembled locally in your browser with the standard URL API — none of your links or campaign names are ever sent to or stored on a server.',
       },
     ],
   },
@@ -536,18 +554,21 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
   },
   'xml-formatter': {
     introduction:
-      "Tame your XML files. Transform messy, minified, or unreadable XML into a clean, perfectly indented structure. Whether you're debugging an API response or organizing configuration files, this tool makes XML human-readable again.",
+      "Tame your XML files. Transform messy, minified, or unreadable XML into a clean, perfectly indented structure — or do the reverse and minify it for production. Paste raw XML and it's formatted as you type, with invalid markup flagged on the spot so you can fix it fast. Whether you're debugging a SOAP or REST response, editing an Android layout, or cleaning up an RSS feed or sitemap, this tool makes XML readable again without sending a single byte to a server.",
     howToUse: [
-      'Paste your raw XML code.',
-      'Select your indentation preference (spaces or tabs).',
-      "Click 'Format' to beautify the code.",
-      'Copy the result.',
+      'Paste your raw XML, or upload a .xml, .xsd, .xsl, or .svg file.',
+      'Keep "Pretty" mode to beautify, or switch to "Minify" to strip whitespace and comments.',
+      'Choose your indentation: 2 spaces, 4 spaces, or tabs.',
+      'Read the formatted output instantly — any syntax error is shown with a clear message.',
+      'Copy the result or download it as a .xml file.',
     ],
     features: [
-      'Instant Beautification: Fixes indentation and spacing automatically.',
-      'Syntax Validation: Checks for errors in your XML structure.',
-      'File Support: Upload files directly for formatting.',
-      'Customizable: Choose between tabs or spaces for indentation.',
+      'Pretty & minify modes: beautify for reading or compress for production in one click.',
+      'Live validation: invalid XML is caught immediately with a human-readable error message.',
+      'Flexible indentation: 2 spaces, 4 spaces, or tabs.',
+      'File upload & download: open .xml/.xsd/.xsl/.svg files and save the cleaned result.',
+      'Size readout: see the before/after byte size and percentage change after minifying.',
+      '100% private: parsing and formatting run entirely in your browser.',
     ],
     privacy: PRIVACY_STATEMENT,
     explanation:
@@ -561,18 +582,34 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
       'The tool parses the XML string into a DOM tree, then traverses it to reconstruct the string with consistent indentation (pretty-printing). It also checks for validity, ensuring open tags match close tags.',
     faqs: [
       {
+        question: 'What is the difference between formatting and minifying XML?',
+        answer:
+          'Formatting (pretty-printing) adds line breaks and indentation so XML is easy to read and debug. Minifying does the opposite — it removes comments and unnecessary whitespace between tags to make the file as small as possible for storage or transfer. This tool does both; just switch modes.',
+      },
+      {
         question: 'Will this fix broken XML?',
         answer:
-          'It can fix formatting, but if tags are missing or mismatched, it will likely show you a syntax error to help you fix it yourself.',
+          'It fixes formatting and indentation, but it cannot invent missing structure. If a tag is unclosed or mismatched, the validator shows you a clear error message pointing at the problem so you can correct it yourself.',
+      },
+      {
+        question: 'Can I choose tabs instead of spaces?',
+        answer:
+          'Yes. In Pretty mode you can pick 2-space, 4-space, or tab indentation. The output updates instantly.',
+      },
+      {
+        question: 'Can I format an SVG or other XML-based file?',
+        answer:
+          'Yes — SVG, XSD, XSL, and RSS/sitemap files are all valid XML, so you can paste them or upload the file directly and format or minify them the same way.',
       },
       {
         question: 'Is my data sent to a server?',
-        answer: 'No, all processing happens locally in your browser. Your data stays private.',
+        answer:
+          'No. All parsing, validation, and formatting happen locally in your browser using the native DOMParser, so your XML never leaves your machine.',
       },
       {
         question: 'Can I use this for HTML?',
         answer:
-          'It might work for strict XHTML, but we recommend using an HTML-specific formatter for best results.',
+          'It works for strict, well-formed XHTML, but regular HTML is more forgiving than XML and may report errors here. For HTML specifically, use a dedicated HTML formatter.',
       },
     ],
   },
@@ -2629,39 +2666,50 @@ export const TOOL_DETAILS: Record<string, ToolDetails> = {
   'image-to-base64': {
     tip: 'Base64 is perfect for inlining small icons in CSS. It reduces HTTP requests, which can make your website load faster!',
     introduction:
-      'Tired of managing countless small image files? Our Image to Base64 converter transforms any image into a single line of text that you can embed directly in your code. This is the secret to faster-loading websites, cleaner code, and easier-to-manage assets. Perfect for developers who want to inline small icons, logos, or background images.',
+      'A two-way Base64 image tool. Switch to "Image → Base64" to turn any image into a single line of text you can embed directly in your HTML or CSS — the secret to faster-loading pages, fewer HTTP requests, and easier-to-manage assets. Or switch to "Base64 → Image" to paste a data URL or raw Base64 string and instantly preview and download the decoded image. Everything runs in your browser, so your files never leave your device.',
     explanation:
-      "This tool reads your image file and uses the browser's FileReader API to create a Data URL. This URL includes the Base64-encoded version of your image, which can be used directly in web pages.",
+      "When encoding, the tool reads your image with the browser's FileReader API and produces a Data URL containing the Base64-encoded bytes. When decoding, it parses a data URL (or sniffs the MIME type of a raw Base64 payload) and renders the result as a live image preview you can save.",
     usageExamples: [
-      'Embedding a logo directly into an email signature.',
+      'Embedding a logo directly into an email signature or HTML template.',
       'Inlining small icons in a CSS file to reduce server requests.',
-      'Storing image data within a JSON file for a web application.',
+      'Pasting a Base64 string from an API response to see what image it represents.',
+      'Recovering and downloading an image stored as a data URL in JSON or a database.',
     ],
     underlyingConcept:
-      'Data URLs (defined in RFC 2397) allow content to be embedded in web pages as if they were external resources. Base64 is the encoding scheme used to convert the binary image data into a text format that can be included in the URL.',
+      'Data URLs (defined in RFC 2397) embed content directly in web pages as if they were external resources. Base64 is the encoding scheme that converts binary image data into a text-safe format. Decoding simply reverses the process, reconstructing the original bytes from the text.',
     howToUse: [
-      'Drag and drop your image or click to upload.',
-      'Instantly see a preview of your image on the left.',
-      'The Base64 data URL will be generated automatically on the right.',
-      "Click 'Copy' to grab the entire string and paste it into your HTML or CSS.",
+      'Choose a direction: "Image → Base64" to encode, or "Base64 → Image" to decode.',
+      'To encode: upload an image and copy the generated data URL, raw Base64, <img> tag, or CSS snippet.',
+      'To decode: paste a data URL or raw Base64 (or upload a .txt/.b64 file) to preview the image.',
+      'Download the decoded image, or copy the encoded output straight into your code.',
     ],
     features: [
-      'Supports All Major Formats: Works with PNG, JPEG, GIF, SVG, and more.',
-      'Instant Preview: See your uploaded image immediately.',
-      'Ready-to-Use Output: Generates a complete data URL for `src` attributes or CSS `url()`.',
-      'Improves Performance: Reduces HTTP requests by inlining small images.',
-      '100% Secure & Private: All conversions happen in your browser. Your images are never uploaded.',
+      'Bi-directional: encode images to Base64 and decode Base64 back to images in one tool.',
+      'Supports all major formats: PNG, JPEG, GIF, SVG, and WebP.',
+      'Instant preview on both sides, plus copy-as-<img> and copy-as-CSS helpers when encoding.',
+      'Accepts data URLs or raw Base64, with automatic MIME-type detection when decoding.',
+      '100% secure & private: every conversion happens in your browser — nothing is uploaded.',
     ],
     faqs: [
       {
-        question: 'Why should I use Data URLs?',
+        question: 'Can this both encode and decode?',
         answer:
-          'They are great for small images because they eliminate the need for an extra server request, which can speed up page load times.',
+          'Yes. Use the toggle at the top to switch between "Image → Base64" (encode) and "Base64 → Image" (decode). It replaces the need for two separate tools.',
       },
       {
-        question: 'Does this increase the file size?',
+        question: 'Why should I use Data URLs?',
         answer:
-          "Yes, Base64 encoding increases the size of the data by about 33%. It's best used for small images where the overhead is less than the cost of an HTTP request.",
+          'They are great for small images because they eliminate an extra server request, which can speed up page load times.',
+      },
+      {
+        question: 'Does encoding increase the file size?',
+        answer:
+          "Yes, Base64 encoding increases the data size by about 33%. It's best for small images where that overhead is less than the cost of a separate HTTP request.",
+      },
+      {
+        question: 'What if my Base64 has no data: prefix?',
+        answer:
+          'The decoder accepts raw Base64 too — it inspects the leading bytes to detect common formats (PNG, JPEG, GIF, WebP, SVG) and renders the image automatically.',
       },
       {
         question: 'Is it supported in all browsers?',
