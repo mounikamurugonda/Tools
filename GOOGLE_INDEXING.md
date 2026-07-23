@@ -107,9 +107,20 @@ Log readings here on each session:
 
 ```
 2026-06-01  indexed=53  cni=72  dni=52  404=10  imp=~180   (baseline)
+2026-07-23  indexed=72  cni=58  dni=56  404=1   redirect-err=2  imp 3mo=10.8k  clicks 3mo=21  ctr=0.2%  avgpos=41.2
 ```
 
 ## Session log
+
+### 2026-07-23 (round 8) — live GSC inspection, ship round 7, restart validation
+- **Root cause of stalled fixes: nothing since early June was ever deployed.** Remote main was 5 commits behind local (940b37d); prod homepage was serving a ~47-day-old Vercel build. The committed `next.config.mjs` at HEAD was even truncated mid-file. Round-7 work sat uncommitted in the working tree. Committed as b6c0d66 (typecheck + full `next build` verified: 92 tool pages, removed 11 excluded, sitemap clean) and pushed.
+- Live GSC readings (3 months): 21 clicks / 10.8k impressions / CTR 0.2% / **avg position 41.2** — the "impressions but no clicks" answer is ranking position, not snippets: pages sit on results pages 3–6. Best performers: svg-to-data-uri (pos 12, 888 imp, 5 clicks), hashtag-extractor (pos 24.8). Biggest missed volume: query "utm builder" 1,204 imp @ pos 57, xml-formatter page 1,287 imp @ pos 38, css-triangle-generator 630 imp @ pos 29.
+- Indexed count **72** (was 53 baseline) — up 19 despite the failed validation. cni=58, dni=56 (validation Passed), old 10×404s cleared.
+- New GSC issues found: **Redirect error (2)** — /tools/csv-to-json and /tools/character-counter, crawled 2 Jul while prod was stale; both verified now 308→200 in one hop. **404 (1)** — /tools/category/miscellaneous-tools, crawled 15 Jan; its redirect is verified live now. Both safe to validate.
+- Priority queries to chase for clicks (already-earned impressions, need on-page targeting + internal links): utm builder, xml formatter, svg to data uri (closest to page 1 — push it over), css triangle generator, code to image.
+- Started GSC fix validations for **Redirect error** and **Not found (404)** (both 23/07) — their fixes are already live on prod (June deploy included the redirects).
+- **DEPLOY BLOCKER:** pushing to github.com/mounikamurugonda/Tools does NOT auto-deploy. Prod (Server: Vercel) kept serving the ~47-day-old build for 10+ min after the push, and the Vercel account logged into Chrome (mounimurugonda gmail, Hobby) does not contain the utiltoolkits project — it lives under a different Vercel account/login. **User must deploy manually** (Vercel dashboard of the owning account, or `vercel --prod`).
+- **After the deploy is live** (check: `https://utiltoolkits.com/tools/qr-code-generator` returns 404): (1) GSC → Sitemaps → resubmit sitemap.xml; (2) GSC → Pages → "Crawled - currently not indexed" → validation details → **START NEW VALIDATION**. Do NOT do these before the deploy or the validation will fail again on stale content.
 
 ### 2026-07-22 (round 7) — GSC validation failed → prune 11 zero-traffic tools
 - GSC "Crawled – currently not indexed" validation (started 16/06) **failed 01/07**: 13 URLs recrawled 24 Jun–4 Jul and still rejected; 45 pending. Full analysis + per-URL traffic table: [docs/seo/low-value-tools-removal-2026-07.md](docs/seo/low-value-tools-removal-2026-07.md).
