@@ -111,6 +111,14 @@ Log readings here on each session:
 
 ## Session log
 
+### 2026-07-22 (round 7) — GSC validation failed → prune 11 zero-traffic tools
+- GSC "Crawled – currently not indexed" validation (started 16/06) **failed 01/07**: 13 URLs recrawled 24 Jun–4 Jul and still rejected; 45 pending. Full analysis + per-URL traffic table: [docs/seo/low-value-tools-removal-2026-07.md](docs/seo/low-value-tools-removal-2026-07.md).
+- Cross-checked the 13 against 3-month Performance data (site: 21 clicks / 10.8k impressions). **Delisted the 11 with 0 clicks** (qr-code-generator, age-calculator, lorem-image-generator, border-radius-generator, random-number-generator, duplicate-remover, world-clock, youtube-thumbnail, string-escaper, text-to-speech, list-randomizer). **Kept** percentage-calculator (535 imp) and markdown-table-generator (1 click).
+- Mechanism: `REMOVED_TOOL_IDS` filter in [constants.tsx](constants.tsx) — tools 404, drop out of sitemap/listings/search/footer automatically. Component files kept in repo (delisted, not deleted).
+- Hidden the 5 blog guides dedicated to removed tools via `HIDDEN_BLOG_IDS` in [lib/blogs.ts](lib/blogs.ts); stripped/rewrote all inline links to removed tools in the remaining posts; pruned collections and the `/tools/random-number` redirect; updated e2e crawl list.
+- Tool count is now **83** (was 94). Footer/category counts self-update.
+- **User action after deploy:** resubmit sitemap in GSC and click "START NEW VALIDATION" on the failed validation. Do NOT fix the new 404s for the 11 removed URLs — they are intentional.
+
 ### 2026-06-01 (round 6) — 404 redirects (closes F1.1)
 - User supplied the 10 GSC 404 URLs. All stale. Added permanent redirects in next.config.mjs; saved the list to docs/seo/404-urls-2026-06.txt.
 - Verified all 10 → 308 → 200 target. Restarted dev server (next.config not hot-reloaded).

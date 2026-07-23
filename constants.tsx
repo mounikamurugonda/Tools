@@ -127,7 +127,29 @@ import { SeparatorHorizontalIcon } from 'lucide-react';
 const PRIVACY_STATEMENT =
   'All calculations and data processing for this tool are performed locally in your browser. We do not send any of your data to our servers, ensuring your information remains private and secure.';
 
-export const TOOLS: Tool[] = [
+/**
+ * Tools delisted from the site for SEO quality reasons (GSC "Crawled - currently
+ * not indexed" validation failed 2026-07-01 with 0 clicks in the prior 3 months).
+ * Their entries stay in ALL_TOOLS and their component files stay in the repo, but
+ * they are excluded from TOOLS, so they disappear from listings, search, related
+ * tools, the sitemap, and their /tools/:id route returns 404.
+ * Evidence and rationale: docs/seo/low-value-tools-removal-2026-07.md
+ */
+export const REMOVED_TOOL_IDS = new Set<string>([
+  'qr-code-generator',
+  'age-calculator',
+  'lorem-image-generator',
+  'border-radius-generator',
+  'random-number-generator',
+  'duplicate-remover',
+  'world-clock',
+  'youtube-thumbnail',
+  'string-escaper',
+  'text-to-speech',
+  'list-randomizer',
+]);
+
+const ALL_TOOLS: Tool[] = [
   // ── AI Tools ──────────────────────────────────────────────────────────────
   {
     id: 'ai-token-counter',
@@ -1944,6 +1966,9 @@ export const TOOLS: Tool[] = [
     ],
   },
 ];
+
+/** Publicly visible tools. Everything (listings, search, sitemap, routes) must use this, not ALL_TOOLS. */
+export const TOOLS: Tool[] = ALL_TOOLS.filter(tool => !REMOVED_TOOL_IDS.has(tool.id));
 
 export const CATEGORY_ORDER: ToolCategory[] = [
   ToolCategory.AI,

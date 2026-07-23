@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
-// All tool IDs from TOOL_CONFIGS
+// All publicly listed tool IDs (tools delisted for SEO quality are excluded —
+// see REMOVED_TOOL_IDS in constants.tsx and docs/seo/low-value-tools-removal-2026-07.md)
 const TOOL_IDS = [
   // Text Tools
   'case-converter',
@@ -13,21 +14,16 @@ const TOOL_IDS = [
   'text-cleaner',
   'markdown-table-generator',
   'hashtag-extractor',
-  'duplicate-remover',
   // Image Tools
   'image-to-base64',
-  'qr-code-generator',
   'image-resizer',
   'image-converter',
   'image-compressor',
   'image-filters',
-  'youtube-thumbnail',
   'aspect-ratio-calculator',
-  'lorem-image-generator',
   // CSS Tools
   'box-shadow-generator',
   'css-gradient-generator',
-  'border-radius-generator',
   'text-shadow-generator',
   'glassmorphism-generator',
   'css-color-code-converter',
@@ -53,7 +49,6 @@ const TOOL_IDS = [
   'meta-tag-generator',
   'chmod-calculator',
   'xml-formatter',
-  'string-escaper',
   'html-entity',
   'json-yaml-converter',
   'csv-xlsx-converter',
@@ -69,11 +64,8 @@ const TOOL_IDS = [
   'loan-calculator',
   'percentage-calculator',
   'roman-numeral-converter',
-  'age-calculator',
-  'random-number-generator',
   // Productivity Tools
   'pomodoro-timer',
-  'world-clock',
   'timers-and-stopwatch',
   'todo-list',
   'utm-builder',
@@ -84,7 +76,6 @@ const TOOL_IDS = [
   'morse-converter',
   'keycode-info',
   'screen-info',
-  'text-to-speech',
   'signature-pad',
   // Video Tools
   'video-compressor',
@@ -102,7 +93,6 @@ const TOOL_IDS = [
   'svg-wave-generator',
   'binary-converter',
   'password-strength',
-  'list-randomizer',
   'device-resolutions',
 ];
 

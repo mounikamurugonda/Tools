@@ -1,6 +1,20 @@
 import { Blog } from '@/types';
 
-export const blogs: Blog[] = [
+/**
+ * Guides whose subject tool was delisted for SEO quality reasons (see
+ * docs/seo/low-value-tools-removal-2026-07.md and REMOVED_TOOL_IDS in
+ * constants.tsx). Entries stay in ALL_BLOGS but are excluded from the
+ * exported list, so they vanish from /blogs, the sitemap, and RelatedGuides.
+ */
+export const HIDDEN_BLOG_IDS = new Set<string>([
+  'text-to-speech-guide',
+  'qr-codes-marketing-guide',
+  'randomizing-lists-fairness',
+  'string-escaping-security',
+  'cleaning-data-duplicates',
+]);
+
+const ALL_BLOGS: Blog[] = [
   // 1. JSON Formatter
   {
     id: 'guide-json-formatter-validator',
@@ -615,9 +629,9 @@ Compressed: hero.webp        180 KB   (quality 78)
     updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Coding Tools',
-    relatedTools: ['uuid-generator', 'hash-generator', 'random-number-generator'],
+    relatedTools: ['uuid-generator', 'hash-generator'],
     content: `
-      <p><strong>TL;DR —</strong> The <a href="/tools/uuid-generator">UUID Generator</a> produces RFC&nbsp;4122 v4 (purely random) and v7 (time-ordered) UUIDs in your browser. Use <strong>v4</strong> for tokens, secrets, and ad-hoc IDs; use <strong>v7</strong> for database primary keys where index locality matters. For hashing or random integer needs, see the <a href="/tools/hash-generator">Hash Generator</a> and <a href="/tools/random-number-generator">Random Number Generator</a>.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/uuid-generator">UUID Generator</a> produces RFC&nbsp;4122 v4 (purely random) and v7 (time-ordered) UUIDs in your browser. Use <strong>v4</strong> for tokens, secrets, and ad-hoc IDs; use <strong>v7</strong> for database primary keys where index locality matters. For hashing needs, see the <a href="/tools/hash-generator">Hash Generator</a>.</p>
 
       <h2>Why auto-increment IDs are a liability</h2>
       <p>Integer primary keys (<code>1, 2, 3, …</code>) work on a single SQL server. In a modern distributed setup — read replicas, sharding, offline-first mobile apps, multi-region writes — they fall over for three reasons:</p>
@@ -692,7 +706,6 @@ SELECT uuidv7();</code></pre>
       <ul>
         <li><a href="/tools/uuid-generator">UUID Generator</a> — v4 + v7, bulk export.</li>
         <li><a href="/tools/hash-generator">Hash Generator</a> — MD5, SHA-1/256/512 for any text or file.</li>
-        <li><a href="/tools/random-number-generator">Random Number Generator</a> — cryptographically secure integers in any range.</li>
         <li><a href="/tools/category/coding-tools">All coding tools →</a></li>
       </ul>
     `,
@@ -902,9 +915,9 @@ encodeURIComponent('https://api.com/search?q=hello world');
     updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Coding Tools',
-    relatedTools: ['unix-timestamp-converter', 'date-calculator', 'world-clock'],
+    relatedTools: ['unix-timestamp-converter', 'date-calculator'],
     content: `
-      <p><strong>TL;DR —</strong> The <a href="/tools/unix-timestamp-converter">Unix Timestamp Converter</a> handles seconds, milliseconds, and nanoseconds, in any time zone, with ISO 8601 output. For "what date is N days from now" use the <a href="/tools/date-calculator">Date Calculator</a>; for "what time is it for the team in Tokyo right now" use the <a href="/tools/world-clock">World Clock</a>.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/unix-timestamp-converter">Unix Timestamp Converter</a> handles seconds, milliseconds, and nanoseconds, in any time zone, with ISO 8601 output. For "what date is N days from now" use the <a href="/tools/date-calculator">Date Calculator</a>.</p>
 
       <h2>Why Unix time exists</h2>
       <p>A Unix timestamp is the number of seconds since <strong>00:00:00 UTC on 1 January 1970</strong> (the "Unix epoch"). One integer. No time zone. No leap years to special-case. No DST. It’s the universal time format every server, database, and protocol agrees on.</p>
@@ -977,7 +990,6 @@ date -ud @1735689600                      // decode</code></pre>
       <ul>
         <li><a href="/tools/unix-timestamp-converter">Unix Timestamp Converter</a> — epoch ↔ date, auto-detect units.</li>
         <li><a href="/tools/date-calculator">Date Calculator</a> — add/subtract days, weeks, months.</li>
-        <li><a href="/tools/world-clock">World Clock</a> — current time across cities.</li>
       </ul>
     `,
   },
@@ -1593,7 +1605,7 @@ echo 'YWRtaW46cGFzc3dvcmQ=' | base64 -d</code></pre>
         <li><strong>Convert smart quotes</strong> to straight ASCII quotes.</li>
         <li><strong>Remove invisible Unicode</strong> (zero-width spaces, BOM, soft hyphens).</li>
         <li><strong>Normalize line endings</strong> to LF or CRLF.</li>
-        <li><strong>Remove duplicate lines</strong> (link to dedicated <a href="/tools/duplicate-remover">Duplicate Remover</a> for advanced cases).</li>
+        <li><strong>Remove duplicate lines</strong>.</li>
       </ul>
 
       <h2>Clean text in 10 seconds</h2>
@@ -1816,9 +1828,9 @@ SELECT * FROM users WHERE name = 'O\\'Brien'
     updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Coding Tools',
-    relatedTools: ['html-entity', 'string-escaper', 'text-cleaner'],
+    relatedTools: ['html-entity', 'text-cleaner'],
     content: `
-      <p><strong>TL;DR —</strong> The <a href="/tools/html-entity">HTML Entity Encoder</a> converts any character to its named or numeric HTML entity (and back). For generic source-code escaping use the <a href="/tools/string-escaper">String Escaper</a>; for cleaning up pasted text that already contains entities, the <a href="/tools/text-cleaner">Text Cleaner</a>.</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/html-entity">HTML Entity Encoder</a> converts any character to its named or numeric HTML entity (and back). For cleaning up pasted text that already contains entities, use the <a href="/tools/text-cleaner">Text Cleaner</a>.</p>
 
       <h2>Why entities exist</h2>
       <p>HTML reserves a handful of characters for syntax: <code>&lt;</code> and <code>&gt;</code> start and end tags, <code>&amp;</code> starts an entity, <code>"</code> and <code>'</code> wrap attribute values. To <em>display</em> any of those as literal content, you replace them with their entity form. The browser decodes back to the original character at render time.</p>
@@ -1873,7 +1885,7 @@ SELECT * FROM users WHERE name = 'O\\'Brien'
       <h2>HTML toolkit</h2>
       <ul>
         <li><a href="/tools/html-entity">HTML Entity Encoder</a> — encode/decode any character.</li>
-        <li><a href="/tools/string-escaper">String Escaper</a> — escape for other formats too.</li>
+        <li><a href="/tools/text-cleaner">Text Cleaner</a> — clean up pasted or entity-ridden text.</li>
         <li><a href="/tools/text-cleaner">Text Cleaner</a> — strip stray entities and whitespace.</li>
       </ul>
     `,
@@ -2016,7 +2028,6 @@ SELECT * FROM users WHERE name = 'O\\'Brien'
       <h3>For productivity</h3>
       <ul>
         <li><a href="/tools/password-generator">Password Generator</a> — truly random, customizable.</li>
-        <li><a href="/tools/qr-code-generator">QR Code Generator</a> — URLs, Wi-Fi, vCards.</li>
         <li><a href="/tools/unit-converter">Unit Converter</a> — length, weight, temperature, data.</li>
         <li><a href="/tools/loan-calculator">Loan Calculator</a> — full amortization schedule + CSV export.</li>
         <li><a href="/tools/timezone-converter">Timezone Converter</a> — for distributed teams.</li>
@@ -2256,9 +2267,9 @@ SELECT * FROM users WHERE name = 'O\\'Brien'
     updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Coding Tools',
-    relatedTools: ['sql-formatter', 'json-formatter', 'string-escaper'],
+    relatedTools: ['sql-formatter', 'json-formatter'],
     content: `
-      <p><strong>TL;DR —</strong> Paste any SQL into the <a href="/tools/sql-formatter">SQL Formatter</a> to get back a clean, dialect-aware version with proper keyword casing and JOIN indentation. Supports Postgres, MySQL, SQLite, BigQuery, and Snowflake. For escaping query strings for code, use the <a href="/tools/string-escaper">String Escaper</a>; for inspecting JSONB columns, the <a href="/tools/json-formatter">JSON Formatter</a>.</p>
+      <p><strong>TL;DR —</strong> Paste any SQL into the <a href="/tools/sql-formatter">SQL Formatter</a> to get back a clean, dialect-aware version with proper keyword casing and JOIN indentation. Supports Postgres, MySQL, SQLite, BigQuery, and Snowflake. For inspecting JSONB columns, use the <a href="/tools/json-formatter">JSON Formatter</a>.</p>
 
       <h2>Why unformatted SQL is a real bug source</h2>
       <p>You inherit a 500-character single-line query buried in a Python string. There’s a missing <code>WHERE</code> filter that causes a full-table delete. There’s a join condition swapped with a filter. There’s a <code>LIKE '%foo%'</code> that should have been <code>= 'foo'</code>. You can’t see any of it because the formatting hides the structure.</p>
@@ -2318,13 +2329,12 @@ LIMIT 50;</code></pre>
       <p>No — whitespace is invisible to the query planner. Formatting only changes how humans read the query.</p>
 
       <h3>Can I format the SQL inside a string in my code?</h3>
-      <p>Yes — paste the raw query (without the language quotes). After formatting, re-escape with the <a href="/tools/string-escaper">String Escaper</a> if you need it back as a JavaScript/Python/Java string.</p>
+      <p>Yes — paste the raw query (without the language quotes). After formatting, re-escape it if you need it back as a JavaScript/Python/Java string.</p>
 
       <h2>Database-developer toolkit</h2>
       <ul>
         <li><a href="/tools/sql-formatter">SQL Formatter</a> — paste, pick dialect, done.</li>
         <li><a href="/tools/json-formatter">JSON Formatter</a> — for JSONB columns and API responses.</li>
-        <li><a href="/tools/string-escaper">String Escaper</a> — re-quote SQL for embedding in code.</li>
       </ul>
     `,
   },
@@ -2826,9 +2836,9 @@ LIMIT 50;</code></pre>
     updatedDate: '2026-05-31',
     author: 'UtilToolkits',
     category: 'Productivity Tools',
-    relatedTools: ['timezone-converter', 'world-clock', 'date-calculator'],
+    relatedTools: ['timezone-converter', 'date-calculator'],
     content: `
-      <p><strong>TL;DR —</strong> The <a href="/tools/timezone-converter">Timezone Converter</a> shows side-by-side time across any cities, with a draggable slider to find the overlap window. Pair with the <a href="/tools/world-clock">World Clock</a> for an always-on dashboard, and the <a href="/tools/date-calculator">Date Calculator</a> for "how many business days away."</p>
+      <p><strong>TL;DR —</strong> The <a href="/tools/timezone-converter">Timezone Converter</a> shows side-by-side time across any cities, with a draggable slider to find the overlap window. Pair with the <a href="/tools/date-calculator">Date Calculator</a> for "how many business days away."</p>
 
       <h2>Why time zones break distributed teams</h2>
       <p>If your team is spread across SF, Berlin, Bangalore, and Tokyo, you have at most a 1-hour overlap where everyone is in working hours. Daylight Saving Time changes that gap by an hour for a few weeks each spring and fall — and not on the same dates. The result: a calendar full of misaligned invites, missed meetings, and the eternal "is that EST or EDT?" thread.</p>
@@ -2884,7 +2894,6 @@ LIMIT 50;</code></pre>
       <h2>Remote-team toolkit</h2>
       <ul>
         <li><a href="/tools/timezone-converter">Timezone Converter</a> — multi-city slider.</li>
-        <li><a href="/tools/world-clock">World Clock</a> — always-on dashboard.</li>
         <li><a href="/tools/date-calculator">Date Calculator</a> — business-day math.</li>
       </ul>
     `,
@@ -3129,7 +3138,7 @@ LIMIT 50;</code></pre>
     updatedDate: '2026-06-05',
     author: 'UtilToolkits',
     category: 'AI Tools',
-    relatedTools: ['ai-token-counter', 'csv-to-prompt', 'json-to-prompt', 'ai-text-summarizer', 'context-window-calculator', 'json-formatter', 'json-csv-converter', 'diff-checker', 'xml-formatter', 'duplicate-remover'],
+    relatedTools: ['ai-token-counter', 'csv-to-prompt', 'json-to-prompt', 'ai-text-summarizer', 'context-window-calculator', 'json-formatter', 'json-csv-converter', 'diff-checker', 'xml-formatter'],
     content: `
       <p><strong>TL;DR —</strong> Large datasets break standard AI interfaces in predictable ways: they exceed context windows, confuse models with irrelevant columns, and waste tokens on formatting. The tools below solve each of these problems — all browser-based, all handling files up to tens of megabytes, all free.</p>
 
@@ -3158,7 +3167,7 @@ LIMIT 50;</code></pre>
       <p>The <a href="/tools/json-csv-converter">JSON CSV Converter</a> handles both directions. For large datasets, the browser-based processing means there is no upload limit — your computer's memory is the practical limit, and modern browsers handle 50–100 MB files without issues.</p>
 
       <h2>8. Duplicate Remover — clean data before analysis</h2>
-      <p>Large datasets accumulate duplicates. Sending duplicate rows to an AI wastes tokens and can skew analysis. The <a href="/tools/duplicate-remover">Duplicate Remover</a> strips identical lines from any text, with options for case-sensitive matching.</p>
+      <p>Large datasets accumulate duplicates. Sending duplicate rows to an AI wastes tokens and can skew analysis. The <a href="/tools/text-cleaner">Text Cleaner</a> can strip duplicate lines from any text before you send it to a model.</p>
 
       <h2>9. Diff Checker — compare large file versions</h2>
       <p>When working with iteratively updated datasets, the <a href="/tools/diff-checker">Diff Checker</a> shows exactly what changed between two versions. Use the diff to identify specific changes, then ask the AI about only those changes.</p>
@@ -3203,7 +3212,7 @@ LIMIT 50;</code></pre>
     updatedDate: '2026-06-06',
     author: 'UtilToolkits',
     category: 'CSS Tools',
-    relatedTools: ['box-shadow-generator','border-radius-generator','css-gradient-generator'],
+    relatedTools: ['box-shadow-generator','css-gradient-generator'],
     content: '<p>Syntax: <code>box-shadow: [inset] offset-x offset-y [blur] [spread] color;</code></p><p>Use the <a href="/tools/box-shadow-generator">Box Shadow Generator</a> to build shadows visually.</p><h2>Patterns</h2><ul><li><strong>Soft card:</strong> <code>0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24)</code></li><li><strong>Focus glow:</strong> <code>0 0 0 3px rgba(59,130,246,.5)</code></li><li><strong>Inset/pressed:</strong> <code>inset 0 2px 4px rgba(0,0,0,.15)</code></li></ul>',
   },
   {
@@ -3464,7 +3473,7 @@ echo 'SGVsbG8gV29ybGQ=' | base64 -d    # Hello World</code></pre>
     updatedDate: '2026-06-29',
     author: 'UtilToolkits',
     category: 'Coding Tools',
-    relatedTools: ['uuid-generator', 'hash-generator', 'random-number-generator'],
+    relatedTools: ['uuid-generator', 'hash-generator'],
     content: `
       <p><strong>A UUID (Universally Unique Identifier) is a 128-bit value used to label something so that it's effectively unique across space and time — without any central server handing out numbers.</strong> You've seen them everywhere: <code>550e8400-e29b-41d4-a716-446655440000</code>. Database primary keys, API resource IDs, session tokens, uploaded filenames, log correlation IDs — all UUIDs. The magic is that two different machines, with no network connection between them, can each generate a UUID and trust that the two values will never collide. That property is what makes UUIDs the default identifier for modern distributed systems. Need one right now? The free <a href="/tools/uuid-generator">UUID Generator</a> on UtilToolkits produces RFC 4122 / 9562 UUIDs in your browser — nothing uploaded, nothing logged.</p>
 
@@ -3523,7 +3532,7 @@ uuid.New()</code></pre>
         <li>Copy a single value instantly for pasting into code, configs, or test fixtures</li>
         <li>Nothing is uploaded or logged — and it works offline once the page has loaded</li>
       </ul>
-      <p>Building anything security-sensitive? Pair it with the <a href="/tools/hash-generator">Hash Generator</a> for checksums and the <a href="/tools/random-number-generator">Random Number Generator</a> for secure integers.</p>
+      <p>Building anything security-sensitive? Pair it with the <a href="/tools/hash-generator">Hash Generator</a> for checksums.</p>
 
       <h2>FAQ</h2>
 
@@ -3543,3 +3552,6 @@ uuid.New()</code></pre>
     `,
   },
 ];
+
+/** Publicly visible blog posts. Everything (listings, sitemap, related guides) must use this, not ALL_BLOGS. */
+export const blogs: Blog[] = ALL_BLOGS.filter(blog => !HIDDEN_BLOG_IDS.has(blog.id));

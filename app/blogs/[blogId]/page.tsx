@@ -83,6 +83,10 @@ export async function generateMetadata(
   };
 }
 
+// Blog ids are fully enumerated; unknown/hidden ids must return a real HTTP 404,
+// not a streamed not-found shell with status 200 (soft 404 — bad signal to Google).
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return blogs.map(blog => ({
     blogId: blog.id,

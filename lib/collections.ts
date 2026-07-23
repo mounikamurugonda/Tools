@@ -52,13 +52,12 @@ export const COLLECTIONS: Collection[] = [
     title: 'CSS Developer Tools',
     description:
       'Generate, preview, and copy CSS for shadows, gradients, borders, glassmorphism, and more.',
-    seoTitle: 'CSS Generator Tools — Box Shadow, Gradient, Border Radius & More | UtilToolkits',
+    seoTitle: 'CSS Generator Tools — Box Shadow, Gradient, Glassmorphism & More | UtilToolkits',
     seoDescription:
-      'Free CSS generator tools: box shadow, border radius, CSS gradients, glassmorphism, text shadow, CSS patterns. Live preview, copy-ready code, no signup.',
+      'Free CSS generator tools: box shadow, CSS gradients, glassmorphism, text shadow, CSS patterns. Live preview, copy-ready code, no signup.',
     keywords: [
       'css box shadow generator',
       'css gradient generator',
-      'border radius generator',
       'glassmorphism generator',
       'css tools online',
       'css generator free',
@@ -68,7 +67,6 @@ export const COLLECTIONS: Collection[] = [
     icon: '🎨',
     toolIds: [
       'box-shadow-generator',
-      'border-radius-generator',
       'css-gradient-generator',
       'glassmorphism-generator',
       'text-shadow-generator',
@@ -174,7 +172,6 @@ export const COLLECTIONS: Collection[] = [
       'case-converter',
       'markdown-previewer',
       'text-cleaner',
-      'duplicate-remover',
       'slug-generator',
       'readability-score-calculator',
       'keyword-density-analyzer',

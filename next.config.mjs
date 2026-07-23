@@ -23,8 +23,9 @@ const nextConfig = {
             { source: '/tools/base64-to-image', destination: '/tools/image-to-base64', permanent: true },
 
             // --- Clear GSC 404s (old URLs Google crawled Dec 2025–Jan 2026) ---
-            // Renamed tool id.
-            { source: '/tools/random-number', destination: '/tools/random-number-generator', permanent: true },
+            // Renamed tool id; the renamed tool was later delisted (docs/seo/low-value-tools-removal-2026-07.md),
+            // so send the old URL to the tools index instead.
+            { source: '/tools/random-number', destination: '/tools', permanent: true },
             // Old/invalid category slugs that never matched CATEGORY_URL_MAP.
             { source: '/tools/category/miscellaneous-tools', destination: '/tools/category/other', permanent: true },
             { source: '/tools/category/converter', destination: '/tools', permanent: true },
@@ -45,4 +46,13 @@ const nextConfig = {
                         value: 'require-corp',
                     },
                     {
-           
+                        key: 'Cross-Origin-Opener-Policy',
+                        value: 'same-origin',
+                    },
+                ],
+            },
+        ];
+    },
+};
+
+export default nextConfig;

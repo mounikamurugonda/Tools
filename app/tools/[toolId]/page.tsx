@@ -93,6 +93,10 @@ export async function generateMetadata(
   };
 }
 
+// Tool ids are fully enumerated; anything else must be a real HTTP 404, not a
+// streamed not-found shell with status 200 (soft 404 — bad signal to Google).
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return TOOLS.map(tool => ({
     toolId: tool.id,
