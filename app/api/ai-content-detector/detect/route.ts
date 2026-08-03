@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { DetectionResult, SentenceScore, StatisticalSignals, DetectionVerdict, ConfidenceLevel } from '../../../product/ai-content-detector/types';
 
-const SARVAM_API = 'https://api.sarvam.ai/v1/chat/completions';
+const GEMINI_API =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
 const MIN_CHARS = 50;
 const MAX_CHARS = 10000;
 
@@ -89,7 +90,7 @@ function heuristicAIScore(signals: StatisticalSignals): number {
     return Math.min(100, Math.max(0, Math.round(score)));
 }
 
-// ─── Layer 2: Sarvam-M LLM Judge ──────────────────────────────────────────
+// ─── Layer 2: Gemini LLM Judge ─────────────────────────────────────────────
 
 const SYSTEM_PROMPT = `You are a strict AI-text detection expert. Your ONLY job is to determine if text was written by an AI language model (ChatGPT, Claude, Gemini, etc.) or a human.
 
@@ -119,7 +120,7 @@ Return ONLY a valid JSON object (no markdown, no code blocks):
 }
 Rules: aiScore + humanScore = 100. UNCERTAIN when 40<=aiScore<=60. No markdown.`;
 
-async function callSarvamM(text: string, apiKey: string): Promise<{
+async function callGeminiJudge(text: string, apiKey: string): Promise<{
     verdict: DetectionVerdict;
     aiScore: number;
     humanScore: number;
@@ -130,28 +131,27 @@ async function callSarvamM(text: string, apiKey: string): Promise<{
     try {
         const userMessage = `Analyze this text for AI generation:\n\n${text}`;
 
-        const response = await fetch(SARVAM_API, {
+        const response = await fetch(GEMINI_API, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'api-subscription-key': apiKey,
+                'X-goog-api-key': apiKey,
             },
             body: JSON.stringify({
-                model: 'sarvam-m',
-                messages: [
-                    { role: 'system', content: SYSTEM_PROMPT },
-                    { role: 'user', content: userMessage },
-                ],
-                temperature: 0.1,
-                max_tokens: 1500,
-                top_p: 1,
+                system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+                contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+                generationConfig: {
+                    temperature: 0.1,
+                    maxOutputTokens: 1500,
+                    topP: 1,
+                },
             }),
         });
 
         if (!response.ok) return null;
 
         const data = await response.json();
-        const raw: string = data?.choices?.[0]?.message?.content || '';
+        const raw: string = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
         // Clean and parse JSON (strip any accidental markdown)
         const cleaned = raw.replace(/```json\n?|\n?```/g, '').trim();
@@ -228,9 +228,9 @@ export async function POST(req: NextRequest) {
         const { wordCount, ...signals } = computeSignals(text);
         const heuristicScore = heuristicAIScore(signals);
 
-        // Layer 2: Sarvam-M
-        const apiKey = process.env.NEXT_PUBLIC_SARVAM_API_KEY || '';
-        let llmResult = apiKey ? await callSarvamM(text, apiKey) : null;
+        // Layer 2: Gemini
+        const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
+        let llmResult = apiKey ? await callGeminiJudge(text, apiKey) : null;
         const llmUsed = llmResult !== null;
 
         // Blend scores (LLM 50%, heuristic 50% — prevents LLM from being fooled by domain expertise)

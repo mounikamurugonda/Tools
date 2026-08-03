@@ -6,7 +6,7 @@ import { getTruthScanProductSchema, getBreadcrumbSchema } from '../../../lib/sch
 export const metadata: Metadata = {
     title: 'AI Content Detector',
     description:
-        'The most advanced free AI content detector. Know instantly if text was written by AI or a human. Uses dual-layer analysis — statistical linguistics + Sarvam-M AI — for accurate, explainable results.',
+        'The most advanced free AI content detector. Know instantly if text was written by AI or a human. Uses dual-layer analysis — statistical linguistics + Gemini AI — for accurate, explainable results.',
     keywords: [
         'ai content detector',
         'ai text detection',

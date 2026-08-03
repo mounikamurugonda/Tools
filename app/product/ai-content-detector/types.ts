@@ -28,7 +28,7 @@ export interface DetectionResult {
     wordCount: number;
     charCount: number;
     analyzedAt: string;            // ISO timestamp
-    llmUsed: boolean;              // whether sarvam-m was called
+    llmUsed: boolean;              // whether gemini-flash-latest was called
 }
 
 export interface DetectionRequest {

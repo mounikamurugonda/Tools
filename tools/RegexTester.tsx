@@ -11,7 +11,7 @@ import Button from '@/components/ui/Button';
 import { useToast } from '@/components/ui/ToastProvider';
 import { AlertCircle, Copy } from 'lucide-react';
 import { AIActionButton } from '@/components/AIActionButton';
-import { generateRegex } from '@/lib/sarvamAI';
+import { generateRegex } from '@/lib/geminiAI';
 
 type Mode = 'match' | 'replace';
 

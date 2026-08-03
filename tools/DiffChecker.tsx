@@ -20,7 +20,7 @@ import {
   FoldVertical,
 } from 'lucide-react';
 import { AIActionButton } from '@/components/AIActionButton';
-import { explainDiff } from '@/lib/sarvamAI';
+import { explainDiff } from '@/lib/geminiAI';
 
 const MAX_FILE_MB = 10;
 

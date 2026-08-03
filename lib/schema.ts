@@ -369,7 +369,7 @@ export const getTruthScanProductSchema = () => ({
   '@context': 'https://schema.org',
   '@type': 'SoftwareApplication',
   name: 'AI Content Detector',
-  description: 'Advanced AI content detector using dual-layer analysis — statistical linguistics and Sarvam-M AI — to determine if text was written by a human or AI.',
+  description: 'Advanced AI content detector using dual-layer analysis — statistical linguistics and Gemini AI — to determine if text was written by a human or AI.',
   url: 'https://utiltoolkits.com/product/ai-content-detector',
   applicationCategory: 'UtilitiesApplication',
   operatingSystem: 'Web Browser',
@@ -385,7 +385,7 @@ export const getTruthScanProductSchema = () => ({
     'Sentence-Level Heatmap',
     'Statistical Signal Breakdown',
     'Perplexity & Burstiness Analysis',
-    'Sarvam-M AI Classification',
+    'Gemini AI Classification',
   ],
   isAccessibleForFree: true,
   author: {

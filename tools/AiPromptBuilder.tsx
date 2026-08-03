@@ -3,7 +3,7 @@
 import React, { useState, useCallback } from 'react';
 import type { ToolProps } from '@/types';
 import { AIActionButton } from '@/components/AIActionButton';
-import { improvePrompt } from '@/lib/sarvamAI';
+import { improvePrompt } from '@/lib/geminiAI';
 
 interface PromptSection {
   id: string;

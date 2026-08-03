@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import type { ToolProps } from '@/types';
 import { AIActionButton } from '@/components/AIActionButton';
-import { summarizeText } from '@/lib/sarvamAI';
+import { summarizeText } from '@/lib/geminiAI';
 
 function estimateTokens(text: string): number {
   if (!text) return 0;

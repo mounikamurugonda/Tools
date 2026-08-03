@@ -8,7 +8,7 @@ import Select from '@/components/ui/Select';
 import { useToast } from '@/components/ui/ToastProvider';
 import { ArrowDownToLine, Minimize2, Sparkles } from 'lucide-react';
 import { AIActionButton } from '@/components/AIActionButton';
-import { explainSQL } from '@/lib/sarvamAI';
+import { explainSQL } from '@/lib/geminiAI';
 import { format } from 'sql-formatter';
 
 type Mode = 'pretty' | 'minify';

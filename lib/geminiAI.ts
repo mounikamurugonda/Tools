@@ -1,36 +1,52 @@
 /**
- * Shared Sarvam AI client — usable from any tool/component.
+ * Shared Gemini AI client — usable from any tool/component.
  * The API key is intentionally NEXT_PUBLIC so it can be called
  * from client components (consistent with the code-cast integration).
  */
 
-const API_ENDPOINT = 'https://api.sarvam.ai/v1/chat/completions';
+const API_ENDPOINT =
+  'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
 
-export interface SarvamMessage {
+export interface GeminiMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;
 }
 
-export async function callSarvam(
-  messages: SarvamMessage[],
+export async function callGemini(
+  messages: GeminiMessage[],
   temperature = 0.5,
   maxTokens = 1500
 ): Promise<string> {
-  const apiKey = process.env.NEXT_PUBLIC_SARVAM_API_KEY;
-  if (!apiKey) throw new Error('Sarvam API key not configured.');
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  if (!apiKey) throw new Error('Gemini API key not configured.');
+
+  // Gemini separates the system prompt from the turn-based `contents`,
+  // and labels AI turns 'model' rather than 'assistant'.
+  const systemText = messages
+    .filter((m) => m.role === 'system')
+    .map((m) => m.content)
+    .join('\n\n');
+  const contents = messages
+    .filter((m) => m.role !== 'system')
+    .map((m) => ({
+      role: m.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: m.content }],
+    }));
 
   const res = await fetch(API_ENDPOINT, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'api-subscription-key': apiKey,
+      'X-goog-api-key': apiKey,
     },
     body: JSON.stringify({
-      messages,
-      model: 'sarvam-m',
-      temperature,
-      max_tokens: maxTokens,
-      top_p: 1,
+      ...(systemText ? { system_instruction: { parts: [{ text: systemText }] } } : {}),
+      contents,
+      generationConfig: {
+        temperature,
+        maxOutputTokens: maxTokens,
+        topP: 1,
+      },
     }),
   });
 
@@ -39,13 +55,13 @@ export async function callSarvam(
     let msg = text;
     try {
       const json = JSON.parse(text);
-      msg = json.message || json.error?.message || text;
+      msg = json.error?.message || json.message || text;
     } catch {}
-    throw new Error(`Sarvam API error ${res.status}: ${msg}`);
+    throw new Error(`Gemini API error ${res.status}: ${msg}`);
   }
 
   const data = await res.json();
-  const content = data.choices?.[0]?.message?.content;
+  const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!content) throw new Error('AI returned an empty response.');
   return content;
 }
@@ -55,7 +71,7 @@ export async function callSarvam(
 /** Explain what changed between two code/text versions */
 export async function explainDiff(original: string, modified: string): Promise<string> {
   const trim = (s: string) => s.slice(0, 4000);
-  return callSarvam(
+  return callGemini(
     [
       {
         role: 'system',
@@ -77,7 +93,7 @@ export async function explainDiff(original: string, modified: string): Promise<s
 
 /** Generate a regex pattern from a plain-English description */
 export async function generateRegex(description: string): Promise<string> {
-  return callSarvam(
+  return callGemini(
     [
       {
         role: 'system',
@@ -98,7 +114,7 @@ export async function generateRegex(description: string): Promise<string> {
 
 /** Explain what a SQL query does in plain English */
 export async function explainSQL(sql: string): Promise<string> {
-  return callSarvam(
+  return callGemini(
     [
       {
         role: 'system',
@@ -119,7 +135,7 @@ export async function explainSQL(sql: string): Promise<string> {
 
 /** Improve and refine a prompt */
 export async function improvePrompt(prompt: string): Promise<string> {
-  return callSarvam(
+  return callGemini(
     [
       {
         role: 'system',
@@ -145,7 +161,7 @@ export async function summarizeText(text: string, style: 'brief' | 'detailed' | 
     detailed: 'Write a thorough paragraph summary covering all key points.',
     bullets: 'Summarize as bullet points — one bullet per key idea (5-8 bullets max).',
   };
-  return callSarvam(
+  return callGemini(
     [
       {
         role: 'system',
@@ -163,7 +179,7 @@ export async function summarizeText(text: string, style: 'brief' | 'detailed' | 
 
 /** Explain what a JSON structure represents */
 export async function describeJSON(json: string): Promise<string> {
-  return callSarvam(
+  return callGemini(
     [
       {
         role: 'system',

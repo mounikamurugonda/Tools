@@ -227,7 +227,7 @@ function HumanizePanel({ result, onClose }: { result: HumanizeResult; onClose: (
             <div className="flex justify-between items-start mb-3">
                 <div>
                     <h3 className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">✍️ Humanized Version</h3>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{result.totalChanged} sentence{result.totalChanged !== 1 ? 's' : ''} rewritten by Sarvam-M</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{result.totalChanged} sentence{result.totalChanged !== 1 ? 's' : ''} rewritten by Gemini</p>
                 </div>
                 <div className="flex gap-2">
                     <button onClick={copyText} className={`px-3 py-1 rounded-lg text-xs font-medium border transition-all ${copied ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 border-emerald-300 dark:border-emerald-700' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-emerald-400'}`}>
@@ -497,7 +497,7 @@ export default function TruthScanTool() {
                             <div className="w-14 h-14 border-[3px] border-accent/20 border-t-accent rounded-full animate-spin" />
                             <div className="text-center">
                                 <div className="font-semibold text-gray-600 dark:text-gray-300 mb-1">Running analysis…</div>
-                                <div className="text-xs text-gray-400 dark:text-gray-500">Layer 1: Statistical signals · Layer 2: Sarvam-M AI</div>
+                                <div className="text-xs text-gray-400 dark:text-gray-500">Layer 1: Statistical signals · Layer 2: Gemini AI</div>
                             </div>
                         </div>
                     )}
@@ -509,7 +509,7 @@ export default function TruthScanTool() {
                                 <div className="flex gap-2 text-xs text-gray-400 dark:text-gray-500">
                                     <span>{result.wordCount} words</span>
                                     <span>·</span>
-                                    <span>{result.llmUsed ? '🤖 Sarvam-M + Statistics' : '📊 Statistics only'}</span>
+                                    <span>{result.llmUsed ? '🤖 Gemini + Statistics' : '📊 Statistics only'}</span>
                                 </div>
                             </div>
 
@@ -560,7 +560,7 @@ export default function TruthScanTool() {
                                                     <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />Rewriting AI sentences…</>
                                                 ) : '✍️ Humanize AI Sentences'}
                                             </button>
-                                            <p className="text-xs text-gray-400 dark:text-gray-500 text-center">Sarvam-M will rewrite the red-highlighted sentences to sound naturally human</p>
+                                            <p className="text-xs text-gray-400 dark:text-gray-500 text-center">Gemini will rewrite the red-highlighted sentences to sound naturally human</p>
                                         </>
                                     )}
                                 </div>

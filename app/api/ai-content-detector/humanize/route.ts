@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const SARVAM_API = 'https://api.sarvam.ai/v1/chat/completions';
+const GEMINI_API =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
 
 const HUMANIZE_SYSTEM_PROMPT = `You are a humanization expert who rewrites AI-generated text to sound authentically human.
 
@@ -43,7 +44,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: 'Text and sentence scores are required.' }, { status: 400 });
         }
 
-        const apiKey = process.env.NEXT_PUBLIC_SARVAM_API_KEY || '';
+        const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || '';
         if (!apiKey) {
             return NextResponse.json({ error: 'AI humanization is not available.' }, { status: 503 });
         }
@@ -63,21 +64,20 @@ export async function POST(req: NextRequest) {
 Sentences to rewrite:
 ${aiSentences.map((s, i) => `${i + 1}. "${s.text}"`).join('\n')}`;
 
-        const response = await fetch(SARVAM_API, {
+        const response = await fetch(GEMINI_API, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'api-subscription-key': apiKey,
+                'X-goog-api-key': apiKey,
             },
             body: JSON.stringify({
-                model: 'sarvam-m',
-                messages: [
-                    { role: 'system', content: HUMANIZE_SYSTEM_PROMPT },
-                    { role: 'user', content: userMessage },
-                ],
-                temperature: 0.7,   // higher temp = more natural/varied
-                max_tokens: 2000,
-                top_p: 0.95,
+                system_instruction: { parts: [{ text: HUMANIZE_SYSTEM_PROMPT }] },
+                contents: [{ role: 'user', parts: [{ text: userMessage }] }],
+                generationConfig: {
+                    temperature: 0.7,   // higher temp = more natural/varied
+                    maxOutputTokens: 2000,
+                    topP: 0.95,
+                },
             }),
         });
 
@@ -86,7 +86,7 @@ ${aiSentences.map((s, i) => `${i + 1}. "${s.text}"`).join('\n')}`;
         }
 
         const data = await response.json();
-        const raw: string = data?.choices?.[0]?.message?.content || '';
+        const raw: string = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
 
         // Clean and parse
         const cleaned = raw.replace(/```json\n?|\n?```/g, '').trim();

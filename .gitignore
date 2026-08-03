@@ -38,3 +38,5 @@ next-env.d.ts
 
 # build output log
 build.log
+
+.env*

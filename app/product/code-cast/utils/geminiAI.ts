@@ -1,24 +1,39 @@
 
-import { Message, Role, SarvamRequest, SarvamResponse } from '../types/sarvam';
+import { Message, Role, GeminiRequest, GeminiResponse } from '../types/gemini';
 
-const API_ENDPOINT = 'https://api.sarvam.ai/v1/chat/completions';
+const API_ENDPOINT =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent';
 
 export const sendChatRequest = async (
     messages: Message[],
     temperature: number = 0.5
 ): Promise<string> => {
-    const apiKey = process.env.NEXT_PUBLIC_SARVAM_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
     if (!apiKey) {
         throw new Error('API Key is missing. Please configure it in the app settings or .env file.');
     }
 
-    const payload: SarvamRequest = {
-        messages,
-        model: 'sarvam-m',
-        temperature,
-        max_tokens: 1000,
-        top_p: 1,
+    // Gemini separates the system prompt from the turn-based `contents`,
+    // and labels AI turns 'model' rather than 'assistant'.
+    const systemText = messages
+        .filter((m) => m.role === Role.SYSTEM)
+        .map((m) => m.content)
+        .join('\n\n');
+
+    const payload: GeminiRequest = {
+        ...(systemText ? { system_instruction: { parts: [{ text: systemText }] } } : {}),
+        contents: messages
+            .filter((m) => m.role !== Role.SYSTEM)
+            .map((m) => ({
+                role: m.role === Role.ASSISTANT ? 'model' : 'user',
+                parts: [{ text: m.content }],
+            })),
+        generationConfig: {
+            temperature,
+            maxOutputTokens: 1000,
+            topP: 1,
+        },
     };
 
     try {
@@ -26,7 +41,7 @@ export const sendChatRequest = async (
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'api-subscription-key': apiKey,
+                'X-goog-api-key': apiKey,
             },
             body: JSON.stringify(payload),
         });
@@ -36,22 +51,23 @@ export const sendChatRequest = async (
             let errorDetails = errorText;
             try {
                 const jsonError = JSON.parse(errorText);
-                errorDetails = jsonError.message || jsonError.error?.message || JSON.stringify(jsonError);
+                errorDetails = jsonError.error?.message || jsonError.message || JSON.stringify(jsonError);
             } catch (e) {
                 // Keep raw text if parsing fails
             }
             throw new Error(`API Error ${response.status}: ${errorDetails}`);
         }
 
-        const data: SarvamResponse = await response.json();
+        const data: GeminiResponse = await response.json();
 
-        if (!data.choices || data.choices.length === 0) {
-            throw new Error('API returned no response choices.');
+        const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!content) {
+            throw new Error('API returned no response candidates.');
         }
 
-        return data.choices[0].message.content;
+        return content;
     } catch (error) {
-        console.error('Sarvam API call failed:', error);
+        console.error('Gemini API call failed:', error);
         throw error;
     }
 };

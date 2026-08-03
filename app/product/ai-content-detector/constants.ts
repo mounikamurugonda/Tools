@@ -47,7 +47,7 @@ export const FEATURES = [
     {
         icon: '🧠',
         title: 'Dual-Layer Analysis',
-        desc: 'Combines statistical linguistics with Sarvam-M AI judgment for accurate results.',
+        desc: 'Combines statistical linguistics with Gemini AI judgment for accurate results.',
     },
     {
         icon: '📊',
@@ -92,7 +92,7 @@ export const HOW_IT_WORKS = [
     {
         step: '02',
         title: 'Deep Analysis Runs',
-        desc: 'Layer 1 computes linguistic signals (perplexity, burstiness, vocabulary). Layer 2 sends to Sarvam-M AI for judgment.',
+        desc: 'Layer 1 computes linguistic signals (perplexity, burstiness, vocabulary). Layer 2 sends to Gemini AI for judgment.',
     },
     {
         step: '03',
@@ -104,7 +104,7 @@ export const HOW_IT_WORKS = [
 export const FAQS = [
     {
         q: 'How accurate is the AI Content Detector?',
-        a: 'The AI Content Detector uses two layers — statistical linguistics and Sarvam-M LLM judgment — giving high accuracy on clearly AI or clearly human text. Texts in the 40–60% zone are flagged as "Uncertain" rather than making overconfident calls.',
+        a: 'The AI Content Detector uses two layers — statistical linguistics and Gemini LLM judgment — giving high accuracy on clearly AI or clearly human text. Texts in the 40–60% zone are flagged as "Uncertain" rather than making overconfident calls.',
     },
     {
         q: 'What detection signals do you measure?',
@@ -116,7 +116,7 @@ export const FAQS = [
     },
     {
         q: 'Is my text stored?',
-        a: 'No. Text is sent only to our analysis endpoint and to Sarvam AI for judgment. It is not stored, logged, or retained after the response is sent.',
+        a: 'No. Text is sent only to our analysis endpoint and to Gemini AI for judgment. It is not stored, logged, or retained after the response is sent.',
     },
     {
         q: 'What is the minimum text length?',

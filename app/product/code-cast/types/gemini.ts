@@ -10,24 +10,28 @@ export interface Message {
     content: string;
 }
 
-export interface SarvamRequest {
-    messages: Message[];
-    model: string;
-    temperature: number;
-    max_tokens: number;
-    top_p: number;
+export interface GeminiPart {
+    text: string;
 }
 
-export interface SarvamResponse {
-    id: string;
-    choices: {
-        index: number;
-        message: Message;
-        finish_reason: string;
-    }[];
-    usage: {
-        prompt_tokens: number;
-        completion_tokens: number;
-        total_tokens: number;
+export interface GeminiContent {
+    role: string;
+    parts: GeminiPart[];
+}
+
+export interface GeminiRequest {
+    system_instruction?: { parts: GeminiPart[] };
+    contents: GeminiContent[];
+    generationConfig: {
+        temperature: number;
+        maxOutputTokens: number;
+        topP: number;
     };
+}
+
+export interface GeminiResponse {
+    candidates: {
+        content: GeminiContent;
+        finishReason: string;
+    }[];
 }

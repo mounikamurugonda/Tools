@@ -132,7 +132,7 @@ export const AIActionButton: React.FC<AIActionButtonProps> = ({
         {error && (
           <div className="flex items-start gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-400">
             <AlertCircle size={15} className="shrink-0 mt-0.5" />
-            <span>{error}</span>
+            <span> {error} </span>
           </div>
         )}
 

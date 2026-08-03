@@ -62,7 +62,7 @@ export default function TruthScanLanding({ onStart }: TruthScanLandingProps) {
                     <span className="brand-gradient-text">Know What's Machine.</span>
                 </h1>
                 <p className="text-lg text-gray-500 dark:text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
-                    Paste any text. Get a <strong className="text-emerald-500">Human Score</strong>, an <strong className="text-red-500">AI Score</strong>, and sentence-level highlights — backed by statistical linguistics + Sarvam-M AI.
+                    Paste any text. Get a <strong className="text-emerald-500">Human Score</strong>, an <strong className="text-red-500">AI Score</strong>, and sentence-level highlights — backed by statistical linguistics + Gemini AI.
                 </p>
                 <div className="flex gap-4 justify-center flex-wrap">
                     <button onClick={onStart} className="brand-button-primary text-base px-8 py-3 shadow-lg hover:shadow-accent/20 hover:-translate-y-0.5 transition-all">
@@ -137,7 +137,7 @@ export default function TruthScanLanding({ onStart }: TruthScanLandingProps) {
                                 { icon: '🔀', name: 'Sentence Variance', desc: 'Structural consistency of sentences' },
                                 { icon: '📖', name: 'Vocabulary Richness', desc: 'Ratio of unique to total words' },
                                 { icon: '🤖', name: 'AI Filler Phrases', desc: '"furthermore", "leverage", "synergistic"' },
-                                { icon: '🧠', name: 'AI Judgment', desc: 'Sarvam-M linguistic classification' },
+                                { icon: '🧠', name: 'AI Judgment', desc: 'Gemini linguistic classification' },
                             ].map(s => (
                                 <div key={s.name} className="flex gap-2 items-start">
                                     <span className="text-lg">{s.icon}</span>

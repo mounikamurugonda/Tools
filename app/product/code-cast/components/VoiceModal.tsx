@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, AudioLines, Sparkles, Loader2 } from 'lucide-react';
 import { useAnimateStore, useTypeStore } from '../store/useCodeCastStore';
 import { usePathname } from 'next/navigation';
-import { generateVoiceoverScript } from '../utils/sarvamAI';
+import { generateVoiceoverScript } from '../utils/geminiAI';
 
 interface VoiceModalProps {
     isOpen: boolean;

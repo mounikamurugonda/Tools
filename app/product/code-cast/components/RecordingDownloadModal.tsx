@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Download, X, Check, Sparkles, Copy, Globe, Tag, Hash } from 'lucide-react';
-import { generateSEOMetadata, SEOContent } from '../utils/sarvamAI';
+import { generateSEOMetadata, SEOContent } from '../utils/geminiAI';
 
 interface RecordingDownloadModalProps {
   isOpen: boolean;

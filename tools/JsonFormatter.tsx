@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button';
 import { useToast } from '@/components/ui/ToastProvider';
 import { ArrowDownToLine, Braces, Minimize2, SortAsc } from 'lucide-react';
 import { AIActionButton } from '@/components/AIActionButton';
-import { describeJSON } from '@/lib/sarvamAI';
+import { describeJSON } from '@/lib/geminiAI';
 
 type Mode = 'pretty' | 'minify';
 type Indent = 2 | 4 | '\t';

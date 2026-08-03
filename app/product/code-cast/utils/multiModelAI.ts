@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Multi-Model AI utility for CodeCast
-// Supports free OpenRouter models + Sarvam as fallback + Local Ollama
+// Supports free OpenRouter models + Gemini as fallback + Local Ollama
 // ─────────────────────────────────────────────────────────────────────────────
 import { Ollama } from 'ollama/browser';
 
@@ -12,7 +12,7 @@ export interface ChatMessage {
 export interface AIModel {
     id: string;
     name: string;
-    provider: 'openrouter' | 'sarvam' | 'ollama';
+    provider: 'openrouter' | 'gemini' | 'ollama';
     badge: string;         // Short badge text, e.g. "32B"
     badgeColor: string;    // Tailwind bg class for the badge
     description: string;
@@ -69,12 +69,12 @@ export const AI_MODELS: AIModel[] = [
         description: 'Run inference locally on your own machine via Ollama.',
     },
     {
-        id: 'sarvam-m',
-        name: 'Sarvam M',
-        provider: 'sarvam',
-        badge: 'SM',
+        id: 'gemini-flash-latest',
+        name: 'Gemini Flash',
+        provider: 'gemini',
+        badge: 'GF',
         badgeColor: 'bg-indigo-500',
-        description: 'Built-in Sarvam model. Fallback option.',
+        description: 'Built-in Gemini Flash model. Fallback option.',
     },
 ];
 
@@ -121,39 +121,41 @@ const callOpenRouter = async (messages: ChatMessage[], modelId: string): Promise
     return content;
 };
 
-const callSarvam = async (messages: ChatMessage[]): Promise<string> => {
-    const apiKey = process.env.NEXT_PUBLIC_SARVAM_API_KEY;
-    if (!apiKey) throw new Error('Sarvam API key is missing. Add NEXT_PUBLIC_SARVAM_API_KEY to your .env.local.');
+const callGemini = async (messages: ChatMessage[]): Promise<string> => {
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    if (!apiKey) throw new Error('Gemini API key is missing. Add NEXT_PUBLIC_GEMINI_API_KEY to your .env.local.');
 
-    // Sarvam strictly requires alternating user/assistant messages starting with user.
-    // To bypass this cleanly and reliably, we consolidate the entire conversation and system prompt
-    // into a single user message.
-    const sarvamPrompt = messages.map(m => `[${m.role.toUpperCase()}]\n${m.content}`).join('\n\n');
-    const formattedMessages = [{ role: 'user', content: sarvamPrompt }];
+    // Consolidate the entire conversation and system prompt into a single user
+    // turn — keeps multi-turn context intact without role-alternation constraints.
+    const geminiPrompt = messages.map(m => `[${m.role.toUpperCase()}]\n${m.content}`).join('\n\n');
 
-    const response = await fetch('https://api.sarvam.ai/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'api-subscription-key': apiKey,
-        },
-        body: JSON.stringify({
-            model: 'sarvam-m',
-            messages: formattedMessages,
-            temperature: 0.75,
-            max_tokens: 4096,
-            top_p: 1,
-        }),
-    });
+    const response = await fetch(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-goog-api-key': apiKey,
+            },
+            body: JSON.stringify({
+                contents: [{ role: 'user', parts: [{ text: geminiPrompt }] }],
+                generationConfig: {
+                    temperature: 0.75,
+                    maxOutputTokens: 4096,
+                    topP: 1,
+                },
+            }),
+        }
+    );
 
     if (!response.ok) {
         const err = await response.text();
-        throw new Error(`Sarvam Error ${response.status}: ${err}`);
+        throw new Error(`Gemini Error ${response.status}: ${err}`);
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
-    if (!content) throw new Error('Sarvam returned an empty response.');
+    const content = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!content) throw new Error('Gemini returned an empty response.');
     return content;
 };
 
@@ -229,8 +231,8 @@ export const sendChatMessage = async (
         return callOllama(messages, ollamaUrl, ollamaModelName, onUpdate);
     }
 
-    return model.provider === 'sarvam'
-        ? callSarvam(messages)
+    return model.provider === 'gemini'
+        ? callGemini(messages)
         : callOpenRouter(messages, modelId);
 };
 
